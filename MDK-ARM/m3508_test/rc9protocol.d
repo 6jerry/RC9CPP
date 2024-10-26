@@ -1,10 +1,9 @@
-m3508_test/rc9protocol.o: ..\GDUT_ROBOCON\HARDWARE\RC9Protocol.cpp \
-  ..\GDUT_ROBOCON\HARDWARE\RC9Protocol.h \
-  ..\GDUT_ROBOCON\MATH_LIB\crc_util.h \
+m3508_test/rc9protocol.o: ..\RC9CPP_API\HARDWARE\RC9Protocol.cpp \
+  ..\RC9CPP_API\HARDWARE\RC9Protocol.h ..\RC9CPP_API\MATH_LIB\crc_util.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdint.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config \
   G:\Keil_v5\ARM\ARMCLANG\include\stdint.h \
-  ..\GDUT_ROBOCON\HARDWARE\TaskManager.h \
+  ..\RC9CPP_API\HARDWARE\TaskManager.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stddef.h \
   G:\Keil_v5\ARM\ARMCLANG\include\stddef.h ..\Core\Inc\FreeRTOSConfig.h \
@@ -17,7 +16,7 @@ m3508_test/rc9protocol.o: ..\GDUT_ROBOCON\HARDWARE\RC9Protocol.cpp \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
-  ..\GDUT_ROBOCON\HARDWARE\Serial_device.h ..\Core\Inc\usart.h \
+  ..\RC9CPP_API\HARDWARE\Serial_device.h ..\Core\Inc\usart.h \
   ..\Core\Inc\main.h ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\Core\Inc\stm32f4xx_hal_conf.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \

@@ -1,5 +1,5 @@
-m3508_test/vector2d.o: ..\GDUT_ROBOCON\MATH_LIB\Vector2D.cpp \
-  ..\GDUT_ROBOCON\MATH_LIB\Vector2D.h \
+m3508_test/vector2d.o: ..\RC9CPP_API\MATH_LIB\Vector2D.cpp \
+  ..\RC9CPP_API\MATH_LIB\Vector2D.h \
   ..\Middlewares\ST\ARM\DSP\Inc\arm_math.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdint.h \

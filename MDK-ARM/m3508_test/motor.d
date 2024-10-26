@@ -1,6 +1,6 @@
-m3508_test/motor.o: ..\GDUT_ROBOCON\HARDWARE\MOTOR\motor.cpp \
-  ..\GDUT_ROBOCON\HARDWARE\MOTOR\motor.h \
-  ..\GDUT_ROBOCON\HARDWARE\can_device.h \
+m3508_test/motor.o: ..\RC9CPP_API\HARDWARE\MOTOR\motor.cpp \
+  ..\RC9CPP_API\HARDWARE\MOTOR\motor.h \
+  ..\RC9CPP_API\HARDWARE\can_device.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config \
   G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h ..\Core\Inc\can.h \
@@ -37,7 +37,7 @@ m3508_test/motor.o: ..\GDUT_ROBOCON\HARDWARE\MOTOR\motor.cpp \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
-  ..\GDUT_ROBOCON\HARDWARE\TaskManager.h \
+  ..\RC9CPP_API\HARDWARE\TaskManager.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
   ..\Core\Inc\FreeRTOSConfig.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
