@@ -1,9 +1,9 @@
 m3508_test/motor.o: ..\GDUT_ROBOCON\HARDWARE\MOTOR\motor.cpp \
   ..\GDUT_ROBOCON\HARDWARE\MOTOR\motor.h \
   ..\GDUT_ROBOCON\HARDWARE\can_device.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stdbool.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\__config \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdbool.h ..\Core\Inc\can.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config \
+  G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h ..\Core\Inc\can.h \
   ..\Core\Inc\main.h ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\Core\Inc\stm32f4xx_hal_conf.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
@@ -11,16 +11,16 @@ m3508_test/motor.o: ..\GDUT_ROBOCON\HARDWARE\MOTOR\motor.cpp \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h \
   ..\Drivers\CMSIS\Include\core_cm4.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stdint.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdint.h \
-  E:\Robot_Project\JY\git\GDUT_R1_9th\Drivers\CMSIS\Include\cmsis_version.h \
-  E:\Robot_Project\JY\git\GDUT_R1_9th\Drivers\CMSIS\Include\cmsis_compiler.h \
-  E:\Robot_Project\JY\git\GDUT_R1_9th\Drivers\CMSIS\Include\cmsis_armclang.h \
-  E:\Robot_Project\JY\git\GDUT_R1_9th\Drivers\CMSIS\Include\mpu_armv7.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdint.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\stdint.h \
+  G:\STM32_PROJECT\R1_NEW\R1_No2\ -\ 改动\Drivers\CMSIS\Include\cmsis_version.h \
+  G:\STM32_PROJECT\R1_NEW\R1_No2\ -\ 改动\Drivers\CMSIS\Include\cmsis_compiler.h \
+  G:\STM32_PROJECT\R1_NEW\R1_No2\ -\ 改动\Drivers\CMSIS\Include\cmsis_armclang.h \
+  G:\STM32_PROJECT\R1_NEW\R1_No2\ -\ 改动\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stddef.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stddef.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stddef.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\stddef.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio_ex.h \

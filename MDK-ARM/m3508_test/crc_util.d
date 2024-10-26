@@ -1,3 +1,3 @@
-m3508_test/crc_util.o: ..\robocon_robot\crc_util.c \
-  ..\robocon_robot\crc_util.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdint.h
+m3508_test/crc_util.o: ..\GDUT_ROBOCON\MATH_LIB\crc_util.c \
+  ..\GDUT_ROBOCON\MATH_LIB\crc_util.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\stdint.h

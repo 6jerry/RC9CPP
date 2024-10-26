@@ -27,7 +27,6 @@
 "m3508_test\stm32f4xx_hal_tim_ex.o"
 "m3508_test\stm32f4xx_hal_uart.o"
 "m3508_test\system_stm32f4xx.o"
-"m3508_test\crc_util.o"
 "m3508_test\croutine.o"
 "m3508_test\event_groups.o"
 "m3508_test\list.o"
@@ -51,6 +50,7 @@
 "m3508_test\motor.o"
 "m3508_test\m6020.o"
 "m3508_test\vector2d.o"
+"m3508_test\crc_util.o"
 "..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4lf_math.lib"
 --strict --scatter "m3508_test\m3508_test.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols

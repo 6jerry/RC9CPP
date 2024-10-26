@@ -1,12 +1,11 @@
 m3508_test/taskmanager.o: ..\GDUT_ROBOCON\HARDWARE\TaskManager.cpp \
   ..\GDUT_ROBOCON\HARDWARE\TaskManager.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stddef.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\__config \
-  D:\keil_new\core\ARM\ARMCLANG\include\stddef.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stdint.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdint.h \
-  ..\Core\Inc\FreeRTOSConfig.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stddef.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config \
+  G:\Keil_v5\ARM\ARMCLANG\include\stddef.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdint.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\stdint.h ..\Core\Inc\FreeRTOSConfig.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h \
@@ -16,7 +15,8 @@ m3508_test/taskmanager.o: ..\GDUT_ROBOCON\HARDWARE\TaskManager.cpp \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
-  ..\GDUT_ROBOCON\HARDWARE\RC9Protocol.h ..\robocon_robot\crc_util.h \
+  ..\GDUT_ROBOCON\HARDWARE\RC9Protocol.h \
+  ..\GDUT_ROBOCON\MATH_LIB\crc_util.h \
   ..\GDUT_ROBOCON\HARDWARE\Serial_device.h ..\Core\Inc\usart.h \
   ..\Core\Inc\main.h ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\Core\Inc\stm32f4xx_hal_conf.h \
@@ -25,10 +25,10 @@ m3508_test/taskmanager.o: ..\GDUT_ROBOCON\HARDWARE\TaskManager.cpp \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h \
   ..\Drivers\CMSIS\Include\core_cm4.h \
-  E:\Robot_Project\JY\git\GDUT_R1_9th\Drivers\CMSIS\Include\cmsis_version.h \
-  E:\Robot_Project\JY\git\GDUT_R1_9th\Drivers\CMSIS\Include\cmsis_compiler.h \
-  E:\Robot_Project\JY\git\GDUT_R1_9th\Drivers\CMSIS\Include\cmsis_armclang.h \
-  E:\Robot_Project\JY\git\GDUT_R1_9th\Drivers\CMSIS\Include\mpu_armv7.h \
+  G:\STM32_PROJECT\R1_NEW\R1_No2\ -\ 改动\Drivers\CMSIS\Include\cmsis_version.h \
+  G:\STM32_PROJECT\R1_NEW\R1_No2\ -\ 改动\Drivers\CMSIS\Include\cmsis_compiler.h \
+  G:\STM32_PROJECT\R1_NEW\R1_No2\ -\ 改动\Drivers\CMSIS\Include\cmsis_armclang.h \
+  G:\STM32_PROJECT\R1_NEW\R1_No2\ -\ 改动\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h \
@@ -48,5 +48,5 @@ m3508_test/taskmanager.o: ..\GDUT_ROBOCON\HARDWARE\TaskManager.cpp \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\libcxx\stdbool.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdbool.h
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h

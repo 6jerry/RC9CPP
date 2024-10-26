@@ -1,10 +1,9 @@
 m3508_test/queue.o: ..\Middlewares\Third_Party\FreeRTOS\Source\queue.c \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdlib.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\string.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\string.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stddef.h \
-  D:\keil_new\core\ARM\ARMCLANG\include\stdint.h \
-  ..\Core\Inc\FreeRTOSConfig.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\stddef.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\stdint.h ..\Core\Inc\FreeRTOSConfig.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h \

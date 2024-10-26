@@ -28,15 +28,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <string.h>
-// #include "motor.h"
-// #include "pid.h"
-// #include "pid_adjust.h"
-// #include "driver_usart.h"
-// #include "ring_buffer.h"
-// #include "hardware.h"
-// #include "calculation.h"
-// #include "MoveBase.h"
-// #include "FSM.h"
+
 #include "SIMPLE_TASK.h"
 /* USER CODE END Includes */
 
