@@ -15,9 +15,14 @@
                 "G:/Keil_v5/ARM/ARMCC/include",
                 "G:/STM32_PROJECT/R1_No2 - 改动/Drivers/STM32F4xx_HAL_Driver/Inc/",
                 "${workspaceFolder}/Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F",
-                "${workspaceFolder}/robocon_robot",
-                 "${workspaceFolder}/GDUT_ROBOCON/MATH_LIB",
-                 "${workspaceFolder}/Middlewares/ST\ARM\DSP/"
+                
+                 "${workspaceFolder}/RC9CPP_API/MATH_LIB",
+                "${workspaceFolder}/RC9CPP_API/HARDWARE",
+                  "${workspaceFolder}/RC9CPP_API/HARDWARE/MOTOR",
+                   "${workspaceFolder}/RC9CPP_API/CONTROL",
+                   "${workspaceFolder}/RC9CPP_API/CONTROL/STRUCTURE",
+                    "${workspaceFolder}/RC9CPP_API/DECISION"
+                 
                 
             ],
             "compilerPath": "D:/program/mingw/bin/gcc.exe",
