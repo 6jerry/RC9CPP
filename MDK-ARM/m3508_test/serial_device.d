@@ -1,5 +1,5 @@
-m3508_test/serial_device.o: ..\GDUT_ROBOCON\HARDWARE\Serial_device.cpp \
-  ..\GDUT_ROBOCON\HARDWARE\Serial_device.h \
+m3508_test/serial_device.o: ..\RC9CPP_API\HARDWARE\Serial_device.cpp \
+  ..\RC9CPP_API\HARDWARE\Serial_device.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stddef.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config \
@@ -48,4 +48,4 @@ m3508_test/serial_device.o: ..\GDUT_ROBOCON\HARDWARE\Serial_device.cpp \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h \
   G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h \
-  ..\GDUT_ROBOCON\MATH_LIB\crc_util.h
+  ..\RC9CPP_API\MATH_LIB\crc_util.h

@@ -1,5 +1,5 @@
-m3508_test/can_device.o: ..\GDUT_ROBOCON\HARDWARE\can_device.cpp \
-  ..\GDUT_ROBOCON\HARDWARE\can_device.h \
+m3508_test/can_device.o: ..\RC9CPP_API\HARDWARE\can_device.cpp \
+  ..\RC9CPP_API\HARDWARE\can_device.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config \
   G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h ..\Core\Inc\can.h \
@@ -36,7 +36,7 @@ m3508_test/can_device.o: ..\GDUT_ROBOCON\HARDWARE\can_device.cpp \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
-  ..\GDUT_ROBOCON\HARDWARE\TaskManager.h \
+  ..\RC9CPP_API\HARDWARE\TaskManager.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
   ..\Core\Inc\FreeRTOSConfig.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \

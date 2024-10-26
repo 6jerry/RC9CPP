@@ -1,5 +1,5 @@
-m3508_test/xbox.o: ..\GDUT_ROBOCON\CONTROL\xbox.cpp \
-  ..\GDUT_ROBOCON\CONTROL\xbox.h ..\GDUT_ROBOCON\HARDWARE\TaskManager.h \
+m3508_test/xbox.o: ..\RC9CPP_API\CONTROL\xbox.cpp \
+  ..\RC9CPP_API\CONTROL\xbox.h ..\RC9CPP_API\HARDWARE\TaskManager.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stddef.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config \
@@ -15,9 +15,8 @@ m3508_test/xbox.o: ..\GDUT_ROBOCON\CONTROL\xbox.cpp \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
-  ..\GDUT_ROBOCON\HARDWARE\RC9Protocol.h \
-  ..\GDUT_ROBOCON\MATH_LIB\crc_util.h \
-  ..\GDUT_ROBOCON\HARDWARE\Serial_device.h ..\Core\Inc\usart.h \
+  ..\RC9CPP_API\HARDWARE\RC9Protocol.h ..\RC9CPP_API\MATH_LIB\crc_util.h \
+  ..\RC9CPP_API\HARDWARE\Serial_device.h ..\Core\Inc\usart.h \
   ..\Core\Inc\main.h ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\Core\Inc\stm32f4xx_hal_conf.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
@@ -50,10 +49,10 @@ m3508_test/xbox.o: ..\GDUT_ROBOCON\CONTROL\xbox.cpp \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h \
   G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h \
-  ..\GDUT_ROBOCON\CONTROL\STRUCTURE\chassis.h \
-  ..\GDUT_ROBOCON\HARDWARE\MOTOR\motor.h \
-  ..\GDUT_ROBOCON\HARDWARE\can_device.h ..\Core\Inc\can.h \
-  ..\GDUT_ROBOCON\HARDWARE\Action.h \
+  ..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\motor.h \
+  ..\RC9CPP_API\HARDWARE\can_device.h ..\Core\Inc\can.h \
+  ..\RC9CPP_API\HARDWARE\Action.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\math.h \
   G:\Keil_v5\ARM\ARMCLANG\include\math.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\abs.h \
@@ -213,8 +212,8 @@ m3508_test/xbox.o: ..\GDUT_ROBOCON\CONTROL\xbox.cpp \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h ..\GDUT_ROBOCON\CONTROL\pid.h \
-  ..\GDUT_ROBOCON\MATH_LIB\Vector2D.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h ..\RC9CPP_API\CONTROL\pid.h \
+  ..\RC9CPP_API\MATH_LIB\Vector2D.h \
   ..\Middlewares\ST\ARM\DSP\Inc\arm_math.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\string.h \

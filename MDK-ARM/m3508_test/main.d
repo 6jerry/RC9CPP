@@ -43,22 +43,20 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
   ..\Core\Inc\can.h ..\Core\Inc\dma.h ..\Core\Inc\tim.h \
   ..\Core\Inc\usart.h ..\Core\Inc\gpio.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\string.h ..\GDUT_ROBOCON\SIMPLE_TASK.h \
-  ..\GDUT_ROBOCON\HARDWARE\RC9Protocol.h \
-  ..\GDUT_ROBOCON\MATH_LIB\crc_util.h \
-  ..\GDUT_ROBOCON\HARDWARE\TaskManager.h \
-  ..\GDUT_ROBOCON\HARDWARE\Serial_device.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\string.h ..\RC9CPP_API\SIMPLE_TASK.h \
+  ..\RC9CPP_API\HARDWARE\RC9Protocol.h ..\RC9CPP_API\MATH_LIB\crc_util.h \
+  ..\RC9CPP_API\HARDWARE\TaskManager.h \
+  ..\RC9CPP_API\HARDWARE\Serial_device.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h \
-  ..\GDUT_ROBOCON\HARDWARE\Action.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\math.h \
-  ..\GDUT_ROBOCON\HARDWARE\MOTOR\M3508.h \
-  ..\GDUT_ROBOCON\HARDWARE\can_device.h ..\GDUT_ROBOCON\CONTROL\pid.h \
-  ..\GDUT_ROBOCON\HARDWARE\MOTOR\motor.h \
-  ..\GDUT_ROBOCON\CONTROL\STRUCTURE\chassis.h \
-  ..\GDUT_ROBOCON\MATH_LIB\Vector2D.h \
+  ..\RC9CPP_API\HARDWARE\Action.h G:\Keil_v5\ARM\ARMCLANG\include\math.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h \
+  ..\RC9CPP_API\HARDWARE\can_device.h ..\RC9CPP_API\CONTROL\pid.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\motor.h \
+  ..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h \
+  ..\RC9CPP_API\MATH_LIB\Vector2D.h \
   ..\Middlewares\ST\ARM\DSP\Inc\arm_math.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   G:\Keil_v5\ARM\ARMCLANG\include\float.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\limits.h \
-  ..\GDUT_ROBOCON\CONTROL\xbox.h ..\GDUT_ROBOCON\HARDWARE\MOTOR\m6020.h
+  G:\Keil_v5\ARM\ARMCLANG\include\limits.h ..\RC9CPP_API\CONTROL\xbox.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\m6020.h
