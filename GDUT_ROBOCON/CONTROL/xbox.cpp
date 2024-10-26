@@ -2,6 +2,7 @@
 
 xbox::xbox(action *ACTION_, chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_, float MAX_ROBOT_SPEED_X_, float MAX_ROBOT_SPEED_W_) : ACTION(ACTION_), control_chassis(control_chassis_), MAX_ROBOT_SPEED_Y(MAX_ROBOT_SPEED_Y_), MAX_ROBOT_SPEED_X(MAX_ROBOT_SPEED_X_), MAX_ROBOT_SPEED_W(MAX_ROBOT_SPEED_W_)
 {
+    chassis_btn_init();
 }
 
 void xbox::update(uint8_t data_id, uint8_t data_length, const uint8_t *data_char, const float *data_float)
@@ -35,61 +36,13 @@ void xbox::update(uint8_t data_id, uint8_t data_length, const uint8_t *data_char
         xbox_msgs.trigRT = ((uint16_t)data_char[26] << 8) | data_char[27];
     }
 }
-void xbox::detectButtonEdge(bool currentBtnState, bool *lastBtnState, uint8_t *toggleState, uint8_t maxState)
-{
-    if (currentBtnState && !(*lastBtnState))
-    { // 检测到上升沿
-        *toggleState = (*toggleState + 1) % (maxState + 1);
 
-        // locking_heading = ROBOT_REAL_POS_DATA.POS_YAW_RAD;
-    }
-    *lastBtnState = currentBtnState;
-}
-void xbox::detectButtonEdgeRb(bool currentBtnState, bool *lastBtnState, uint8_t *toggleState, uint8_t maxState)
-{
-    if (currentBtnState && !(*lastBtnState))
-    { // 检测到上升沿
-        *toggleState = (*toggleState + 1) % (maxState + 1);
-        locking_heading = ACTION->pose_data.yaw_rad;
-    }
-    *lastBtnState = currentBtnState;
-}
-void xbox::detectButtonEdgeD(bool currentBtnState, bool *lastBtnState)
-{
-    if (currentBtnState && !(*lastBtnState))
-    { // 检测到上升沿
-        //*toggleState = (*toggleState + 1) % (maxState + 1);
-        // locking_heading = ROBOT_REAL_POS_DATA.POS_YAW_RAD;
-        if (speed_level > 0)
-        {
-            speed_level--;
-        }
-    }
-    *lastBtnState = currentBtnState;
-}
-void xbox::detectButtonEdgeI(bool currentBtnState, bool *lastBtnState)
-{
-    if (currentBtnState && !(*lastBtnState))
-    { // 检测到上升沿
-        //*toggleState = (*toggleState + 1) % (maxState + 1);
-        // locking_heading = ROBOT_REAL_POS_DATA.POS_YAW_RAD;
-        if (speed_level < 2)
-        {
-            speed_level++;
-        }
-    }
-    *lastBtnState = currentBtnState;
-}
 void xbox::chassis_control()
 {
 
-    detectButtonEdgeRb(xbox_msgs.btnRB, &xbox_msgs.btnRB_last, &head_locking_flag, 1);
-    detectButtonEdge(xbox_msgs.btnLS, &xbox_msgs.btnLS_last, &robot_stop_flag, 1);
-    detectButtonEdge(xbox_msgs.btnRS, &xbox_msgs.btnRS_last, &world_robot_flag, 1);
-    detectButtonEdge(xbox_msgs.btnLB, &xbox_msgs.btnLB_last, &catch_ball_flag, 1);
-    detectButtonEdgeD(xbox_msgs.btnX, &xbox_msgs.btnX_last);
-    detectButtonEdgeI(xbox_msgs.btnB, &xbox_msgs.btnB_last);
-    detectButtonEdge(xbox_msgs.btnA, &xbox_msgs.btnA_last, &if_point_track_flag, 1);
+    chassisbutton_scan();
+
+    // button_scan();
     if (speed_level == 1)
     {
         MAX_ROBOT_SPEED_X = 1.20f;
@@ -177,7 +130,117 @@ void xbox::chassis_control()
         control_chassis->switch_chassis_mode(pure_pursuit);
     }
 }
+void xbox::handleButton(ButtonConfig &config)
+{
+    if (*(config.currentState) && !(*(config.lastState)))
+    {
+        switch (config.actionType)
+        {
+        case ButtonActionType::Toggle:
+            if (config.toggleState)
+            {
+                *config.toggleState = (*config.toggleState + 1) % (config.maxState + 1);
+            }
+            break;
+        case ButtonActionType::Increment:
+            if (config.toggleState && *config.toggleState < config.maxState)
+            {
+                (*config.toggleState)++;
+            }
+            break;
+        case ButtonActionType::Decrement:
+            if (config.toggleState && *config.toggleState > 0)
+            {
+                (*config.toggleState)--;
+            }
+            break;
+        case ButtonActionType::Custom:
+            if (config.customAction)
+            {
+                (this->*config.customAction)(); // 调用成员函数
+            }
+            break;
+        }
+    }
+    *config.lastState = *config.currentState;
+}
+void xbox::chassisbutton_scan()
+{
 
+    handleButton(btnAConfig);
+    handleButton(btnRBConfig);
+    handleButton(btnXboxConfig);
+    handleButton(btnXConfig);
+    handleButton(btnLSConfig);
+    handleButton(btnBConfig);
+    handleButton(btnRSConfig);
+}
+void xbox::chassis_btn_init()
+{
+
+    btnAConfig = {
+        &xbox_msgs.btnA,
+        &xbox_msgs.btnA_last,
+        &if_point_track_flag,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
+
+    btnBConfig = {
+        &xbox_msgs.btnB,
+        &xbox_msgs.btnB_last,
+        &speed_level,
+        2,
+        ButtonActionType::Increment,
+        nullptr};
+
+    btnXConfig = {
+        &xbox_msgs.btnX,
+        &xbox_msgs.btnX_last,
+        &speed_level,
+        2,
+        ButtonActionType::Decrement,
+        nullptr};
+    btnLSConfig = {
+        &xbox_msgs.btnLS,
+        &xbox_msgs.btnLS_last,
+        &robot_stop_flag,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
+
+    btnRSConfig = {
+        &xbox_msgs.btnRS,
+        &xbox_msgs.btnRS_last,
+        &world_robot_flag,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
+
+    btnRBConfig = {
+        &xbox_msgs.btnRB,
+        &xbox_msgs.btnRB_last,
+        &head_locking_flag,
+        1,
+        ButtonActionType::Toggle,
+        &xbox::btnRB_callback};
+
+    btnXboxConfig = {
+        &xbox_msgs.btnXbox,
+        &xbox_msgs.btnXbox_last,
+        nullptr,
+        0,
+        ButtonActionType::Custom,
+        &xbox::btnXBOX_callback};
+}
+void xbox::btnRB_callback()
+{
+    locking_heading = ACTION->pose_data.yaw_rad;
+}
+void xbox::btnXBOX_callback()
+{
+    ACTION->restart();
+}
 xbox_r1n::xbox_r1n(action *ACTION_, chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_, float MAX_ROBOT_SPEED_X_, float MAX_ROBOT_SPEED_W_) : xbox(ACTION_, control_chassis_, MAX_ROBOT_SPEED_Y_, MAX_ROBOT_SPEED_X_, MAX_ROBOT_SPEED_W_)
 {
 }

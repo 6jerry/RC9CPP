@@ -21,11 +21,12 @@ extern "C"
 
 #include "Vector2D.h"
 
-void create_tasks(void);
+    void create_tasks(void);
 #ifdef __cplusplus
 }
 #endif
 #ifdef __cplusplus
+#include "xbox.h"
 // C 的接口函数，用于在 main.c 中调用
 class demo : public ITaskProcessor
 {

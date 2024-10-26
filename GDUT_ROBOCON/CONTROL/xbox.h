@@ -9,10 +9,12 @@ extern "C"
 #include "RC9Protocol.h"
 #include "chassis.h"
 #include "Action.h"
+
 #ifdef __cplusplus
 }
 #endif
 #ifdef __cplusplus
+
 #define MAX_SHOOT_RPM_UP 4600.0f
 #define MAX_SHOOT_RPM_DOWN 3600.0f
 typedef struct
@@ -67,7 +69,6 @@ typedef struct
     float trigRT_map;
 } XboxControllerData_t;
 
-
 // xbox的基类，只实现底盘控制，因为不同的车的机构不同
 class xbox : public RC9Protocol_subscriber
 {
@@ -88,15 +89,37 @@ public:
     float target_trackpoint_x = 0.0f;
     float target_trackpoint_y = 0.0f;
     float target_tracking_dis = 500.0f;
+    enum class ButtonActionType
+    {
+        Toggle,    // 按键状态翻转
+        Increment, // 状态递增
+        Decrement, // 状态递减
+        Custom     // 自定义操作
+    };
+    struct ButtonConfig
+    {
+        bool *currentState;
+        bool *lastState;              // 上次按键状态
+        uint8_t *toggleState;         // 状态变量
+        uint8_t maxState;             // 最大状态
+        ButtonActionType actionType;  // 按键行为类型
+        void (xbox::*customAction)(); // 自定义操作
+    };
+    void handleButton(ButtonConfig &config);
+    ButtonConfig btnAConfig, btnBConfig, btnXConfig, btnRBConfig, btnLBConfig, btnLSConfig, btnXboxConfig, btnRSConfig;
+    virtual void btnRB_callback();
+    virtual void btnXBOX_callback();
+    virtual void btnA_callback() {}
+    virtual void btnX_callback() {}
+
+    virtual void chassis_btn_init();
+
+    virtual void chassisbutton_scan();
 
 public:
     xbox(action *ACTION_, chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_ = 1.50f, float MAX_ROBOT_SPEED_X_ = 1.50f, float MAX_ROBOT_SPEED_W_ = 3.60f);
     void chassis_control();
     void update(uint8_t data_id, uint8_t data_length, const uint8_t *data_char, const float *data_float);
-    void detectButtonEdge(bool currentBtnState, bool *lastBtnState, uint8_t *toggleState, uint8_t maxState);
-    void detectButtonEdgeRb(bool currentBtnState, bool *lastBtnState, uint8_t *toggleState, uint8_t maxState);
-    void detectButtonEdgeD(bool currentBtnState, bool *lastBtnState);
-    void detectButtonEdgeI(bool currentBtnState, bool *lastBtnState);
 };
 
 // 以下是具体车辆的xbox遥控器类

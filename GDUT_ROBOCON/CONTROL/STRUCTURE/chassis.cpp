@@ -119,7 +119,7 @@ void chassis::line_track_compute()
 
     // tangential_control.setpoint = line_track_info.target_dis;
     //  float tan_speed = tangential_control.PID_Compute(line_track_info.tangent_dis);
-    float tan_speed = -1.48f;
+    float tan_speed = -1.8f;
     Vector2D tangent_speed = tan_speed * line_track_info.tangent_dir;
 
     line_track_info.target_wspeed = normal_speed + tangent_speed;
@@ -146,6 +146,11 @@ void chassis::pure_pursuit_compute()
             {
                 // 环形轨迹
                 pure_pursuit_info.tracking_index = 0;
+            }
+            else
+            {
+                line_track_info.target_wspeed.x = 0.0f;
+                line_track_info.target_wspeed.y = 0.0f;
             }
         }
     }

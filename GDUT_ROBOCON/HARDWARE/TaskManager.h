@@ -39,7 +39,7 @@ struct TaskInfo
     uint32_t delay_ms;
     ITaskProcessor *instances[MAX_CLASSES_PER_TASK] = {nullptr}; // 使用接口指针
     int instanceCount;
-    uint32_t stack_size = 4 * 128;
+    uint32_t stack_size = 6 * 128;
 };
 
 // 任务管理者类

@@ -68,12 +68,12 @@ typedef struct line_track_info_
 
 typedef struct pure_pursuit_info_
 {
-    Vector2D path[36];          // 待追踪的轨迹
+    Vector2D path[56];          // 待追踪的轨迹
     uint8_t point_sum = 0;      // 有多少个点
     uint8_t tracking_index = 0; // 当前是追踪哪一个点
     bool if_loop = false;       // 是否是环形轨迹?,如果是环形轨迹的话起始点要写两次
     float tracked_lenth = 0.0f; // 沿着轨迹追踪多远了？
-    float change_point = 36.0f; // 啥时候切换点
+    float change_point = 16.0f; // 啥时候切换点
 };
 // 要开始纯追踪，必须要先点追踪到轨迹起点
 

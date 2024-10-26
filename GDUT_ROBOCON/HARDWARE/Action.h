@@ -105,6 +105,11 @@ private:
     bool if_init = true;
     uint8_t init_count = 0;
     uint8_t byte_get = 0;
+    float previous_world_pos_x = 0.0f;
+    float previous_world_pos_y = 0.0f;
+    float delta_time = 0.0f;
+    uint32_t previous_time = 0; // 上一次的时间戳，单位为ms
+    void calculateWorldSpeed();
 
 public:
     void Update_Action_gl_position(float value[6]);

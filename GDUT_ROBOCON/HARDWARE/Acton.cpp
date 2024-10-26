@@ -118,6 +118,7 @@ void action::Update_Action_gl_position(float value[6])
     // 减去安装偏移量
     pose_data.world_pos_x = action_info.pos_x_sum - action_info.Dx;
     pose_data.world_pos_y = action_info.pos_y_sum - action_info.Dy;
+    calculateWorldSpeed();
 }
 
 void action::restart()
@@ -131,4 +132,32 @@ void action::relocate(float x, float y)
 {
     action_info.pos_x_sum = x + action_info.Dx;
     action_info.pos_y_sum = y + action_info.Dy;
+}
+// 计算世界坐标系下的速度
+void action::calculateWorldSpeed()
+{
+    // 获取当前时间戳
+    uint32_t current_time = HAL_GetTick(); // 获取当前时间，单位ms
+
+    if (previous_time != 0)
+    { // 确保上一次时间不为0
+      // 计算时间差，转换为秒
+        delta_time = float(current_time - previous_time) / 1000.0f;
+
+        if (delta_time > 0.0f)
+        { // 避免除零
+            // 计算位置增量
+            float delta_x = (pose_data.world_pos_x - previous_world_pos_x) / 1000.0f;
+            float delta_y = (pose_data.world_pos_y - previous_world_pos_y) / 1000.0f;
+
+            // 计算速度
+            pose_data.world_speed_x = delta_x / delta_time;
+            pose_data.world_speed_y = delta_y / delta_time;
+        }
+    }
+
+    // 更新上一次的位置和时间
+    previous_world_pos_x = pose_data.world_pos_x;
+    previous_world_pos_y = pose_data.world_pos_y;
+    previous_time = current_time;
 }
