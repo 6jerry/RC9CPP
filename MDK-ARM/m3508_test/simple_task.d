@@ -224,4 +224,5 @@ m3508_test/simple_task.o: ..\RC9CPP_API\SIMPLE_TASK.cpp \
   G:\Keil_v5\ARM\ARMCLANG\include\float.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\limits.h \
   G:\Keil_v5\ARM\ARMCLANG\include\limits.h ..\RC9CPP_API\CONTROL\xbox.h \
+  ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\m6020.h

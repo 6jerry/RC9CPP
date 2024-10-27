@@ -1,5 +1,22 @@
+/*******************************************************************************
+ * @file M6020.cpp
+ * @author 6Jerry (1517752988@qq.com)
+ * @brief m6020 motor type.
+ * @version 1.0
+ * @date 2024-10-26
+ *
+ * @copyright Copyright (c) 2024-10-26 6Jerry
+ *
+ * @license MIT
+ *
+ * @disclaimer This software is provided "as is", without warranty of any kind, express or implied,
+ *             including but not limited to the warranties of merchantability, fitness for a
+ *             particular purpose and noninfringement. In no event shall the authors be liable for any
+ *             claim, damages or other liability, whether in an action of contract, tort or otherwise,
+ *             arising from, out of or in connection with the software or the use or other dealings
+ *             in the software.
+ ******************************************************************************/
 #include "m6020.h"
-
 m6020s::m6020s(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool if_double_control_, float kp_r, float ki_r, float kd_r, float kp_p, float ki_p, float kd_p) : CanDevice(M6020, hcan_, can_id), rpm_pid(kp_r, ki_r, kd_r, 1000000.0f, 25000.0f, 1.0f, 90.0f), pos_pid(kp_p, ki_p, kd_p, 10000.0f, 300.0f, 0.01f, 60.0f), dji_motor(3000.0f, 16384, 8191), if_double_control(if_double_control_)
 {
 }

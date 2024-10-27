@@ -59,4 +59,5 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   G:\Keil_v5\ARM\ARMCLANG\include\float.h \
   G:\Keil_v5\ARM\ARMCLANG\include\limits.h ..\RC9CPP_API\CONTROL\xbox.h \
+  ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\m6020.h

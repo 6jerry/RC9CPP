@@ -1,3 +1,21 @@
+/*******************************************************************************
+ * @file xbox.h
+ * @author 6Jerry (1517752988@qq.com)
+ * @brief xbox remote control.
+ * @version 1.0
+ * @date 2024-10-26
+ *
+ * @copyright Copyright (c) 2024-10-26 6Jerry
+ *
+ * @license MIT
+ *
+ * @disclaimer This software is provided "as is", without warranty of any kind, express or implied,
+ *             including but not limited to the warranties of merchantability, fitness for a
+ *             particular purpose and noninfringement. In no event shall the authors be liable for any
+ *             claim, damages or other liability, whether in an action of contract, tort or otherwise,
+ *             arising from, out of or in connection with the software or the use or other dealings
+ *             in the software.
+ ******************************************************************************/
 #ifndef XBOX_H
 #define XBOX_H
 
@@ -9,6 +27,7 @@ extern "C"
 #include "RC9Protocol.h"
 #include "chassis.h"
 #include "Action.h"
+#include "EncodingStateMachine.h"
 
 #ifdef __cplusplus
 }
@@ -79,6 +98,7 @@ public:
     uint8_t robot_stop_flag = 0;     // 0是正常运行，1是触发急停
     uint8_t speed_level = 1;         // 0---低速，1---中速，2---高速
     uint8_t if_point_track_flag = 0; // 0---不开始点追踪，1---开始点追踪
+    uint8_t if_pure_pusit = 0;
     float MAX_ROBOT_SPEED_Y = 1.50f;
     float MAX_ROBOT_SPEED_X = 1.50f;
     float locking_heading = 0.0f;
@@ -115,6 +135,11 @@ public:
     virtual void chassis_btn_init();
 
     virtual void chassisbutton_scan();
+
+    FlagConfig flagConfigs[4];         // 标志位配置数组
+    EncodingStateMachine stateMachine; // 编码状态机
+    void state_machine_init();
+    uint8_t currentState = 255;
 
 public:
     xbox(action *ACTION_, chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_ = 1.50f, float MAX_ROBOT_SPEED_X_ = 1.50f, float MAX_ROBOT_SPEED_W_ = 3.60f);

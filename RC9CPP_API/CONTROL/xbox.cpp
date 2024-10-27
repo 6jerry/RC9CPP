@@ -1,8 +1,42 @@
+/*******************************************************************************
+ * @file xbox.cpp
+ * @author 6Jerry (1517752988@qq.com)
+ * @brief xbox remote control.
+ * @version 1.0
+ * @date 2024-10-26
+ *
+ * @copyright Copyright (c) 2024-10-26 6Jerry
+ *
+ * @license MIT
+ *
+ * @disclaimer This software is provided "as is", without warranty of any kind, express or implied,
+ *             including but not limited to the warranties of merchantability, fitness for a
+ *             particular purpose and noninfringement. In no event shall the authors be liable for any
+ *             claim, damages or other liability, whether in an action of contract, tort or otherwise,
+ *             arising from, out of or in connection with the software or the use or other dealings
+ *             in the software.
+ ******************************************************************************/
 #include "xbox.h"
-
-xbox::xbox(action *ACTION_, chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_, float MAX_ROBOT_SPEED_X_, float MAX_ROBOT_SPEED_W_) : ACTION(ACTION_), control_chassis(control_chassis_), MAX_ROBOT_SPEED_Y(MAX_ROBOT_SPEED_Y_), MAX_ROBOT_SPEED_X(MAX_ROBOT_SPEED_X_), MAX_ROBOT_SPEED_W(MAX_ROBOT_SPEED_W_)
+xbox::xbox(action *ACTION_, chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_, float MAX_ROBOT_SPEED_X_, float MAX_ROBOT_SPEED_W_) : ACTION(ACTION_), control_chassis(control_chassis_), MAX_ROBOT_SPEED_Y(MAX_ROBOT_SPEED_Y_), MAX_ROBOT_SPEED_X(MAX_ROBOT_SPEED_X_), MAX_ROBOT_SPEED_W(MAX_ROBOT_SPEED_W_), flagConfigs{{&world_robot_flag, 1}, {&robot_stop_flag, 1}, {&if_point_track_flag, 1}, {&if_pure_pusit, 1}}, stateMachine(flagConfigs, 4) // 初始化编码状态机
 {
     chassis_btn_init();
+    state_machine_init();
+}
+
+void xbox::state_machine_init()
+{
+    // 定义状态的索引值数组以及对应的状态处理函数
+    uint16_t worldRemoteIndices[] = {1};                        // 假设索引值为0和2对应世界坐标系遥控
+    uint16_t robotRemoteIndices[] = {0};                        // 假设索引值为1对应机器人坐标系遥控
+    uint16_t robotStopIndices[] = {2, 10, 6, 14, 3, 11, 7, 15}; // 假设索引值为3对应机器人停止
+    uint16_t pointTrackIndices[] = {5, 4};                      // 假设索引值为4对应点追踪模式
+    uint16_t purePursuitIndices[] = {8, 9};                     // 假设索引值为5对应纯粹追踪模式
+
+    stateMachine.mapStateToIndices(0, worldRemoteIndices, 1);
+    stateMachine.mapStateToIndices(1, robotRemoteIndices, 1);
+    stateMachine.mapStateToIndices(2, pointTrackIndices, 2);
+    stateMachine.mapStateToIndices(3, purePursuitIndices, 2);
+    stateMachine.mapStateToIndices(4, robotStopIndices, 8);
 }
 
 void xbox::update(uint8_t data_id, uint8_t data_length, const uint8_t *data_char, const float *data_float)
@@ -41,6 +75,7 @@ void xbox::chassis_control()
 {
 
     chassisbutton_scan();
+    currentState = stateMachine.getState();
 
     // button_scan();
     if (speed_level == 1)
@@ -111,23 +146,31 @@ void xbox::chassis_control()
     {
         control_chassis->unlock();
     }
-    if (world_robot_flag == 0 && robot_stop_flag == 0 && if_point_track_flag == 0)
+    switch (currentState)
     {
-        control_chassis->switch_chassis_mode(remote_robotv);
-        control_chassis->setrobotv(MAX_ROBOT_SPEED_X * xbox_msgs.joyLHori_map, MAX_ROBOT_SPEED_Y * xbox_msgs.joyLVert_map, -MAX_ROBOT_SPEED_W * xbox_msgs.joyRHori_map);
-    }
-    if (world_robot_flag == 1 && robot_stop_flag == 0 && if_point_track_flag == 0)
-    {
+    case 0:
         control_chassis->switch_chassis_mode(remote_worldv);
         control_chassis->setworldv(MAX_ROBOT_SPEED_X * xbox_msgs.joyLHori_map, MAX_ROBOT_SPEED_Y * xbox_msgs.joyLVert_map, -MAX_ROBOT_SPEED_W * xbox_msgs.joyRHori_map);
-    }
-    if (robot_stop_flag == 1)
-    {
-        control_chassis->switch_chassis_mode(chassis_standby);
-    }
-    if (if_point_track_flag == 1 && robot_stop_flag == 0)
-    {
+        break;
+    case 1:
+        control_chassis->switch_chassis_mode(remote_robotv);
+        control_chassis->setrobotv(MAX_ROBOT_SPEED_X * xbox_msgs.joyLHori_map, MAX_ROBOT_SPEED_Y * xbox_msgs.joyLVert_map, -MAX_ROBOT_SPEED_W * xbox_msgs.joyRHori_map);
+        break;
+    case 2:
         control_chassis->switch_chassis_mode(pure_pursuit);
+        break;
+    case 3:
+        control_chassis->switch_chassis_mode(chassis_standby);
+        break;
+    case 4:
+        control_chassis->switch_chassis_mode(chassis_standby);
+        break;
+    case 255:
+        control_chassis->switch_chassis_mode(chassis_standby);
+        break;
+
+    default:
+        break;
     }
 }
 void xbox::handleButton(ButtonConfig &config)
