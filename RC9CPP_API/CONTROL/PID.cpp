@@ -1,5 +1,22 @@
+/*******************************************************************************
+ * @file pid.cpp
+ * @author 6Jerry (1517752988@qq.com)
+ * @brief pid controller.
+ * @version 1.0
+ * @date 2024-10-26
+ *
+ * @copyright Copyright (c) 2024-10-26 6Jerry
+ *
+ * @license MIT
+ *
+ * @disclaimer This software is provided "as is", without warranty of any kind, express or implied,
+ *             including but not limited to the warranties of merchantability, fitness for a
+ *             particular purpose and noninfringement. In no event shall the authors be liable for any
+ *             claim, damages or other liability, whether in an action of contract, tort or otherwise,
+ *             arising from, out of or in connection with the software or the use or other dealings
+ *             in the software.
+ ******************************************************************************/
 #include "pid.h"
-
 pid::pid(float kp_, float ki_, float kd_, float integral_limit_, float output_limit_, float deadzone_, float integral_separation_threshold_) : kp(kp_), ki(ki_), kd(kd_), integral_limit(integral_limit_), output_limit(output_limit_), deadzone(deadzone_), integral_separation_threshold(integral_separation_threshold_)
 {
 }

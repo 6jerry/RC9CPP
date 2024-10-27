@@ -53,6 +53,7 @@
 "m3508_test\motor.o"
 "m3508_test\crc_util.o"
 "m3508_test\vector2d.o"
+"m3508_test\encodingstatemachine.o"
 --strict --scatter "m3508_test\m3508_test.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
