@@ -29,7 +29,7 @@
 /* USER CODE BEGIN Includes */
 #include <string.h>
 
-#include "SIMPLE_TASK.h"
+#include "r2n_setup.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,18 +49,6 @@
 
 /* Private variables ---------------------------------------------------------*/
 
-/* USER CODE BEGIN PV */
-// ring_buffer test_buffer;
-float Set_TARGET_POS = 0.0f;
-float Set_TARGET_RPM = 5.f;
-float Set_target_current = 0.0f;
-
-uint8_t RxBuffer_for4[1]; // 串口接收缓冲
-uint8_t DataBuff_for4[200];
-// 66666666666666
-
-/* USER CODE END PV */
-
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 void MX_FREERTOS_Init(void);
@@ -79,9 +67,6 @@ void MX_FREERTOS_Init(void);
  */
 int main(void)
 {
-  /* USER CODE BEGIN 1 */
-
-  /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -111,26 +96,21 @@ int main(void)
   MX_USART6_UART_Init();
   MX_UART5_Init();
   /* USER CODE BEGIN 2 */
-  // HAL_CAN_Start(&hcan1);
-  // HAL_CAN_Start(&hcan2);
 
   HAL_TIM_Base_Start_IT(&htim2);
-  // EnableDebugIRQ();
-  // Adjust_Init();
-  // ring_buffer_init(&test_buffer);
-  // Move_Init();
 
-  // m3508_Init();
-  // Kalmanfiter_Init(&Kalman_LaserX);
-  //  Set_target_current=0.0f;
   /* USER CODE END 2 */
 
   /* Init scheduler */
   osKernelInitialize();
 
   /* Call init function for freertos objects (in freertos.c) */
-
-  create_tasks();
+  // MX_FREERTOS_Init();
+  /* USER CODE BEGIN 1 */
+  r2n_setup();
+  /* USER CODE END 1 */
+  /* Start scheduler */
+  // osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
