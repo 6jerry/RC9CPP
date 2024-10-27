@@ -43,7 +43,8 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
   ..\Core\Inc\can.h ..\Core\Inc\dma.h ..\Core\Inc\tim.h \
   ..\Core\Inc\usart.h ..\Core\Inc\gpio.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\string.h ..\RC9CPP_API\SIMPLE_TASK.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\string.h \
+  ..\RC9CPP_USER\R2N_USER\r2n_setup.h \
   ..\RC9CPP_API\HARDWARE\RC9Protocol.h ..\RC9CPP_API\MATH_LIB\crc_util.h \
   ..\RC9CPP_API\HARDWARE\TaskManager.h \
   ..\RC9CPP_API\HARDWARE\Serial_device.h \
@@ -58,6 +59,7 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Middlewares\ST\ARM\DSP\Inc\arm_math.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   G:\Keil_v5\ARM\ARMCLANG\include\float.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\limits.h ..\RC9CPP_API\CONTROL\xbox.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\limits.h \
+  ..\RC9CPP_USER\R2N_USER\r2n_xbox.h ..\RC9CPP_API\CONTROL\xbox.h \
   ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\m6020.h

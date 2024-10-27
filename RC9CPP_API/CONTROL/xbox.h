@@ -92,13 +92,6 @@ typedef struct
 class xbox : public RC9Protocol_subscriber
 {
 public:
-    uint8_t head_locking_flag = 0;   // 0是不锁死，1是锁死
-    uint8_t catch_ball_flag = 0;     // 0是松开，1是夹紧
-    uint8_t world_robot_flag = 0;    // 0是机器人坐标系控制，1是世界坐标系控制
-    uint8_t robot_stop_flag = 0;     // 0是正常运行，1是触发急停
-    uint8_t speed_level = 1;         // 0---低速，1---中速，2---高速
-    uint8_t if_point_track_flag = 0; // 0---不开始点追踪，1---开始点追踪
-    uint8_t if_pure_pusit = 0;
     float MAX_ROBOT_SPEED_Y = 1.50f;
     float MAX_ROBOT_SPEED_X = 1.50f;
     float locking_heading = 0.0f;
@@ -106,9 +99,7 @@ public:
     XboxControllerData_t xbox_msgs;
     action *ACTION = nullptr;
     chassis *control_chassis = nullptr;
-    float target_trackpoint_x = 0.0f;
-    float target_trackpoint_y = 0.0f;
-    float target_tracking_dis = 500.0f;
+
     enum class ButtonActionType
     {
         Toggle,    // 按键状态翻转
@@ -126,48 +117,16 @@ public:
         void (xbox::*customAction)(); // 自定义操作
     };
     void handleButton(ButtonConfig &config);
-    ButtonConfig btnAConfig, btnBConfig, btnXConfig, btnRBConfig, btnLBConfig, btnLSConfig, btnXboxConfig, btnRSConfig;
-    virtual void btnRB_callback();
-    virtual void btnXBOX_callback();
-    virtual void btnA_callback() {}
-    virtual void btnX_callback() {}
+    ButtonConfig btnAConfig, btnBConfig, btnXConfig, btnRBConfig, btnLBConfig, btnLSConfig, btnXboxConfig, btnRSConfig, btnStartConfig, btnShareConfig, btnSelectConfig, btnDirUpConfig, btnDirLeftConfig, btnDirRightConfig, btnDirDownConfig, btnYConfig;
+    virtual void btnRB_callback() {}
+    virtual void btnXBOX_callback() {}
 
-    virtual void chassis_btn_init();
-
-    virtual void chassisbutton_scan();
-
-    FlagConfig flagConfigs[4];         // 标志位配置数组
-    EncodingStateMachine stateMachine; // 编码状态机
-    void state_machine_init();
-    uint8_t currentState = 255;
+    void joymap_compute();
 
 public:
     xbox(action *ACTION_, chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_ = 1.50f, float MAX_ROBOT_SPEED_X_ = 1.50f, float MAX_ROBOT_SPEED_W_ = 3.60f);
-    void chassis_control();
+
     void update(uint8_t data_id, uint8_t data_length, const uint8_t *data_char, const float *data_float);
-};
-
-// 以下是具体车辆的xbox遥控器类
-
-// 九期r1的遥控
-class xbox_r1n : public xbox, public ITaskProcessor
-{
-private:
-    /* data */
-public:
-    xbox_r1n(action *ACTION_, chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_ = 1.50f, float MAX_ROBOT_SPEED_X_ = 1.50f, float MAX_ROBOT_SPEED_W_ = 3.60f);
-    void process_data();
-};
-
-// 九期r2的遥控
-class xbox_r2n : public xbox, public ITaskProcessor
-{
-private:
-    RC9Protocol *robot_data_chain;
-
-public:
-    xbox_r2n(action *ACTION_, RC9Protocol *robot_data_chain_, chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_ = 1.50f, float MAX_ROBOT_SPEED_X_ = 1.50f, float MAX_ROBOT_SPEED_W_ = 3.60f);
-    void process_data();
 };
 
 #endif

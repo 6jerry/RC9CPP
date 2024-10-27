@@ -9,10 +9,7 @@ m3508_test/freertos.o: ..\Core\Src\freertos.c \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
-  ..\robocon_robot\driver_usart.h \
-  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
+  ..\Core\Inc\main.h ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\Core\Inc\stm32f4xx_hal_conf.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h \
@@ -41,12 +38,5 @@ m3508_test/freertos.o: ..\Core\Src\freertos.c \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
-  ..\robocon_robot\serial_to_matlab.h ..\robocon_robot\crc_util.h \
-  ..\robocon_robot\motor.h ..\robocon_robot\pid.h \
-  ..\robocon_robot\new_pid.h ..\robocon_robot\MoveBase.h \
-  ..\robocon_robot\hardware.h ..\robocon_robot\calculation.h \
-  ..\robocon_robot\FSM.h ..\robocon_robot\communicate.h \
-  ..\Core\Inc\usart.h ..\Core\Inc\main.h \
-  ..\robocon_robot\serial_to_esp32.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h
+  ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h

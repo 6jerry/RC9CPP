@@ -2,6 +2,7 @@
 "m3508_test\startup_stm32f407xx.o"
 "m3508_test\main.o"
 "m3508_test\gpio.o"
+"m3508_test\freertos.o"
 "m3508_test\can.o"
 "m3508_test\dma.o"
 "m3508_test\tim.o"
@@ -37,8 +38,6 @@
 "m3508_test\cmsis_os2.o"
 "m3508_test\heap_4.o"
 "m3508_test\port.o"
-"..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4lf_math.lib"
-"m3508_test\simple_task.o"
 "m3508_test\pid.o"
 "m3508_test\speed_planner.o"
 "m3508_test\xbox.o"
@@ -54,6 +53,9 @@
 "m3508_test\crc_util.o"
 "m3508_test\vector2d.o"
 "m3508_test\encodingstatemachine.o"
+"..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4lf_math.lib"
+"m3508_test\r2n_setup.o"
+"m3508_test\r2n_xbox.o"
 --strict --scatter "m3508_test\m3508_test.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

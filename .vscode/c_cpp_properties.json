@@ -21,7 +21,8 @@
                   "${workspaceFolder}/RC9CPP_API/HARDWARE/MOTOR",
                    "${workspaceFolder}/RC9CPP_API/CONTROL",
                    "${workspaceFolder}/RC9CPP_API/CONTROL/STRUCTURE",
-                    "${workspaceFolder}/RC9CPP_API/DECISION"
+                    "${workspaceFolder}/RC9CPP_API/DECISION",
+                     "${workspaceFolder}/RC9CPP_USER/R2N_USER"
                  
                 
             ],
