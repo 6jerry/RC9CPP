@@ -1551,16 +1551,6 @@
               <FilePath>..\RC9CPP_API\CONTROL\PID.h</FilePath>
             </File>
             <File>
-              <FileName>speed_planner.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\RC9CPP_API\CONTROL\speed_planner.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>speed_planner.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\RC9CPP_API\CONTROL\speed_planner.h</FilePath>
-            </File>
-            <File>
               <FileName>xbox.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\RC9CPP_API\CONTROL\xbox.cpp</FilePath>

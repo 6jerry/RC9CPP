@@ -39,7 +39,6 @@
 "m3508_test\heap_4.o"
 "m3508_test\port.o"
 "m3508_test\pid.o"
-"m3508_test\speed_planner.o"
 "m3508_test\xbox.o"
 "m3508_test\chassis.o"
 "m3508_test\acton.o"
