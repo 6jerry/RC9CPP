@@ -1,5 +1,5 @@
-#ifndef R2N_SETUP_H
-#define R2N_SETUP_H
+#ifndef LIGE_SETUP_H
+#define LIGE_SETUP_H
 
 #ifdef __cplusplus
 extern "C"
@@ -13,25 +13,16 @@ extern "C"
 #include "RC9Protocol.h"
 #include "usart.h"
 #include "TaskManager.h"
-#include "Action.h"
-#include "M3508.h"
-#include "chassis.h"
+
 #include "r2n_xbox.h"
-#include "m6020.h"
+
 #include "go1.h"
 
-    void r2n_setup(void);
+    void lige_setup(void);
 #ifdef __cplusplus
 }
 #endif
 #ifdef __cplusplus
-class demo : public ITaskProcessor
-{
-private:
-    /* data */
-public:
-    void process_data();
-};
 
 #endif
 #endif
