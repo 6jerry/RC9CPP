@@ -54,7 +54,7 @@ m3508_test/xbox.o: ..\RC9CPP_API\CONTROL\xbox.cpp \
   ..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\motor.h \
   ..\RC9CPP_API\HARDWARE\can_device.h ..\Core\Inc\can.h \
-  ..\RC9CPP_API\HARDWARE\Action.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\go1can.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\math.h \
   G:\Keil_v5\ARM\ARMCLANG\include\math.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\abs.h \
@@ -214,7 +214,8 @@ m3508_test/xbox.o: ..\RC9CPP_API\CONTROL\xbox.cpp \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h ..\RC9CPP_API\CONTROL\pid.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h \
+  ..\RC9CPP_API\HARDWARE\Action.h ..\RC9CPP_API\CONTROL\pid.h \
   ..\RC9CPP_API\MATH_LIB\Vector2D.h \
   ..\Middlewares\ST\ARM\DSP\Inc\arm_math.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \

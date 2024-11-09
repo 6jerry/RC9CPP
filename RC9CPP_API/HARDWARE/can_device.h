@@ -12,6 +12,7 @@ extern "C"
 #include <stdbool.h>
 #include "can.h"
 #include "TaskManager.h"
+#include "go1can.h"
 #ifdef __cplusplus
 }
 #endif
@@ -23,7 +24,8 @@ enum CanDeviceType
     M2006,
     DM43,
     VESC,
-    M6020
+    M6020,
+    GO1
 };
 
 enum can_id
@@ -46,7 +48,9 @@ public:
     CAN_HandleTypeDef *hcan_;  // CAN 句柄
     CanDeviceType deviceType_; // 设备类型
     uint8_t can_id = 0;
-    virtual int16_t motor_process(); // 给m3508用的接口，其他电机不要管
+    virtual int16_t motor_process(); // 给大疆用的接口，其他电机不要管
+
+   
 
     virtual void can_update(uint8_t can_RxData[8]) = 0;
 
@@ -74,13 +78,21 @@ private:
     uint32_t msg_box1 = 0;
     uint32_t msg_box2 = 0;
     int8_t error_flag = 0;
+    uint32_t generateCanExtId(
+        uint8_t module_id,        // 模块ID (2位)，取值范围 0-3
+        bool is_send,             // 发送/接收指示位，发送为0，接收为1
+        uint8_t data_mode,        // 数据内容指示位 (2位)，取值范围 0-3
+        uint8_t ctrl_mode,        // 控制模式 (8位)，根据手册定义取值范围 0-255
+        uint8_t motor_id,         // 目标电机ID (4位)，取值范围 0-15
+        uint8_t motor_ctrl_mode,  // 电机控制模式 (3位)，取值范围 0-7
+        uint8_t reserved_bits = 0 // 预留位 (12位)，通常设为0
+    );
 
 public:
-    void
-    process_data();
+    void process_data();
     CanManager();
     void init();
-
+    go1can* Go1;
     static uint8_t RxData1[8];
     static uint8_t RxData2[8];
 };

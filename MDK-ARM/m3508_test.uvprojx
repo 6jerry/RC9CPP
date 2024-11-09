@@ -2344,9 +2344,9 @@
               <FilePath>..\RC9CPP_API\DECISION\EncodingStateMachine.h</FilePath>
             </File>
             <File>
-              <FileName>go1.cpp</FileName>
+              <FileName>go1can.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\RC9CPP_API\HARDWARE\MOTOR\go1.cpp</FilePath>
+              <FilePath>..\RC9CPP_API\HARDWARE\MOTOR\go1can.cpp</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -2400,9 +2400,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>go1.h</FileName>
+              <FileName>go1can.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\RC9CPP_API\HARDWARE\MOTOR\go1.h</FilePath>
+              <FilePath>..\RC9CPP_API\HARDWARE\MOTOR\go1can.h</FilePath>
             </File>
           </Files>
         </Group>

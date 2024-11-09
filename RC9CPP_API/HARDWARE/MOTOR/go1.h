@@ -220,5 +220,6 @@ public:
     go1(UART_HandleTypeDef *huart);
 };
 
+
 #endif
 #endif

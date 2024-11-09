@@ -18,7 +18,7 @@ extern "C"
 #include "chassis.h"
 #include "r2n_xbox.h"
 #include "m6020.h"
-#include "go1.h"
+#include "go1can.h"
 
     void r2n_setup(void);
 #ifdef __cplusplus

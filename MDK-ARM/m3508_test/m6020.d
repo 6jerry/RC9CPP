@@ -39,7 +39,7 @@ m3508_test/m6020.o: ..\RC9CPP_API\HARDWARE\MOTOR\m6020.cpp \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
   ..\RC9CPP_API\HARDWARE\TaskManager.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
-  ..\RC9CPP_API\CONTROL\pid.h ..\RC9CPP_API\HARDWARE\MOTOR\motor.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\go1can.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\math.h \
   G:\Keil_v5\ARM\ARMCLANG\include\math.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\abs.h \
@@ -199,4 +199,5 @@ m3508_test/m6020.o: ..\RC9CPP_API\HARDWARE\MOTOR\m6020.cpp \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h
+  G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h ..\RC9CPP_API\CONTROL\pid.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\motor.h
