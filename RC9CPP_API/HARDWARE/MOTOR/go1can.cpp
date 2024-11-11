@@ -22,6 +22,9 @@ uint32_t go1can::generateCanExtId(
 
     return ext_id;
 }
+go1can::go1can(uint8_t can_id, CAN_HandleTypeDef *hcan_) : CanDevice(GO1, hcan_, can_id)
+{
+}
 
 uint32_t go1can::getExtid_loadData(uint8_t *data)
 {
@@ -63,4 +66,11 @@ uint32_t go1can::getExtid_loadData(uint8_t *data)
     mode_change_flag = (mode_change_flag + 1) % 2;
 
     return extid;
+}
+void go1can::can_update(uint8_t can_RxData[8])
+{
+}
+void go1can::EXT_ID_update(uint32_t ext_id)
+{
+
 }

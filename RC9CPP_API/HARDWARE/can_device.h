@@ -12,7 +12,7 @@ extern "C"
 #include <stdbool.h>
 #include "can.h"
 #include "TaskManager.h"
-#include "go1can.h"
+
 #ifdef __cplusplus
 }
 #endif
@@ -50,19 +50,22 @@ public:
     uint8_t can_id = 0;
     virtual int16_t motor_process(); // 给大疆用的接口，其他电机不要管
 
-   
-
     virtual void can_update(uint8_t can_RxData[8]) = 0;
+    virtual void EXT_ID_update(uint32_t ext_id) {};
 
     static CanDevice *m3508_instances_can1[MAX_INSTANCES]; // 保存所有实例,供can管理者使用
     static CanDevice *m6020_instances_can1[MAX_INSTANCES];
+    static CanDevice *go1_instances_can1[MAX_INSTANCES];
     static int instanceCount_m3508_can1;
 
     static CanDevice *m3508_instances_can2[MAX_INSTANCES];
     static CanDevice *m6020_instances_can2[MAX_INSTANCES];
+    static CanDevice *go1_instances_can2[MAX_INSTANCES];
     static int instanceCount_m3508_can2;
     static int instanceCount_m6020_can1;
     static int instanceCount_m6020_can2;
+    static int instanceCount_go1_can1;
+    static int instanceCount_go1_can2;
 
     CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_t can_id);
 };
@@ -78,23 +81,15 @@ private:
     uint32_t msg_box1 = 0;
     uint32_t msg_box2 = 0;
     int8_t error_flag = 0;
-    uint32_t generateCanExtId(
-        uint8_t module_id,        // 模块ID (2位)，取值范围 0-3
-        bool is_send,             // 发送/接收指示位，发送为0，接收为1
-        uint8_t data_mode,        // 数据内容指示位 (2位)，取值范围 0-3
-        uint8_t ctrl_mode,        // 控制模式 (8位)，根据手册定义取值范围 0-255
-        uint8_t motor_id,         // 目标电机ID (4位)，取值范围 0-15
-        uint8_t motor_ctrl_mode,  // 电机控制模式 (3位)，取值范围 0-7
-        uint8_t reserved_bits = 0 // 预留位 (12位)，通常设为0
-    );
 
 public:
     void process_data();
     CanManager();
     void init();
-    go1can* Go1;
+
     static uint8_t RxData1[8];
     static uint8_t RxData2[8];
+    static HAL_StatusTypeDef CAN_Send(CAN_HandleTypeDef *hcan, uint32_t can_id, uint8_t is_extended, uint8_t data[8]);
 };
 
 #endif

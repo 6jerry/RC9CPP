@@ -1,7 +1,7 @@
 
 
-#ifndef GO1_H
-#define GO1_H
+#ifndef GO1CAN_H
+#define GO1CAN_H
 
 #ifdef __cplusplus
 extern "C"
@@ -9,6 +9,8 @@ extern "C"
 #endif
 
 #include <math.h>
+#include "can_device.h"
+#include "TaskManager.h"
 
 #ifdef __cplusplus
 }
@@ -16,7 +18,7 @@ extern "C"
 
 #ifdef __cplusplus
 
-class go1can
+class go1can : public CanDevice, public ITaskProcessor
 {
 private:
     uint32_t generateCanExtId(
@@ -32,11 +34,15 @@ private:
     uint8_t mode_change_flag = 0; // 发一次系数设置帧，发一次速度设置帧
     uint32_t extid = 0;
     int16_t K_pos_int = 0, K_spd_int = 0;
-    int16_t  tset = 0, pset = 0;
+    int16_t tset = 0, pset = 0;
 
 public:
     uint32_t getExtid_loadData(uint8_t *data);
     int16_t wset = 0;
+    void can_update(uint8_t can_RxData[8]);
+    go1can(uint8_t can_id, CAN_HandleTypeDef *hcan_);
+    void EXT_ID_update(uint32_t ext_id) override;
+    void process_data();
 };
 
 #endif

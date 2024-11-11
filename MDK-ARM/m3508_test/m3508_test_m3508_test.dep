@@ -54,10 +54,9 @@ I (..\RC9CPP_API\HARDWARE\Serial_device.h)(0x6725F32C)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h)(0x6678AA12)
 I (G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
 I (..\RC9CPP_API\HARDWARE\Action.h\:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x00000000)
-I (..\RC9CPP_API\HARDWARE\MOTOR\M3508.h)(0x6725F32C)
-I (..\RC9CPP_API\HARDWARE\can_device.h)(0x672E09C7)
-I (..\RC9CPP_API\HARDWARE\MOTOR\go1can.hl.\RC9CPP_API\CONTROL\pid.h)(0x00000000)
-I (..\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x6725F32C)
+I (..\RC9CPP_API\HARDWARE\MOTOR\M3508.h)(0x672F153E)
+I (..\RC9CPP_API\HARDWARE\can_device.hh.\RC9CPP_API\CONTROL\pid.h)(0x00000000)
+I (..\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x672F153E)
 I (..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h)(0x6725F32C)
 I (..\RC9CPP_API\MATH_LIB\Vector2D.h)(0x6725F32C)
 I (..\Middlewares\ST\ARM\DSP\Inc\arm_math.h)(0x6694F37F)
@@ -66,7 +65,8 @@ I (G:\Keil_v5\ARM\ARMCLANG\include\float.h)(0x6569B012)
 I (G:\Keil_v5\ARM\ARMCLANG\include\limits.h)(0x6569B012)
 I (..\RC9CPP_USER\R2N_USER\r2n_xbox.hm.\RC9CPP_API\CONTROL\xbox.h)(0x00000000)
 I (..\RC9CPP_API\DECISION\EncodingStateMachine.h)(0x6725F32C)
-I (..\RC9CPP_API\HARDWARE\MOTOR\m6020.h)(0x6725F32C)
+I (..\RC9CPP_API\HARDWARE\MOTOR\go1can.h)(0x6731B8E1)
+I (..\RC9CPP_API\HARDWARE\MOTOR\m6020.h)(0x672F153E)
 F (../Core/Src/gpio.c)(0x66E83AAA)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/gpio.o -MD)
 I (..\Core\Inc\main.hW.\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x00000000)
 I (..\Core\Inc\stm32f4xx_hal_conf.h)(0x66D9DA36)
@@ -1168,9 +1168,9 @@ I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h)(0x6678AA
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h)(0x64F9642C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
 I (..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h)(0x6725F32C)
-I (..\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x6725F32C)
+I (..\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x672F153E)
 I (..\RC9CPP_API\HARDWARE\can_device.hh.\Core\Inc\can.h)(0x00000000)
-I (..\RC9CPP_API\HARDWARE\MOTOR\go1can.h)(0x672E0F6B)
+I (..\RC9CPP_API\HARDWARE\Action.h)(0x6725F32C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\math.h)(0x6569B010)
 I (G:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x6569B012)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\abs.h)(0x6569B004)
@@ -1330,8 +1330,7 @@ I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\rounding_functions.h)(0x6569B00
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h)(0x6569B004)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h)(0x6569B004)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h)(0x6569B010)
-I (G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x6569B012)
-I (..\RC9CPP_API\HARDWARE\Action.h\.\RC9CPP_API\CONTROL\pid.h)(0x00000000)
+I (G:\Keil_v5\ARM\ARMCLANG\include\stdlib.ht\RC9CPP_API\CONTROL\pid.h)(0x00000000)
 I (..\RC9CPP_API\MATH_LIB\Vector2D.h)(0x6725F32C)
 I (..\Middlewares\ST\ARM\DSP\Inc\arm_math.h)(0x6694F37F)
 I (..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6678AA10)
@@ -1352,8 +1351,8 @@ I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config)(0x6569B00C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stddef.h)(0x64F9642C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
-I (..\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x6725F32C)
-I (..\RC9CPP_API\HARDWARE\can_device.h)(0x672E09C7)
+I (..\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x672F153E)
+I (..\RC9CPP_API\HARDWARE\can_device.h)(0x6731B97D)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h)(0x64F9642C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\stdbool.hd\Core\Inc\can.h)(0x00000000)
 I (..\Core\Inc\main.hC.\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x00000000)
@@ -1385,7 +1384,20 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h)(0x6678AA10)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h)(0x6678AA10)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x6678AA10)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x6678AA10)
-I (..\RC9CPP_API\HARDWARE\MOTOR\go1can.h)(0x672E0F6B)
+I (..\RC9CPP_API\HARDWARE\Action.h\.\RC9CPP_API\HARDWARE\Serial_device.h)(0x00000000)
+I (..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h)(0x6678AA12)
+I (..\Core\Inc\FreeRTOSConfig.h)(0x66D9DA36)
+I (..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h)(0x6678AA12)
+I (..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h)(0x6678AA12)
+I (..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h)(0x6678AA12)
+I (..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F\portmacro.h)(0x6678AA12)
+I (..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h)(0x6678AA12)
+I (..\Core\Inc\usart.h)(0x670D1D44)
+I (..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h)(0x6678AA12)
+I (..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h)(0x6678AA12)
+I (..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h)(0x6678AA12)
+I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h)(0x6678AA12)
+I (..\RC9CPP_API\MATH_LIB\crc_util.h)(0x672B2E84)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\math.h)(0x6569B010)
 I (G:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x6569B012)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\abs.h)(0x6569B004)
@@ -1545,21 +1557,7 @@ I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\rounding_functions.h)(0x6569B00
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h)(0x6569B004)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h)(0x6569B004)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h)(0x6569B010)
-I (G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x6569B012)
-I (..\RC9CPP_API\HARDWARE\Action.h\.\RC9CPP_API\HARDWARE\Serial_device.h)(0x00000000)
-I (..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h)(0x6678AA12)
-I (..\Core\Inc\FreeRTOSConfig.h)(0x66D9DA36)
-I (..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h)(0x6678AA12)
-I (..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h)(0x6678AA12)
-I (..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h)(0x6678AA12)
-I (..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F\portmacro.h)(0x6678AA12)
-I (..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h)(0x6678AA12)
-I (..\Core\Inc\usart.h)(0x670D1D44)
-I (..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h)(0x6678AA12)
-I (..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h)(0x6678AA12)
-I (..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h)(0x6678AA12)
-I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h)(0x6678AA12)
-I (..\RC9CPP_API\MATH_LIB\crc_util.hO.\RC9CPP_API\CONTROL\pid.h)(0x00000000)
+I (G:\Keil_v5\ARM\ARMCLANG\include\stdlib.ht\RC9CPP_API\CONTROL\pid.h)(0x00000000)
 I (..\RC9CPP_API\MATH_LIB\Vector2D.h)(0x6725F32C)
 I (..\Middlewares\ST\ARM\DSP\Inc\arm_math.h)(0x6694F37F)
 I (..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6678AA10)
@@ -1782,8 +1780,8 @@ I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h)(0x6569B004)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h)(0x6569B004)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h)(0x6569B010)
 I (G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x6569B012)
-F (..\RC9CPP_API\HARDWARE\can_device.cpp)(0x672E0A9F)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/can_device.o -MD)
-I (..\RC9CPP_API\HARDWARE\can_device.h)(0x672E09C7)
+F (..\RC9CPP_API\HARDWARE\can_device.cpp)(0x6731B9C4)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/can_device.o -MD)
+I (..\RC9CPP_API\HARDWARE\can_device.h)(0x6731B97D)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h)(0x64F9642C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config)(0x6569B00C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\stdbool.hc\Core\Inc\can.h)(0x00000000)
@@ -1822,168 +1820,7 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x6678AA10)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x6678AA10)
 I (..\RC9CPP_API\HARDWARE\TaskManager.h)(0x672DAAEB)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h)(0x6678AA12)
-I (..\RC9CPP_API\HARDWARE\MOTOR\go1can.h)(0x672E0F6B)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\math.h)(0x6569B010)
-I (G:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x6569B012)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\abs.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\enable_if.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_integral.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\integral_constant.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_cv.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_const.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_volatile.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\copysign.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_arithmetic.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_floating_point.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\promote.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_same.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__utility\declval.h)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\limits)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__assert)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__verbose_abort)(0x6569B00E)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__availability)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_signed.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__undef_macros)(0x6569B00E)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\version)(0x6569B010)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\type_traits)(0x6569B010)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__fwd\hash.h)(0x64F96428)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_const.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_cv.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_lvalue_reference.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_referenceable.h)(0x64F9642A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_void.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_reference.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\cstddef)(0x6569B00E)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_rvalue_reference.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_volatile.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\aligned_storage.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\conditional.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\nat.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\type_list.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\aligned_union.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\alignment_of.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\apply_cv.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_const.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_volatile.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\can_extract_key.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__fwd\pair.h)(0x64F96428)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_const_ref.h)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\common_reference.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\common_type.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\decay.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_array.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_function.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_reference.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_extent.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_cvref.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\void_t.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\copy_cv.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\copy_cvref.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_convertible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\conjunction.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\dependent_type.h)(0x64F9642A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\disjunction.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\extent.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\has_unique_object_representation.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_all_extents.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\has_virtual_destructor.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\invoke.h)(0x6569B008)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_base_of.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_core_convertible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_member_function_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_member_object_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_reference_wrapper.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__utility\forward.h)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_abstract.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_aggregate.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_bounded_array.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_callable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_char_like_type.h)(0x64F9642A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_standard_layout.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivial.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_class.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_compound.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_fundamental.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_null_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_constant_evaluated.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_copy_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_copy_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_default_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_destructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_empty.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_enum.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_final.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_implicitly_default_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_literal_type.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_member_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_move_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_move_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_convertible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\lazy.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_copy_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_copy_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_default_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_destructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_scalar.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_move_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_move_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_object.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_union.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_pod.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_polymorphic.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_scoped_enum.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\underlying_type.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_specialization.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_swappable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_copy_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_copy_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_copyable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\cstdint)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_default_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_destructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_move_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_move_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_unbounded_array.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_unsigned.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\make_const_lvalue_ref.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\make_signed.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\make_unsigned.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\maybe_const.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\negation.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\rank.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\result_of.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__functional\invoke.h)(0x6569AFF6)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\type_identity.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\unwrap_ref.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\error_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\exponential_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\fdim.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\fma.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\gamma.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\hyperbolic_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\hypot.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\inverse_hyperbolic_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\inverse_trigonometric_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\logarithms.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\min_max.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\modulo.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\remainder.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\roots.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\rounding_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h)(0x6569B010)
-I (G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x6569B012)
-F (..\RC9CPP_API\HARDWARE\can_device.h)(0x672E09C7)()
+F (..\RC9CPP_API\HARDWARE\can_device.h)(0x6731B97D)()
 F (..\RC9CPP_API\HARDWARE\RC9Protocol.cpp)(0x6725F32C)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/rc9protocol.o -MD)
 I (..\RC9CPP_API\HARDWARE\RC9Protocol.hp.\RC9CPP_API\MATH_LIB\crc_util.h)(0x00000000)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdint.h)(0x64F9642C)
@@ -2099,9 +1936,9 @@ I (G:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stddef.h)(0x64F9642C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
 F (..\RC9CPP_API\HARDWARE\TaskManager.h)(0x672DAAEB)()
-F (..\RC9CPP_API\HARDWARE\MOTOR\M3508.cpp)(0x672CBF6C)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/m3508.o -MD)
-I (..\RC9CPP_API\HARDWARE\MOTOR\M3508.h)(0x6725F32C)
-I (..\RC9CPP_API\HARDWARE\can_device.h)(0x672E09C7)
+F (..\RC9CPP_API\HARDWARE\MOTOR\M3508.cpp)(0x672F153E)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/m3508.o -MD)
+I (..\RC9CPP_API\HARDWARE\MOTOR\M3508.h)(0x672F153E)
+I (..\RC9CPP_API\HARDWARE\can_device.h)(0x6731B97D)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h)(0x64F9642C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config)(0x6569B00C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\stdbool.hc\Core\Inc\can.h)(0x00000000)
@@ -2140,172 +1977,11 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x6678AA10)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x6678AA10)
 I (..\RC9CPP_API\HARDWARE\TaskManager.h)(0x672DAAEB)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h)(0x6678AA12)
-I (..\RC9CPP_API\HARDWARE\MOTOR\go1can.h)(0x672E0F6B)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\math.h)(0x6569B010)
-I (G:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x6569B012)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\abs.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\enable_if.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_integral.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\integral_constant.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_cv.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_const.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_volatile.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\copysign.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_arithmetic.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_floating_point.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\promote.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_same.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__utility\declval.h)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\limits)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__assert)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__verbose_abort)(0x6569B00E)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__availability)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_signed.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__undef_macros)(0x6569B00E)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\version)(0x6569B010)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\type_traits)(0x6569B010)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__fwd\hash.h)(0x64F96428)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_const.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_cv.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_lvalue_reference.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_referenceable.h)(0x64F9642A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_void.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_reference.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\cstddef)(0x6569B00E)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_rvalue_reference.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_volatile.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\aligned_storage.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\conditional.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\nat.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\type_list.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\aligned_union.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\alignment_of.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\apply_cv.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_const.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_volatile.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\can_extract_key.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__fwd\pair.h)(0x64F96428)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_const_ref.h)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\common_reference.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\common_type.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\decay.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_array.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_function.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_reference.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_extent.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_cvref.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\void_t.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\copy_cv.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\copy_cvref.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_convertible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\conjunction.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\dependent_type.h)(0x64F9642A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\disjunction.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\extent.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\has_unique_object_representation.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_all_extents.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\has_virtual_destructor.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\invoke.h)(0x6569B008)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_base_of.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_core_convertible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_member_function_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_member_object_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_reference_wrapper.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__utility\forward.h)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_abstract.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_aggregate.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_bounded_array.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_callable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_char_like_type.h)(0x64F9642A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_standard_layout.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivial.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_class.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_compound.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_fundamental.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_null_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_constant_evaluated.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_copy_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_copy_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_default_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_destructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_empty.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_enum.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_final.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_implicitly_default_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_literal_type.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_member_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_move_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_move_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_convertible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\lazy.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_copy_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_copy_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_default_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_destructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_scalar.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_move_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_move_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_object.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_union.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_pod.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_polymorphic.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_scoped_enum.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\underlying_type.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_specialization.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_swappable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_copy_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_copy_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_copyable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\cstdint)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_default_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_destructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_move_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_move_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_unbounded_array.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_unsigned.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\make_const_lvalue_ref.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\make_signed.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\make_unsigned.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\maybe_const.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\negation.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\rank.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\result_of.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__functional\invoke.h)(0x6569AFF6)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\type_identity.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\unwrap_ref.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\error_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\exponential_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\fdim.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\fma.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\gamma.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\hyperbolic_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\hypot.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\inverse_hyperbolic_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\inverse_trigonometric_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\logarithms.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\min_max.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\modulo.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\remainder.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\roots.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\rounding_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h)(0x6569B010)
-I (G:\Keil_v5\ARM\ARMCLANG\include\stdlib.ht\RC9CPP_API\CONTROL\pid.h)(0x00000000)
-I (..\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x6725F32C)
-F (..\RC9CPP_API\HARDWARE\MOTOR\M3508.h)(0x6725F32C)()
+I (..\RC9CPP_API\CONTROL\pid.hF.\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x00000000)
+F (..\RC9CPP_API\HARDWARE\MOTOR\M3508.h)(0x672F153E)()
 F (..\RC9CPP_API\HARDWARE\MOTOR\m6020.cpp)(0x6725F32C)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/m6020.o -MD)
-I (..\RC9CPP_API\HARDWARE\MOTOR\m6020.h)(0x6725F32C)
-I (..\RC9CPP_API\HARDWARE\can_device.h)(0x672E09C7)
+I (..\RC9CPP_API\HARDWARE\MOTOR\m6020.h)(0x672F153E)
+I (..\RC9CPP_API\HARDWARE\can_device.h)(0x6731B97D)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h)(0x64F9642C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config)(0x6569B00C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\stdbool.hc\Core\Inc\can.h)(0x00000000)
@@ -2344,211 +2020,7 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x6678AA10)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x6678AA10)
 I (..\RC9CPP_API\HARDWARE\TaskManager.h)(0x672DAAEB)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h)(0x6678AA12)
-I (..\RC9CPP_API\HARDWARE\MOTOR\go1can.h)(0x672E0F6B)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\math.h)(0x6569B010)
-I (G:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x6569B012)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\abs.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\enable_if.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_integral.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\integral_constant.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_cv.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_const.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_volatile.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\copysign.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_arithmetic.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_floating_point.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\promote.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_same.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__utility\declval.h)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\limits)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__assert)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__verbose_abort)(0x6569B00E)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__availability)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_signed.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__undef_macros)(0x6569B00E)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\version)(0x6569B010)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\type_traits)(0x6569B010)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__fwd\hash.h)(0x64F96428)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_const.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_cv.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_lvalue_reference.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_referenceable.h)(0x64F9642A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_void.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_reference.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\cstddef)(0x6569B00E)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_rvalue_reference.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\add_volatile.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\aligned_storage.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\conditional.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\nat.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\type_list.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\aligned_union.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\alignment_of.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\apply_cv.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_const.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_volatile.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\can_extract_key.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__fwd\pair.h)(0x64F96428)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_const_ref.h)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\common_reference.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\common_type.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\decay.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_array.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_function.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_reference.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_extent.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_cvref.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\void_t.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\copy_cv.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\copy_cvref.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_convertible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\conjunction.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\dependent_type.h)(0x64F9642A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\disjunction.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\extent.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\has_unique_object_representation.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_all_extents.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\has_virtual_destructor.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\invoke.h)(0x6569B008)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_base_of.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_core_convertible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_member_function_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_member_object_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_reference_wrapper.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__utility\forward.h)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_abstract.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_aggregate.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_bounded_array.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_callable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_char_like_type.h)(0x64F9642A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_standard_layout.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivial.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_class.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_compound.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_fundamental.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_null_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_constant_evaluated.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_copy_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_copy_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_default_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_destructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_empty.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_enum.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_final.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_implicitly_default_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_literal_type.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_member_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_move_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_move_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_convertible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\lazy.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_copy_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_copy_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_default_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_destructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_scalar.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_move_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_nothrow_move_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_object.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_union.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_pod.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_polymorphic.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_scoped_enum.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\underlying_type.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_specialization.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_swappable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_copy_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_copy_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_copyable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\cstdint)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_default_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_destructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_move_assignable.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_trivially_move_constructible.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_unbounded_array.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\is_unsigned.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\make_const_lvalue_ref.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\make_signed.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\make_unsigned.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\maybe_const.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\negation.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\rank.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\remove_pointer.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\result_of.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__functional\invoke.h)(0x6569AFF6)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\type_identity.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__type_traits\unwrap_ref.h)(0x6569B00A)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\error_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\exponential_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\fdim.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\fma.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\gamma.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\hyperbolic_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\hypot.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\inverse_hyperbolic_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\inverse_trigonometric_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\logarithms.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\min_max.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\modulo.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\remainder.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\roots.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\rounding_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h)(0x6569B004)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h)(0x6569B010)
-I (G:\Keil_v5\ARM\ARMCLANG\include\stdlib.ht\RC9CPP_API\CONTROL\pid.h)(0x00000000)
-I (..\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x6725F32C)
-F (..\RC9CPP_API\HARDWARE\MOTOR\m6020.h)(0x6725F32C)()
-F (..\RC9CPP_API\HARDWARE\MOTOR\motor.cpp)(0x6725F32C)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/motor.o -MD)
-I (..\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x6725F32C)
-I (..\RC9CPP_API\HARDWARE\can_device.h)(0x672E09C7)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config)(0x6569B00C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\stdbool.hc\Core\Inc\can.h)(0x00000000)
-I (..\Core\Inc\main.hC.\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x00000000)
-I (..\Core\Inc\stm32f4xx_hal_conf.h)(0x66D9DA36)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h)(0x6678AA10)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h)(0x6678AA10)
-I (..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x6678AA0D)
-I (..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h)(0x6678AA0D)
-I (..\Drivers\CMSIS\Include\core_cm4.h)(0x6678AA10)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdint.h)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
-I (G:\STM32_PROJECT\R1_NEW\R1_No2 - 改动\Drivers\CMSIS\Include\cmsis_version.h)(0x00000000)
-I (G:\STM32_PROJECT\R1_NEW\R1_No2 - 改动\Drivers\CMSIS\Include\cmsis_compiler.h)(0x00000000)
-I (G:\STM32_PROJECT\R1_NEW\R1_No2 - 改动\Drivers\CMSIS\Include\cmsis_armclang.h)(0x00000000)
-I (G:\STM32_PROJECT\R1_NEW\R1_No2 - 改动\Drivers\CMSIS\Include\mpu_armv7.h)(0x00000000)
-I (..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x6678AA0D)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h)(0x6678AA10)
-I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stddef.h)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h)(0x6678AA10)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio.h)(0x6678AA10)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio_ex.h)(0x6678AA10)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_exti.h)(0x6678AA10)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma.h)(0x6678AA10)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma_ex.h)(0x6678AA10)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_cortex.h)(0x6678AA10)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_can.h)(0x6678AA10)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash.h)(0x6678AA10)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ex.h)(0x6678AA10)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ramfunc.h)(0x6678AA10)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr.h)(0x6678AA10)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h)(0x6678AA10)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h)(0x6678AA10)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x6678AA10)
-I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x6678AA10)
-I (..\RC9CPP_API\HARDWARE\TaskManager.h)(0x672DAAEB)
-I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h)(0x6678AA12)
-I (..\RC9CPP_API\HARDWARE\MOTOR\go1can.h)(0x672E0F6B)
+I (..\RC9CPP_API\CONTROL\pid.hF.\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x00000000)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\math.h)(0x6569B010)
 I (G:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x6569B012)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\abs.h)(0x6569B004)
@@ -2709,7 +2181,49 @@ I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h)(0x6569B004)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h)(0x6569B004)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h)(0x6569B010)
 I (G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x6569B012)
-F (..\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x6725F32C)()
+F (..\RC9CPP_API\HARDWARE\MOTOR\m6020.h)(0x672F153E)()
+F (..\RC9CPP_API\HARDWARE\MOTOR\motor.cpp)(0x6725F32C)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/motor.o -MD)
+I (..\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x672F153E)
+I (..\RC9CPP_API\HARDWARE\can_device.h)(0x6731B97D)
+I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h)(0x64F9642C)
+I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config)(0x6569B00C)
+I (G:\Keil_v5\ARM\ARMCLANG\include\stdbool.hc\Core\Inc\can.h)(0x00000000)
+I (..\Core\Inc\main.hC.\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x00000000)
+I (..\Core\Inc\stm32f4xx_hal_conf.h)(0x66D9DA36)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h)(0x6678AA10)
+I (..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x6678AA0D)
+I (..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h)(0x6678AA0D)
+I (..\Drivers\CMSIS\Include\core_cm4.h)(0x6678AA10)
+I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdint.h)(0x64F9642C)
+I (G:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
+I (G:\STM32_PROJECT\R1_NEW\R1_No2 - 改动\Drivers\CMSIS\Include\cmsis_version.h)(0x00000000)
+I (G:\STM32_PROJECT\R1_NEW\R1_No2 - 改动\Drivers\CMSIS\Include\cmsis_compiler.h)(0x00000000)
+I (G:\STM32_PROJECT\R1_NEW\R1_No2 - 改动\Drivers\CMSIS\Include\cmsis_armclang.h)(0x00000000)
+I (G:\STM32_PROJECT\R1_NEW\R1_No2 - 改动\Drivers\CMSIS\Include\mpu_armv7.h)(0x00000000)
+I (..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x6678AA0D)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h)(0x6678AA10)
+I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stddef.h)(0x64F9642C)
+I (G:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio_ex.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_exti.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma_ex.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_cortex.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_can.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ex.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ramfunc.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x6678AA10)
+I (..\RC9CPP_API\HARDWARE\TaskManager.h)(0x672DAAEB)
+I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h)(0x6678AA12)
+F (..\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x672F153E)()
 F (..\RC9CPP_API\MATH_LIB\crc_util.c)(0x672B2E8C)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/crc_util.o -MD)
 I (..\RC9CPP_API\MATH_LIB\crc_util.h)(0x672B2E84)
 I (G:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
@@ -2901,8 +2415,8 @@ I (G:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x6569B012)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stddef.h)(0x64F9642C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x6569B012)
 F (..\RC9CPP_API\DECISION\EncodingStateMachine.h)(0x6725F32C)()
-F (..\RC9CPP_API\HARDWARE\MOTOR\go1can.cpp)(0x672E0BF4)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/go1can.o -MD)
-I (..\RC9CPP_API\HARDWARE\MOTOR\go1can.h)(0x672E0F6B)
+F (..\RC9CPP_API\HARDWARE\MOTOR\go1can.cpp)(0x6731B6E0)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/go1can.o -MD)
+I (..\RC9CPP_API\HARDWARE\MOTOR\go1can.h)(0x6731B8E1)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\math.h)(0x6569B010)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config)(0x6569B00C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x6569B012)
@@ -3068,8 +2582,42 @@ I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h)(0x6569B004)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h)(0x6569B004)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h)(0x6569B010)
 I (G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x6569B012)
-F (..\RC9CPP_API\HARDWARE\MOTOR\go1can.h)(0x672E0F6B)()
-F (..\RC9CPP_USER\R2N_USER\r2n_xbox.cpp)(0x672E16EC)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/r2n_xbox.o -MD)
+I (..\RC9CPP_API\HARDWARE\can_device.h)(0x6731B97D)
+I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h)(0x64F9642C)
+I (G:\Keil_v5\ARM\ARMCLANG\include\stdbool.hd\Core\Inc\can.h)(0x00000000)
+I (..\Core\Inc\main.hC.\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x00000000)
+I (..\Core\Inc\stm32f4xx_hal_conf.h)(0x66D9DA36)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h)(0x6678AA10)
+I (..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x6678AA0D)
+I (..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h)(0x6678AA0D)
+I (..\Drivers\CMSIS\Include\core_cm4.h)(0x6678AA10)
+I (G:\STM32_PROJECT\R1_NEW\R1_No2 - 改动\Drivers\CMSIS\Include\cmsis_version.h)(0x00000000)
+I (G:\STM32_PROJECT\R1_NEW\R1_No2 - 改动\Drivers\CMSIS\Include\cmsis_compiler.h)(0x00000000)
+I (G:\STM32_PROJECT\R1_NEW\R1_No2 - 改动\Drivers\CMSIS\Include\cmsis_armclang.h)(0x00000000)
+I (G:\STM32_PROJECT\R1_NEW\R1_No2 - 改动\Drivers\CMSIS\Include\mpu_armv7.h)(0x00000000)
+I (..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h)(0x6678AA0D)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio_ex.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_exti.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma_ex.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_cortex.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_can.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ex.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ramfunc.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x6678AA10)
+I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x6678AA10)
+I (..\RC9CPP_API\HARDWARE\TaskManager.h)(0x672DAAEB)
+I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h)(0x6678AA12)
+F (..\RC9CPP_API\HARDWARE\MOTOR\go1can.h)(0x6731B8E1)()
+F (..\RC9CPP_USER\R2N_USER\r2n_xbox.cpp)(0x673172AF)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/r2n_xbox.o -MD)
 I (..\RC9CPP_USER\R2N_USER\r2n_xbox.hp.\RC9CPP_API\CONTROL\xbox.h)(0x00000000)
 I (..\RC9CPP_API\HARDWARE\TaskManager.h)(0x672DAAEB)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h)(0x6678AA12)
@@ -3124,9 +2672,9 @@ I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h)(0x6678AA
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h)(0x64F9642C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x6569B012)
 I (..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h)(0x6725F32C)
-I (..\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x6725F32C)
+I (..\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x672F153E)
 I (..\RC9CPP_API\HARDWARE\can_device.hh.\Core\Inc\can.h)(0x00000000)
-I (..\RC9CPP_API\HARDWARE\MOTOR\go1can.h)(0x672E0F6B)
+I (..\RC9CPP_API\HARDWARE\Action.h)(0x6725F32C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\math.h)(0x6569B010)
 I (G:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x6569B012)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\abs.h)(0x6569B004)
@@ -3286,8 +2834,7 @@ I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\rounding_functions.h)(0x6569B00
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h)(0x6569B004)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h)(0x6569B004)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h)(0x6569B010)
-I (G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x6569B012)
-I (..\RC9CPP_API\HARDWARE\Action.h\.\RC9CPP_API\CONTROL\pid.h)(0x00000000)
+I (G:\Keil_v5\ARM\ARMCLANG\include\stdlib.ht\RC9CPP_API\CONTROL\pid.h)(0x00000000)
 I (..\RC9CPP_API\MATH_LIB\Vector2D.h)(0x6725F32C)
 I (..\Middlewares\ST\ARM\DSP\Inc\arm_math.h)(0x6694F37F)
 I (..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6678AA10)
@@ -3298,8 +2845,9 @@ I (G:\Keil_v5\ARM\ARMCLANG\include\float.h)(0x6569B012)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\limits.h)(0x64F9642C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\limits.h)(0x6569B012)
 I (..\RC9CPP_API\DECISION\EncodingStateMachine.h)(0x6725F32C)
+I (..\RC9CPP_API\HARDWARE\MOTOR\go1can.h)(0x6731B8E1)
 F (..\RC9CPP_USER\R2N_USER\r2n_xbox.h)(0x672E16BE)()
-F (..\RC9CPP_USER\R2N_USER\r2n_setup.cpp)(0x672E0FEF)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/r2n_setup.o -MD)
+F (..\RC9CPP_USER\R2N_USER\r2n_setup.cpp)(0x6731B755)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/r2n_setup.o -MD)
 I (..\RC9CPP_USER\R2N_USER\r2n_setup.h)(0x672E0883)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h)(0x6678AA12)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stddef.h)(0x64F9642C)
@@ -3512,10 +3060,9 @@ I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h)(0x6569B004)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h)(0x6569B004)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h)(0x6569B010)
 I (G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x6569B012)
-I (..\RC9CPP_API\HARDWARE\MOTOR\M3508.h)(0x6725F32C)
+I (..\RC9CPP_API\HARDWARE\MOTOR\M3508.h)(0x672F153E)
 I (..\RC9CPP_API\HARDWARE\can_device.hh.\Core\Inc\can.h)(0x00000000)
-I (..\RC9CPP_API\HARDWARE\MOTOR\go1can.h\.\RC9CPP_API\CONTROL\pid.h)(0x00000000)
-I (..\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x6725F32C)
+I (..\RC9CPP_API\CONTROL\pid.hd.\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x00000000)
 I (..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h)(0x6725F32C)
 I (..\RC9CPP_API\MATH_LIB\Vector2D.h)(0x6725F32C)
 I (..\Middlewares\ST\ARM\DSP\Inc\arm_math.h)(0x6694F37F)
@@ -3528,6 +3075,7 @@ I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\limits.h)(0x64F9642C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\limits.h)(0x6569B012)
 I (..\RC9CPP_USER\R2N_USER\r2n_xbox.hm.\RC9CPP_API\CONTROL\xbox.h)(0x00000000)
 I (..\RC9CPP_API\DECISION\EncodingStateMachine.h)(0x6725F32C)
-I (..\RC9CPP_API\HARDWARE\MOTOR\m6020.h)(0x6725F32C)
+I (..\RC9CPP_API\HARDWARE\MOTOR\go1can.h)(0x6731B8E1)
+I (..\RC9CPP_API\HARDWARE\MOTOR\m6020.h)(0x672F153E)
 F (..\RC9CPP_USER\R2N_USER\r2n_setup.h)(0x672E0883)()
 F (../Middlewares/ST/ARM/DSP/Lib/arm_cortexM4lf_math.lib)(0x6694F37F)()

@@ -2,8 +2,13 @@
 // 静态变量定义
 CanDevice *CanDevice::m3508_instances_can1[MAX_INSTANCES] = {nullptr};
 CanDevice *CanDevice::m3508_instances_can2[MAX_INSTANCES] = {nullptr};
+CanDevice *CanDevice::go1_instances_can1[MAX_INSTANCES] = {nullptr};
+CanDevice *CanDevice::go1_instances_can2[MAX_INSTANCES] = {nullptr};
 int CanDevice::instanceCount_m3508_can1 = 0;
 int CanDevice::instanceCount_m3508_can2 = 0;
+
+int CanDevice::instanceCount_go1_can1 = 0;
+int CanDevice::instanceCount_go1_can2 = 0;
 
 CanDevice *CanDevice::m6020_instances_can1[MAX_INSTANCES] = {nullptr}; // M6020 实例
 CanDevice *CanDevice::m6020_instances_can2[MAX_INSTANCES] = {nullptr};
@@ -75,6 +80,27 @@ CanDevice::CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_
             }
             break;
 
+        case CanDeviceType::GO1:
+            if (instanceCount_go1_can1 < MAX_INSTANCES)
+            {
+                int insertPos = instanceCount_go1_can1;
+                for (int i = 0; i < instanceCount_go1_can1; ++i)
+                {
+                    if (go1_instances_can1[i]->can_id > can_id)
+                    {
+                        insertPos = i;
+                        break;
+                    }
+                }
+                for (int i = instanceCount_go1_can1; i > insertPos; --i)
+                {
+                    go1_instances_can1[i] = go1_instances_can1[i - 1];
+                }
+                go1_instances_can1[insertPos] = this;
+                instanceCount_go1_can1++;
+            }
+            break;
+
         default:
             break;
         }
@@ -126,6 +152,27 @@ CanDevice::CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_
 
                 m6020_instances_can2[insertPos] = this;
                 instanceCount_m6020_can2++;
+            }
+            break;
+
+        case CanDeviceType::GO1:
+            if (instanceCount_go1_can2 < MAX_INSTANCES)
+            {
+                int insertPos = instanceCount_go1_can2;
+                for (int i = 0; i < instanceCount_go1_can2; ++i)
+                {
+                    if (go1_instances_can2[i]->can_id > can_id)
+                    {
+                        insertPos = i;
+                        break;
+                    }
+                }
+                for (int i = instanceCount_go1_can2; i > insertPos; --i)
+                {
+                    go1_instances_can2[i] = go1_instances_can2[i - 1];
+                }
+                go1_instances_can2[insertPos] = this;
+                instanceCount_go1_can2++;
             }
             break;
 
@@ -242,34 +289,6 @@ CanManager::CanManager()
     // 配置仲裁段和数据段
     tx_message_2.StdId = 0x00;
 }
-uint32_t CanManager::generateCanExtId(
-    uint8_t module_id,       // 模块ID (2位)，取值范围 0-3
-    bool is_send,            // 发送/接收指示位，发送为0，接收为1
-    uint8_t data_mode,       // 数据内容指示位 (2位)，取值范围 0-3
-    uint8_t ctrl_mode,       // 控制模式 (8位)，根据手册定义取值范围 0-255
-    uint8_t motor_id,        // 目标电机ID (4位)，取值范围 0-15
-    uint8_t motor_ctrl_mode, // 电机控制模式 (3位)，取值范围 0-7
-    uint8_t reserved_bits    // 预留位 (12位)，通常设为0
-)
-{
-    // 检查输入值是否在合理范围内
-    if (module_id > 3 || data_mode > 3 || motor_id > 15 || motor_ctrl_mode > 7 || ctrl_mode > 255)
-    {
-        // 可以在这里设置错误处理
-        return 0xFFFFFFFF; // 返回一个无效ID用于表示错误
-    }
-
-    uint32_t ext_id = 0;
-    ext_id |= (module_id & 0x3) << 27;       // 模块ID (2位)
-    ext_id |= (is_send ? 0 : 1) << 26;       // 发送/接收指示位 (1位)
-    ext_id |= (data_mode & 0x3) << 24;       // 数据内容指示位 (2位)
-    ext_id |= (ctrl_mode & 0xFF) << 16;      // 控制模式 (8位)
-    ext_id |= (motor_id & 0xF) << 8;         // 目标电机ID (4位)
-    ext_id |= (motor_ctrl_mode & 0x7) << 12; // 电机控制模式 (3位)
-    ext_id |= reserved_bits & 0x1FF;         // 预留位 (9位)
-
-    return ext_id;
-}
 
 void CanManager::process_data()
 {
@@ -343,27 +362,6 @@ void CanManager::process_data()
     {
         send_buf2[i] = 0;
         send_buf1[i] = 0;
-    }
-    // 向 CAN1 发送一帧示例的控制帧，目标电机 ID 为 0，控制模式 1，设置期望速度
-    CAN_TxHeaderTypeDef controlTxMessage;
-    uint8_t controlData[8] = {0};
-    uint32_t controlMailbox;
-
-    uint32_t mod_id = 3;
-    uint8_t ID = 0;
-    int16_t send_speed = 180;
-
-    // 构造扩展帧 ID (29 位)
-    controlTxMessage.ExtId = Go1->getExtid_loadData(controlData);
-    controlTxMessage.IDE = CAN_ID_EXT;   // 使用扩展帧
-    controlTxMessage.RTR = CAN_RTR_DATA; // 数据帧
-    controlTxMessage.DLC = 8;            //
-
-    // 发送控制帧到 CAN1
-    if (HAL_CAN_AddTxMessage(&hcan1, &controlTxMessage, controlData, &msg_box2) != HAL_OK)
-    {
-        error_flag = 1;
-        // 发送失败处理
     }
 }
 
@@ -494,4 +492,28 @@ extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
             break;
         }
     }
+}
+HAL_StatusTypeDef CanManager::CAN_Send(CAN_HandleTypeDef *hcan, uint32_t can_id, uint8_t is_extended, uint8_t data[8])
+{
+    CAN_TxHeaderTypeDef txHeader;
+    uint32_t txMailbox;
+
+    // 设置 CAN ID 和帧类型
+    if (is_extended)
+    {
+        txHeader.IDE = CAN_ID_EXT; // 扩展帧
+        txHeader.ExtId = can_id;   // 设置扩展ID
+    }
+    else
+    {
+        txHeader.IDE = CAN_ID_STD; // 标准帧
+        txHeader.StdId = can_id;   // 设置标准ID
+    }
+
+    txHeader.RTR = CAN_RTR_DATA; // 数据帧
+    txHeader.DLC = 8;            // 数据长度为8字节
+    txHeader.TransmitGlobalTime = DISABLE;
+
+    // 调用 HAL_CAN_AddTxMessage 发送数据
+    return HAL_CAN_AddTxMessage(hcan, &txHeader, data, &txMailbox);
 }
