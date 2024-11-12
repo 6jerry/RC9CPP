@@ -372,128 +372,209 @@ extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
         CAN_RxHeaderTypeDef RxHeader1;
 
         HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &RxHeader1, CanManager::RxData1);
-        // 保持 M3508 的接收逻辑
-        switch (RxHeader1.StdId)
+        if (RxHeader1.IDE == CAN_ID_STD)
         {
-        case m3508_id_1:
-            if (CanDevice::m3508_instances_can1[0] != nullptr)
+            // 保持 M3508 的接收逻辑
+            switch (RxHeader1.StdId)
             {
-                CanDevice::m3508_instances_can1[0]->can_update(CanManager::RxData1);
-            }
-            break;
-        case m3508_id_2:
-            if (CanDevice::m3508_instances_can1[1] != nullptr)
-            {
-                CanDevice::m3508_instances_can1[1]->can_update(CanManager::RxData1);
-            }
-            break;
-        case m3508_id_3:
-            if (CanDevice::m3508_instances_can1[2] != nullptr)
-            {
-                CanDevice::m3508_instances_can1[2]->can_update(CanManager::RxData1);
-            }
-            break;
-        case m3508_id_4:
-            if (CanDevice::m3508_instances_can1[3] != nullptr)
-            {
-                CanDevice::m3508_instances_can1[3]->can_update(CanManager::RxData1);
-            }
-            break;
+            case m3508_id_1:
+                if (CanDevice::m3508_instances_can1[0] != nullptr)
+                {
+                    CanDevice::m3508_instances_can1[0]->can_update(CanManager::RxData1);
+                }
+                break;
+            case m3508_id_2:
+                if (CanDevice::m3508_instances_can1[1] != nullptr)
+                {
+                    CanDevice::m3508_instances_can1[1]->can_update(CanManager::RxData1);
+                }
+                break;
+            case m3508_id_3:
+                if (CanDevice::m3508_instances_can1[2] != nullptr)
+                {
+                    CanDevice::m3508_instances_can1[2]->can_update(CanManager::RxData1);
+                }
+                break;
+            case m3508_id_4:
+                if (CanDevice::m3508_instances_can1[3] != nullptr)
+                {
+                    CanDevice::m3508_instances_can1[3]->can_update(CanManager::RxData1);
+                }
+                break;
 
-        // 增加 M6020 的接收逻辑
-        case gm6020_id_1:
-            if (CanDevice::m6020_instances_can1[0] != nullptr)
-            {
-                CanDevice::m6020_instances_can1[0]->can_update(CanManager::RxData1);
-            }
-            break;
-        case gm6020_id_2:
-            if (CanDevice::m6020_instances_can1[1] != nullptr)
-            {
-                CanDevice::m6020_instances_can1[1]->can_update(CanManager::RxData1);
-            }
-            break;
-        case gm6020_id_3:
-            if (CanDevice::m6020_instances_can1[2] != nullptr)
-            {
-                CanDevice::m6020_instances_can1[2]->can_update(CanManager::RxData1);
-            }
-            break;
-        case gm6020_id_4:
-            if (CanDevice::m6020_instances_can1[3] != nullptr)
-            {
-                CanDevice::m6020_instances_can1[3]->can_update(CanManager::RxData1);
-            }
-            break;
+            // 增加 M6020 的接收逻辑
+            case gm6020_id_1:
+                if (CanDevice::m6020_instances_can1[0] != nullptr)
+                {
+                    CanDevice::m6020_instances_can1[0]->can_update(CanManager::RxData1);
+                }
+                break;
+            case gm6020_id_2:
+                if (CanDevice::m6020_instances_can1[1] != nullptr)
+                {
+                    CanDevice::m6020_instances_can1[1]->can_update(CanManager::RxData1);
+                }
+                break;
+            case gm6020_id_3:
+                if (CanDevice::m6020_instances_can1[2] != nullptr)
+                {
+                    CanDevice::m6020_instances_can1[2]->can_update(CanManager::RxData1);
+                }
+                break;
+            case gm6020_id_4:
+                if (CanDevice::m6020_instances_can1[3] != nullptr)
+                {
+                    CanDevice::m6020_instances_can1[3]->can_update(CanManager::RxData1);
+                }
+                break;
 
-        default:
-            break;
+            default:
+                break;
+            }
+        }
+        else
+        {
+            uint8_t ext_motor_id = (RxHeader1.ExtId >> 8) & 0xF;
+
+            switch (ext_motor_id)
+            {
+            case 0:
+                if (CanDevice::go1_instances_can1[0] != nullptr)
+                {
+                    CanDevice::go1_instances_can1[0]->EXT_update(RxHeader1.ExtId, CanManager ::RxData1);
+                }
+                break;
+
+            case 1:
+                if (CanDevice::go1_instances_can1[1] != nullptr)
+                {
+                    CanDevice::go1_instances_can1[1]->EXT_update(RxHeader1.ExtId, CanManager ::RxData1);
+                }
+                break;
+
+            case 2:
+                if (CanDevice::go1_instances_can1[2] != nullptr)
+                {
+                    CanDevice::go1_instances_can1[2]->EXT_update(RxHeader1.ExtId, CanManager ::RxData1);
+                }
+                break;
+
+            case 3:
+                if (CanDevice::go1_instances_can1[3] != nullptr)
+                {
+                    CanDevice::go1_instances_can1[3]->EXT_update(RxHeader1.ExtId, CanManager ::RxData1);
+                }
+                break;
+
+            default:
+                break;
+            }
         }
     }
     else if (hcan == &hcan2)
     {
         CAN_RxHeaderTypeDef RxHeader2;
         HAL_CAN_GetRxMessage(&hcan2, CAN_RX_FIFO0, &RxHeader2, CanManager::RxData2);
-        // 保持 M3508 的接收逻辑
-        switch (RxHeader2.StdId)
+        if (RxHeader2.IDE == CAN_ID_STD)
         {
-        case m3508_id_1:
-            if (CanDevice::m3508_instances_can2[0] != nullptr)
+            switch (RxHeader2.StdId)
             {
-                CanDevice::m3508_instances_can2[0]->can_update(CanManager::RxData2);
-            }
-            break;
-        case m3508_id_2:
-            if (CanDevice::m3508_instances_can2[1] != nullptr)
-            {
-                CanDevice::m3508_instances_can2[1]->can_update(CanManager::RxData2);
-            }
-            break;
-        case m3508_id_3:
-            if (CanDevice::m3508_instances_can2[2] != nullptr)
-            {
-                CanDevice::m3508_instances_can2[2]->can_update(CanManager::RxData2);
-            }
-            break;
-        case m3508_id_4:
-            if (CanDevice::m3508_instances_can2[3] != nullptr)
-            {
-                CanDevice::m3508_instances_can2[3]->can_update(CanManager::RxData2);
-            }
-            break;
+            case m3508_id_1:
+                if (CanDevice::m3508_instances_can2[0] != nullptr)
+                {
+                    CanDevice::m3508_instances_can2[0]->can_update(CanManager::RxData2);
+                }
+                break;
+            case m3508_id_2:
+                if (CanDevice::m3508_instances_can2[1] != nullptr)
+                {
+                    CanDevice::m3508_instances_can2[1]->can_update(CanManager::RxData2);
+                }
+                break;
+            case m3508_id_3:
+                if (CanDevice::m3508_instances_can2[2] != nullptr)
+                {
+                    CanDevice::m3508_instances_can2[2]->can_update(CanManager::RxData2);
+                }
+                break;
+            case m3508_id_4:
+                if (CanDevice::m3508_instances_can2[3] != nullptr)
+                {
+                    CanDevice::m3508_instances_can2[3]->can_update(CanManager::RxData2);
+                }
+                break;
 
-        // 增加 M6020 的接收逻辑
-        case gm6020_id_1:
-            if (CanDevice::m6020_instances_can2[0] != nullptr)
-            {
-                CanDevice::m6020_instances_can2[0]->can_update(CanManager::RxData2);
-            }
-            break;
-        case gm6020_id_2:
-            if (CanDevice::m6020_instances_can2[1] != nullptr)
-            {
-                CanDevice::m6020_instances_can2[1]->can_update(CanManager::RxData2);
-            }
-            break;
-        case gm6020_id_3:
-            if (CanDevice::m6020_instances_can2[2] != nullptr)
-            {
-                CanDevice::m6020_instances_can2[2]->can_update(CanManager::RxData2);
-            }
-            break;
-        case gm6020_id_4:
-            if (CanDevice::m6020_instances_can2[3] != nullptr)
-            {
-                CanDevice::m6020_instances_can2[3]->can_update(CanManager::RxData2);
-            }
-            break;
+            // 增加 M6020 的接收逻辑
+            case gm6020_id_1:
+                if (CanDevice::m6020_instances_can2[0] != nullptr)
+                {
+                    CanDevice::m6020_instances_can2[0]->can_update(CanManager::RxData2);
+                }
+                break;
+            case gm6020_id_2:
+                if (CanDevice::m6020_instances_can2[1] != nullptr)
+                {
+                    CanDevice::m6020_instances_can2[1]->can_update(CanManager::RxData2);
+                }
+                break;
+            case gm6020_id_3:
+                if (CanDevice::m6020_instances_can2[2] != nullptr)
+                {
+                    CanDevice::m6020_instances_can2[2]->can_update(CanManager::RxData2);
+                }
+                break;
+            case gm6020_id_4:
+                if (CanDevice::m6020_instances_can2[3] != nullptr)
+                {
+                    CanDevice::m6020_instances_can2[3]->can_update(CanManager::RxData2);
+                }
+                break;
 
-        default:
-            break;
+            default:
+                break;
+            }
+        }
+        else
+        {
+            uint8_t ext_motor_id = (RxHeader2.ExtId >> 8) & 0xF;
+
+            switch (ext_motor_id)
+            {
+            case 0:
+                if (CanDevice::go1_instances_can2[0] != nullptr)
+                {
+                    CanDevice::go1_instances_can2[0]->EXT_update(RxHeader2.ExtId, CanManager ::RxData2);
+                }
+                break;
+
+            case 1:
+                if (CanDevice::go1_instances_can2[1] != nullptr)
+                {
+                    CanDevice::go1_instances_can2[1]->EXT_update(RxHeader2.ExtId, CanManager ::RxData2);
+                }
+                break;
+
+            case 2:
+                if (CanDevice::go1_instances_can2[2] != nullptr)
+                {
+                    CanDevice::go1_instances_can2[2]->EXT_update(RxHeader2.ExtId, CanManager ::RxData2);
+                }
+                break;
+
+            case 3:
+                if (CanDevice::go1_instances_can2[3] != nullptr)
+                {
+                    CanDevice::go1_instances_can2[3]->EXT_update(RxHeader2.ExtId, CanManager ::RxData2);
+                }
+                break;
+
+            default:
+                break;
+            }
         }
     }
 }
-HAL_StatusTypeDef CanManager::CAN_Send(CAN_HandleTypeDef *hcan, uint32_t can_id, uint8_t is_extended, uint8_t data[8])
+HAL_StatusTypeDef CanDevice::CAN_Send(uint32_t can_id, uint8_t is_extended, uint8_t data[8])
 {
     CAN_TxHeaderTypeDef txHeader;
     uint32_t txMailbox;
@@ -515,5 +596,5 @@ HAL_StatusTypeDef CanManager::CAN_Send(CAN_HandleTypeDef *hcan, uint32_t can_id,
     txHeader.TransmitGlobalTime = DISABLE;
 
     // 调用 HAL_CAN_AddTxMessage 发送数据
-    return HAL_CAN_AddTxMessage(hcan, &txHeader, data, &txMailbox);
+    return HAL_CAN_AddTxMessage(hcan_, &txHeader, data, &txMailbox);
 }

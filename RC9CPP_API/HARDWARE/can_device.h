@@ -51,7 +51,7 @@ public:
     virtual int16_t motor_process(); // 给大疆用的接口，其他电机不要管
 
     virtual void can_update(uint8_t can_RxData[8]) = 0;
-    virtual void EXT_ID_update(uint32_t ext_id) {};
+    virtual void EXT_update(uint32_t ext_id, uint8_t can_RxData[8]) {};
 
     static CanDevice *m3508_instances_can1[MAX_INSTANCES]; // 保存所有实例,供can管理者使用
     static CanDevice *m6020_instances_can1[MAX_INSTANCES];
@@ -66,7 +66,7 @@ public:
     static int instanceCount_m6020_can2;
     static int instanceCount_go1_can1;
     static int instanceCount_go1_can2;
-
+    HAL_StatusTypeDef CAN_Send(uint32_t can_id, uint8_t is_extended, uint8_t data[8]);
     CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_t can_id);
 };
 
@@ -89,7 +89,6 @@ public:
 
     static uint8_t RxData1[8];
     static uint8_t RxData2[8];
-    static HAL_StatusTypeDef CAN_Send(CAN_HandleTypeDef *hcan, uint32_t can_id, uint8_t is_extended, uint8_t data[8]);
 };
 
 #endif

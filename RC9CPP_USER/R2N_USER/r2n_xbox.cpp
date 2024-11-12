@@ -47,7 +47,7 @@ void xbox_r2n::process_data()
     case 1:
         control_chassis->switch_chassis_mode(remote_robotv);
         control_chassis->setrobotv(MAX_ROBOT_SPEED_X * xbox_msgs.joyLHori_map, MAX_ROBOT_SPEED_Y * xbox_msgs.joyLVert_map, -MAX_ROBOT_SPEED_W * xbox_msgs.joyRHori_map);
-        GO1->wset = (int16_t)((xbox_msgs.trigRT_map - xbox_msgs.trigLT_map) * MAX_GO1);
+        // GO1->wset = (int16_t)((xbox_msgs.trigRT_map - xbox_msgs.trigLT_map) * MAX_GO1);
         break;
     case 2:
         control_chassis->switch_chassis_mode(pure_pursuit);
@@ -59,11 +59,11 @@ void xbox_r2n::process_data()
         break;
     case 4:
         control_chassis->switch_chassis_mode(chassis_standby);
-        GO1->wset = 0;
+        // GO1->wset = 0;
         break;
     case 255:
         control_chassis->switch_chassis_mode(chassis_standby);
-        GO1->wset = 0;
+        // GO1->wset = 0;
 
         break;
 

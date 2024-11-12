@@ -8,7 +8,7 @@ action Action(&huart3, -160.0f, 120.0f, true);
 omni3 r2n_chassis(&m3508_front, &m3508_right, &m3508_left, 0.0719f, 0.406f, &Action, 7.0f, 0.0f, 0.7f, 0.0086f, 0.0f, 0.026f);
 xbox_r2n r2_remote(&Action, &r2n_chassis);
 demo test2, test3;
-go1can go1(0, &hcan1);
+go1can go1(0, &hcan1, 0, 256);
 
 extern "C" void
 r2n_setup(void)
@@ -23,6 +23,7 @@ r2n_setup(void)
     esp32_serial.addsubscriber(&r2_remote);
 
     task_core.registerTask(4, &can_core);
+    task_core.registerTask(1, &go1);
     task_core.registerTask(3, &r2n_chassis);
     task_core.registerTask(2, &r2_remote);
     task_core.registerTask(8, &test2);
