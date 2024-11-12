@@ -39,7 +39,7 @@ void m3508p::can_update(uint8_t can_RxData[8])
 }
 float m3508p::get_rpm()
 {
-    return rpm;
+    return rpm / 19.0f;
 }
 
 void m3508p::set_rpm(float power_motor_rpm)

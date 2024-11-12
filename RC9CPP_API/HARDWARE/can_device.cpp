@@ -2,8 +2,13 @@
 // 静态变量定义
 CanDevice *CanDevice::m3508_instances_can1[MAX_INSTANCES] = {nullptr};
 CanDevice *CanDevice::m3508_instances_can2[MAX_INSTANCES] = {nullptr};
+CanDevice *CanDevice::go1_instances_can1[MAX_INSTANCES] = {nullptr};
+CanDevice *CanDevice::go1_instances_can2[MAX_INSTANCES] = {nullptr};
 int CanDevice::instanceCount_m3508_can1 = 0;
 int CanDevice::instanceCount_m3508_can2 = 0;
+
+int CanDevice::instanceCount_go1_can1 = 0;
+int CanDevice::instanceCount_go1_can2 = 0;
 
 CanDevice *CanDevice::m6020_instances_can1[MAX_INSTANCES] = {nullptr}; // M6020 实例
 CanDevice *CanDevice::m6020_instances_can2[MAX_INSTANCES] = {nullptr};
@@ -75,6 +80,27 @@ CanDevice::CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_
             }
             break;
 
+        case CanDeviceType::GO1:
+            if (instanceCount_go1_can1 < MAX_INSTANCES)
+            {
+                int insertPos = instanceCount_go1_can1;
+                for (int i = 0; i < instanceCount_go1_can1; ++i)
+                {
+                    if (go1_instances_can1[i]->can_id > can_id)
+                    {
+                        insertPos = i;
+                        break;
+                    }
+                }
+                for (int i = instanceCount_go1_can1; i > insertPos; --i)
+                {
+                    go1_instances_can1[i] = go1_instances_can1[i - 1];
+                }
+                go1_instances_can1[insertPos] = this;
+                instanceCount_go1_can1++;
+            }
+            break;
+
         default:
             break;
         }
@@ -129,6 +155,27 @@ CanDevice::CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_
             }
             break;
 
+        case CanDeviceType::GO1:
+            if (instanceCount_go1_can2 < MAX_INSTANCES)
+            {
+                int insertPos = instanceCount_go1_can2;
+                for (int i = 0; i < instanceCount_go1_can2; ++i)
+                {
+                    if (go1_instances_can2[i]->can_id > can_id)
+                    {
+                        insertPos = i;
+                        break;
+                    }
+                }
+                for (int i = instanceCount_go1_can2; i > insertPos; --i)
+                {
+                    go1_instances_can2[i] = go1_instances_can2[i - 1];
+                }
+                go1_instances_can2[insertPos] = this;
+                instanceCount_go1_can2++;
+            }
+            break;
+
         default:
             break;
         }
@@ -139,19 +186,16 @@ void CanManager::CAN1_Filter_Init(void)
 {
     CAN_FilterTypeDef sFilterConfig;
 
-    sFilterConfig.FilterBank = 0;                      /* čżćť¤ĺ¨çť0 */
-    sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;  /* ĺąč˝ä˝ć¨Ąďż?? */
-    sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT; /* 32ä˝ďż˝??*/
-
-    sFilterConfig.FilterIdHigh = (((uint32_t)CAN_RxExtId << 3) & 0xFFFF0000) >> 16; /* čŚčżćť¤çIDéŤä˝ */                  // 0x0000
-    sFilterConfig.FilterIdLow = (((uint32_t)CAN_RxExtId << 3) | CAN_ID_EXT | CAN_RTR_DATA) & 0xFFFF; /* čŚčżćť¤çIDä˝ä˝ */ // 0x0000
-    //  sFilterConfig.FilterMaskIdHigh     = 0xFFFF;			/* čżćť¤ĺ¨éŤ16ä˝ćŻä˝ĺżéĄťĺšďż?? */
-    //  sFilterConfig.FilterMaskIdLow      = 0xFFFF;			/* čżćť¤ĺ¨ä˝16ä˝ćŻä˝ĺżéĄťĺšďż?? */
-    sFilterConfig.FilterMaskIdHigh = 0x0000;           /* ĺŽéä¸ćŻĺłé­äşčżćť¤ĺ¨ */
-    sFilterConfig.FilterMaskIdLow = 0x0000;            /* ĺŽéä¸ćŻĺłé­äşčżćť¤ĺ¨ */
-    sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0; /* čżćť¤ĺ¨č˘Ťĺłčĺ°FIFO 0 */
-    sFilterConfig.FilterActivation = ENABLE;           /* ä˝żč˝čżćť¤ďż?? */
-    // sFilterConfig.SlaveStartFilterBank = 14;
+    sFilterConfig.FilterBank = 0;                      // 使用第一个滤波器银行
+    sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;  // 使用掩码模式，不过滤特定 ID
+    sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT; // 使用 32 位滤波器
+    sFilterConfig.FilterIdHigh = 0x0000;               // ID 高位为 0
+    sFilterConfig.FilterIdLow = 0x0000;                // ID 低位为 0
+    sFilterConfig.FilterMaskIdHigh = 0x0000;           // 掩码高位为 0（不筛选 ID）
+    sFilterConfig.FilterMaskIdLow = 0x0000;            // 掩码低位为 0（不筛选 ID）
+    sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0; // 将接收的消息放入 FIFO0
+    sFilterConfig.FilterActivation = ENABLE;           // 启用滤波器
+    sFilterConfig.SlaveStartFilterBank = 14;           // 如果使用双 CAN，CAN2 从滤波器 14 开始
 
     if (HAL_CAN_ConfigFilter(&hcan1, &sFilterConfig) != HAL_OK)
     {
@@ -172,31 +216,27 @@ void CanManager::CAN1_Filter_Init(void)
         Error_Handler();
     }
 
-    TxHeader.ExtId = CAN_TxExtId; // ćŠĺąć čŻďż??(29ďż??)
-    TxHeader.IDE = CAN_ID_EXT;    // ä˝żç¨ć ĺďż??
-    TxHeader.RTR = CAN_RTR_DATA;  // ć°ćŽďż??
-    TxHeader.DLC = 8;
+    TxHeader.ExtId = CAN_TxExtId; // 使用扩展 ID
+    TxHeader.IDE = CAN_ID_EXT;    // 扩展帧
+    TxHeader.RTR = CAN_RTR_DATA;  // 数据帧
+    TxHeader.DLC = 8;             // 数据长度
     TxHeader.TransmitGlobalTime = DISABLE;
 }
 
 void CanManager::CAN2_Filter_Init(void)
 {
-
     CAN_FilterTypeDef sFilterConfig;
 
-    sFilterConfig.FilterBank = 14;                     /* čżćť¤ĺ¨çť0 */
-    sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;  /* ĺąč˝ä˝ć¨Ąďż?? */
-    sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT; /* 32ä˝ďż˝??*/
-
-    sFilterConfig.FilterIdHigh = (((uint32_t)CAN_RxExtId << 3) & 0xFFFF0000) >> 16; /* čŚčżćť¤çIDéŤä˝ */                  // 0x0000
-    sFilterConfig.FilterIdLow = (((uint32_t)CAN_RxExtId << 3) | CAN_ID_EXT | CAN_RTR_DATA) & 0xFFFF; /* čŚčżćť¤çIDä˝ä˝ */ // 0x0000
-    //  sFilterConfig.FilterMaskIdHigh     = 0xFFFF;			/* čżćť¤ĺ¨éŤ16ä˝ćŻä˝ĺżéĄťĺšďż?? */
-    //  sFilterConfig.FilterMaskIdLow      = 0xFFFF;			/* čżćť¤ĺ¨ä˝16ä˝ćŻä˝ĺżéĄťĺšďż?? */
-    sFilterConfig.FilterMaskIdHigh = 0x0000;
-    sFilterConfig.FilterMaskIdLow = 0x0000;
-    sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0; /* čżćť¤ĺ¨č˘Ťĺłčĺ°FIFO 0 */
-    sFilterConfig.FilterActivation = ENABLE;           /* ä˝żč˝čżćť¤ďż?? */
-    sFilterConfig.SlaveStartFilterBank = 14;
+    sFilterConfig.FilterBank = 14;                     // 使用第十四个滤波器银行（CAN2 起始）
+    sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;  // 使用掩码模式，不过滤特定 ID
+    sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT; // 使用 32 位滤波器
+    sFilterConfig.FilterIdHigh = 0x0000;               // ID 高位为 0
+    sFilterConfig.FilterIdLow = 0x0000;                // ID 低位为 0
+    sFilterConfig.FilterMaskIdHigh = 0x0000;           // 掩码高位为 0（不筛选 ID）
+    sFilterConfig.FilterMaskIdLow = 0x0000;            // 掩码低位为 0（不筛选 ID）
+    sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0; // 将接收的消息放入 FIFO0
+    sFilterConfig.FilterActivation = ENABLE;           // 启用滤波器
+    sFilterConfig.SlaveStartFilterBank = 14;           // 如果使用双 CAN，CAN2 从滤波器 14 开始
 
     if (HAL_CAN_ConfigFilter(&hcan2, &sFilterConfig) != HAL_OK)
     {
@@ -217,10 +257,10 @@ void CanManager::CAN2_Filter_Init(void)
         Error_Handler();
     }
 
-    TxHeader.ExtId = CAN_TxExtId; // ćŠĺąć čŻďż??(29ďż??)
-    TxHeader.IDE = CAN_ID_EXT;    // ä˝żç¨ć ĺďż??
-    TxHeader.RTR = CAN_RTR_DATA;  // ć°ćŽďż??
-    TxHeader.DLC = 8;
+    TxHeader.ExtId = CAN_TxExtId; // 使用扩展 ID
+    TxHeader.IDE = CAN_ID_EXT;    // 扩展帧
+    TxHeader.RTR = CAN_RTR_DATA;  // 数据帧
+    TxHeader.DLC = 8;             // 数据长度
     TxHeader.TransmitGlobalTime = DISABLE;
 }
 
@@ -252,65 +292,79 @@ CanManager::CanManager()
 
 void CanManager::process_data()
 {
-    // 处理 CAN1 上的 m3508 设备
-    for (int i = 0; i < CanDevice::instanceCount_m3508_can1; ++i)
+    // 如果 CAN1 上有 m3508 设备
+    if (CanDevice::instanceCount_m3508_can1 > 0)
     {
-        int16_t temp_vcurrent = CanDevice::m3508_instances_can1[i]->motor_process();
-        send_buf1[2 * i] = (uint8_t)(temp_vcurrent >> 8);
-        send_buf1[2 * i + 1] = (uint8_t)temp_vcurrent;
-    }
-    tx_message_1.StdId = 0x200;
-    if (HAL_CAN_AddTxMessage(&hcan1, &tx_message_1, send_buf1, &msg_box1) == HAL_ERROR)
-    {
-        error_flag = 1;
-        // Failed to add message to the transmit mailbox
-    }
-
-    // 处理 can1上的m6020设备
-    for (int i = 0; i < CanDevice::instanceCount_m6020_can1; ++i)
-    {
-        int16_t temp_vcurrent = CanDevice::m6020_instances_can1[i]->motor_process();
-        send_buf1[2 * i] = (uint8_t)(temp_vcurrent >> 8);
-        send_buf1[2 * i + 1] = (uint8_t)temp_vcurrent;
-    }
-    tx_message_1.StdId = 0x1FF;
-    if (HAL_CAN_AddTxMessage(&hcan1, &tx_message_1, send_buf1, &msg_box1) == HAL_ERROR)
-    {
-        error_flag = 1;
-    }
-    // 处理 CAN2 上的 m3508 设备
-    for (int i = 0; i < CanDevice::instanceCount_m3508_can2; ++i)
-    {
-        int16_t temp_vcurrent2 = CanDevice::m3508_instances_can2[i]->motor_process();
-        send_buf2[2 * i] = (uint8_t)(temp_vcurrent2 >> 8);
-        send_buf2[2 * i + 1] = (uint8_t)temp_vcurrent2;
-    }
-    tx_message_2.StdId = 0x200;
-
-    if (HAL_CAN_AddTxMessage(&hcan2, &tx_message_2, send_buf2, &msg_box2) != HAL_OK)
-    {
-        error_flag = 1;
-        // Failed to add message to the transmit mailbox
+        for (int i = 0; i < CanDevice::instanceCount_m3508_can1; ++i)
+        {
+            int16_t temp_vcurrent = CanDevice::m3508_instances_can1[i]->motor_process();
+            send_buf1[2 * i] = (uint8_t)(temp_vcurrent >> 8);
+            send_buf1[2 * i + 1] = (uint8_t)temp_vcurrent;
+        }
+        tx_message_1.StdId = 0x200;
+        if (HAL_CAN_AddTxMessage(&hcan1, &tx_message_1, send_buf1, &msg_box1) == HAL_ERROR)
+        {
+            error_flag = 1;
+            // Failed to add message to the transmit mailbox
+        }
     }
 
-    // 处理can2上的m6020设备
-    for (int i = 0; i < CanDevice::instanceCount_m6020_can2; ++i)
+    // 如果 CAN1 上有 m6020 设备
+    if (CanDevice::instanceCount_m6020_can1 > 0)
     {
-        int16_t temp_vcurrent2 = CanDevice::m6020_instances_can2[i]->motor_process();
-        send_buf2[2 * i] = (uint8_t)(temp_vcurrent2 >> 8);
-        send_buf2[2 * i + 1] = (uint8_t)temp_vcurrent2;
+        for (int i = 0; i < CanDevice::instanceCount_m6020_can1; ++i)
+        {
+            int16_t temp_vcurrent = CanDevice::m6020_instances_can1[i]->motor_process();
+            send_buf1[2 * i] = (uint8_t)(temp_vcurrent >> 8);
+            send_buf1[2 * i + 1] = (uint8_t)temp_vcurrent;
+        }
+        tx_message_1.StdId = 0x1FF;
+        if (HAL_CAN_AddTxMessage(&hcan1, &tx_message_1, send_buf1, &msg_box1) == HAL_ERROR)
+        {
+            error_flag = 1;
+        }
     }
-    tx_message_2.StdId = 0x1FF;
-    if (HAL_CAN_AddTxMessage(&hcan2, &tx_message_2, send_buf2, &msg_box2) != HAL_OK)
+
+    // 如果 CAN2 上有 m3508 设备
+    if (CanDevice::instanceCount_m3508_can2 > 0)
     {
-        error_flag = 1;
+        for (int i = 0; i < CanDevice::instanceCount_m3508_can2; ++i)
+        {
+            int16_t temp_vcurrent2 = CanDevice::m3508_instances_can2[i]->motor_process();
+            send_buf2[2 * i] = (uint8_t)(temp_vcurrent2 >> 8);
+            send_buf2[2 * i + 1] = (uint8_t)temp_vcurrent2;
+        }
+        tx_message_2.StdId = 0x200;
+        if (HAL_CAN_AddTxMessage(&hcan2, &tx_message_2, send_buf2, &msg_box2) != HAL_OK)
+        {
+            error_flag = 1;
+        }
     }
+
+    // 如果 CAN2 上有 m6020 设备
+    if (CanDevice::instanceCount_m6020_can2 > 0)
+    {
+        for (int i = 0; i < CanDevice::instanceCount_m6020_can2; ++i)
+        {
+            int16_t temp_vcurrent2 = CanDevice::m6020_instances_can2[i]->motor_process();
+            send_buf2[2 * i] = (uint8_t)(temp_vcurrent2 >> 8);
+            send_buf2[2 * i + 1] = (uint8_t)temp_vcurrent2;
+        }
+        tx_message_2.StdId = 0x1FF;
+        if (HAL_CAN_AddTxMessage(&hcan2, &tx_message_2, send_buf2, &msg_box2) != HAL_OK)
+        {
+            error_flag = 1;
+        }
+    }
+
+    // 清空缓冲区
     for (int i = 0; i <= 7; i++)
     {
         send_buf2[i] = 0;
         send_buf1[i] = 0;
     }
 }
+
 extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
     if (hcan == &hcan1)
@@ -318,124 +372,229 @@ extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
         CAN_RxHeaderTypeDef RxHeader1;
 
         HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &RxHeader1, CanManager::RxData1);
-        // 保持 M3508 的接收逻辑
-        switch (RxHeader1.StdId)
+        if (RxHeader1.IDE == CAN_ID_STD)
         {
-        case m3508_id_1:
-            if (CanDevice::m3508_instances_can1[0] != nullptr)
+            // 保持 M3508 的接收逻辑
+            switch (RxHeader1.StdId)
             {
-                CanDevice::m3508_instances_can1[0]->can_update(CanManager::RxData1);
-            }
-            break;
-        case m3508_id_2:
-            if (CanDevice::m3508_instances_can1[1] != nullptr)
-            {
-                CanDevice::m3508_instances_can1[1]->can_update(CanManager::RxData1);
-            }
-            break;
-        case m3508_id_3:
-            if (CanDevice::m3508_instances_can1[2] != nullptr)
-            {
-                CanDevice::m3508_instances_can1[2]->can_update(CanManager::RxData1);
-            }
-            break;
-        case m3508_id_4:
-            if (CanDevice::m3508_instances_can1[3] != nullptr)
-            {
-                CanDevice::m3508_instances_can1[3]->can_update(CanManager::RxData1);
-            }
-            break;
+            case m3508_id_1:
+                if (CanDevice::m3508_instances_can1[0] != nullptr)
+                {
+                    CanDevice::m3508_instances_can1[0]->can_update(CanManager::RxData1);
+                }
+                break;
+            case m3508_id_2:
+                if (CanDevice::m3508_instances_can1[1] != nullptr)
+                {
+                    CanDevice::m3508_instances_can1[1]->can_update(CanManager::RxData1);
+                }
+                break;
+            case m3508_id_3:
+                if (CanDevice::m3508_instances_can1[2] != nullptr)
+                {
+                    CanDevice::m3508_instances_can1[2]->can_update(CanManager::RxData1);
+                }
+                break;
+            case m3508_id_4:
+                if (CanDevice::m3508_instances_can1[3] != nullptr)
+                {
+                    CanDevice::m3508_instances_can1[3]->can_update(CanManager::RxData1);
+                }
+                break;
 
-        // 增加 M6020 的接收逻辑
-        case gm6020_id_1:
-            if (CanDevice::m6020_instances_can1[0] != nullptr)
-            {
-                CanDevice::m6020_instances_can1[0]->can_update(CanManager::RxData1);
-            }
-            break;
-        case gm6020_id_2:
-            if (CanDevice::m6020_instances_can1[1] != nullptr)
-            {
-                CanDevice::m6020_instances_can1[1]->can_update(CanManager::RxData1);
-            }
-            break;
-        case gm6020_id_3:
-            if (CanDevice::m6020_instances_can1[2] != nullptr)
-            {
-                CanDevice::m6020_instances_can1[2]->can_update(CanManager::RxData1);
-            }
-            break;
-        case gm6020_id_4:
-            if (CanDevice::m6020_instances_can1[3] != nullptr)
-            {
-                CanDevice::m6020_instances_can1[3]->can_update(CanManager::RxData1);
-            }
-            break;
+            // 增加 M6020 的接收逻辑
+            case gm6020_id_1:
+                if (CanDevice::m6020_instances_can1[0] != nullptr)
+                {
+                    CanDevice::m6020_instances_can1[0]->can_update(CanManager::RxData1);
+                }
+                break;
+            case gm6020_id_2:
+                if (CanDevice::m6020_instances_can1[1] != nullptr)
+                {
+                    CanDevice::m6020_instances_can1[1]->can_update(CanManager::RxData1);
+                }
+                break;
+            case gm6020_id_3:
+                if (CanDevice::m6020_instances_can1[2] != nullptr)
+                {
+                    CanDevice::m6020_instances_can1[2]->can_update(CanManager::RxData1);
+                }
+                break;
+            case gm6020_id_4:
+                if (CanDevice::m6020_instances_can1[3] != nullptr)
+                {
+                    CanDevice::m6020_instances_can1[3]->can_update(CanManager::RxData1);
+                }
+                break;
 
-        default:
-            break;
+            default:
+                break;
+            }
+        }
+        else
+        {
+            uint8_t ext_motor_id = (RxHeader1.ExtId >> 8) & 0xF;
+
+            switch (ext_motor_id)
+            {
+            case 0:
+                if (CanDevice::go1_instances_can1[0] != nullptr)
+                {
+                    CanDevice::go1_instances_can1[0]->EXT_update(RxHeader1.ExtId, CanManager ::RxData1);
+                }
+                break;
+
+            case 1:
+                if (CanDevice::go1_instances_can1[1] != nullptr)
+                {
+                    CanDevice::go1_instances_can1[1]->EXT_update(RxHeader1.ExtId, CanManager ::RxData1);
+                }
+                break;
+
+            case 2:
+                if (CanDevice::go1_instances_can1[2] != nullptr)
+                {
+                    CanDevice::go1_instances_can1[2]->EXT_update(RxHeader1.ExtId, CanManager ::RxData1);
+                }
+                break;
+
+            case 3:
+                if (CanDevice::go1_instances_can1[3] != nullptr)
+                {
+                    CanDevice::go1_instances_can1[3]->EXT_update(RxHeader1.ExtId, CanManager ::RxData1);
+                }
+                break;
+
+            default:
+                break;
+            }
         }
     }
     else if (hcan == &hcan2)
     {
         CAN_RxHeaderTypeDef RxHeader2;
         HAL_CAN_GetRxMessage(&hcan2, CAN_RX_FIFO0, &RxHeader2, CanManager::RxData2);
-        // 保持 M3508 的接收逻辑
-        switch (RxHeader2.StdId)
+        if (RxHeader2.IDE == CAN_ID_STD)
         {
-        case m3508_id_1:
-            if (CanDevice::m3508_instances_can2[0] != nullptr)
+            switch (RxHeader2.StdId)
             {
-                CanDevice::m3508_instances_can2[0]->can_update(CanManager::RxData2);
-            }
-            break;
-        case m3508_id_2:
-            if (CanDevice::m3508_instances_can2[1] != nullptr)
-            {
-                CanDevice::m3508_instances_can2[1]->can_update(CanManager::RxData2);
-            }
-            break;
-        case m3508_id_3:
-            if (CanDevice::m3508_instances_can2[2] != nullptr)
-            {
-                CanDevice::m3508_instances_can2[2]->can_update(CanManager::RxData2);
-            }
-            break;
-        case m3508_id_4:
-            if (CanDevice::m3508_instances_can2[3] != nullptr)
-            {
-                CanDevice::m3508_instances_can2[3]->can_update(CanManager::RxData2);
-            }
-            break;
+            case m3508_id_1:
+                if (CanDevice::m3508_instances_can2[0] != nullptr)
+                {
+                    CanDevice::m3508_instances_can2[0]->can_update(CanManager::RxData2);
+                }
+                break;
+            case m3508_id_2:
+                if (CanDevice::m3508_instances_can2[1] != nullptr)
+                {
+                    CanDevice::m3508_instances_can2[1]->can_update(CanManager::RxData2);
+                }
+                break;
+            case m3508_id_3:
+                if (CanDevice::m3508_instances_can2[2] != nullptr)
+                {
+                    CanDevice::m3508_instances_can2[2]->can_update(CanManager::RxData2);
+                }
+                break;
+            case m3508_id_4:
+                if (CanDevice::m3508_instances_can2[3] != nullptr)
+                {
+                    CanDevice::m3508_instances_can2[3]->can_update(CanManager::RxData2);
+                }
+                break;
 
-        // 增加 M6020 的接收逻辑
-        case gm6020_id_1:
-            if (CanDevice::m6020_instances_can2[0] != nullptr)
-            {
-                CanDevice::m6020_instances_can2[0]->can_update(CanManager::RxData2);
-            }
-            break;
-        case gm6020_id_2:
-            if (CanDevice::m6020_instances_can2[1] != nullptr)
-            {
-                CanDevice::m6020_instances_can2[1]->can_update(CanManager::RxData2);
-            }
-            break;
-        case gm6020_id_3:
-            if (CanDevice::m6020_instances_can2[2] != nullptr)
-            {
-                CanDevice::m6020_instances_can2[2]->can_update(CanManager::RxData2);
-            }
-            break;
-        case gm6020_id_4:
-            if (CanDevice::m6020_instances_can2[3] != nullptr)
-            {
-                CanDevice::m6020_instances_can2[3]->can_update(CanManager::RxData2);
-            }
-            break;
+            // 增加 M6020 的接收逻辑
+            case gm6020_id_1:
+                if (CanDevice::m6020_instances_can2[0] != nullptr)
+                {
+                    CanDevice::m6020_instances_can2[0]->can_update(CanManager::RxData2);
+                }
+                break;
+            case gm6020_id_2:
+                if (CanDevice::m6020_instances_can2[1] != nullptr)
+                {
+                    CanDevice::m6020_instances_can2[1]->can_update(CanManager::RxData2);
+                }
+                break;
+            case gm6020_id_3:
+                if (CanDevice::m6020_instances_can2[2] != nullptr)
+                {
+                    CanDevice::m6020_instances_can2[2]->can_update(CanManager::RxData2);
+                }
+                break;
+            case gm6020_id_4:
+                if (CanDevice::m6020_instances_can2[3] != nullptr)
+                {
+                    CanDevice::m6020_instances_can2[3]->can_update(CanManager::RxData2);
+                }
+                break;
 
-        default:
-            break;
+            default:
+                break;
+            }
+        }
+        else
+        {
+            uint8_t ext_motor_id = (RxHeader2.ExtId >> 8) & 0xF;
+
+            switch (ext_motor_id)
+            {
+            case 0:
+                if (CanDevice::go1_instances_can2[0] != nullptr)
+                {
+                    CanDevice::go1_instances_can2[0]->EXT_update(RxHeader2.ExtId, CanManager ::RxData2);
+                }
+                break;
+
+            case 1:
+                if (CanDevice::go1_instances_can2[1] != nullptr)
+                {
+                    CanDevice::go1_instances_can2[1]->EXT_update(RxHeader2.ExtId, CanManager ::RxData2);
+                }
+                break;
+
+            case 2:
+                if (CanDevice::go1_instances_can2[2] != nullptr)
+                {
+                    CanDevice::go1_instances_can2[2]->EXT_update(RxHeader2.ExtId, CanManager ::RxData2);
+                }
+                break;
+
+            case 3:
+                if (CanDevice::go1_instances_can2[3] != nullptr)
+                {
+                    CanDevice::go1_instances_can2[3]->EXT_update(RxHeader2.ExtId, CanManager ::RxData2);
+                }
+                break;
+
+            default:
+                break;
+            }
         }
     }
+}
+HAL_StatusTypeDef CanDevice::CAN_Send(uint32_t can_id, uint8_t is_extended, uint8_t data[8])
+{
+    CAN_TxHeaderTypeDef txHeader;
+    uint32_t txMailbox;
+
+    // 设置 CAN ID 和帧类型
+    if (is_extended)
+    {
+        txHeader.IDE = CAN_ID_EXT; // 扩展帧
+        txHeader.ExtId = can_id;   // 设置扩展ID
+    }
+    else
+    {
+        txHeader.IDE = CAN_ID_STD; // 标准帧
+        txHeader.StdId = can_id;   // 设置标准ID
+    }
+
+    txHeader.RTR = CAN_RTR_DATA; // 数据帧
+    txHeader.DLC = 8;            // 数据长度为8字节
+    txHeader.TransmitGlobalTime = DISABLE;
+
+    // 调用 HAL_CAN_AddTxMessage 发送数据
+    return HAL_CAN_AddTxMessage(hcan_, &txHeader, data, &txMailbox);
 }

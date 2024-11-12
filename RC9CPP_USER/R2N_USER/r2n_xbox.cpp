@@ -13,18 +13,21 @@ void xbox_r2n::process_data()
         MAX_ROBOT_SPEED_X = 1.20f;
         MAX_ROBOT_SPEED_Y = 1.20f;
         MAX_ROBOT_SPEED_W = 3.20f;
+        MAX_GO1 = 200.0f;
     }
     if (speed_level == 0)
     {
         MAX_ROBOT_SPEED_X = 0.40f;
         MAX_ROBOT_SPEED_Y = 0.40f;
         MAX_ROBOT_SPEED_W = 1.10f;
+        MAX_GO1 = 100.0f;
     }
     if (speed_level == 2)
     {
         MAX_ROBOT_SPEED_X = 1.96f;
         MAX_ROBOT_SPEED_Y = 1.96f;
         MAX_ROBOT_SPEED_W = 3.98f;
+        MAX_GO1 = 300.0f;
     }
 
     if (head_locking_flag == 1)
@@ -44,18 +47,25 @@ void xbox_r2n::process_data()
     case 1:
         control_chassis->switch_chassis_mode(remote_robotv);
         control_chassis->setrobotv(MAX_ROBOT_SPEED_X * xbox_msgs.joyLHori_map, MAX_ROBOT_SPEED_Y * xbox_msgs.joyLVert_map, -MAX_ROBOT_SPEED_W * xbox_msgs.joyRHori_map);
+        // GO1->wset = (int16_t)((xbox_msgs.trigRT_map - xbox_msgs.trigLT_map) * MAX_GO1);
+        GO1->mode=speed;
+        GO1->set_rpm((xbox_msgs.trigRT_map - xbox_msgs.trigLT_map) * MAX_GO1);
         break;
     case 2:
         control_chassis->switch_chassis_mode(pure_pursuit);
+        GO1->set_rpm(0.0f);
         break;
     case 3:
         control_chassis->switch_chassis_mode(chassis_standby);
+
         break;
     case 4:
         control_chassis->switch_chassis_mode(chassis_standby);
+
         break;
     case 255:
         control_chassis->switch_chassis_mode(chassis_standby);
+
         break;
 
     default:

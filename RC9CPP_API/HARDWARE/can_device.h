@@ -12,6 +12,7 @@ extern "C"
 #include <stdbool.h>
 #include "can.h"
 #include "TaskManager.h"
+
 #ifdef __cplusplus
 }
 #endif
@@ -23,7 +24,8 @@ enum CanDeviceType
     M2006,
     DM43,
     VESC,
-    M6020
+    M6020,
+    GO1
 };
 
 enum can_id
@@ -46,20 +48,25 @@ public:
     CAN_HandleTypeDef *hcan_;  // CAN 句柄
     CanDeviceType deviceType_; // 设备类型
     uint8_t can_id = 0;
-    virtual int16_t motor_process(); // 给m3508用的接口，其他电机不要管
+    virtual int16_t motor_process(); // 给大疆用的接口，其他电机不要管
 
     virtual void can_update(uint8_t can_RxData[8]) = 0;
+    virtual void EXT_update(uint32_t ext_id, uint8_t can_RxData[8]) {};
 
     static CanDevice *m3508_instances_can1[MAX_INSTANCES]; // 保存所有实例,供can管理者使用
     static CanDevice *m6020_instances_can1[MAX_INSTANCES];
+    static CanDevice *go1_instances_can1[MAX_INSTANCES];
     static int instanceCount_m3508_can1;
 
     static CanDevice *m3508_instances_can2[MAX_INSTANCES];
     static CanDevice *m6020_instances_can2[MAX_INSTANCES];
+    static CanDevice *go1_instances_can2[MAX_INSTANCES];
     static int instanceCount_m3508_can2;
     static int instanceCount_m6020_can1;
     static int instanceCount_m6020_can2;
-
+    static int instanceCount_go1_can1;
+    static int instanceCount_go1_can2;
+    HAL_StatusTypeDef CAN_Send(uint32_t can_id, uint8_t is_extended, uint8_t data[8]);
     CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_t can_id);
 };
 
@@ -76,8 +83,7 @@ private:
     int8_t error_flag = 0;
 
 public:
-    void
-    process_data();
+    void process_data();
     CanManager();
     void init();
 
