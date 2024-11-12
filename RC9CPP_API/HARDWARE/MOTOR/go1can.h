@@ -11,6 +11,8 @@ extern "C"
 #include <math.h>
 #include "can_device.h"
 #include "TaskManager.h"
+#include "motor.h"
+#include "pid.h"
 
 #ifdef __cplusplus
 }
@@ -49,7 +51,7 @@ struct ParsedExtId
     // uint8_t reserved_bit; // 预留位 (1位)
     int8_t low_byte_1; // 低位1 (8位)
 };
-class go1can : public CanDevice, public ITaskProcessor
+class go1can : public CanDevice, public ITaskProcessor, public power_motor
 {
 private:
     uint32_t generateCanExtId(
@@ -69,21 +71,28 @@ private:
 public:
     uint32_t getExtid_loadData(uint8_t *data);
     int32_t pset = 0, prec = 0;
-    int16_t wset = 1000, tset = 0, wrec = 0, trec = 0; // 发送的虚拟角速度值
-    int8_t temp = 0;                                   // 电机温度，摄氏度
+    int16_t wset = 0, tset = 0, wrec = 0, trec = 0; // 发送的虚拟角速度值
+    int8_t temp = 0;                                // 电机温度，摄氏度
     void can_update(uint8_t can_RxData[8]);
-    go1can(uint8_t can_id, CAN_HandleTypeDef *hcan_, int16_t K_pos_int_, int16_t K_spd_int_);
+    go1can(uint8_t can_id, CAN_HandleTypeDef *hcan_, float kp_, float ki_, float kd_);
     void EXT_update(uint32_t ext_id, uint8_t can_RxData[8]) override;
     void process_data();
     int16_t combine_bytes(uint8_t high_byte, uint8_t low_byte);
     int32_t combine_four_bytes(uint8_t byte3, uint8_t byte2, uint8_t byte1, uint8_t byte0);
     ParsedExtId parseCanExtId(uint32_t ext_id);
     ParsedExtId rec_go1_id;
-    go1_mode mode = go1_setting;
+    go1_mode mode = go1_standby;
     go1_error error = none;
     bool if_error_flag = false;
 
-    float real_speed = 0.0f, real_pos = 0.0f;
+    float real_speed = 0.0f, real_pos = 0.0f, real_t = 0.0f, target_rpm = 0.0f, target_t = 0.0f;
+
+    float get_rpm();
+    void set_rpm(float power_motor_rpm);
+
+    bool switch_go1_mode(go1_mode target_mode);
+
+    pid rpm_pid;
 };
 
 #endif
