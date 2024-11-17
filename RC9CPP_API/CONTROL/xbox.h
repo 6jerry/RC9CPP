@@ -117,7 +117,7 @@ public:
         void (xbox::*customAction)(); // 自定义操作
     };
     void handleButton(ButtonConfig &config);
-    ButtonConfig btnAConfig, btnBConfig, btnXConfig, btnRBConfig, btnLBConfig, btnLSConfig, btnXboxConfig, btnRSConfig, btnStartConfig, btnShareConfig, btnSelectConfig, btnDirUpConfig, btnDirLeftConfig, btnDirRightConfig, btnDirDownConfig, btnYConfig;
+    ButtonConfig  btnAConfig, btnBConfig, btnXConfig, btnRBConfig, btnLBConfig, btnLSConfig, btnXboxConfig, btnRSConfig, btnStartConfig, btnShareConfig, btnSelectConfig, btnDirUpConfig, btnDirLeftConfig, btnDirRightConfig, btnDirDownConfig, btnYConfig;
     virtual void btnRB_callback() {}
     virtual void btnXBOX_callback() {}
 

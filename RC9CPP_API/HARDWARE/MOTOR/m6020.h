@@ -34,7 +34,7 @@ extern "C"
 
 #ifdef __cplusplus
 
-class m6020s : public CanDevice, public servo_motor, public dji_motor // 动力电机版本的m3508
+class m6020s : public CanDevice, public dji_motor // 动力电机版本的m3508
 {
 private:
     uint8_t gear_ratio = 1;

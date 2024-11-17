@@ -1,111 +1,78 @@
 #include "TrapezoidalPlanner.h"
 
-TrapezoidalPlanner::TrapezoidalPlanner(pid &pidController)
-    : V_start(0), V_max(0), V_end(0), R_acc(0), R_dec(0), S_total(0),
-      pidControl(pidController), currentState(TARGET_REACHED) {}
-
-void TrapezoidalPlanner::setTargetParameters(float vStart, float vMax, float vEnd, float accRatio, float decRatio, float totalDistance)
+bool TrapezoidalPlanner::speed_pulse_plan_start(float max_speed, float slowdown_pos, float acc_, float dec_, float start_pos, float start_speed, float end_speed)
 {
-    V_start = vStart;
-    V_max = vMax;
-    V_end = vEnd;
-    R_acc = accRatio;
-    R_dec = decRatio;
-    S_total = totalDistance;
-    currentState = ACCELERATION; // 重置状态到加速阶段
-}
+    if (now_state == plan_standby)
+    {
 
-// 更新状态机状态
-void TrapezoidalPlanner::updateState(float position)
-{
-    float Sac = S_total * R_acc;
-    float Sco = S_total * (1.0f - R_acc - R_dec);
+        // 计算uniform_start_pos
+        startspeed2 = start_speed * start_speed;
+        uniform_speed2 = max_speed * max_speed;
+        plan_info.uniform_start_pos = (uniform_speed2 - startspeed2) / (2 * acc_) + start_pos;
 
-    // 根据当前距离判断阶段
-    if (position < Sac)
-    {
-        currentState = ACCELERATION;
-    }
-    else if (position < Sac + Sco)
-    {
-        currentState = CRUISE;
-    }
-    else if (position < S_total)
-    {
-        currentState = DECELERATION;
+        // 检查一下上述规划结果是否合理
+        if (plan_info.uniform_start_pos > slowdown_pos)
+        {
+            // plan_info.uniform_start_pos = 0.0f;
+            return false;
+        }
+        plan_info.acc = acc_;
+        plan_info.dec = dec_;
+        plan_info.dec_start_pos = slowdown_pos;
+        plan_info.uniform_speed = max_speed;
+        plan_info.start_pos = start_pos;
+        plan_info.start_speed = start_speed;
+        plan_info.end_speed = end_speed;
+
+        // 下一步计算 end_pos
+        plan_info.end_pos = (plan_info.end_speed * plan_info.end_speed - plan_info.uniform_speed * plan_info.uniform_speed) / (2 * plan_info.dec) + plan_info.dec_start_pos;
+
+        now_state = uniform_acc;
+        return true;
     }
     else
     {
-        currentState = TARGET_REACHED;
+        return false;
     }
 }
 
-// 计算目标速度
-float TrapezoidalPlanner::computeTargetVelocity(float position)
+float TrapezoidalPlanner::speed_pulse_plan_setpos(float pos)
 {
-    // 更新当前状态
-    updateState(position);
-
-    float targetVelocity = 0.0f;
-    float Sac = S_total * R_acc;
-    float Sde = S_total * R_dec;
-    float Aac = (V_max * V_max - V_start * V_start) / (2.0f * Sac);
-    float Ade = (V_end * V_end - V_max * V_max) / (2.0f * Sde);
-
-    switch (currentState)
+    if (pos >= plan_info.end_pos)
     {
-    case ACCELERATION:
-        arm_sqrt_f32(V_start * V_start + 2.0f * Aac * position, &targetVelocity);
-        break;
-    case CRUISE:
-        targetVelocity = V_max;
-        break;
-    case DECELERATION:
-        arm_sqrt_f32(V_end * V_end + 2.0f * Ade * (S_total - position), &targetVelocity);
-        break;
-    case TARGET_REACHED:
-        targetVelocity = 0.0f;
-        break;
+        target_speed = 0.0f;
+        now_state = plan_standby;
+        return target_speed;
     }
-
-    if (currentState == TARGET_REACHED && fabsf(position - S_total) < precisionThreshold)
+    else if (pos >= plan_info.start_pos && pos < plan_info.uniform_start_pos) // 加速段
     {
-        currentState = PID_ADJUST;
+        float32_t input = 2 * plan_info.acc * (pos - plan_info.start_pos) + startspeed2; // 输入值
+        float32_t output;
+        arm_sqrt_f32(input, &output);
+        target_speed = output;
+        now_state = uniform_acc;
+        return target_speed;
     }
-
-    // PID微调阶段
-    if (currentState == PID_ADJUST)
+    else if (pos >= plan_info.uniform_start_pos && pos < plan_info.dec_start_pos) // 匀速段
     {
-        float positionError = S_total - position;
-        pidControl.setpoint = 0; // 目标误差为0
-        targetVelocity = pidControl.PID_Compute(positionError);
+
+        target_speed = plan_info.uniform_speed;
+        now_state = uniform;
+        return target_speed;
     }
-
-    return targetVelocity;
-}
-
-// 查询是否到达目标
-bool TrapezoidalPlanner::isTargetReached() const
-{
-    return currentState == TARGET_REACHED;
-}
-
-// 获取当前状态名称
-const char *TrapezoidalPlanner::getCurrentStateName() const
-{
-    switch (currentState)
+    else if (pos >= plan_info.dec_start_pos && pos < plan_info.end_pos) // 减速段
     {
-    case ACCELERATION:
-        return "Acceleration";
-    case CRUISE:
-        return "Cruise";
-    case DECELERATION:
-        return "Deceleration";
-    case PID_ADJUST:
-        return "PID Adjustment";
-    case TARGET_REACHED:
-        return "Target Reached";
-    default:
-        return "Unknown";
+        float32_t input = 2 * plan_info.dec * (pos - plan_info.dec_start_pos) + uniform_speed2; // 输入值
+        float32_t output;
+        arm_sqrt_f32(input, &output);
+        target_speed = output;
+        now_state = uniform_dec;
+        return target_speed;
+    }
+    else
+    {
+        target_speed = 0.0f;
+        now_state = plan_standby;
+        return target_speed;
     }
 }

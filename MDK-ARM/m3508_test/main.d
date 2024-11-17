@@ -63,4 +63,5 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\RC9CPP_USER\R2N_USER\r2n_xbox.h ..\RC9CPP_API\CONTROL\xbox.h \
   ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\go1can.h \
+  ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\m6020.h

@@ -19,3 +19,8 @@ float dji_motor::vangle_to_rangle(uint32_t va)
 dji_motor::dji_motor(float max_rcurrent_, int16_t max_vcurrent_, uint16_t max_vangle_) : max_rcurrent(max_rcurrent_), max_vcurrent(max_vcurrent_), max_vangle(max_vangle_)
 {
 }
+
+void power_motor::switch_mode(motor_mode target_mode)
+{
+    mode = target_mode;
+}

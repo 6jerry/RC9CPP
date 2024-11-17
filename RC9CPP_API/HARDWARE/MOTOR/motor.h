@@ -12,24 +12,24 @@ extern "C"
 
 // 通用电机接口，便于底盘和各类机构调用的，总体来说分为动力电机和伺服电机,使用位置控制的m3508也属于伺服电机类
 #ifdef __cplusplus
+
+enum motor_mode
+{
+    speed,
+    pos_pid,
+    pos_speedplan,
+    standby
+};
 class power_motor
 {
 
 public:
+    motor_mode mode = standby;
     virtual float get_rpm() = 0;
     virtual void set_rpm(float power_motor_rpm) = 0; // 获取当前转速和设置目标转速的通用接口
-};
+    void switch_mode(motor_mode target_mode);
 
-
-class servo_motor
-{
-public:
-    virtual float get_relative_pos() = 0;
-    virtual float get_absolute_pos() = 0;
-    virtual void set_relative_pos(float relative_pos_) = 0;               // 设置相对位置
-    virtual void set_absolute_pos_multi(float absolute_pos_multi_) = 0;   // 绝对位置（多圈）
-    virtual void set_absolute_pos_single(float absolute_pos_single_) = 0; // 绝对位置（单圈）
-    virtual void relocate(float new_zero_point) = 0;                      // 重定位相对位置零点
+    virtual void set_rpm_ff(float power_motor_rpm, float ff) {}; // 设置速度和前馈值
 };
 
 class dji_motor
