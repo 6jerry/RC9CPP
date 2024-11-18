@@ -12,7 +12,7 @@ extern "C"
 #include "can_device.h"
 #include "TaskManager.h"
 #include "motor.h"
-#include "pid.h"
+#include "SuperPID.h"
 #include "TrapezoidalPlanner.h"
 
 #ifdef __cplusplus
@@ -77,12 +77,12 @@ public:
     float real_speed = 0.0f, real_pos = 0.0f, real_t = 0.0f, target_rpm = 0.0f, target_t = 0.0f, target_ff = 0.0f;
     float relative_angle = 0.0f;
     float acc_t = 0.0f, ff_feed = 1.0f;
-    float target_speed = 0.0f, f_cc = 0.0f, show_speed = 0.0f;
+    float target_speed = 0.0f, f_cc = 0.0f, show_speed = 0.0f,fff=0.0f,icc=0.0f;
     float get_rpm();
     void set_rpm(float power_motor_rpm);
     void set_rpm_ff(float power_motor_rpm, float ff) override;
 
-    pid speed_pid;
+    superpid speed_pid;
     TrapezoidalPlanner speed_plan;
 };
 

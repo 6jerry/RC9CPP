@@ -22,7 +22,7 @@ uint32_t go1can::generateCanExtId(
 
     return ext_id;
 }
-go1can::go1can(uint8_t can_id, CAN_HandleTypeDef *hcan_, float kp_, float ki_, float kd_) : CanDevice(GO1, hcan_, can_id), speed_pid(kp_, ki_, kd_, 10000000.0f, 23.0f, 0.016f, 3.6f)
+go1can::go1can(uint8_t can_id, CAN_HandleTypeDef *hcan_, float kp_, float ki_, float kd_) : CanDevice(GO1, hcan_, can_id), speed_pid(kp_, ki_, kd_, 23.0f, 0.016f, 3.6f)
 {
     extid = generateCanExtId(
         3,    // 模块ID
@@ -93,8 +93,6 @@ void go1can::EXT_update(uint32_t ext_id, uint8_t can_RxData[8])
         {
             relative_angle = -0.4415f - real_pos;
         }
-        
-
     }
 }
 int16_t go1can::combine_bytes(uint8_t high_byte, uint8_t low_byte)
@@ -140,11 +138,11 @@ void go1can::process_data()
         target_speed = speed_plan.speed_pulse_plan_setpos(relative_angle);
         if (speed_plan.now_state == uniform_acc)
         {
-            acc_t = -(((0.260767f) * speed_plan.plan_info.acc) / 6.33f);
+            acc_t = -(((0.167767f + icc) * speed_plan.plan_info.acc) / 6.33f);
         }
         else if (speed_plan.now_state == uniform)
         {
-            acc_t = 0.0f;
+            acc_t = -0.31f;
         }
         else if (speed_plan.now_state == uniform_dec)
         {
@@ -159,7 +157,7 @@ void go1can::process_data()
         // rpm_pid.setpoint = target_rpm; //-0.727046 go1零点
         // speed_pid.setpoint = target_speed;
         // target_t = -0.79f * cos(relative_angle) + rpm_pid.PID_Compute(real_speed);
-        target_t = -0.86075f * cos(relative_angle) + acc_t * ff_feed - (speed_pid.PID_Compute(real_speed) / 6.33f);
+        target_t = -0.86075f * cos(relative_angle) + acc_t * ff_feed - (speed_pid.superPID_Compute(real_speed) / 6.33f);
         tset = (int16_t)(target_t * 256.0f); // 转矩要加符号
         data[7] = (tset >> 8) & 0xFF;        // 补偿系数0.785
         data[6] = tset & 0xFF;

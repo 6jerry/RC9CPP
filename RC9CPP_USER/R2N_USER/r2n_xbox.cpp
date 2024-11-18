@@ -63,7 +63,7 @@ void xbox_r2n::process_data()
         GO1->speed_pid.setpoint = GO1->target_speed;
         GO1->show_speed = GO1->target_speed;
 
-        GO1->speed_plan.speed_pulse_plan_start(12.28f, 0.86f, 55.0f, -40.0f, GO1->relative_angle, 0.0f, 0.0f);
+        GO1->speed_plan.speed_pulse_plan_start(8.28f, 0.86f, 55.0f, -40.0f, GO1->relative_angle, 0.0f, 0.0f);
         break;
     case 3:
         control_chassis->switch_chassis_mode(chassis_standby);

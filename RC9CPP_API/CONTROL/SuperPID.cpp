@@ -1,0 +1,142 @@
+#include "superpid.h"
+
+superpid::superpid(float kp_, float ki_, float kd_, float output_limit_, float deadzone_, float integral_separation_threshold_,  bool if_inertia_comp) : kp(kp_), ki(ki_), kd(kd_), output_limit(output_limit_),
+                                                                                                                                                                                deadzone(deadzone_),
+                                                                                                                                                                                integral_separation_threshold(integral_separation_threshold_),  inertia_comp(if_inertia_comp)
+{
+}
+
+void superpid::superPID_SetParameters(float kp_, float ki_, float kd_)
+{
+    kp = kp_;
+    ki = ki_;
+    kd = kd_;
+}
+
+float superpid::superPID_Compute(float input)
+{
+    uint32_t current_time = HAL_GetTick(); // 获取当前时间，单位ms
+    if (previous_time != 0)
+    { // 确保上一次时间不为0
+        sampling_period = float(current_time - previous_time) / 1000.0f;
+    }
+    previous_time = current_time;
+    error = setpoint - input;
+    // 死区处理
+    if (error < deadzone && error > 0)
+    {
+        error = 0.0f;
+    }
+    if (error > -deadzone && error < 0)
+    {
+        error = 0.0f;
+    }
+    p_out = kp * error;
+
+    error_sum += (error + previous_error) * sampling_period / 2.0f; // 梯形积分
+
+    // 积分分离
+    if (error > integral_separation_threshold)
+    {
+        error_sum = 0.0f;
+    }
+    if (error < -integral_separation_threshold)
+    {
+        error_sum = 0.0f;
+    }
+
+    i_out = ki * error_sum;
+
+    // 微分项（微分先行）
+    if (inertia_comp)
+    {
+        d_out = kd * (input - previous_input) / sampling_period; // 惯性补偿，微分项取正
+    }
+    else
+    {
+        d_out = -kd * (input - previous_input) / sampling_period;
+    }
+
+    // 更新状态
+    previous_error = error;
+    previous_input = input;
+
+    // 输出计算，包括死区补偿
+    output = p_out + i_out + d_out;
+
+    // 输出限幅
+    if (output > output_limit)
+    {
+        output = output_limit;
+    }
+    else if (output < -output_limit)
+    {
+        output = -output_limit;
+    }
+
+    return output;
+}
+
+float superpid::superPID_ComputeError(float error_, float C_V)
+{
+    uint32_t current_time = HAL_GetTick(); // 获取当前时间，单位ms
+    if (previous_time != 0)
+    { // 确保上一次时间不为0
+        sampling_period = float(current_time - previous_time) / 1000.0f;
+    }
+    previous_time = current_time;
+    error = error_;
+    // 死区处理
+    if (error < deadzone && error > 0)
+    {
+        error = 0.0f;
+    }
+    if (error > -deadzone && error < 0)
+    {
+        error = 0.0f;
+    }
+    p_out = kp * error;
+
+    error_sum += (error + previous_error) * sampling_period / 2.0f; // 梯形积分
+
+    // 积分分离
+    if (error > integral_separation_threshold)
+    {
+        error_sum = 0.0f;
+    }
+    if (error < -integral_separation_threshold)
+    {
+        error_sum = 0.0f;
+    }
+
+    i_out = ki * error_sum;
+
+    // 微分项（微分先行）
+    if (inertia_comp)
+    {
+        d_out = kd * (C_V - previous_input) / sampling_period; // 惯性补偿，微分项取正
+    }
+    else
+    {
+        d_out = -kd * (C_V - previous_input) / sampling_period;
+    }
+
+    // 更新状态
+    previous_error = error;
+    previous_input = C_V;
+
+    // 输出计算，包括死区补偿
+    output = p_out + i_out + d_out;
+
+    // 输出限幅
+    if (output > output_limit)
+    {
+        output = output_limit;
+    }
+    else if (output < -output_limit)
+    {
+        output = -output_limit;
+    }
+
+    return output;
+}
