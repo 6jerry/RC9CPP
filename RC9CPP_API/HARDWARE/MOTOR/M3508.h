@@ -52,6 +52,9 @@ public:
     void set_rpm(float power_motor_rpm);
 };
 
+
+
+
 #endif
 
 #endif

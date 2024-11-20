@@ -1,8 +1,8 @@
 #include "superpid.h"
 
-superpid::superpid(float kp_, float ki_, float kd_, float output_limit_, float deadzone_, float integral_separation_threshold_,  bool if_inertia_comp) : kp(kp_), ki(ki_), kd(kd_), output_limit(output_limit_),
-                                                                                                                                                                                deadzone(deadzone_),
-                                                                                                                                                                                integral_separation_threshold(integral_separation_threshold_),  inertia_comp(if_inertia_comp)
+superpid::superpid(float kp_, float ki_, float kd_, float output_limit_, float deadzone_, float integral_separation_threshold_, bool if_inertia_comp) : kp(kp_), ki(ki_), kd(kd_), output_limit(output_limit_),
+                                                                                                                                                        deadzone(deadzone_),
+                                                                                                                                                        integral_separation_threshold(integral_separation_threshold_), inertia_comp(if_inertia_comp)
 {
 }
 
@@ -137,6 +137,60 @@ float superpid::superPID_ComputeError(float error_, float C_V)
     {
         output = -output_limit;
     }
+
+    return output;
+}
+
+IncrePID::IncrePID(float kp_, float ki_, float kd_, float output_limit_, float deadzone_) : kp(kp_), kd(kd_), ki(ki_), output_limit(output_limit_), deadzone(deadzone_)
+{
+}
+
+void IncrePID::increPID_SetParameters(float kp_, float ki_, float kd_)
+{
+    kp = kp_;
+    ki = ki_;
+    kd = kd_;
+}
+
+float IncrePID::increPID_Compute(float input)
+{
+    error = setpoint - input;
+    // 死区处理
+    if (error < deadzone && error > 0)
+    {
+        error = 0.0f;
+    }
+    if (error > -deadzone && error < 0)
+    {
+        error = 0.0f;
+    }
+
+    if (if_first_flag)
+    {
+        last_error = error;
+        lalast_error = error;
+        if_first_flag = false;
+    }
+
+    p_out = kp * (error - last_error);
+    i_out = ki * error;
+    d_out = kd * (error - 2.0f * last_error + lalast_error);
+
+    output = last_output + p_out + i_out + d_out;
+
+    // 输出限幅
+    if (output > output_limit)
+    {
+        output = output_limit;
+    }
+    else if (output < -output_limit)
+    {
+        output = -output_limit;
+    }
+
+    lalast_error = last_error;
+    last_error = error;
+    last_output = output;
 
     return output;
 }

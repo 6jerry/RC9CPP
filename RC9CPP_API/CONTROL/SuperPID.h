@@ -13,7 +13,7 @@ extern "C"
 #endif
 
 #ifdef __cplusplus
-class superpid
+class superpid // 采用了梯形积分，微分先行，积分分离的改进版位置式pid
 {
 public:
     float kp = 0.0f;
@@ -38,8 +38,7 @@ public:
     bool inertia_comp = false;
     uint32_t previous_time = 0;
 
-    superpid(float kp, float ki, float kd, float output_limit, float deadzone,
-             float integral_separation_threshold, bool if_inertia_comp = false);
+    superpid(float kp_, float ki_, float kd_, float output_limit_, float deadzone_, float integral_separation_threshold_, bool if_inertia_comp);
 
     void superPID_SetParameters(float kp, float ki, float kd);
 
@@ -47,5 +46,33 @@ public:
 
     float superPID_ComputeError(float error_, float C_V); // 直接传入误差计算
 };
+
+class IncrePID // 增量式pid
+{
+private:
+public:
+    float error = 0.0f, last_error = 0.0f, lalast_error = 0.0f;
+    float setpoint = 0.0f;
+
+    float output = 0.0f, last_output = 0.0f;
+    float output_limit = 0.0f;
+    float deadzone = 0.0f;
+    float kp = 0.0f;
+    float ki = 0.0f;
+    float kd = 0.0f;
+
+    float i_out = 0.0f;
+    float d_out = 0.0f;
+    float p_out = 0.0f;
+
+    bool if_first_flag = true;
+
+    float increPID_Compute(float input);
+
+    void increPID_SetParameters(float kp_, float ki_, float kd_);
+
+    IncrePID(float kp_, float ki_, float kd_, float output_limit_, float deadzone_);
+};
+
 #endif
 #endif

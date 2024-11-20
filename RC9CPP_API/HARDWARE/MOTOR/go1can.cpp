@@ -22,7 +22,7 @@ uint32_t go1can::generateCanExtId(
 
     return ext_id;
 }
-go1can::go1can(uint8_t can_id, CAN_HandleTypeDef *hcan_, float kp_, float ki_, float kd_) : CanDevice(GO1, hcan_, can_id), speed_pid(kp_, ki_, kd_, 23.0f, 0.016f, 3.6f)
+go1can::go1can(uint8_t can_id, CAN_HandleTypeDef *hcan_, float r_, float w0_, float kp_, float kd_, float b0_) : CanDevice(GO1, hcan_, can_id), speed_ladrc(r_, w0_, b0_, kp_, kd_, 8.0f)
 {
     extid = generateCanExtId(
         3,    // 模块ID
@@ -157,7 +157,7 @@ void go1can::process_data()
         // rpm_pid.setpoint = target_rpm; //-0.727046 go1零点
         // speed_pid.setpoint = target_speed;
         // target_t = -0.79f * cos(relative_angle) + rpm_pid.PID_Compute(real_speed);
-        target_t = -0.86075f * cos(relative_angle) + acc_t * ff_feed - (speed_pid.superPID_Compute(real_speed) / 6.33f);
+        target_t = -0.79f * cos(relative_angle) - ff_feed * (speed_ladrc.ladrc_Compute(exp, real_speed) / 6.33f);
         tset = (int16_t)(target_t * 256.0f); // 转矩要加符号
         data[7] = (tset >> 8) & 0xFF;        // 补偿系数0.785
         data[6] = tset & 0xFF;

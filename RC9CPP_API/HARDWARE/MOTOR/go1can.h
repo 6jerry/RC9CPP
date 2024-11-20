@@ -12,7 +12,7 @@ extern "C"
 #include "can_device.h"
 #include "TaskManager.h"
 #include "motor.h"
-#include "SuperPID.h"
+#include "LADRC.h"
 #include "TrapezoidalPlanner.h"
 
 #ifdef __cplusplus
@@ -63,7 +63,7 @@ public:
     int16_t wset = 0, tset = 0, wrec = 0, trec = 0; // 发送的虚拟角速度值
     int8_t temp = 0;                                // 电机温度，摄氏度
     void can_update(uint8_t can_RxData[8]);
-    go1can(uint8_t can_id, CAN_HandleTypeDef *hcan_, float kp_, float ki_, float kd_);
+    go1can(uint8_t can_id, CAN_HandleTypeDef *hcan_, float r_, float w0_, float kp_, float kd_, float b0_);
     void EXT_update(uint32_t ext_id, uint8_t can_RxData[8]) override;
     void process_data();
     int16_t combine_bytes(uint8_t high_byte, uint8_t low_byte);
@@ -77,12 +77,13 @@ public:
     float real_speed = 0.0f, real_pos = 0.0f, real_t = 0.0f, target_rpm = 0.0f, target_t = 0.0f, target_ff = 0.0f;
     float relative_angle = 0.0f;
     float acc_t = 0.0f, ff_feed = 1.0f;
-    float target_speed = 0.0f, f_cc = 0.0f, show_speed = 0.0f,fff=0.0f,icc=0.0f;
+    float target_speed = 0.0f, f_cc = 0.0f, show_speed = 0.0f, fff = 0.0f, icc = 0.0f;
     float get_rpm();
     void set_rpm(float power_motor_rpm);
     void set_rpm_ff(float power_motor_rpm, float ff) override;
+    float exp = 0.0f;
 
-    superpid speed_pid;
+    ladrc speed_ladrc;
     TrapezoidalPlanner speed_plan;
 };
 

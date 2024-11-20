@@ -55,6 +55,7 @@
 "m3508_test\go1can.o"
 "m3508_test\trapezoidalplanner.o"
 "m3508_test\superpid.o"
+"m3508_test\ladrc.o"
 "m3508_test\r2n_xbox.o"
 "m3508_test\r2n_setup.o"
 "..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4lf_math.lib"
