@@ -122,10 +122,10 @@ void chassis::line_track_compute()
     line_track_info.now_dis = now_point - line_track_info.target_line_initpoint;
 
     line_track_info.projected = line_track_info.now_dis.project_onto(line_track_info.target_line);
-    line_track_info.tangent_dis = line_track_info.projected.magnitude();
+    line_track_info.tangent_dis = line_track_info.projected.magnitude(); // 切向距离，追踪距离,指向下一点
 
     line_track_info.project_point = line_track_info.projected + line_track_info.target_line_initpoint;
-    Vector2D normal_vector = line_track_info.project_point - now_point;
+    Vector2D normal_vector = line_track_info.project_point - now_point; // 法相距离，追踪误差,指向目标曲线
     line_track_info.normal_dis = normal_vector.magnitude();
 
     line_track_info.tangent_dir = line_track_info.target_line.normalize();
@@ -134,12 +134,13 @@ void chassis::line_track_compute()
     float nor_speed = normal_control.PID_ComputeError(line_track_info.normal_dis);
     Vector2D normal_speed = nor_speed * line_track_info.normal_dir;
 
-    // tangential_control.setpoint = line_track_info.target_dis;
-    //  float tan_speed = tangential_control.PID_Compute(line_track_info.tangent_dis);
-    float tan_speed = -1.8f;
-    Vector2D tangent_speed = tan_speed * line_track_info.tangent_dir;
+    Vector2D tangent_speed = line_track_info.tan_speed * line_track_info.tangent_dir;
 
     line_track_info.target_wspeed = normal_speed + tangent_speed;
+}
+void chassis::set_pursuit_speed(float Pspeed)
+{
+    line_track_info.tan_speed = -Pspeed;
 }
 void chassis::pure_pursuit_compute()
 {

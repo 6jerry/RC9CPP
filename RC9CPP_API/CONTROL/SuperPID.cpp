@@ -141,19 +141,23 @@ float superpid::superPID_ComputeError(float error_, float C_V)
     return output;
 }
 
-IncrePID::IncrePID(float kp_, float ki_, float kd_, float output_limit_, float deadzone_) : kp(kp_), kd(kd_), ki(ki_), output_limit(output_limit_), deadzone(deadzone_)
+IncrePID::IncrePID(float kp_, float ki_, float kd_, float r_, float output_limit_, float deadzone_) : kp(kp_), kd(kd_), ki(ki_), output_limit(output_limit_), deadzone(deadzone_), r(r_)
 {
 }
 
-void IncrePID::increPID_SetParameters(float kp_, float ki_, float kd_)
+void IncrePID::increPID_SetParameters(float kp_, float ki_, float kd_, float r_)
 {
     kp = kp_;
     ki = ki_;
     kd = kd_;
+    r = r_;
 }
 
 float IncrePID::increPID_Compute(float input)
 {
+    TD();
+    setpoint = V1; // 跟踪微分器输出平滑的期望
+
     error = setpoint - input;
     // 死区处理
     if (error < deadzone && error > 0)
@@ -193,4 +197,22 @@ float IncrePID::increPID_Compute(float input)
     last_output = output;
 
     return output;
+}
+void IncrePID::TD()
+{
+    uint32_t current_time = HAL_GetTick(); // 获取当前时间，单位ms
+    if (previous_time != 0)
+    { // 确保上一次时间不为0
+        Ts = float(current_time - previous_time) / 1000.0f;
+    }
+    previous_time = current_time;
+    fh = -r * r * (V1 - expect) - 2.0f * r * V2;
+
+    V1 += V2 * Ts;
+    V2 += fh * Ts;
+}
+
+void IncrePID::increPID_setarget(float target_)
+{
+    expect = target_;
 }

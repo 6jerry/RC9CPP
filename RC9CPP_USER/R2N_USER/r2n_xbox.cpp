@@ -43,29 +43,16 @@ void xbox_r2n::process_data()
     case 0:
         control_chassis->switch_chassis_mode(remote_worldv);
         control_chassis->setworldv(MAX_ROBOT_SPEED_X * xbox_msgs.joyLHori_map, MAX_ROBOT_SPEED_Y * xbox_msgs.joyLVert_map, -MAX_ROBOT_SPEED_W * xbox_msgs.joyRHori_map);
+
         break;
     case 1:
         control_chassis->switch_chassis_mode(remote_robotv);
         control_chassis->setrobotv(MAX_ROBOT_SPEED_X * xbox_msgs.joyLHori_map, MAX_ROBOT_SPEED_Y * xbox_msgs.joyLVert_map, -MAX_ROBOT_SPEED_W * xbox_msgs.joyRHori_map);
-        GO1->switch_mode(speed);
 
-        GO1->ff_feed = 0.0f;
-        GO1->speed_plan.now_state = plan_standby;
-        GO1->exp = -(xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * MAX_GO1;
-        GO1->show_speed = GO1->exp;
         break;
     case 2:
-        control_chassis->switch_chassis_mode(pure_pursuit);
-        GO1->switch_mode(speed);
+        control_chassis->switch_chassis_mode(point_tracking);
 
-        // GO1->stoping = 0.0f;
-        GO1->ff_feed = 1.0f;
-        //GO1->speed_pid.setpoint = GO1->target_speed;
-        //GO1->show_speed = GO1->target_speed;
-        GO1->exp = -(xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * MAX_GO1;
-        GO1->show_speed = GO1->exp;
-
-        GO1->speed_plan.speed_pulse_plan_start(8.28f, 0.86f, 55.0f, -40.0f, GO1->relative_angle, 0.0f, 0.0f);
         break;
     case 3:
         control_chassis->switch_chassis_mode(chassis_standby);

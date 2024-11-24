@@ -1,7 +1,7 @@
 #include "r1n_setup.h"
 
 RC9Protocol esp32_serial(&huart1, false),
-    data_chain(&huart5, true);
+    data_chain(&huart5, false);
 m3508p m3508_right(1, &hcan1, 19, 16.7f, 0.21f, 2.4f), m3508_front(3, &hcan1, 19, 16.5f, 0.18f, 2.6f), m3508_left(2, &hcan1, 19, 16.2f, 0.17f, 2.87f);
 
 TaskManager task_core;
@@ -27,7 +27,7 @@ r1n_setup(void)
     // task_core.registerTask(3, &go1);
     task_core.registerTask(2, &r1n_chassis);
     task_core.registerTask(2, &r2_remote);
-    task_core.registerTask(8, &test2);
+    task_core.registerTask(5, &test2);
 
     // 以上为首次创建的新任务
 
@@ -35,11 +35,15 @@ r1n_setup(void)
 
     data_chain.tx_frame_mat.data_length = 24;
     data_chain.tx_frame_mat.frame_id = 1;
+
     osKernelStart();
 }
 void demo::process_data()
 {
     data_chain.tx_frame_mat.data.msg_get[0] = Action.pose_data.world_pos_x;
     data_chain.tx_frame_mat.data.msg_get[1] = Action.pose_data.world_pos_y;
-    // data_chain.tx_frame_mat.data.msg_get[2] = go1.real_t;
+
+    r1n_chassis.point_track_info.target_x = data_chain.rx_frame_mat.data.msg_get[0];
+    r1n_chassis.point_track_info.target_y = data_chain.rx_frame_mat.data.msg_get[1];
+    
 }

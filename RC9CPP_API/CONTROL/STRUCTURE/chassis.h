@@ -83,6 +83,7 @@ typedef struct line_track_info_
     float tangent_dis = 0.0f;
     float target_dis = 0.0f;
     Vector2D target_wspeed;
+    float tan_speed = 0.0f;
 };
 
 typedef struct pure_pursuit_info_
@@ -123,6 +124,8 @@ public:
     void line_track_compute();
     void pure_pursuit_compute();
 
+    void set_pursuit_speed(float Pspeed);
+
 public:
     void
     switch_chassis_mode(Chassis_mode target_mode);
@@ -144,7 +147,7 @@ private:
     // float Rwheel = 0.0719;
 
 public:
-    omni3_unusual(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor, float Rwheel_, action *ACTION_, float headingkp = 7.0f, float headingki = 0.0f, float headingkd = 0.7f, float point_kp = 0.0f, float point_ki = 0.0f, float point_kd = 0.0f);
+    omni3_unusual(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor, float Rwheel_, action *ACTION_, float headingkp = 7.0f, float headingki = 0.0f, float headingkd = 0.7f, float point_kp = 0.0086f, float point_ki = 0.0f, float point_kd = 0.026f);
     void process_data();
 };
 

@@ -47,12 +47,16 @@ public:
     float superPID_ComputeError(float error_, float C_V); // 直接传入误差计算
 };
 
-class IncrePID // 增量式pid
+class IncrePID // TD增量式
 {
 private:
+    float r = 0.0f, expect = 0.0f, V1 = 0.0f, V2 = 0.0f, fh = 0.0f;
+    float Ts = 0.0f;
+    uint32_t previous_time = 0;
+
 public:
     float error = 0.0f, last_error = 0.0f, lalast_error = 0.0f;
-    float setpoint = 0.0f;
+    float setpoint = 0.0f; // 经过TD处理过后的期望
 
     float output = 0.0f, last_output = 0.0f;
     float output_limit = 0.0f;
@@ -68,10 +72,13 @@ public:
     bool if_first_flag = true;
 
     float increPID_Compute(float input);
+    void TD(); // 微分跟踪器
+    void increPID_setarget(float target_);
 
-    void increPID_SetParameters(float kp_, float ki_, float kd_);
+    void
+    increPID_SetParameters(float kp_, float ki_, float kd_, float r_);
 
-    IncrePID(float kp_, float ki_, float kd_, float output_limit_, float deadzone_);
+    IncrePID(float kp_, float ki_, float kd_, float r_, float output_limit_, float deadzone_);
 };
 
 #endif
