@@ -39,6 +39,9 @@ typedef struct action_info_
     float last_pos_y = 0.0f;
     float last_pos_z = 0.0f;
 
+    float lastspeed_x = 0.0f;
+    float lastspeed_y = 0.0f;
+
     float now_pos_x = 0.0f;
     float now_pos_y = 0.0f;
     float now_pos_z = 0.0f;
@@ -81,6 +84,9 @@ typedef struct pose_data_
     float world_pos_y = 0.0f;
     float world_speed_x = 0.0f;
     float world_speed_y = 0.0f;
+
+    float acc_x = 0.0f;
+    float acc_y = 0.0f;
 
     speed_vector_ speed_vector; // 机器人速度矢量
 

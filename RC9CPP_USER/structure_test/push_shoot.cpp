@@ -1,6 +1,6 @@
 #include "push_shoot.h"
 
-m3508p m3508_shooter(1, &hcan1), m3508_pitch(2, &hcan1);
+m3508p m3508_shooter(1, &hcan1, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f), m3508_pitch(2, &hcan1);
 
 TaskManager task_core;
 CanManager can_core;
@@ -20,9 +20,19 @@ extern "C" void pshoot_setup(void)
     task_core.registerTask(8, &debug);
     task_core.registerTask(8, &test2);
 
+    debug.tx_frame_mat.frame_id = 1;
+    debug.tx_frame_mat.data_length = 24;
+
     osKernelStart();
 }
 
 void demo::process_data()
 {
+    m3508_shooter.rpm_control.increPID_SetParameters(debug.rx_frame_mat.data.msg_get[0], debug.rx_frame_mat.data.msg_get[1], debug.rx_frame_mat.data.msg_get[2], debug.rx_frame_mat.data.msg_get[3]);
+
+    debug.tx_frame_mat.data.msg_get[0] = m3508_shooter.get_rpm();
+
+    debug.tx_frame_mat.data.msg_get[1] = m3508_shooter.target_rpm;
+
+    debug.tx_frame_mat.data.msg_get[2] = m3508_shooter.rpm_control.setpoint;
 }
