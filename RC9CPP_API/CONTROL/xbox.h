@@ -124,7 +124,7 @@ public:
     void joymap_compute();
 
 public:
-    xbox(action *ACTION_, chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_ = 1.50f, float MAX_ROBOT_SPEED_X_ = 1.50f, float MAX_ROBOT_SPEED_W_ = 3.60f);
+    xbox(action *ACTION_ = nullptr, chassis *control_chassis_ = nullptr, float MAX_ROBOT_SPEED_Y_ = 1.50f, float MAX_ROBOT_SPEED_X_ = 1.50f, float MAX_ROBOT_SPEED_W_ = 3.60f);
 
     void update(uint8_t data_id, uint8_t data_length, const uint8_t *data_char, const float *data_float);
 };

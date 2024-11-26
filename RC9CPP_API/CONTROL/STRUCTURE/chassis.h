@@ -29,6 +29,7 @@ extern "C"
 #include "Action.h"
 #include "pid.h"
 #include "Vector2D.h"
+#include "pure_pursuit.h"
 
 #ifdef __cplusplus
 }
@@ -54,7 +55,8 @@ enum Chassis_mode
     remote_worldv,
     point_tracking,
     line_tracking,
-    pure_pursuit
+    pp
+
 };
 typedef struct point_track_info_
 {
@@ -68,33 +70,6 @@ typedef struct point_track_info_
     float direct_vector_x = 0.0f;
     float direct_vector_y = 0.0f;
 };
-typedef struct line_track_info_
-{
-
-    Vector2D now_dis;
-
-    Vector2D projected;
-    Vector2D target_line;
-    Vector2D target_line_initpoint;
-    Vector2D project_point;
-    Vector2D normal_dir;
-    Vector2D tangent_dir;
-    float normal_dis = 0.0f;
-    float tangent_dis = 0.0f;
-    float target_dis = 0.0f;
-    Vector2D target_wspeed;
-};
-
-typedef struct pure_pursuit_info_
-{
-    Vector2D path[56];          // 待追踪的轨迹
-    uint8_t point_sum = 0;      // 有多少个点
-    uint8_t tracking_index = 0; // 当前是追踪哪一个点
-    bool if_loop = false;       // 是否是环形轨迹?,如果是环形轨迹的话起始点要写两次
-    float tracked_lenth = 0.0f; // 沿着轨迹追踪多远了？
-    float change_point = 16.0f; // 啥时候切换点
-};
-// 要开始纯追踪，必须要先点追踪到轨迹起点
 
 class chassis // 基类，也是底盘的通用控制接口
 {
@@ -113,15 +88,10 @@ public:
     float CHASSIS_R = 0.0f;
 
     point_track_info_ point_track_info;
-    line_track_info_ line_track_info;
-    pure_pursuit_info_ pure_pursuit_info;
+
     pid distan_pid;
-    pid normal_control;
-    pid tangential_control;
 
     void point_track_compute();
-    void line_track_compute();
-    void pure_pursuit_compute();
 
 public:
     void
@@ -134,6 +104,7 @@ public:
     chassis(ChassisType chassistype_, float Rwheel_, action *ACTION_, float headingkp, float headingki, float headingkd, float kp_, float ki_, float kd_);
     void worldv_to_robotv();
     float v_to_rpm(float v);
+    pure_pursuit pp_tracker;
 };
 // 钻石三轮全向轮底盘，通常以钻石那个尖角为车头,典型车体:九期r1
 class omni3_unusual : public ITaskProcessor, public chassis
@@ -144,7 +115,7 @@ private:
     // float Rwheel = 0.0719;
 
 public:
-    omni3_unusual(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor, float Rwheel_, action *ACTION_, float headingkp = 7.0f, float headingki = 0.0f, float headingkd = 0.7f, float point_kp = 0.0f, float point_ki = 0.0f, float point_kd = 0.0f);
+    omni3_unusual(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor, float Rwheel_, action *ACTION_, float headingkp = 7.0f, float headingki = 0.0f, float headingkd = 0.7f, float point_kp = 0.0086f, float point_ki = 0.0f, float point_kd = 0.026f);
     void process_data();
 };
 

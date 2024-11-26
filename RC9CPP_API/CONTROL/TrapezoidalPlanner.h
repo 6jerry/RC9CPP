@@ -1,51 +1,60 @@
 #ifndef TRAPEZOIDAL_PLANNER_H
 #define TRAPEZOIDAL_PLANNER_H
 
-#include "arm_math.h" // ARM DSP库，用于数学运算
-#include "pid.h"      // PID控制器类头文件
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+#include "arm_math.h"
+#ifdef __cplusplus
+}
+#endif
+#ifdef __cplusplus
+
+enum plan_state
+{
+
+    plan_standby,
+    uniform_acc, // 匀加速
+    uniform,     // 匀速
+    uniform_dec  // 匀减速
+
+};
+
+enum plan_mode
+{
+    speed_pulse, // 速度脉冲模式，可能停的不准
+    displacement // 位移模式，停的又快又准
+
+};
+
+typedef struct plan_info_
+{
+    float start_pos = 0.0f;
+    float uniform_start_pos = 0.0f;
+    float dec_start_pos = 0.0f;
+    float acc = 0.0f;
+    float dec = 0.0f; // 减速度，取赋值，规划器返回的目标速度都是正的
+    float uniform_speed = 0.0f;
+    float end_pos = 0.0f;
+    float start_speed = 0.0f;
+    float end_speed = 0.0f;
+};
 
 class TrapezoidalPlanner
 {
 public:
-    // 构造函数，初始化起始速度、最大速度、结束速度、加速和减速比例以及PID控制器引用
-    TrapezoidalPlanner(pid &pidController);
+    bool speed_pulse_plan_start(float max_speed, float slowdown_pos, float acc_, float dec_, float start_pos = 0.0f, float start_speed = 0.0f, float end_speed = 0.0f); // 速度脉冲模式，该模式只关注速度峰值和达到速度峰值的位置，而不关注整体的移动距离
+    float speed_pulse_plan_setpos(float pos);                                                                                                                           // 速度脉冲模式下传入实时的位置,返回当前的期望速度
 
-    // 设置新目标参数
-    void setTargetParameters(float vStart, float vMax, float vEnd, float accRatio, float decRatio, float totalDistance);
-
-    // 获取当前位置的目标速度
-    float computeTargetVelocity(float position);
-
-    // 查询是否到达目标
-    bool isTargetReached() const;
-
-    // 获取当前状态名称
-    const char *getCurrentStateName() const;
+    plan_state get_state(); // 看看当前处在哪一个速度段
+    plan_state now_state = plan_standby;
+    plan_info_ plan_info;
 
 private:
-    // 定义状态机阶段
-    enum State
-    {
-        ACCELERATION,  // 加速阶段
-        CRUISE,        // 匀速阶段
-        DECELERATION,  // 减速阶段
-        PID_ADJUST,    // PID微调阶段
-        TARGET_REACHED // 到达目标
-    } currentState;    // 当前状态
-
-    // 速度规划参数
-    float V_start; // 起始速度
-    float V_max;   // 最大速度
-    float V_end;   // 结束速度
-    float R_acc;   // 加速路程比例
-    float R_dec;   // 减速路程比例
-    float S_total; // 总路程
-
-    float precisionThreshold = 5.0f; // 进入PID微调的距离阈值
-    pid &pidControl;                 // 引用PID控制器以用于微调速度
-
-    // 更新当前状态
-    void updateState(float position);
+   
+   
+    float target_speed = 0.0f, startspeed2 = 0.0f, uniform_speed2 = 0.0f;
 };
-
+#endif
 #endif // TRAPEZOIDAL_PLANNER_H

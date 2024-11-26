@@ -22,50 +22,17 @@ uint32_t go1can::generateCanExtId(
 
     return ext_id;
 }
-go1can::go1can(uint8_t can_id, CAN_HandleTypeDef *hcan_, float kp_, float ki_, float kd_) : CanDevice(GO1, hcan_, can_id), rpm_pid(kp_, ki_, kd_, 1000000.0f, 23.0f, 4.0f, 120.0f)
+go1can::go1can(uint8_t can_id, CAN_HandleTypeDef *hcan_, float r_, float w0_, float kp_, float kd_, float b0_) : CanDevice(GO1, hcan_, can_id), speed_ladrc(r_, w0_, b0_, kp_, kd_, 8.0f)
 {
-}
-
-uint32_t go1can::getExtid_loadData(uint8_t *data)
-{
-    if (mode_change_flag)
-    {
-        extid = generateCanExtId(
-            3,    // 模块ID
-            true, // 是否发送
-            0,    // 数据模式
-            11,   // 控制模式
-            0,    // 目标电机ID
-            1     // 电机控制模式
-        );
-        // 设置参数
-
-        K_pos_int = 0;
-        K_spd_int = 256;
-
-        data[3] = (K_pos_int >> 8) & 0xFF; // 刚度系数高字节
-        data[2] = K_pos_int & 0xFF;        // 刚度系数低字节
-        data[1] = (K_spd_int >> 8) & 0xFF; // 阻尼系数高字节
-        data[0] = K_spd_int & 0xFF;        // 阻尼系数低字节
-    }
-    else
-    {
-        extid = generateCanExtId(
-            3,    // 模块ID
-            true, // 是否发送
-            0,    // 数据模式
-            13,   // 控制模式
-            0,    // 目标电机ID
-            1     // 电机控制模式
-        );
-        // 设置参数
-
-        data[5] = (wset >> 8) & 0xFF;
-        data[4] = wset & 0xFF;
-    }
-    mode_change_flag = (mode_change_flag + 1) % 2;
-
-    return extid;
+    extid = generateCanExtId(
+        3,    // 模块ID
+        true, // 是否发送
+        0,    // 数据模式
+        10,   // 控制模式
+        0,    // 目标电机ID
+        1     // 电机控制模式
+    );
+    // speed_plan.speed_pulse_plan_start(6.28f, 0.8f, 11.0f, -20.0f, -1.04645f, 0.0f, 0.0f);
 }
 void go1can::can_update(uint8_t can_RxData[8])
 {
@@ -117,6 +84,15 @@ void go1can::EXT_update(uint32_t ext_id, uint8_t can_RxData[8])
         real_speed = ((float)wrec / 256.0f) * 9.4787f;
         real_pos = ((float)prec / 32768.0f) * 0.9926f;
         real_t = ((float)trec / 256.0f);
+        real_speed = -((real_speed / 60.0f) * 6.28f);
+        if (real_pos >= 0.0f)
+        {
+            relative_angle = -(0.4415f + real_pos);
+        }
+        else
+        {
+            relative_angle = -0.4415f - real_pos;
+        }
     }
 }
 int16_t go1can::combine_bytes(uint8_t high_byte, uint8_t low_byte)
@@ -150,79 +126,47 @@ void go1can::process_data()
     switch (mode)
     {
 
-    case go1_standby:
+    case standby:
         if (!if_error_flag)
         {
-            extid = generateCanExtId(
-                3,    // 模块ID
-                true, // 是否发送
-                0,    // 数据模式
-                10,   // 控制模式
-                0,    // 目标电机ID
-                1     // 电机控制模式
-            );
-            /*
-            data[5] = (wset >> 8) & 0xFF;
-            data[4] = wset & 0xFF;
-            data[7] = (tset >> 8) & 0xFF;
-            data[6] = tset & 0xFF;
-            data[0] = (uint8_t)(pset & 0xFF);
-            data[1] = (uint8_t)((pset >> 8) & 0xFF);
-            data[2] = (uint8_t)((pset >> 16) & 0xFF);
-            data[3] = (uint8_t)((pset >> 24) & 0xFF);
-            */
-            CAN_Send(extid, true, data);
+            CAN_Send(extid, true, data); // 力矩为0
         }
         break;
 
     case speed:
-        /*
-            extid = generateCanExtId(
-                3,    // 模块ID
-                true, // 是否发送
-                0,    // 数据模式
-                11,   // 控制模式
-                0,    // 目标电机ID
-                1     // 电机控制模式
-            );
-            data[3] = (K_pos_int >> 8) & 0xFF; // 刚度系数高字节
-            data[2] = K_pos_int & 0xFF;        // 刚度系数低字节
-            data[1] = (K_spd_int >> 8) & 0xFF; // 阻尼系数高字节
-            data[0] = K_spd_int & 0xFF;        // 阻尼系数低字节
 
-            CAN_Send(extid, true, data);
-            */
-        extid = generateCanExtId(
-            3,    // 模块ID
-            true, // 是否发送
-            0,    // 数据模式
-            10,   // 控制模式
-            0,    // 目标电机ID
-            1     // 电机控制模式
-        );
-        // wset = (int16_t)(target_rpm * 27.008f);
-        rpm_pid.setpoint = target_rpm;
-        target_t = rpm_pid.PID_Compute(real_speed);
-        tset = (int16_t)(target_t * 256.0f);
-        data[7] = (tset >> 8) & 0xFF;
+        target_speed = speed_plan.speed_pulse_plan_setpos(relative_angle);
+        if (speed_plan.now_state == uniform_acc)
+        {
+            acc_t = -(((0.167767f + icc) * speed_plan.plan_info.acc) / 6.33f);
+        }
+        else if (speed_plan.now_state == uniform)
+        {
+            acc_t = -0.31f;
+        }
+        else if (speed_plan.now_state == uniform_dec)
+        {
+
+            acc_t = -(((0.220767f) * speed_plan.plan_info.dec) / 6.33f);
+            if (real_speed < 0.0f)
+            {
+                acc_t = 0.0f;
+            }
+        }
+
+        // rpm_pid.setpoint = target_rpm; //-0.727046 go1零点
+        // speed_pid.setpoint = target_speed;
+        // target_t = -0.79f * cos(relative_angle) + rpm_pid.PID_Compute(real_speed);
+        target_t = -0.79f * cos(relative_angle) - ff_feed * (speed_ladrc.ladrc_Compute(exp, real_speed) / 6.33f);
+        tset = (int16_t)(target_t * 256.0f); // 转矩要加符号
+        data[7] = (tset >> 8) & 0xFF;        // 补偿系数0.785
         data[6] = tset & 0xFF;
-        CAN_Send(extid, true, data);
+        CAN_Send(extid, true, data); //-0.66075
+        // 转动惯量0.17476666666
         break;
 
-    case pos:
-        extid = generateCanExtId(
-            3,    // 模块ID
-            true, // 是否发送
-            0,    // 数据模式
-            10,   // 控制模式
-            0,    // 目标电机ID
-            1     // 电机控制模式
-        );
-        data[0] = (uint8_t)(pset & 0xFF);
-        data[1] = (uint8_t)((pset >> 8) & 0xFF);
-        data[2] = (uint8_t)((pset >> 16) & 0xFF);
-        data[3] = (uint8_t)((pset >> 24) & 0xFF);
-        CAN_Send(extid, true, data);
+    case pos_pid:
+
         break;
 
     default:
@@ -239,7 +183,8 @@ void go1can::set_rpm(float power_motor_rpm)
     target_rpm = power_motor_rpm;
 }
 
-bool go1can::switch_go1_mode(go1_mode target_mode)
+void go1can::set_rpm_ff(float power_motor_rpm, float ff)
 {
-    mode = target_mode;
+    target_rpm = power_motor_rpm;
+    target_ff = ff;
 }

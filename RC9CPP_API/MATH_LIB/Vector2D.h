@@ -13,6 +13,7 @@ extern "C"
 #endif
 
 #ifdef __cplusplus
+#define QUEUE_CAPACITY 56 // 队列最大容量
 class Vector2D
 {
 public:
@@ -50,6 +51,48 @@ public:
 
     // 向量投影：投影this向量到other向量上
     Vector2D project_onto(const Vector2D &other) const;
+};
+
+class Vector2DQueue
+{
+private:
+    Vector2D data[QUEUE_CAPACITY]; // 用于存储队列元素的数组
+    int front;                     // 队首索引
+    int rear;                      // 队尾索引
+    int size;                      // 当前队列大小
+
+public:
+    // 构造函数
+    Vector2DQueue();
+
+    // 检查队列是否为空
+    bool isEmpty() const;
+
+    // 检查队列是否已满
+    bool isFull() const;
+
+    // 返回队列中的元素数量
+    int queueSize() const;
+
+    // 入队操作
+    bool enqueue(const Vector2D &vec);
+
+    // 强制入队操作（覆盖队尾元素）
+    void forceEnqueue(const Vector2D &vec);
+
+    // 出队操作
+    bool dequeue(Vector2D &vec);
+
+    // 查看队首元素
+    bool peek(Vector2D &vec) const;
+
+    // 将一个数组压入队列，数组索引小的元素先压入
+    bool enqueueArray(const Vector2D arr[], int length);
+
+    void forceEnqueueArray(const Vector2D arr[], int length);
+
+    // 清空队列
+    void clear();
 };
 
 #endif // VECTOR2D_H
