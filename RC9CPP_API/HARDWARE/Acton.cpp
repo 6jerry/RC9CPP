@@ -153,6 +153,10 @@ void action::calculateWorldSpeed()
             // 计算速度
             pose_data.world_speed_x = delta_x / delta_time;
             pose_data.world_speed_y = delta_y / delta_time;
+
+            pose_data.acc_x = (pose_data.world_speed_x - action_info.lastspeed_x) / delta_time;
+
+            pose_data.acc_y = (pose_data.world_speed_y - action_info.lastspeed_y) / delta_time;
         }
     }
 
@@ -160,4 +164,7 @@ void action::calculateWorldSpeed()
     previous_world_pos_x = pose_data.world_pos_x;
     previous_world_pos_y = pose_data.world_pos_y;
     previous_time = current_time;
+
+    action_info.lastspeed_x = pose_data.world_speed_x;
+    action_info.lastspeed_y = pose_data.world_speed_y;
 }

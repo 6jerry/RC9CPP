@@ -34,16 +34,16 @@ void shoot_xbox::process_data()
 
     if (speed_level == 1)
     {
-        MAX_RPM = 186.0f;
+        MAX_RPM = 2186.0f;
     }
 
     if (speed_level == 0)
     {
-        MAX_RPM = 86.0f;
+        MAX_RPM = 886.0f;
     }
     if (speed_level == 2)
     {
-        MAX_RPM = 286.0f;
+        MAX_RPM = 3286.0f;
     }
 
     shooter->set_rpm((xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * MAX_RPM);
