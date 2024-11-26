@@ -183,3 +183,11 @@ void Vector2DQueue::forceEnqueueArray(const Vector2D arr[], int length)
         forceEnqueue(arr[i]); // 强制入队覆盖队尾元素
     }
 }
+
+// 清空队列
+void Vector2DQueue::clear()
+{
+    front = 0;
+    rear = -1;
+    size = 0;
+}

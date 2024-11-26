@@ -153,12 +153,8 @@ void IncrePID::increPID_SetParameters(float kp_, float ki_, float kd_, float r_)
     r = r_;
 }
 
-float IncrePID::increPID_Compute(float input)
+void IncrePID::calc()
 {
-    TD();
-    setpoint = V1; // 跟踪微分器输出平滑的期望
-
-    error = setpoint - input;
     // 死区处理
     if (error < deadzone && error > 0)
     {
@@ -195,7 +191,22 @@ float IncrePID::increPID_Compute(float input)
     lalast_error = last_error;
     last_error = error;
     last_output = output;
+}
 
+float IncrePID::increPID_Compute(float input)
+{
+    TD();
+    setpoint = V1; // 跟踪微分器输出平滑的期望
+
+    error = setpoint - input;
+    calc();
+
+    return output;
+}
+float IncrePID::increPID_Computerror(float error_)//直接传入误差
+{
+    error = error_;//这个函数没有TD哦，所以用这个的话参数r是没有意义的
+    calc();
     return output;
 }
 void IncrePID::TD()

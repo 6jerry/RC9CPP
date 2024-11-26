@@ -51,7 +51,7 @@ void xbox_r2n::process_data()
 
         break;
     case 2:
-        control_chassis->switch_chassis_mode(point_tracking);
+        control_chassis->switch_chassis_mode(pp);
 
         break;
     case 3:

@@ -46,7 +46,7 @@ private:
     float gear_ratio = 19.2032f;
 
 public:
-    m3508p(uint8_t can_id, CAN_HandleTypeDef *hcan_, float gear_ratio = M3508_G, float kp_ = 32.0f, float ki_ = 0.76f, float kd_ = 8.6f, float r_ = 76.0f);
+    m3508p(uint8_t can_id, CAN_HandleTypeDef *hcan_, float gear_ratio = M3508_G, float kp_ = 32.0f, float ki_ = 0.76f, float kd_ = 8.6f, float r_ = 106.0f);
 
     int16_t motor_process() override;
     void can_update(uint8_t can_RxData[8]);

@@ -75,6 +75,9 @@ public:
     void TD(); // 微分跟踪器
     void increPID_setarget(float target_);
 
+    void calc();
+    float increPID_Computerror(float error_);
+
     void
     increPID_SetParameters(float kp_, float ki_, float kd_, float r_);
 

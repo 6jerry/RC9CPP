@@ -224,4 +224,6 @@ m3508_test/xbox.o: ..\RC9CPP_API\CONTROL\xbox.cpp \
   G:\Keil_v5\ARM\ARMCLANG\include\float.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\limits.h \
   G:\Keil_v5\ARM\ARMCLANG\include\limits.h \
+  ..\RC9CPP_API\CONTROL\pure_pursuit.h \
+  ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h \
   ..\RC9CPP_API\DECISION\EncodingStateMachine.h

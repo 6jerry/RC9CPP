@@ -90,6 +90,9 @@ public:
     bool enqueueArray(const Vector2D arr[], int length);
 
     void forceEnqueueArray(const Vector2D arr[], int length);
+
+    // 清空队列
+    void clear();
 };
 
 #endif // VECTOR2D_H

@@ -32,7 +32,7 @@ r2n_setup(void)
 
     task_core.registerTask(8, &data_chain);
     r2_remote.m3 = &m3508_front;
-    data_chain.tx_frame_mat.data_length = 24;
+    data_chain.tx_frame_mat.data_length = 40;
     data_chain.tx_frame_mat.frame_id = 1;
 
     osKernelStart();
@@ -47,12 +47,10 @@ void demo::process_data()
     data_chain.tx_frame_mat.data.msg_get[4] = go1.speed_ladrc.u;
 
     go1.speed_ladrc.ladrc_SetParameters(data_chain.rx_frame_mat.data.msg_get[0], data_chain.rx_frame_mat.data.msg_get[1], data_chain.rx_frame_mat.data.msg_get[2], data_chain.rx_frame_mat.data.msg_get[3], data_chain.rx_frame_mat.data.msg_get[4], data_chain.rx_frame_mat.data.msg_get[5]);*/
-    m3508_front.rpm_control.increPID_SetParameters(data_chain.rx_frame_mat.data.msg_get[0], data_chain.rx_frame_mat.data.msg_get[1], data_chain.rx_frame_mat.data.msg_get[2], data_chain.rx_frame_mat.data.msg_get[3]);
 
-    // m3508_front.set_rpm(data_chain.rx_frame_mat.data.msg_get[5]);
-    data_chain.tx_frame_mat.data.msg_get[0] = m3508_front.get_rpm();
+    r2n_chassis.pp_tracker.normal_control.PID_SetParameters(data_chain.rx_frame_mat.data.msg_get[0], data_chain.rx_frame_mat.data.msg_get[1], data_chain.rx_frame_mat.data.msg_get[2]);
 
-    data_chain.tx_frame_mat.data.msg_get[1] = m3508_front.target_rpm;
-    data_chain.tx_frame_mat.data.msg_get[2] = m3508_front.rpm_control.setpoint / M3508_G;
-    data_chain.tx_frame_mat.data.msg_get[3] = m3508_front.rpm_control.output / 10.0f;
+    data_chain.tx_frame_mat.data.msg_get[0] = r2n_chassis.pp_tracker.normal_dis;
+
+    data_chain.tx_frame_mat.data.msg_get[1] = Action.pose_data.world_pos_y;
 }

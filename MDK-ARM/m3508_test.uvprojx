@@ -2587,15 +2587,76 @@
               <FileType>5</FileType>
               <FilePath>..\RC9CPP_API\CONTROL\LADRC.h</FilePath>
             </File>
+            <File>
+              <FileName>pure_pursuit.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\RC9CPP_API\CONTROL\pure_pursuit.cpp</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>2</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>4</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>1</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <uGnu>2</uGnu>
+                    <useXO>2</useXO>
+                    <v6Lang>6</v6Lang>
+                    <v6LangP>9</v6LangP>
+                    <vShortEn>2</vShortEn>
+                    <vShortWch>2</vShortWch>
+                    <v6Lto>2</v6Lto>
+                    <v6WtE>2</v6WtE>
+                    <v6Rtti>2</v6Rtti>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
+              <FileName>pure_pursuit.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RC9CPP_API\CONTROL\pure_pursuit.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>RC9CPP_USER</GroupName>
           <Files>
             <File>
-              <FileName>r2n_xbox.cpp</FileName>
+              <FileName>push_shoot.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\RC9CPP_USER\R2N_USER\r2n_xbox.cpp</FilePath>
+              <FilePath>..\RC9CPP_USER\structure_test\push_shoot.cpp</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -2649,14 +2710,14 @@
               </FileOption>
             </File>
             <File>
-              <FileName>r2n_xbox.h</FileName>
+              <FileName>push_shoot.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\RC9CPP_USER\R2N_USER\r2n_xbox.h</FilePath>
+              <FilePath>..\RC9CPP_USER\structure_test\push_shoot.h</FilePath>
             </File>
             <File>
-              <FileName>r2n_setup.cpp</FileName>
+              <FileName>shoot_xbox.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\RC9CPP_USER\R2N_USER\r2n_setup.cpp</FilePath>
+              <FilePath>..\RC9CPP_USER\structure_test\shoot_xbox.cpp</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -2710,9 +2771,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>r2n_setup.h</FileName>
+              <FileName>shoot_xbox.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\RC9CPP_USER\R2N_USER\r2n_setup.h</FilePath>
+              <FilePath>..\RC9CPP_USER\structure_test\shoot_xbox.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -114,69 +114,61 @@ void chassis::point_track_compute()
         point_track_info.target_speed_y = 0.0f;
     }
 }
-void chassis::line_track_compute()
+
+chassis::chassis(ChassisType chassistype_, float Rwheel_, action *ACTION_, float headingkp, float headingki, float headingkd, float kp_, float ki_, float kd_) : chassistype(chassistype_), heading_pid(headingkp, headingki, headingkd, 100000.0f, 5.0f, 0.01f, 0.5f), ACTION(ACTION_), Rwheel(Rwheel_), distan_pid(kp_, ki_, kd_, 1000000.0f, 1.4f, 50.0f, 600.0f), pp_tracker(normalcontrol, 0.0057f, 0.0f, 0.0632f, 0.0f, 0.0f, 0.0f)
 {
+    Vector2D array[] = {
+        Vector2D(0.0f, 0.0f),
+        Vector2D(30.6f, 24.5f),
+        Vector2D(61.2f, 96.5f),
+        Vector2D(91.8f, 211.3f),
+        Vector2D(122.4f, 361.2f),
+        Vector2D(153.0f, 536.0f),
+        Vector2D(183.7f, 725.9f),
+        Vector2D(214.4f, 916.0f),
+        Vector2D(244.9f, 1096.5f),
+        Vector2D(275.5f, 1254.2f),
+        Vector2D(306.1f, 1378.5f),
+        Vector2D(336.7f, 1461.8f),
+        Vector2D(367.3f, 1498.2f),
+        Vector2D(398.0f, 1486.0f),
+        Vector2D(428.5f, 1425.4f),
+        Vector2D(459.2f, 1321.0f),
+        Vector2D(489.8f, 1179.0f),
+        Vector2D(520.4f, 1009.0f),
+        Vector2D(551.0f, 822.4f),
+        Vector2D(581.5f, 630.0f),
+        Vector2D(612.2f, 446.4f),
+        Vector2D(642.8f, 282.0f),
+        Vector2D(673.5f, 148.9f),
+        Vector2D(704.0f, 54.8f),
+        Vector2D(734.7f, 6.2f),
+        Vector2D(765.3f, 6.2f),
+        Vector2D(795.9f, 54.9f),
+        Vector2D(826.5f, 148.3f),
+        Vector2D(857.1f, 282.0f),
+        Vector2D(887.8f, 446.0f),
+        Vector2D(918.4f, 630.7f),
+        Vector2D(948.9f, 822.5f),
+        Vector2D(979.5f, 1009.0f),
+        Vector2D(1010.2f, 1179.2f),
+        Vector2D(1040.8f, 1321.0f),
+        Vector2D(1071.4f, 1425.4f),
+        Vector2D(1102.0f, 1486.2f),
+        Vector2D(1132.7f, 1498.0f),
+        Vector2D(1163.3f, 1461.0f),
+        Vector2D(1193.9f, 1378.0f),
+        Vector2D(1224.5f, 1254.0f),
+        Vector2D(1255.1f, 1096.0f),
+        Vector2D(1285.7f, 916.9f),
+        Vector2D(1316.3f, 725.0f),
+        Vector2D(1346.9f, 536.0f),
+        Vector2D(1377.6f, 361.0f),
+        Vector2D(1408.2f, 211.0f),
+        Vector2D(1438.8f, 96.5f),
+        Vector2D(1469.4f, 24.0f), Vector2D(1500.0f, 0.0f)};
 
-    // 计算法向误差
-    Vector2D now_point(ACTION->pose_data.world_pos_x, ACTION->pose_data.world_pos_y);
-    line_track_info.now_dis = now_point - line_track_info.target_line_initpoint;
-
-    line_track_info.projected = line_track_info.now_dis.project_onto(line_track_info.target_line);
-    line_track_info.tangent_dis = line_track_info.projected.magnitude(); // 切向距离，追踪距离,指向下一点
-
-    line_track_info.project_point = line_track_info.projected + line_track_info.target_line_initpoint;
-    Vector2D normal_vector = line_track_info.project_point - now_point; // 法相距离，追踪误差,指向目标曲线
-    line_track_info.normal_dis = normal_vector.magnitude();
-
-    line_track_info.tangent_dir = line_track_info.target_line.normalize();
-    line_track_info.normal_dir = normal_vector.normalize();
-
-    float nor_speed = normal_control.PID_ComputeError(line_track_info.normal_dis);
-    Vector2D normal_speed = nor_speed * line_track_info.normal_dir;
-
-    Vector2D tangent_speed = line_track_info.tan_speed * line_track_info.tangent_dir;
-
-    line_track_info.target_wspeed = normal_speed + tangent_speed;
-}
-void chassis::set_pursuit_speed(float Pspeed)
-{
-    line_track_info.tan_speed = -Pspeed;
-}
-void chassis::pure_pursuit_compute()
-{
-
-    // 由点计算得到向量
-    Vector2D now_track = pure_pursuit_info.path[pure_pursuit_info.tracking_index] - pure_pursuit_info.path[pure_pursuit_info.tracking_index + 1];
-    line_track_info.target_line_initpoint = pure_pursuit_info.path[pure_pursuit_info.tracking_index + 1];
-    line_track_info.target_line = now_track;
-
-    line_track_compute();
-    // 判断是否需要切换点
-    if (line_track_info.tangent_dis < pure_pursuit_info.change_point)
-    {
-        if (pure_pursuit_info.tracking_index < pure_pursuit_info.point_sum - 2)
-        {
-            pure_pursuit_info.tracking_index++;
-        }
-        else
-        {
-            if (pure_pursuit_info.if_loop)
-            {
-                // 环形轨迹
-                pure_pursuit_info.tracking_index = 0;
-            }
-            else
-            {
-                line_track_info.target_wspeed.x = 0.0f;
-                line_track_info.target_wspeed.y = 0.0f;
-            }
-        }
-    }
-
-    // 记录一下当前走过的路程并设置一下切向追踪速度，采用梯形速度规划，规划全程的追踪速度
-}
-chassis::chassis(ChassisType chassistype_, float Rwheel_, action *ACTION_, float headingkp, float headingki, float headingkd, float kp_, float ki_, float kd_) : chassistype(chassistype_), heading_pid(headingkp, headingki, headingkd, 100000.0f, 5.0f, 0.01f, 0.5f), ACTION(ACTION_), Rwheel(Rwheel_), distan_pid(kp_, ki_, kd_, 1000000.0f, 1.4f, 50.0f, 600.0f), normal_control(0.0062f, 0, 0.056f, 10000000.0f, 1.2f, 30.0f, 600.0f), tangential_control(0, 0, 0, 10000000.0f, 1.4f, 30.0f, 600.0f)
-{
+    pp_tracker.pp_force_add_points(array, 50);
 }
 
 float chassis ::v_to_rpm(float v)
@@ -267,9 +259,7 @@ void omni3::process_data()
         worldv_to_robotv();
         break;
     case line_tracking:
-        line_track_compute();
-        input_wvx = line_track_info.target_wspeed.x;
-        input_wvy = line_track_info.target_wspeed.y;
+
         worldv_to_robotv();
         break;
     case point_tracking:
@@ -277,19 +267,16 @@ void omni3::process_data()
         input_wvx = point_track_info.target_speed_x;
         input_wvy = point_track_info.target_speed_y;
         worldv_to_robotv();
+        break;
 
-    case pure_pursuit:
-        pure_pursuit_compute();
+    case pp:
+        Vector2D wpos(ACTION->pose_data.world_pos_x, ACTION->pose_data.world_pos_y);
 
-        input_wvx = line_track_info.target_wspeed.x;
-        input_wvy = line_track_info.target_wspeed.y;
+        Vector2D tspeed = pp_tracker.pursuit(wpos);
+
+        input_wvx = tspeed.x;
+        input_wvy = tspeed.y;
         worldv_to_robotv();
-        break;
-
-        break;
-
-    default:
-
         break;
     }
     if (if_lock_heading)
