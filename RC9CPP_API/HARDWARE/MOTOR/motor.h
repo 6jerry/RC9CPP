@@ -16,15 +16,16 @@ extern "C"
 enum motor_mode
 {
     speed,
-    pos_pid,
-    pos_speedplan,
-    standby
+    pos_single,
+    pos_many,
+    standby,
+
 };
 class power_motor
 {
 
 public:
-    motor_mode mode = standby;
+    motor_mode mode = speed;
     virtual float get_rpm() = 0;
     virtual void set_rpm(float power_motor_rpm) = 0; // 获取当前转速和设置目标转速的通用接口
     void switch_mode(motor_mode target_mode);

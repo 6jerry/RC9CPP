@@ -46,7 +46,7 @@ private:
     float gear_ratio = 19.2032f;
 
 public:
-    m3508p(uint8_t can_id, CAN_HandleTypeDef *hcan_, float gear_ratio = M3508_G, float kp_ = 32.0f, float ki_ = 0.76f, float kd_ = 8.6f, float r_ = 106.0f);
+    m3508p(uint8_t can_id, CAN_HandleTypeDef *hcan_, motor_mode mode_ = speed, float gear_ratio = M3508_G, float kp_ = 32.0f, float ki_ = 0.76f, float kd_ = 8.6f, float r_ = 106.0f);
 
     int16_t motor_process() override;
     void can_update(uint8_t can_RxData[8]);
@@ -55,6 +55,13 @@ public:
 
     float targrt_T = 0.0f;        // 期望转矩
     float Tff = 0.0f, Cff = 0.0f; // 前馈力矩和换算成的前馈电流
+
+    float last_pos = 0.0f, delta_pos = 0.0f, pos_sum = 0.0f, now_pos = 0.0f, temp_delta=0.0f;
+    uint8_t init_cnt = 0;
+    bool if_init = true;
+
+    void many_pos_locate(); // 3508多圈差分定位
+    void locate_restart();
 
     // 动力电机通用接口
     float get_rpm();
