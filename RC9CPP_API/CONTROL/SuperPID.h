@@ -78,8 +78,7 @@ public:
     void calc();
     float increPID_Computerror(float error_);
 
-    void
-    increPID_SetParameters(float kp_, float ki_, float kd_, float r_);
+    void increPID_SetParameters(float kp_, float ki_, float kd_, float r_);
 
     IncrePID(float kp_, float ki_, float kd_, float r_, float output_limit_, float deadzone_);
 };

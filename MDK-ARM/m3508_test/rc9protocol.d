@@ -1,12 +1,7 @@
 m3508_test/rc9protocol.o: ..\RC9CPP_API\HARDWARE\RC9Protocol.cpp \
   ..\RC9CPP_API\HARDWARE\RC9Protocol.h ..\RC9CPP_API\MATH_LIB\crc_util.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdint.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config \
-  G:\Keil_v5\ARM\ARMCLANG\include\stdint.h \
   ..\RC9CPP_API\HARDWARE\TaskManager.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stddef.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\stddef.h \
   ..\RC9CPP_API\HARDWARE\Serial_device.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
   ..\Core\Inc\FreeRTOSConfig.h \
@@ -23,10 +18,6 @@ m3508_test/rc9protocol.o: ..\RC9CPP_API\HARDWARE\RC9Protocol.cpp \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h \
   ..\Drivers\CMSIS\Include\core_cm4.h \
-  G:\STM32_PROJECT\R1_NEW\R1_No2\ -\ 改动\Drivers\CMSIS\Include\cmsis_version.h \
-  G:\STM32_PROJECT\R1_NEW\R1_No2\ -\ 改动\Drivers\CMSIS\Include\cmsis_compiler.h \
-  G:\STM32_PROJECT\R1_NEW\R1_No2\ -\ 改动\Drivers\CMSIS\Include\cmsis_armclang.h \
-  G:\STM32_PROJECT\R1_NEW\R1_No2\ -\ 改动\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h \
@@ -48,6 +39,4 @@ m3508_test/rc9protocol.o: ..\RC9CPP_API\HARDWARE\RC9Protocol.cpp \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h
+  ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h
