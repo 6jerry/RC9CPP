@@ -48,9 +48,16 @@ void demo::process_data()
 
     go1.speed_ladrc.ladrc_SetParameters(data_chain.rx_frame_mat.data.msg_get[0], data_chain.rx_frame_mat.data.msg_get[1], data_chain.rx_frame_mat.data.msg_get[2], data_chain.rx_frame_mat.data.msg_get[3], data_chain.rx_frame_mat.data.msg_get[4], data_chain.rx_frame_mat.data.msg_get[5]);*/
 
-    r2n_chassis.pp_tracker.normal_control.PID_SetParameters(data_chain.rx_frame_mat.data.msg_get[0], data_chain.rx_frame_mat.data.msg_get[1], data_chain.rx_frame_mat.data.msg_get[2]);
+    // r2n_chassis.pp_tracker.normal_control.PID_SetParameters(data_chain.rx_frame_mat.data.msg_get[0], data_chain.rx_frame_mat.data.msg_get[1], data_chain.rx_frame_mat.data.msg_get[2]);
 
-    data_chain.tx_frame_mat.data.msg_get[0] = r2n_chassis.pp_tracker.normal_dis;
+    Vector2D trackpoint(data_chain.rx_frame_mat.data.msg_get[0], data_chain.rx_frame_mat.data.msg_get[1]);
+
+    r2n_chassis.pp_tracker.pp_force_add_point(trackpoint);
+
+    data_chain.tx_frame_mat.data.msg_get[0] = Action.pose_data.world_pos_x;
 
     data_chain.tx_frame_mat.data.msg_get[1] = Action.pose_data.world_pos_y;
+
+    data_chain.tx_frame_mat.data.msg_get[2] = Action.pose_data.world_speed_x;
+    data_chain.tx_frame_mat.data.msg_get[3] = Action.pose_data.world_speed_y;
 }

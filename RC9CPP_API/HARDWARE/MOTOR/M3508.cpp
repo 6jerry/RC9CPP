@@ -17,8 +17,9 @@
  *             in the software.
  ******************************************************************************/
 #include "M3508.h"
-m3508p::m3508p(uint8_t can_id, CAN_HandleTypeDef *hcan_, float gear_ratio, float kp_, float ki_, float kd_, float r_) : CanDevice(M3508, hcan_, can_id), gear_ratio(gear_ratio), dji_motor(20000.0f, 16384, 8191), rpm_control(kp_, ki_, kd_, r_, 20000.0f, 5.0f) // 选择使用积分分离的话积分限幅就是无意义的，随便给个爆大的值就行
+m3508p::m3508p(uint8_t can_id, CAN_HandleTypeDef *hcan_, motor_mode mode_, float gear_ratio, float kp_, float ki_, float kd_, float r_) : CanDevice(M3508, hcan_, can_id), gear_ratio(gear_ratio), dji_motor(20000.0f, 16384, 8191), rpm_control(kp_, ki_, kd_, r_, 20000.0f, 5.0f) // 选择使用积分分离的话积分限幅就是无意义的，随便给个爆大的值就行
 {
+    mode = mode_;
 }
 
 int16_t m3508p::motor_process()
@@ -27,6 +28,20 @@ int16_t m3508p::motor_process()
 
     rpm_control.increPID_setarget(target_rpm * gear_ratio);
     vtarget_current = rcurrent_to_vcurrent(rpm_control.increPID_Compute(rpm)) + rcurrent_to_vcurrent(Cff);
+
+    switch (mode)
+    {
+    case speed:
+        /* code */
+        break;
+    case pos_single:
+        /* code */
+        break;
+    case pos_many:
+        /* code */
+        break;
+    }
+
     return vtarget_current;
 }
 void m3508p::can_update(uint8_t can_RxData[8])
@@ -38,6 +53,11 @@ void m3508p::can_update(uint8_t can_RxData[8])
 
     int16_t vcurrent = (can_RxData[4] << 8) | can_RxData[5];
     rcurrent = vcurrent_to_rcurrent(vcurrent); // 虚拟电流，mA
+
+    if (mode == pos_many)
+    {
+        many_pos_locate();
+    }
 }
 float m3508p::get_rpm()
 {
@@ -56,4 +76,57 @@ void m3508p::T_TO_C()
 void m3508p::set_fTff(float Tff_)
 {
     Tff = Tff_;
+}
+
+void m3508p::many_pos_locate()
+{
+    if (if_init)
+    {
+        init_cnt++;
+        if (init_cnt > 6)
+        {
+            locate_restart();
+            if_init = false;
+        }
+    }
+
+    last_pos = now_pos;
+
+    now_pos = rangle;
+
+    temp_delta = now_pos - last_pos;
+
+    if (now_pos > 357.0f)
+    {
+        if (last_pos < 3.0f)
+        {
+            delta_pos = -(360.0f - now_pos + last_pos);
+        }
+        else
+        {
+            delta_pos = temp_delta;
+        }
+    }
+    else if (now_pos < 3.0f)
+    {
+        if (last_pos > 357.0f)
+        {
+            delta_pos = now_pos + (360.0f - last_pos);
+        }
+        else
+        {
+            delta_pos = temp_delta;
+        }
+    }
+    else
+    {
+        delta_pos = temp_delta;
+    }
+
+    pos_sum += delta_pos;
+}
+
+void m3508p::locate_restart()
+{
+    pos_sum = 0.0f;
 }

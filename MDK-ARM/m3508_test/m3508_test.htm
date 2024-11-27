@@ -3,7 +3,7 @@
 <title>Static Call Graph - [m3508_test\m3508_test.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image m3508_test\m3508_test.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6210000: Last Updated: Tue Nov 26 16:57:27 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6210000: Last Updated: Wed Nov 27 15:14:51 2024
 <BR><P>
 <H3>Maximum Stack Usage =        240 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -572,7 +572,8 @@ Global Symbols
 <P><STRONG><a name="[16f]"></a>__aeabi_memset8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, aeabi_memset4.o(.text), UNUSED)
 
 <P><STRONG><a name="[fb]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memclr_w.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IncrePID::IncrePID(float, float, float, float, float, float)
+<BR><BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;m3508p::m3508p(unsigned char, CAN_HandleTypeDef*, motor_mode, float, float, float, float, float)
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IncrePID::IncrePID(float, float, float, float, float, float)
 <LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskManager::registerTask(int, ITaskProcessor*)
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_TaskManager.cpp
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC9Protocol::RC9Protocol(__UART_HandleTypeDef*, bool)
@@ -1629,7 +1630,7 @@ Global Symbols
 <P><STRONG><a name="[79]"></a>RC9Protocol_subscriber::~RC9Protocol_subscriber__sub_object()</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, xbox.o(.text._ZN22RC9Protocol_subscriberD2Ev))
 <BR>[Address Reference Count : 1]<UL><LI> xbox.o(.rodata._ZTV4xbox)
 </UL>
-<P><STRONG><a name="[77]"></a>demo::process_data()</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, push_shoot.o(.text._ZN4demo12process_dataEv))
+<P><STRONG><a name="[77]"></a>demo::process_data()</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, push_shoot.o(.text._ZN4demo12process_dataEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = demo::process_data()
 </UL>
 <BR>[Calls]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IncrePID::increPID_SetParameters(float, float, float, float)
@@ -1681,7 +1682,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> xbox.o(.rodata._ZTV4xbox)
 </UL>
-<P><STRONG><a name="[7c]"></a>m3508p::can_update(unsigned char*)</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, m3508.o(.text._ZN6m3508p10can_updateEPh))
+<P><STRONG><a name="[7c]"></a>m3508p::can_update(unsigned char*)</STRONG> (Thumb, 200 bytes, Stack size 16 bytes, m3508.o(.text._ZN6m3508p10can_updateEPh))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = m3508p::can_update(unsigned char*)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dji_motor::vcurrent_to_rcurrent(short)
@@ -1706,18 +1707,19 @@ Global Symbols
 <P><STRONG><a name="[7f]"></a>m3508p::set_rpm(float)</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, m3508.o(.text._ZN6m3508p7set_rpmEf))
 <BR>[Address Reference Count : 1]<UL><LI> m3508.o(.rodata._ZTV6m3508p)
 </UL>
-<P><STRONG><a name="[fc]"></a>m3508p::m3508p(unsigned char, CAN_HandleTypeDef*, float, float, float, float, float)</STRONG> (Thumb, 152 bytes, Stack size 64 bytes, m3508.o(.text._ZN6m3508pC2EhP17CAN_HandleTypeDeffffff))
+<P><STRONG><a name="[fc]"></a>m3508p::m3508p(unsigned char, CAN_HandleTypeDef*, motor_mode, float, float, float, float, float)</STRONG> (Thumb, 160 bytes, Stack size 64 bytes, m3508.o(.text._ZN6m3508pC2EhP17CAN_HandleTypeDef10motor_modefffff))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112 + Unknown Stack Size
-<LI>Call Chain = m3508p::m3508p(unsigned char, CAN_HandleTypeDef*, float, float, float, float, float) &rArr; IncrePID::IncrePID(float, float, float, float, float, float)
+<LI>Call Chain = m3508p::m3508p(unsigned char, CAN_HandleTypeDef*, motor_mode, float, float, float, float, float) &rArr; IncrePID::IncrePID(float, float, float, float, float, float)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CanDevice::CanDevice__sub_object(CanDeviceType, CAN_HandleTypeDef*, unsigned char)
+<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IncrePID::IncrePID(float, float, float, float, float, float)
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dji_motor::dji_motor__sub_object(float, short, unsigned short)
 </UL>
 <BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_push_shoot.cpp
 </UL>
 
-<P><STRONG><a name="[182]"></a>m3508p::m3508p__sub_object(unsigned char, CAN_HandleTypeDef*, float, float, float, float, float)</STRONG> (Thumb, 152 bytes, Stack size 64 bytes, m3508.o(.text._ZN6m3508pC2EhP17CAN_HandleTypeDeffffff), UNUSED)
+<P><STRONG><a name="[182]"></a>m3508p::m3508p__sub_object(unsigned char, CAN_HandleTypeDef*, motor_mode, float, float, float, float, float)</STRONG> (Thumb, 160 bytes, Stack size 64 bytes, m3508.o(.text._ZN6m3508pC2EhP17CAN_HandleTypeDef10motor_modefffff), UNUSED)
 
 <P><STRONG><a name="[115]"></a>IncrePID::increPID_Compute(float)</STRONG> (Thumb, 348 bytes, Stack size 16 bytes, superpid.o(.text._ZN8IncrePID16increPID_ComputeEf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = IncrePID::increPID_Compute(float)
@@ -1741,7 +1743,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;m3508p::m3508p(unsigned char, CAN_HandleTypeDef*, float, float, float, float, float)
+<BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;m3508p::m3508p(unsigned char, CAN_HandleTypeDef*, motor_mode, float, float, float, float, float)
 </UL>
 
 <P><STRONG><a name="[183]"></a>IncrePID::IncrePID__sub_object(float, float, float, float, float, float)</STRONG> (Thumb, 80 bytes, Stack size 48 bytes, superpid.o(.text._ZN8IncrePIDC2Effffff), UNUSED)
@@ -1756,7 +1758,7 @@ Global Symbols
 <P><STRONG><a name="[117]"></a>CanDevice::CanDevice__sub_object(CanDeviceType, CAN_HandleTypeDef*, unsigned char)</STRONG> (Thumb, 1530 bytes, Stack size 36 bytes, can_device.o(.text._ZN9CanDeviceC2E13CanDeviceTypeP17CAN_HandleTypeDefh))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = CanDevice::CanDevice__sub_object(CanDeviceType, CAN_HandleTypeDef*, unsigned char)
 </UL>
-<BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;m3508p::m3508p(unsigned char, CAN_HandleTypeDef*, float, float, float, float, float)
+<BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;m3508p::m3508p(unsigned char, CAN_HandleTypeDef*, motor_mode, float, float, float, float, float)
 </UL>
 
 <P><STRONG><a name="[112]"></a>dji_motor::vangle_to_rangle(unsigned int)</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, motor.o(.text._ZN9dji_motor16vangle_to_rangleEj))
@@ -1774,7 +1776,7 @@ Global Symbols
 <P><STRONG><a name="[184]"></a>dji_motor::dji_motor(float, short, unsigned short)</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, motor.o(.text._ZN9dji_motorC2Efst), UNUSED)
 
 <P><STRONG><a name="[118]"></a>dji_motor::dji_motor__sub_object(float, short, unsigned short)</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, motor.o(.text._ZN9dji_motorC2Efst))
-<BR><BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;m3508p::m3508p(unsigned char, CAN_HandleTypeDef*, float, float, float, float, float)
+<BR><BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;m3508p::m3508p(unsigned char, CAN_HandleTypeDef*, motor_mode, float, float, float, float, float)
 </UL>
 
 <P><STRONG><a name="[72]"></a>non-virtual thunk to RC9Protocol::process_data()</STRONG> (Thumb, 170 bytes, Stack size 24 bytes, rc9protocol.o(.text._ZThn12_N11RC9Protocol12process_dataEv))
@@ -1848,8 +1850,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;abort_message
 </UL>
 <BR>[Address Reference Count : 3]<UL><LI> can_device.o(.rodata._ZTV9CanDevice)
-<LI> m3508.o(.rodata._ZTV11power_motor)
 <LI> serial_device.o(.rodata._ZTV12SerialDevice)
+<LI> m3508.o(.rodata._ZTV11power_motor)
 </UL>
 <P><STRONG><a name="[11b]"></a>abort_message</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, abort_message.cpp.o(.text.abort_message))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48 + Unknown Stack Size
@@ -2402,13 +2404,13 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> taskmanager.o(.init_array)
 </UL>
-<P><STRONG><a name="[84]"></a>_GLOBAL__sub_I_push_shoot.cpp</STRONG> (Thumb, 172 bytes, Stack size 16 bytes, push_shoot.o(.text._GLOBAL__sub_I_push_shoot.cpp))
-<BR><BR>[Stack]<UL><LI>Max Depth = 128 + Unknown Stack Size
-<LI>Call Chain = _GLOBAL__sub_I_push_shoot.cpp &rArr; m3508p::m3508p(unsigned char, CAN_HandleTypeDef*, float, float, float, float, float) &rArr; IncrePID::IncrePID(float, float, float, float, float, float)
+<P><STRONG><a name="[84]"></a>_GLOBAL__sub_I_push_shoot.cpp</STRONG> (Thumb, 200 bytes, Stack size 48 bytes, push_shoot.o(.text._GLOBAL__sub_I_push_shoot.cpp))
+<BR><BR>[Stack]<UL><LI>Max Depth = 160 + Unknown Stack Size
+<LI>Call Chain = _GLOBAL__sub_I_push_shoot.cpp &rArr; m3508p::m3508p(unsigned char, CAN_HandleTypeDef*, motor_mode, float, float, float, float, float) &rArr; IncrePID::IncrePID(float, float, float, float, float, float)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CanManager::CanManager()
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;shoot_xbox::shoot_xbox(power_motor*, power_motor*)
-<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;m3508p::m3508p(unsigned char, CAN_HandleTypeDef*, float, float, float, float, float)
+<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;m3508p::m3508p(unsigned char, CAN_HandleTypeDef*, motor_mode, float, float, float, float, float)
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskManager::TaskManager()
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC9Protocol::RC9Protocol(__UART_HandleTypeDef*, bool)
 </UL>

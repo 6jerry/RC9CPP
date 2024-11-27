@@ -165,7 +165,7 @@ void go1can::process_data()
         // 转动惯量0.17476666666
         break;
 
-    case pos_pid:
+    case pos_many:
 
         break;
 
