@@ -1,0 +1,4 @@
+D:/ClionProject/filter/cmake-build-debug-event-trace/CMakeFiles/filter.dir
+D:/ClionProject/filter/cmake-build-debug-event-trace/CMakeFiles/my_test.dir
+D:/ClionProject/filter/cmake-build-debug-event-trace/CMakeFiles/edit_cache.dir
+D:/ClionProject/filter/cmake-build-debug-event-trace/CMakeFiles/rebuild_cache.dir
