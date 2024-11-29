@@ -2648,6 +2648,16 @@
               <FileType>5</FileType>
               <FilePath>..\RC9CPP_API\CONTROL\pure_pursuit.h</FilePath>
             </File>
+            <File>
+              <FileName>filter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\RC9CPP_API\MATH_LIB\filter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>filter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RC9CPP_API\MATH_LIB\filter.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

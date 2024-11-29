@@ -1,6 +1,6 @@
 #include "push_shoot.h"
 
-m3508p m3508_shooter(1, &hcan1, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f), m3508_pitch(2, &hcan1);
+m3508p m3508_shooter(1, &hcan1, pos_many, 1.0f), m3508_pitch(2, &hcan1);
 
 TaskManager task_core;
 CanManager can_core;
