@@ -63,4 +63,5 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\RC9CPP_API\CONTROL\pure_pursuit.h \
   ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h \
   ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
-  ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h ..\RC9CPP_API\CONTROL\SuperPID.h
+  ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h ..\RC9CPP_API\CONTROL\SuperPID.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\vesc.h

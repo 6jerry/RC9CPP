@@ -94,7 +94,7 @@ typedef struct pose_data_
 
 class action : public SerialDevice
 {
-private:
+public:
     // 内部状态机的状态
     enum RxState
     {

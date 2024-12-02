@@ -15,6 +15,7 @@ extern "C"
 #include "TaskManager.h"
 #include "shoot_xbox.h"
 #include "M3508.h"
+#include "vesc.h"
 
     void pshoot_setup(void);
 #ifdef __cplusplus
