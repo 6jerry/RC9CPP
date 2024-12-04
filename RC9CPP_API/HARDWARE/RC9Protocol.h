@@ -8,6 +8,7 @@ extern "C"
 #include "TaskManager.h"
 #include "Serial_device.h"
 #include "netswitch.h"
+#include "rcncore.h"
 #ifdef __cplusplus
 }
 #endif
@@ -55,7 +56,7 @@ class RC9Protocol : public SerialDevice, public ITaskProcessor, public rcnode
 public:
     // 构造函数，传入 UART 句柄，是否启用发送任务，是否启用 CRC 校验
     RC9Protocol(UART_HandleTypeDef *huart, bool enableCrcCheck = true);
-
+    publisher pubber;
     // 实现接收数据的处理逻辑
     void handleReceiveData(uint8_t byte);
 

@@ -62,6 +62,6 @@ uint8_t demo::msgout(uint8_t rcnID_, void *output)
 {
     return 0;
 }
-demo::demo(float init_) : testdd(init_)
+demo::demo(float init_) : testdd(init_), subber("test1", this)
 {
 }

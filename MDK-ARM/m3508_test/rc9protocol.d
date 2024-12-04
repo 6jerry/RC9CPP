@@ -52,4 +52,5 @@ m3508_test/rc9protocol.o: ..\RC9CPP_API\HARDWARE\RC9Protocol.cpp \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h \
   G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h \
   ..\RC9CPP_API\HARDWARE\NETWORK\netswitch.h \
-  ..\RC9CPP_API\DECISION\EncodingStateMachine.h
+  ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
+  ..\RC9CPP_API\HARDWARE\NETWORK\rcncore.h

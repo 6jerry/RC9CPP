@@ -17,6 +17,7 @@ extern "C"
 #include "M3508.h"
 #include "vesc.h"
 #include "netswitch.h"
+#include "rcncore.h"
 
     void pshoot_setup(void);
 #ifdef __cplusplus
@@ -27,6 +28,7 @@ class demo : public ITaskProcessor, public rcnode
 {
 private:
     float testdd = 0.0f;
+    subscriber subber;
 
 public:
     void process_data();

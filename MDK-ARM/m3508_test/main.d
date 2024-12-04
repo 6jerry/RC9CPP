@@ -52,6 +52,7 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h \
   ..\RC9CPP_API\HARDWARE\NETWORK\netswitch.h \
   ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
+  ..\RC9CPP_API\HARDWARE\NETWORK\rcncore.h \
   ..\RC9CPP_USER\structure_test\shoot_xbox.h \
   ..\RC9CPP_API\CONTROL\xbox.h ..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\motor.h \
