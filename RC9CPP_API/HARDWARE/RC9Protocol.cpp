@@ -88,6 +88,8 @@ void RC9Protocol::handleReceiveData(uint8_t byte)
 
                     publish(rx_frame_mat.frame_id, rx_frame_mat.data_length, rx_frame_mat.data.buff_msg, rx_frame_mat.data.msg_get); // 发布数据
 
+                    ppsend_Asyn(LOCAL_RCIP, 2, 0, rx_frame_mat.data.buff_msg);
+
                     state_ = WAITING_FOR_HEADER_0;
                 }
             }
@@ -98,7 +100,12 @@ void RC9Protocol::handleReceiveData(uint8_t byte)
                     rx_frame_mat.data.buff_msg[i] = rx_frame_mat.rx_temp_data_mat[i];
                 }
 
-                publish(rx_frame_mat.frame_id, rx_frame_mat.data_length, rx_frame_mat.data.buff_msg, rx_frame_mat.data.msg_get);
+                // publish(rx_frame_mat.frame_id, rx_frame_mat.data_length, rx_frame_mat.data.buff_msg, rx_frame_mat.data.msg_get);
+                tdata[0] += 0.001f;
+                tdata[1] = 0.001f;
+                tdata[2] -= 0.001f;
+                ppsend_AsynOverwrite(LOCAL_RCIP, 3, 0, tdata);
+                ppsend_Syn(LOCAL_RCIP, 2, 0, rx_frame_mat.data.buff_msg);
 
                 state_ = WAITING_FOR_HEADER_0;
             }
@@ -157,4 +164,14 @@ void RC9Protocol::publish(uint8_t data_id, uint8_t datalenth, const uint8_t *dat
             observers_[i]->update(data_id, datalenth, data_char, data_float); // 调用观察者的update方法
         }
     }
+}
+
+uint8_t RC9Protocol::msgin(uint8_t rcnID_, const void *data)
+{
+    return 0;
+}
+
+uint8_t RC9Protocol::msgout(uint8_t rcnID_, void *output)
+{
+    return 0;
 }

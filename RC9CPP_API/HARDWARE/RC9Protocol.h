@@ -7,6 +7,7 @@ extern "C"
 #include "crc_util.h"
 #include "TaskManager.h"
 #include "Serial_device.h"
+#include "netswitch.h"
 #ifdef __cplusplus
 }
 #endif
@@ -49,7 +50,7 @@ typedef struct serial_frame_mat
     uint8_t frame_end[2];
 } serial_frame_mat_t;
 
-class RC9Protocol : public SerialDevice, public ITaskProcessor
+class RC9Protocol : public SerialDevice, public ITaskProcessor, public rcnode
 {
 public:
     // 构造函数，传入 UART 句柄，是否启用发送任务，是否启用 CRC 校验
@@ -63,6 +64,10 @@ public:
 
     serial_frame_mat_t rx_frame_mat; // 接收数据的数据帧结构体
     serial_frame_mat_t tx_frame_mat; // 发送数据的数据帧结构体
+
+    uint8_t msgin(uint8_t rcnID_, const void *data) override;
+    uint8_t msgout(uint8_t rcnID_, void *output) override;
+    float tdata[6] = {0.0f};
 
 private:
     uint8_t sendBuffer_[MAX_DATA_LENGTH_RC9 + 8];
