@@ -50,4 +50,7 @@ m3508_test/rc9protocol.o: ..\RC9CPP_API\HARDWARE\RC9Protocol.cpp \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h
+  G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h \
+  ..\RC9CPP_API\HARDWARE\NETWORK\netswitch.h \
+  ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
+  ..\RC9CPP_API\HARDWARE\NETWORK\rcncore.h

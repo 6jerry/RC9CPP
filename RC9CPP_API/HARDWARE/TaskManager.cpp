@@ -2,7 +2,6 @@
 
 TaskInfo TaskManager::tasks[MAX_TASKS];
 
-
 TaskManager::TaskManager()
 {
     for (int i = 0; i < MAX_TASKS; i++)
@@ -36,7 +35,7 @@ TaskManager::TaskManager()
     tasks[8].Priority = osPriorityLow;
     tasks[8].delay_ms = 20;
     tasks[9].Priority = osPriorityIdle;
-    tasks[9].delay_ms = 20;
+    tasks[9].delay_ms = 200;
 }
 
 void TaskManager::registerTask(int taskID, ITaskProcessor *instance)

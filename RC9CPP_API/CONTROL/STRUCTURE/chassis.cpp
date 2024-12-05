@@ -117,7 +117,7 @@ void chassis::point_track_compute()
 
 chassis::chassis(ChassisType chassistype_, float Rwheel_, action *ACTION_, float headingkp, float headingki, float headingkd, float kp_, float ki_, float kd_) : chassistype(chassistype_), heading_pid(headingkp, headingki, headingkd, 100000.0f, 5.0f, 0.01f, 0.5f), ACTION(ACTION_), Rwheel(Rwheel_), distan_pid(kp_, ki_, kd_, 1000000.0f, 1.4f, 50.0f, 600.0f), pp_tracker(normalcontrol, 0.0057f, 0.0f, 0.0632f, 0.0f, 0.0f, 0.0f)
 {
-    Vector2D array[] = {
+    /*Vector2D array[] = {
         Vector2D(0.0f, 0.0f),
         Vector2D(30.6f, 24.5f),
         Vector2D(61.2f, 96.5f),
@@ -168,7 +168,7 @@ chassis::chassis(ChassisType chassistype_, float Rwheel_, action *ACTION_, float
         Vector2D(1438.8f, 96.5f),
         Vector2D(1469.4f, 24.0f), Vector2D(1500.0f, 0.0f)};
 
-    pp_tracker.pp_force_add_points(array, 50);
+    pp_tracker.pp_force_add_points(array, 50);*/
 }
 
 float chassis ::v_to_rpm(float v)
@@ -270,12 +270,12 @@ void omni3::process_data()
         break;
 
     case pp:
-        Vector2D wpos(ACTION->pose_data.world_pos_x, ACTION->pose_data.world_pos_y);
+        //Vector2D wpos(ACTION->pose_data.world_pos_x, ACTION->pose_data.world_pos_y);
 
-        Vector2D tspeed = pp_tracker.pursuit(wpos);
+        //Vector2D tspeed = pp_tracker.pursuit(wpos);
 
-        input_wvx = tspeed.x;
-        input_wvy = tspeed.y;
+        //input_wvx = tspeed.x;
+        //input_wvy = tspeed.y;
         worldv_to_robotv();
         break;
     }

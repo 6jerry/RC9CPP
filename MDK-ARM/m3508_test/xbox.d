@@ -51,6 +51,9 @@ m3508_test/xbox.o: ..\RC9CPP_API\CONTROL\xbox.cpp \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h \
   G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h \
+  ..\RC9CPP_API\HARDWARE\NETWORK\netswitch.h \
+  ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
+  ..\RC9CPP_API\HARDWARE\NETWORK\rcncore.h \
   ..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\motor.h \
   ..\RC9CPP_API\HARDWARE\can_device.h ..\Core\Inc\can.h \
@@ -225,5 +228,4 @@ m3508_test/xbox.o: ..\RC9CPP_API\CONTROL\xbox.cpp \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\limits.h \
   G:\Keil_v5\ARM\ARMCLANG\include\limits.h \
   ..\RC9CPP_API\CONTROL\pure_pursuit.h \
-  ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h \
-  ..\RC9CPP_API\DECISION\EncodingStateMachine.h
+  ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h

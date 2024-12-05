@@ -67,7 +67,7 @@ private:
     float tangent_dis = 0.0f;
     float target_dis = 0.0f;
     Vector2D target_wspeed;
-    float tan_speed = 1.36f;
+    float tan_speed = 0.28f;
 
     bool if_loop = false;       // 是否是环形轨迹?,如果是环形轨迹的话起始点要写两次
     float tracked_lenth = 0.0f; // 沿着轨迹追踪多远了？

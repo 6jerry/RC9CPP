@@ -31,6 +31,8 @@ private:
     /* data */
 public:
     void process_data();
+
+    float test12 = 0.0f;
 };
 
 #endif

@@ -50,6 +50,9 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\RC9CPP_API\HARDWARE\Serial_device.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h \
+  ..\RC9CPP_API\HARDWARE\NETWORK\netswitch.h \
+  ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
+  ..\RC9CPP_API\HARDWARE\NETWORK\rcncore.h \
   ..\RC9CPP_USER\structure_test\shoot_xbox.h \
   ..\RC9CPP_API\CONTROL\xbox.h ..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\motor.h \
@@ -62,5 +65,5 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   G:\Keil_v5\ARM\ARMCLANG\include\limits.h \
   ..\RC9CPP_API\CONTROL\pure_pursuit.h \
   ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h \
-  ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
-  ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h ..\RC9CPP_API\CONTROL\SuperPID.h
+  ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h ..\RC9CPP_API\CONTROL\SuperPID.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\vesc.h
