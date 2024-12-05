@@ -160,6 +160,8 @@ uint8_t xbox::msgin(uint8_t rcnID_, const void *data)
         xbox_msgs.joyRVert = ((uint16_t)inputData[22] << 8) | inputData[23];
         xbox_msgs.trigLT = ((uint16_t)inputData[24] << 8) | inputData[25];
         xbox_msgs.trigRT = ((uint16_t)inputData[26] << 8) | inputData[27];
+
+        
         return 1;
     }
     return 0;
@@ -167,5 +169,5 @@ uint8_t xbox::msgin(uint8_t rcnID_, const void *data)
 
 uint8_t xbox::msgout(uint8_t rcnID_, void *output)
 {
-   return 0;
+    return 0;
 }

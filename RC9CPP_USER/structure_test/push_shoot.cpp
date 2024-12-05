@@ -7,11 +7,16 @@ CanManager can_core;
 // shoot_xbox shoot_control(&m3508_shooter, &m3508_pitch);
 RC9Protocol debug(&huart5, false), esp32_serial(&huart1, false);
 
-xbox box_test;
+shoot_xbox box_test(&m3508_shooter, &m3508_pitch);
 
-demo test3;
+
 extern "C" void pshoot_setup(void)
 {
+    box_test.rcninit(2);
+    esp32_serial.rcninit(1);
+
+    esp32_serial.msgbuff_pub.init("xboxbuff", SYN, &esp32_serial);
+    box_test.buff_sub.init("xboxbuff", SYN, &box_test);
     can_core.init();
 
     debug.startUartReceiveIT();
@@ -19,14 +24,10 @@ extern "C" void pshoot_setup(void)
     // esp32_serial.addsubscriber(&shoot_control);
     task_core.registerTask(0, &can_core);
     // task_core.registerTask(1, &vesc_test);
-    // task_core.registerTask(1, &shoot_control);
+    task_core.registerTask(1, &box_test);
     task_core.registerTask(8, &debug);
     task_core.registerTask(7, &esp32_serial);
-    task_core.registerTask(8, &test3);
-    test3.rcninit(3);
-    box_test.rcninit(2);
-    esp32_serial.rcninit(1);
-    box_test.msgin(0, nullptr);
+
     debug.tx_frame_mat.frame_id = 1;
     debug.tx_frame_mat.data_length = 24;
 
@@ -62,6 +63,6 @@ uint8_t demo::msgout(uint8_t rcnID_, void *output)
 {
     return 0;
 }
-demo::demo(float init_) : testdd(init_), subber("test1", this)
+demo::demo(float init_) : testdd(init_)
 {
 }

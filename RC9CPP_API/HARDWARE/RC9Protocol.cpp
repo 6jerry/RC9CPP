@@ -4,7 +4,7 @@
 
 // 构造函数：传入 UART 句柄，是否启用 CRC 校验
 RC9Protocol::RC9Protocol(UART_HandleTypeDef *huart, bool enableCrcCheck)
-    : SerialDevice(huart), state_(WAITING_FOR_HEADER_0), rxIndex_(0), enableCrcCheck_(enableCrcCheck), pubber("test1", SYN, this)
+    : SerialDevice(huart), state_(WAITING_FOR_HEADER_0), rxIndex_(0), enableCrcCheck_(enableCrcCheck)
 {
     for (int i = 0; i < MAX_SUBSCRIBERS; i++)
     {
@@ -100,13 +100,7 @@ void RC9Protocol::handleReceiveData(uint8_t byte)
                     rx_frame_mat.data.buff_msg[i] = rx_frame_mat.rx_temp_data_mat[i];
                 }
 
-                // publish(rx_frame_mat.frame_id, rx_frame_mat.data_length, rx_frame_mat.data.buff_msg, rx_frame_mat.data.msg_get);
-                tdata[0] += 0.001f;
-                tdata[1] = 0.001f;
-                tdata[2] -= 0.001f;
-                // ppsend_AsynOverwrite(LOCAL_RCIP, 3, 0, tdata);
-                pubber.publish(3, tdata);
-                ppsend_Syn(LOCAL_RCIP, 2, 0, rx_frame_mat.data.buff_msg);
+                msgbuff_pub.publish(0, rx_frame_mat.data.buff_msg);
 
                 state_ = WAITING_FOR_HEADER_0;
             }

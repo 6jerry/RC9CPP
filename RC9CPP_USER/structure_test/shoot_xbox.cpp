@@ -51,4 +51,5 @@ void shoot_xbox::process_data()
 
 shoot_xbox::shoot_xbox(power_motor *shooter_, power_motor *pitch) : shooter(shooter_), pitcher(pitch)
 {
+    sbtnconfig_init();
 }

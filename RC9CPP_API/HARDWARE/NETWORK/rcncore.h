@@ -32,8 +32,9 @@ private:
     rcnode *node;         // 发布者绑定的 rcnode 节点
 
 public:
-    publisher(const char *topicName_, pptype_ pptypeselect, rcnode *node_);
     uint8_t publish(uint8_t dataID, const void *data); // 发布消息
+
+    void init(const char *topicName_, pptype_ pptypeselect, rcnode *node_);
 };
 
 class subscriber
@@ -41,12 +42,12 @@ class subscriber
 private:
     const char *topicName = nullptr;
     uint8_t topicID = 0;
-    rcnode *node; // 订阅者绑定的 rcnode 节点
+    rcnode *node;          // 订阅者绑定的 rcnode 节点
     pptype_ pptype = ASYN; // 默认使用同步发送
 
 public:
-    subscriber(const char *topicName_, rcnode *node_);
     uint8_t hearfromtopic(); // 异步获取消息
+    void init(const char *topicName_, pptype_ pptypeselect, rcnode *node_);
 };
 
 typedef struct topicinfo_

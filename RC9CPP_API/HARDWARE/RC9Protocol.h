@@ -56,7 +56,7 @@ class RC9Protocol : public SerialDevice, public ITaskProcessor, public rcnode
 public:
     // 构造函数，传入 UART 句柄，是否启用发送任务，是否启用 CRC 校验
     RC9Protocol(UART_HandleTypeDef *huart, bool enableCrcCheck = true);
-    publisher pubber;
+    publisher msgbuff_pub;
     // 实现接收数据的处理逻辑
     void handleReceiveData(uint8_t byte);
 
@@ -68,7 +68,7 @@ public:
 
     uint8_t msgin(uint8_t rcnID_, const void *data) override;
     uint8_t msgout(uint8_t rcnID_, void *output) override;
-    float tdata[6] = {0.0f};
+    
 
 private:
     uint8_t sendBuffer_[MAX_DATA_LENGTH_RC9 + 8];

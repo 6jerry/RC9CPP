@@ -85,9 +85,12 @@ void rcncore::publish(uint8_t topicID, uint8_t dataID, const void *data, pptype_
 }
 
 // 发布者实现
-publisher::publisher(const char *topicName_, pptype_ pptypeselect, rcnode *node_)
-    : topicName(topicName_), pptype(pptypeselect), node(node_)
+
+void publisher::init(const char *topicName_, pptype_ pptypeselect, rcnode *node_)
 {
+    topicName = topicName_;
+    pptype = pptypeselect;
+    node = node_;
     topicID = rcncore::registerPublisher(topicName, node);
 }
 
@@ -100,14 +103,15 @@ uint8_t publisher::publish(uint8_t dataID, const void *data)
     return 1;
 }
 
-// 订阅者实现
-subscriber::subscriber(const char *topicName_, rcnode *node_)
-    : topicName(topicName_), node(node_)
+
+void subscriber::init(const char *topicName_, pptype_ pptypeselect, rcnode *node_)
 {
+    topicName = topicName_;
+    pptype = pptypeselect;
+    node = node_;
     topicID = rcncore::findOrCreateTopic(topicName);
     rcncore::registerSubscriber(topicName, node);
 }
-
 uint8_t subscriber::hearfromtopic()
 {
     if (topicID == 0xFF)
