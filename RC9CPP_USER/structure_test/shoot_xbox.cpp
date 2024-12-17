@@ -34,22 +34,45 @@ void shoot_xbox::process_data()
 
     if (speed_level == 1)
     {
-        MAX_RPM = 186.0f;
+        MAX_ROBOT_SPEED_X = 5.20f;
+        MAX_ROBOT_SPEED_Y = 5.20f;
+        MAX_ROBOT_SPEED_W = 3.20f;
+        MAX_RPM = 180.0f;
     }
 
     if (speed_level == 0)
     {
-        MAX_RPM = 86.0f;
+        MAX_ROBOT_SPEED_X = 2.40f;
+        MAX_ROBOT_SPEED_Y = 2.40f;
+        MAX_ROBOT_SPEED_W = 1.10f;
+        MAX_RPM = 80.0f;
     }
     if (speed_level == 2)
     {
-        MAX_RPM = 286.0f;
+        MAX_ROBOT_SPEED_X = 7.96f;
+        MAX_ROBOT_SPEED_Y = 7.96f;
+        MAX_ROBOT_SPEED_W = 3.98f;
+        MAX_RPM = 280.0f;
     }
 
-    shooter->set_rpm((xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * MAX_RPM);
+    control_chassis->switch_chassis_mode(remote_robotv);
+
+    arm_sqrt_f32(xbox_msgs.joyLHori_map * xbox_msgs.joyLHori_map + xbox_msgs.joyLVert_map * xbox_msgs.joyLVert_map, &mapsum);
+
+    if (mapsum > 0.15f)
+    {
+        control_chassis->if_adjust_heading = true;
+    }
+    else
+    {
+        control_chassis->if_adjust_heading = false;
+    }
+    control_chassis->setrobotv(MAX_ROBOT_SPEED_X * xbox_msgs.joyLHori_map, MAX_ROBOT_SPEED_Y * xbox_msgs.joyLVert_map, -MAX_ROBOT_SPEED_W * xbox_msgs.joyRHori_map);
+
+    shooter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
 }
 
-shoot_xbox::shoot_xbox(power_motor *shooter_, power_motor *pitch) : shooter(shooter_), pitcher(pitch)
+shoot_xbox::shoot_xbox(power_motor *shooter_, power_motor *pitch, chassis *control_chassis_) : shooter(shooter_), pitcher(pitch), control_chassis(control_chassis_)
 {
     sbtnconfig_init();
 }

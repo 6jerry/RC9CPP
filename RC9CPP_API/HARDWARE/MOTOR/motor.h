@@ -30,6 +30,9 @@ public:
     virtual void set_rpm(float power_motor_rpm) = 0; // 获取当前转速和设置目标转速的通用接口
     void switch_mode(motor_mode target_mode);
 
+    virtual float get_pos() {};
+    virtual void set_pos(float pos) {}; // 获取当前位置和设置目标位置的通用接口
+
     virtual void set_rpm_ff(float power_motor_rpm, float ff) {}; // 设置速度和前馈值
 };
 

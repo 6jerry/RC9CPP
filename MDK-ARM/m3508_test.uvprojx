@@ -81,7 +81,7 @@
           </BeforeMake>
           <AfterMake>
             <RunUserProg1>0</RunUserProg1>
-            <RunUserProg2>1</RunUserProg2>
+            <RunUserProg2>0</RunUserProg2>
             <UserProg1Name></UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx,USE_STDPERIPH_DRIVER,ARM_MATH_CM4</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Middlewares/ST/ARM/DSP/Inc;../RC9CPP_API;../RC9CPP_API/CONTROL;../RC9CPP_API/CONTROL/STRUCTURE;../RC9CPP_API/DECISION;../RC9CPP_API/HARDWARE;../RC9CPP_API/HARDWARE/MOTOR;../RC9CPP_API/MATH_LIB;../RC9CPP_USER;../RC9CPP_USER/R2N_USER;..\RC9CPP_USER\structure_test;..\RC9CPP_USER\R1N_USER;..\RC9CPP_API\HARDWARE\NETWORK</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Middlewares/ST/ARM/DSP/Inc;../RC9CPP_API;../RC9CPP_API/CONTROL;../RC9CPP_API/CONTROL/STRUCTURE;../RC9CPP_API/DECISION;../RC9CPP_API/HARDWARE;../RC9CPP_API/HARDWARE/MOTOR;../RC9CPP_API/MATH_LIB;../RC9CPP_USER;../RC9CPP_USER/R2N_USER;..\RC9CPP_USER\structure_test;..\RC9CPP_USER\R1N_USER;..\RC9CPP_API\HARDWARE\NETWORK;G:\stm32_project_cpp\RC9CPP_H7\Drivers\CMSIS\DSP\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

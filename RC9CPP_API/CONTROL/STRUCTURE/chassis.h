@@ -91,6 +91,8 @@ public:
 
     pid distan_pid;
 
+    bool if_adjust_heading = false;
+
     void point_track_compute();
 
 public:
@@ -117,6 +119,22 @@ private:
 public:
     omni3_unusual(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor, float Rwheel_, action *ACTION_, float headingkp = 7.0f, float headingki = 0.0f, float headingkd = 0.7f, float point_kp = 0.0086f, float point_ki = 0.0f, float point_kd = 0.026f);
     void process_data();
+};
+
+class swerve4 : public ITaskProcessor, public chassis
+{
+private:
+    power_motor *speed_motors[4] = {nullptr};
+    power_motor *heading_motors[4] = {nullptr}; // 舵向和轮向电机，分别对应0，1，2，3号电机
+
+public:
+    float target_heading = 0.0f;
+    float target_angle = 0.0f, last_target_heading = 0.0f;
+    float headingerror = 0.0f, setted_pos = 0.0f, setted_rpm = 0.0f;
+    float R = 0.0f;
+    Vector2D motorspeeds[4];
+    void process_data();
+    swerve4(power_motor *right_front_speed, power_motor *right_front_heading);
 };
 
 // 常规三轮全向轮底盘，通常以一个电机为车头的朝向，典型车体：九期r2
