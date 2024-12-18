@@ -1,6 +1,6 @@
 #include "r2n_setup.h"
-RC9Protocol esp32_serial(&huart1, false),
-    data_chain(&huart2, false);
+RC9Protocol esp32_serial(&huart2, false),
+    data_chain(&huart5, false);
 m3508p m3508_front(1, &hcan1), m3508_left(3, &hcan1), m3508_right(2, &hcan1); // 九期r2，硬件连接：三只m3508作为底盘动力电机位于can1
 TaskManager task_core;
 CanManager can_core;
