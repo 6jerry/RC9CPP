@@ -31,6 +31,8 @@ private:
     GPIO_TypeDef *dir_port1;
     GPIO_TypeDef *dir_port2;
 
+    uint16_t GPIOPin1, GPIOPin2;
+
     bool if_32bit_encoder = false;
     void set_vcurrent(int16_t vcurrent_);
 
@@ -38,7 +40,7 @@ public:
     float get_rpm();
     void set_rpm(float power_motor_rpm);
     void process_data();
-    tb6612(TIM_HandleTypeDef *pwm_tim_, uint32_t pwm_channel_, TIM_HandleTypeDef *encoder_tim_, GPIO_TypeDef *dir_port1_, GPIO_TypeDef *dir_port2_, bool if_32bit_encoder_ = false, uint8_t gear_ratio_ = 45, uint8_t encoder_polse_ = 13);
+    tb6612(TIM_HandleTypeDef *pwm_tim_, uint32_t pwm_channel_, TIM_HandleTypeDef *encoder_tim_, GPIO_TypeDef *dir_port1_, uint16_t GPIO_Pin1_, GPIO_TypeDef *dir_port2_, uint16_t GPIO_Pin2_,  uint8_t gear_ratio_ = 45, uint8_t encoder_polse_ = 13);
     void init();
 
     uint16_t ccr = 0;      // 0~1000，默认定时器都是10khz频率,240mhz时钟的

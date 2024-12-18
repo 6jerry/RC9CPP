@@ -44,7 +44,7 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Core\Inc\can.h ..\Core\Inc\dma.h ..\Core\Inc\tim.h \
   ..\Core\Inc\usart.h ..\Core\Inc\gpio.h \
   G:\Keil_v5\ARM\ARMCLANG\include\string.h \
-  ..\RC9CPP_USER\structure_test\push_shoot.h \
+  ..\RC9CPP_USER\R2N_USER\r2n_setup.h \
   ..\RC9CPP_API\HARDWARE\RC9Protocol.h ..\RC9CPP_API\MATH_LIB\crc_util.h \
   ..\RC9CPP_API\HARDWARE\TaskManager.h \
   ..\RC9CPP_API\HARDWARE\Serial_device.h \
@@ -53,11 +53,11 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\RC9CPP_API\HARDWARE\NETWORK\netswitch.h \
   ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
   ..\RC9CPP_API\HARDWARE\NETWORK\rcncore.h \
-  ..\RC9CPP_USER\structure_test\shoot_xbox.h \
-  ..\RC9CPP_API\CONTROL\xbox.h ..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h \
+  ..\RC9CPP_API\HARDWARE\Action.h G:\Keil_v5\ARM\ARMCLANG\include\math.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h \
+  ..\RC9CPP_API\HARDWARE\can_device.h ..\RC9CPP_API\CONTROL\SuperPID.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\motor.h \
-  ..\RC9CPP_API\HARDWARE\can_device.h ..\RC9CPP_API\HARDWARE\Action.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\math.h ..\RC9CPP_API\CONTROL\pid.h \
+  ..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h ..\RC9CPP_API\CONTROL\pid.h \
   ..\RC9CPP_API\MATH_LIB\Vector2D.h \
   ..\Middlewares\ST\ARM\DSP\Inc\arm_math.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
@@ -65,7 +65,6 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   G:\Keil_v5\ARM\ARMCLANG\include\limits.h \
   ..\RC9CPP_API\CONTROL\pure_pursuit.h \
   ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h \
-  ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h ..\RC9CPP_API\CONTROL\SuperPID.h \
-  ..\RC9CPP_API\HARDWARE\MOTOR\vesc.h \
-  ..\RC9CPP_API\HARDWARE\MOTOR\m6020.h \
-  ..\RC9CPP_API\HARDWARE\MOTOR\tb6612.h
+  ..\RC9CPP_USER\R2N_USER\r2n_xbox.h ..\RC9CPP_API\CONTROL\xbox.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\go1can.h ..\RC9CPP_API\CONTROL\LADRC.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\m6020.h

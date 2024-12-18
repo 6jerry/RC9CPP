@@ -14,7 +14,7 @@ void tb6612::process_data()
     __HAL_TIM_SET_COMPARE(pwm_tim, pwm_channel, ccr);
     calc_rpm();
 }
-tb6612::tb6612(TIM_HandleTypeDef *pwm_tim_, uint32_t pwm_channel_, TIM_HandleTypeDef *encoder_tim_, GPIO_TypeDef *dir_port1_, GPIO_TypeDef *dir_port2_, bool if_32bit_encoder_, uint8_t gear_ratio_, uint8_t encoder_polse_) : pwm_tim(pwm_tim_), pwm_channel(pwm_channel_), encoder_tim(encoder_tim_), dir_port1(dir_port1_), dir_port2(dir_port2_), gear_ratio(gear_ratio_), rpm_control(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), if_32bit_encoder(if_32bit_encoder_), encoder_polse(encoder_polse_)
+tb6612::tb6612(TIM_HandleTypeDef *pwm_tim_, uint32_t pwm_channel_, TIM_HandleTypeDef *encoder_tim_, GPIO_TypeDef *dir_port1_, uint16_t GPIO_Pin1_, GPIO_TypeDef *dir_port2_, uint16_t GPIO_Pin2_, uint8_t gear_ratio_, uint8_t encoder_polse_) : pwm_tim(pwm_tim_), pwm_channel(pwm_channel_), encoder_tim(encoder_tim_), dir_port1(dir_port1_), dir_port2(dir_port2_), gear_ratio(gear_ratio_), rpm_control(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), encoder_polse(encoder_polse_), GPIOPin1(GPIO_Pin1_), GPIOPin2(GPIO_Pin2_)
 {
     polse_2_rpm = 1.0f / ((float)gear_ratio * (float)encoder_polse * 4.0f);
 }
@@ -61,4 +61,12 @@ void tb6612::calc_rpm()
 
 void tb6612::set_vcurrent(int16_t vcurrent_)
 {
+    if(vcurrent_>0)
+    {
+
+    }
+    else
+    {
+        
+    }
 }

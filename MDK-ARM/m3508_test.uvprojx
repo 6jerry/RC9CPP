@@ -2753,9 +2753,9 @@
           <GroupName>RC9CPP_USER</GroupName>
           <Files>
             <File>
-              <FileName>push_shoot.cpp</FileName>
+              <FileName>r2n_setup.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\RC9CPP_USER\structure_test\push_shoot.cpp</FilePath>
+              <FilePath>..\RC9CPP_USER\R2N_USER\r2n_setup.cpp</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -2809,14 +2809,14 @@
               </FileOption>
             </File>
             <File>
-              <FileName>push_shoot.h</FileName>
+              <FileName>r2n_setup.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\RC9CPP_USER\structure_test\push_shoot.h</FilePath>
+              <FilePath>..\RC9CPP_USER\R2N_USER\r2n_setup.h</FilePath>
             </File>
             <File>
-              <FileName>shoot_xbox.cpp</FileName>
+              <FileName>r2n_xbox.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\RC9CPP_USER\structure_test\shoot_xbox.cpp</FilePath>
+              <FilePath>..\RC9CPP_USER\R2N_USER\r2n_xbox.cpp</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -2870,9 +2870,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>shoot_xbox.h</FileName>
+              <FileName>r2n_xbox.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\RC9CPP_USER\structure_test\shoot_xbox.h</FilePath>
+              <FilePath>..\RC9CPP_USER\R2N_USER\r2n_xbox.h</FilePath>
             </File>
           </Files>
         </Group>
