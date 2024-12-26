@@ -168,3 +168,27 @@ void action::calculateWorldSpeed()
     // action_info.lastspeed_x = pose_data.world_speed_x;
     // action_info.lastspeed_y = pose_data.world_speed_y;
 }
+
+float action::get_pose_x()
+{
+    return pose_data.world_pos_x;
+}
+
+float action::get_pose_y()
+{
+    return pose_data.world_pos_y;
+}
+
+float action::get_heading()
+{
+    return pose_data.yaw_angle;
+}
+
+float action::get_speedx()
+{
+    return pose_data.world_speed_x;
+}
+float action::get_speedy()
+{
+    return pose_data.world_speed_y;
+}

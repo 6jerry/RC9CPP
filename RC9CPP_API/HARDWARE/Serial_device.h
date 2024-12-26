@@ -37,8 +37,8 @@ public:
 
 protected:
     
-    static TaskHandle_t sendTaskHandle_; // 静态变量：发送任务句柄
-    static bool sendTaskCreated_;        // 静态变量：是否已经创建了发送任务
+    //static TaskHandle_t sendTaskHandle_; // 静态变量：发送任务句柄
+   // static bool sendTaskCreated_;        // 静态变量：是否已经创建了发送任务
 };
 #endif
 

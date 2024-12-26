@@ -3,8 +3,8 @@
 // 静态变量初始化
 SerialDevice *SerialDevice::instances_[MAX_INSTANCES] = {nullptr};
 int SerialDevice::instanceCount_ = 0;
-TaskHandle_t SerialDevice::sendTaskHandle_ = nullptr;
-bool SerialDevice::sendTaskCreated_ = false;
+//TaskHandle_t SerialDevice::sendTaskHandle_ = nullptr;
+//bool SerialDevice::sendTaskCreated_ = false;
 
 // 构造函数：传入 UART 句柄，自动启动接收中断
 SerialDevice::SerialDevice(UART_HandleTypeDef *huart)

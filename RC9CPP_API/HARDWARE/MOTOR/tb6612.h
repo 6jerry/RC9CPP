@@ -35,19 +35,22 @@ private:
 
     bool if_32bit_encoder = false;
     void set_vcurrent(int16_t vcurrent_);
+    float wheel_perimeter = 0.1885f, odom_sum = 0.0f;
 
 public:
     float get_rpm();
     void set_rpm(float power_motor_rpm);
     void process_data();
-    tb6612(TIM_HandleTypeDef *pwm_tim_, uint32_t pwm_channel_, TIM_HandleTypeDef *encoder_tim_, GPIO_TypeDef *dir_port1_, uint16_t GPIO_Pin1_, GPIO_TypeDef *dir_port2_, uint16_t GPIO_Pin2_,  uint8_t gear_ratio_ = 45, uint8_t encoder_polse_ = 13);
+    tb6612(TIM_HandleTypeDef *pwm_tim_, uint32_t pwm_channel_, TIM_HandleTypeDef *encoder_tim_, GPIO_TypeDef *dir_port1_, uint16_t GPIO_Pin1_, GPIO_TypeDef *dir_port2_, uint16_t GPIO_Pin2_, uint8_t gear_ratio_ = 45, uint8_t encoder_polse_ = 13);
     void init();
 
-    uint16_t ccr = 0;      // 0~1000，默认定时器都是10khz频率,240mhz时钟的
-    int32_t v_current = 0; //-1000~1000
+    uint16_t ccr = 0; // 0~1000，默认定时器都是10khz频率,240mhz时钟的
+
     uint8_t encoder_polse = 13;
 
     float target_rpm = 0.0f, now_rpm = 0.0f;
+
+    int16_t vc = 0;
 
     float delta_time = 0.0f;
     float polse_2_rpm = 0.0f; // 一个脉冲多少rpm
@@ -57,6 +60,7 @@ public:
 
     IncrePID rpm_control;
     void calc_rpm();
+    float get_odom() override;
 };
 
 #endif

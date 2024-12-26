@@ -227,4 +227,5 @@ m3508_test/chassis.o: ..\RC9CPP_API\CONTROL\STRUCTURE\chassis.cpp \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\limits.h \
   G:\Keil_v5\ARM\ARMCLANG\include\limits.h \
   ..\RC9CPP_API\CONTROL\pure_pursuit.h \
-  ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h
+  ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h \
+  ..\RC9CPP_API\HARDWARE\imu.h ..\RC9CPP_API\CONTROL\odometry.h

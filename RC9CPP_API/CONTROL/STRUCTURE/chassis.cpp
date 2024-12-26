@@ -177,6 +177,94 @@ float chassis ::v_to_rpm(float v)
     return rpm;
 }
 
+mcknum4::mcknum4(power_motor *right_front_motor, power_motor *right_back_motor, power_motor *left_back_motor, power_motor *left_front_motor, float Rwheel_, float CHASSIS_L_, imu *IMU_, odometry *odom_, float CHASSIS_W_, float point_kp, float point_ki, float point_kd) : chassis(mecanum4_, Rwheel_, nullptr, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), CHASSIS_L(CHASSIS_L_), CHASSIS_W(CHASSIS_W_), IMU(IMU_), pointracker(point_kp, point_ki, point_kd)
+{
+    motors[0] = right_front_motor;
+    motors[1] = right_back_motor;
+    motors[2] = left_back_motor;
+    motors[3] = left_front_motor;
+}
+
+void mcknum4::process_data()
+{
+
+    switch (chassis_mode)
+    {
+    case chassis_standby:
+        target_rvx = 0.0f;
+        target_rvy = 0.0f;
+
+        break;
+    case remote_robotv:
+
+        target_rvx = input_rvx;
+        target_rvy = input_rvy;
+        break;
+    case remote_worldv:
+        target_rvx = cos(IMU->get_heading()) * input_wvx + sin(IMU->get_heading()) * input_wvy;
+        target_rvy = cos(IMU->get_heading()) * input_wvy - sin(IMU->get_heading()) * input_wvx;
+        break;
+    case point_tracking:
+
+        Vector2D n_pos(odom->get_world_x(), odom->get_world_y());
+        Vector2D t_pos(point_track_info.target_x, point_track_info.target_y);
+
+        Vector2D t_speed = pointracker.track(n_pos, t_pos);
+        target_rvx = t_speed.x;
+        target_rvy = t_speed.y;
+        break;
+    }
+    if (if_lock_heading)
+    {
+        float real_angle = IMU->get_heading();
+        if (real_angle * target_heading_rad >= 0)
+        {
+            angle_error = target_heading_rad - real_angle;
+        }
+        else
+        {
+            if (real_angle > 0 && target_heading_rad < 0)
+            {
+                float positive = 180.0f - real_angle + 180.0f + target_heading_rad; // 正路径
+                float negative = target_heading_rad - real_angle;
+                if (abs(positive) <= abs(negative))
+                {
+                    angle_error = positive;
+                }
+                else
+                {
+                    angle_error = negative; // 选择一个较短的路径
+                }
+            }
+            else if (real_angle < 0 && target_heading_rad > 0)
+            {
+                float positive = target_heading_rad - real_angle;
+                float negative = -(360.0f + real_angle - target_heading_rad);
+                if (abs(positive) <= abs(negative))
+                {
+                    angle_error = positive;
+                }
+                else
+                {
+                    angle_error = negative; // 选择一个较短的路径
+                }
+            }
+        }
+
+        target_w = heading_pid.PID_ComputeError(angle_error);
+    }
+    else
+    {
+        target_w = input_w;
+    }
+
+    motors[3]->set_rpm(-v_to_rpm((-target_rvx + target_rvy + target_w * (CHASSIS_L + CHASSIS_W))));
+    motors[0]->set_rpm(v_to_rpm((target_rvx + target_rvy - target_w * (CHASSIS_L + CHASSIS_W))));
+
+    motors[2]->set_rpm(-v_to_rpm((target_rvx + target_rvy + target_w * (CHASSIS_L + CHASSIS_W))));
+    motors[1]->set_rpm(v_to_rpm((-target_rvx + target_rvy - target_w * (CHASSIS_L + CHASSIS_W))));
+}
+
 swerve4 ::swerve4(power_motor *right_front_speed, power_motor *right_front_heading) : chassis(swerve4_, 0.0519f, nullptr, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
 {
     speed_motors[0] = right_front_speed;
@@ -272,7 +360,7 @@ void swerve4 ::process_data()
         {
             heading_motors[0]->set_pos(setted_pos);
         }
-       
+
         speed_motors[0]->set_rpm(setted_rpm);
     }
 }

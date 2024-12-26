@@ -53,6 +53,13 @@ typedef struct serial_frame_mat
 
 class RC9Protocol : public SerialDevice, public ITaskProcessor
 {
+
+public:
+    // 面向用户的友好接口函数
+   
+    void load_Txfloat(uint8_t data_id, const float *data_float, uint8_t numbers); // id ,待传输的数组，要发送的数组长度
+    float Get_Rxfloat(uint8_t numbers);                                           // 获取接收到的第几个float，传入“第几个”
+
 public:
     // 构造函数，传入 UART 句柄，是否启用发送任务，是否启用 CRC 校验
     RC9Protocol(UART_HandleTypeDef *huart, bool enableCrcCheck = true);

@@ -13,7 +13,8 @@
     "stm32f4xx_hal_can.h": "c",
     "limits": "cpp",
     "vector2d.h": "c",
-    "new": "c"
+    "new": "c",
+    "gpio.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

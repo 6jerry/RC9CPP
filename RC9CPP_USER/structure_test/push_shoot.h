@@ -21,7 +21,9 @@ extern "C"
 #include "m6020.h"
 #include "chassis.h"
 #include "tb6612.h"
-
+#include "fdi.h"
+#include "odometry.h"
+#include "servo.h"
     void pshoot_setup(void);
 #ifdef __cplusplus
 }

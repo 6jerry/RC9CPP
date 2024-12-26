@@ -33,6 +33,8 @@ public:
     virtual float get_pos() {};
     virtual void set_pos(float pos) {}; // 获取当前位置和设置目标位置的通用接口
 
+    virtual float get_odom() {}; // 获取里程
+
     virtual void set_rpm_ff(float power_motor_rpm, float ff) {}; // 设置速度和前馈值
 };
 

@@ -158,3 +158,20 @@ void RC9Protocol::publish(uint8_t data_id, uint8_t datalenth, const uint8_t *dat
         }
     }
 }
+
+
+void RC9Protocol::load_Txfloat(uint8_t data_id, const float *data_float, uint8_t numbers)
+{
+    tx_frame_mat.frame_id = data_id;
+    tx_frame_mat.data_length = numbers * 4;
+
+    for (uint8_t i = 0; i < numbers; i++)
+    {
+        tx_frame_mat.data.msg_get[i] = data_float[i];
+    }
+}
+
+float RC9Protocol::Get_Rxfloat(uint8_t numbers)
+{
+    return rx_frame_mat.data.msg_get[numbers];
+}

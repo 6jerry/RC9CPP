@@ -94,6 +94,18 @@ typedef struct pose_data_
 
 class action : public SerialDevice
 {
+
+public:                              // 面向用户的友好接口函数
+    void restart();                  // 重定位，以当前位置为坐标原点
+    void relocate(float x, float y); // 重定位，以传入的坐标为坐标原点
+
+    // 获取一些常用信息
+    float get_pose_x();
+    float get_pose_y();
+    float get_heading();
+    float get_speedx();
+    float get_speedy();
+
 public:
     // 内部状态机的状态
     enum RxState
@@ -123,8 +135,6 @@ public:
     action(UART_HandleTypeDef *huart, float install_delta_x, float install_delta_y, bool if_inverse_install_);
     action_frame rx_action_frame;
     pose_data_ pose_data;
-    void restart();
-    void relocate(float x, float y);
 };
 
 #endif
