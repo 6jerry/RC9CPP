@@ -115,7 +115,7 @@ void chassis::point_track_compute()
     }
 }
 
-chassis::chassis(ChassisType chassistype_, float Rwheel_, action *ACTION_, float headingkp, float headingki, float headingkd, float kp_, float ki_, float kd_) : chassistype(chassistype_), heading_pid(headingkp, headingki, headingkd, 100000.0f, 5.0f, 0.01f, 0.5f), ACTION(ACTION_), Rwheel(Rwheel_), distan_pid(kp_, ki_, kd_, 1000000.0f, 1.4f, 50.0f, 600.0f), pp_tracker(normalcontrol, 0.0057f, 0.0f, 0.0632f, 0.0f, 0.0f, 0.0f)
+chassis::chassis(ChassisType chassistype_, float Rwheel_, action *ACTION_, float headingkp, float headingki, float headingkd, float kp_, float ki_, float kd_) : chassistype(chassistype_), heading_pid(headingkp, headingki, headingkd, 100000.0f, 5.0f, 0.006f, 0.5f), ACTION(ACTION_), Rwheel(Rwheel_), distan_pid(kp_, ki_, kd_, 1000000.0f, 1.4f, 50.0f, 600.0f), pp_tracker(normalcontrol, 0.0057f, 0.0f, 0.0632f, 0.0f, 0.0f, 0.0f)
 {
     /*Vector2D array[] = {
         Vector2D(0.0f, 0.0f),
@@ -177,7 +177,7 @@ float chassis ::v_to_rpm(float v)
     return rpm;
 }
 
-mcknum4::mcknum4(power_motor *right_front_motor, power_motor *right_back_motor, power_motor *left_back_motor, power_motor *left_front_motor, float Rwheel_, float CHASSIS_L_, imu *IMU_, odometry *odom_, float CHASSIS_W_, float point_kp, float point_ki, float point_kd) : chassis(mecanum4_, Rwheel_, nullptr, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), CHASSIS_L(CHASSIS_L_), CHASSIS_W(CHASSIS_W_), IMU(IMU_), pointracker(point_kp, point_ki, point_kd)
+mcknum4::mcknum4(power_motor *right_front_motor, power_motor *right_back_motor, power_motor *left_back_motor, power_motor *left_front_motor, float Rwheel_, float CHASSIS_L_, imu *IMU_, odometry *odom_, float CHASSIS_W_, float point_kp, float point_ki, float point_kd) : chassis(mecanum4_, Rwheel_, nullptr, 1.2f, 0.0f, 0.006f, 0.0f, 0.0f, 0.0f), CHASSIS_L(CHASSIS_L_), CHASSIS_W(CHASSIS_W_), IMU(IMU_), pointracker(point_kp, point_ki, point_kd), odom(odom_)
 {
     motors[0] = right_front_motor;
     motors[1] = right_back_motor;
@@ -201,8 +201,8 @@ void mcknum4::process_data()
         target_rvy = input_rvy;
         break;
     case remote_worldv:
-        target_rvx = cos(IMU->get_heading()) * input_wvx + sin(IMU->get_heading()) * input_wvy;
-        target_rvy = cos(IMU->get_heading()) * input_wvy - sin(IMU->get_heading()) * input_wvx;
+        target_rvx = cos(odom->now_heading) * input_wvx + sin(odom->now_heading) * input_wvy;
+        target_rvy = cos(odom->now_heading) * input_wvy - sin(odom->now_heading) * input_wvx;
         break;
     case point_tracking:
 
@@ -210,52 +210,19 @@ void mcknum4::process_data()
         Vector2D t_pos(point_track_info.target_x, point_track_info.target_y);
 
         Vector2D t_speed = pointracker.track(n_pos, t_pos);
-        target_rvx = t_speed.x;
-        target_rvy = t_speed.y;
+        
+        target_rvx = cos(odom->now_heading) * t_speed.x + sin(odom->now_heading) *t_speed.y;
+        target_rvy = cos(odom->now_heading) *t_speed.y - sin(odom->now_heading) * t_speed.x;
         break;
     }
     if (if_lock_heading)
     {
-        float real_angle = IMU->get_heading();
-        if (real_angle * target_heading_rad >= 0)
-        {
-            angle_error = target_heading_rad - real_angle;
-        }
-        else
-        {
-            if (real_angle > 0 && target_heading_rad < 0)
-            {
-                float positive = 180.0f - real_angle + 180.0f + target_heading_rad; // 正路径
-                float negative = target_heading_rad - real_angle;
-                if (abs(positive) <= abs(negative))
-                {
-                    angle_error = positive;
-                }
-                else
-                {
-                    angle_error = negative; // 选择一个较短的路径
-                }
-            }
-            else if (real_angle < 0 && target_heading_rad > 0)
-            {
-                float positive = target_heading_rad - real_angle;
-                float negative = -(360.0f + real_angle - target_heading_rad);
-                if (abs(positive) <= abs(negative))
-                {
-                    angle_error = positive;
-                }
-                else
-                {
-                    angle_error = negative; // 选择一个较短的路径
-                }
-            }
-        }
-
-        target_w = heading_pid.PID_ComputeError(angle_error);
+        heading_pid.setpoint = target_heading_rad;
+        target_w = heading_pid.PID_Compute(odom->now_heading);
     }
     else
     {
-        target_w = input_w;
+         target_w = input_w;
     }
 
     motors[3]->set_rpm(-v_to_rpm((-target_rvx + target_rvy + target_w * (CHASSIS_L + CHASSIS_W))));

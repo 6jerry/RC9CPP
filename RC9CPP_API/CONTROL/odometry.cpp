@@ -30,13 +30,16 @@ void odometry::update_mecanum_odom()
     delta_motor_odom[2] = -chassis_motors[2]->get_odom() - last_motor_odom[2];
     delta_motor_odom[3] = -chassis_motors[3]->get_odom() - last_motor_odom[3];
 
-    float delta_robot_pos_x = (delta_motor_odom[0] - delta_motor_odom[1] - delta_motor_odom[2] + delta_motor_odom[3]) / 4.0f;
+    now_heading_delta = ((-delta_motor_odom[0] - delta_motor_odom[1] + delta_motor_odom[2] + delta_motor_odom[3]) / 0.46986f);
+    now_heading += now_heading_delta;
+    now_heading_angle = now_heading * 57.296f;
+    float delta_robot_pos_x = (delta_motor_odom[0] - delta_motor_odom[1] + delta_motor_odom[2] - delta_motor_odom[3]) / 4.0f;
 
-    float delta_robot_pos_y = (delta_motor_odom[0] - delta_motor_odom[1] + delta_motor_odom[2] - delta_motor_odom[3]) / 4.0f;
+    float delta_robot_pos_y = (delta_motor_odom[0] + delta_motor_odom[1] + delta_motor_odom[2] + delta_motor_odom[3]) / 4.0f;
 
-    float delta_world_pos_x = delta_robot_pos_x * cos(IMU->get_heading()) - delta_robot_pos_y * sin(IMU->get_heading());
+    float delta_world_pos_x = delta_robot_pos_x * cos(now_heading) - delta_robot_pos_y * sin(now_heading);
 
-    float delta_world_pos_y = delta_robot_pos_x * sin(IMU->get_heading()) + delta_robot_pos_y * cos(IMU->get_heading());
+    float delta_world_pos_y = delta_robot_pos_x * sin(now_heading) + delta_robot_pos_y * cos(now_heading);
 
     world_pose.x += delta_world_pos_x;
     world_pose.y += delta_world_pos_y;

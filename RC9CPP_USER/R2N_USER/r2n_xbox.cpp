@@ -51,7 +51,7 @@ void xbox_r2n::process_data()
 
         break;
     case 2:
-        control_chassis->switch_chassis_mode(pp);
+        control_chassis->switch_chassis_mode(point_tracking);
 
         break;
     case 3:
@@ -141,7 +141,7 @@ void xbox_r2n::chassisbutton_scan()
     handleButton(btnBConfig);
     handleButton(btnRSConfig);
 }
-xbox_r2n::xbox_r2n(action *ACTION_, chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_, float MAX_ROBOT_SPEED_X_, float MAX_ROBOT_SPEED_W_) : xbox(ACTION_, control_chassis_, MAX_ROBOT_SPEED_Y_, MAX_ROBOT_SPEED_X_, MAX_ROBOT_SPEED_W_), flagConfigs{{&world_robot_flag, 1}, {&robot_stop_flag, 1}, {&if_point_track_flag, 1}, {&if_pure_pusit, 1}}, stateMachine(flagConfigs, 4) // 初始化编码状态机
+xbox_r2n::xbox_r2n( chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_, float MAX_ROBOT_SPEED_X_, float MAX_ROBOT_SPEED_W_) : xbox(nullptr, control_chassis_, MAX_ROBOT_SPEED_Y_, MAX_ROBOT_SPEED_X_, MAX_ROBOT_SPEED_W_), flagConfigs{{&world_robot_flag, 1}, {&robot_stop_flag, 1}, {&if_point_track_flag, 1}, {&if_pure_pusit, 1}}, stateMachine(flagConfigs, 4) // 初始化编码状态机
 {
     chassis_btn_init();
     state_machine_init();
@@ -165,9 +165,9 @@ void xbox_r2n::state_machine_init()
 
 void xbox_r2n::btnRB_callback()
 {
-    locking_heading = ACTION->pose_data.yaw_rad;
+    //locking_heading = ACTION->pose_data.yaw_rad;
 }
 void xbox_r2n::btnXBOX_callback()
 {
-    ACTION->restart();
+    //ACTION->restart();
 }

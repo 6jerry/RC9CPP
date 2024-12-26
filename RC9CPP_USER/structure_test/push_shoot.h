@@ -24,6 +24,7 @@ extern "C"
 #include "fdi.h"
 #include "odometry.h"
 #include "servo.h"
+#include "r2n_xbox.h"
     void pshoot_setup(void);
 #ifdef __cplusplus
 }

@@ -138,5 +138,5 @@ fdi::fdi(UART_HandleTypeDef *huart_) : SerialDevice(huart_)
 
 float fdi::get_heading()
 {
-    return real_heading;
+    return -real_heading;
 }

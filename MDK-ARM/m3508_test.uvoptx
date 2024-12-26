@@ -737,6 +737,16 @@
           <WinNumber>2</WinNumber>
           <ItemText>right_front</ItemText>
         </Ww>
+        <Ww>
+          <count>95</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>left_front</ItemText>
+        </Ww>
+        <Ww>
+          <count>96</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>mknum_test</ItemText>
+        </Ww>
       </WatchWindow2>
       <MemoryWindow1>
         <Mm>
@@ -2016,6 +2026,30 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>98</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_USER\R2N_USER\r2n_xbox.cpp</PathWithFileName>
+      <FilenameWithoutPath>r2n_xbox.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>99</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_USER\R2N_USER\r2n_xbox.h</PathWithFileName>
+      <FilenameWithoutPath>r2n_xbox.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
   </Group>
 
   <Group>
@@ -2034,7 +2068,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>9</GroupNumber>
-      <FileNumber>98</FileNumber>
+      <FileNumber>100</FileNumber>
       <FileType>4</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

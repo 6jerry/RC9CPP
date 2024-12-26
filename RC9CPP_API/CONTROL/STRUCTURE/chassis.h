@@ -130,7 +130,7 @@ private:
 
     float CHASSIS_L = 0.0f, CHASSIS_W = 0.0f;
 
-    pointrack pointracker;
+  
     float angle_error = 0.0f;
     imu *IMU = nullptr;
     odometry *odom = nullptr;
@@ -139,6 +139,7 @@ public:
     void process_data();
 
     mcknum4(power_motor *right_front_motor, power_motor *right_back_motor, power_motor *left_back_motor, power_motor *left_front_motor, float Rwheel_ = 0.03f, float CHASSIS_L_ = 0.08693f, imu *IMU_ = nullptr, odometry *odom_ = nullptr, float CHASSIS_W_ = 0.148f, float point_kp = 0.0086f, float point_ki = 0.0f, float point_kd = 0.026f);
+    pointrack pointracker;
 };
 class swerve4 : public ITaskProcessor, public chassis
 {

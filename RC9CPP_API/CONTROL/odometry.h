@@ -22,7 +22,7 @@ enum OdomType
     mecanum4,
     diff_drive
 };
-class odometry :public ITaskProcessor
+class odometry : public ITaskProcessor
 {
 private:
     power_motor *chassis_motors[4] = {nullptr};
@@ -34,6 +34,7 @@ private:
 
 public:
     void process_data();
+    float now_heading = 0.0f, now_heading_angle = 0.0f, now_heading_delta = 0.0f;
     Vector2D world_pose, robot_speed, world_speed;
     float get_world_x();
     float get_world_y();
