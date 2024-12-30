@@ -55,7 +55,7 @@ void shoot_xbox::process_data()
         MAX_RPM = 280.0f;
     }
 
-    control_chassis->switch_chassis_mode(remote_robotv);
+    //control_chassis->switch_chassis_mode(remote_robotv);
 
     arm_sqrt_f32(xbox_msgs.joyLHori_map * xbox_msgs.joyLHori_map + xbox_msgs.joyLVert_map * xbox_msgs.joyLVert_map, &mapsum);
 
@@ -67,7 +67,7 @@ void shoot_xbox::process_data()
     {
         control_chassis->if_adjust_heading = false;
     }
-    control_chassis->setrobotv(MAX_ROBOT_SPEED_X * xbox_msgs.joyLHori_map, MAX_ROBOT_SPEED_Y * xbox_msgs.joyLVert_map, -MAX_ROBOT_SPEED_W * xbox_msgs.joyRHori_map);
+    //control_chassis->setrobotv(MAX_ROBOT_SPEED_X * xbox_msgs.joyLHori_map, MAX_ROBOT_SPEED_Y * xbox_msgs.joyLVert_map, -MAX_ROBOT_SPEED_W * xbox_msgs.joyRHori_map);
 
     shooter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
 }
