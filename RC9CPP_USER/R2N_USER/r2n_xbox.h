@@ -7,6 +7,7 @@ extern "C"
 #endif
 #include "xbox.h"
 #include "servo.h"
+#include "push_shoot.h"
 
 #ifdef __cplusplus
 }
@@ -38,7 +39,7 @@ public:
     void chassisbutton_scan();
     void btnRB_callback() override;
     void btnXBOX_callback() override;
-    servo *SERVO = nullptr;
+    servo *SERVO = nullptr, *servo_right = nullptr;
 };
 
 #endif
