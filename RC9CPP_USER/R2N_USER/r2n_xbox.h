@@ -6,6 +6,7 @@ extern "C"
 {
 #endif
 #include "xbox.h"
+#include "servo.h"
 
 #ifdef __cplusplus
 }
@@ -29,7 +30,7 @@ private:
     float MAX_GO1 = 8.0f;
 
 public:
-    xbox_r2n( chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_ = 1.50f, float MAX_ROBOT_SPEED_X_ = 1.50f, float MAX_ROBOT_SPEED_W_ = 3.60f);
+    xbox_r2n(chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_ = 1.50f, float MAX_ROBOT_SPEED_X_ = 1.50f, float MAX_ROBOT_SPEED_W_ = 3.60f);
 
     void process_data();
     void state_machine_init();
@@ -37,7 +38,7 @@ public:
     void chassisbutton_scan();
     void btnRB_callback() override;
     void btnXBOX_callback() override;
-   
+    servo *SERVO = nullptr;
 };
 
 #endif

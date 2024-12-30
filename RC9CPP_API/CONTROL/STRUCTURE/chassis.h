@@ -138,7 +138,7 @@ private:
 public:
     void process_data();
 
-    mcknum4(power_motor *right_front_motor, power_motor *right_back_motor, power_motor *left_back_motor, power_motor *left_front_motor, float Rwheel_ = 0.03f, float CHASSIS_L_ = 0.08693f, imu *IMU_ = nullptr, odometry *odom_ = nullptr, float CHASSIS_W_ = 0.148f, float point_kp = 0.0086f, float point_ki = 0.0f, float point_kd = 0.026f);
+    mcknum4(power_motor *right_front_motor, power_motor *right_back_motor, power_motor *left_back_motor, power_motor *left_front_motor, float Rwheel_ = 0.03f, float CHASSIS_L_ = 0.08693f, imu *IMU_ = nullptr, odometry *odom_ = nullptr, float CHASSIS_W_ = 0.148f, float point_kp =1.76f, float point_ki = 0.0f, float point_kd = 0.9f);
     pointrack pointracker;
 };
 class swerve4 : public ITaskProcessor, public chassis

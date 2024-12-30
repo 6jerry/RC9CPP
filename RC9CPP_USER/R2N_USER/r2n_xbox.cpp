@@ -21,6 +21,7 @@ void xbox_r2n::process_data()
         MAX_ROBOT_SPEED_Y = 0.40f;
         MAX_ROBOT_SPEED_W = 1.10f;
         MAX_GO1 = 8.0f;
+        SERVO->set_ccr(132);
     }
     if (speed_level == 2)
     {
@@ -28,6 +29,7 @@ void xbox_r2n::process_data()
         MAX_ROBOT_SPEED_Y = 1.96f;
         MAX_ROBOT_SPEED_W = 3.98f;
         MAX_GO1 = 12.0f;
+        SERVO->set_ccr(80);
     }
 
     if (head_locking_flag == 1)
@@ -41,12 +43,12 @@ void xbox_r2n::process_data()
     switch (currentState)
     {
     case 0:
-        control_chassis->switch_chassis_mode(remote_worldv);
+        // control_chassis->switch_chassis_mode(remote_worldv);
         control_chassis->setworldv(MAX_ROBOT_SPEED_X * xbox_msgs.joyLHori_map, MAX_ROBOT_SPEED_Y * xbox_msgs.joyLVert_map, -MAX_ROBOT_SPEED_W * xbox_msgs.joyRHori_map);
 
         break;
     case 1:
-        control_chassis->switch_chassis_mode(remote_robotv);
+        // control_chassis->switch_chassis_mode(remote_robotv);
         control_chassis->setrobotv(MAX_ROBOT_SPEED_X * xbox_msgs.joyLHori_map, MAX_ROBOT_SPEED_Y * xbox_msgs.joyLVert_map, -MAX_ROBOT_SPEED_W * xbox_msgs.joyRHori_map);
 
         break;
@@ -141,7 +143,7 @@ void xbox_r2n::chassisbutton_scan()
     handleButton(btnBConfig);
     handleButton(btnRSConfig);
 }
-xbox_r2n::xbox_r2n( chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_, float MAX_ROBOT_SPEED_X_, float MAX_ROBOT_SPEED_W_) : xbox(nullptr, control_chassis_, MAX_ROBOT_SPEED_Y_, MAX_ROBOT_SPEED_X_, MAX_ROBOT_SPEED_W_), flagConfigs{{&world_robot_flag, 1}, {&robot_stop_flag, 1}, {&if_point_track_flag, 1}, {&if_pure_pusit, 1}}, stateMachine(flagConfigs, 4) // 初始化编码状态机
+xbox_r2n::xbox_r2n(chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_, float MAX_ROBOT_SPEED_X_, float MAX_ROBOT_SPEED_W_) : xbox(nullptr, control_chassis_, MAX_ROBOT_SPEED_Y_, MAX_ROBOT_SPEED_X_, MAX_ROBOT_SPEED_W_), flagConfigs{{&world_robot_flag, 1}, {&robot_stop_flag, 1}, {&if_point_track_flag, 1}, {&if_pure_pusit, 1}}, stateMachine(flagConfigs, 4) // 初始化编码状态机
 {
     chassis_btn_init();
     state_machine_init();
@@ -165,9 +167,9 @@ void xbox_r2n::state_machine_init()
 
 void xbox_r2n::btnRB_callback()
 {
-    //locking_heading = ACTION->pose_data.yaw_rad;
+    // locking_heading = ACTION->pose_data.yaw_rad;
 }
 void xbox_r2n::btnXBOX_callback()
 {
-    //ACTION->restart();
+    // ACTION->restart();
 }

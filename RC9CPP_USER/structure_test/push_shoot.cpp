@@ -1,10 +1,10 @@
 #include "push_shoot.h"
 
-m3508p m3508_shooter(1, &hcan1), m3508_pitch(2, &hcan1);
-m6020s m6020_test(4, &hcan2);
-vesc vesc_test(1, &hcan1);
+//m3508p m3508_shooter(1, &hcan1), m3508_pitch(2, &hcan1);
+//m6020s m6020_test(4, &hcan2);
+//vesc vesc_test(1, &hcan1);
 TaskManager task_core;
-CanManager can_core;
+//CanManager can_core;
 // shoot_xbox shoot_control(&m3508_shooter, &m3508_pitch);
 RC9Protocol debug(&huart5, false), esp32_serial(&huart2, false);
 
@@ -12,12 +12,12 @@ fdi fdi_test(&huart4);
 
 servo mg996_left(&htim9, TIM_CHANNEL_1);
 
-swerve4 swerve_test(&vesc_test, &m6020_test);
-tb6612 right_back(&htim2, TIM_CHANNEL_1, &htim8, GPIOC, GPIO_PIN_0, GPIOC, GPIO_PIN_1), left_front(&htim2, TIM_CHANNEL_2, &htim4, GPIOC, GPIO_PIN_2, GPIOC, GPIO_PIN_3), right_front(&htim2, TIM_CHANNEL_3, &htim3, GPIOF, GPIO_PIN_1, GPIOF, GPIO_PIN_2), left_back(&htim2, TIM_CHANNEL_4, &htim1, GPIOF, GPIO_PIN_3, GPIOF, GPIO_PIN_4);
+//swerve4 swerve_test(&vesc_test, &m6020_test);
+tb6612 right_back(&htim2, TIM_CHANNEL_1, &htim8, GPIOC, GPIO_PIN_1, GPIOC, GPIO_PIN_0), left_front(&htim2, TIM_CHANNEL_2, &htim4, GPIOC, GPIO_PIN_2, GPIOC, GPIO_PIN_3), right_front(&htim2, TIM_CHANNEL_3, &htim3, GPIOF, GPIO_PIN_1, GPIOF, GPIO_PIN_2), left_back(&htim2, TIM_CHANNEL_4, &htim1, GPIOF, GPIO_PIN_3, GPIOF, GPIO_PIN_4);
 odometry odom_test(&right_front, &right_back, &left_back, &left_front, &fdi_test, mecanum4);
 mcknum4 mknum_test(&right_front, &right_back, &left_back, &left_front, 0.03f, 0.25f, &fdi_test, &odom_test); // 86.93mm,L 148mm W
 
-shoot_xbox box_test(&m3508_pitch, &m3508_shooter, &mknum_test);
+shoot_xbox box_test(nullptr, nullptr, &mknum_test);
 xbox_r2n resxbox(&mknum_test);
 demo test2;
 
@@ -35,7 +35,7 @@ enum res_state
 };
 
 res_state res_state_now = resinit;
-int32_t res_init_count = 0;
+int32_t res_init_count = 0, res_eat_count = 0, shit_count = 0;
 
 extern "C" void pshoot_setup(void)
 {
@@ -44,7 +44,7 @@ extern "C" void pshoot_setup(void)
 
     // esp32_serial.msgbuff_pub.init("xboxbuff", SYN, &esp32_serial);
     // box_test.buff_sub.init("xboxbuff", SYN, &box_test);
-    can_core.init();
+    //can_core.init();
     right_front.init();
     right_back.init();
     left_front.init();
@@ -66,7 +66,7 @@ extern "C" void pshoot_setup(void)
     task_core.registerTask(6, &odom_test);
     task_core.registerTask(6, &resxbox);
     task_core.registerTask(8, &debug);
-    task_core.registerTask(7, &test2);
+    //task_core.registerTask(7, &test2);
     // task_core.registerTask(7, &esp32_serial);
 
     debug.tx_frame_mat.frame_id = 1;
@@ -74,50 +74,17 @@ extern "C" void pshoot_setup(void)
 
     mg996_left.set_ccr(80); // 146 最低位,80最高位
     // mg996_left.set_ccr(150);
-    /*switch (res_state_now)
-    {
-    case resinit:
-        res_init_count++;
-        if (res_init_count > 250)
-        {
-            res_state_now = res_2_ready_point;
-        }
-        break;
-    case res_2_ready_point:
-        
-        break;
-    case res_turn_2_ball:
-        
-        break;
-    case res_go_2_ball:
-        
-        break;
-    case res_eat_ball:
-        
-        break;
-    case res_turn_to_zone:
-        
-        break;
-    case res_go_2_zone:
-        
-        break;
-    case res_push_ball:
-        
-        break;
-    case res_finish:
-        
-        break;
-    default:
-        break;
-    }*/
+    resxbox.SERVO = &mg996_left;
 
+    // mknum_test.heading_pid.error > -0.01f;
+    // mknum_test.heading_pid.error < 0.01f;
     osKernelStart();
 }
 
 void demo::process_data()
 {
     // vesc_test.rpm_control.PID_SetParameters(debug.rx_frame_mat.data.msg_get[0], debug.rx_frame_mat.data.msg_get[1], debug.rx_frame_mat.data.msg_get[2]);
-    mknum_test.pointracker.track_pid.PID_SetParameters(debug.rx_frame_mat.data.msg_get[0], debug.rx_frame_mat.data.msg_get[1], debug.rx_frame_mat.data.msg_get[2]);
+    // mknum_test.pointracker.track_pid.PID_SetParameters(debug.rx_frame_mat.data.msg_get[0], debug.rx_frame_mat.data.msg_get[1], debug.rx_frame_mat.data.msg_get[2]);
     // right_front.rpm_control.increPID_SetParameters(debug.rx_frame_mat.data.msg_get[0], debug.rx_frame_mat.data.msg_get[1], debug.rx_frame_mat.data.msg_get[2], debug.rx_frame_mat.data.msg_get[3]);
 
     debug.tx_frame_mat.data.msg_get[0] = odom_test.now_heading;
@@ -135,6 +102,96 @@ void demo::process_data()
 
     // debug.tx_frame_mat.data.msg_get[1] = m6020_test.target_angle;
     // debug.tx_frame_mat.data.msg_get[2] = m6020_test.angle_error;
+    switch (res_state_now)
+    {
+    case resinit:
+        res_init_count++;
+        if (res_init_count > 250)
+        {
+            res_state_now = res_2_ready_point;
+            res_init_count = 0;
+            odom_test.odom_restart();
+        }
+        break;
+    case res_2_ready_point:
+        mknum_test.setpoint(0.3f, 0.875f);
+        if (mknum_test.pointracker.get_dis() < 0.05f)
+        {
+            res_state_now = res_turn_2_ball;
+        };
+        break;
+    case res_turn_2_ball:
+        mknum_test.lock_to(0.7854f);
+        if (mknum_test.heading_pid.error > -0.01f && mknum_test.heading_pid.error < 0.01f)
+        {
+            res_state_now = res_go_2_ball;
+        }
+        // res_state_now = res_go_2_ball;
+        break;
+    case res_go_2_ball:
+        mknum_test.lock_to(0.7854f);
+        res_init_count++;
+        if (true)
+        {
+            res_init_count = 0;
+            mknum_test.lock_to(0.7854f);
+            mknum_test.setpoint(0.13f, 0.975f);
+            if (mknum_test.pointracker.get_dis() < 0.05f)
+            {
+                res_state_now = res_eat_ball;
+            };
+        }
+
+        break;
+    case res_eat_ball:
+        mg996_left.set_ccr(132);
+        res_eat_count++;
+        if (res_eat_count > 75)
+        {
+            res_state_now = res_turn_to_zone;
+            res_eat_count = 0;
+        };
+        break;
+    case res_turn_to_zone:
+        mknum_test.lock_to(-0.5f);
+        if (mknum_test.heading_pid.error > -0.01f && mknum_test.heading_pid.error < 0.01f)
+        {
+            res_state_now = res_go_2_zone;
+        }
+
+        break;
+    case res_go_2_zone:
+        mknum_test.setpoint(1.1f, 1.2f);
+        mknum_test.lock_to(-0.5f);
+        if (mknum_test.pointracker.get_dis() < 0.05f)
+        {
+            // mg996_left.set_ccr(80);
+            // res_state_now = res_finish;
+            shit_count++;
+            if (shit_count > 80)
+            {
+                mknum_test.unlock();
+                mknum_test.switch_chassis_mode(remote_robotv);
+            }
+        };
+        break;
+    case res_push_ball:
+        mg996_left.set_ccr(80);
+        mknum_test.setpoint(1.1f, 1.2f);
+        res_eat_count++;
+        if (res_eat_count > 75)
+        {
+            res_state_now = res_finish;
+        }
+
+        break;
+    case res_finish:
+        mknum_test.unlock();
+        mknum_test.switch_chassis_mode(remote_robotv);
+        break;
+    default:
+        break;
+    }
 }
 
 uint8_t demo::msgin(uint8_t rcnID_, const void *data)

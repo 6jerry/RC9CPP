@@ -60,6 +60,7 @@ void odometry::odom_restart()
 {
     world_pose.x = 0.0f;
     world_pose.y = 0.0f;
+    now_heading = 0.0f;
 }
 
 float odometry::get_world_x()

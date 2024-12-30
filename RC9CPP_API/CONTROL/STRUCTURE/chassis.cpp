@@ -60,6 +60,8 @@ bool chassis::setpoint(float x, float y)
     point_track_info.target_y = y;
 
     // chassis_mode = point_tracking;
+    switch_chassis_mode(point_tracking);
+    return true;
 }
 void chassis::lock_to(float heading)
 {
@@ -210,9 +212,9 @@ void mcknum4::process_data()
         Vector2D t_pos(point_track_info.target_x, point_track_info.target_y);
 
         Vector2D t_speed = pointracker.track(n_pos, t_pos);
-        
-        target_rvx = cos(odom->now_heading) * t_speed.x + sin(odom->now_heading) *t_speed.y;
-        target_rvy = cos(odom->now_heading) *t_speed.y - sin(odom->now_heading) * t_speed.x;
+
+        target_rvx = cos(odom->now_heading) * t_speed.x + sin(odom->now_heading) * t_speed.y;
+        target_rvy = cos(odom->now_heading) * t_speed.y - sin(odom->now_heading) * t_speed.x;
         break;
     }
     if (if_lock_heading)
@@ -222,7 +224,7 @@ void mcknum4::process_data()
     }
     else
     {
-         target_w = input_w;
+        target_w = input_w;
     }
 
     motors[3]->set_rpm(-v_to_rpm((-target_rvx + target_rvy + target_w * (CHASSIS_L + CHASSIS_W))));
