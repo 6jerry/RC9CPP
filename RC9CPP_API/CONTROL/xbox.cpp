@@ -133,8 +133,41 @@ void xbox::handleButton(ButtonConfig &config)
     *config.lastState = *config.currentState;
 }
 
+uint8_t xbox::msgin(uint8_t rcnID_, const void *data)
+{
+    const uint8_t *inputData = static_cast<const uint8_t *>(data);
+    if (inputData)
+    {
+        xbox_msgs.btnY = inputData[0];
+        xbox_msgs.btnB = inputData[1];
+        xbox_msgs.btnA = inputData[2];
+        xbox_msgs.btnX = inputData[3];
+        xbox_msgs.btnShare = inputData[4];
+        xbox_msgs.btnStart = inputData[5];
+        xbox_msgs.btnSelect = inputData[6];
+        xbox_msgs.btnXbox = inputData[7];
+        xbox_msgs.btnLB = inputData[8];
+        xbox_msgs.btnRB = inputData[9];
+        xbox_msgs.btnLS = inputData[10];
+        xbox_msgs.btnRS = inputData[11];
+        xbox_msgs.btnDirUp = inputData[12];
+        xbox_msgs.btnDirLeft = inputData[13];
+        xbox_msgs.btnDirRight = inputData[14];
+        xbox_msgs.btnDirDown = inputData[15];
 
+        // 解析霍尔传感器值（16位数据，高8位和低8位拼接）
+        xbox_msgs.joyLHori = ((uint16_t)inputData[16] << 8) | inputData[17];
+        xbox_msgs.joyLVert = ((uint16_t)inputData[18] << 8) | inputData[19];
+        xbox_msgs.joyRHori = ((uint16_t)inputData[20] << 8) | inputData[21];
+        xbox_msgs.joyRVert = ((uint16_t)inputData[22] << 8) | inputData[23];
+        xbox_msgs.trigLT = ((uint16_t)inputData[24] << 8) | inputData[25];
+        xbox_msgs.trigRT = ((uint16_t)inputData[26] << 8) | inputData[27];
+        return 1;
+    }
+    return 0;
+}
 
-
-
-
+uint8_t xbox::msgout(uint8_t rcnID_, void *output)
+{
+    return 0;
+}

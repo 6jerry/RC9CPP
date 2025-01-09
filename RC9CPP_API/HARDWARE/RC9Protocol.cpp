@@ -86,7 +86,8 @@ void RC9Protocol::handleReceiveData(uint8_t byte)
                         rx_frame_mat.data.buff_msg[i] = rx_frame_mat.rx_temp_data_mat[i];
                     }
 
-                    publish(rx_frame_mat.frame_id, rx_frame_mat.data_length, rx_frame_mat.data.buff_msg, rx_frame_mat.data.msg_get); // 发布数据
+                    // publish(rx_frame_mat.frame_id, rx_frame_mat.data_length, rx_frame_mat.data.buff_msg, rx_frame_mat.data.msg_get); // 发布数据
+                    ppsend_Syn(LOCAL_RCIP, 2, 0, rx_frame_mat.data.buff_msg);
 
                     state_ = WAITING_FOR_HEADER_0;
                 }
@@ -98,7 +99,8 @@ void RC9Protocol::handleReceiveData(uint8_t byte)
                     rx_frame_mat.data.buff_msg[i] = rx_frame_mat.rx_temp_data_mat[i];
                 }
 
-                publish(rx_frame_mat.frame_id, rx_frame_mat.data_length, rx_frame_mat.data.buff_msg, rx_frame_mat.data.msg_get);
+                // publish(rx_frame_mat.frame_id, rx_frame_mat.data_length, rx_frame_mat.data.buff_msg, rx_frame_mat.data.msg_get);
+                ppsend_Syn(LOCAL_RCIP, 2, 0, rx_frame_mat.data.buff_msg);
 
                 state_ = WAITING_FOR_HEADER_0;
             }
@@ -114,7 +116,7 @@ void RC9Protocol::handleReceiveData(uint8_t byte)
 // 实现获取待发送的数据
 void RC9Protocol::process_data()
 {
-
+    ppget_Asyn();
     sendBuffer_[0] = FRAME_HEAD_0_RC9;
     sendBuffer_[1] = FRAME_HEAD_1_RC9;
     sendBuffer_[2] = tx_frame_mat.frame_id;
@@ -159,7 +161,6 @@ void RC9Protocol::publish(uint8_t data_id, uint8_t datalenth, const uint8_t *dat
     }
 }
 
-
 void RC9Protocol::load_Txfloat(uint8_t data_id, const float *data_float, uint8_t numbers)
 {
     tx_frame_mat.frame_id = data_id;
@@ -174,4 +175,19 @@ void RC9Protocol::load_Txfloat(uint8_t data_id, const float *data_float, uint8_t
 float RC9Protocol::Get_Rxfloat(uint8_t numbers)
 {
     return rx_frame_mat.data.msg_get[numbers];
+}
+
+uint8_t RC9Protocol::msgin(uint8_t rcnID_, const void *data)
+{
+    const float *inputData = static_cast<const float *>(data);
+    if (inputData)
+    {
+        tx_frame_mat.data.msg_get[0] = inputData[0];
+    }
+    return 0;
+}
+
+uint8_t RC9Protocol::msgout(uint8_t rcnID_, void *output)
+{
+    return 0;
 }

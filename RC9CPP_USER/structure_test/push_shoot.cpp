@@ -6,31 +6,32 @@
 #define left_up 80
 
 // 左边舵机放下去吃球但又刚好不会把底盘顶起来的角度
-#define left_down 148
+#define left_down 138
 
 // 右边舵机准备吃球的角度
 #define right_up 183
 // 右边舵机放下去吃球但又刚好不会把底盘顶起来的角度
-#define right_down 115
+#define right_down 126
 // 吃球的坐标
-#define target_eat_x -0.02f
-#define target_eat_y 0.818f
+#define target_eat_x 0.04f
+#define target_eat_y 1.02f
 
 // 放球的坐标，就是你放球的地方
 
-#define target_push_x -1.118f
-#define target_push_y 0.818f
+#define target_push_x -1.36f
+
+#define target_push_y 1.28f
 
 // 吃球的车头朝向，最好对准球的方向
-#define target_eat_heading -0.785f
+#define target_eat_heading 0.0f
 // 初始化延时，就是你放下去之后什么时候开始自动
-#define init_delay 250 // 以20ms为单位
+#define init_delay 120 // 以20ms为单位
 // 吃球框放下延时，就是开过去之后什么时候吃球框放下吃球后开往下一点，如果很小就是放下后里马往放置区开，太小就是还没完全放下吃球就开往放置区了
-#define eat_delay 5 // 以20ms为单位
+#define eat_delay 66 // 以20ms为单位
 
 #define finish_delay 5 // 别改
 // 放球的车头朝向
-#define target_push_heading 0.785f
+#define target_push_heading 1.27f
 
 // m3508p m3508_shooter(1, &hcan1), m3508_pitch(2, &hcan1);
 // m6020s m6020_test(4, &hcan2);
@@ -38,9 +39,9 @@
 TaskManager task_core;
 // CanManager can_core;
 //  shoot_xbox shoot_control(&m3508_shooter, &m3508_pitch);
-RC9Protocol debug(&huart5, false), esp32_serial(&huart2, false);
+RC9Protocol debug(&huart4, false), esp32_serial(&huart2, false);
 
-fdi fdi_test(&huart4);
+fdi fdi_test(&huart3);
 
 servo mg996_left(&htim9, TIM_CHANNEL_1), mg996_right(&htim9, TIM_CHANNEL_2);
 
@@ -52,22 +53,6 @@ mcknum4 mknum_test(&right_front, &right_back, &left_back, &left_front, 0.03f, 0.
 shoot_xbox box_test(nullptr, nullptr, &mknum_test);
 xbox_r2n resxbox(&mknum_test);
 demo test2;
-
-enum res_state
-{
-    resinit,
-    res_2_ready_point,
-    res_turn_2_ball,
-    res_go_2_ball,
-    res_eat_ball,
-    res_turn_to_zone,
-    res_go_2_zone,
-    res_push_ball,
-    res_finish
-};
-
-res_state res_state_now = resinit;
-int32_t res_init_count = 0, res_eat_count = 0, shit_count = 0;
 
 extern "C" void pshoot_setup(void)
 {
@@ -107,6 +92,9 @@ extern "C" void pshoot_setup(void)
 
     mg996_left.set_ccr(left_up); // 146 最低位,80最高位
     mg996_right.set_ccr(right_up);
+    resxbox.rcninit(2);
+    esp32_serial.rcninit(1);
+    debug.rcninit(3);
     // mg996_left.set_ccr(150);
     resxbox.SERVO = &mg996_left;
     resxbox.servo_right = &mg996_right;
@@ -122,14 +110,14 @@ void demo::process_data()
     // mknum_test.pointracker.track_pid.PID_SetParameters(debug.rx_frame_mat.data.msg_get[0], debug.rx_frame_mat.data.msg_get[1], debug.rx_frame_mat.data.msg_get[2]);
     // right_front.rpm_control.increPID_SetParameters(debug.rx_frame_mat.data.msg_get[0], debug.rx_frame_mat.data.msg_get[1], debug.rx_frame_mat.data.msg_get[2], debug.rx_frame_mat.data.msg_get[3]);
 
-    debug.tx_frame_mat.data.msg_get[0] = odom_test.now_heading;
+    // debug.tx_frame_mat.data.msg_get[0] = odom_test.now_heading;
 
-    debug.tx_frame_mat.data.msg_get[1] = mknum_test.target_heading_rad;
-    // debug.tx_frame_mat.data.msg_get[2] = right_front.rpm_control.setpoint / 45.0f;
-    //   debug.tx_frame_mat.data.msg_get[2] = vesc_test.target_rpm;
-    //    debug.tx_frame_mat.data.msg_get[2] = m3508_shooter.rpm_control.setpoint;
-    //     ppget_AsynOverwrite();
-    //     testdd += 0.001f;
+    ppsend_Asyn(LOCAL_RCIP, 3, 0, &mknum_test.target_w);
+    //  debug.tx_frame_mat.data.msg_get[2] = right_front.rpm_control.setpoint / 45.0f;
+    //    debug.tx_frame_mat.data.msg_get[2] = vesc_test.target_rpm;
+    //     debug.tx_frame_mat.data.msg_get[2] = m3508_shooter.rpm_control.setpoint;
+    //      ppget_AsynOverwrite();
+    //      testdd += 0.001f;
 
     // m6020_test.pos_pid.PID_SetParameters(debug.rx_frame_mat.data.msg_get[0], debug.rx_frame_mat.data.msg_get[1], debug.rx_frame_mat.data.msg_get[2]);
 
@@ -137,97 +125,6 @@ void demo::process_data()
 
     // debug.tx_frame_mat.data.msg_get[1] = m6020_test.target_angle;
     // debug.tx_frame_mat.data.msg_get[2] = m6020_test.angle_error;
-    switch (res_state_now)
-    {
-    case resinit:
-        res_init_count++;
-        if (res_init_count > init_delay)
-        {
-            res_state_now = res_2_ready_point;
-            res_init_count = 0;
-            odom_test.odom_restart();
-        }
-        break;
-    case res_2_ready_point:
-        mknum_test.setpoint(target_eat_x, target_eat_y);
-        if (mknum_test.pointracker.get_dis() < 0.05f)
-        {
-            res_state_now = res_turn_2_ball;
-        };
-        break;
-    case res_turn_2_ball:
-        mknum_test.lock_to(target_eat_heading);
-        if (mknum_test.heading_pid.error > -0.01f && mknum_test.heading_pid.error < 0.01f)
-        {
-            res_state_now = res_go_2_ball;
-        }
-        // res_state_now = res_go_2_ball;
-        break;
-    case res_go_2_ball:
-        mknum_test.lock_to(target_eat_heading);
-        res_init_count++;
-        if (true)
-        {
-            res_init_count = 0;
-            mknum_test.lock_to(target_eat_heading);
-            mknum_test.setpoint(target_eat_x, target_eat_y);
-            if (mknum_test.pointracker.get_dis() < 0.05f)
-            {
-                res_state_now = res_eat_ball;
-            };
-        }
-
-        break;
-    case res_eat_ball:
-        mg996_left.set_ccr(left_down);
-        mg996_right.set_ccr(right_down);
-        res_eat_count++;
-        if (res_eat_count > eat_delay)
-        {
-            res_state_now = res_turn_to_zone;
-            res_eat_count = 0;
-        };
-        break;
-    case res_turn_to_zone:
-        mknum_test.lock_to(target_push_heading);
-        if (mknum_test.heading_pid.error > -0.01f && mknum_test.heading_pid.error < 0.01f)
-        {
-            res_state_now = res_go_2_zone;
-        }
-
-        break;
-    case res_go_2_zone:
-        mknum_test.setpoint(target_push_x, target_push_y);
-        mknum_test.lock_to(target_push_heading);
-        if (mknum_test.pointracker.get_dis() < 0.05f)
-        {
-            // mg996_left.set_ccr(80);
-            // res_state_now = res_finish;
-            shit_count++;
-            if (shit_count > 80)
-            {
-                mknum_test.unlock();
-                mknum_test.switch_chassis_mode(remote_robotv);
-            }
-        };
-        break;
-    case res_push_ball:
-        mg996_left.set_ccr(80);
-        mknum_test.setpoint(1.1f, 1.2f);
-        res_eat_count++;
-        if (res_eat_count > 75)
-        {
-            res_state_now = res_finish;
-        }
-
-        break;
-    case res_finish:
-        mknum_test.unlock();
-        mknum_test.switch_chassis_mode(remote_robotv);
-        break;
-    default:
-        break;
-    }
 }
 
 uint8_t demo::msgin(uint8_t rcnID_, const void *data)

@@ -3,8 +3,8 @@
 // 静态变量初始化
 SerialDevice *SerialDevice::instances_[MAX_INSTANCES] = {nullptr};
 int SerialDevice::instanceCount_ = 0;
-//TaskHandle_t SerialDevice::sendTaskHandle_ = nullptr;
-//bool SerialDevice::sendTaskCreated_ = false;
+// TaskHandle_t SerialDevice::sendTaskHandle_ = nullptr;
+// bool SerialDevice::sendTaskCreated_ = false;
 
 // 构造函数：传入 UART 句柄，自动启动接收中断
 SerialDevice::SerialDevice(UART_HandleTypeDef *huart)
@@ -37,7 +37,6 @@ extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     uint8_t rxByte;
     // 获取 UART 接收的字节
     for (int i = 0; i < SerialDevice::instanceCount_; i++)
-    
     {
         if (SerialDevice::instances_[i]->huart_ == huart)
         {
@@ -45,7 +44,11 @@ extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
             SerialDevice::instances_[i]->handleReceiveData(rxByte);
 
             HAL_UART_Receive_IT(huart, SerialDevice::instances_[i]->rxBuffer_, RX_BUFFER_SIZE);
-
+            return;
         }
+    }
+    for (int i = 0; i < SerialDevice::instanceCount_; i++)
+    {
+        HAL_UART_Receive_IT(huart, SerialDevice::instances_[i]->rxBuffer_, RX_BUFFER_SIZE);
     }
 }

@@ -12,7 +12,7 @@ void xbox_r2n::process_data()
     {
         MAX_ROBOT_SPEED_X = 1.20f;
         MAX_ROBOT_SPEED_Y = 1.20f;
-        MAX_ROBOT_SPEED_W = 3.20f;
+        MAX_ROBOT_SPEED_W = 1.8f;
         MAX_GO1 = 5.6f;
     }
     if (speed_level == 0)
@@ -21,14 +21,14 @@ void xbox_r2n::process_data()
         MAX_ROBOT_SPEED_Y = 0.40f;
         MAX_ROBOT_SPEED_W = 1.10f;
         MAX_GO1 = 8.0f;
-        SERVO->set_ccr(148);
-        servo_right->set_ccr(115);
+        SERVO->set_ccr(138);
+        servo_right->set_ccr(126);
     }
     if (speed_level == 2)
     {
         MAX_ROBOT_SPEED_X = 1.96f;
         MAX_ROBOT_SPEED_Y = 1.96f;
-        MAX_ROBOT_SPEED_W = 3.98f;
+        MAX_ROBOT_SPEED_W = 2.4f;
         MAX_GO1 = 12.0f;
         SERVO->set_ccr(80);
         servo_right->set_ccr(183);
@@ -51,7 +51,7 @@ void xbox_r2n::process_data()
 
         break;
     case 1:
-        // control_chassis->switch_chassis_mode(remote_robotv);
+         //control_chassis->switch_chassis_mode(remote_robotv);
         control_chassis->setrobotv(MAX_ROBOT_SPEED_X * xbox_msgs.joyLHori_map, MAX_ROBOT_SPEED_Y * xbox_msgs.joyLVert_map, -MAX_ROBOT_SPEED_W * xbox_msgs.joyRHori_map);
 
         break;
