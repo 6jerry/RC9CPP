@@ -95,6 +95,7 @@ extern "C" void pshoot_setup(void)
     resxbox.rcninit(2);
     esp32_serial.rcninit(1);
     debug.rcninit(3);
+    debug.portinit(7);
     // mg996_left.set_ccr(150);
     resxbox.SERVO = &mg996_left;
     resxbox.servo_right = &mg996_right;
@@ -112,7 +113,7 @@ void demo::process_data()
 
     // debug.tx_frame_mat.data.msg_get[0] = odom_test.now_heading;
 
-    ppsend_Asyn(LOCAL_RCIP, 3, 0, &mknum_test.target_w);
+    ppsend_Asyn(7, 9, 0, &mknum_test.target_w);
     //  debug.tx_frame_mat.data.msg_get[2] = right_front.rpm_control.setpoint / 45.0f;
     //    debug.tx_frame_mat.data.msg_get[2] = vesc_test.target_rpm;
     //     debug.tx_frame_mat.data.msg_get[2] = m3508_shooter.rpm_control.setpoint;

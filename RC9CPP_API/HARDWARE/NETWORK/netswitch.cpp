@@ -1,7 +1,7 @@
 #include "netswitch.h"
 
 rcnode *rcnode::MAC_2_NODE[MAX_NODES] = {nullptr};
-
+rcnode *rcnode::IP_2_PORT[MAX_PORT] = {nullptr};
 uint8_t rcnode::local_ip = LOCAL_RCIP;
 
 /**
@@ -20,8 +20,9 @@ rcnode::ppsend_Syn(uint8_t rcnIP_, uint8_t rcnMAC_, uint8_t rcnID_, const void *
         // 调用目标节点的 msgin 函数发送数据，并返回结果
         return MAC_2_NODE[rcnMAC_]->msgin(rcnID_, data);
     }
-    else
+    else if (rcnIP_ != local_ip && IP_2_PORT[rcnIP_] != nullptr && rcnIP_ < MAX_PORT)
     {
+        return IP_2_PORT[rcnIP_]->msgin(rcnID_, data);
     }
 }
 
@@ -74,8 +75,14 @@ uint8_t rcnode::ppsend_Asyn(uint8_t rcnIP_, uint8_t rcnMAC_, uint8_t rcnID_, con
 
         return 0;
     }
-    else
+    else if (rcnIP_ != local_ip && IP_2_PORT[rcnIP_] != nullptr && rcnIP_ < MAX_PORT)
     {
+        rcn_msg_ message = {rcnIP_, rcnMAC_, rcnID_, data};
+        if (osMessageQueuePut(IP_2_PORT[rcnIP_]->normalQueue, &message, 0, 0) == osOK)
+        {
+            return 1; // 发送成功
+        }
+
         return 0;
     }
 }
@@ -111,7 +118,26 @@ uint8_t rcnode::ppsend_AsynOverwrite(uint8_t rcnIP_, uint8_t rcnMAC_, uint8_t rc
             }
         }
     }
-    return 0; // 发送失败
+    else if (rcnIP_ != local_ip && IP_2_PORT[rcnIP_] != nullptr && rcnIP_ < MAX_PORT)
+    {
+        rcnode *targetNode = IP_2_PORT[rcnIP_];
+        rcn_msg_ message = {rcnIP_, rcnMAC_, rcnID_, data};
+
+        // 尝试放入队列，如果队列满则覆盖
+        if (osMessageQueuePut(targetNode->overwriteQueue, &message, 0, 0) == osOK)
+        {
+            return 1; // 发送成功
+        }
+        else
+        {
+            // 队列已满，移除旧消息并重试
+            osMessageQueueGet(targetNode->overwriteQueue, nullptr, nullptr, 0); // 移除旧消息
+            if (osMessageQueuePut(targetNode->overwriteQueue, &message, 0, 0) == osOK)
+            {
+                return 1; // 覆盖成功
+            }
+        }
+    }
 }
 uint8_t rcnode::ppget_AsynOverwrite()
 {
@@ -124,4 +150,16 @@ uint8_t rcnode::ppget_AsynOverwrite()
     }
 
     return 0; // 队列中无消息
+}
+bool rcnode::portinit(uint8_t rcip_)
+{
+    if (rcip_ >= MAX_PORT || IP_2_PORT[rcip_] != nullptr)
+    {
+        return false;
+    }
+    else
+    {
+        IP_2_PORT[rcip_] = this;
+        return true;
+    }
 }

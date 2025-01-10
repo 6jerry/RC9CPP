@@ -14,7 +14,8 @@ extern "C"
 #ifdef __cplusplus
 // rc9net中的交换机类，负责局域网中的通讯，含有mac地址的映射表
 
-#define MAX_NODES 64
+#define MAX_NODES 36
+#define MAX_PORT 10
 #define LOCAL_RCIP 1
 
 typedef struct rcn_msg_
@@ -29,6 +30,7 @@ class rcnode // rcn网络节点类，每一个想要使用rcn网络的模块或�
 {
 public:
     static rcnode *MAC_2_NODE[MAX_NODES]; // MAC映射表
+    static rcnode *IP_2_PORT[MAX_PORT];   // IP映射表
     static uint8_t local_ip;
     uint8_t rcmac = 0;
     bool if_registed = false;
@@ -36,7 +38,6 @@ public:
 
     rcn_msg_ rcn_msg;
 
-   
     osMessageQueueId_t normalQueue;
 
     osMessageQueueId_t overwriteQueue; // 覆盖式队列。长度强制为1
@@ -54,6 +55,7 @@ public:
 
     // pp协议主要是用来寻址，数据的接收解析函数需要用户提供
     bool rcninit(uint8_t RCMAC_, uint8_t normalQueueLength = 5);
+    bool portinit(uint8_t rcip_);                                // 物理端口初始化，如果该节点要作为一个物理端口的话
     virtual uint8_t msgin(uint8_t rcnID_, const void *data) = 0; // 外面的传进来
     virtual uint8_t msgout(uint8_t rcnID_, void *output) = 0;    // 外面的拿里面的
 };
