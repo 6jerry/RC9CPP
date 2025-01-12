@@ -234,10 +234,8 @@ void mcknum4::process_data()
     motors[1]->set_rpm(v_to_rpm((-target_rvx + target_rvy - target_w * (CHASSIS_L + CHASSIS_W))));
 }
 
-swerve4 ::swerve4(power_motor *right_front_speed, power_motor *right_front_heading) : chassis(swerve4_, 0.0519f, nullptr, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
+swerve4 ::swerve4(action *ACTION_, float chassis_r_, float wheel_r_) : chassis(swerve4_, wheel_r_, ACTION_, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
 {
-    speed_motors[0] = right_front_speed;
-    heading_motors[0] = right_front_heading;
 }
 void swerve4 ::process_data()
 {
@@ -257,27 +255,20 @@ void swerve4 ::process_data()
         break;
     case remote_worldv:
 
-        // worldv_to_robotv();
+        worldv_to_robotv();
         break;
     case line_tracking:
 
-        // worldv_to_robotv();
         break;
     case point_tracking:
         point_track_compute();
         input_wvx = point_track_info.target_speed_x;
         input_wvy = point_track_info.target_speed_y;
-        // worldv_to_robotv();
+
         break;
 
     case pp:
-        // Vector2D wpos(ACTION->pose_data.world_pos_x, ACTION->pose_data.world_pos_y);
 
-        // Vector2D tspeed = pp_tracker.pursuit(wpos);
-
-        // input_wvx = tspeed.x;
-        // input_wvy = tspeed.y;
-        // worldv_to_robotv();
         break;
     }
     if (if_lock_heading)
@@ -289,48 +280,79 @@ void swerve4 ::process_data()
     {
         target_w = input_w;
     }
-
-    motorspeeds[0].x = target_rvx - target_w * R * (-0.7071f);
-    motorspeeds[0].y = target_rvy + target_w * R * (-0.7071f);
-    if (motorspeeds[0].x != 0.0f | motorspeeds[0].y != 0.0f)
+    for (int i = 0; i < 4; i++)
     {
-        target_angle = atan2f(motorspeeds[0].x, motorspeeds[0].y) * 57.296f;
-    }
 
-    headingerror = target_angle - heading_motors[0]->get_pos();
-
-    if (abs(headingerror) > 90.0f)
-    {
-        // 需要劣弧优化
-        if (headingerror > 0.0f)
+        switch (i) // 右前，右后，左后，左前
         {
+        case 0:
+            motorspeeds[i].x = target_rvx - target_w * CHASSIS_R* (0.7071f);
+            motorspeeds[i].y = target_rvy - target_w * CHASSIS_R* (0.7071f);
 
-            setted_pos = target_angle - 180.0f;
-            setted_rpm = v_to_rpm(motorspeeds[0].magnitude());
+            break;
+
+        case 1:
+            motorspeeds[i].x = target_rvx + target_w * CHASSIS_R* (0.7071f);
+            motorspeeds[i].y = target_rvy - target_w * CHASSIS_R* (0.7071f);
+
+            break;
+
+        case 2:
+            motorspeeds[i].x = target_rvx + target_w * CHASSIS_R* (0.7071f);
+            motorspeeds[i].y = target_rvy + target_w * CHASSIS_R* (0.7071f);
+
+            break;
+
+        case 3:
+            motorspeeds[i].x = target_rvx - target_w * CHASSIS_R* (0.7071f);
+            motorspeeds[i].y = target_rvy + target_w * CHASSIS_R* (0.7071f);
+
+            break;
+
+        default:
+            break;
+        }
+
+        if (motorspeeds[i].x != 0.0f | motorspeeds[i].y != 0.0f)
+        {
+            target_angle = atan2f(motorspeeds[i].x, motorspeeds[i].y) * 57.296f;
+        }
+
+        headingerror = target_angle - heading_motors[i]->get_pos();
+
+        if (abs(headingerror) > 90.0f)
+        {
+            // 需要劣弧优化
+            if (headingerror > 0.0f)
+            {
+
+                setted_pos = target_angle - 180.0f;
+                setted_rpm = v_to_rpm(motorspeeds[i].magnitude());
+            }
+            else
+            {
+                setted_pos = target_angle + 180.0f;
+                setted_rpm = v_to_rpm(motorspeeds[i].magnitude());
+            }
+            if (if_adjust_heading) // 用来设置角度调整死区用的
+            {
+                heading_motors[i]->set_pos(setted_pos);
+            }
+
+            speed_motors[i]->set_rpm(setted_rpm);
         }
         else
         {
-            setted_pos = target_angle + 180.0f;
-            setted_rpm = v_to_rpm(motorspeeds[0].magnitude());
-        }
-        if (if_adjust_heading)
-        {
-            heading_motors[0]->set_pos(setted_pos);
-        }
+            // 无需劣弧优化
+            setted_pos = target_angle;
+            setted_rpm = v_to_rpm(-motorspeeds[i].magnitude());
+            if (if_adjust_heading)
+            {
+                heading_motors[i]->set_pos(setted_pos);
+            }
 
-        speed_motors[0]->set_rpm(setted_rpm);
-    }
-    else
-    {
-        // 无需劣弧优化
-        setted_pos = target_angle;
-        setted_rpm = v_to_rpm(-motorspeeds[0].magnitude());
-        if (if_adjust_heading)
-        {
-            heading_motors[0]->set_pos(setted_pos);
+            speed_motors[i]->set_rpm(setted_rpm);
         }
-
-        speed_motors[0]->set_rpm(setted_rpm);
     }
 }
 omni3_unusual::omni3_unusual(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor, float Rwheel_, action *ACTION_, float headingkp, float headingki, float headingkd, float point_kp, float point_ki, float point_kd) : chassis(omni3_unusual_, Rwheel_, ACTION_, headingkp, headingki, headingkd, point_kp, point_ki, point_kd)

@@ -45,10 +45,10 @@ public:
 
     int16_t motor_process() override;
     void can_update(uint8_t can_RxData[8]);
-    float target_angle = 0;
-    float target_rpm = 0;
-    int16_t target_v = 0;
-
+    float target_angle = 0.0f;
+    float target_rpm = 0.0f;
+    int16_t target_v = 0.0f;
+    float target_relative_angle = 0.0f, init_angle = 0.0f, delta_angle = 0.0f;
     float real_angle = 0.0f;
     float angle_error = 0.0f;
 
@@ -70,6 +70,9 @@ public:
     void set_rpm(float power_motor_rpm);
     float get_pos() override;
     void set_pos(float pos) override;
+
+    void target_angle_tf();
+    void set_init_pos(float init_pos);
 };
 
 #endif

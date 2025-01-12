@@ -130,7 +130,6 @@ private:
 
     float CHASSIS_L = 0.0f, CHASSIS_W = 0.0f;
 
-  
     float angle_error = 0.0f;
     imu *IMU = nullptr;
     odometry *odom = nullptr;
@@ -138,7 +137,7 @@ private:
 public:
     void process_data();
 
-    mcknum4(power_motor *right_front_motor, power_motor *right_back_motor, power_motor *left_back_motor, power_motor *left_front_motor, float Rwheel_ = 0.03f, float CHASSIS_L_ = 0.08693f, imu *IMU_ = nullptr, odometry *odom_ = nullptr, float CHASSIS_W_ = 0.148f, float point_kp =1.76f, float point_ki = 0.0f, float point_kd = 0.9f);
+    mcknum4(power_motor *right_front_motor, power_motor *right_back_motor, power_motor *left_back_motor, power_motor *left_front_motor, float Rwheel_ = 0.03f, float CHASSIS_L_ = 0.08693f, imu *IMU_ = nullptr, odometry *odom_ = nullptr, float CHASSIS_W_ = 0.148f, float point_kp = 1.76f, float point_ki = 0.0f, float point_kd = 0.9f);
     pointrack pointracker;
 };
 class swerve4 : public ITaskProcessor, public chassis
@@ -154,7 +153,7 @@ public:
     float R = 0.0f;
     Vector2D motorspeeds[4];
     void process_data();
-    swerve4(power_motor *right_front_speed, power_motor *right_front_heading);
+    swerve4(action *ACTION_, float chassis_r_,float wheel_r_);
 };
 
 // 常规三轮全向轮底盘，通常以一个电机为车头的朝向，典型车体：九期r2

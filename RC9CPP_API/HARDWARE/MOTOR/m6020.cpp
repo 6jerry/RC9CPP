@@ -23,6 +23,9 @@ m6020s::m6020s(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool if_double_control_
 
 int16_t m6020s::motor_process()
 {
+
+    target_angle_tf();
+
     real_angle = convert_angle_to_signed(rangle);
     if (real_angle * target_angle >= 0)
     {
@@ -73,6 +76,26 @@ int16_t m6020s::motor_process()
 
     return target_v;
 }
+
+void m6020s::set_init_pos(float init_pos)
+{
+    init_angle = init_pos;
+}
+
+void m6020s::target_angle_tf() // 考虑了机械初始安装角度的角度变换
+{
+    delta_angle = target_relative_angle + init_angle;
+    if (delta_angle >= 180.0f)
+    {
+        delta_angle -= 360.0f;
+    }
+    else if (delta_angle < -180.0f)
+    {
+        delta_angle += 360.0f;
+    }
+
+    target_angle = delta_angle;
+}
 void m6020s::can_update(uint8_t can_RxData[8])
 {
     uint16_t vangle = (can_RxData[0] << 8) | can_RxData[1];
@@ -95,7 +118,7 @@ float m6020s::get_pos()
 }
 void m6020s::set_pos(float pos)
 {
-    target_angle = pos;
+    target_relative_angle = pos;
 }
 void m6020s::set_rpm(float power_motor_rpm)
 {

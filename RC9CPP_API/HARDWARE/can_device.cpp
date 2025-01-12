@@ -349,9 +349,11 @@ void CanManager::process_data()
     {
         for (int i = 0; i < CanDevice::instanceCount_m3508_can1; ++i)
         {
-            int16_t temp_vcurrent = CanDevice::m3508_instances_can1[i]->motor_process();
-            send_buf1[2 * i] = (uint8_t)(temp_vcurrent >> 8);
-            send_buf1[2 * i + 1] = (uint8_t)temp_vcurrent;
+           
+                int16_t temp_vcurrent = CanDevice::m3508_instances_can1[i]->motor_process();
+                send_buf1[2 * i] = (uint8_t)(temp_vcurrent >> 8);
+                send_buf1[2 * i + 1] = (uint8_t)temp_vcurrent;
+            
         }
         tx_message_1.StdId = 0x200;
         if (HAL_CAN_AddTxMessage(&hcan1, &tx_message_1, send_buf1, &msg_box1) == HAL_ERROR)
@@ -366,9 +368,11 @@ void CanManager::process_data()
     {
         for (int i = 0; i < CanDevice::instanceCount_m6020_can1; ++i)
         {
-            int16_t temp_vcurrent = CanDevice::m6020_instances_can1[i]->motor_process();
-            send_buf1[2 * i] = (uint8_t)(temp_vcurrent >> 8);
-            send_buf1[2 * i + 1] = (uint8_t)temp_vcurrent;
+            
+                int16_t temp_vcurrent = CanDevice::m6020_instances_can1[i]->motor_process();
+                send_buf1[2 * i] = (uint8_t)(temp_vcurrent >> 8);
+                send_buf1[2 * i + 1] = (uint8_t)temp_vcurrent;
+            
         }
         tx_message_1.StdId = 0x1FF;
         if (HAL_CAN_AddTxMessage(&hcan1, &tx_message_1, send_buf1, &msg_box1) == HAL_ERROR)
@@ -382,9 +386,11 @@ void CanManager::process_data()
     {
         for (int i = 0; i < CanDevice::instanceCount_m3508_can2; ++i)
         {
-            int16_t temp_vcurrent2 = CanDevice::m3508_instances_can2[i]->motor_process();
-            send_buf2[2 * i] = (uint8_t)(temp_vcurrent2 >> 8);
-            send_buf2[2 * i + 1] = (uint8_t)temp_vcurrent2;
+           
+                int16_t temp_vcurrent2 = CanDevice::m3508_instances_can2[i]->motor_process();
+                send_buf2[2 * i] = (uint8_t)(temp_vcurrent2 >> 8);
+                send_buf2[2 * i + 1] = (uint8_t)temp_vcurrent2;
+            
         }
         tx_message_2.StdId = 0x200;
         if (HAL_CAN_AddTxMessage(&hcan2, &tx_message_2, send_buf2, &msg_box2) != HAL_OK)
@@ -398,9 +404,11 @@ void CanManager::process_data()
     {
         for (int i = 0; i < CanDevice::instanceCount_m6020_can2; ++i)
         {
-            int16_t temp_vcurrent2 = CanDevice::m6020_instances_can2[i]->motor_process();
-            send_buf2[2 * 3] = (uint8_t)(temp_vcurrent2 >> 8);
-            send_buf2[2 * 3 + 1] = (uint8_t)temp_vcurrent2;
+          
+                int16_t temp_vcurrent2 = CanDevice::m6020_instances_can2[i]->motor_process();
+                send_buf2[2 * i] = (uint8_t)(temp_vcurrent2 >> 8);
+                send_buf2[2 * i + 1] = (uint8_t)temp_vcurrent2;
+            
         }
         tx_message_2.StdId = 0x1FF;
         if (HAL_CAN_AddTxMessage(&hcan2, &tx_message_2, send_buf2, &msg_box2) != HAL_OK)
@@ -408,41 +416,14 @@ void CanManager::process_data()
             error_flag = 1;
         }
     }
-    /*uint8_t vesc_tx_buf[8] = {0}; // 数据缓冲区，8字节
-    CAN_TxHeaderTypeDef vesc_tx_message;
 
-    // 配置 CAN 帧 ID
-    vesc_tx_message.ExtId = (CAN_CMD_SET_CURRENT << 8) | VESC_ID;
-    vesc_tx_message.IDE = CAN_ID_EXT;   // 扩展帧
-    vesc_tx_message.RTR = CAN_RTR_DATA; // 数据帧
-    vesc_tx_message.DLC = 8;            // 数据帧长度为8字节
-
-    // 目标电流（单位：安培），转换为 VESC 使用的毫安
-    int32_t current_in_milliamp = (int32_t)(0);
-
-    // 数据格式：
-    // Byte 0: 命令类型 (CMD ID)
-    // Byte 1~4: 电流值 (int32，单位：mA)
-    vesc_tx_buf[0] = (current_in_milliamp >> 24) & 0xFF;
-    vesc_tx_buf[1] = (current_in_milliamp >> 16) & 0xFF;
-    vesc_tx_buf[2] = (current_in_milliamp >> 8) & 0xFF;
-    vesc_tx_buf[3] = current_in_milliamp & 0xFF;
-
-    if (HAL_CAN_AddTxMessage(&hcan1, &vesc_tx_message, vesc_tx_buf, &msg_box1) == HAL_ERROR)
-    {
-        error_flag = 1;
-    }*/
-    // 清空缓冲区
     for (int i = 0; i <= 7; i++)
     {
         send_buf2[i] = 0;
         send_buf1[i] = 0;
     }
 }
-uint8_t test_id = 0;
-int16_t current = 0;
-int32_t erpm = 0;
-float rcurrent = 0.0f, rrpm = 0.0f;
+
 extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
     if (hcan == &hcan1)
@@ -516,11 +497,6 @@ extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
             if (RxHeader1.ExtId >= 0x900 && RxHeader1.ExtId <= 0x908) // vesc电调的id范围
             {
                 uint8_t vesc_id = RxHeader1.ExtId & 0xFF;
-                // current = (int16_t)((CanManager ::RxData1[4] << 8) | CanManager ::RxData1[5]); // 电流，要乘个0.1
-                //  erpm = (int32_t)((CanManager ::RxData1[0] << 24) | (CanManager ::RxData1[1] << 16) | (CanManager ::RxData1[2] << 8) | CanManager ::RxData1[3]); // 电器转速，记得除以电机的极对数
-
-                // rrpm = (float)erpm / 7.0f;
-                // rcurrent = (float)current * 0.1f;
 
                 switch (vesc_id)
                 {
@@ -650,9 +626,9 @@ extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
                 }
                 break;
             case gm6020_id_4:
-                if (CanDevice::m6020_instances_can2[0] != nullptr)
+                if (CanDevice::m6020_instances_can2[3] != nullptr)
                 {
-                    CanDevice::m6020_instances_can2[0]->can_update(CanManager::RxData2);
+                    CanDevice::m6020_instances_can2[3]->can_update(CanManager::RxData2);
                 }
                 break;
 
@@ -665,11 +641,6 @@ extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
             if (RxHeader2.ExtId >= 0x900 && RxHeader2.ExtId <= 0x908) // vesc电调的id范围
             {
                 uint8_t vesc_id = RxHeader2.ExtId & 0xFF;
-                // current = (int16_t)((CanManager ::RxData1[4] << 8) | CanManager ::RxData1[5]); // 电流，要乘个0.1
-                //  erpm = (int32_t)((CanManager ::RxData1[0] << 24) | (CanManager ::RxData1[1] << 16) | (CanManager ::RxData1[2] << 8) | CanManager ::RxData1[3]); // 电器转速，记得除以电机的极对数
-
-                // rrpm = (float)erpm / 7.0f;
-                // rcurrent = (float)current * 0.1f;
 
                 switch (vesc_id)
                 {
@@ -747,44 +718,7 @@ extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
         }
     }
 }
-uint8_t CanManager::canid_2_mac(CAN_HandleTypeDef *hcan)
-{
-    if (hcan == &hcan1)
-    {
-        CAN_RxHeaderTypeDef RxHeader1;
 
-        HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &RxHeader1, CanManager::RxData1);
-        if (RxHeader1.IDE == CAN_ID_STD)
-        {
-            return RxHeader1.StdId - 0x200;
-        }
-        else
-        {
-            if (RxHeader1.ExtId >= 0x900 && RxHeader1.ExtId <= 0x908)
-            {
-                // vesc电调
-                return (RxHeader1.ExtId & 0xFF) + 16;
-            }
-        }
-    }
-    else
-    {
-        CAN_RxHeaderTypeDef RxHeader2;
-        HAL_CAN_GetRxMessage(&hcan2, CAN_RX_FIFO0, &RxHeader2, CanManager::RxData2);
-        if (RxHeader2.IDE == CAN_ID_STD)
-        {
-            return (RxHeader2.StdId - 0x200) + 8;
-        }
-        else
-        {
-            if (RxHeader2.ExtId >= 0x900 && RxHeader2.ExtId <= 0x908)
-            {
-                // vesc电调
-                return (RxHeader2.ExtId & 0xFF) + 20;
-            }
-        }
-    }
-}
 /**
  * @brief 发送 CAN 数据帧
  * @param can_id CAN ID
