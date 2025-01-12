@@ -70,6 +70,10 @@ public:
     void set_rpm(float power_motor_rpm);
     float get_pos() override;
     void set_pos(float pos) override;
+
+    void target_angle_tf();
+    void set_init_angle(float init_angle_);
+    float delta_angle = 0.0f, init_angle = 0.0f, target_relative_angle = 0.0f;
 };
 
 #endif
