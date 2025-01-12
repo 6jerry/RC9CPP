@@ -85,6 +85,21 @@ void m6020s::can_update(uint8_t can_RxData[8])
     rcurrent = vcurrent_to_rcurrent(vcurrent);
 }
 
+void m6020s::target_angle_tf() // 考虑了机械初始安装角度的角度变换
+{
+    delta_angle = target_relative_angle + init_angle;
+    if (delta_angle >= 180.0f)
+    {
+        delta_angle -= 360.0f;
+    }
+    else if (delta_angle < -180.0f)
+    {
+        delta_angle += 360.0f;
+    }
+
+    target_angle = delta_angle;
+}
+
 float m6020s::get_rpm()
 {
     return rpm;
