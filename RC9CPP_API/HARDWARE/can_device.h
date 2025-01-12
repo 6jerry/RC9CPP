@@ -27,6 +27,8 @@ enum CanDeviceType
     M6020,
     GO1
 };
+#define VESC_ID 1                // VESC设备ID
+#define CAN_CMD_SET_CURRENT 0x01 // VESC设置电流的命令ID
 
 enum can_id
 {
@@ -48,6 +50,7 @@ public:
     CAN_HandleTypeDef *hcan_;  // CAN 句柄
     CanDeviceType deviceType_; // 设备类型
     uint8_t can_id = 0;
+
     virtual int16_t motor_process(); // 给大疆用的接口，其他电机不要管
 
     virtual void can_update(uint8_t can_RxData[8]) = 0;
@@ -56,16 +59,21 @@ public:
     static CanDevice *m3508_instances_can1[MAX_INSTANCES]; // 保存所有实例,供can管理者使用
     static CanDevice *m6020_instances_can1[MAX_INSTANCES];
     static CanDevice *go1_instances_can1[MAX_INSTANCES];
-    static int instanceCount_m3508_can1;
+    static uint8_t instanceCount_m3508_can1;
 
     static CanDevice *m3508_instances_can2[MAX_INSTANCES];
     static CanDevice *m6020_instances_can2[MAX_INSTANCES];
     static CanDevice *go1_instances_can2[MAX_INSTANCES];
-    static int instanceCount_m3508_can2;
-    static int instanceCount_m6020_can1;
-    static int instanceCount_m6020_can2;
-    static int instanceCount_go1_can1;
-    static int instanceCount_go1_can2;
+    static CanDevice *vesc_instances_can1[MAX_INSTANCES]; // VESC CAN1实例
+    static CanDevice *vesc_instances_can2[MAX_INSTANCES]; // VESC CAN2实例
+    static uint8_t instanceCount_vesc_can1;               // CAN1上的VESC设备数量
+    static uint8_t instanceCount_vesc_can2;               // CAN2上的VESC设备数量
+
+    static uint8_t instanceCount_m3508_can2;
+    static uint8_t instanceCount_m6020_can1;
+    static uint8_t instanceCount_m6020_can2;
+    static uint8_t instanceCount_go1_can1;
+    static uint8_t instanceCount_go1_can2;
     HAL_StatusTypeDef CAN_Send(uint32_t can_id, uint8_t is_extended, uint8_t data[8]);
     CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_t can_id);
 };

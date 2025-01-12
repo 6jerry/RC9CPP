@@ -27,7 +27,7 @@ int main() {
     double bandwidth = 100;       // 带宽 100 Hz
     double samplingFrequency = 1000; // 采样频率 1000 Hz
 
-    int windowSize = 5;
+    const int windowSize = 5;
     // 创建滤波器实例
     First_Order_BPF filter1(centerFrequency, bandwidth, samplingFrequency);
     MeanFilter filter2(windowSize);  // 窗口大小为5

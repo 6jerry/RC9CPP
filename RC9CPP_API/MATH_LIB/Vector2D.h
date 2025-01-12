@@ -13,7 +13,7 @@ extern "C"
 #endif
 
 #ifdef __cplusplus
-#define QUEUE_CAPACITY 56 // 队列最大容量
+#define QUEUE_CAPACITY 8 // 队列最大容量
 class Vector2D
 {
 public:

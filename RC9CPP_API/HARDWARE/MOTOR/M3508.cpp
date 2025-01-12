@@ -78,7 +78,7 @@ void m3508p::set_fTff(float Tff_)
     Tff = Tff_;
 }
 
-void m3508p::many_pos_locate()
+void m3508p::many_pos_locate() // 差分定位计算3508多圈位置
 {
     if (if_init)
     {
@@ -130,4 +130,3 @@ void m3508p::locate_restart()
 {
     pos_sum = 0.0f;
 }
-

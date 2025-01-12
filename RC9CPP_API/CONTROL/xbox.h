@@ -28,6 +28,8 @@ extern "C"
 #include "chassis.h"
 #include "Action.h"
 #include "EncodingStateMachine.h"
+#include "netswitch.h"
+#include "rcncore.h"
 
 #ifdef __cplusplus
 }
@@ -89,7 +91,7 @@ typedef struct
 } XboxControllerData_t;
 
 // xbox的基类，只实现底盘控制，因为不同的车的机构不同
-class xbox : public RC9Protocol_subscriber
+class xbox : public rcnode
 {
 public:
     float MAX_ROBOT_SPEED_Y = 1.50f;
@@ -99,6 +101,7 @@ public:
     XboxControllerData_t xbox_msgs;
     action *ACTION = nullptr;
     chassis *control_chassis = nullptr;
+    subscriber buff_sub;
 
     enum class ButtonActionType
     {
@@ -125,8 +128,11 @@ public:
 
 public:
     xbox(action *ACTION_ = nullptr, chassis *control_chassis_ = nullptr, float MAX_ROBOT_SPEED_Y_ = 1.50f, float MAX_ROBOT_SPEED_X_ = 1.50f, float MAX_ROBOT_SPEED_W_ = 3.60f);
+    uint8_t msgin(uint8_t rcnID_, const void *data) override;
+    uint8_t msgout(uint8_t rcnID_, void *output) override;
+    // void update(uint8_t data_id, uint8_t data_length, const uint8_t *data_char, const float *data_float);
 
-    void update(uint8_t data_id, uint8_t data_length, const uint8_t *data_char, const float *data_float);
+   
 };
 
 #endif

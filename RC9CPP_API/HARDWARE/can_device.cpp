@@ -4,16 +4,20 @@ CanDevice *CanDevice::m3508_instances_can1[MAX_INSTANCES] = {nullptr};
 CanDevice *CanDevice::m3508_instances_can2[MAX_INSTANCES] = {nullptr};
 CanDevice *CanDevice::go1_instances_can1[MAX_INSTANCES] = {nullptr};
 CanDevice *CanDevice::go1_instances_can2[MAX_INSTANCES] = {nullptr};
-int CanDevice::instanceCount_m3508_can1 = 0;
-int CanDevice::instanceCount_m3508_can2 = 0;
+uint8_t CanDevice::instanceCount_m3508_can1 = 0;
+uint8_t CanDevice::instanceCount_m3508_can2 = 0;
 
-int CanDevice::instanceCount_go1_can1 = 0;
-int CanDevice::instanceCount_go1_can2 = 0;
+uint8_t CanDevice::instanceCount_go1_can1 = 0;
+uint8_t CanDevice::instanceCount_go1_can2 = 0;
 
 CanDevice *CanDevice::m6020_instances_can1[MAX_INSTANCES] = {nullptr}; // M6020 实例
 CanDevice *CanDevice::m6020_instances_can2[MAX_INSTANCES] = {nullptr};
-int CanDevice::instanceCount_m6020_can1 = 0;
-int CanDevice::instanceCount_m6020_can2 = 0;
+uint8_t CanDevice::instanceCount_m6020_can1 = 0;
+uint8_t CanDevice::instanceCount_m6020_can2 = 0;
+CanDevice *CanDevice::vesc_instances_can1[MAX_INSTANCES] = {nullptr};
+CanDevice *CanDevice::vesc_instances_can2[MAX_INSTANCES] = {nullptr};
+uint8_t CanDevice::instanceCount_vesc_can1 = 0; // 初始化为0
+uint8_t CanDevice::instanceCount_vesc_can2 = 0; // 初始化为0
 
 uint8_t CanManager::RxData1[8] = {0};
 uint8_t CanManager::RxData2[8] = {0};
@@ -101,6 +105,30 @@ CanDevice::CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_
             }
             break;
 
+        case CanDeviceType::VESC:
+            if (instanceCount_vesc_can1 < MAX_INSTANCES)
+            {
+                // 插入排序，将新设备按 can_id 插入到合适位置
+                int insertPos = instanceCount_vesc_can1;
+                for (int i = 0; i < instanceCount_vesc_can1; ++i)
+                {
+                    if (vesc_instances_can1[i]->can_id > can_id)
+                    {
+                        insertPos = i;
+                        break;
+                    }
+                }
+
+                for (int i = instanceCount_vesc_can1; i > insertPos; --i)
+                {
+                    vesc_instances_can1[i] = vesc_instances_can1[i - 1];
+                }
+
+                vesc_instances_can1[insertPos] = this;
+                instanceCount_vesc_can1++;
+            }
+            break;
+
         default:
             break;
         }
@@ -173,6 +201,30 @@ CanDevice::CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_
                 }
                 go1_instances_can2[insertPos] = this;
                 instanceCount_go1_can2++;
+            }
+            break;
+
+        case CanDeviceType::VESC:
+            if (instanceCount_vesc_can2 < MAX_INSTANCES)
+            {
+                // 插入排序，将新设备按 can_id 插入到合适位置
+                int insertPos = instanceCount_vesc_can2;
+                for (int i = 0; i < instanceCount_vesc_can2; ++i)
+                {
+                    if (vesc_instances_can2[i]->can_id > can_id)
+                    {
+                        insertPos = i;
+                        break;
+                    }
+                }
+
+                for (int i = instanceCount_vesc_can2; i > insertPos; --i)
+                {
+                    vesc_instances_can2[i] = vesc_instances_can2[i - 1];
+                }
+
+                vesc_instances_can2[insertPos] = this;
+                instanceCount_vesc_can2++;
             }
             break;
 
@@ -356,7 +408,30 @@ void CanManager::process_data()
             error_flag = 1;
         }
     }
+    /*uint8_t vesc_tx_buf[8] = {0}; // 数据缓冲区，8字节
+    CAN_TxHeaderTypeDef vesc_tx_message;
 
+    // 配置 CAN 帧 ID
+    vesc_tx_message.ExtId = (CAN_CMD_SET_CURRENT << 8) | VESC_ID;
+    vesc_tx_message.IDE = CAN_ID_EXT;   // 扩展帧
+    vesc_tx_message.RTR = CAN_RTR_DATA; // 数据帧
+    vesc_tx_message.DLC = 8;            // 数据帧长度为8字节
+
+    // 目标电流（单位：安培），转换为 VESC 使用的毫安
+    int32_t current_in_milliamp = (int32_t)(0);
+
+    // 数据格式：
+    // Byte 0: 命令类型 (CMD ID)
+    // Byte 1~4: 电流值 (int32，单位：mA)
+    vesc_tx_buf[0] = (current_in_milliamp >> 24) & 0xFF;
+    vesc_tx_buf[1] = (current_in_milliamp >> 16) & 0xFF;
+    vesc_tx_buf[2] = (current_in_milliamp >> 8) & 0xFF;
+    vesc_tx_buf[3] = current_in_milliamp & 0xFF;
+
+    if (HAL_CAN_AddTxMessage(&hcan1, &vesc_tx_message, vesc_tx_buf, &msg_box1) == HAL_ERROR)
+    {
+        error_flag = 1;
+    }*/
     // 清空缓冲区
     for (int i = 0; i <= 7; i++)
     {
@@ -364,7 +439,10 @@ void CanManager::process_data()
         send_buf1[i] = 0;
     }
 }
-
+uint8_t test_id = 0;
+int16_t current = 0;
+int32_t erpm = 0;
+float rcurrent = 0.0f, rrpm = 0.0f;
 extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
     if (hcan == &hcan1)
@@ -434,40 +512,88 @@ extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
         }
         else
         {
-            uint8_t ext_motor_id = (RxHeader1.ExtId >> 8) & 0xF;
 
-            switch (ext_motor_id)
+            if (RxHeader1.ExtId >= 0x900 && RxHeader1.ExtId <= 0x908) // vesc电调的id范围
             {
-            case 0:
-                if (CanDevice::go1_instances_can1[0] != nullptr)
-                {
-                    CanDevice::go1_instances_can1[0]->EXT_update(RxHeader1.ExtId, CanManager ::RxData1);
-                }
-                break;
+                uint8_t vesc_id = RxHeader1.ExtId & 0xFF;
+                //current = (int16_t)((CanManager ::RxData1[4] << 8) | CanManager ::RxData1[5]); // 电流，要乘个0.1
+                // erpm = (int32_t)((CanManager ::RxData1[0] << 24) | (CanManager ::RxData1[1] << 16) | (CanManager ::RxData1[2] << 8) | CanManager ::RxData1[3]); // 电器转速，记得除以电机的极对数
 
-            case 1:
-                if (CanDevice::go1_instances_can1[1] != nullptr)
-                {
-                    CanDevice::go1_instances_can1[1]->EXT_update(RxHeader1.ExtId, CanManager ::RxData1);
-                }
-                break;
+                // rrpm = (float)erpm / 7.0f;
+                // rcurrent = (float)current * 0.1f;
 
-            case 2:
-                if (CanDevice::go1_instances_can1[2] != nullptr)
+                switch (vesc_id)
                 {
-                    CanDevice::go1_instances_can1[2]->EXT_update(RxHeader1.ExtId, CanManager ::RxData1);
-                }
-                break;
+                case 1:
+                    if (CanDevice::vesc_instances_can1[0] != nullptr)
+                    {
+                        CanDevice::vesc_instances_can1[0]->can_update(CanManager::RxData1);
+                    }
+                    /* code */
+                    break;
 
-            case 3:
-                if (CanDevice::go1_instances_can1[3] != nullptr)
+                case 2:
+                    if (CanDevice::vesc_instances_can1[1] != nullptr)
+                    {
+                        CanDevice::vesc_instances_can1[1]->can_update(CanManager::RxData1);
+                    }
+                    break;
+
+                case 3:
+                    if (CanDevice::vesc_instances_can1[2] != nullptr)
+                    {
+                        CanDevice::vesc_instances_can1[2]->can_update(CanManager::RxData1);
+                    }
+                    break;
+
+                case 4:
+                    if (CanDevice::vesc_instances_can1[3] != nullptr)
+                    {
+                        CanDevice::vesc_instances_can1[3]->can_update(CanManager::RxData1);
+                    }
+                    break;
+
+                default:
+                    break;
+                }
+            }
+
+            else // go1电机的id范围
+            {
+                uint8_t extgo1_motor_id = (RxHeader1.ExtId >> 8) & 0xF;
+                switch (extgo1_motor_id)
                 {
-                    CanDevice::go1_instances_can1[3]->EXT_update(RxHeader1.ExtId, CanManager ::RxData1);
-                }
-                break;
+                case 0:
+                    if (CanDevice::go1_instances_can1[0] != nullptr)
+                    {
+                        CanDevice::go1_instances_can1[0]->EXT_update(RxHeader1.ExtId, CanManager ::RxData1);
+                    }
+                    break;
 
-            default:
-                break;
+                case 1:
+                    if (CanDevice::go1_instances_can1[1] != nullptr)
+                    {
+                        CanDevice::go1_instances_can1[1]->EXT_update(RxHeader1.ExtId, CanManager ::RxData1);
+                    }
+                    break;
+
+                case 2:
+                    if (CanDevice::go1_instances_can1[2] != nullptr)
+                    {
+                        CanDevice::go1_instances_can1[2]->EXT_update(RxHeader1.ExtId, CanManager ::RxData1);
+                    }
+                    break;
+
+                case 3:
+                    if (CanDevice::go1_instances_can1[3] != nullptr)
+                    {
+                        CanDevice::go1_instances_can1[3]->EXT_update(RxHeader1.ExtId, CanManager ::RxData1);
+                    }
+                    break;
+
+                default:
+                    break;
+                }
             }
         }
     }
@@ -536,40 +662,87 @@ extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
         }
         else
         {
-            uint8_t ext_motor_id = (RxHeader2.ExtId >> 8) & 0xF;
-
-            switch (ext_motor_id)
+            if (RxHeader2.ExtId >= 0x900 && RxHeader2.ExtId <= 0x908) // vesc电调的id范围
             {
-            case 0:
-                if (CanDevice::go1_instances_can2[0] != nullptr)
-                {
-                    CanDevice::go1_instances_can2[0]->EXT_update(RxHeader2.ExtId, CanManager ::RxData2);
-                }
-                break;
+                uint8_t vesc_id = RxHeader2.ExtId & 0xFF;
+                // current = (int16_t)((CanManager ::RxData1[4] << 8) | CanManager ::RxData1[5]); // 电流，要乘个0.1
+                //  erpm = (int32_t)((CanManager ::RxData1[0] << 24) | (CanManager ::RxData1[1] << 16) | (CanManager ::RxData1[2] << 8) | CanManager ::RxData1[3]); // 电器转速，记得除以电机的极对数
 
-            case 1:
-                if (CanDevice::go1_instances_can2[1] != nullptr)
-                {
-                    CanDevice::go1_instances_can2[1]->EXT_update(RxHeader2.ExtId, CanManager ::RxData2);
-                }
-                break;
+                // rrpm = (float)erpm / 7.0f;
+                // rcurrent = (float)current * 0.1f;
 
-            case 2:
-                if (CanDevice::go1_instances_can2[2] != nullptr)
+                switch (vesc_id)
                 {
-                    CanDevice::go1_instances_can2[2]->EXT_update(RxHeader2.ExtId, CanManager ::RxData2);
-                }
-                break;
+                case 1:
+                    if (CanDevice::vesc_instances_can2[0] != nullptr)
+                    {
+                        CanDevice::vesc_instances_can2[0]->can_update(CanManager::RxData2);
+                    }
+                    /* code */
+                    break;
 
-            case 3:
-                if (CanDevice::go1_instances_can2[3] != nullptr)
+                case 2:
+                    if (CanDevice::vesc_instances_can2[1] != nullptr)
+                    {
+                        CanDevice::vesc_instances_can2[1]->can_update(CanManager::RxData2);
+                    }
+                    break;
+
+                case 3:
+                    if (CanDevice::vesc_instances_can2[2] != nullptr)
+                    {
+                        CanDevice::vesc_instances_can2[2]->can_update(CanManager::RxData2);
+                    }
+                    break;
+
+                case 4:
+                    if (CanDevice::vesc_instances_can2[3] != nullptr)
+                    {
+                        CanDevice::vesc_instances_can2[3]->can_update(CanManager::RxData2);
+                    }
+                    break;
+
+                default:
+                    break;
+                }
+            }
+            else
+            {
+                uint8_t ext_motor_id = (RxHeader2.ExtId >> 8) & 0xF;
+
+                switch (ext_motor_id)
                 {
-                    CanDevice::go1_instances_can2[3]->EXT_update(RxHeader2.ExtId, CanManager ::RxData2);
-                }
-                break;
+                case 0:
+                    if (CanDevice::go1_instances_can2[0] != nullptr)
+                    {
+                        CanDevice::go1_instances_can2[0]->EXT_update(RxHeader2.ExtId, CanManager ::RxData2);
+                    }
+                    break;
 
-            default:
-                break;
+                case 1:
+                    if (CanDevice::go1_instances_can2[1] != nullptr)
+                    {
+                        CanDevice::go1_instances_can2[1]->EXT_update(RxHeader2.ExtId, CanManager ::RxData2);
+                    }
+                    break;
+
+                case 2:
+                    if (CanDevice::go1_instances_can2[2] != nullptr)
+                    {
+                        CanDevice::go1_instances_can2[2]->EXT_update(RxHeader2.ExtId, CanManager ::RxData2);
+                    }
+                    break;
+
+                case 3:
+                    if (CanDevice::go1_instances_can2[3] != nullptr)
+                    {
+                        CanDevice::go1_instances_can2[3]->EXT_update(RxHeader2.ExtId, CanManager ::RxData2);
+                    }
+                    break;
+
+                default:
+                    break;
+                }
             }
         }
     }

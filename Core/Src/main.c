@@ -29,6 +29,7 @@
 /* USER CODE BEGIN Includes */
 #include <string.h>
 
+// #include "r2n_setup.h"
 #include "push_shoot.h"
 /* USER CODE END Includes */
 
@@ -112,8 +113,8 @@ int main(void)
   osKernelInitialize();
 
   /* Call init function for freertos objects (in freertos.c) */
+  // r2n_setup();
   pshoot_setup();
-
   /* Start scheduler */
 
   /* We should never get here as control is now taken by the scheduler */

@@ -42,6 +42,41 @@ float First_Order_BPF::filter(const float& input) {
 /********************************************************************/
 
 
+/*****************************均值滤波器******************************/
+// 构造函数，设置窗口大小
+MeanFilter::MeanFilter(double windowSize) : windowSize_(static_cast<uint8_t>(windowSize)) {}
+
+// 滤波函数，对固定大小的输入数组进行滤波处理
+float MeanFilter::filter(const float input[filter_max_size]) {
+    float sum = 0.0f;  // 用于累加窗口内的所有值
+    for (uint8_t i = 0; i < windowSize_; ++i) {
+        sum += input[i];  // 累加窗口内的所有值
+    }
+    return sum / windowSize_;  // 返回窗口内值的平均值
+}
+
+
+float MeanFilter::input(const float &input) {
+    //用于设置开始滑动状态位与填充新数据
+    if(index < 4) {
+        tmp[index++] = input;
+    }
+    else {
+        if(flag == false) {
+            flag = true;
+        }
+        index = 0;
+    }
+}
+
+float MeanFilter::output(const float &output) {
+    if(flag == true) {
+        return filter(tmp);
+    }
+    return 0;
+}
+/********************************************************************/
+
 
 
 
