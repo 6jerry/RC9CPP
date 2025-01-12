@@ -73,6 +73,7 @@ int16_t m6020s::motor_process()
 
     return target_v;
 }
+
 void m6020s::can_update(uint8_t can_RxData[8])
 {
     uint16_t vangle = (can_RxData[0] << 8) | can_RxData[1];

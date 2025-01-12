@@ -399,8 +399,8 @@ void CanManager::process_data()
         for (int i = 0; i < CanDevice::instanceCount_m6020_can2; ++i)
         {
             int16_t temp_vcurrent2 = CanDevice::m6020_instances_can2[i]->motor_process();
-            send_buf2[2 * 3] = (uint8_t)(temp_vcurrent2 >> 8);
-            send_buf2[2 * 3 + 1] = (uint8_t)temp_vcurrent2;
+            send_buf2[2 * i] = (uint8_t)(temp_vcurrent2 >> 8);
+            send_buf2[2 * i + 1] = (uint8_t)temp_vcurrent2;
         }
         tx_message_2.StdId = 0x1FF;
         if (HAL_CAN_AddTxMessage(&hcan2, &tx_message_2, send_buf2, &msg_box2) != HAL_OK)
@@ -650,9 +650,9 @@ extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
                 }
                 break;
             case gm6020_id_4:
-                if (CanDevice::m6020_instances_can2[0] != nullptr)
+                if (CanDevice::m6020_instances_can2[3] != nullptr)
                 {
-                    CanDevice::m6020_instances_can2[0]->can_update(CanManager::RxData2);
+                    CanDevice::m6020_instances_can2[3]->can_update(CanManager::RxData2);
                 }
                 break;
 
