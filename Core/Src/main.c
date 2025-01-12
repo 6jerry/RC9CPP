@@ -30,7 +30,7 @@
 #include <string.h>
 
 // #include "r2n_setup.h"
-#include "push_shoot.h"
+#include "shootcar_setup.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -118,10 +118,10 @@ int main(void)
 
   /* Call init function for freertos objects (in cmsis_os2.c) */
   // MX_FREERTOS_Init();
-  pshoot_setup();
+
   /* Start scheduler */
   // osKernelStart();
-
+  shootcar_setup();
   /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */

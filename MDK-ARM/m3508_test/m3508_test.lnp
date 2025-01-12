@@ -65,9 +65,7 @@
 "m3508_test\odometry.o"
 "m3508_test\imu.o"
 "m3508_test\servo.o"
-"m3508_test\push_shoot.o"
-"m3508_test\shoot_xbox.o"
-"m3508_test\r2n_xbox.o"
+"m3508_test\shootcar_setup.o"
 "..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4lf_math.lib"
 --strict --scatter "m3508_test\m3508_test.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
