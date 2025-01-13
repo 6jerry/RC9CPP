@@ -39,6 +39,9 @@ m3508_test/m6020.o: ..\RC9CPP_API\HARDWARE\MOTOR\m6020.cpp \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
   ..\RC9CPP_API\HARDWARE\TaskManager.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
+  ..\RC9CPP_API\HARDWARE\NETWORK\rcncore.h \
+  ..\RC9CPP_API\HARDWARE\NETWORK\netswitch.h \
+  ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
   ..\RC9CPP_API\CONTROL\pid.h ..\RC9CPP_API\HARDWARE\MOTOR\motor.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\math.h \
   G:\Keil_v5\ARM\ARMCLANG\include\math.h \
@@ -199,4 +202,19 @@ m3508_test/m6020.o: ..\RC9CPP_API\HARDWARE\MOTOR\m6020.cpp \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h
+  G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h \
+  ..\RC9CPP_API\CONTROL\SuperPID.h \
+  ..\RC9CPP_API\HARDWARE\Serial_device.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
+  ..\Core\Inc\FreeRTOSConfig.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F\portmacro.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h \
+  ..\Core\Inc\usart.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h \
+  ..\RC9CPP_API\MATH_LIB\crc_util.h

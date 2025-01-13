@@ -40,6 +40,9 @@ m3508_test/chassis.o: ..\RC9CPP_API\CONTROL\STRUCTURE\chassis.cpp \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
+  ..\RC9CPP_API\HARDWARE\NETWORK\rcncore.h \
+  ..\RC9CPP_API\HARDWARE\NETWORK\netswitch.h \
+  ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
   ..\RC9CPP_API\HARDWARE\Action.h ..\RC9CPP_API\HARDWARE\Serial_device.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
   ..\Core\Inc\FreeRTOSConfig.h \

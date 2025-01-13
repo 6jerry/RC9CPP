@@ -516,8 +516,8 @@ extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
             if (RxHeader1.ExtId >= 0x900 && RxHeader1.ExtId <= 0x908) // vesc电调的id范围
             {
                 uint8_t vesc_id = RxHeader1.ExtId & 0xFF;
-                //current = (int16_t)((CanManager ::RxData1[4] << 8) | CanManager ::RxData1[5]); // 电流，要乘个0.1
-                // erpm = (int32_t)((CanManager ::RxData1[0] << 24) | (CanManager ::RxData1[1] << 16) | (CanManager ::RxData1[2] << 8) | CanManager ::RxData1[3]); // 电器转速，记得除以电机的极对数
+                // current = (int16_t)((CanManager ::RxData1[4] << 8) | CanManager ::RxData1[5]); // 电流，要乘个0.1
+                //  erpm = (int32_t)((CanManager ::RxData1[0] << 24) | (CanManager ::RxData1[1] << 16) | (CanManager ::RxData1[2] << 8) | CanManager ::RxData1[3]); // 电器转速，记得除以电机的极对数
 
                 // rrpm = (float)erpm / 7.0f;
                 // rcurrent = (float)current * 0.1f;
@@ -747,26 +747,71 @@ extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
         }
     }
 }
+uint8_t CanManager::canid_2_mac(CAN_HandleTypeDef *hcan)
+{
+    if (hcan == &hcan1)
+    {
+        CAN_RxHeaderTypeDef RxHeader1;
+
+        HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &RxHeader1, CanManager::RxData1);
+        if (RxHeader1.IDE == CAN_ID_STD)
+        {
+            return RxHeader1.StdId - 0x200;
+        }
+        else
+        {
+            if (RxHeader1.ExtId >= 0x900 && RxHeader1.ExtId <= 0x908)
+            {
+                // vesc电调
+                return (RxHeader1.ExtId & 0xFF) + 16;
+            }
+        }
+    }
+    else
+    {
+        CAN_RxHeaderTypeDef RxHeader2;
+        HAL_CAN_GetRxMessage(&hcan2, CAN_RX_FIFO0, &RxHeader2, CanManager::RxData2);
+        if (RxHeader2.IDE == CAN_ID_STD)
+        {
+            return (RxHeader2.StdId - 0x200) + 8;
+        }
+        else
+        {
+            if (RxHeader2.ExtId >= 0x900 && RxHeader2.ExtId <= 0x908)
+            {
+                // vesc电调
+                return (RxHeader2.ExtId & 0xFF) + 20;
+            }
+        }
+    }
+}
+/**
+ * @brief 发送 CAN 数据帧
+ * @param can_id CAN ID
+ * @param is_extended 是否为扩展帧
+ * @param data 要发送的数据
+ * @return HAL 状态
+ */
 HAL_StatusTypeDef CanDevice::CAN_Send(uint32_t can_id, uint8_t is_extended, uint8_t data[8])
 {
-    CAN_TxHeaderTypeDef txHeader;
-    uint32_t txMailbox;
+    CAN_TxHeaderTypeDef txHeader; // 定义一个 CAN 发送头结构体变量
+    uint32_t txMailbox;           // 定义一个发送邮箱变量
 
     // 设置 CAN ID 和帧类型
     if (is_extended)
     {
-        txHeader.IDE = CAN_ID_EXT; // 扩展帧
-        txHeader.ExtId = can_id;   // 设置扩展ID
+        txHeader.IDE = CAN_ID_EXT; // 设置为扩展帧
+        txHeader.ExtId = can_id;   // 设置扩展 ID
     }
     else
     {
-        txHeader.IDE = CAN_ID_STD; // 标准帧
-        txHeader.StdId = can_id;   // 设置标准ID
+        txHeader.IDE = CAN_ID_STD; // 设置为标准帧
+        txHeader.StdId = can_id;   // 设置标准 ID
     }
 
-    txHeader.RTR = CAN_RTR_DATA; // 数据帧
-    txHeader.DLC = 8;            // 数据长度为8字节
-    txHeader.TransmitGlobalTime = DISABLE;
+    txHeader.RTR = CAN_RTR_DATA;           // 设置为数据帧
+    txHeader.DLC = 8;                      // 数据长度为 8 字节
+    txHeader.TransmitGlobalTime = DISABLE; // 不使用全局时间戳
 
     // 调用 HAL_CAN_AddTxMessage 发送数据
     return HAL_CAN_AddTxMessage(hcan_, &txHeader, data, &txMailbox);

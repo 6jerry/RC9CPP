@@ -35,7 +35,7 @@ TaskManager::TaskManager()
     tasks[8].Priority = osPriorityLow;
     tasks[8].delay_ms = 20;
     tasks[9].Priority = osPriorityIdle;
-    tasks[9].delay_ms = 200;
+    tasks[9].delay_ms = 20;
 }
 
 void TaskManager::registerTask(int taskID, ITaskProcessor *instance)
