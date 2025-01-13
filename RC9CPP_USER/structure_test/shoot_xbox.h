@@ -25,10 +25,11 @@ private:
 
 public:
     power_motor *shooter = nullptr;     // 控拉弹簧发射的电机
+    power_motor* lifter=nullptr;
     power_motor *pitcher = nullptr;     // 俯仰角电机
     chassis *control_chassis = nullptr; // 底盘指针
 
-    shoot_xbox(power_motor *shooter_, power_motor *pitch, chassis *control_chassis_);
+    shoot_xbox(power_motor *shooter_, power_motor *pitch, power_motor *lifter_, chassis *control_chassis_);
 
     void sbtnconfig_init(); // 按键初始化
     void process_data();

@@ -1,6 +1,6 @@
 #include "push_shoot.h"
 
-m3508p m3508_shooter(1, &hcan1), m3508_pitch(2, &hcan1);
+m3508p m3508_shooter(1, &hcan1), m3508_pitch(2, &hcan1), m3508_lifter(3, &hcan1);
 m6020s m6020_test(4, &hcan2);
 vesc vesc_test(1, &hcan1);
 TaskManager task_core;
@@ -8,10 +8,10 @@ CanManager can_core;
 // shoot_xbox shoot_control(&m3508_shooter, &m3508_pitch);
 RC9Protocol debug(&huart5, false), esp32_serial(&huart2, false);
 
-swerve4 swerve_test(&vesc_test, &m6020_test);
+//swerve4 swerve_test(&vesc_test, &m6020_test);
 //tb6612 motor1(&htim2, TIM_CHANNEL_1, &htim8, nullptr, nullptr);
 
-shoot_xbox box_test(&m3508_pitch, &m3508_shooter, &swerve_test);
+shoot_xbox box_test(&m3508_pitch, &m3508_shooter, &m3508_lifter, nullptr);
 
 demo test2;
 
@@ -29,11 +29,11 @@ extern "C" void pshoot_setup(void)
     esp32_serial.startUartReceiveIT();
     esp32_serial.addsubscriber(&box_test);
     task_core.registerTask(0, &can_core);
-    task_core.registerTask(1, &vesc_test);
+    //task_core.registerTask(1, &vesc_test);
     task_core.registerTask(1, &box_test);
-    task_core.registerTask(2, &swerve_test);
+    //task_core.registerTask(2, &swerve_test);
     //task_core.registerTask(4, &motor1);
-    task_core.registerTask(8, &debug);
+    //task_core.registerTask(8, &debug);
     task_core.registerTask(7, &test2);
     // task_core.registerTask(7, &esp32_serial);
 

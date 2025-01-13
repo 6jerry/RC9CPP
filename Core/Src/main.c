@@ -30,7 +30,7 @@
 #include <string.h>
 
 // #include "r2n_setup.h"
-#include "shootcar_setup.h"
+#include "push_shoot.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -117,7 +117,7 @@ int main(void)
 
   /* Call init function for freertos objects (in freertos.c) */
   //MX_FREERTOS_Init();
-  shootcar_setup();
+pshoot_setup();
   /* Start scheduler */
   // osKernelStart();
 
