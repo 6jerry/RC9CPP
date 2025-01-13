@@ -117,58 +117,6 @@ void chassis::point_track_compute()
 
 chassis::chassis(ChassisType chassistype_, float Rwheel_, action *ACTION_, float headingkp, float headingki, float headingkd, float kp_, float ki_, float kd_) : chassistype(chassistype_), heading_pid(headingkp, headingki, headingkd, 100000.0f, 5.0f, 0.01f, 0.5f), ACTION(ACTION_), Rwheel(Rwheel_), distan_pid(kp_, ki_, kd_, 1000000.0f, 1.4f, 50.0f, 600.0f), pp_tracker(normalcontrol, 0.0057f, 0.0f, 0.0632f, 0.0f, 0.0f, 0.0f)
 {
-    /*Vector2D array[] = {
-        Vector2D(0.0f, 0.0f),
-        Vector2D(30.6f, 24.5f),
-        Vector2D(61.2f, 96.5f),
-        Vector2D(91.8f, 211.3f),
-        Vector2D(122.4f, 361.2f),
-        Vector2D(153.0f, 536.0f),
-        Vector2D(183.7f, 725.9f),
-        Vector2D(214.4f, 916.0f),
-        Vector2D(244.9f, 1096.5f),
-        Vector2D(275.5f, 1254.2f),
-        Vector2D(306.1f, 1378.5f),
-        Vector2D(336.7f, 1461.8f),
-        Vector2D(367.3f, 1498.2f),
-        Vector2D(398.0f, 1486.0f),
-        Vector2D(428.5f, 1425.4f),
-        Vector2D(459.2f, 1321.0f),
-        Vector2D(489.8f, 1179.0f),
-        Vector2D(520.4f, 1009.0f),
-        Vector2D(551.0f, 822.4f),
-        Vector2D(581.5f, 630.0f),
-        Vector2D(612.2f, 446.4f),
-        Vector2D(642.8f, 282.0f),
-        Vector2D(673.5f, 148.9f),
-        Vector2D(704.0f, 54.8f),
-        Vector2D(734.7f, 6.2f),
-        Vector2D(765.3f, 6.2f),
-        Vector2D(795.9f, 54.9f),
-        Vector2D(826.5f, 148.3f),
-        Vector2D(857.1f, 282.0f),
-        Vector2D(887.8f, 446.0f),
-        Vector2D(918.4f, 630.7f),
-        Vector2D(948.9f, 822.5f),
-        Vector2D(979.5f, 1009.0f),
-        Vector2D(1010.2f, 1179.2f),
-        Vector2D(1040.8f, 1321.0f),
-        Vector2D(1071.4f, 1425.4f),
-        Vector2D(1102.0f, 1486.2f),
-        Vector2D(1132.7f, 1498.0f),
-        Vector2D(1163.3f, 1461.0f),
-        Vector2D(1193.9f, 1378.0f),
-        Vector2D(1224.5f, 1254.0f),
-        Vector2D(1255.1f, 1096.0f),
-        Vector2D(1285.7f, 916.9f),
-        Vector2D(1316.3f, 725.0f),
-        Vector2D(1346.9f, 536.0f),
-        Vector2D(1377.6f, 361.0f),
-        Vector2D(1408.2f, 211.0f),
-        Vector2D(1438.8f, 96.5f),
-        Vector2D(1469.4f, 24.0f), Vector2D(1500.0f, 0.0f)};
-
-    pp_tracker.pp_force_add_points(array, 50);*/
 }
 
 float chassis ::v_to_rpm(float v)
@@ -179,8 +127,24 @@ float chassis ::v_to_rpm(float v)
 
 swerve4 ::swerve4(action *ACTION_, float chassis_r_, float wheel_r_) : chassis(swerve4_, wheel_r_, ACTION_, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
 {
-   
 }
+
+void swerve4 ::add_speed_motor(power_motor *right_front_, power_motor *right_back_, power_motor *left_back_, power_motor *left_front_)
+{
+    speed_motors[0] = right_front_;
+    speed_motors[1] = right_back_;
+    speed_motors[2] = left_back_;
+    speed_motors[3] = left_front_;
+}
+
+void swerve4 ::add_heading_motor(power_motor *right_front_, power_motor *right_back_, power_motor *left_back_, power_motor *left_front_)
+{
+    heading_motors[0] = right_front_;
+    heading_motors[1] = right_back_;
+    heading_motors[2] = left_back_;
+    heading_motors[3] = left_front_;
+}
+
 void swerve4 ::process_data()
 {
     // 底盘内置小型状态机

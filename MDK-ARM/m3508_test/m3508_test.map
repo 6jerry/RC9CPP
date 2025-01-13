@@ -2171,6 +2171,15 @@ Section Cross References
     pure_pursuit.o(.ARM.exidx.text._ZN12pure_pursuit19pp_force_add_pointsEP8Vector2Dh) refers to pure_pursuit.o(.text._ZN12pure_pursuit19pp_force_add_pointsEP8Vector2Dh) for [Anonymous Symbol]
     pure_pursuit.o(.text._ZN12pure_pursuit17pp_refresh_pointsEv) refers to vector2d.o(.text._ZN13Vector2DQueue5clearEv) for Vector2DQueue::clear()
     pure_pursuit.o(.ARM.exidx.text._ZN12pure_pursuit17pp_refresh_pointsEv) refers to pure_pursuit.o(.text._ZN12pure_pursuit17pp_refresh_pointsEv) for [Anonymous Symbol]
+    pure_pursuit.o(.text._ZN9pointrack5trackE8Vector2DS0_) refers to vector2d.o(.text._ZNK8Vector2DmiERKS_) for Vector2D::operator-(Vector2D const&) const
+    pure_pursuit.o(.text._ZN9pointrack5trackE8Vector2DS0_) refers to vector2d.o(.text._ZNK8Vector2D9magnitudeEv) for Vector2D::magnitude() const
+    pure_pursuit.o(.text._ZN9pointrack5trackE8Vector2DS0_) refers to pid.o(.text._ZN3pid16PID_ComputeErrorEf) for pid::PID_ComputeError(float)
+    pure_pursuit.o(.text._ZN9pointrack5trackE8Vector2DS0_) refers to vector2d.o(.text._ZNK8Vector2D9normalizeEv) for Vector2D::normalize() const
+    pure_pursuit.o(.text._ZN9pointrack5trackE8Vector2DS0_) refers to vector2d.o(.text._ZmlfRK8Vector2D) for operator*(float, Vector2D const&)
+    pure_pursuit.o(.ARM.exidx.text._ZN9pointrack5trackE8Vector2DS0_) refers to pure_pursuit.o(.text._ZN9pointrack5trackE8Vector2DS0_) for [Anonymous Symbol]
+    pure_pursuit.o(.ARM.exidx.text._ZN9pointrack7get_disEv) refers to pure_pursuit.o(.text._ZN9pointrack7get_disEv) for [Anonymous Symbol]
+    pure_pursuit.o(.text._ZN9pointrackC2Efffff) refers to pid.o(.text._ZN3pidC2Efffffff) for pid::pid(float, float, float, float, float, float, float)
+    pure_pursuit.o(.ARM.exidx.text._ZN9pointrackC2Efffff) refers to pure_pursuit.o(.text._ZN9pointrackC2Efffff) for [Anonymous Symbol]
     vesc.o(.ARM.exidx.text._ZN4vesc7get_rpmEv) refers to vesc.o(.text._ZN4vesc7get_rpmEv) for [Anonymous Symbol]
     vesc.o(.ARM.exidx.text._ZThn32_N4vesc7get_rpmEv) refers to vesc.o(.text._ZThn32_N4vesc7get_rpmEv) for [Anonymous Symbol]
     vesc.o(.ARM.exidx.text._ZN4vesc7set_rpmEf) refers to vesc.o(.text._ZN4vesc7set_rpmEf) for [Anonymous Symbol]
@@ -4330,6 +4339,12 @@ Removing Unused input sections from the image.
     Removing pure_pursuit.o(.ARM.exidx.text._ZN12pure_pursuit19pp_force_add_pointsEP8Vector2Dh), (8 bytes).
     Removing pure_pursuit.o(.text._ZN12pure_pursuit17pp_refresh_pointsEv), (6 bytes).
     Removing pure_pursuit.o(.ARM.exidx.text._ZN12pure_pursuit17pp_refresh_pointsEv), (8 bytes).
+    Removing pure_pursuit.o(.text._ZN9pointrack5trackE8Vector2DS0_), (92 bytes).
+    Removing pure_pursuit.o(.ARM.exidx.text._ZN9pointrack5trackE8Vector2DS0_), (8 bytes).
+    Removing pure_pursuit.o(.text._ZN9pointrack7get_disEv), (6 bytes).
+    Removing pure_pursuit.o(.ARM.exidx.text._ZN9pointrack7get_disEv), (8 bytes).
+    Removing pure_pursuit.o(.text._ZN9pointrackC2Efffff), (48 bytes).
+    Removing pure_pursuit.o(.ARM.exidx.text._ZN9pointrackC2Efffff), (8 bytes).
     Removing vesc.o(.text), (0 bytes).
     Removing vesc.o(.ARM.exidx.text._ZN4vesc7get_rpmEv), (8 bytes).
     Removing vesc.o(.ARM.exidx.text._ZThn32_N4vesc7get_rpmEv), (8 bytes).
@@ -4533,7 +4548,7 @@ Removing Unused input sections from the image.
     Removing shoot_xbox.o(.ARM.exidx.text._ZThn548_N10shoot_xboxD1Ev), (8 bytes).
     Removing shoot_xbox.o(.ARM.exidx.text._ZThn548_N10shoot_xboxD0Ev), (8 bytes).
 
-1768 unused section(s) (total 84488 bytes) removed from the image.
+1774 unused section(s) (total 84658 bytes) removed from the image.
 
 ==============================================================================
 
@@ -4937,167 +4952,167 @@ Image Symbol Table
     [Anonymous Symbol]                       0x080049f8   Section        0  can_device.o(.text._ZN10CanManagerC2Ev)
     [Anonymous Symbol]                       0x08004a44   Section        0  can_device.o(.text._ZN10CanManagerD0Ev)
     [Anonymous Symbol]                       0x08004a4c   Section        0  shoot_xbox.o(.text._ZN10shoot_xbox12process_dataEv)
-    [Anonymous Symbol]                       0x08004b70   Section        0  shoot_xbox.o(.text._ZN10shoot_xboxC2EP11power_motorS1_S1_P7chassis)
-    [Anonymous Symbol]                       0x08004c14   Section        0  shoot_xbox.o(.text._ZN10shoot_xboxD0Ev)
-    [Anonymous Symbol]                       0x08004c1c   Section        0  shoot_xbox.o(.text._ZN10shoot_xboxD2Ev)
-    [Anonymous Symbol]                       0x08004c20   Section        0  rc9protocol.o(.text._ZN11RC9Protocol12process_dataEv)
-    [Anonymous Symbol]                       0x08004cc8   Section        0  rc9protocol.o(.text._ZN11RC9Protocol13addsubscriberEP22RC9Protocol_subscriber)
-    [Anonymous Symbol]                       0x08004cec   Section        0  rc9protocol.o(.text._ZN11RC9Protocol17handleReceiveDataEh)
-    [Anonymous Symbol]                       0x08004f34   Section        0  rc9protocol.o(.text._ZN11RC9ProtocolC2EP20__UART_HandleTypeDefb)
-    [Anonymous Symbol]                       0x08004fac   Section        0  rc9protocol.o(.text._ZN11RC9ProtocolD0Ev)
-    [Anonymous Symbol]                       0x08004fb4   Section        0  rc9protocol.o(.text._ZN11RC9ProtocolD2Ev)
-    [Anonymous Symbol]                       0x08004fb8   Section        0  taskmanager.o(.text._ZN11TaskManager12TaskFunctionEPv)
-    [Anonymous Symbol]                       0x08004ffc   Section        0  taskmanager.o(.text._ZN11TaskManager12registerTaskEiP14ITaskProcessor)
-    [Anonymous Symbol]                       0x0800506c   Section        0  taskmanager.o(.text._ZN11TaskManagerC2Ev)
-    [Anonymous Symbol]                       0x080050e8   Section        0  m3508.o(.text._ZN11power_motor10set_rpm_ffEff)
-    [Anonymous Symbol]                       0x080050ec   Section        0  m3508.o(.text._ZN11power_motor7get_posEv)
-    [Anonymous Symbol]                       0x080050ec   Section        0  m3508.o(.text._ZN11power_motor7set_posEf)
-    [Anonymous Symbol]                       0x080050f0   Section        0  serial_device.o(.text._ZN12SerialDevice18startUartReceiveITEv)
-    [Anonymous Symbol]                       0x08005100   Section        0  serial_device.o(.text._ZN12SerialDeviceC2EP20__UART_HandleTypeDef)
-    [Anonymous Symbol]                       0x08005134   Section        0  chassis.o(.text._ZN14ITaskProcessorD2Ev)
-    [Anonymous Symbol]                       0x08005138   Section        0  xbox.o(.text._ZN22RC9Protocol_subscriberD2Ev)
-    [Anonymous Symbol]                       0x0800513c   Section        0  pid.o(.text._ZN3pid16PID_ComputeErrorEf)
-    [Anonymous Symbol]                       0x08005224   Section        0  pid.o(.text._ZN3pidC2Efffffff)
-    [Anonymous Symbol]                       0x0800524c   Section        0  push_shoot.o(.text._ZN4demo12process_dataEv)
-    [Anonymous Symbol]                       0x08005250   Section        0  push_shoot.o(.text._ZN4demo5msginEhPKv)
-    [Anonymous Symbol]                       0x08005268   Section        0  push_shoot.o(.text._ZN4demo6msgoutEhPv)
-    [Anonymous Symbol]                       0x0800526c   Section        0  push_shoot.o(.text._ZN4demoD0Ev)
-    [Anonymous Symbol]                       0x08005274   Section        0  vesc.o(.text._ZN4vesc10can_updateEPh)
-    [Anonymous Symbol]                       0x080052b4   Section        0  vesc.o(.text._ZN4vesc12process_dataEv)
-    [Anonymous Symbol]                       0x08005310   Section        0  vesc.o(.text._ZN4vesc7get_rpmEv)
-    [Anonymous Symbol]                       0x08005318   Section        0  vesc.o(.text._ZN4vesc7set_rpmEf)
-    [Anonymous Symbol]                       0x08005340   Section        0  vesc.o(.text._ZN4vescC2EhP17CAN_HandleTypeDefhfffff)
-    [Anonymous Symbol]                       0x080053ec   Section        0  vesc.o(.text._ZN4vescD0Ev)
-    [Anonymous Symbol]                       0x080053f4   Section        0  vesc.o(.text._ZN4vescD2Ev)
-    [Anonymous Symbol]                       0x080053f8   Section        0  xbox.o(.text._ZN4xbox12handleButtonERNS_12ButtonConfigE)
-    [Anonymous Symbol]                       0x080054a8   Section        0  xbox.o(.text._ZN4xbox14btnRB_callbackEv)
-    [Anonymous Symbol]                       0x080054ac   Section        0  xbox.o(.text._ZN4xbox14joymap_computeEv)
-    [Anonymous Symbol]                       0x080055d0   Section        0  xbox.o(.text._ZN4xbox16btnXBOX_callbackEv)
-    [Anonymous Symbol]                       0x080055d4   Section        0  xbox.o(.text._ZN4xbox6updateEhhPKhPKf)
-    [Anonymous Symbol]                       0x080056c8   Section        0  xbox.o(.text._ZN4xboxC2EP6actionP7chassisfff)
-    [Anonymous Symbol]                       0x080056f0   Section        0  xbox.o(.text._ZN4xboxD0Ev)
-    [Anonymous Symbol]                       0x080056f8   Section        0  m3508.o(.text._ZN6m3508p10can_updateEPh)
-    [Anonymous Symbol]                       0x080057cc   Section        0  m3508.o(.text._ZN6m3508p13motor_processEv)
-    [Anonymous Symbol]                       0x08005818   Section        0  m3508.o(.text._ZN6m3508p7get_rpmEv)
-    [Anonymous Symbol]                       0x08005830   Section        0  m3508.o(.text._ZN6m3508p7set_rpmEf)
-    [Anonymous Symbol]                       0x08005838   Section        0  m3508.o(.text._ZN6m3508pC2EhP17CAN_HandleTypeDef10motor_modefffff)
-    [Anonymous Symbol]                       0x080058dc   Section        0  m6020.o(.text._ZN6m6020s10can_updateEPh)
-    [Anonymous Symbol]                       0x0800590c   Section        0  m6020.o(.text._ZN6m6020s13motor_processEv)
-    [Anonymous Symbol]                       0x08005a68   Section        0  m6020.o(.text._ZN6m6020s7get_posEv)
-    [Anonymous Symbol]                       0x08005a70   Section        0  m6020.o(.text._ZN6m6020s7get_rpmEv)
-    [Anonymous Symbol]                       0x08005a80   Section        0  m6020.o(.text._ZN6m6020s7set_posEf)
-    [Anonymous Symbol]                       0x08005a88   Section        0  m6020.o(.text._ZN6m6020s7set_rpmEf)
-    [Anonymous Symbol]                       0x08005a8c   Section        0  m6020.o(.text._ZN6m6020sC2EhP17CAN_HandleTypeDefbfffffff)
-    [Anonymous Symbol]                       0x08005b60   Section        0  superpid.o(.text._ZN8IncrePID16increPID_ComputeEf)
-    [Anonymous Symbol]                       0x08005cc4   Section        0  superpid.o(.text._ZN8IncrePID17increPID_setargetEf)
-    [Anonymous Symbol]                       0x08005ccc   Section        0  superpid.o(.text._ZN8IncrePIDC2Effffff)
-    [Anonymous Symbol]                       0x08005d1c   Section        0  can_device.o(.text._ZN9CanDevice10EXT_updateEjPh)
-    [Anonymous Symbol]                       0x08005d20   Section        0  can_device.o(.text._ZN9CanDevice13motor_processEv)
-    [Anonymous Symbol]                       0x08005d24   Section        0  can_device.o(.text._ZN9CanDevice8CAN_SendEjhPh)
-    [Anonymous Symbol]                       0x08005d54   Section        0  can_device.o(.text._ZN9CanDeviceC2E13CanDeviceTypeP17CAN_HandleTypeDefh)
-    [Anonymous Symbol]                       0x08006584   Section        0  motor.o(.text._ZN9dji_motor16vangle_to_rangleEj)
-    [Anonymous Symbol]                       0x080065a8   Section        0  motor.o(.text._ZN9dji_motor20rcurrent_to_vcurrentEf)
-    [Anonymous Symbol]                       0x080065cc   Section        0  motor.o(.text._ZN9dji_motor20vcurrent_to_rcurrentEs)
-    [Anonymous Symbol]                       0x080065f0   Section        0  motor.o(.text._ZN9dji_motorC2Efst)
-    [Anonymous Symbol]                       0x08006604   Section        0  rc9protocol.o(.text._ZThn12_N11RC9Protocol12process_dataEv)
-    [Anonymous Symbol]                       0x080066b0   Section        0  rc9protocol.o(.text._ZThn12_N11RC9ProtocolD0Ev)
-    [Anonymous Symbol]                       0x080066bc   Section        0  rc9protocol.o(.text._ZThn12_N11RC9ProtocolD1Ev)
-    [Anonymous Symbol]                       0x080066c0   Section        0  vesc.o(.text._ZThn12_N4vesc12process_dataEv)
-    [Anonymous Symbol]                       0x08006728   Section        0  vesc.o(.text._ZThn12_N4vescD0Ev)
-    [Anonymous Symbol]                       0x08006730   Section        0  vesc.o(.text._ZThn12_N4vescD1Ev)
-    [Anonymous Symbol]                       0x08006734   Section        0  m3508.o(.text._ZThn12_N6m3508p7get_rpmEv)
-    [Anonymous Symbol]                       0x0800674c   Section        0  m3508.o(.text._ZThn12_N6m3508p7set_rpmEf)
-    [Anonymous Symbol]                       0x08006754   Section        0  push_shoot.o(.text._ZThn20_N4demo5msginEhPKv)
-    [Anonymous Symbol]                       0x0800676c   Section        0  push_shoot.o(.text._ZThn20_N4demo6msgoutEhPv)
-    [Anonymous Symbol]                       0x08006770   Section        0  vesc.o(.text._ZThn32_N4vesc7get_rpmEv)
-    [Anonymous Symbol]                       0x08006778   Section        0  vesc.o(.text._ZThn32_N4vesc7set_rpmEf)
-    [Anonymous Symbol]                       0x0800679c   Section        0  m6020.o(.text._ZThn36_N6m6020s7get_posEv)
-    [Anonymous Symbol]                       0x080067a4   Section        0  m6020.o(.text._ZThn36_N6m6020s7get_rpmEv)
-    [Anonymous Symbol]                       0x080067b4   Section        0  m6020.o(.text._ZThn36_N6m6020s7set_posEf)
-    [Anonymous Symbol]                       0x080067bc   Section        0  m6020.o(.text._ZThn36_N6m6020s7set_rpmEf)
-    [Anonymous Symbol]                       0x080067c0   Section        0  shoot_xbox.o(.text._ZThn548_N10shoot_xbox12process_dataEv)
-    [Anonymous Symbol]                       0x080067c8   Section        0  shoot_xbox.o(.text._ZThn548_N10shoot_xboxD0Ev)
-    [Anonymous Symbol]                       0x080067d4   Section        0  shoot_xbox.o(.text._ZThn548_N10shoot_xboxD1Ev)
-    [Anonymous Symbol]                       0x080067d6   Section        0  new.cpp.o(.text._ZdlPv)
-    [Anonymous Symbol]                       0x080067da   Section        0  new.cpp.o(.text._ZdlPvj)
-    [Anonymous Symbol]                       0x080067e0   Section        0  cxa_virtual.cpp.o(.text.__cxa_pure_virtual)
-    [Anonymous Symbol]                       0x08006808   Section        0  abort_message.cpp.o(.text.abort_message)
-    [Anonymous Symbol]                       0x0800680c   Section        0  main.o(.text.main)
-    [Anonymous Symbol]                       0x08006860   Section        0  cmsis_os2.o(.text.osDelay)
-    [Anonymous Symbol]                       0x08006880   Section        0  cmsis_os2.o(.text.osKernelInitialize)
-    [Anonymous Symbol]                       0x080068a8   Section        0  cmsis_os2.o(.text.osKernelStart)
-    [Anonymous Symbol]                       0x080068e4   Section        0  cmsis_os2.o(.text.osThreadNew)
-    prvAddNewTaskToReadyList                 0x08006981   Thumb Code   650  tasks.o(.text.prvAddNewTaskToReadyList)
-    [Anonymous Symbol]                       0x08006980   Section        0  tasks.o(.text.prvAddNewTaskToReadyList)
-    prvIdleTask                              0x08006c0d   Thumb Code   134  tasks.o(.text.prvIdleTask)
-    [Anonymous Symbol]                       0x08006c0c   Section        0  tasks.o(.text.prvIdleTask)
-    prvInitialiseNewTask                     0x08006c95   Thumb Code   296  tasks.o(.text.prvInitialiseNewTask)
-    [Anonymous Symbol]                       0x08006c94   Section        0  tasks.o(.text.prvInitialiseNewTask)
-    prvPortStartFirstTask                    0x08006dbd   Thumb Code    34  port.o(.text.prvPortStartFirstTask)
-    [Anonymous Symbol]                       0x08006dbc   Section        0  port.o(.text.prvPortStartFirstTask)
-    prvTaskExitError                         0x08006de5   Thumb Code    62  port.o(.text.prvTaskExitError)
-    [Anonymous Symbol]                       0x08006de4   Section        0  port.o(.text.prvTaskExitError)
-    prvTimerTask                             0x08006e25   Thumb Code   906  timers.o(.text.prvTimerTask)
-    [Anonymous Symbol]                       0x08006e24   Section        0  timers.o(.text.prvTimerTask)
-    prvUnlockQueue                           0x080071b1   Thumb Code   116  queue.o(.text.prvUnlockQueue)
-    [Anonymous Symbol]                       0x080071b0   Section        0  queue.o(.text.prvUnlockQueue)
-    [Anonymous Symbol]                       0x08007224   Section        0  push_shoot.o(.text.pshoot_setup)
-    [Anonymous Symbol]                       0x080072a0   Section        0  heap_4.o(.text.pvPortMalloc)
-    [Anonymous Symbol]                       0x08007494   Section        0  port.o(.text.pxPortInitialiseStack)
-    [Anonymous Symbol]                       0x080074b8   Section        0  list.o(.text.uxListRemove)
-    [Anonymous Symbol]                       0x080074dc   Section        0  cmsis_os2.o(.text.vApplicationGetIdleTaskMemory)
-    [Anonymous Symbol]                       0x080074f8   Section        0  cmsis_os2.o(.text.vApplicationGetTimerTaskMemory)
-    [Anonymous Symbol]                       0x08007514   Section        0  list.o(.text.vListInitialise)
-    [Anonymous Symbol]                       0x0800752c   Section        0  list.o(.text.vListInitialiseItem)
-    [Anonymous Symbol]                       0x08007534   Section        0  list.o(.text.vListInsert)
-    [Anonymous Symbol]                       0x08007598   Section        0  list.o(.text.vListInsertEnd)
-    vPortEnableVFP                           0x080075b5   Thumb Code    14  port.o(.text.vPortEnableVFP)
-    [Anonymous Symbol]                       0x080075b4   Section        0  port.o(.text.vPortEnableVFP)
-    [Anonymous Symbol]                       0x080075c8   Section        0  port.o(.text.vPortEnterCritical)
-    [Anonymous Symbol]                       0x08007610   Section        0  port.o(.text.vPortExitCritical)
-    [Anonymous Symbol]                       0x08007640   Section        0  heap_4.o(.text.vPortFree)
-    [Anonymous Symbol]                       0x08007714   Section        0  port.o(.text.vPortSetupTimerInterrupt)
-    [Anonymous Symbol]                       0x08007748   Section        0  queue.o(.text.vQueueAddToRegistry)
-    [Anonymous Symbol]                       0x080077f8   Section        0  queue.o(.text.vQueueWaitForMessageRestricted)
-    [Anonymous Symbol]                       0x0800784c   Section        0  tasks.o(.text.vTaskDelay)
-    [Anonymous Symbol]                       0x080078cc   Section        0  tasks.o(.text.vTaskInternalSetTimeOutState)
-    [Anonymous Symbol]                       0x080078e0   Section        0  tasks.o(.text.vTaskMissedYield)
-    [Anonymous Symbol]                       0x080078f0   Section        0  tasks.o(.text.vTaskPlaceOnEventList)
-    [Anonymous Symbol]                       0x08007964   Section        0  tasks.o(.text.vTaskPlaceOnEventListRestricted)
-    [Anonymous Symbol]                       0x080079e0   Section        0  tasks.o(.text.vTaskStartScheduler)
-    [Anonymous Symbol]                       0x08007ad0   Section        0  tasks.o(.text.vTaskSuspendAll)
-    [Anonymous Symbol]                       0x08007ae0   Section        0  tasks.o(.text.vTaskSwitchContext)
-    [Anonymous Symbol]                       0x08007b9c   Section        0  port.o(.text.xPortStartScheduler)
-    [Anonymous Symbol]                       0x08007d24   Section        0  port.o(.text.xPortSysTickHandler)
-    [Anonymous Symbol]                       0x08007d54   Section        0  queue.o(.text.xQueueGenericCreateStatic)
-    [Anonymous Symbol]                       0x08007e34   Section        0  queue.o(.text.xQueueGenericSend)
-    [Anonymous Symbol]                       0x080080f0   Section        0  queue.o(.text.xQueueReceive)
-    [Anonymous Symbol]                       0x08008330   Section        0  tasks.o(.text.xTaskCheckForTimeOut)
-    [Anonymous Symbol]                       0x080083c8   Section        0  tasks.o(.text.xTaskCreate)
-    [Anonymous Symbol]                       0x08008428   Section        0  tasks.o(.text.xTaskCreateStatic)
-    [Anonymous Symbol]                       0x080084a0   Section        0  tasks.o(.text.xTaskGetSchedulerState)
-    [Anonymous Symbol]                       0x080084c0   Section        0  tasks.o(.text.xTaskGetTickCount)
-    [Anonymous Symbol]                       0x080084cc   Section        0  tasks.o(.text.xTaskIncrementTick)
-    [Anonymous Symbol]                       0x080085d0   Section        0  tasks.o(.text.xTaskPriorityDisinherit)
-    [Anonymous Symbol]                       0x0800865c   Section        0  tasks.o(.text.xTaskRemoveFromEventList)
-    [Anonymous Symbol]                       0x080086d0   Section        0  tasks.o(.text.xTaskResumeAll)
-    [Anonymous Symbol]                       0x080087c0   Section        0  timers.o(.text.xTimerCreateTimerTask)
-    i.__hardfp_fmodf                         0x08008874   Section        0  fmodf.o(i.__hardfp_fmodf)
-    i.__mathlib_flt_invalid                  0x08008924   Section        0  funder.o(i.__mathlib_flt_invalid)
-    $v0                                      0x08008934   Number         0  fnaninf.o(x$fpl$fnaninf)
-    x$fpl$fnaninf                            0x08008934   Section      140  fnaninf.o(x$fpl$fnaninf)
-    $v0                                      0x080089c0   Number         0  fpinit.o(x$fpl$fpinit)
-    x$fpl$fpinit                             0x080089c0   Section       26  fpinit.o(x$fpl$fpinit)
-    $v0                                      0x080089dc   Number         0  frem_clz.o(x$fpl$frem)
-    x$fpl$frem                               0x080089dc   Section      244  frem_clz.o(x$fpl$frem)
-    x$fpl$usenofp                            0x08008ad0   Section        0  usenofp.o(x$fpl$usenofp)
-    CRC16Table                               0x08008ae8   Data         512  crc_util.o(.rodata.CRC16Table)
-    [Anonymous Symbol]                       0x08008ae8   Section        0  crc_util.o(.rodata.CRC16Table)
-    DMA_CalcBaseAndBitshift.flagBitshiftOffset 0x08008eb0   Data           8  stm32f4xx_hal_dma.o(.rodata.cst8)
-    [Anonymous Symbol]                       0x08008eb0   Section        0  stm32f4xx_hal_dma.o(.rodata.cst8)
-    .L.str.1                                 0x08008eb8   Data           5  timers.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x08008eb8   Section        0  timers.o(.rodata.str1.1)
-    .init_array                              0x08008ee8   Section        0  init_aeabi.o(.init_array)
+    [Anonymous Symbol]                       0x08004b68   Section        0  shoot_xbox.o(.text._ZN10shoot_xboxC2EP11power_motorS1_S1_P7chassis)
+    [Anonymous Symbol]                       0x08004c0c   Section        0  shoot_xbox.o(.text._ZN10shoot_xboxD0Ev)
+    [Anonymous Symbol]                       0x08004c14   Section        0  shoot_xbox.o(.text._ZN10shoot_xboxD2Ev)
+    [Anonymous Symbol]                       0x08004c18   Section        0  rc9protocol.o(.text._ZN11RC9Protocol12process_dataEv)
+    [Anonymous Symbol]                       0x08004cc0   Section        0  rc9protocol.o(.text._ZN11RC9Protocol13addsubscriberEP22RC9Protocol_subscriber)
+    [Anonymous Symbol]                       0x08004ce4   Section        0  rc9protocol.o(.text._ZN11RC9Protocol17handleReceiveDataEh)
+    [Anonymous Symbol]                       0x08004f2c   Section        0  rc9protocol.o(.text._ZN11RC9ProtocolC2EP20__UART_HandleTypeDefb)
+    [Anonymous Symbol]                       0x08004fa4   Section        0  rc9protocol.o(.text._ZN11RC9ProtocolD0Ev)
+    [Anonymous Symbol]                       0x08004fac   Section        0  rc9protocol.o(.text._ZN11RC9ProtocolD2Ev)
+    [Anonymous Symbol]                       0x08004fb0   Section        0  taskmanager.o(.text._ZN11TaskManager12TaskFunctionEPv)
+    [Anonymous Symbol]                       0x08004ff4   Section        0  taskmanager.o(.text._ZN11TaskManager12registerTaskEiP14ITaskProcessor)
+    [Anonymous Symbol]                       0x08005064   Section        0  taskmanager.o(.text._ZN11TaskManagerC2Ev)
+    [Anonymous Symbol]                       0x080050e0   Section        0  m3508.o(.text._ZN11power_motor10set_rpm_ffEff)
+    [Anonymous Symbol]                       0x080050e4   Section        0  m3508.o(.text._ZN11power_motor7get_posEv)
+    [Anonymous Symbol]                       0x080050e4   Section        0  m3508.o(.text._ZN11power_motor7set_posEf)
+    [Anonymous Symbol]                       0x080050e8   Section        0  serial_device.o(.text._ZN12SerialDevice18startUartReceiveITEv)
+    [Anonymous Symbol]                       0x080050f8   Section        0  serial_device.o(.text._ZN12SerialDeviceC2EP20__UART_HandleTypeDef)
+    [Anonymous Symbol]                       0x0800512c   Section        0  chassis.o(.text._ZN14ITaskProcessorD2Ev)
+    [Anonymous Symbol]                       0x08005130   Section        0  xbox.o(.text._ZN22RC9Protocol_subscriberD2Ev)
+    [Anonymous Symbol]                       0x08005134   Section        0  pid.o(.text._ZN3pid16PID_ComputeErrorEf)
+    [Anonymous Symbol]                       0x0800521c   Section        0  pid.o(.text._ZN3pidC2Efffffff)
+    [Anonymous Symbol]                       0x08005244   Section        0  push_shoot.o(.text._ZN4demo12process_dataEv)
+    [Anonymous Symbol]                       0x08005248   Section        0  push_shoot.o(.text._ZN4demo5msginEhPKv)
+    [Anonymous Symbol]                       0x08005260   Section        0  push_shoot.o(.text._ZN4demo6msgoutEhPv)
+    [Anonymous Symbol]                       0x08005264   Section        0  push_shoot.o(.text._ZN4demoD0Ev)
+    [Anonymous Symbol]                       0x0800526c   Section        0  vesc.o(.text._ZN4vesc10can_updateEPh)
+    [Anonymous Symbol]                       0x080052ac   Section        0  vesc.o(.text._ZN4vesc12process_dataEv)
+    [Anonymous Symbol]                       0x08005308   Section        0  vesc.o(.text._ZN4vesc7get_rpmEv)
+    [Anonymous Symbol]                       0x08005310   Section        0  vesc.o(.text._ZN4vesc7set_rpmEf)
+    [Anonymous Symbol]                       0x08005338   Section        0  vesc.o(.text._ZN4vescC2EhP17CAN_HandleTypeDefhfffff)
+    [Anonymous Symbol]                       0x080053e4   Section        0  vesc.o(.text._ZN4vescD0Ev)
+    [Anonymous Symbol]                       0x080053ec   Section        0  vesc.o(.text._ZN4vescD2Ev)
+    [Anonymous Symbol]                       0x080053f0   Section        0  xbox.o(.text._ZN4xbox12handleButtonERNS_12ButtonConfigE)
+    [Anonymous Symbol]                       0x080054a0   Section        0  xbox.o(.text._ZN4xbox14btnRB_callbackEv)
+    [Anonymous Symbol]                       0x080054a4   Section        0  xbox.o(.text._ZN4xbox14joymap_computeEv)
+    [Anonymous Symbol]                       0x080055c8   Section        0  xbox.o(.text._ZN4xbox16btnXBOX_callbackEv)
+    [Anonymous Symbol]                       0x080055cc   Section        0  xbox.o(.text._ZN4xbox6updateEhhPKhPKf)
+    [Anonymous Symbol]                       0x080056c0   Section        0  xbox.o(.text._ZN4xboxC2EP6actionP7chassisfff)
+    [Anonymous Symbol]                       0x080056e8   Section        0  xbox.o(.text._ZN4xboxD0Ev)
+    [Anonymous Symbol]                       0x080056f0   Section        0  m3508.o(.text._ZN6m3508p10can_updateEPh)
+    [Anonymous Symbol]                       0x080057c4   Section        0  m3508.o(.text._ZN6m3508p13motor_processEv)
+    [Anonymous Symbol]                       0x08005810   Section        0  m3508.o(.text._ZN6m3508p7get_rpmEv)
+    [Anonymous Symbol]                       0x08005828   Section        0  m3508.o(.text._ZN6m3508p7set_rpmEf)
+    [Anonymous Symbol]                       0x08005830   Section        0  m3508.o(.text._ZN6m3508pC2EhP17CAN_HandleTypeDef10motor_modefffff)
+    [Anonymous Symbol]                       0x080058d4   Section        0  m6020.o(.text._ZN6m6020s10can_updateEPh)
+    [Anonymous Symbol]                       0x08005904   Section        0  m6020.o(.text._ZN6m6020s13motor_processEv)
+    [Anonymous Symbol]                       0x08005a60   Section        0  m6020.o(.text._ZN6m6020s7get_posEv)
+    [Anonymous Symbol]                       0x08005a68   Section        0  m6020.o(.text._ZN6m6020s7get_rpmEv)
+    [Anonymous Symbol]                       0x08005a78   Section        0  m6020.o(.text._ZN6m6020s7set_posEf)
+    [Anonymous Symbol]                       0x08005a80   Section        0  m6020.o(.text._ZN6m6020s7set_rpmEf)
+    [Anonymous Symbol]                       0x08005a84   Section        0  m6020.o(.text._ZN6m6020sC2EhP17CAN_HandleTypeDefbfffffff)
+    [Anonymous Symbol]                       0x08005b58   Section        0  superpid.o(.text._ZN8IncrePID16increPID_ComputeEf)
+    [Anonymous Symbol]                       0x08005cbc   Section        0  superpid.o(.text._ZN8IncrePID17increPID_setargetEf)
+    [Anonymous Symbol]                       0x08005cc4   Section        0  superpid.o(.text._ZN8IncrePIDC2Effffff)
+    [Anonymous Symbol]                       0x08005d14   Section        0  can_device.o(.text._ZN9CanDevice10EXT_updateEjPh)
+    [Anonymous Symbol]                       0x08005d18   Section        0  can_device.o(.text._ZN9CanDevice13motor_processEv)
+    [Anonymous Symbol]                       0x08005d1c   Section        0  can_device.o(.text._ZN9CanDevice8CAN_SendEjhPh)
+    [Anonymous Symbol]                       0x08005d4c   Section        0  can_device.o(.text._ZN9CanDeviceC2E13CanDeviceTypeP17CAN_HandleTypeDefh)
+    [Anonymous Symbol]                       0x0800657c   Section        0  motor.o(.text._ZN9dji_motor16vangle_to_rangleEj)
+    [Anonymous Symbol]                       0x080065a0   Section        0  motor.o(.text._ZN9dji_motor20rcurrent_to_vcurrentEf)
+    [Anonymous Symbol]                       0x080065c4   Section        0  motor.o(.text._ZN9dji_motor20vcurrent_to_rcurrentEs)
+    [Anonymous Symbol]                       0x080065e8   Section        0  motor.o(.text._ZN9dji_motorC2Efst)
+    [Anonymous Symbol]                       0x080065fc   Section        0  rc9protocol.o(.text._ZThn12_N11RC9Protocol12process_dataEv)
+    [Anonymous Symbol]                       0x080066a8   Section        0  rc9protocol.o(.text._ZThn12_N11RC9ProtocolD0Ev)
+    [Anonymous Symbol]                       0x080066b4   Section        0  rc9protocol.o(.text._ZThn12_N11RC9ProtocolD1Ev)
+    [Anonymous Symbol]                       0x080066b8   Section        0  vesc.o(.text._ZThn12_N4vesc12process_dataEv)
+    [Anonymous Symbol]                       0x08006720   Section        0  vesc.o(.text._ZThn12_N4vescD0Ev)
+    [Anonymous Symbol]                       0x08006728   Section        0  vesc.o(.text._ZThn12_N4vescD1Ev)
+    [Anonymous Symbol]                       0x0800672c   Section        0  m3508.o(.text._ZThn12_N6m3508p7get_rpmEv)
+    [Anonymous Symbol]                       0x08006744   Section        0  m3508.o(.text._ZThn12_N6m3508p7set_rpmEf)
+    [Anonymous Symbol]                       0x0800674c   Section        0  push_shoot.o(.text._ZThn20_N4demo5msginEhPKv)
+    [Anonymous Symbol]                       0x08006764   Section        0  push_shoot.o(.text._ZThn20_N4demo6msgoutEhPv)
+    [Anonymous Symbol]                       0x08006768   Section        0  vesc.o(.text._ZThn32_N4vesc7get_rpmEv)
+    [Anonymous Symbol]                       0x08006770   Section        0  vesc.o(.text._ZThn32_N4vesc7set_rpmEf)
+    [Anonymous Symbol]                       0x08006794   Section        0  m6020.o(.text._ZThn36_N6m6020s7get_posEv)
+    [Anonymous Symbol]                       0x0800679c   Section        0  m6020.o(.text._ZThn36_N6m6020s7get_rpmEv)
+    [Anonymous Symbol]                       0x080067ac   Section        0  m6020.o(.text._ZThn36_N6m6020s7set_posEf)
+    [Anonymous Symbol]                       0x080067b4   Section        0  m6020.o(.text._ZThn36_N6m6020s7set_rpmEf)
+    [Anonymous Symbol]                       0x080067b8   Section        0  shoot_xbox.o(.text._ZThn548_N10shoot_xbox12process_dataEv)
+    [Anonymous Symbol]                       0x080067c0   Section        0  shoot_xbox.o(.text._ZThn548_N10shoot_xboxD0Ev)
+    [Anonymous Symbol]                       0x080067cc   Section        0  shoot_xbox.o(.text._ZThn548_N10shoot_xboxD1Ev)
+    [Anonymous Symbol]                       0x080067ce   Section        0  new.cpp.o(.text._ZdlPv)
+    [Anonymous Symbol]                       0x080067d2   Section        0  new.cpp.o(.text._ZdlPvj)
+    [Anonymous Symbol]                       0x080067d8   Section        0  cxa_virtual.cpp.o(.text.__cxa_pure_virtual)
+    [Anonymous Symbol]                       0x08006800   Section        0  abort_message.cpp.o(.text.abort_message)
+    [Anonymous Symbol]                       0x08006804   Section        0  main.o(.text.main)
+    [Anonymous Symbol]                       0x08006858   Section        0  cmsis_os2.o(.text.osDelay)
+    [Anonymous Symbol]                       0x08006878   Section        0  cmsis_os2.o(.text.osKernelInitialize)
+    [Anonymous Symbol]                       0x080068a0   Section        0  cmsis_os2.o(.text.osKernelStart)
+    [Anonymous Symbol]                       0x080068dc   Section        0  cmsis_os2.o(.text.osThreadNew)
+    prvAddNewTaskToReadyList                 0x08006979   Thumb Code   650  tasks.o(.text.prvAddNewTaskToReadyList)
+    [Anonymous Symbol]                       0x08006978   Section        0  tasks.o(.text.prvAddNewTaskToReadyList)
+    prvIdleTask                              0x08006c05   Thumb Code   134  tasks.o(.text.prvIdleTask)
+    [Anonymous Symbol]                       0x08006c04   Section        0  tasks.o(.text.prvIdleTask)
+    prvInitialiseNewTask                     0x08006c8d   Thumb Code   296  tasks.o(.text.prvInitialiseNewTask)
+    [Anonymous Symbol]                       0x08006c8c   Section        0  tasks.o(.text.prvInitialiseNewTask)
+    prvPortStartFirstTask                    0x08006db5   Thumb Code    34  port.o(.text.prvPortStartFirstTask)
+    [Anonymous Symbol]                       0x08006db4   Section        0  port.o(.text.prvPortStartFirstTask)
+    prvTaskExitError                         0x08006ddd   Thumb Code    62  port.o(.text.prvTaskExitError)
+    [Anonymous Symbol]                       0x08006ddc   Section        0  port.o(.text.prvTaskExitError)
+    prvTimerTask                             0x08006e1d   Thumb Code   906  timers.o(.text.prvTimerTask)
+    [Anonymous Symbol]                       0x08006e1c   Section        0  timers.o(.text.prvTimerTask)
+    prvUnlockQueue                           0x080071a9   Thumb Code   116  queue.o(.text.prvUnlockQueue)
+    [Anonymous Symbol]                       0x080071a8   Section        0  queue.o(.text.prvUnlockQueue)
+    [Anonymous Symbol]                       0x0800721c   Section        0  push_shoot.o(.text.pshoot_setup)
+    [Anonymous Symbol]                       0x08007298   Section        0  heap_4.o(.text.pvPortMalloc)
+    [Anonymous Symbol]                       0x0800748c   Section        0  port.o(.text.pxPortInitialiseStack)
+    [Anonymous Symbol]                       0x080074b0   Section        0  list.o(.text.uxListRemove)
+    [Anonymous Symbol]                       0x080074d4   Section        0  cmsis_os2.o(.text.vApplicationGetIdleTaskMemory)
+    [Anonymous Symbol]                       0x080074f0   Section        0  cmsis_os2.o(.text.vApplicationGetTimerTaskMemory)
+    [Anonymous Symbol]                       0x0800750c   Section        0  list.o(.text.vListInitialise)
+    [Anonymous Symbol]                       0x08007524   Section        0  list.o(.text.vListInitialiseItem)
+    [Anonymous Symbol]                       0x0800752c   Section        0  list.o(.text.vListInsert)
+    [Anonymous Symbol]                       0x08007590   Section        0  list.o(.text.vListInsertEnd)
+    vPortEnableVFP                           0x080075ad   Thumb Code    14  port.o(.text.vPortEnableVFP)
+    [Anonymous Symbol]                       0x080075ac   Section        0  port.o(.text.vPortEnableVFP)
+    [Anonymous Symbol]                       0x080075c0   Section        0  port.o(.text.vPortEnterCritical)
+    [Anonymous Symbol]                       0x08007608   Section        0  port.o(.text.vPortExitCritical)
+    [Anonymous Symbol]                       0x08007638   Section        0  heap_4.o(.text.vPortFree)
+    [Anonymous Symbol]                       0x0800770c   Section        0  port.o(.text.vPortSetupTimerInterrupt)
+    [Anonymous Symbol]                       0x08007740   Section        0  queue.o(.text.vQueueAddToRegistry)
+    [Anonymous Symbol]                       0x080077f0   Section        0  queue.o(.text.vQueueWaitForMessageRestricted)
+    [Anonymous Symbol]                       0x08007844   Section        0  tasks.o(.text.vTaskDelay)
+    [Anonymous Symbol]                       0x080078c4   Section        0  tasks.o(.text.vTaskInternalSetTimeOutState)
+    [Anonymous Symbol]                       0x080078d8   Section        0  tasks.o(.text.vTaskMissedYield)
+    [Anonymous Symbol]                       0x080078e8   Section        0  tasks.o(.text.vTaskPlaceOnEventList)
+    [Anonymous Symbol]                       0x0800795c   Section        0  tasks.o(.text.vTaskPlaceOnEventListRestricted)
+    [Anonymous Symbol]                       0x080079d8   Section        0  tasks.o(.text.vTaskStartScheduler)
+    [Anonymous Symbol]                       0x08007ac8   Section        0  tasks.o(.text.vTaskSuspendAll)
+    [Anonymous Symbol]                       0x08007ad8   Section        0  tasks.o(.text.vTaskSwitchContext)
+    [Anonymous Symbol]                       0x08007b94   Section        0  port.o(.text.xPortStartScheduler)
+    [Anonymous Symbol]                       0x08007d1c   Section        0  port.o(.text.xPortSysTickHandler)
+    [Anonymous Symbol]                       0x08007d4c   Section        0  queue.o(.text.xQueueGenericCreateStatic)
+    [Anonymous Symbol]                       0x08007e2c   Section        0  queue.o(.text.xQueueGenericSend)
+    [Anonymous Symbol]                       0x080080e8   Section        0  queue.o(.text.xQueueReceive)
+    [Anonymous Symbol]                       0x08008328   Section        0  tasks.o(.text.xTaskCheckForTimeOut)
+    [Anonymous Symbol]                       0x080083c0   Section        0  tasks.o(.text.xTaskCreate)
+    [Anonymous Symbol]                       0x08008420   Section        0  tasks.o(.text.xTaskCreateStatic)
+    [Anonymous Symbol]                       0x08008498   Section        0  tasks.o(.text.xTaskGetSchedulerState)
+    [Anonymous Symbol]                       0x080084b8   Section        0  tasks.o(.text.xTaskGetTickCount)
+    [Anonymous Symbol]                       0x080084c4   Section        0  tasks.o(.text.xTaskIncrementTick)
+    [Anonymous Symbol]                       0x080085c8   Section        0  tasks.o(.text.xTaskPriorityDisinherit)
+    [Anonymous Symbol]                       0x08008654   Section        0  tasks.o(.text.xTaskRemoveFromEventList)
+    [Anonymous Symbol]                       0x080086c8   Section        0  tasks.o(.text.xTaskResumeAll)
+    [Anonymous Symbol]                       0x080087b8   Section        0  timers.o(.text.xTimerCreateTimerTask)
+    i.__hardfp_fmodf                         0x0800886c   Section        0  fmodf.o(i.__hardfp_fmodf)
+    i.__mathlib_flt_invalid                  0x0800891c   Section        0  funder.o(i.__mathlib_flt_invalid)
+    $v0                                      0x0800892c   Number         0  fnaninf.o(x$fpl$fnaninf)
+    x$fpl$fnaninf                            0x0800892c   Section      140  fnaninf.o(x$fpl$fnaninf)
+    $v0                                      0x080089b8   Number         0  fpinit.o(x$fpl$fpinit)
+    x$fpl$fpinit                             0x080089b8   Section       26  fpinit.o(x$fpl$fpinit)
+    $v0                                      0x080089d4   Number         0  frem_clz.o(x$fpl$frem)
+    x$fpl$frem                               0x080089d4   Section      244  frem_clz.o(x$fpl$frem)
+    x$fpl$usenofp                            0x08008ac8   Section        0  usenofp.o(x$fpl$usenofp)
+    CRC16Table                               0x08008ae0   Data         512  crc_util.o(.rodata.CRC16Table)
+    [Anonymous Symbol]                       0x08008ae0   Section        0  crc_util.o(.rodata.CRC16Table)
+    DMA_CalcBaseAndBitshift.flagBitshiftOffset 0x08008ea8   Data           8  stm32f4xx_hal_dma.o(.rodata.cst8)
+    [Anonymous Symbol]                       0x08008ea8   Section        0  stm32f4xx_hal_dma.o(.rodata.cst8)
+    .L.str.1                                 0x08008eb0   Data           5  timers.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x08008eb0   Section        0  timers.o(.rodata.str1.1)
+    .init_array                              0x08008ee0   Section        0  init_aeabi.o(.init_array)
     .L_MergedGlobals                         0x20000000   Data           8  stm32f4xx_hal.o(.data..L_MergedGlobals)
     [Anonymous Symbol]                       0x20000000   Section        0  stm32f4xx_hal.o(.data..L_MergedGlobals)
     uxCriticalNesting                        0x2000000c   Data           4  port.o(.data.uxCriticalNesting)
@@ -5505,170 +5520,170 @@ Image Symbol Table
     CanManager::CanManager__sub_object()     0x080049f9   Thumb Code    76  can_device.o(.text._ZN10CanManagerC2Ev)
     CanManager::~CanManager__deallocating()  0x08004a45   Thumb Code     6  can_device.o(.text._ZN10CanManagerD0Ev)
     shoot_xbox::process_data()               0x08004a4d   Thumb Code   280  shoot_xbox.o(.text._ZN10shoot_xbox12process_dataEv)
-    shoot_xbox::shoot_xbox(power_motor*, power_motor*, power_motor*, chassis*) 0x08004b71   Thumb Code   160  shoot_xbox.o(.text._ZN10shoot_xboxC2EP11power_motorS1_S1_P7chassis)
-    shoot_xbox::shoot_xbox__sub_object(power_motor*, power_motor*, power_motor*, chassis*) 0x08004b71   Thumb Code   160  shoot_xbox.o(.text._ZN10shoot_xboxC2EP11power_motorS1_S1_P7chassis)
-    shoot_xbox::~shoot_xbox__deallocating()  0x08004c15   Thumb Code     8  shoot_xbox.o(.text._ZN10shoot_xboxD0Ev)
-    shoot_xbox::~shoot_xbox__sub_object()    0x08004c1d   Thumb Code     2  shoot_xbox.o(.text._ZN10shoot_xboxD2Ev)
-    RC9Protocol::process_data()              0x08004c21   Thumb Code   166  rc9protocol.o(.text._ZN11RC9Protocol12process_dataEv)
-    RC9Protocol::addsubscriber(RC9Protocol_subscriber*) 0x08004cc9   Thumb Code    34  rc9protocol.o(.text._ZN11RC9Protocol13addsubscriberEP22RC9Protocol_subscriber)
-    RC9Protocol::handleReceiveData(unsigned char) 0x08004ced   Thumb Code   584  rc9protocol.o(.text._ZN11RC9Protocol17handleReceiveDataEh)
-    RC9Protocol::RC9Protocol(__UART_HandleTypeDef*, bool) 0x08004f35   Thumb Code   118  rc9protocol.o(.text._ZN11RC9ProtocolC2EP20__UART_HandleTypeDefb)
-    RC9Protocol::RC9Protocol__sub_object(__UART_HandleTypeDef*, bool) 0x08004f35   Thumb Code   118  rc9protocol.o(.text._ZN11RC9ProtocolC2EP20__UART_HandleTypeDefb)
-    RC9Protocol::~RC9Protocol__deallocating() 0x08004fad   Thumb Code     8  rc9protocol.o(.text._ZN11RC9ProtocolD0Ev)
-    RC9Protocol::~RC9Protocol__sub_object()  0x08004fb5   Thumb Code     2  rc9protocol.o(.text._ZN11RC9ProtocolD2Ev)
-    TaskManager::TaskFunction(void*)         0x08004fb9   Thumb Code    68  taskmanager.o(.text._ZN11TaskManager12TaskFunctionEPv)
-    TaskManager::registerTask(int, ITaskProcessor*) 0x08004ffd   Thumb Code   110  taskmanager.o(.text._ZN11TaskManager12registerTaskEiP14ITaskProcessor)
-    TaskManager::TaskManager()               0x0800506d   Thumb Code   122  taskmanager.o(.text._ZN11TaskManagerC2Ev)
-    TaskManager::TaskManager__sub_object()   0x0800506d   Thumb Code   122  taskmanager.o(.text._ZN11TaskManagerC2Ev)
-    power_motor::set_rpm_ff(float, float)    0x080050e9   Thumb Code     2  m3508.o(.text._ZN11power_motor10set_rpm_ffEff)
-    power_motor::get_pos()                   0x080050ed   Thumb Code     0  m3508.o(.text._ZN11power_motor7get_posEv)
-    power_motor::set_pos(float)              0x080050ed   Thumb Code     2  m3508.o(.text._ZN11power_motor7set_posEf)
-    SerialDevice::startUartReceiveIT()       0x080050f1   Thumb Code    14  serial_device.o(.text._ZN12SerialDevice18startUartReceiveITEv)
-    SerialDevice::SerialDevice__sub_object(__UART_HandleTypeDef*) 0x08005101   Thumb Code    50  serial_device.o(.text._ZN12SerialDeviceC2EP20__UART_HandleTypeDef)
-    ITaskProcessor::~ITaskProcessor__sub_object() 0x08005135   Thumb Code     2  chassis.o(.text._ZN14ITaskProcessorD2Ev)
-    RC9Protocol_subscriber::~RC9Protocol_subscriber__sub_object() 0x08005139   Thumb Code     2  xbox.o(.text._ZN22RC9Protocol_subscriberD2Ev)
-    pid::PID_ComputeError(float)             0x0800513d   Thumb Code   228  pid.o(.text._ZN3pid16PID_ComputeErrorEf)
-    pid::pid(float, float, float, float, float, float, float) 0x08005225   Thumb Code    40  pid.o(.text._ZN3pidC2Efffffff)
-    pid::pid__sub_object(float, float, float, float, float, float, float) 0x08005225   Thumb Code    40  pid.o(.text._ZN3pidC2Efffffff)
-    demo::process_data()                     0x0800524d   Thumb Code     2  push_shoot.o(.text._ZN4demo12process_dataEv)
-    demo::msgin(unsigned char, void const*)  0x08005251   Thumb Code    24  push_shoot.o(.text._ZN4demo5msginEhPKv)
-    demo::msgout(unsigned char, void*)       0x08005269   Thumb Code     4  push_shoot.o(.text._ZN4demo6msgoutEhPv)
-    demo::~demo__deallocating()              0x0800526d   Thumb Code     6  push_shoot.o(.text._ZN4demoD0Ev)
-    vesc::can_update(unsigned char*)         0x08005275   Thumb Code    60  vesc.o(.text._ZN4vesc10can_updateEPh)
-    vesc::process_data()                     0x080052b5   Thumb Code    92  vesc.o(.text._ZN4vesc12process_dataEv)
-    vesc::get_rpm()                          0x08005311   Thumb Code     6  vesc.o(.text._ZN4vesc7get_rpmEv)
-    vesc::set_rpm(float)                     0x08005319   Thumb Code    38  vesc.o(.text._ZN4vesc7set_rpmEf)
-    vesc::vesc(unsigned char, CAN_HandleTypeDef*, unsigned char, float, float, float, float, float) 0x08005341   Thumb Code   160  vesc.o(.text._ZN4vescC2EhP17CAN_HandleTypeDefhfffff)
-    vesc::vesc__sub_object(unsigned char, CAN_HandleTypeDef*, unsigned char, float, float, float, float, float) 0x08005341   Thumb Code   160  vesc.o(.text._ZN4vescC2EhP17CAN_HandleTypeDefhfffff)
-    vesc::~vesc__deallocating()              0x080053ed   Thumb Code     6  vesc.o(.text._ZN4vescD0Ev)
-    vesc::~vesc__sub_object()                0x080053f5   Thumb Code     2  vesc.o(.text._ZN4vescD2Ev)
-    xbox::handleButton(xbox::ButtonConfig&)  0x080053f9   Thumb Code   174  xbox.o(.text._ZN4xbox12handleButtonERNS_12ButtonConfigE)
-    xbox::btnRB_callback()                   0x080054a9   Thumb Code     2  xbox.o(.text._ZN4xbox14btnRB_callbackEv)
-    xbox::joymap_compute()                   0x080054ad   Thumb Code   276  xbox.o(.text._ZN4xbox14joymap_computeEv)
-    xbox::btnXBOX_callback()                 0x080055d1   Thumb Code     2  xbox.o(.text._ZN4xbox16btnXBOX_callbackEv)
-    xbox::update(unsigned char, unsigned char, unsigned char const*, float const*) 0x080055d5   Thumb Code   244  xbox.o(.text._ZN4xbox6updateEhhPKhPKf)
-    xbox::xbox(action*, chassis*, float, float, float) 0x080056c9   Thumb Code    40  xbox.o(.text._ZN4xboxC2EP6actionP7chassisfff)
-    xbox::xbox__sub_object(action*, chassis*, float, float, float) 0x080056c9   Thumb Code    40  xbox.o(.text._ZN4xboxC2EP6actionP7chassisfff)
-    xbox::~xbox__deallocating()              0x080056f1   Thumb Code     8  xbox.o(.text._ZN4xboxD0Ev)
-    m3508p::can_update(unsigned char*)       0x080056f9   Thumb Code   200  m3508.o(.text._ZN6m3508p10can_updateEPh)
-    m3508p::motor_process()                  0x080057cd   Thumb Code    74  m3508.o(.text._ZN6m3508p13motor_processEv)
-    m3508p::get_rpm()                        0x08005819   Thumb Code    22  m3508.o(.text._ZN6m3508p7get_rpmEv)
-    m3508p::set_rpm(float)                   0x08005831   Thumb Code     6  m3508.o(.text._ZN6m3508p7set_rpmEf)
-    m3508p::m3508p(unsigned char, CAN_HandleTypeDef*, motor_mode, float, float, float, float, float) 0x08005839   Thumb Code   160  m3508.o(.text._ZN6m3508pC2EhP17CAN_HandleTypeDef10motor_modefffff)
-    m3508p::m3508p__sub_object(unsigned char, CAN_HandleTypeDef*, motor_mode, float, float, float, float, float) 0x08005839   Thumb Code   160  m3508.o(.text._ZN6m3508pC2EhP17CAN_HandleTypeDef10motor_modefffff)
-    m6020s::can_update(unsigned char*)       0x080058dd   Thumb Code    48  m6020.o(.text._ZN6m6020s10can_updateEPh)
-    m6020s::motor_process()                  0x0800590d   Thumb Code   332  m6020.o(.text._ZN6m6020s13motor_processEv)
-    m6020s::get_pos()                        0x08005a69   Thumb Code     6  m6020.o(.text._ZN6m6020s7get_posEv)
-    m6020s::get_rpm()                        0x08005a71   Thumb Code    14  m6020.o(.text._ZN6m6020s7get_rpmEv)
-    m6020s::set_pos(float)                   0x08005a81   Thumb Code     6  m6020.o(.text._ZN6m6020s7set_posEf)
-    m6020s::set_rpm(float)                   0x08005a89   Thumb Code     2  m6020.o(.text._ZN6m6020s7set_rpmEf)
-    m6020s::m6020s(unsigned char, CAN_HandleTypeDef*, bool, float, float, float, float, float, float, float) 0x08005a8d   Thumb Code   188  m6020.o(.text._ZN6m6020sC2EhP17CAN_HandleTypeDefbfffffff)
-    m6020s::m6020s__sub_object(unsigned char, CAN_HandleTypeDef*, bool, float, float, float, float, float, float, float) 0x08005a8d   Thumb Code   188  m6020.o(.text._ZN6m6020sC2EhP17CAN_HandleTypeDefbfffffff)
-    IncrePID::increPID_Compute(float)        0x08005b61   Thumb Code   348  superpid.o(.text._ZN8IncrePID16increPID_ComputeEf)
-    IncrePID::increPID_setarget(float)       0x08005cc5   Thumb Code     6  superpid.o(.text._ZN8IncrePID17increPID_setargetEf)
-    IncrePID::IncrePID(float, float, float, float, float, float) 0x08005ccd   Thumb Code    80  superpid.o(.text._ZN8IncrePIDC2Effffff)
-    IncrePID::IncrePID__sub_object(float, float, float, float, float, float) 0x08005ccd   Thumb Code    80  superpid.o(.text._ZN8IncrePIDC2Effffff)
-    CanDevice::EXT_update(unsigned int, unsigned char*) 0x08005d1d   Thumb Code     2  can_device.o(.text._ZN9CanDevice10EXT_updateEjPh)
-    CanDevice::motor_process()               0x08005d21   Thumb Code     4  can_device.o(.text._ZN9CanDevice13motor_processEv)
-    CanDevice::CAN_Send(unsigned int, unsigned char, unsigned char*) 0x08005d25   Thumb Code    48  can_device.o(.text._ZN9CanDevice8CAN_SendEjhPh)
-    CanDevice::CanDevice__sub_object(CanDeviceType, CAN_HandleTypeDef*, unsigned char) 0x08005d55   Thumb Code  2096  can_device.o(.text._ZN9CanDeviceC2E13CanDeviceTypeP17CAN_HandleTypeDefh)
-    dji_motor::vangle_to_rangle(unsigned int) 0x08006585   Thumb Code    32  motor.o(.text._ZN9dji_motor16vangle_to_rangleEj)
-    dji_motor::rcurrent_to_vcurrent(float)   0x080065a9   Thumb Code    34  motor.o(.text._ZN9dji_motor20rcurrent_to_vcurrentEf)
-    dji_motor::vcurrent_to_rcurrent(short)   0x080065cd   Thumb Code    34  motor.o(.text._ZN9dji_motor20vcurrent_to_rcurrentEs)
-    dji_motor::dji_motor(float, short, unsigned short) 0x080065f1   Thumb Code    20  motor.o(.text._ZN9dji_motorC2Efst)
-    dji_motor::dji_motor__sub_object(float, short, unsigned short) 0x080065f1   Thumb Code    20  motor.o(.text._ZN9dji_motorC2Efst)
-    non-virtual thunk to RC9Protocol::process_data() 0x08006605   Thumb Code   170  rc9protocol.o(.text._ZThn12_N11RC9Protocol12process_dataEv)
-    non-virtual thunk to RC9Protocol::~RC9Protocol__deallocating() 0x080066b1   Thumb Code    10  rc9protocol.o(.text._ZThn12_N11RC9ProtocolD0Ev)
-    non-virtual thunk to RC9Protocol::~RC9Protocol() 0x080066bd   Thumb Code     2  rc9protocol.o(.text._ZThn12_N11RC9ProtocolD1Ev)
-    non-virtual thunk to vesc::process_data() 0x080066c1   Thumb Code   102  vesc.o(.text._ZThn12_N4vesc12process_dataEv)
-    non-virtual thunk to vesc::~vesc__deallocating() 0x08006729   Thumb Code     8  vesc.o(.text._ZThn12_N4vescD0Ev)
-    non-virtual thunk to vesc::~vesc()       0x08006731   Thumb Code     2  vesc.o(.text._ZThn12_N4vescD1Ev)
-    non-virtual thunk to m3508p::get_rpm()   0x08006735   Thumb Code    22  m3508.o(.text._ZThn12_N6m3508p7get_rpmEv)
-    non-virtual thunk to m3508p::set_rpm(float) 0x0800674d   Thumb Code     6  m3508.o(.text._ZThn12_N6m3508p7set_rpmEf)
-    non-virtual thunk to demo::msgin(unsigned char, void const*) 0x08006755   Thumb Code    24  push_shoot.o(.text._ZThn20_N4demo5msginEhPKv)
-    non-virtual thunk to demo::msgout(unsigned char, void*) 0x0800676d   Thumb Code     4  push_shoot.o(.text._ZThn20_N4demo6msgoutEhPv)
-    non-virtual thunk to vesc::get_rpm()     0x08006771   Thumb Code     6  vesc.o(.text._ZThn32_N4vesc7get_rpmEv)
-    non-virtual thunk to vesc::set_rpm(float) 0x08006779   Thumb Code    36  vesc.o(.text._ZThn32_N4vesc7set_rpmEf)
-    non-virtual thunk to m6020s::get_pos()   0x0800679d   Thumb Code     6  m6020.o(.text._ZThn36_N6m6020s7get_posEv)
-    non-virtual thunk to m6020s::get_rpm()   0x080067a5   Thumb Code    14  m6020.o(.text._ZThn36_N6m6020s7get_rpmEv)
-    non-virtual thunk to m6020s::set_pos(float) 0x080067b5   Thumb Code     6  m6020.o(.text._ZThn36_N6m6020s7set_posEf)
-    non-virtual thunk to m6020s::set_rpm(float) 0x080067bd   Thumb Code     2  m6020.o(.text._ZThn36_N6m6020s7set_rpmEf)
-    non-virtual thunk to shoot_xbox::process_data() 0x080067c1   Thumb Code     8  shoot_xbox.o(.text._ZThn548_N10shoot_xbox12process_dataEv)
-    non-virtual thunk to shoot_xbox::~shoot_xbox__deallocating() 0x080067c9   Thumb Code    12  shoot_xbox.o(.text._ZThn548_N10shoot_xboxD0Ev)
-    non-virtual thunk to shoot_xbox::~shoot_xbox() 0x080067d5   Thumb Code     2  shoot_xbox.o(.text._ZThn548_N10shoot_xboxD1Ev)
-    operator delete(void*)                   0x080067d7   Thumb Code     4  new.cpp.o(.text._ZdlPv)
-    operator delete(void*, unsigned int)     0x080067db   Thumb Code     4  new.cpp.o(.text._ZdlPvj)
-    __cxa_pure_virtual                       0x080067e1   Thumb Code     8  cxa_virtual.cpp.o(.text.__cxa_pure_virtual)
-    abort_message                            0x08006809   Thumb Code     4  abort_message.cpp.o(.text.abort_message)
-    main                                     0x0800680d   Thumb Code    82  main.o(.text.main)
-    osDelay                                  0x08006861   Thumb Code    32  cmsis_os2.o(.text.osDelay)
-    osKernelInitialize                       0x08006881   Thumb Code    40  cmsis_os2.o(.text.osKernelInitialize)
-    osKernelStart                            0x080068a9   Thumb Code    60  cmsis_os2.o(.text.osKernelStart)
-    osThreadNew                              0x080068e5   Thumb Code   156  cmsis_os2.o(.text.osThreadNew)
-    pshoot_setup                             0x08007225   Thumb Code   124  push_shoot.o(.text.pshoot_setup)
-    pvPortMalloc                             0x080072a1   Thumb Code   500  heap_4.o(.text.pvPortMalloc)
-    pxPortInitialiseStack                    0x08007495   Thumb Code    36  port.o(.text.pxPortInitialiseStack)
-    uxListRemove                             0x080074b9   Thumb Code    36  list.o(.text.uxListRemove)
-    vApplicationGetIdleTaskMemory            0x080074dd   Thumb Code    26  cmsis_os2.o(.text.vApplicationGetIdleTaskMemory)
-    vApplicationGetTimerTaskMemory           0x080074f9   Thumb Code    28  cmsis_os2.o(.text.vApplicationGetTimerTaskMemory)
-    vListInitialise                          0x08007515   Thumb Code    22  list.o(.text.vListInitialise)
-    vListInitialiseItem                      0x0800752d   Thumb Code     6  list.o(.text.vListInitialiseItem)
-    vListInsert                              0x08007535   Thumb Code    98  list.o(.text.vListInsert)
-    vListInsertEnd                           0x08007599   Thumb Code    28  list.o(.text.vListInsertEnd)
-    vPortEnterCritical                       0x080075c9   Thumb Code    70  port.o(.text.vPortEnterCritical)
-    vPortExitCritical                        0x08007611   Thumb Code    46  port.o(.text.vPortExitCritical)
-    vPortFree                                0x08007641   Thumb Code   212  heap_4.o(.text.vPortFree)
-    vPortSetupTimerInterrupt                 0x08007715   Thumb Code    52  port.o(.text.vPortSetupTimerInterrupt)
-    vQueueAddToRegistry                      0x08007749   Thumb Code   176  queue.o(.text.vQueueAddToRegistry)
-    vQueueWaitForMessageRestricted           0x080077f9   Thumb Code    82  queue.o(.text.vQueueWaitForMessageRestricted)
-    vTaskDelay                               0x0800784d   Thumb Code   128  tasks.o(.text.vTaskDelay)
-    vTaskInternalSetTimeOutState             0x080078cd   Thumb Code    18  tasks.o(.text.vTaskInternalSetTimeOutState)
-    vTaskMissedYield                         0x080078e1   Thumb Code    14  tasks.o(.text.vTaskMissedYield)
-    vTaskPlaceOnEventList                    0x080078f1   Thumb Code   116  tasks.o(.text.vTaskPlaceOnEventList)
-    vTaskPlaceOnEventListRestricted          0x08007965   Thumb Code   122  tasks.o(.text.vTaskPlaceOnEventListRestricted)
-    vTaskStartScheduler                      0x080079e1   Thumb Code   232  tasks.o(.text.vTaskStartScheduler)
-    vTaskSuspendAll                          0x08007ad1   Thumb Code    16  tasks.o(.text.vTaskSuspendAll)
-    vTaskSwitchContext                       0x08007ae1   Thumb Code   188  tasks.o(.text.vTaskSwitchContext)
-    xPortStartScheduler                      0x08007b9d   Thumb Code   392  port.o(.text.xPortStartScheduler)
-    xPortSysTickHandler                      0x08007d25   Thumb Code    46  port.o(.text.xPortSysTickHandler)
-    xQueueGenericCreateStatic                0x08007d55   Thumb Code   222  queue.o(.text.xQueueGenericCreateStatic)
-    xQueueGenericSend                        0x08007e35   Thumb Code   700  queue.o(.text.xQueueGenericSend)
-    xQueueReceive                            0x080080f1   Thumb Code   574  queue.o(.text.xQueueReceive)
-    xTaskCheckForTimeOut                     0x08008331   Thumb Code   150  tasks.o(.text.xTaskCheckForTimeOut)
-    xTaskCreate                              0x080083c9   Thumb Code    96  tasks.o(.text.xTaskCreate)
-    xTaskCreateStatic                        0x08008429   Thumb Code   118  tasks.o(.text.xTaskCreateStatic)
-    xTaskGetSchedulerState                   0x080084a1   Thumb Code    30  tasks.o(.text.xTaskGetSchedulerState)
-    xTaskGetTickCount                        0x080084c1   Thumb Code    12  tasks.o(.text.xTaskGetTickCount)
-    xTaskIncrementTick                       0x080084cd   Thumb Code   260  tasks.o(.text.xTaskIncrementTick)
-    xTaskPriorityDisinherit                  0x080085d1   Thumb Code   138  tasks.o(.text.xTaskPriorityDisinherit)
-    xTaskRemoveFromEventList                 0x0800865d   Thumb Code   114  tasks.o(.text.xTaskRemoveFromEventList)
-    xTaskResumeAll                           0x080086d1   Thumb Code   238  tasks.o(.text.xTaskResumeAll)
-    xTimerCreateTimerTask                    0x080087c1   Thumb Code   172  timers.o(.text.xTimerCreateTimerTask)
-    __hardfp_fmodf                           0x08008875   Thumb Code   176  fmodf.o(i.__hardfp_fmodf)
-    __mathlib_flt_invalid                    0x08008925   Thumb Code    10  funder.o(i.__mathlib_flt_invalid)
-    __fpl_fnaninf                            0x08008935   Thumb Code   140  fnaninf.o(x$fpl$fnaninf)
-    _fp_init                                 0x080089c1   Thumb Code    26  fpinit.o(x$fpl$fpinit)
-    __fplib_config_fpu_vfp                   0x080089d9   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    __fplib_config_pureend_doubles           0x080089d9   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    _frem                                    0x080089dd   Thumb Code   240  frem_clz.o(x$fpl$frem)
-    AHBPrescTable                            0x08008ad0   Data          16  system_stm32f4xx.o(.rodata.AHBPrescTable)
-    __I$use$fp                               0x08008ad0   Number         0  usenofp.o(x$fpl$usenofp)
-    APBPrescTable                            0x08008ae0   Data           8  system_stm32f4xx.o(.rodata.APBPrescTable)
-    vtable for CanManager                    0x08008ce8   Data          20  can_device.o(.rodata._ZTV10CanManager)
-    vtable for shoot_xbox                    0x08008cfc   Data          52  shoot_xbox.o(.rodata._ZTV10shoot_xbox)
-    vtable for RC9Protocol                   0x08008d30   Data          44  rc9protocol.o(.rodata._ZTV11RC9Protocol)
-    vtable for power_motor                   0x08008d5c   Data          28  m3508.o(.rodata._ZTV11power_motor)
-    vtable for SerialDevice                  0x08008d78   Data          12  serial_device.o(.rodata._ZTV12SerialDevice)
-    vtable for demo                          0x08008d84   Data          44  push_shoot.o(.rodata._ZTV4demo)
-    vtable for vesc                          0x08008db0   Data          88  vesc.o(.rodata._ZTV4vesc)
-    vtable for xbox                          0x08008e08   Data          28  xbox.o(.rodata._ZTV4xbox)
-    vtable for m3508p                        0x08008e24   Data          56  m3508.o(.rodata._ZTV6m3508p)
-    vtable for m6020s                        0x08008e5c   Data          64  m6020.o(.rodata._ZTV6m6020s)
-    vtable for CanDevice                     0x08008e9c   Data          20  can_device.o(.rodata._ZTV9CanDevice)
-    Region$$Table$$Base                      0x08008ec0   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08008ee0   Number         0  anon$$obj.o(Region$$Table)
-    SHT$$INIT_ARRAY$$Base                    0x08008ee0   Number         0  taskmanager.o(.init_array)
-    SHT$$INIT_ARRAY$$Limit                   0x08008ee8   Number         0  init_aeabi.o(.init_array)
+    shoot_xbox::shoot_xbox(power_motor*, power_motor*, power_motor*, chassis*) 0x08004b69   Thumb Code   160  shoot_xbox.o(.text._ZN10shoot_xboxC2EP11power_motorS1_S1_P7chassis)
+    shoot_xbox::shoot_xbox__sub_object(power_motor*, power_motor*, power_motor*, chassis*) 0x08004b69   Thumb Code   160  shoot_xbox.o(.text._ZN10shoot_xboxC2EP11power_motorS1_S1_P7chassis)
+    shoot_xbox::~shoot_xbox__deallocating()  0x08004c0d   Thumb Code     8  shoot_xbox.o(.text._ZN10shoot_xboxD0Ev)
+    shoot_xbox::~shoot_xbox__sub_object()    0x08004c15   Thumb Code     2  shoot_xbox.o(.text._ZN10shoot_xboxD2Ev)
+    RC9Protocol::process_data()              0x08004c19   Thumb Code   166  rc9protocol.o(.text._ZN11RC9Protocol12process_dataEv)
+    RC9Protocol::addsubscriber(RC9Protocol_subscriber*) 0x08004cc1   Thumb Code    34  rc9protocol.o(.text._ZN11RC9Protocol13addsubscriberEP22RC9Protocol_subscriber)
+    RC9Protocol::handleReceiveData(unsigned char) 0x08004ce5   Thumb Code   584  rc9protocol.o(.text._ZN11RC9Protocol17handleReceiveDataEh)
+    RC9Protocol::RC9Protocol(__UART_HandleTypeDef*, bool) 0x08004f2d   Thumb Code   118  rc9protocol.o(.text._ZN11RC9ProtocolC2EP20__UART_HandleTypeDefb)
+    RC9Protocol::RC9Protocol__sub_object(__UART_HandleTypeDef*, bool) 0x08004f2d   Thumb Code   118  rc9protocol.o(.text._ZN11RC9ProtocolC2EP20__UART_HandleTypeDefb)
+    RC9Protocol::~RC9Protocol__deallocating() 0x08004fa5   Thumb Code     8  rc9protocol.o(.text._ZN11RC9ProtocolD0Ev)
+    RC9Protocol::~RC9Protocol__sub_object()  0x08004fad   Thumb Code     2  rc9protocol.o(.text._ZN11RC9ProtocolD2Ev)
+    TaskManager::TaskFunction(void*)         0x08004fb1   Thumb Code    68  taskmanager.o(.text._ZN11TaskManager12TaskFunctionEPv)
+    TaskManager::registerTask(int, ITaskProcessor*) 0x08004ff5   Thumb Code   110  taskmanager.o(.text._ZN11TaskManager12registerTaskEiP14ITaskProcessor)
+    TaskManager::TaskManager()               0x08005065   Thumb Code   122  taskmanager.o(.text._ZN11TaskManagerC2Ev)
+    TaskManager::TaskManager__sub_object()   0x08005065   Thumb Code   122  taskmanager.o(.text._ZN11TaskManagerC2Ev)
+    power_motor::set_rpm_ff(float, float)    0x080050e1   Thumb Code     2  m3508.o(.text._ZN11power_motor10set_rpm_ffEff)
+    power_motor::get_pos()                   0x080050e5   Thumb Code     0  m3508.o(.text._ZN11power_motor7get_posEv)
+    power_motor::set_pos(float)              0x080050e5   Thumb Code     2  m3508.o(.text._ZN11power_motor7set_posEf)
+    SerialDevice::startUartReceiveIT()       0x080050e9   Thumb Code    14  serial_device.o(.text._ZN12SerialDevice18startUartReceiveITEv)
+    SerialDevice::SerialDevice__sub_object(__UART_HandleTypeDef*) 0x080050f9   Thumb Code    50  serial_device.o(.text._ZN12SerialDeviceC2EP20__UART_HandleTypeDef)
+    ITaskProcessor::~ITaskProcessor__sub_object() 0x0800512d   Thumb Code     2  chassis.o(.text._ZN14ITaskProcessorD2Ev)
+    RC9Protocol_subscriber::~RC9Protocol_subscriber__sub_object() 0x08005131   Thumb Code     2  xbox.o(.text._ZN22RC9Protocol_subscriberD2Ev)
+    pid::PID_ComputeError(float)             0x08005135   Thumb Code   228  pid.o(.text._ZN3pid16PID_ComputeErrorEf)
+    pid::pid(float, float, float, float, float, float, float) 0x0800521d   Thumb Code    40  pid.o(.text._ZN3pidC2Efffffff)
+    pid::pid__sub_object(float, float, float, float, float, float, float) 0x0800521d   Thumb Code    40  pid.o(.text._ZN3pidC2Efffffff)
+    demo::process_data()                     0x08005245   Thumb Code     2  push_shoot.o(.text._ZN4demo12process_dataEv)
+    demo::msgin(unsigned char, void const*)  0x08005249   Thumb Code    24  push_shoot.o(.text._ZN4demo5msginEhPKv)
+    demo::msgout(unsigned char, void*)       0x08005261   Thumb Code     4  push_shoot.o(.text._ZN4demo6msgoutEhPv)
+    demo::~demo__deallocating()              0x08005265   Thumb Code     6  push_shoot.o(.text._ZN4demoD0Ev)
+    vesc::can_update(unsigned char*)         0x0800526d   Thumb Code    60  vesc.o(.text._ZN4vesc10can_updateEPh)
+    vesc::process_data()                     0x080052ad   Thumb Code    92  vesc.o(.text._ZN4vesc12process_dataEv)
+    vesc::get_rpm()                          0x08005309   Thumb Code     6  vesc.o(.text._ZN4vesc7get_rpmEv)
+    vesc::set_rpm(float)                     0x08005311   Thumb Code    38  vesc.o(.text._ZN4vesc7set_rpmEf)
+    vesc::vesc(unsigned char, CAN_HandleTypeDef*, unsigned char, float, float, float, float, float) 0x08005339   Thumb Code   160  vesc.o(.text._ZN4vescC2EhP17CAN_HandleTypeDefhfffff)
+    vesc::vesc__sub_object(unsigned char, CAN_HandleTypeDef*, unsigned char, float, float, float, float, float) 0x08005339   Thumb Code   160  vesc.o(.text._ZN4vescC2EhP17CAN_HandleTypeDefhfffff)
+    vesc::~vesc__deallocating()              0x080053e5   Thumb Code     6  vesc.o(.text._ZN4vescD0Ev)
+    vesc::~vesc__sub_object()                0x080053ed   Thumb Code     2  vesc.o(.text._ZN4vescD2Ev)
+    xbox::handleButton(xbox::ButtonConfig&)  0x080053f1   Thumb Code   174  xbox.o(.text._ZN4xbox12handleButtonERNS_12ButtonConfigE)
+    xbox::btnRB_callback()                   0x080054a1   Thumb Code     2  xbox.o(.text._ZN4xbox14btnRB_callbackEv)
+    xbox::joymap_compute()                   0x080054a5   Thumb Code   276  xbox.o(.text._ZN4xbox14joymap_computeEv)
+    xbox::btnXBOX_callback()                 0x080055c9   Thumb Code     2  xbox.o(.text._ZN4xbox16btnXBOX_callbackEv)
+    xbox::update(unsigned char, unsigned char, unsigned char const*, float const*) 0x080055cd   Thumb Code   244  xbox.o(.text._ZN4xbox6updateEhhPKhPKf)
+    xbox::xbox(action*, chassis*, float, float, float) 0x080056c1   Thumb Code    40  xbox.o(.text._ZN4xboxC2EP6actionP7chassisfff)
+    xbox::xbox__sub_object(action*, chassis*, float, float, float) 0x080056c1   Thumb Code    40  xbox.o(.text._ZN4xboxC2EP6actionP7chassisfff)
+    xbox::~xbox__deallocating()              0x080056e9   Thumb Code     8  xbox.o(.text._ZN4xboxD0Ev)
+    m3508p::can_update(unsigned char*)       0x080056f1   Thumb Code   200  m3508.o(.text._ZN6m3508p10can_updateEPh)
+    m3508p::motor_process()                  0x080057c5   Thumb Code    74  m3508.o(.text._ZN6m3508p13motor_processEv)
+    m3508p::get_rpm()                        0x08005811   Thumb Code    22  m3508.o(.text._ZN6m3508p7get_rpmEv)
+    m3508p::set_rpm(float)                   0x08005829   Thumb Code     6  m3508.o(.text._ZN6m3508p7set_rpmEf)
+    m3508p::m3508p(unsigned char, CAN_HandleTypeDef*, motor_mode, float, float, float, float, float) 0x08005831   Thumb Code   160  m3508.o(.text._ZN6m3508pC2EhP17CAN_HandleTypeDef10motor_modefffff)
+    m3508p::m3508p__sub_object(unsigned char, CAN_HandleTypeDef*, motor_mode, float, float, float, float, float) 0x08005831   Thumb Code   160  m3508.o(.text._ZN6m3508pC2EhP17CAN_HandleTypeDef10motor_modefffff)
+    m6020s::can_update(unsigned char*)       0x080058d5   Thumb Code    48  m6020.o(.text._ZN6m6020s10can_updateEPh)
+    m6020s::motor_process()                  0x08005905   Thumb Code   332  m6020.o(.text._ZN6m6020s13motor_processEv)
+    m6020s::get_pos()                        0x08005a61   Thumb Code     6  m6020.o(.text._ZN6m6020s7get_posEv)
+    m6020s::get_rpm()                        0x08005a69   Thumb Code    14  m6020.o(.text._ZN6m6020s7get_rpmEv)
+    m6020s::set_pos(float)                   0x08005a79   Thumb Code     6  m6020.o(.text._ZN6m6020s7set_posEf)
+    m6020s::set_rpm(float)                   0x08005a81   Thumb Code     2  m6020.o(.text._ZN6m6020s7set_rpmEf)
+    m6020s::m6020s(unsigned char, CAN_HandleTypeDef*, bool, float, float, float, float, float, float, float) 0x08005a85   Thumb Code   188  m6020.o(.text._ZN6m6020sC2EhP17CAN_HandleTypeDefbfffffff)
+    m6020s::m6020s__sub_object(unsigned char, CAN_HandleTypeDef*, bool, float, float, float, float, float, float, float) 0x08005a85   Thumb Code   188  m6020.o(.text._ZN6m6020sC2EhP17CAN_HandleTypeDefbfffffff)
+    IncrePID::increPID_Compute(float)        0x08005b59   Thumb Code   348  superpid.o(.text._ZN8IncrePID16increPID_ComputeEf)
+    IncrePID::increPID_setarget(float)       0x08005cbd   Thumb Code     6  superpid.o(.text._ZN8IncrePID17increPID_setargetEf)
+    IncrePID::IncrePID(float, float, float, float, float, float) 0x08005cc5   Thumb Code    80  superpid.o(.text._ZN8IncrePIDC2Effffff)
+    IncrePID::IncrePID__sub_object(float, float, float, float, float, float) 0x08005cc5   Thumb Code    80  superpid.o(.text._ZN8IncrePIDC2Effffff)
+    CanDevice::EXT_update(unsigned int, unsigned char*) 0x08005d15   Thumb Code     2  can_device.o(.text._ZN9CanDevice10EXT_updateEjPh)
+    CanDevice::motor_process()               0x08005d19   Thumb Code     4  can_device.o(.text._ZN9CanDevice13motor_processEv)
+    CanDevice::CAN_Send(unsigned int, unsigned char, unsigned char*) 0x08005d1d   Thumb Code    48  can_device.o(.text._ZN9CanDevice8CAN_SendEjhPh)
+    CanDevice::CanDevice__sub_object(CanDeviceType, CAN_HandleTypeDef*, unsigned char) 0x08005d4d   Thumb Code  2096  can_device.o(.text._ZN9CanDeviceC2E13CanDeviceTypeP17CAN_HandleTypeDefh)
+    dji_motor::vangle_to_rangle(unsigned int) 0x0800657d   Thumb Code    32  motor.o(.text._ZN9dji_motor16vangle_to_rangleEj)
+    dji_motor::rcurrent_to_vcurrent(float)   0x080065a1   Thumb Code    34  motor.o(.text._ZN9dji_motor20rcurrent_to_vcurrentEf)
+    dji_motor::vcurrent_to_rcurrent(short)   0x080065c5   Thumb Code    34  motor.o(.text._ZN9dji_motor20vcurrent_to_rcurrentEs)
+    dji_motor::dji_motor(float, short, unsigned short) 0x080065e9   Thumb Code    20  motor.o(.text._ZN9dji_motorC2Efst)
+    dji_motor::dji_motor__sub_object(float, short, unsigned short) 0x080065e9   Thumb Code    20  motor.o(.text._ZN9dji_motorC2Efst)
+    non-virtual thunk to RC9Protocol::process_data() 0x080065fd   Thumb Code   170  rc9protocol.o(.text._ZThn12_N11RC9Protocol12process_dataEv)
+    non-virtual thunk to RC9Protocol::~RC9Protocol__deallocating() 0x080066a9   Thumb Code    10  rc9protocol.o(.text._ZThn12_N11RC9ProtocolD0Ev)
+    non-virtual thunk to RC9Protocol::~RC9Protocol() 0x080066b5   Thumb Code     2  rc9protocol.o(.text._ZThn12_N11RC9ProtocolD1Ev)
+    non-virtual thunk to vesc::process_data() 0x080066b9   Thumb Code   102  vesc.o(.text._ZThn12_N4vesc12process_dataEv)
+    non-virtual thunk to vesc::~vesc__deallocating() 0x08006721   Thumb Code     8  vesc.o(.text._ZThn12_N4vescD0Ev)
+    non-virtual thunk to vesc::~vesc()       0x08006729   Thumb Code     2  vesc.o(.text._ZThn12_N4vescD1Ev)
+    non-virtual thunk to m3508p::get_rpm()   0x0800672d   Thumb Code    22  m3508.o(.text._ZThn12_N6m3508p7get_rpmEv)
+    non-virtual thunk to m3508p::set_rpm(float) 0x08006745   Thumb Code     6  m3508.o(.text._ZThn12_N6m3508p7set_rpmEf)
+    non-virtual thunk to demo::msgin(unsigned char, void const*) 0x0800674d   Thumb Code    24  push_shoot.o(.text._ZThn20_N4demo5msginEhPKv)
+    non-virtual thunk to demo::msgout(unsigned char, void*) 0x08006765   Thumb Code     4  push_shoot.o(.text._ZThn20_N4demo6msgoutEhPv)
+    non-virtual thunk to vesc::get_rpm()     0x08006769   Thumb Code     6  vesc.o(.text._ZThn32_N4vesc7get_rpmEv)
+    non-virtual thunk to vesc::set_rpm(float) 0x08006771   Thumb Code    36  vesc.o(.text._ZThn32_N4vesc7set_rpmEf)
+    non-virtual thunk to m6020s::get_pos()   0x08006795   Thumb Code     6  m6020.o(.text._ZThn36_N6m6020s7get_posEv)
+    non-virtual thunk to m6020s::get_rpm()   0x0800679d   Thumb Code    14  m6020.o(.text._ZThn36_N6m6020s7get_rpmEv)
+    non-virtual thunk to m6020s::set_pos(float) 0x080067ad   Thumb Code     6  m6020.o(.text._ZThn36_N6m6020s7set_posEf)
+    non-virtual thunk to m6020s::set_rpm(float) 0x080067b5   Thumb Code     2  m6020.o(.text._ZThn36_N6m6020s7set_rpmEf)
+    non-virtual thunk to shoot_xbox::process_data() 0x080067b9   Thumb Code     8  shoot_xbox.o(.text._ZThn548_N10shoot_xbox12process_dataEv)
+    non-virtual thunk to shoot_xbox::~shoot_xbox__deallocating() 0x080067c1   Thumb Code    12  shoot_xbox.o(.text._ZThn548_N10shoot_xboxD0Ev)
+    non-virtual thunk to shoot_xbox::~shoot_xbox() 0x080067cd   Thumb Code     2  shoot_xbox.o(.text._ZThn548_N10shoot_xboxD1Ev)
+    operator delete(void*)                   0x080067cf   Thumb Code     4  new.cpp.o(.text._ZdlPv)
+    operator delete(void*, unsigned int)     0x080067d3   Thumb Code     4  new.cpp.o(.text._ZdlPvj)
+    __cxa_pure_virtual                       0x080067d9   Thumb Code     8  cxa_virtual.cpp.o(.text.__cxa_pure_virtual)
+    abort_message                            0x08006801   Thumb Code     4  abort_message.cpp.o(.text.abort_message)
+    main                                     0x08006805   Thumb Code    82  main.o(.text.main)
+    osDelay                                  0x08006859   Thumb Code    32  cmsis_os2.o(.text.osDelay)
+    osKernelInitialize                       0x08006879   Thumb Code    40  cmsis_os2.o(.text.osKernelInitialize)
+    osKernelStart                            0x080068a1   Thumb Code    60  cmsis_os2.o(.text.osKernelStart)
+    osThreadNew                              0x080068dd   Thumb Code   156  cmsis_os2.o(.text.osThreadNew)
+    pshoot_setup                             0x0800721d   Thumb Code   124  push_shoot.o(.text.pshoot_setup)
+    pvPortMalloc                             0x08007299   Thumb Code   500  heap_4.o(.text.pvPortMalloc)
+    pxPortInitialiseStack                    0x0800748d   Thumb Code    36  port.o(.text.pxPortInitialiseStack)
+    uxListRemove                             0x080074b1   Thumb Code    36  list.o(.text.uxListRemove)
+    vApplicationGetIdleTaskMemory            0x080074d5   Thumb Code    26  cmsis_os2.o(.text.vApplicationGetIdleTaskMemory)
+    vApplicationGetTimerTaskMemory           0x080074f1   Thumb Code    28  cmsis_os2.o(.text.vApplicationGetTimerTaskMemory)
+    vListInitialise                          0x0800750d   Thumb Code    22  list.o(.text.vListInitialise)
+    vListInitialiseItem                      0x08007525   Thumb Code     6  list.o(.text.vListInitialiseItem)
+    vListInsert                              0x0800752d   Thumb Code    98  list.o(.text.vListInsert)
+    vListInsertEnd                           0x08007591   Thumb Code    28  list.o(.text.vListInsertEnd)
+    vPortEnterCritical                       0x080075c1   Thumb Code    70  port.o(.text.vPortEnterCritical)
+    vPortExitCritical                        0x08007609   Thumb Code    46  port.o(.text.vPortExitCritical)
+    vPortFree                                0x08007639   Thumb Code   212  heap_4.o(.text.vPortFree)
+    vPortSetupTimerInterrupt                 0x0800770d   Thumb Code    52  port.o(.text.vPortSetupTimerInterrupt)
+    vQueueAddToRegistry                      0x08007741   Thumb Code   176  queue.o(.text.vQueueAddToRegistry)
+    vQueueWaitForMessageRestricted           0x080077f1   Thumb Code    82  queue.o(.text.vQueueWaitForMessageRestricted)
+    vTaskDelay                               0x08007845   Thumb Code   128  tasks.o(.text.vTaskDelay)
+    vTaskInternalSetTimeOutState             0x080078c5   Thumb Code    18  tasks.o(.text.vTaskInternalSetTimeOutState)
+    vTaskMissedYield                         0x080078d9   Thumb Code    14  tasks.o(.text.vTaskMissedYield)
+    vTaskPlaceOnEventList                    0x080078e9   Thumb Code   116  tasks.o(.text.vTaskPlaceOnEventList)
+    vTaskPlaceOnEventListRestricted          0x0800795d   Thumb Code   122  tasks.o(.text.vTaskPlaceOnEventListRestricted)
+    vTaskStartScheduler                      0x080079d9   Thumb Code   232  tasks.o(.text.vTaskStartScheduler)
+    vTaskSuspendAll                          0x08007ac9   Thumb Code    16  tasks.o(.text.vTaskSuspendAll)
+    vTaskSwitchContext                       0x08007ad9   Thumb Code   188  tasks.o(.text.vTaskSwitchContext)
+    xPortStartScheduler                      0x08007b95   Thumb Code   392  port.o(.text.xPortStartScheduler)
+    xPortSysTickHandler                      0x08007d1d   Thumb Code    46  port.o(.text.xPortSysTickHandler)
+    xQueueGenericCreateStatic                0x08007d4d   Thumb Code   222  queue.o(.text.xQueueGenericCreateStatic)
+    xQueueGenericSend                        0x08007e2d   Thumb Code   700  queue.o(.text.xQueueGenericSend)
+    xQueueReceive                            0x080080e9   Thumb Code   574  queue.o(.text.xQueueReceive)
+    xTaskCheckForTimeOut                     0x08008329   Thumb Code   150  tasks.o(.text.xTaskCheckForTimeOut)
+    xTaskCreate                              0x080083c1   Thumb Code    96  tasks.o(.text.xTaskCreate)
+    xTaskCreateStatic                        0x08008421   Thumb Code   118  tasks.o(.text.xTaskCreateStatic)
+    xTaskGetSchedulerState                   0x08008499   Thumb Code    30  tasks.o(.text.xTaskGetSchedulerState)
+    xTaskGetTickCount                        0x080084b9   Thumb Code    12  tasks.o(.text.xTaskGetTickCount)
+    xTaskIncrementTick                       0x080084c5   Thumb Code   260  tasks.o(.text.xTaskIncrementTick)
+    xTaskPriorityDisinherit                  0x080085c9   Thumb Code   138  tasks.o(.text.xTaskPriorityDisinherit)
+    xTaskRemoveFromEventList                 0x08008655   Thumb Code   114  tasks.o(.text.xTaskRemoveFromEventList)
+    xTaskResumeAll                           0x080086c9   Thumb Code   238  tasks.o(.text.xTaskResumeAll)
+    xTimerCreateTimerTask                    0x080087b9   Thumb Code   172  timers.o(.text.xTimerCreateTimerTask)
+    __hardfp_fmodf                           0x0800886d   Thumb Code   176  fmodf.o(i.__hardfp_fmodf)
+    __mathlib_flt_invalid                    0x0800891d   Thumb Code    10  funder.o(i.__mathlib_flt_invalid)
+    __fpl_fnaninf                            0x0800892d   Thumb Code   140  fnaninf.o(x$fpl$fnaninf)
+    _fp_init                                 0x080089b9   Thumb Code    26  fpinit.o(x$fpl$fpinit)
+    __fplib_config_fpu_vfp                   0x080089d1   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    __fplib_config_pureend_doubles           0x080089d1   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    _frem                                    0x080089d5   Thumb Code   240  frem_clz.o(x$fpl$frem)
+    AHBPrescTable                            0x08008ac8   Data          16  system_stm32f4xx.o(.rodata.AHBPrescTable)
+    __I$use$fp                               0x08008ac8   Number         0  usenofp.o(x$fpl$usenofp)
+    APBPrescTable                            0x08008ad8   Data           8  system_stm32f4xx.o(.rodata.APBPrescTable)
+    vtable for CanManager                    0x08008ce0   Data          20  can_device.o(.rodata._ZTV10CanManager)
+    vtable for shoot_xbox                    0x08008cf4   Data          52  shoot_xbox.o(.rodata._ZTV10shoot_xbox)
+    vtable for RC9Protocol                   0x08008d28   Data          44  rc9protocol.o(.rodata._ZTV11RC9Protocol)
+    vtable for power_motor                   0x08008d54   Data          28  m3508.o(.rodata._ZTV11power_motor)
+    vtable for SerialDevice                  0x08008d70   Data          12  serial_device.o(.rodata._ZTV12SerialDevice)
+    vtable for demo                          0x08008d7c   Data          44  push_shoot.o(.rodata._ZTV4demo)
+    vtable for vesc                          0x08008da8   Data          88  vesc.o(.rodata._ZTV4vesc)
+    vtable for xbox                          0x08008e00   Data          28  xbox.o(.rodata._ZTV4xbox)
+    vtable for m3508p                        0x08008e1c   Data          56  m3508.o(.rodata._ZTV6m3508p)
+    vtable for m6020s                        0x08008e54   Data          64  m6020.o(.rodata._ZTV6m6020s)
+    vtable for CanDevice                     0x08008e94   Data          20  can_device.o(.rodata._ZTV9CanDevice)
+    Region$$Table$$Base                      0x08008eb8   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08008ed8   Number         0  anon$$obj.o(Region$$Table)
+    SHT$$INIT_ARRAY$$Base                    0x08008ed8   Number         0  taskmanager.o(.init_array)
+    SHT$$INIT_ARRAY$$Limit                   0x08008ee0   Number         0  init_aeabi.o(.init_array)
     uwTickFreq                               0x20000000   Data           1  stm32f4xx_hal.o(.data..L_MergedGlobals)
     uwTickPrio                               0x20000004   Data           4  stm32f4xx_hal.o(.data..L_MergedGlobals)
     SystemCoreClock                          0x20000008   Data           4  system_stm32f4xx.o(.data.SystemCoreClock)
@@ -5736,91 +5751,91 @@ Memory Map of the image
 
   Image Entry point : 0x08000189
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00008ef8, Max: 0x00100000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00008ef0, Max: 0x00100000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00008ee8, Max: 0x00100000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00008ee0, Max: 0x00100000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x08000000   0x08000000   0x00000188   Data   RO            3    RESET               startup_stm32f407xx.o
-    0x08000188   0x08000188   0x00000008   Code   RO         2480  * !!!main             c_w.l(__main.o)
-    0x08000190   0x08000190   0x0000005c   Code   RO         2926    !!!scatter          c_w.l(__scatter.o)
-    0x080001ec   0x080001ec   0x0000001a   Code   RO         2930    !!handler_copy      c_w.l(__scatter_copy.o)
+    0x08000188   0x08000188   0x00000008   Code   RO         2486  * !!!main             c_w.l(__main.o)
+    0x08000190   0x08000190   0x0000005c   Code   RO         2932    !!!scatter          c_w.l(__scatter.o)
+    0x080001ec   0x080001ec   0x0000001a   Code   RO         2936    !!handler_copy      c_w.l(__scatter_copy.o)
     0x08000206   0x08000206   0x00000002   PAD
-    0x08000208   0x08000208   0x00000002   Code   RO         2927    !!handler_null      c_w.l(__scatter.o)
+    0x08000208   0x08000208   0x00000002   Code   RO         2933    !!handler_null      c_w.l(__scatter.o)
     0x0800020a   0x0800020a   0x00000002   PAD
-    0x0800020c   0x0800020c   0x0000001c   Code   RO         2932    !!handler_zi        c_w.l(__scatter_zi.o)
-    0x08000228   0x08000228   0x00000002   Code   RO         2855    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
-    0x0800022a   0x0800022a   0x00000004   Code   RO         2641    .ARM.Collect$$libinit$$00000001  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2644    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2646    .ARM.Collect$$libinit$$00000006  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2649    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2651    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2653    .ARM.Collect$$libinit$$00000010  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2656    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2658    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2660    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2662    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2664    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2666    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2668    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2670    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2672    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2674    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2676    .ARM.Collect$$libinit$$00000027  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2680    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2682    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000000   Code   RO         2684    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
-    0x0800022e   0x0800022e   0x00000004   Code   RO         2685    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
-    0x08000232   0x08000232   0x00000000   Code   RO         2686    .ARM.Collect$$libinit$$00000034  c_w.l(libinit2.o)
-    0x08000232   0x08000232   0x00000002   Code   RO         2687    .ARM.Collect$$libinit$$00000035  c_w.l(libinit2.o)
-    0x08000234   0x08000234   0x00000002   Code   RO         2912    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
-    0x08000236   0x08000236   0x00000000   Code   RO         2889    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
-    0x08000236   0x08000236   0x00000000   Code   RO         2891    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
-    0x08000236   0x08000236   0x00000000   Code   RO         2894    .ARM.Collect$$libshutdown$$00000007  c_w.l(libshutdown2.o)
-    0x08000236   0x08000236   0x00000000   Code   RO         2897    .ARM.Collect$$libshutdown$$0000000A  c_w.l(libshutdown2.o)
-    0x08000236   0x08000236   0x00000000   Code   RO         2899    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
-    0x08000236   0x08000236   0x00000000   Code   RO         2902    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
-    0x08000236   0x08000236   0x00000002   Code   RO         2903    .ARM.Collect$$libshutdown$$00000010  c_w.l(libshutdown2.o)
-    0x08000238   0x08000238   0x00000000   Code   RO         2566    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
-    0x08000238   0x08000238   0x00000000   Code   RO         2745    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
-    0x08000238   0x08000238   0x00000006   Code   RO         2757    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
-    0x0800023e   0x0800023e   0x00000000   Code   RO         2747    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
-    0x0800023e   0x0800023e   0x00000004   Code   RO         2748    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
-    0x08000242   0x08000242   0x00000000   Code   RO         2750    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
-    0x08000242   0x08000242   0x00000008   Code   RO         2751    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
-    0x0800024a   0x0800024a   0x00000002   Code   RO         2859    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
-    0x0800024c   0x0800024c   0x00000000   Code   RO         2874    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
-    0x0800024c   0x0800024c   0x00000004   Code   RO         2875    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
-    0x08000250   0x08000250   0x00000006   Code   RO         2876    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
+    0x0800020c   0x0800020c   0x0000001c   Code   RO         2938    !!handler_zi        c_w.l(__scatter_zi.o)
+    0x08000228   0x08000228   0x00000002   Code   RO         2861    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
+    0x0800022a   0x0800022a   0x00000004   Code   RO         2647    .ARM.Collect$$libinit$$00000001  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2650    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2652    .ARM.Collect$$libinit$$00000006  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2655    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2657    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2659    .ARM.Collect$$libinit$$00000010  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2662    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2664    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2666    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2668    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2670    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2672    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2674    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2676    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2678    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2680    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2682    .ARM.Collect$$libinit$$00000027  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2686    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2688    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000000   Code   RO         2690    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
+    0x0800022e   0x0800022e   0x00000004   Code   RO         2691    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
+    0x08000232   0x08000232   0x00000000   Code   RO         2692    .ARM.Collect$$libinit$$00000034  c_w.l(libinit2.o)
+    0x08000232   0x08000232   0x00000002   Code   RO         2693    .ARM.Collect$$libinit$$00000035  c_w.l(libinit2.o)
+    0x08000234   0x08000234   0x00000002   Code   RO         2918    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
+    0x08000236   0x08000236   0x00000000   Code   RO         2895    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
+    0x08000236   0x08000236   0x00000000   Code   RO         2897    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
+    0x08000236   0x08000236   0x00000000   Code   RO         2900    .ARM.Collect$$libshutdown$$00000007  c_w.l(libshutdown2.o)
+    0x08000236   0x08000236   0x00000000   Code   RO         2903    .ARM.Collect$$libshutdown$$0000000A  c_w.l(libshutdown2.o)
+    0x08000236   0x08000236   0x00000000   Code   RO         2905    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
+    0x08000236   0x08000236   0x00000000   Code   RO         2908    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
+    0x08000236   0x08000236   0x00000002   Code   RO         2909    .ARM.Collect$$libshutdown$$00000010  c_w.l(libshutdown2.o)
+    0x08000238   0x08000238   0x00000000   Code   RO         2572    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
+    0x08000238   0x08000238   0x00000000   Code   RO         2751    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
+    0x08000238   0x08000238   0x00000006   Code   RO         2763    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
+    0x0800023e   0x0800023e   0x00000000   Code   RO         2753    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
+    0x0800023e   0x0800023e   0x00000004   Code   RO         2754    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
+    0x08000242   0x08000242   0x00000000   Code   RO         2756    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
+    0x08000242   0x08000242   0x00000008   Code   RO         2757    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
+    0x0800024a   0x0800024a   0x00000002   Code   RO         2865    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
+    0x0800024c   0x0800024c   0x00000000   Code   RO         2880    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
+    0x0800024c   0x0800024c   0x00000004   Code   RO         2881    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
+    0x08000250   0x08000250   0x00000006   Code   RO         2882    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
     0x08000256   0x08000256   0x00000002   PAD
     0x08000258   0x08000258   0x00000040   Code   RO            4    .text               startup_stm32f407xx.o
-    0x08000298   0x08000298   0x000000f0   Code   RO         2466    .text               c_w.l(lludivv7m.o)
-    0x08000388   0x08000388   0x0000008a   Code   RO         2468    .text               c_w.l(rt_memcpy_v6.o)
-    0x08000412   0x08000412   0x00000010   Code   RO         2472    .text               c_w.l(aeabi_memset4.o)
-    0x08000422   0x08000422   0x0000004e   Code   RO         2476    .text               c_w.l(rt_memclr_w.o)
-    0x08000470   0x08000470   0x00000006   Code   RO         2478    .text               c_w.l(heapauxi.o)
+    0x08000298   0x08000298   0x000000f0   Code   RO         2472    .text               c_w.l(lludivv7m.o)
+    0x08000388   0x08000388   0x0000008a   Code   RO         2474    .text               c_w.l(rt_memcpy_v6.o)
+    0x08000412   0x08000412   0x00000010   Code   RO         2478    .text               c_w.l(aeabi_memset4.o)
+    0x08000422   0x08000422   0x0000004e   Code   RO         2482    .text               c_w.l(rt_memclr_w.o)
+    0x08000470   0x08000470   0x00000006   Code   RO         2484    .text               c_w.l(heapauxi.o)
     0x08000476   0x08000476   0x00000002   PAD
-    0x08000478   0x08000478   0x0000002c   Code   RO         2485    .text               c_w.l(init_aeabi.o)
-    0x080004a4   0x080004a4   0x0000004e   Code   RO         2577    .text               c_w.l(h1_free.o)
-    0x080004f2   0x080004f2   0x00000016   Code   RO         2637    .text               c_w.l(_rserrno.o)
-    0x08000508   0x08000508   0x00000064   Code   RO         2639    .text               c_w.l(rt_memcpy_w.o)
-    0x0800056c   0x0800056c   0x00000008   Code   RO         2764    .text               c_w.l(rt_heap_descriptor_intlibspace.o)
-    0x08000574   0x08000574   0x00000008   Code   RO         2769    .text               c_w.l(rt_errno_addr_intlibspace.o)
-    0x0800057c   0x0800057c   0x00000016   Code   RO         2789    .text               c_w.l(abort.o)
+    0x08000478   0x08000478   0x0000002c   Code   RO         2491    .text               c_w.l(init_aeabi.o)
+    0x080004a4   0x080004a4   0x0000004e   Code   RO         2583    .text               c_w.l(h1_free.o)
+    0x080004f2   0x080004f2   0x00000016   Code   RO         2643    .text               c_w.l(_rserrno.o)
+    0x08000508   0x08000508   0x00000064   Code   RO         2645    .text               c_w.l(rt_memcpy_w.o)
+    0x0800056c   0x0800056c   0x00000008   Code   RO         2770    .text               c_w.l(rt_heap_descriptor_intlibspace.o)
+    0x08000574   0x08000574   0x00000008   Code   RO         2775    .text               c_w.l(rt_errno_addr_intlibspace.o)
+    0x0800057c   0x0800057c   0x00000016   Code   RO         2795    .text               c_w.l(abort.o)
     0x08000592   0x08000592   0x00000002   PAD
-    0x08000594   0x08000594   0x0000000c   Code   RO         2810    .text               c_w.l(sys_exit.o)
-    0x080005a0   0x080005a0   0x00000008   Code   RO         2816    .text               c_w.l(libspace.o)
-    0x080005a8   0x080005a8   0x0000004a   Code   RO         2819    .text               c_w.l(sys_stackheap_outer.o)
-    0x080005f2   0x080005f2   0x00000012   Code   RO         2829    .text               c_w.l(exit.o)
-    0x08000604   0x08000604   0x0000000e   Code   RO         2831    .text               c_w.l(defsig_abrt_outer.o)
-    0x08000612   0x08000612   0x00000002   Code   RO         2856    .text               c_w.l(use_no_semi.o)
-    0x08000614   0x08000614   0x00000000   Code   RO         2858    .text               c_w.l(indicate_semi.o)
-    0x08000614   0x08000614   0x0000000a   Code   RO         2865    .text               c_w.l(defsig_exit.o)
+    0x08000594   0x08000594   0x0000000c   Code   RO         2816    .text               c_w.l(sys_exit.o)
+    0x080005a0   0x080005a0   0x00000008   Code   RO         2822    .text               c_w.l(libspace.o)
+    0x080005a8   0x080005a8   0x0000004a   Code   RO         2825    .text               c_w.l(sys_stackheap_outer.o)
+    0x080005f2   0x080005f2   0x00000012   Code   RO         2835    .text               c_w.l(exit.o)
+    0x08000604   0x08000604   0x0000000e   Code   RO         2837    .text               c_w.l(defsig_abrt_outer.o)
+    0x08000612   0x08000612   0x00000002   Code   RO         2862    .text               c_w.l(use_no_semi.o)
+    0x08000614   0x08000614   0x00000000   Code   RO         2864    .text               c_w.l(indicate_semi.o)
+    0x08000614   0x08000614   0x0000000a   Code   RO         2871    .text               c_w.l(defsig_exit.o)
     0x0800061e   0x0800061e   0x00000002   PAD
-    0x08000620   0x08000620   0x00000030   Code   RO         2867    .text               c_w.l(defsig_abrt_inner.o)
-    0x08000650   0x08000650   0x00000032   Code   RO         2886    .text               c_w.l(defsig_general.o)
-    0x08000682   0x08000682   0x0000000e   Code   RO         2904    .text               c_w.l(sys_wrch.o)
+    0x08000620   0x08000620   0x00000030   Code   RO         2873    .text               c_w.l(defsig_abrt_inner.o)
+    0x08000650   0x08000650   0x00000032   Code   RO         2892    .text               c_w.l(defsig_general.o)
+    0x08000682   0x08000682   0x0000000e   Code   RO         2910    .text               c_w.l(sys_wrch.o)
     0x08000690   0x08000690   0x00000002   Code   RO          162    .text.BusFault_Handler  stm32f4xx_it.o
     0x08000692   0x08000692   0x00000002   PAD
     0x08000694   0x08000694   0x0000000c   Code   RO          170    .text.CAN1_RX0_IRQHandler  stm32f4xx_it.o
@@ -6006,7 +6021,7 @@ Memory Map of the image
     0x08004556   0x08004556   0x00000002   PAD
     0x08004558   0x08004558   0x0000003e   Code   RO         1934    .text._GLOBAL__sub_I_TaskManager.cpp  taskmanager.o
     0x08004596   0x08004596   0x00000002   PAD
-    0x08004598   0x08004598   0x000001e4   Code   RO         2405    .text._GLOBAL__sub_I_push_shoot.cpp  push_shoot.o
+    0x08004598   0x08004598   0x000001e4   Code   RO         2411    .text._GLOBAL__sub_I_push_shoot.cpp  push_shoot.o
     0x0800477c   0x0800477c   0x00000158   Code   RO         1847    .text._ZN10CanManager12process_dataEv  can_device.o
     0x080048d4   0x080048d4   0x0000007a   Code   RO         1839    .text._ZN10CanManager16CAN1_Filter_InitEv  can_device.o
     0x0800494e   0x0800494e   0x00000002   PAD
@@ -6017,252 +6032,252 @@ Memory Map of the image
     0x080049f8   0x080049f8   0x0000004c   Code   RO         1845    .text._ZN10CanManagerC2Ev  can_device.o
     0x08004a44   0x08004a44   0x00000006   Code   RO         1873    .text._ZN10CanManagerD0Ev  can_device.o
     0x08004a4a   0x08004a4a   0x00000002   PAD
-    0x08004a4c   0x08004a4c   0x00000124   Code   RO         2433    .text._ZN10shoot_xbox12process_dataEv  shoot_xbox.o
-    0x08004b70   0x08004b70   0x000000a4   Code   RO         2437    .text._ZN10shoot_xboxC2EP11power_motorS1_S1_P7chassis  shoot_xbox.o
-    0x08004c14   0x08004c14   0x00000008   Code   RO         2449    .text._ZN10shoot_xboxD0Ev  shoot_xbox.o
-    0x08004c1c   0x08004c1c   0x00000002   Code   RO         2447    .text._ZN10shoot_xboxD2Ev  shoot_xbox.o
-    0x08004c1e   0x08004c1e   0x00000002   PAD
-    0x08004c20   0x08004c20   0x000000a6   Code   RO         1883    .text._ZN11RC9Protocol12process_dataEv  rc9protocol.o
-    0x08004cc6   0x08004cc6   0x00000002   PAD
-    0x08004cc8   0x08004cc8   0x00000022   Code   RO         1887    .text._ZN11RC9Protocol13addsubscriberEP22RC9Protocol_subscriber  rc9protocol.o
-    0x08004cea   0x08004cea   0x00000002   PAD
-    0x08004cec   0x08004cec   0x00000248   Code   RO         1879    .text._ZN11RC9Protocol17handleReceiveDataEh  rc9protocol.o
-    0x08004f34   0x08004f34   0x00000076   Code   RO         1877    .text._ZN11RC9ProtocolC2EP20__UART_HandleTypeDefb  rc9protocol.o
-    0x08004faa   0x08004faa   0x00000002   PAD
-    0x08004fac   0x08004fac   0x00000008   Code   RO         1899    .text._ZN11RC9ProtocolD0Ev  rc9protocol.o
-    0x08004fb4   0x08004fb4   0x00000002   Code   RO         1897    .text._ZN11RC9ProtocolD2Ev  rc9protocol.o
-    0x08004fb6   0x08004fb6   0x00000002   PAD
-    0x08004fb8   0x08004fb8   0x00000044   Code   RO         1930    .text._ZN11TaskManager12TaskFunctionEPv  taskmanager.o
-    0x08004ffc   0x08004ffc   0x0000006e   Code   RO         1928    .text._ZN11TaskManager12registerTaskEiP14ITaskProcessor  taskmanager.o
-    0x0800506a   0x0800506a   0x00000002   PAD
-    0x0800506c   0x0800506c   0x0000007a   Code   RO         1926    .text._ZN11TaskManagerC2Ev  taskmanager.o
+    0x08004a4c   0x08004a4c   0x0000011c   Code   RO         2439    .text._ZN10shoot_xbox12process_dataEv  shoot_xbox.o
+    0x08004b68   0x08004b68   0x000000a4   Code   RO         2443    .text._ZN10shoot_xboxC2EP11power_motorS1_S1_P7chassis  shoot_xbox.o
+    0x08004c0c   0x08004c0c   0x00000008   Code   RO         2455    .text._ZN10shoot_xboxD0Ev  shoot_xbox.o
+    0x08004c14   0x08004c14   0x00000002   Code   RO         2453    .text._ZN10shoot_xboxD2Ev  shoot_xbox.o
+    0x08004c16   0x08004c16   0x00000002   PAD
+    0x08004c18   0x08004c18   0x000000a6   Code   RO         1883    .text._ZN11RC9Protocol12process_dataEv  rc9protocol.o
+    0x08004cbe   0x08004cbe   0x00000002   PAD
+    0x08004cc0   0x08004cc0   0x00000022   Code   RO         1887    .text._ZN11RC9Protocol13addsubscriberEP22RC9Protocol_subscriber  rc9protocol.o
+    0x08004ce2   0x08004ce2   0x00000002   PAD
+    0x08004ce4   0x08004ce4   0x00000248   Code   RO         1879    .text._ZN11RC9Protocol17handleReceiveDataEh  rc9protocol.o
+    0x08004f2c   0x08004f2c   0x00000076   Code   RO         1877    .text._ZN11RC9ProtocolC2EP20__UART_HandleTypeDefb  rc9protocol.o
+    0x08004fa2   0x08004fa2   0x00000002   PAD
+    0x08004fa4   0x08004fa4   0x00000008   Code   RO         1899    .text._ZN11RC9ProtocolD0Ev  rc9protocol.o
+    0x08004fac   0x08004fac   0x00000002   Code   RO         1897    .text._ZN11RC9ProtocolD2Ev  rc9protocol.o
+    0x08004fae   0x08004fae   0x00000002   PAD
+    0x08004fb0   0x08004fb0   0x00000044   Code   RO         1930    .text._ZN11TaskManager12TaskFunctionEPv  taskmanager.o
+    0x08004ff4   0x08004ff4   0x0000006e   Code   RO         1928    .text._ZN11TaskManager12registerTaskEiP14ITaskProcessor  taskmanager.o
+    0x08005062   0x08005062   0x00000002   PAD
+    0x08005064   0x08005064   0x0000007a   Code   RO         1926    .text._ZN11TaskManagerC2Ev  taskmanager.o
+    0x080050de   0x080050de   0x00000002   PAD
+    0x080050e0   0x080050e0   0x00000002   Code   RO         1980    .text._ZN11power_motor10set_rpm_ffEff  m3508.o
+    0x080050e2   0x080050e2   0x00000002   PAD
+    0x080050e4   0x080050e4   0x00000000   Code   RO         1976    .text._ZN11power_motor7get_posEv  m3508.o
+    0x080050e4   0x080050e4   0x00000002   Code   RO         1978    .text._ZN11power_motor7set_posEf  m3508.o
     0x080050e6   0x080050e6   0x00000002   PAD
-    0x080050e8   0x080050e8   0x00000002   Code   RO         1980    .text._ZN11power_motor10set_rpm_ffEff  m3508.o
-    0x080050ea   0x080050ea   0x00000002   PAD
-    0x080050ec   0x080050ec   0x00000000   Code   RO         1976    .text._ZN11power_motor7get_posEv  m3508.o
-    0x080050ec   0x080050ec   0x00000002   Code   RO         1978    .text._ZN11power_motor7set_posEf  m3508.o
-    0x080050ee   0x080050ee   0x00000002   PAD
-    0x080050f0   0x080050f0   0x0000000e   Code   RO         1910    .text._ZN12SerialDevice18startUartReceiveITEv  serial_device.o
-    0x080050fe   0x080050fe   0x00000002   PAD
-    0x08005100   0x08005100   0x00000032   Code   RO         1906    .text._ZN12SerialDeviceC2EP20__UART_HandleTypeDef  serial_device.o
+    0x080050e8   0x080050e8   0x0000000e   Code   RO         1910    .text._ZN12SerialDevice18startUartReceiveITEv  serial_device.o
+    0x080050f6   0x080050f6   0x00000002   PAD
+    0x080050f8   0x080050f8   0x00000032   Code   RO         1906    .text._ZN12SerialDeviceC2EP20__UART_HandleTypeDef  serial_device.o
+    0x0800512a   0x0800512a   0x00000002   PAD
+    0x0800512c   0x0800512c   0x00000002   Code   RO         1806    .text._ZN14ITaskProcessorD2Ev  chassis.o
+    0x0800512e   0x0800512e   0x00000002   PAD
+    0x08005130   0x08005130   0x00000002   Code   RO         1738    .text._ZN22RC9Protocol_subscriberD2Ev  xbox.o
     0x08005132   0x08005132   0x00000002   PAD
-    0x08005134   0x08005134   0x00000002   Code   RO         1806    .text._ZN14ITaskProcessorD2Ev  chassis.o
-    0x08005136   0x08005136   0x00000002   PAD
-    0x08005138   0x08005138   0x00000002   Code   RO         1738    .text._ZN22RC9Protocol_subscriberD2Ev  xbox.o
-    0x0800513a   0x0800513a   0x00000002   PAD
-    0x0800513c   0x0800513c   0x000000e8   Code   RO         1712    .text._ZN3pid16PID_ComputeErrorEf  pid.o
-    0x08005224   0x08005224   0x00000028   Code   RO         1706    .text._ZN3pidC2Efffffff  pid.o
-    0x0800524c   0x0800524c   0x00000002   Code   RO         2393    .text._ZN4demo12process_dataEv  push_shoot.o
-    0x0800524e   0x0800524e   0x00000002   PAD
-    0x08005250   0x08005250   0x00000018   Code   RO         2395    .text._ZN4demo5msginEhPKv  push_shoot.o
-    0x08005268   0x08005268   0x00000004   Code   RO         2399    .text._ZN4demo6msgoutEhPv  push_shoot.o
-    0x0800526c   0x0800526c   0x00000006   Code   RO         2426    .text._ZN4demoD0Ev  push_shoot.o
-    0x08005272   0x08005272   0x00000002   PAD
-    0x08005274   0x08005274   0x00000040   Code   RO         2285    .text._ZN4vesc10can_updateEPh  vesc.o
-    0x080052b4   0x080052b4   0x0000005c   Code   RO         2287    .text._ZN4vesc12process_dataEv  vesc.o
-    0x08005310   0x08005310   0x00000006   Code   RO         2277    .text._ZN4vesc7get_rpmEv  vesc.o
-    0x08005316   0x08005316   0x00000002   PAD
-    0x08005318   0x08005318   0x00000026   Code   RO         2281    .text._ZN4vesc7set_rpmEf  vesc.o
-    0x0800533e   0x0800533e   0x00000002   PAD
-    0x08005340   0x08005340   0x000000ac   Code   RO         2291    .text._ZN4vescC2EhP17CAN_HandleTypeDefhfffff  vesc.o
-    0x080053ec   0x080053ec   0x00000006   Code   RO         2303    .text._ZN4vescD0Ev  vesc.o
-    0x080053f2   0x080053f2   0x00000002   PAD
-    0x080053f4   0x080053f4   0x00000002   Code   RO         2301    .text._ZN4vescD2Ev  vesc.o
-    0x080053f6   0x080053f6   0x00000002   PAD
-    0x080053f8   0x080053f8   0x000000ae   Code   RO         1728    .text._ZN4xbox12handleButtonERNS_12ButtonConfigE  xbox.o
-    0x080054a6   0x080054a6   0x00000002   PAD
-    0x080054a8   0x080054a8   0x00000002   Code   RO         1742    .text._ZN4xbox14btnRB_callbackEv  xbox.o
-    0x080054aa   0x080054aa   0x00000002   PAD
-    0x080054ac   0x080054ac   0x00000124   Code   RO         1726    .text._ZN4xbox14joymap_computeEv  xbox.o
-    0x080055d0   0x080055d0   0x00000002   Code   RO         1744    .text._ZN4xbox16btnXBOX_callbackEv  xbox.o
-    0x080055d2   0x080055d2   0x00000002   PAD
-    0x080055d4   0x080055d4   0x000000f4   Code   RO         1724    .text._ZN4xbox6updateEhhPKhPKf  xbox.o
-    0x080056c8   0x080056c8   0x00000028   Code   RO         1722    .text._ZN4xboxC2EP6actionP7chassisfff  xbox.o
-    0x080056f0   0x080056f0   0x00000008   Code   RO         1740    .text._ZN4xboxD0Ev  xbox.o
-    0x080056f8   0x080056f8   0x000000d4   Code   RO         1950    .text._ZN6m3508p10can_updateEPh  m3508.o
-    0x080057cc   0x080057cc   0x0000004a   Code   RO         1948    .text._ZN6m3508p13motor_processEv  m3508.o
-    0x08005816   0x08005816   0x00000002   PAD
-    0x08005818   0x08005818   0x00000016   Code   RO         1954    .text._ZN6m3508p7get_rpmEv  m3508.o
+    0x08005134   0x08005134   0x000000e8   Code   RO         1712    .text._ZN3pid16PID_ComputeErrorEf  pid.o
+    0x0800521c   0x0800521c   0x00000028   Code   RO         1706    .text._ZN3pidC2Efffffff  pid.o
+    0x08005244   0x08005244   0x00000002   Code   RO         2399    .text._ZN4demo12process_dataEv  push_shoot.o
+    0x08005246   0x08005246   0x00000002   PAD
+    0x08005248   0x08005248   0x00000018   Code   RO         2401    .text._ZN4demo5msginEhPKv  push_shoot.o
+    0x08005260   0x08005260   0x00000004   Code   RO         2405    .text._ZN4demo6msgoutEhPv  push_shoot.o
+    0x08005264   0x08005264   0x00000006   Code   RO         2432    .text._ZN4demoD0Ev  push_shoot.o
+    0x0800526a   0x0800526a   0x00000002   PAD
+    0x0800526c   0x0800526c   0x00000040   Code   RO         2291    .text._ZN4vesc10can_updateEPh  vesc.o
+    0x080052ac   0x080052ac   0x0000005c   Code   RO         2293    .text._ZN4vesc12process_dataEv  vesc.o
+    0x08005308   0x08005308   0x00000006   Code   RO         2283    .text._ZN4vesc7get_rpmEv  vesc.o
+    0x0800530e   0x0800530e   0x00000002   PAD
+    0x08005310   0x08005310   0x00000026   Code   RO         2287    .text._ZN4vesc7set_rpmEf  vesc.o
+    0x08005336   0x08005336   0x00000002   PAD
+    0x08005338   0x08005338   0x000000ac   Code   RO         2297    .text._ZN4vescC2EhP17CAN_HandleTypeDefhfffff  vesc.o
+    0x080053e4   0x080053e4   0x00000006   Code   RO         2309    .text._ZN4vescD0Ev  vesc.o
+    0x080053ea   0x080053ea   0x00000002   PAD
+    0x080053ec   0x080053ec   0x00000002   Code   RO         2307    .text._ZN4vescD2Ev  vesc.o
+    0x080053ee   0x080053ee   0x00000002   PAD
+    0x080053f0   0x080053f0   0x000000ae   Code   RO         1728    .text._ZN4xbox12handleButtonERNS_12ButtonConfigE  xbox.o
+    0x0800549e   0x0800549e   0x00000002   PAD
+    0x080054a0   0x080054a0   0x00000002   Code   RO         1742    .text._ZN4xbox14btnRB_callbackEv  xbox.o
+    0x080054a2   0x080054a2   0x00000002   PAD
+    0x080054a4   0x080054a4   0x00000124   Code   RO         1726    .text._ZN4xbox14joymap_computeEv  xbox.o
+    0x080055c8   0x080055c8   0x00000002   Code   RO         1744    .text._ZN4xbox16btnXBOX_callbackEv  xbox.o
+    0x080055ca   0x080055ca   0x00000002   PAD
+    0x080055cc   0x080055cc   0x000000f4   Code   RO         1724    .text._ZN4xbox6updateEhhPKhPKf  xbox.o
+    0x080056c0   0x080056c0   0x00000028   Code   RO         1722    .text._ZN4xboxC2EP6actionP7chassisfff  xbox.o
+    0x080056e8   0x080056e8   0x00000008   Code   RO         1740    .text._ZN4xboxD0Ev  xbox.o
+    0x080056f0   0x080056f0   0x000000d4   Code   RO         1950    .text._ZN6m3508p10can_updateEPh  m3508.o
+    0x080057c4   0x080057c4   0x0000004a   Code   RO         1948    .text._ZN6m3508p13motor_processEv  m3508.o
+    0x0800580e   0x0800580e   0x00000002   PAD
+    0x08005810   0x08005810   0x00000016   Code   RO         1954    .text._ZN6m3508p7get_rpmEv  m3508.o
+    0x08005826   0x08005826   0x00000002   PAD
+    0x08005828   0x08005828   0x00000006   Code   RO         1958    .text._ZN6m3508p7set_rpmEf  m3508.o
     0x0800582e   0x0800582e   0x00000002   PAD
-    0x08005830   0x08005830   0x00000006   Code   RO         1958    .text._ZN6m3508p7set_rpmEf  m3508.o
-    0x08005836   0x08005836   0x00000002   PAD
-    0x08005838   0x08005838   0x000000a4   Code   RO         1946    .text._ZN6m3508pC2EhP17CAN_HandleTypeDef10motor_modefffff  m3508.o
-    0x080058dc   0x080058dc   0x00000030   Code   RO         1992    .text._ZN6m6020s10can_updateEPh  m6020.o
-    0x0800590c   0x0800590c   0x0000015c   Code   RO         1986    .text._ZN6m6020s13motor_processEv  m6020.o
-    0x08005a68   0x08005a68   0x00000006   Code   RO         2000    .text._ZN6m6020s7get_posEv  m6020.o
-    0x08005a6e   0x08005a6e   0x00000002   PAD
-    0x08005a70   0x08005a70   0x0000000e   Code   RO         1996    .text._ZN6m6020s7get_rpmEv  m6020.o
+    0x08005830   0x08005830   0x000000a4   Code   RO         1946    .text._ZN6m3508pC2EhP17CAN_HandleTypeDef10motor_modefffff  m3508.o
+    0x080058d4   0x080058d4   0x00000030   Code   RO         1992    .text._ZN6m6020s10can_updateEPh  m6020.o
+    0x08005904   0x08005904   0x0000015c   Code   RO         1986    .text._ZN6m6020s13motor_processEv  m6020.o
+    0x08005a60   0x08005a60   0x00000006   Code   RO         2000    .text._ZN6m6020s7get_posEv  m6020.o
+    0x08005a66   0x08005a66   0x00000002   PAD
+    0x08005a68   0x08005a68   0x0000000e   Code   RO         1996    .text._ZN6m6020s7get_rpmEv  m6020.o
+    0x08005a76   0x08005a76   0x00000002   PAD
+    0x08005a78   0x08005a78   0x00000006   Code   RO         2004    .text._ZN6m6020s7set_posEf  m6020.o
     0x08005a7e   0x08005a7e   0x00000002   PAD
-    0x08005a80   0x08005a80   0x00000006   Code   RO         2004    .text._ZN6m6020s7set_posEf  m6020.o
-    0x08005a86   0x08005a86   0x00000002   PAD
-    0x08005a88   0x08005a88   0x00000002   Code   RO         2008    .text._ZN6m6020s7set_rpmEf  m6020.o
-    0x08005a8a   0x08005a8a   0x00000002   PAD
-    0x08005a8c   0x08005a8c   0x000000d4   Code   RO         1984    .text._ZN6m6020sC2EhP17CAN_HandleTypeDefbfffffff  m6020.o
-    0x08005b60   0x08005b60   0x00000164   Code   RO         2213    .text._ZN8IncrePID16increPID_ComputeEf  superpid.o
-    0x08005cc4   0x08005cc4   0x00000006   Code   RO         2219    .text._ZN8IncrePID17increPID_setargetEf  superpid.o
-    0x08005cca   0x08005cca   0x00000002   PAD
-    0x08005ccc   0x08005ccc   0x00000050   Code   RO         2207    .text._ZN8IncrePIDC2Effffff  superpid.o
-    0x08005d1c   0x08005d1c   0x00000002   Code   RO         1871    .text._ZN9CanDevice10EXT_updateEjPh  can_device.o
-    0x08005d1e   0x08005d1e   0x00000002   PAD
-    0x08005d20   0x08005d20   0x00000004   Code   RO         1835    .text._ZN9CanDevice13motor_processEv  can_device.o
-    0x08005d24   0x08005d24   0x00000030   Code   RO         1853    .text._ZN9CanDevice8CAN_SendEjhPh  can_device.o
-    0x08005d54   0x08005d54   0x00000830   Code   RO         1837    .text._ZN9CanDeviceC2E13CanDeviceTypeP17CAN_HandleTypeDefh  can_device.o
-    0x08006584   0x08006584   0x00000024   Code   RO         2037    .text._ZN9dji_motor16vangle_to_rangleEj  motor.o
-    0x080065a8   0x080065a8   0x00000022   Code   RO         2035    .text._ZN9dji_motor20rcurrent_to_vcurrentEf  motor.o
-    0x080065ca   0x080065ca   0x00000002   PAD
-    0x080065cc   0x080065cc   0x00000022   Code   RO         2033    .text._ZN9dji_motor20vcurrent_to_rcurrentEs  motor.o
-    0x080065ee   0x080065ee   0x00000002   PAD
-    0x080065f0   0x080065f0   0x00000014   Code   RO         2039    .text._ZN9dji_motorC2Efst  motor.o
-    0x08006604   0x08006604   0x000000aa   Code   RO         1885    .text._ZThn12_N11RC9Protocol12process_dataEv  rc9protocol.o
-    0x080066ae   0x080066ae   0x00000002   PAD
-    0x080066b0   0x080066b0   0x0000000a   Code   RO         1903    .text._ZThn12_N11RC9ProtocolD0Ev  rc9protocol.o
-    0x080066ba   0x080066ba   0x00000002   PAD
-    0x080066bc   0x080066bc   0x00000002   Code   RO         1901    .text._ZThn12_N11RC9ProtocolD1Ev  rc9protocol.o
-    0x080066be   0x080066be   0x00000002   PAD
-    0x080066c0   0x080066c0   0x00000066   Code   RO         2289    .text._ZThn12_N4vesc12process_dataEv  vesc.o
-    0x08006726   0x08006726   0x00000002   PAD
-    0x08006728   0x08006728   0x00000008   Code   RO         2307    .text._ZThn12_N4vescD0Ev  vesc.o
-    0x08006730   0x08006730   0x00000002   Code   RO         2305    .text._ZThn12_N4vescD1Ev  vesc.o
-    0x08006732   0x08006732   0x00000002   PAD
-    0x08006734   0x08006734   0x00000016   Code   RO         1956    .text._ZThn12_N6m3508p7get_rpmEv  m3508.o
+    0x08005a80   0x08005a80   0x00000002   Code   RO         2008    .text._ZN6m6020s7set_rpmEf  m6020.o
+    0x08005a82   0x08005a82   0x00000002   PAD
+    0x08005a84   0x08005a84   0x000000d4   Code   RO         1984    .text._ZN6m6020sC2EhP17CAN_HandleTypeDefbfffffff  m6020.o
+    0x08005b58   0x08005b58   0x00000164   Code   RO         2213    .text._ZN8IncrePID16increPID_ComputeEf  superpid.o
+    0x08005cbc   0x08005cbc   0x00000006   Code   RO         2219    .text._ZN8IncrePID17increPID_setargetEf  superpid.o
+    0x08005cc2   0x08005cc2   0x00000002   PAD
+    0x08005cc4   0x08005cc4   0x00000050   Code   RO         2207    .text._ZN8IncrePIDC2Effffff  superpid.o
+    0x08005d14   0x08005d14   0x00000002   Code   RO         1871    .text._ZN9CanDevice10EXT_updateEjPh  can_device.o
+    0x08005d16   0x08005d16   0x00000002   PAD
+    0x08005d18   0x08005d18   0x00000004   Code   RO         1835    .text._ZN9CanDevice13motor_processEv  can_device.o
+    0x08005d1c   0x08005d1c   0x00000030   Code   RO         1853    .text._ZN9CanDevice8CAN_SendEjhPh  can_device.o
+    0x08005d4c   0x08005d4c   0x00000830   Code   RO         1837    .text._ZN9CanDeviceC2E13CanDeviceTypeP17CAN_HandleTypeDefh  can_device.o
+    0x0800657c   0x0800657c   0x00000024   Code   RO         2037    .text._ZN9dji_motor16vangle_to_rangleEj  motor.o
+    0x080065a0   0x080065a0   0x00000022   Code   RO         2035    .text._ZN9dji_motor20rcurrent_to_vcurrentEf  motor.o
+    0x080065c2   0x080065c2   0x00000002   PAD
+    0x080065c4   0x080065c4   0x00000022   Code   RO         2033    .text._ZN9dji_motor20vcurrent_to_rcurrentEs  motor.o
+    0x080065e6   0x080065e6   0x00000002   PAD
+    0x080065e8   0x080065e8   0x00000014   Code   RO         2039    .text._ZN9dji_motorC2Efst  motor.o
+    0x080065fc   0x080065fc   0x000000aa   Code   RO         1885    .text._ZThn12_N11RC9Protocol12process_dataEv  rc9protocol.o
+    0x080066a6   0x080066a6   0x00000002   PAD
+    0x080066a8   0x080066a8   0x0000000a   Code   RO         1903    .text._ZThn12_N11RC9ProtocolD0Ev  rc9protocol.o
+    0x080066b2   0x080066b2   0x00000002   PAD
+    0x080066b4   0x080066b4   0x00000002   Code   RO         1901    .text._ZThn12_N11RC9ProtocolD1Ev  rc9protocol.o
+    0x080066b6   0x080066b6   0x00000002   PAD
+    0x080066b8   0x080066b8   0x00000066   Code   RO         2295    .text._ZThn12_N4vesc12process_dataEv  vesc.o
+    0x0800671e   0x0800671e   0x00000002   PAD
+    0x08006720   0x08006720   0x00000008   Code   RO         2313    .text._ZThn12_N4vescD0Ev  vesc.o
+    0x08006728   0x08006728   0x00000002   Code   RO         2311    .text._ZThn12_N4vescD1Ev  vesc.o
+    0x0800672a   0x0800672a   0x00000002   PAD
+    0x0800672c   0x0800672c   0x00000016   Code   RO         1956    .text._ZThn12_N6m3508p7get_rpmEv  m3508.o
+    0x08006742   0x08006742   0x00000002   PAD
+    0x08006744   0x08006744   0x00000006   Code   RO         1960    .text._ZThn12_N6m3508p7set_rpmEf  m3508.o
     0x0800674a   0x0800674a   0x00000002   PAD
-    0x0800674c   0x0800674c   0x00000006   Code   RO         1960    .text._ZThn12_N6m3508p7set_rpmEf  m3508.o
-    0x08006752   0x08006752   0x00000002   PAD
-    0x08006754   0x08006754   0x00000018   Code   RO         2397    .text._ZThn20_N4demo5msginEhPKv  push_shoot.o
-    0x0800676c   0x0800676c   0x00000004   Code   RO         2401    .text._ZThn20_N4demo6msgoutEhPv  push_shoot.o
-    0x08006770   0x08006770   0x00000006   Code   RO         2279    .text._ZThn32_N4vesc7get_rpmEv  vesc.o
-    0x08006776   0x08006776   0x00000002   PAD
-    0x08006778   0x08006778   0x00000024   Code   RO         2283    .text._ZThn32_N4vesc7set_rpmEf  vesc.o
-    0x0800679c   0x0800679c   0x00000006   Code   RO         2002    .text._ZThn36_N6m6020s7get_posEv  m6020.o
-    0x080067a2   0x080067a2   0x00000002   PAD
-    0x080067a4   0x080067a4   0x0000000e   Code   RO         1998    .text._ZThn36_N6m6020s7get_rpmEv  m6020.o
+    0x0800674c   0x0800674c   0x00000018   Code   RO         2403    .text._ZThn20_N4demo5msginEhPKv  push_shoot.o
+    0x08006764   0x08006764   0x00000004   Code   RO         2407    .text._ZThn20_N4demo6msgoutEhPv  push_shoot.o
+    0x08006768   0x08006768   0x00000006   Code   RO         2285    .text._ZThn32_N4vesc7get_rpmEv  vesc.o
+    0x0800676e   0x0800676e   0x00000002   PAD
+    0x08006770   0x08006770   0x00000024   Code   RO         2289    .text._ZThn32_N4vesc7set_rpmEf  vesc.o
+    0x08006794   0x08006794   0x00000006   Code   RO         2002    .text._ZThn36_N6m6020s7get_posEv  m6020.o
+    0x0800679a   0x0800679a   0x00000002   PAD
+    0x0800679c   0x0800679c   0x0000000e   Code   RO         1998    .text._ZThn36_N6m6020s7get_rpmEv  m6020.o
+    0x080067aa   0x080067aa   0x00000002   PAD
+    0x080067ac   0x080067ac   0x00000006   Code   RO         2006    .text._ZThn36_N6m6020s7set_posEf  m6020.o
     0x080067b2   0x080067b2   0x00000002   PAD
-    0x080067b4   0x080067b4   0x00000006   Code   RO         2006    .text._ZThn36_N6m6020s7set_posEf  m6020.o
-    0x080067ba   0x080067ba   0x00000002   PAD
-    0x080067bc   0x080067bc   0x00000002   Code   RO         2010    .text._ZThn36_N6m6020s7set_rpmEf  m6020.o
-    0x080067be   0x080067be   0x00000002   PAD
-    0x080067c0   0x080067c0   0x00000008   Code   RO         2435    .text._ZThn548_N10shoot_xbox12process_dataEv  shoot_xbox.o
-    0x080067c8   0x080067c8   0x0000000c   Code   RO         2453    .text._ZThn548_N10shoot_xboxD0Ev  shoot_xbox.o
-    0x080067d4   0x080067d4   0x00000002   Code   RO         2451    .text._ZThn548_N10shoot_xboxD1Ev  shoot_xbox.o
-    0x080067d6   0x080067d6   0x00000004   Code   RO         2503    .text._ZdlPv        libcpp_w.l(new.cpp.o)
-    0x080067da   0x080067da   0x00000004   Code   RO         2507    .text._ZdlPvj       libcpp_w.l(new.cpp.o)
-    0x080067de   0x080067de   0x00000002   PAD
-    0x080067e0   0x080067e0   0x00000028   Code   RO         2537    .text.__cxa_pure_virtual  libcppabi_w.l(cxa_virtual.cpp.o)
-    0x08006808   0x08006808   0x00000004   Code   RO         2704    .text.abort_message  libcppabi_w.l(abort_message.cpp.o)
-    0x0800680c   0x0800680c   0x00000052   Code   RO           11    .text.main          main.o
-    0x0800685e   0x0800685e   0x00000002   PAD
-    0x08006860   0x08006860   0x00000020   Code   RO         1545    .text.osDelay       cmsis_os2.o
-    0x08006880   0x08006880   0x00000028   Code   RO         1487    .text.osKernelInitialize  cmsis_os2.o
-    0x080068a8   0x080068a8   0x0000003c   Code   RO         1493    .text.osKernelStart  cmsis_os2.o
-    0x080068e4   0x080068e4   0x0000009c   Code   RO         1509    .text.osThreadNew   cmsis_os2.o
-    0x08006980   0x08006980   0x0000028a   Code   RO         1320    .text.prvAddNewTaskToReadyList  tasks.o
-    0x08006c0a   0x08006c0a   0x00000002   PAD
-    0x08006c0c   0x08006c0c   0x00000086   Code   RO         1352    .text.prvIdleTask   tasks.o
-    0x08006c92   0x08006c92   0x00000002   PAD
-    0x08006c94   0x08006c94   0x00000128   Code   RO         1318    .text.prvInitialiseNewTask  tasks.o
-    0x08006dbc   0x08006dbc   0x00000028   Code   RO         1682    .text.prvPortStartFirstTask  port.o
-    0x08006de4   0x08006de4   0x0000003e   Code   RO         1672    .text.prvTaskExitError  port.o
-    0x08006e22   0x08006e22   0x00000002   PAD
-    0x08006e24   0x08006e24   0x0000038a   Code   RO         1437    .text.prvTimerTask  timers.o
-    0x080071ae   0x080071ae   0x00000002   PAD
-    0x080071b0   0x080071b0   0x00000074   Code   RO         1219    .text.prvUnlockQueue  queue.o
-    0x08007224   0x08007224   0x0000007c   Code   RO         2391    .text.pshoot_setup  push_shoot.o
-    0x080072a0   0x080072a0   0x000001f4   Code   RO         1648    .text.pvPortMalloc  heap_4.o
-    0x08007494   0x08007494   0x00000024   Code   RO         1670    .text.pxPortInitialiseStack  port.o
-    0x080074b8   0x080074b8   0x00000024   Code   RO         1183    .text.uxListRemove  list.o
-    0x080074dc   0x080074dc   0x0000001a   Code   RO         1631    .text.vApplicationGetIdleTaskMemory  cmsis_os2.o
-    0x080074f6   0x080074f6   0x00000002   PAD
-    0x080074f8   0x080074f8   0x0000001c   Code   RO         1633    .text.vApplicationGetTimerTaskMemory  cmsis_os2.o
-    0x08007514   0x08007514   0x00000016   Code   RO         1175    .text.vListInitialise  list.o
+    0x080067b4   0x080067b4   0x00000002   Code   RO         2010    .text._ZThn36_N6m6020s7set_rpmEf  m6020.o
+    0x080067b6   0x080067b6   0x00000002   PAD
+    0x080067b8   0x080067b8   0x00000008   Code   RO         2441    .text._ZThn548_N10shoot_xbox12process_dataEv  shoot_xbox.o
+    0x080067c0   0x080067c0   0x0000000c   Code   RO         2459    .text._ZThn548_N10shoot_xboxD0Ev  shoot_xbox.o
+    0x080067cc   0x080067cc   0x00000002   Code   RO         2457    .text._ZThn548_N10shoot_xboxD1Ev  shoot_xbox.o
+    0x080067ce   0x080067ce   0x00000004   Code   RO         2509    .text._ZdlPv        libcpp_w.l(new.cpp.o)
+    0x080067d2   0x080067d2   0x00000004   Code   RO         2513    .text._ZdlPvj       libcpp_w.l(new.cpp.o)
+    0x080067d6   0x080067d6   0x00000002   PAD
+    0x080067d8   0x080067d8   0x00000028   Code   RO         2543    .text.__cxa_pure_virtual  libcppabi_w.l(cxa_virtual.cpp.o)
+    0x08006800   0x08006800   0x00000004   Code   RO         2710    .text.abort_message  libcppabi_w.l(abort_message.cpp.o)
+    0x08006804   0x08006804   0x00000052   Code   RO           11    .text.main          main.o
+    0x08006856   0x08006856   0x00000002   PAD
+    0x08006858   0x08006858   0x00000020   Code   RO         1545    .text.osDelay       cmsis_os2.o
+    0x08006878   0x08006878   0x00000028   Code   RO         1487    .text.osKernelInitialize  cmsis_os2.o
+    0x080068a0   0x080068a0   0x0000003c   Code   RO         1493    .text.osKernelStart  cmsis_os2.o
+    0x080068dc   0x080068dc   0x0000009c   Code   RO         1509    .text.osThreadNew   cmsis_os2.o
+    0x08006978   0x08006978   0x0000028a   Code   RO         1320    .text.prvAddNewTaskToReadyList  tasks.o
+    0x08006c02   0x08006c02   0x00000002   PAD
+    0x08006c04   0x08006c04   0x00000086   Code   RO         1352    .text.prvIdleTask   tasks.o
+    0x08006c8a   0x08006c8a   0x00000002   PAD
+    0x08006c8c   0x08006c8c   0x00000128   Code   RO         1318    .text.prvInitialiseNewTask  tasks.o
+    0x08006db4   0x08006db4   0x00000028   Code   RO         1682    .text.prvPortStartFirstTask  port.o
+    0x08006ddc   0x08006ddc   0x0000003e   Code   RO         1672    .text.prvTaskExitError  port.o
+    0x08006e1a   0x08006e1a   0x00000002   PAD
+    0x08006e1c   0x08006e1c   0x0000038a   Code   RO         1437    .text.prvTimerTask  timers.o
+    0x080071a6   0x080071a6   0x00000002   PAD
+    0x080071a8   0x080071a8   0x00000074   Code   RO         1219    .text.prvUnlockQueue  queue.o
+    0x0800721c   0x0800721c   0x0000007c   Code   RO         2397    .text.pshoot_setup  push_shoot.o
+    0x08007298   0x08007298   0x000001f4   Code   RO         1648    .text.pvPortMalloc  heap_4.o
+    0x0800748c   0x0800748c   0x00000024   Code   RO         1670    .text.pxPortInitialiseStack  port.o
+    0x080074b0   0x080074b0   0x00000024   Code   RO         1183    .text.uxListRemove  list.o
+    0x080074d4   0x080074d4   0x0000001a   Code   RO         1631    .text.vApplicationGetIdleTaskMemory  cmsis_os2.o
+    0x080074ee   0x080074ee   0x00000002   PAD
+    0x080074f0   0x080074f0   0x0000001c   Code   RO         1633    .text.vApplicationGetTimerTaskMemory  cmsis_os2.o
+    0x0800750c   0x0800750c   0x00000016   Code   RO         1175    .text.vListInitialise  list.o
+    0x08007522   0x08007522   0x00000002   PAD
+    0x08007524   0x08007524   0x00000006   Code   RO         1177    .text.vListInitialiseItem  list.o
     0x0800752a   0x0800752a   0x00000002   PAD
-    0x0800752c   0x0800752c   0x00000006   Code   RO         1177    .text.vListInitialiseItem  list.o
-    0x08007532   0x08007532   0x00000002   PAD
-    0x08007534   0x08007534   0x00000062   Code   RO         1181    .text.vListInsert   list.o
-    0x08007596   0x08007596   0x00000002   PAD
-    0x08007598   0x08007598   0x0000001c   Code   RO         1179    .text.vListInsertEnd  list.o
-    0x080075b4   0x080075b4   0x00000014   Code   RO         1680    .text.vPortEnableVFP  port.o
-    0x080075c8   0x080075c8   0x00000046   Code   RO         1686    .text.vPortEnterCritical  port.o
-    0x0800760e   0x0800760e   0x00000002   PAD
-    0x08007610   0x08007610   0x0000002e   Code   RO         1688    .text.vPortExitCritical  port.o
-    0x0800763e   0x0800763e   0x00000002   PAD
-    0x08007640   0x08007640   0x000000d4   Code   RO         1650    .text.vPortFree     heap_4.o
-    0x08007714   0x08007714   0x00000034   Code   RO         1678    .text.vPortSetupTimerInterrupt  port.o
-    0x08007748   0x08007748   0x000000b0   Code   RO         1253    .text.vQueueAddToRegistry  queue.o
-    0x080077f8   0x080077f8   0x00000052   Code   RO         1257    .text.vQueueWaitForMessageRestricted  queue.o
-    0x0800784a   0x0800784a   0x00000002   PAD
-    0x0800784c   0x0800784c   0x00000080   Code   RO         1332    .text.vTaskDelay    tasks.o
-    0x080078cc   0x080078cc   0x00000012   Code   RO         1382    .text.vTaskInternalSetTimeOutState  tasks.o
-    0x080078de   0x080078de   0x00000002   PAD
-    0x080078e0   0x080078e0   0x0000000e   Code   RO         1386    .text.vTaskMissedYield  tasks.o
-    0x080078ee   0x080078ee   0x00000002   PAD
-    0x080078f0   0x080078f0   0x00000074   Code   RO         1370    .text.vTaskPlaceOnEventList  tasks.o
-    0x08007964   0x08007964   0x0000007a   Code   RO         1374    .text.vTaskPlaceOnEventListRestricted  tasks.o
-    0x080079de   0x080079de   0x00000002   PAD
-    0x080079e0   0x080079e0   0x000000f0   Code   RO         1350    .text.vTaskStartScheduler  tasks.o
-    0x08007ad0   0x08007ad0   0x00000010   Code   RO         1328    .text.vTaskSuspendAll  tasks.o
-    0x08007ae0   0x08007ae0   0x000000bc   Code   RO         1344    .text.vTaskSwitchContext  tasks.o
-    0x08007b9c   0x08007b9c   0x00000188   Code   RO         1676    .text.xPortStartScheduler  port.o
-    0x08007d24   0x08007d24   0x0000002e   Code   RO         1692    .text.xPortSysTickHandler  port.o
-    0x08007d52   0x08007d52   0x00000002   PAD
-    0x08007d54   0x08007d54   0x000000de   Code   RO         1195    .text.xQueueGenericCreateStatic  queue.o
-    0x08007e32   0x08007e32   0x00000002   PAD
-    0x08007e34   0x08007e34   0x000002bc   Code   RO         1209    .text.xQueueGenericSend  queue.o
-    0x080080f0   0x080080f0   0x0000023e   Code   RO         1225    .text.xQueueReceive  queue.o
-    0x0800832e   0x0800832e   0x00000002   PAD
-    0x08008330   0x08008330   0x00000096   Code   RO         1384    .text.xTaskCheckForTimeOut  tasks.o
-    0x080083c6   0x080083c6   0x00000002   PAD
-    0x080083c8   0x080083c8   0x00000060   Code   RO         1322    .text.xTaskCreate   tasks.o
-    0x08008428   0x08008428   0x00000076   Code   RO         1316    .text.xTaskCreateStatic  tasks.o
-    0x0800849e   0x0800849e   0x00000002   PAD
-    0x080084a0   0x080084a0   0x0000001e   Code   RO         1398    .text.xTaskGetSchedulerState  tasks.o
-    0x080084be   0x080084be   0x00000002   PAD
-    0x080084c0   0x080084c0   0x0000000c   Code   RO         1358    .text.xTaskGetTickCount  tasks.o
-    0x080084cc   0x080084cc   0x00000104   Code   RO         1356    .text.xTaskIncrementTick  tasks.o
-    0x080085d0   0x080085d0   0x0000008a   Code   RO         1402    .text.xTaskPriorityDisinherit  tasks.o
-    0x0800865a   0x0800865a   0x00000002   PAD
-    0x0800865c   0x0800865c   0x00000072   Code   RO         1376    .text.xTaskRemoveFromEventList  tasks.o
-    0x080086ce   0x080086ce   0x00000002   PAD
-    0x080086d0   0x080086d0   0x000000ee   Code   RO         1330    .text.xTaskResumeAll  tasks.o
-    0x080087be   0x080087be   0x00000002   PAD
-    0x080087c0   0x080087c0   0x000000b4   Code   RO         1435    .text.xTimerCreateTimerTask  timers.o
-    0x08008874   0x08008874   0x000000b0   Code   RO         2554    i.__hardfp_fmodf    m_wm.l(fmodf.o)
-    0x08008924   0x08008924   0x00000010   Code   RO         2728    i.__mathlib_flt_invalid  m_wm.l(funder.o)
-    0x08008934   0x08008934   0x0000008c   Code   RO         2696    x$fpl$fnaninf       fz_wm.l(fnaninf.o)
-    0x080089c0   0x080089c0   0x0000001a   Code   RO         2795    x$fpl$fpinit        fz_wm.l(fpinit.o)
-    0x080089da   0x080089da   0x00000002   PAD
-    0x080089dc   0x080089dc   0x000000f4   Code   RO         2698    x$fpl$frem          fz_wm.l(frem_clz.o)
-    0x08008ad0   0x08008ad0   0x00000000   Code   RO         2702    x$fpl$usenofp       fz_wm.l(usenofp.o)
-    0x08008ad0   0x08008ad0   0x00000010   Data   RO         1128    .rodata.AHBPrescTable  system_stm32f4xx.o
-    0x08008ae0   0x08008ae0   0x00000008   Data   RO         1129    .rodata.APBPrescTable  system_stm32f4xx.o
-    0x08008ae8   0x08008ae8   0x00000200   Data   RO         2059    .rodata.CRC16Table  crc_util.o
-    0x08008ce8   0x08008ce8   0x00000014   Data   RO         1856    .rodata._ZTV10CanManager  can_device.o
-    0x08008cfc   0x08008cfc   0x00000034   Data   RO         2439    .rodata._ZTV10shoot_xbox  shoot_xbox.o
-    0x08008d30   0x08008d30   0x0000002c   Data   RO         1889    .rodata._ZTV11RC9Protocol  rc9protocol.o
-    0x08008d5c   0x08008d5c   0x0000001c   Data   RO         1982    .rodata._ZTV11power_motor  m3508.o
-    0x08008d78   0x08008d78   0x0000000c   Data   RO         1924    .rodata._ZTV12SerialDevice  serial_device.o
-    0x08008d84   0x08008d84   0x0000002c   Data   RO         2416    .rodata._ZTV4demo   push_shoot.o
-    0x08008db0   0x08008db0   0x00000058   Data   RO         2293    .rodata._ZTV4vesc   vesc.o
-    0x08008e08   0x08008e08   0x0000001c   Data   RO         1730    .rodata._ZTV4xbox   xbox.o
-    0x08008e24   0x08008e24   0x00000038   Data   RO         1968    .rodata._ZTV6m3508p  m3508.o
-    0x08008e5c   0x08008e5c   0x00000040   Data   RO         2024    .rodata._ZTV6m6020s  m6020.o
-    0x08008e9c   0x08008e9c   0x00000014   Data   RO         1855    .rodata._ZTV9CanDevice  can_device.o
-    0x08008eb0   0x08008eb0   0x00000008   Data   RO          792    .rodata.cst8        stm32f4xx_hal_dma.o
-    0x08008eb8   0x08008eb8   0x00000005   Data   RO         1475    .rodata.str1.1      timers.o
-    0x08008ebd   0x08008ebd   0x00000003   PAD
-    0x08008ec0   0x08008ec0   0x00000020   Data   RO         2925    Region$$Table       anon$$obj.o
-    0x08008ee0   0x08008ee0   0x00000004   Data   RO         1937    .init_array         taskmanager.o
-    0x08008ee4   0x08008ee0   0x00000004   Data   RO         2417    .init_array         push_shoot.o
-    0x08008ee8   0x08008ee0   0x00000000   Data   RO         2483    .init_array         c_w.l(init_aeabi.o)
+    0x0800752c   0x0800752c   0x00000062   Code   RO         1181    .text.vListInsert   list.o
+    0x0800758e   0x0800758e   0x00000002   PAD
+    0x08007590   0x08007590   0x0000001c   Code   RO         1179    .text.vListInsertEnd  list.o
+    0x080075ac   0x080075ac   0x00000014   Code   RO         1680    .text.vPortEnableVFP  port.o
+    0x080075c0   0x080075c0   0x00000046   Code   RO         1686    .text.vPortEnterCritical  port.o
+    0x08007606   0x08007606   0x00000002   PAD
+    0x08007608   0x08007608   0x0000002e   Code   RO         1688    .text.vPortExitCritical  port.o
+    0x08007636   0x08007636   0x00000002   PAD
+    0x08007638   0x08007638   0x000000d4   Code   RO         1650    .text.vPortFree     heap_4.o
+    0x0800770c   0x0800770c   0x00000034   Code   RO         1678    .text.vPortSetupTimerInterrupt  port.o
+    0x08007740   0x08007740   0x000000b0   Code   RO         1253    .text.vQueueAddToRegistry  queue.o
+    0x080077f0   0x080077f0   0x00000052   Code   RO         1257    .text.vQueueWaitForMessageRestricted  queue.o
+    0x08007842   0x08007842   0x00000002   PAD
+    0x08007844   0x08007844   0x00000080   Code   RO         1332    .text.vTaskDelay    tasks.o
+    0x080078c4   0x080078c4   0x00000012   Code   RO         1382    .text.vTaskInternalSetTimeOutState  tasks.o
+    0x080078d6   0x080078d6   0x00000002   PAD
+    0x080078d8   0x080078d8   0x0000000e   Code   RO         1386    .text.vTaskMissedYield  tasks.o
+    0x080078e6   0x080078e6   0x00000002   PAD
+    0x080078e8   0x080078e8   0x00000074   Code   RO         1370    .text.vTaskPlaceOnEventList  tasks.o
+    0x0800795c   0x0800795c   0x0000007a   Code   RO         1374    .text.vTaskPlaceOnEventListRestricted  tasks.o
+    0x080079d6   0x080079d6   0x00000002   PAD
+    0x080079d8   0x080079d8   0x000000f0   Code   RO         1350    .text.vTaskStartScheduler  tasks.o
+    0x08007ac8   0x08007ac8   0x00000010   Code   RO         1328    .text.vTaskSuspendAll  tasks.o
+    0x08007ad8   0x08007ad8   0x000000bc   Code   RO         1344    .text.vTaskSwitchContext  tasks.o
+    0x08007b94   0x08007b94   0x00000188   Code   RO         1676    .text.xPortStartScheduler  port.o
+    0x08007d1c   0x08007d1c   0x0000002e   Code   RO         1692    .text.xPortSysTickHandler  port.o
+    0x08007d4a   0x08007d4a   0x00000002   PAD
+    0x08007d4c   0x08007d4c   0x000000de   Code   RO         1195    .text.xQueueGenericCreateStatic  queue.o
+    0x08007e2a   0x08007e2a   0x00000002   PAD
+    0x08007e2c   0x08007e2c   0x000002bc   Code   RO         1209    .text.xQueueGenericSend  queue.o
+    0x080080e8   0x080080e8   0x0000023e   Code   RO         1225    .text.xQueueReceive  queue.o
+    0x08008326   0x08008326   0x00000002   PAD
+    0x08008328   0x08008328   0x00000096   Code   RO         1384    .text.xTaskCheckForTimeOut  tasks.o
+    0x080083be   0x080083be   0x00000002   PAD
+    0x080083c0   0x080083c0   0x00000060   Code   RO         1322    .text.xTaskCreate   tasks.o
+    0x08008420   0x08008420   0x00000076   Code   RO         1316    .text.xTaskCreateStatic  tasks.o
+    0x08008496   0x08008496   0x00000002   PAD
+    0x08008498   0x08008498   0x0000001e   Code   RO         1398    .text.xTaskGetSchedulerState  tasks.o
+    0x080084b6   0x080084b6   0x00000002   PAD
+    0x080084b8   0x080084b8   0x0000000c   Code   RO         1358    .text.xTaskGetTickCount  tasks.o
+    0x080084c4   0x080084c4   0x00000104   Code   RO         1356    .text.xTaskIncrementTick  tasks.o
+    0x080085c8   0x080085c8   0x0000008a   Code   RO         1402    .text.xTaskPriorityDisinherit  tasks.o
+    0x08008652   0x08008652   0x00000002   PAD
+    0x08008654   0x08008654   0x00000072   Code   RO         1376    .text.xTaskRemoveFromEventList  tasks.o
+    0x080086c6   0x080086c6   0x00000002   PAD
+    0x080086c8   0x080086c8   0x000000ee   Code   RO         1330    .text.xTaskResumeAll  tasks.o
+    0x080087b6   0x080087b6   0x00000002   PAD
+    0x080087b8   0x080087b8   0x000000b4   Code   RO         1435    .text.xTimerCreateTimerTask  timers.o
+    0x0800886c   0x0800886c   0x000000b0   Code   RO         2560    i.__hardfp_fmodf    m_wm.l(fmodf.o)
+    0x0800891c   0x0800891c   0x00000010   Code   RO         2734    i.__mathlib_flt_invalid  m_wm.l(funder.o)
+    0x0800892c   0x0800892c   0x0000008c   Code   RO         2702    x$fpl$fnaninf       fz_wm.l(fnaninf.o)
+    0x080089b8   0x080089b8   0x0000001a   Code   RO         2801    x$fpl$fpinit        fz_wm.l(fpinit.o)
+    0x080089d2   0x080089d2   0x00000002   PAD
+    0x080089d4   0x080089d4   0x000000f4   Code   RO         2704    x$fpl$frem          fz_wm.l(frem_clz.o)
+    0x08008ac8   0x08008ac8   0x00000000   Code   RO         2708    x$fpl$usenofp       fz_wm.l(usenofp.o)
+    0x08008ac8   0x08008ac8   0x00000010   Data   RO         1128    .rodata.AHBPrescTable  system_stm32f4xx.o
+    0x08008ad8   0x08008ad8   0x00000008   Data   RO         1129    .rodata.APBPrescTable  system_stm32f4xx.o
+    0x08008ae0   0x08008ae0   0x00000200   Data   RO         2059    .rodata.CRC16Table  crc_util.o
+    0x08008ce0   0x08008ce0   0x00000014   Data   RO         1856    .rodata._ZTV10CanManager  can_device.o
+    0x08008cf4   0x08008cf4   0x00000034   Data   RO         2445    .rodata._ZTV10shoot_xbox  shoot_xbox.o
+    0x08008d28   0x08008d28   0x0000002c   Data   RO         1889    .rodata._ZTV11RC9Protocol  rc9protocol.o
+    0x08008d54   0x08008d54   0x0000001c   Data   RO         1982    .rodata._ZTV11power_motor  m3508.o
+    0x08008d70   0x08008d70   0x0000000c   Data   RO         1924    .rodata._ZTV12SerialDevice  serial_device.o
+    0x08008d7c   0x08008d7c   0x0000002c   Data   RO         2422    .rodata._ZTV4demo   push_shoot.o
+    0x08008da8   0x08008da8   0x00000058   Data   RO         2299    .rodata._ZTV4vesc   vesc.o
+    0x08008e00   0x08008e00   0x0000001c   Data   RO         1730    .rodata._ZTV4xbox   xbox.o
+    0x08008e1c   0x08008e1c   0x00000038   Data   RO         1968    .rodata._ZTV6m3508p  m3508.o
+    0x08008e54   0x08008e54   0x00000040   Data   RO         2024    .rodata._ZTV6m6020s  m6020.o
+    0x08008e94   0x08008e94   0x00000014   Data   RO         1855    .rodata._ZTV9CanDevice  can_device.o
+    0x08008ea8   0x08008ea8   0x00000008   Data   RO          792    .rodata.cst8        stm32f4xx_hal_dma.o
+    0x08008eb0   0x08008eb0   0x00000005   Data   RO         1475    .rodata.str1.1      timers.o
+    0x08008eb5   0x08008eb5   0x00000003   PAD
+    0x08008eb8   0x08008eb8   0x00000020   Data   RO         2931    Region$$Table       anon$$obj.o
+    0x08008ed8   0x08008ed8   0x00000004   Data   RO         1937    .init_array         taskmanager.o
+    0x08008edc   0x08008ed8   0x00000004   Data   RO         2423    .init_array         push_shoot.o
+    0x08008ee0   0x08008ed8   0x00000000   Data   RO         2489    .init_array         c_w.l(init_aeabi.o)
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08008ee8, Size: 0x00006380, Max: 0x0001c000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08008ee0, Size: 0x00006380, Max: 0x0001c000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x08008ee8   0x00000008   Data   RW          966    .data..L_MergedGlobals  stm32f4xx_hal.o
-    0x20000008   0x08008ef0   0x00000004   Data   RW         1127    .data.SystemCoreClock  system_stm32f4xx.o
-    0x2000000c   0x08008ef4   0x00000004   Data   RW         1696    .data.uxCriticalNesting  port.o
-    0x20000010        -       0x00000060   Zero   RW         2817    .bss                c_w.l(libspace.o)
+    0x20000000   0x08008ee0   0x00000008   Data   RW          966    .data..L_MergedGlobals  stm32f4xx_hal.o
+    0x20000008   0x08008ee8   0x00000004   Data   RW         1127    .data.SystemCoreClock  system_stm32f4xx.o
+    0x2000000c   0x08008eec   0x00000004   Data   RW         1696    .data.uxCriticalNesting  port.o
+    0x20000010        -       0x00000060   Zero   RW         2823    .bss                c_w.l(libspace.o)
     0x20000070        -       0x00000068   Zero   RW           68    .bss..L_MergedGlobals  can.o
     0x200000d8        -       0x00000078   Zero   RW         1425    .bss..L_MergedGlobals  tasks.o
     0x20000150        -       0x0000003c   Zero   RW         1476    .bss..L_MergedGlobals  timers.o
@@ -6270,16 +6285,16 @@ Memory Map of the image
     0x200001ac        -       0x00000008   Zero   RW         1697    .bss..L_MergedGlobals  port.o
     0x200001b4        -       0x00000078   Zero   RW         1862    .bss..L_MergedGlobals  can_device.o
     0x2000022c        -       0x0000002c   Zero   RW         1916    .bss..L_MergedGlobals  serial_device.o
-    0x20000258        -       0x0000005c   Zero   RW         2418    .bss..L_MergedGlobals  push_shoot.o
+    0x20000258        -       0x0000005c   Zero   RW         2424    .bss..L_MergedGlobals  push_shoot.o
     0x200002b4        -       0x00000020   Zero   RW         1863    .bss..L_MergedGlobals.1  can_device.o
     0x200002d4        -       0x00000028   Zero   RW         1426    .bss..L_MergedGlobals.2  tasks.o
     0x200002fc        -       0x00000004   Zero   RW           65    .bss.HAL_RCC_CAN1_CLK_ENABLED  can.o
     0x20000300        -       0x00000004   Zero   RW         1635    .bss.KernelState    cmsis_os2.o
     0x20000304        -       0x00000438   Zero   RW         1936    .bss._ZN11TaskManager5tasksE  taskmanager.o
-    0x2000073c        -       0x00000254   Zero   RW         2415    .bss.box_test       push_shoot.o
-    0x20000990        -       0x00000060   Zero   RW         2412    .bss.can_core       push_shoot.o
-    0x200009f0        -       0x000001a0   Zero   RW         2413    .bss.debug          push_shoot.o
-    0x20000b90        -       0x000001a0   Zero   RW         2414    .bss.esp32_serial   push_shoot.o
+    0x2000073c        -       0x00000254   Zero   RW         2421    .bss.box_test       push_shoot.o
+    0x20000990        -       0x00000060   Zero   RW         2418    .bss.can_core       push_shoot.o
+    0x200009f0        -       0x000001a0   Zero   RW         2419    .bss.debug          push_shoot.o
+    0x20000b90        -       0x000001a0   Zero   RW         2420    .bss.esp32_serial   push_shoot.o
     0x20000d30        -       0x00000060   Zero   RW          146    .bss.hdma_usart2_rx  usart.o
     0x20000d90        -       0x00000060   Zero   RW          147    .bss.hdma_usart6_rx  usart.o
     0x20000df0        -       0x00000048   Zero   RW          110    .bss.htim1          tim.o
@@ -6295,10 +6310,10 @@ Memory Map of the image
     0x200010c0        -       0x00000048   Zero   RW          141    .bss.huart4         usart.o
     0x20001108        -       0x00000048   Zero   RW          142    .bss.huart5         usart.o
     0x20001150        -       0x00000048   Zero   RW          145    .bss.huart6         usart.o
-    0x20001198        -       0x000000b4   Zero   RW         2409    .bss.m3508_lifter   push_shoot.o
-    0x2000124c        -       0x000000b4   Zero   RW         2408    .bss.m3508_pitch    push_shoot.o
-    0x20001300        -       0x000000b4   Zero   RW         2407    .bss.m3508_shooter  push_shoot.o
-    0x200013b4        -       0x000000ec   Zero   RW         2410    .bss.m6020_test     push_shoot.o
+    0x20001198        -       0x000000b4   Zero   RW         2415    .bss.m3508_lifter   push_shoot.o
+    0x2000124c        -       0x000000b4   Zero   RW         2414    .bss.m3508_pitch    push_shoot.o
+    0x20001300        -       0x000000b4   Zero   RW         2413    .bss.m3508_shooter  push_shoot.o
+    0x200013b4        -       0x000000ec   Zero   RW         2416    .bss.m6020_test     push_shoot.o
     0x200014a0        -       0x000000a0   Zero   RW         1474    .bss.prvCheckForValidListAndQueue.ucStaticTimerQueueStorage  timers.o
     0x20001540        -       0x00000050   Zero   RW         1473    .bss.prvCheckForValidListAndQueue.xStaticTimerQueue  timers.o
     0x20001590        -       0x00000460   Zero   RW         1424    .bss.pxReadyTasksLists  tasks.o
@@ -6308,13 +6323,13 @@ Memory Map of the image
     0x200057f4        -       0x0000005c   Zero   RW         1636    .bss.vApplicationGetIdleTaskMemory.Idle_TCB  cmsis_os2.o
     0x20005850        -       0x00000400   Zero   RW         1639    .bss.vApplicationGetTimerTaskMemory.Timer_Stack  cmsis_os2.o
     0x20005c50        -       0x0000005c   Zero   RW         1638    .bss.vApplicationGetTimerTaskMemory.Timer_TCB  cmsis_os2.o
-    0x20005cac        -       0x00000094   Zero   RW         2411    .bss.vesc_test      push_shoot.o
+    0x20005cac        -       0x00000094   Zero   RW         2417    .bss.vesc_test      push_shoot.o
     0x20005d40        -       0x00000040   Zero   RW         1259    .bss.xQueueRegistry  queue.o
     0x20005d80        -       0x00000200   Zero   RW            2    HEAP                startup_stm32f407xx.o
     0x20005f80        -       0x00000400   Zero   RW            1    STACK               startup_stm32f407xx.o
 
 
-    Execution Region RW_IRAM2 (Exec base: 0x2001c000, Load base: 0x08008ef8, Size: 0x00000000, Max: 0x00004000, ABSOLUTE)
+    Execution Region RW_IRAM2 (Exec base: 0x2001c000, Load base: 0x08008ef0, Size: 0x00000000, Max: 0x00004000, ABSOLUTE)
 
     **** No section assigned to this execution region ****
 
@@ -6345,7 +6360,7 @@ Image component sizes
       1870          0          0          0         64      29124   queue.o
       1094         10         44          0          0       8514   rc9protocol.o
        136          0         12          0         44       4026   serial_device.o
-       488         16         52          0          0      18360   shoot_xbox.o
+       480          8         52          0          0      18360   shoot_xbox.o
         64         26        392          0       1536        840   startup_stm32f407xx.o
         92          0          0          8          4       7295   stm32f4xx_hal.o
       1698          6          0          0          0      13818   stm32f4xx_hal_can.o
@@ -6370,7 +6385,7 @@ Image component sizes
        764         22         28          0          0      19097   xbox.o
 
     ----------------------------------------------------------------------
-     33262        332       1440         16      25360     562204   Object Totals
+     33254        324       1440         16      25360     562204   Object Totals
          0          0         32          0          0          0   (incl. Generated)
        296         12          3          0          0          0   (incl. Padding)
 
@@ -6448,15 +6463,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     35144        448       1440         16      25456     563084   Grand Totals
-     35144        448       1440         16      25456     563084   ELF Image Totals
-     35144        448       1440         16          0          0   ROM Totals
+     35136        440       1440         16      25456     563084   Grand Totals
+     35136        440       1440         16      25456     563084   ELF Image Totals
+     35136        440       1440         16          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                36584 (  35.73kB)
+    Total RO  Size (Code + RO Data)                36576 (  35.72kB)
     Total RW  Size (RW Data + ZI Data)             25472 (  24.88kB)
-    Total ROM Size (Code + RO Data + RW Data)      36600 (  35.74kB)
+    Total ROM Size (Code + RO Data + RW Data)      36592 (  35.73kB)
 
 ==============================================================================
 

@@ -19,20 +19,20 @@ extern "C"
 #define MAX_SPEED 2.2f
 #define MAX_NORSPEED 1.86f
 
-/*class pointrack
+class pointrack
 {
 private:
-    Vector2D now_pos, target_point;
+    float taerget_dis = 0.0f;
 
 public:
     Vector2D track(Vector2D now_pos_, Vector2D target_point_); // 输入当前点和目标点，输出速度矢量
 
     float get_dis(); // 获取与目标点的距离
 
-    pointrack(float kp_, float ki_, float kd_, float deadzone_);
+    pointrack(float kp_, float ki_, float kd_, float deadzone_ = 0.05f, float max_speed_ = 1.0f);
 
-    IncrePID track_pid;
-};*/
+    pid track_pid;
+};
 
 enum pure_pursuit_mode
 {
