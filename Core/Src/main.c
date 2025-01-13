@@ -30,7 +30,7 @@
 #include <string.h>
 
 // #include "r2n_setup.h"
-#include "shootcar_setup.h"
+#include "push_shoot.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -121,7 +121,7 @@ int main(void)
 
   /* Start scheduler */
   // osKernelStart();
-  shootcar_setup();
+  pshoot_setup();
   /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */

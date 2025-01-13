@@ -2017,8 +2017,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\SHOOTER_CAR\shootcar_setup.cpp</PathWithFileName>
-      <FilenameWithoutPath>shootcar_setup.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\structure_test\push_shoot.cpp</PathWithFileName>
+      <FilenameWithoutPath>push_shoot.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2029,8 +2029,56 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\SHOOTER_CAR\shootcar_setup.h</PathWithFileName>
-      <FilenameWithoutPath>shootcar_setup.h</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\structure_test\push_shoot.h</PathWithFileName>
+      <FilenameWithoutPath>push_shoot.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>96</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_USER\structure_test\shoot_xbox.cpp</PathWithFileName>
+      <FilenameWithoutPath>shoot_xbox.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>97</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_USER\structure_test\shoot_xbox.h</PathWithFileName>
+      <FilenameWithoutPath>shoot_xbox.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>98</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_USER\R2N_USER\r2n_xbox.cpp</PathWithFileName>
+      <FilenameWithoutPath>r2n_xbox.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>99</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_USER\R2N_USER\r2n_xbox.h</PathWithFileName>
+      <FilenameWithoutPath>r2n_xbox.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2044,7 +2092,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>8</GroupNumber>
-      <FileNumber>96</FileNumber>
+      <FileNumber>100</FileNumber>
       <FileType>4</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
