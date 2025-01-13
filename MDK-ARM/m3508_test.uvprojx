@@ -10,14 +10,14 @@
       <TargetName>m3508_test</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6210000::V6.21::ARMCLANG</pCCUsed>
+      <pCCUsed>6220000::V6.22::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32F407ZGTx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F4xx_DFP.2.14.0</PackID>
-          <PackURL>http://www.keil.com/pack/</PackURL>
+          <PackID>Keil.STM32F4xx_DFP.2.17.1</PackID>
+          <PackURL>https://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000-0x2001BFFF) IRAM2(0x2001C000-0x2001FFFF) IROM(0x8000000-0x80FFFFF)  CLOCK(25000000) FPU2 CPUTYPE("Cortex-M4") TZ</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx,USE_STDPERIPH_DRIVER,ARM_MATH_CM4</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Middlewares/ST/ARM/DSP/Inc;../RC9CPP_API;../RC9CPP_API/CONTROL;../RC9CPP_API/CONTROL/STRUCTURE;../RC9CPP_API/DECISION;../RC9CPP_API/HARDWARE;../RC9CPP_API/HARDWARE/MOTOR;../RC9CPP_API/MATH_LIB;../RC9CPP_USER;../RC9CPP_USER/R2N_USER;..\RC9CPP_USER\structure_test;..\RC9CPP_USER\R1N_USER;..\RC9CPP_API\HARDWARE\NETWORK</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Middlewares/ST/ARM/DSP/Inc;../RC9CPP_API;../RC9CPP_API/CONTROL;../RC9CPP_API/CONTROL/STRUCTURE;../RC9CPP_API/DECISION;../RC9CPP_API/HARDWARE;../RC9CPP_API/HARDWARE/MOTOR;../RC9CPP_API/MATH_LIB;../RC9CPP_USER;../RC9CPP_USER/R2N_USER;..\RC9CPP_USER\structure_test;..\RC9CPP_USER\R1N_USER;..\RC9CPP_API\HARDWARE\NETWORK;..\RC9CPP_API\HARDWARE\wit_IMU</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2831,15 +2831,45 @@
               <FileType>5</FileType>
               <FilePath>..\RC9CPP_API\HARDWARE\NETWORK\rcncore.h</FilePath>
             </File>
+            <File>
+              <FileName>gyro.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\RC9CPP_API\HARDWARE\wit_IMU\gyro.c</FilePath>
+            </File>
+            <File>
+              <FileName>gyro.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RC9CPP_API\HARDWARE\wit_IMU\gyro.h</FilePath>
+            </File>
+            <File>
+              <FileName>GYRO_fuc.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\RC9CPP_API\HARDWARE\wit_IMU\GYRO_fuc.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>GYRO_fuc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RC9CPP_API\HARDWARE\wit_IMU\GYRO_fuc.h</FilePath>
+            </File>
+            <File>
+              <FileName>wit_c_sdk.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\RC9CPP_API\HARDWARE\wit_IMU\wit_c_sdk.c</FilePath>
+            </File>
+            <File>
+              <FileName>wit_c_sdk.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RC9CPP_API\HARDWARE\wit_IMU\wit_c_sdk.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>RC9CPP_USER</GroupName>
           <Files>
             <File>
-              <FileName>push_shoot.cpp</FileName>
+              <FileName>r2n_setup.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\RC9CPP_USER\structure_test\push_shoot.cpp</FilePath>
+              <FilePath>..\RC9CPP_USER\R2N_USER\r2n_setup.cpp</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -2893,14 +2923,14 @@
               </FileOption>
             </File>
             <File>
-              <FileName>push_shoot.h</FileName>
+              <FileName>r2n_setup.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\RC9CPP_USER\structure_test\push_shoot.h</FilePath>
+              <FilePath>..\RC9CPP_USER\R2N_USER\r2n_setup.h</FilePath>
             </File>
             <File>
-              <FileName>shoot_xbox.cpp</FileName>
+              <FileName>r2n_xbox.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\RC9CPP_USER\structure_test\shoot_xbox.cpp</FilePath>
+              <FilePath>..\RC9CPP_USER\R2N_USER\r2n_xbox.cpp</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -2954,9 +2984,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>shoot_xbox.h</FileName>
+              <FileName>r2n_xbox.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\RC9CPP_USER\structure_test\shoot_xbox.h</FilePath>
+              <FilePath>..\RC9CPP_USER\R2N_USER\r2n_xbox.h</FilePath>
             </File>
           </Files>
         </Group>

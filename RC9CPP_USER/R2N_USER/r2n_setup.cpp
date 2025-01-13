@@ -23,12 +23,10 @@ r2n_setup(void)
     esp32_serial.startUartReceiveIT();
 
     data_chain.startUartReceiveIT();
-    esp32_serial.addsubscriber(&r2_remote);
 
     task_core.registerTask(0, &can_core);
     // task_core.registerTask(4, &go1);
     task_core.registerTask(3, &r2n_chassis);
-    task_core.registerTask(2, &r2_remote);
     task_core.registerTask(9, &test2);
 
     // 以上为首次创建的新任务
