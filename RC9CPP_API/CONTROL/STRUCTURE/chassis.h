@@ -134,7 +134,7 @@ public:
     float R = 0.0f;
     Vector2D motorspeeds[4];
     void process_data();
-    swerve4(power_motor *right_front_speed, power_motor *right_front_heading);
+    swerve4(action *ACTION_, float chassis_r_, float wheel_r_);
 };
 
 // 常规三轮全向轮底盘，通常以一个电机为车头的朝向，典型车体：九期r2
