@@ -1,5 +1,6 @@
 #pragma once
 // 使用 extern "C" 包裹 C 语言的头文件
+#include <cstdint>
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -80,6 +81,7 @@ class stp_23l: public SerialDevice{
 	    uint8_t data_len  = 0;  //数据长度
 	    uint32_t timestamp = 0; //时间戳
 	    uint8_t state_flag = 1; //转入数据接收标志位
+		uint16_t realtime_distance = 25; //死区大概为25(mm)
         /*****************************************************/
     public:
     u16 receive_cnt;//计算成功接收数据帧次数

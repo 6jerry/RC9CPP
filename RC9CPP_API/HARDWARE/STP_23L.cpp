@@ -107,6 +107,10 @@ void stp_23l::Preprocessing_Data(u8 Uart_Receive_buf){
                                 break;        
                             case 1: 
                                 Pack_Data[cnt].distance = ((u16)temp_data<<8) + Pack_Data[cnt].distance;	 /* 距离数据 */
+                                realtime_distance = Pack_Data[cnt].distance; /*实时距离数据*/
+                                    if(realtime_distance < 15){  //死区限制
+                                        realtime_distance = 0;
+                                    }
                                 crc = crc + temp_data;
                                 state++;
                                 break; 
@@ -239,6 +243,9 @@ void stp_23l::Post_Processing_Data(void){
 					Pack_sum.reftof = 0;
 					count = 0;
 		}
+        if(distance < 15){  //死区限制
+            distance = 0;
+        }
 }
 
 void stp_23l::handleReceiveData(uint8_t byte){

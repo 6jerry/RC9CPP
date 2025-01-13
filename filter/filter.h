@@ -1,9 +1,9 @@
 #pragma once
 #include <cstdint>
-#include <cmath>
+
 //定义最大窗口
 #define filter_max_size 30
-#define PI 3.141592653589793
+#define M_PI 3.141592653589793
 
 
 
@@ -47,8 +47,8 @@ public:
     // 对输入信号进行滤波处理
     float filter(const float input[filter_max_size]);
     //滤波器输入输出接口
-    float input(const float &input);
-    float output(const float &output);
+    float input(float &input);
+    float output();
 private:
     uint8_t windowSize_ = 5;  // 窗口大小
     uint8_t index = 0; //索引值
@@ -72,8 +72,8 @@ public:
     // 对输入数组进行排序
     void sort(float input[], int n);
     //滤波器输入输出接口
-    float input(const float &input);
-    float output(const float &output);
+    float input(float &input);
+    float output();
 
 private:
     uint8_t windowSize_ = 5;  // 窗口大小
@@ -85,3 +85,26 @@ private:
 /*****************************************************/
 
 
+
+/***********************卡尔曼滤波*************************/
+// 定义卡尔曼滤波器结构体
+typedef struct {
+    float Q;  // 过程噪声协方差
+    float R;  // 观测噪声协方差
+    float P;  // 估计误差协方差
+    float K;  // 卡尔曼增益
+    float x;  // 状态估计值
+} Kalman_Filter;
+
+class KalmanFilter {
+public:
+    // 初始化卡尔曼滤波器
+    KalmanFilter(float Q, float R, float P);
+    //滤波器输入输出接口
+    float filter(float &measurement); //kalman filter更新
+private:
+    Kalman_Filter *kf; //成员卡尔曼结构体变量
+
+
+};
+/*****************************************************/

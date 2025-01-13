@@ -74,7 +74,7 @@ float MeanFilter::filter(const float input[filter_max_size]) {
 }
 
 
-float MeanFilter::input(const float &input) {
+float MeanFilter::input(float &input) {
     //用于设置开始滑动状态位与填充新数据
     if(index < 4) {
         tmp[index++] = input;
@@ -87,7 +87,7 @@ float MeanFilter::input(const float &input) {
     }
 }
 
-float MeanFilter::output(const float &output) {
+float MeanFilter::output() {
     if(flag == true) {
         return filter(tmp);
     }
@@ -112,27 +112,35 @@ float MedianFilter::filter(float input[filter_max_size]) {
 }
 
 void MedianFilter::sort(float arr[], int n) {
+    if (n <= 1) return; // 如果数组长度小于等于1，直接返回
 
-    // 冒泡排序函数
-    bool swapped;
-    for (int i = 0; i < n - 1; i++) {
-            swapped = false;
-        for (int j = 0; j < n - i - 1; j++) {
-                // 如果当前元素大于下一个元素，交换它们
-                if (arr[j] > arr[j + 1]) {
-                    std::swap(arr[j], arr[j + 1]);
-                    swapped = true;
-                }
-            }
-            // 如果在这一轮遍历中没有发生交换，说明数组已经排序好了
-            if (!swapped) {
-                break;
-            }
+    // 选择基准元素（这里选择最后一个元素）
+    float pivot = arr[n - 1];
+    int i = 0; // i 是小于基准元素的边界
+
+    // 分区操作：将小于基准的元素放到左边，大于基准的元素放到右边
+    for (int j = 0; j < n - 1; j++) {
+        if (arr[j] < pivot) {
+            // 手动交换 arr[i] 和 arr[j]
+            float temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+            i++;
         }
+    }
+
+    // 将基准元素放到正确的位置
+    float temp = arr[i];
+    arr[i] = arr[n - 1];
+    arr[n - 1] = temp;
+
+    // 递归排序左半部分和右半部分
+    sort(arr, i);            // 排序左半部分
+    sort(arr + i + 1, n - i - 1); // 排序右半部分
 }
 
 
-float MedianFilter::input(const float &input) {
+float MedianFilter::input(float &input) {
     //用于设置开始滑动状态位与填充新数据
     if(index < 4) {
         tmp[index++] = input;
@@ -145,11 +153,44 @@ float MedianFilter::input(const float &input) {
     }
 }
 
-float MedianFilter::output(const float &output) {
+float MedianFilter::output() {
     if(flag == true) {
         return filter(tmp);
     }
     return 0;
 }
 
+/********************************************************************/
+
+
+
+
+
+/**************************卡尔曼滤波器********************************/
+// 卡尔曼滤波器构造函数
+/*
+ * Q：表示系统模型的不确定性,通常设置为一个较小的值（如 0.01），表示系统模型的不确定性较低。
+ * 表示传感器测量的不确定性,通常设置为一个较大的值（如 1.0），表示传感器测量的不确定性较高。
+ * P：表示状态估计的不确定性，初始值可以设置为一个较大的值，后续会动态更新。初始时可以设置为 1.0，表示初始估计的不确定性较高。
+ */
+KalmanFilter::KalmanFilter(float Q, float R, float P) {
+    kf->Q = Q;
+    kf->R = R;
+    kf->P = P;
+    kf->x = 0;
+    kf->K = 0;
+}
+
+// 更新卡尔曼滤波器状态,传入需要滤波的数据
+float KalmanFilter::filter(float &measurement) {
+    // 预测步骤
+    kf->P = kf->P + kf->Q;
+
+    // 更新步骤
+    kf->K = kf->P / (kf->P + kf->R);  // 计算卡尔曼增益
+    kf->x = kf->x + kf->K * (measurement - kf->x);  // 更新状态估计值
+    kf->P = (1 - kf->K) * kf->P;  // 更新估计误差协方差
+
+    return kf->x;  // 返回滤波后的状态值
+}
 /********************************************************************/
