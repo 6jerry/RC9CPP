@@ -39,16 +39,16 @@
 TaskManager task_core;
 // CanManager can_core;
 //  shoot_xbox shoot_control(&m3508_shooter, &m3508_pitch);
-RC9Protocol debug(&huart4, false), esp32_serial(&huart2, false);
+RC9Protocol debug(&huart4, false), esp32_serial(&huart3, false);
 
-fdi fdi_test(&huart3);
+HWT101CT yaw_sensor(&huart2);
 
 servo mg996_left(&htim9, TIM_CHANNEL_1), mg996_right(&htim9, TIM_CHANNEL_2);
 
 // swerve4 swerve_test(&vesc_test, &m6020_test);
 tb6612 right_back(&htim2, TIM_CHANNEL_1, &htim8, GPIOC, GPIO_PIN_1, GPIOC, GPIO_PIN_0), left_front(&htim2, TIM_CHANNEL_2, &htim4, GPIOC, GPIO_PIN_3, GPIOC, GPIO_PIN_2), right_front(&htim2, TIM_CHANNEL_3, &htim3, GPIOF, GPIO_PIN_2, GPIOF, GPIO_PIN_1), left_back(&htim2, TIM_CHANNEL_4, &htim1, GPIOF, GPIO_PIN_4, GPIOF, GPIO_PIN_3);
-odometry odom_test(&right_front, &right_back, &left_back, &left_front, &fdi_test, mecanum4);
-mcknum4 mknum_test(&right_front, &right_back, &left_back, &left_front, 0.03f, 0.25f, &fdi_test, &odom_test); // 86.93mm,L 148mm W
+odometry odom_test(&right_front, &right_back, &left_back, &left_front, &yaw_sensor, mecanum4);
+mcknum4 mknum_test(&right_front, &right_back, &left_back, &left_front, 0.03f, 0.25f, &yaw_sensor, &odom_test); // 86.93mm,L 148mm W
 
 shoot_xbox box_test(nullptr, nullptr, &mknum_test);
 xbox_r2n resxbox(&mknum_test);
@@ -71,12 +71,13 @@ extern "C" void pshoot_setup(void)
 
     debug.startUartReceiveIT();
     esp32_serial.startUartReceiveIT();
+    yaw_sensor.startUartReceiveIT();
     // wwwwfdi_test.startUartReceiveIT();
     esp32_serial.addsubscriber(&resxbox);
     // task_core.registerTask(0, &can_core);
     // task_core.registerTask(1, &vesc_test);
     // task_core.registerTask(1, &box_test);
-    //task_core.registerTask(2, &mknum_test);
+    // task_core.registerTask(2, &mknum_test);
     task_core.registerTask(4, &right_front);
     task_core.registerTask(4, &right_back);
     task_core.registerTask(5, &left_front);
@@ -84,8 +85,8 @@ extern "C" void pshoot_setup(void)
     task_core.registerTask(6, &odom_test);
     task_core.registerTask(6, &resxbox);
     task_core.registerTask(8, &debug);
-    //task_core.registerTask(7, &test2);
-    //  task_core.registerTask(7, &esp32_serial);
+    // task_core.registerTask(7, &test2);
+    //   task_core.registerTask(7, &esp32_serial);
 
     debug.tx_frame_mat.frame_id = 1;
     debug.tx_frame_mat.data_length = 24;

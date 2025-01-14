@@ -134,7 +134,7 @@ void RC9Protocol::process_data()
     sendBuffer_[6 + tx_frame_mat.data_length] = FRAME_END_0_RC9;
     sendBuffer_[7 + tx_frame_mat.data_length] = FRAME_END_1_RC9;
 
-    HAL_UART_Transmit(huart_, sendBuffer_, tx_frame_mat.data_length + 8, HAL_MAX_DELAY);
+    HAL_UART_Transmit_DMA(huart_, sendBuffer_, tx_frame_mat.data_length + 8);
 }
 
 // 注册观察者函数

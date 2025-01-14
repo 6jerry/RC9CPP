@@ -65,6 +65,7 @@
 "m3508_test\odometry.o"
 "m3508_test\imu.o"
 "m3508_test\servo.o"
+"m3508_test\hwt101ct.o"
 "m3508_test\push_shoot.o"
 "m3508_test\shoot_xbox.o"
 "m3508_test\r2n_xbox.o"
