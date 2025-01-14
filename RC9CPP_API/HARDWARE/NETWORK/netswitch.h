@@ -36,8 +36,7 @@ public:
 
     rcn_msg_ rcn_msg;
 
-   
-    osMessageQueueId_t normalQueue;
+       osMessageQueueId_t normalQueue;
 
     osMessageQueueId_t overwriteQueue; // 覆盖式队列。长度强制为1
 

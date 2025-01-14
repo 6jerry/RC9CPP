@@ -236,19 +236,19 @@ void swerve4 ::process_data()
 
         headingerror = target_angle - heading_motors[i]->get_pos();
 
-        if (abs(headingerror) > 90.0f)
+        /*if (abs(headingerror) > 90.0f)
         {
             // 需要劣弧优化
             if (headingerror > 0.0f)
             {
 
                 setted_pos = target_angle - 180.0f;
-                setted_rpm = v_to_rpm(motorspeeds[i].magnitude());
+                setted_rpm = v_to_rpm(-motorspeeds[i].magnitude());
             }
             else
             {
                 setted_pos = target_angle + 180.0f;
-                setted_rpm = v_to_rpm(motorspeeds[i].magnitude());
+                setted_rpm = v_to_rpm(-motorspeeds[i].magnitude());
             }
             if (if_adjust_heading) // 用来设置角度调整死区用的
             {
@@ -256,19 +256,19 @@ void swerve4 ::process_data()
             }
 
             speed_motors[i]->set_rpm(setted_rpm);
-        }
-        else
-        {
+        }*/
+        //else
+        //{
             // 无需劣弧优化
             setted_pos = target_angle;
-            setted_rpm = v_to_rpm(-motorspeeds[i].magnitude());
+            setted_rpm = v_to_rpm(motorspeeds[i].magnitude());
             if (if_adjust_heading)
             {
                 heading_motors[i]->set_pos(setted_pos);
             }
 
             speed_motors[i]->set_rpm(setted_rpm);
-        }
+        //}
     }
 }
 omni3_unusual::omni3_unusual(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor, float Rwheel_, action *ACTION_, float headingkp, float headingki, float headingkd, float point_kp, float point_ki, float point_kd) : chassis(omni3_unusual_, Rwheel_, ACTION_, headingkp, headingki, headingkd, point_kp, point_ki, point_kd)

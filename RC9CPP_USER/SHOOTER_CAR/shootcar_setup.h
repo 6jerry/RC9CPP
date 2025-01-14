@@ -11,7 +11,7 @@ extern "C"
 // #include <stdint.h>
 #include <cmsis_os.h>
 #include "RC9Protocol.h"
-
+#include "shoot_xbox.h"
 #include "TaskManager.h"
 #include "Action.h"
 #include "M3508.h"
