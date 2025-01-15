@@ -727,6 +727,41 @@
           <WinNumber>2</WinNumber>
           <ItemText>esp_port</ItemText>
         </Ww>
+        <Ww>
+          <count>93</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>esp_port</ItemText>
+        </Ww>
+        <Ww>
+          <count>94</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m6020_left_front</ItemText>
+        </Ww>
+        <Ww>
+          <count>95</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>vesc_right_back</ItemText>
+        </Ww>
+        <Ww>
+          <count>96</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m6020_left_back</ItemText>
+        </Ww>
+        <Ww>
+          <count>97</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m6020_right_back</ItemText>
+        </Ww>
+        <Ww>
+          <count>98</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m6020_right_front</ItemText>
+        </Ww>
+        <Ww>
+          <count>99</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>shooter_chassis</ItemText>
+        </Ww>
       </WatchWindow2>
       <MemoryWindow1>
         <Mm>

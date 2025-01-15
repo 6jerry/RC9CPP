@@ -186,15 +186,8 @@ void swerve4 ::process_data()
         // worldv_to_robotv();
         break;
     }
-    if (if_lock_heading)
-    {
-        heading_pid.setpoint = target_heading_rad;
-        target_w = heading_pid.PID_Compute(ACTION->pose_data.yaw_rad);
-    }
-    else
-    {
-        target_w = input_w;
-    }
+
+    target_w = input_w;
 
     for (int i = 0; i < 4; i++)
     {
@@ -202,26 +195,26 @@ void swerve4 ::process_data()
         switch (i) // 右前，右后，左后，左前
         {
         case 0:
-            motorspeeds[i].x = target_rvx - target_w * CHASSIS_R * (0.7071f);
-            motorspeeds[i].y = target_rvy - target_w * CHASSIS_R * (0.7071f);
+            motorspeeds[i].x = target_rvx - target_w * 0.2739f * (0.7071f);
+            motorspeeds[i].y = target_rvy - target_w * 0.2739f * (0.7071f);
 
             break;
 
         case 1:
-            motorspeeds[i].x = target_rvx + target_w * CHASSIS_R * (0.7071f);
-            motorspeeds[i].y = target_rvy - target_w * CHASSIS_R * (0.7071f);
+            motorspeeds[i].x = target_rvx + target_w * 0.2739f * (0.7071f);
+            motorspeeds[i].y = target_rvy - target_w * 0.2739f * (0.7071f);
 
             break;
 
         case 2:
-            motorspeeds[i].x = target_rvx + target_w * CHASSIS_R * (0.7071f);
-            motorspeeds[i].y = target_rvy + target_w * CHASSIS_R * (0.7071f);
+            motorspeeds[i].x = target_rvx + target_w * 0.2739f * (0.7071f);
+            motorspeeds[i].y = target_rvy + target_w * 0.2739f * (0.7071f);
 
             break;
 
         case 3:
-            motorspeeds[i].x = target_rvx - target_w * CHASSIS_R * (0.7071f);
-            motorspeeds[i].y = target_rvy + target_w * CHASSIS_R * (0.7071f);
+            motorspeeds[i].x = target_rvx - target_w * 0.2739f * (0.7071f);
+            motorspeeds[i].y = target_rvy + target_w * 0.2739f * (0.7071f);
 
             break;
 
@@ -257,17 +250,17 @@ void swerve4 ::process_data()
 
             speed_motors[i]->set_rpm(setted_rpm);
         }*/
-        //else
+        // else
         //{
-            // 无需劣弧优化
-            setted_pos = target_angle;
-            setted_rpm = v_to_rpm(motorspeeds[i].magnitude());
-            if (if_adjust_heading)
-            {
-                heading_motors[i]->set_pos(setted_pos);
-            }
+        //  无需劣弧优化
+        setted_pos = target_angle;
+        setted_rpm = v_to_rpm(motorspeeds[i].magnitude());
+        if (if_adjust_heading)
+        {
+            heading_motors[i]->set_pos(setted_pos);
+        }
 
-            speed_motors[i]->set_rpm(setted_rpm);
+        speed_motors[i]->set_rpm(setted_rpm);
         //}
     }
 }
