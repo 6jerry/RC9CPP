@@ -51,8 +51,8 @@ void xbox_r2n::process_data()
 
         break;
     case 1:
-         //control_chassis->switch_chassis_mode(remote_robotv);
-        control_chassis->setrobotv(MAX_ROBOT_SPEED_X * xbox_msgs.joyLHori_map, MAX_ROBOT_SPEED_Y * xbox_msgs.joyLVert_map, -MAX_ROBOT_SPEED_W * xbox_msgs.joyRHori_map);
+         control_chassis->switch_chassis_mode(remote_robotv);
+        control_chassis->setrobotv(-MAX_ROBOT_SPEED_X * xbox_msgs.joyLHori_map, -MAX_ROBOT_SPEED_Y * xbox_msgs.joyLVert_map, MAX_ROBOT_SPEED_W * xbox_msgs.joyRHori_map);
 
         break;
     case 2:

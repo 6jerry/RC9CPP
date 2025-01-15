@@ -77,15 +77,15 @@ extern "C" void pshoot_setup(void)
     // task_core.registerTask(0, &can_core);
     // task_core.registerTask(1, &vesc_test);
     // task_core.registerTask(1, &box_test);
-    // task_core.registerTask(2, &mknum_test);
+    task_core.registerTask(2, &mknum_test);
     task_core.registerTask(4, &right_front);
     task_core.registerTask(4, &right_back);
     task_core.registerTask(5, &left_front);
     task_core.registerTask(5, &left_back);
     task_core.registerTask(6, &odom_test);
     task_core.registerTask(6, &resxbox);
-    task_core.registerTask(8, &debug);
-    // task_core.registerTask(7, &test2);
+    //task_core.registerTask(8, &debug);
+     task_core.registerTask(7, &test2);
     //   task_core.registerTask(7, &esp32_serial);
 
     debug.tx_frame_mat.frame_id = 1;

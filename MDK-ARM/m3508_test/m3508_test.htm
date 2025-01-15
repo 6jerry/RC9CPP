@@ -3,7 +3,7 @@
 <title>Static Call Graph - [m3508_test\m3508_test.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image m3508_test\m3508_test.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6210000: Last Updated: Tue Jan 14 16:23:14 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6210000: Last Updated: Wed Jan 15 00:18:34 2025
 <BR><P>
 <H3>Maximum Stack Usage =        256 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2167,7 +2167,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> odometry.o(.rodata._ZTV8odometry)
 </UL>
-<P><STRONG><a name="[a0]"></a>xbox_r2n::process_data()</STRONG> (Thumb, 386 bytes, Stack size 8 bytes, r2n_xbox.o(.text._ZN8xbox_r2n12process_dataEv))
+<P><STRONG><a name="[a0]"></a>xbox_r2n::process_data()</STRONG> (Thumb, 394 bytes, Stack size 8 bytes, r2n_xbox.o(.text._ZN8xbox_r2n12process_dataEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = xbox_r2n::process_data() &rArr; EncodingStateMachine::getState() const
 </UL>
 <BR>[Calls]<UL><LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis::unlock()
@@ -2482,7 +2482,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskManager::registerTask(int, ITaskProcessor*)
 </UL>
 
-<P><STRONG><a name="[169]"></a>pshoot_setup</STRONG> (Thumb, 306 bytes, Stack size 40 bytes, push_shoot.o(.text.pshoot_setup))
+<P><STRONG><a name="[169]"></a>pshoot_setup</STRONG> (Thumb, 326 bytes, Stack size 40 bytes, push_shoot.o(.text.pshoot_setup))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256 + Unknown Stack Size
 <LI>Call Chain = pshoot_setup &rArr; TaskManager::registerTask(int, ITaskProcessor*) &rArr; osThreadNew &rArr; xTaskCreate &rArr; vPortFree &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
