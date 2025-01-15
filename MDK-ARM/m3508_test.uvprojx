@@ -2898,9 +2898,9 @@
           <GroupName>RC9CPP_USER</GroupName>
           <Files>
             <File>
-              <FileName>push_shoot.cpp</FileName>
+              <FileName>shootcar_setup.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\RC9CPP_USER\structure_test\push_shoot.cpp</FilePath>
+              <FilePath>..\RC9CPP_USER\SHOOTER_CAR\shootcar_setup.cpp</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -2954,9 +2954,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>push_shoot.h</FileName>
+              <FileName>shootcar_setup.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\RC9CPP_USER\structure_test\push_shoot.h</FilePath>
+              <FilePath>..\RC9CPP_USER\SHOOTER_CAR\shootcar_setup.h</FilePath>
             </File>
             <File>
               <FileName>shoot_xbox.cpp</FileName>

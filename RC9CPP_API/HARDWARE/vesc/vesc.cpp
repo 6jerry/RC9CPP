@@ -26,14 +26,7 @@ void vesc::process_data()
 
     if (target_erpm != 0)
     {
-        if (if_invert)
-        {
-            senderpm = -target_erpm;
-        }
-        else
-        {
-            senderpm = target_erpm;
-        }
+        senderpm = target_erpm;
 
         extid = (CAN_CMD_SET_ERPM << 8) | can_id;
 
@@ -61,7 +54,7 @@ void vesc::process_data()
     }
 }
 
-vesc::vesc(uint8_t can_id_, CAN_HandleTypeDef *hcan_, bool invert, uint8_t motor_polse_, float gear_ratio_, float kp_, float ki_, float kd_, float r_) : CanDevice(VESC, hcan_, can_id_), rpm_control(kp_, ki_, kd_, 25000.0f, 1000.0f, 20.0f, 400.0f), motor_polse(motor_polse_), gear_ratio(gear_ratio_), if_invert(invert)
+vesc::vesc(uint8_t can_id_, CAN_HandleTypeDef *hcan_, uint8_t motor_polse_, float gear_ratio_, float kp_, float ki_, float kd_, float r_) : CanDevice(VESC, hcan_, can_id_), rpm_control(kp_, ki_, kd_, 25000.0f, 1000.0f, 20.0f, 400.0f), motor_polse(motor_polse_), gear_ratio(gear_ratio_)
 {
     // extid = (CAN_CMD_SET_ERPM << 8) | can_id;
 }

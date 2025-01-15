@@ -135,6 +135,9 @@ public:
     Vector2D motorspeeds[4];
     void process_data();
     swerve4(action *ACTION_, float chassis_r_, float wheel_r_);
+    void add_speed_motor(power_motor *right_front_, power_motor *right_back_, power_motor *left_back_, power_motor *left_front_);
+
+    void add_heading_motor(power_motor *right_front_, power_motor *right_back_, power_motor *left_back_, power_motor *left_front_);
 };
 
 // 常规三轮全向轮底盘，通常以一个电机为车头的朝向，典型车体：九期r2

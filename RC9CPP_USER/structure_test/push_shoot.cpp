@@ -1,6 +1,6 @@
 #include "push_shoot.h"
 
-m3508p m3508_shooter(1, &hcan1), m3508_pitch(2, &hcan1), m3508_lifter(3, &hcan1);
+m3508p m3508_shooter(3, &hcan1), m3508_pitch(2, &hcan1), m3508_lifter(1, &hcan1);
 m6020s m6020_test(4, &hcan2);
 vesc vesc_test(1, &hcan1);
 TaskManager task_core;

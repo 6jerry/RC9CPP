@@ -34,10 +34,10 @@ public:
     void can_update(uint8_t can_RxData[8]);
     void process_data();
     float delta_rpm = 0.0f;
-    bool if_invert = false;
+
     uint32_t extid = 0;
 
-    vesc(uint8_t can_id_, CAN_HandleTypeDef *hcan_, bool invert = false, uint8_t motor_polse_ = 21, float gear_ratio_ = 3.0f, float kp_ = 0.0f, float ki_ = 0.0f, float kd_ = 0.0f, float r_ = 0.0f);
+    vesc(uint8_t can_id_, CAN_HandleTypeDef *hcan_, uint8_t motor_polse_ = 21, float gear_ratio_ = 3.0f, float kp_ = 0.0f, float ki_ = 0.0f, float kd_ = 0.0f, float r_ = 0.0f);
 
     pid rpm_control;
 

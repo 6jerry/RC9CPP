@@ -64,7 +64,8 @@ int16_t m6020s::motor_process()
     if (if_double_control) // 对于那些可以360度旋转的机构采用双环控制
     {
         target_rpm = pos_pid.PID_ComputeError(angle_error);
-        // rpm_pid.setpoint = target_rpm * (float)gear_ratio;
+        // target_rpm = 0.0f;
+        //  rpm_pid.setpoint = target_rpm * (float)gear_ratio;
         rpm_pid.increPID_setarget(target_rpm);
         target_v = (int16_t)rpm_pid.increPID_Compute(rpm);
     }

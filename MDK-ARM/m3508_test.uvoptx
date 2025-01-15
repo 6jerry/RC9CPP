@@ -717,6 +717,51 @@
           <WinNumber>2</WinNumber>
           <ItemText>motor1</ItemText>
         </Ww>
+        <Ww>
+          <count>91</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>shooter_chassis</ItemText>
+        </Ww>
+        <Ww>
+          <count>92</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>esp_port</ItemText>
+        </Ww>
+        <Ww>
+          <count>93</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>esp_port</ItemText>
+        </Ww>
+        <Ww>
+          <count>94</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m6020_left_front</ItemText>
+        </Ww>
+        <Ww>
+          <count>95</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>vesc_right_back</ItemText>
+        </Ww>
+        <Ww>
+          <count>96</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m6020_left_back</ItemText>
+        </Ww>
+        <Ww>
+          <count>97</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m6020_right_back</ItemText>
+        </Ww>
+        <Ww>
+          <count>98</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m6020_right_front</ItemText>
+        </Ww>
+        <Ww>
+          <count>99</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>shooter_chassis</ItemText>
+        </Ww>
       </WatchWindow2>
       <MemoryWindow1>
         <Mm>
@@ -1859,8 +1904,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\structure_test\push_shoot.cpp</PathWithFileName>
-      <FilenameWithoutPath>push_shoot.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\SHOOTER_CAR\shootcar_setup.cpp</PathWithFileName>
+      <FilenameWithoutPath>shootcar_setup.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1871,8 +1916,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\structure_test\push_shoot.h</PathWithFileName>
-      <FilenameWithoutPath>push_shoot.h</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\SHOOTER_CAR\shootcar_setup.h</PathWithFileName>
+      <FilenameWithoutPath>shootcar_setup.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
