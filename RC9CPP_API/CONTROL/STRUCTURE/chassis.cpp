@@ -189,7 +189,47 @@ void swerve4 ::process_data()
 
     target_w = input_w;
 
-    for (int i = 0; i < 4; i++)
+    motorspeeds[0].x = target_rvx - target_w * 0.2739f * (0.7071f);
+    motorspeeds[0].y = target_rvy - target_w * 0.2739f * (0.7071f);
+    // 右前轮子
+    if (motorspeeds[0].x != 0.0f | motorspeeds[0].y != 0.0f)
+    {
+
+        heading_motors[0]->set_pos(atan2f(motorspeeds[0].x, motorspeeds[0].y) * 57.296f);
+    }
+    speed_motors[0]->set_rpm(v_to_rpm(motorspeeds[0].magnitude()));
+
+    motorspeeds[1].x = target_rvx + target_w * 0.2739f * (0.7071f);
+    motorspeeds[1].y = target_rvy - target_w * 0.2739f * (0.7071f);
+    // 右后轮子
+    if (motorspeeds[1].x != 0.0f | motorspeeds[1].y != 0.0f)
+    {
+
+        heading_motors[1]->set_pos(atan2f(motorspeeds[1].x, motorspeeds[1].y) * 57.296f);
+    }
+    speed_motors[1]->set_rpm(v_to_rpm(motorspeeds[1].magnitude()));
+
+    motorspeeds[2].x = target_rvx + target_w * 0.2739f * (0.7071f);
+    motorspeeds[2].y = target_rvy + target_w * 0.2739f * (0.7071f);
+    // 左后轮子
+    if (motorspeeds[2].x != 0.0f | motorspeeds[2].y != 0.0f)
+    {
+
+        heading_motors[2]->set_pos(atan2f(motorspeeds[2].x, motorspeeds[2].y) * 57.296f);
+    }
+    speed_motors[2]->set_rpm(v_to_rpm(motorspeeds[2].magnitude()));
+
+    motorspeeds[3].x = target_rvx - target_w * 0.2739f * (0.7071f);
+    motorspeeds[3].y = target_rvy + target_w * 0.2739f * (0.7071f);
+    // 左前轮子
+    if (motorspeeds[3].x != 0.0f | motorspeeds[3].y != 0.0f)
+    {
+
+        heading_motors[3]->set_pos(atan2f(motorspeeds[3].x, motorspeeds[3].y) * 57.296f);
+    }
+    speed_motors[3]->set_rpm(v_to_rpm(motorspeeds[2].magnitude()));
+
+    /*for (int i = 0; i < 4; i++)
     {
 
         switch (i) // 右前，右后，左后，左前
@@ -227,7 +267,7 @@ void swerve4 ::process_data()
             target_angle = atan2f(motorspeeds[i].x, motorspeeds[i].y) * 57.296f;
         }
 
-        headingerror = target_angle - heading_motors[i]->get_pos();
+        // headingerror = target_angle - heading_motors[i]->get_pos();
 
         /*if (abs(headingerror) > 90.0f)
         {
@@ -249,20 +289,17 @@ void swerve4 ::process_data()
             }
 
             speed_motors[i]->set_rpm(setted_rpm);
-        }*/
+        }
         // else
         //{
         //  无需劣弧优化
         setted_pos = target_angle;
         setted_rpm = v_to_rpm(motorspeeds[i].magnitude());
-        if (if_adjust_heading)
-        {
-            heading_motors[i]->set_pos(setted_pos);
-        }
+        heading_motors[i]->set_pos(setted_pos);
 
         speed_motors[i]->set_rpm(setted_rpm);
         //}
-    }
+    }*/
 }
 omni3_unusual::omni3_unusual(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor, float Rwheel_, action *ACTION_, float headingkp, float headingki, float headingkd, float point_kp, float point_ki, float point_kd) : chassis(omni3_unusual_, Rwheel_, ACTION_, headingkp, headingki, headingkd, point_kp, point_ki, point_kd)
 {

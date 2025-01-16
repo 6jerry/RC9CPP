@@ -129,8 +129,8 @@ private:
 
 public:
     float target_heading = 0.0f;
-    float target_angle = 0.0f, last_target_heading = 0.0f;
-    float headingerror = 0.0f, setted_pos = 0.0f, setted_rpm = 0.0f;
+    // float target_angle = 0.0f, last_target_heading = 0.0f;
+    // float headingerror = 0.0f, setted_pos = 0.0f, setted_rpm = 0.0f;
     float R = 0.0f;
     Vector2D motorspeeds[4];
     void process_data();
