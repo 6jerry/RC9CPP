@@ -189,7 +189,7 @@ void swerve4 ::process_data()
 
     target_w = input_w;
 
-    motorspeeds[0].x = target_rvx - target_w * 0.2739f * (0.7071f);
+    motorspeeds[0].x = target_rvx + target_w * 0.2739f * (0.7071f);
     motorspeeds[0].y = target_rvy - target_w * 0.2739f * (0.7071f);
     // 右前轮子
     if (motorspeeds[0].x != 0.0f | motorspeeds[0].y != 0.0f)
@@ -199,7 +199,7 @@ void swerve4 ::process_data()
     }
     speed_motors[0]->set_rpm(v_to_rpm(motorspeeds[0].magnitude()));
 
-    motorspeeds[1].x = target_rvx + target_w * 0.2739f * (0.7071f);
+    motorspeeds[1].x = target_rvx - target_w * 0.2739f * (0.7071f);
     motorspeeds[1].y = target_rvy - target_w * 0.2739f * (0.7071f);
     // 右后轮子
     if (motorspeeds[1].x != 0.0f | motorspeeds[1].y != 0.0f)
@@ -209,7 +209,7 @@ void swerve4 ::process_data()
     }
     speed_motors[1]->set_rpm(v_to_rpm(motorspeeds[1].magnitude()));
 
-    motorspeeds[2].x = target_rvx + target_w * 0.2739f * (0.7071f);
+    motorspeeds[2].x = target_rvx - target_w * 0.2739f * (0.7071f);
     motorspeeds[2].y = target_rvy + target_w * 0.2739f * (0.7071f);
     // 左后轮子
     if (motorspeeds[2].x != 0.0f | motorspeeds[2].y != 0.0f)
@@ -219,7 +219,7 @@ void swerve4 ::process_data()
     }
     speed_motors[2]->set_rpm(v_to_rpm(motorspeeds[2].magnitude()));
 
-    motorspeeds[3].x = target_rvx - target_w * 0.2739f * (0.7071f);
+    motorspeeds[3].x = target_rvx + target_w * 0.2739f * (0.7071f);
     motorspeeds[3].y = target_rvy + target_w * 0.2739f * (0.7071f);
     // 左前轮子
     if (motorspeeds[3].x != 0.0f | motorspeeds[3].y != 0.0f)

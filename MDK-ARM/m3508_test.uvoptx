@@ -762,6 +762,21 @@
           <WinNumber>2</WinNumber>
           <ItemText>shooter_chassis</ItemText>
         </Ww>
+        <Ww>
+          <count>100</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>vesc_right_back</ItemText>
+        </Ww>
+        <Ww>
+          <count>101</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>vesc_left_front</ItemText>
+        </Ww>
+        <Ww>
+          <count>102</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>vesc_right_front</ItemText>
+        </Ww>
       </WatchWindow2>
       <MemoryWindow1>
         <Mm>
