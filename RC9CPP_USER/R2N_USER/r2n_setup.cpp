@@ -19,22 +19,22 @@ r2n_setup(void)
     can_core.init();
 
     // r2_remote.GO1 = &go1;
-    Action.startUartReceiveIT();
-    esp32_serial.startUartReceiveIT();
-
+    //Action.startUartReceiveIT();
+    //esp32_serial.startUartReceiveIT();
+	roll_IMU.startUartReceiveIT();
     data_chain.startUartReceiveIT();
 
     task_core.registerTask(0, &can_core);
     // task_core.registerTask(4, &go1);
     task_core.registerTask(3, &r2n_chassis);
-    task_core.registerTask(9, &test2);
+    //task_core.registerTask(9, &test2);
 
     // 以上为首次创建的新任务
 
-    task_core.registerTask(8, &data_chain);
+    //task_core.registerTask(8, &data_chain);
     r2_remote.m3 = &m3508_front;
-    data_chain.tx_frame_mat.data_length = 24;
-    data_chain.tx_frame_mat.frame_id = 1;
+    //data_chain.tx_frame_mat.data_length = 24;
+    //data_chain.tx_frame_mat.frame_id = 1;
 
     osKernelStart();
 }

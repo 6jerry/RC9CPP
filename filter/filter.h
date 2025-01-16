@@ -11,7 +11,7 @@
  * @file
  * @brief Description of the file's purpose and contents.
  *
- * 一阶带通采用直接输入和输出
+ * 一阶带通和卡尔曼采用直接输入和输出
  * 均值滤波和中值滤波需要先获得窗口数的数据后再进行滑动输出
  *
  * @author loopgad
