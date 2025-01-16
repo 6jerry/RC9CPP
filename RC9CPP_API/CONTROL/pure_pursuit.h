@@ -22,7 +22,6 @@ extern "C"
 class pointrack
 {
 private:
-    
     float taerget_dis = 0.0f;
 
 public:
@@ -30,9 +29,23 @@ public:
 
     float get_dis(); // 获取与目标点的距离
 
-    pointrack(float kp_, float ki_, float kd_, float deadzone_=0.05f,float max_speed_=1.0f);
+    pointrack(float kp_, float ki_, float kd_, float deadzone_ = 0.05f, float max_speed_ = 1.0f);
 
     pid track_pid;
+};
+
+class yaw_adjuster
+{
+
+private:
+    void calc_angle_error();
+    float target_angle = 0.0f, real_angle = 0.0f, angle_error = 0.0f;
+
+public:
+    pid yaw_pid;
+    float yaw_adjust(float now_angle, float target_angle_);
+
+    yaw_adjuster(float kp_, float ki_, float kd_, float deadzone_ = 0.01f, float max_w_ = 8.6f);
 };
 
 enum pure_pursuit_mode

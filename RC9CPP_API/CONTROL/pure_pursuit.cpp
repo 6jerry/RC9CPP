@@ -150,3 +150,52 @@ float pointrack::get_dis()
 pointrack::pointrack(float kp_, float ki_, float kd_, float deadzone_, float max_speed_) : track_pid(kp_, kd_, ki_, 0.0f, max_speed_, deadzone_, 0.0f)
 {
 }
+
+void yaw_adjuster::calc_angle_error()
+{
+    if (real_angle * target_angle >= 0)
+    {
+        angle_error = target_angle - real_angle;
+    }
+    else
+    {
+        if (real_angle > 0 && target_angle < 0)
+        {
+            float positive = 180.0f - real_angle + 180.0f + target_angle; // 正路径
+            float negative = target_angle - real_angle;
+            if (abs(positive) <= abs(negative))
+            {
+                angle_error = positive;
+            }
+            else
+            {
+                angle_error = negative; // 选择一个较短的路径
+            }
+        }
+        else if (real_angle < 0 && target_angle > 0)
+        {
+            float positive = target_angle - real_angle;
+            float negative = -(360.0f + real_angle - target_angle);
+            if (abs(positive) <= abs(negative))
+            {
+                angle_error = positive;
+            }
+            else
+            {
+                angle_error = negative; // 选择一个较短的路径
+            }
+        }
+    }
+}
+
+float yaw_adjuster::yaw_adjust(float now_angle, float target_angle_)
+{
+    real_angle = now_angle;
+    target_angle = target_angle_;
+    calc_angle_error();
+    return yaw_pid.PID_ComputeError(angle_error);
+}
+
+yaw_adjuster::yaw_adjuster(float kp_, float ki_, float kd_, float deadzone_ , float max_w_ ) : yaw_pid(kp_, ki_, kd_, 0.0f, max_w_, deadzone_, 0.0f)
+{
+}
