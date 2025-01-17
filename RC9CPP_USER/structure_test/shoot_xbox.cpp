@@ -36,28 +36,28 @@ void shoot_xbox::process_data()
     {
         MAX_ROBOT_SPEED_X = 3.20f;
         MAX_ROBOT_SPEED_Y = 3.20f;
-        MAX_ROBOT_SPEED_W = 5.20f;
+        MAX_ROBOT_SPEED_W = 6.20f;
         MAX_RPM = 200.0f;
-        // pitcher->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
-        shooter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
+        pitcher->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
+        // shooter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
     }
 
     if (speed_level == 0)
     {
-        MAX_ROBOT_SPEED_X = 2.40f;
-        MAX_ROBOT_SPEED_Y = 2.40f;
-        MAX_ROBOT_SPEED_W = 3.10f;
+        MAX_ROBOT_SPEED_X = 3.40f;
+        MAX_ROBOT_SPEED_Y = 3.40f;
+        MAX_ROBOT_SPEED_W = 6.10f;
         MAX_RPM = 200.0f;
         // lifter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map))
         // shooter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
     }
     if (speed_level == 2)
     {
-        MAX_ROBOT_SPEED_X = 5.96f;
-        MAX_ROBOT_SPEED_Y = 5.96f;
-        MAX_ROBOT_SPEED_W = 6.98f;
+        MAX_ROBOT_SPEED_X = 3.96f;
+        MAX_ROBOT_SPEED_Y = 3.96f;
+        MAX_ROBOT_SPEED_W = 6.08f;
         MAX_RPM = 200.0f;
-        // shooter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
+        shooter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
     }
 
     control_chassis->switch_chassis_mode(remote_robotv);

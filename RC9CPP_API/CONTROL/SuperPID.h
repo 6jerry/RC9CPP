@@ -54,6 +54,8 @@ private:
     float Ts = 0.0f;
     uint32_t previous_time = 0;
 
+    bool if_enable_td = false;
+
 public:
     float error = 0.0f, last_error = 0.0f, lalast_error = 0.0f;
     float setpoint = 0.0f; // 经过TD处理过后的期望
@@ -81,7 +83,7 @@ public:
     void
     increPID_SetParameters(float kp_, float ki_, float kd_, float r_);
 
-    IncrePID(float kp_, float ki_, float kd_, float r_, float output_limit_, float deadzone_);
+    IncrePID(float kp_, float ki_, float kd_, float r_, float output_limit_, float deadzone_, bool if_enable_td_ = false);
 };
 
 #endif

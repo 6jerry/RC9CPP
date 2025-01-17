@@ -1,10 +1,10 @@
 #include "shootcar_setup.h"
-m6020s m6020_left_front(4, &hcan2), m6020_right_front(3, &hcan2), m6020_left_back(1, &hcan2), m6020_right_back(2, &hcan2); // 舵向电机
+m6020s m6020_left_front(4, &hcan2, true, 286.0f, 1.96f, 6.0f, 6.2f, 0.0f, 2.0f), m6020_right_front(3, &hcan2), m6020_left_back(1, &hcan2), m6020_right_back(2, &hcan2); // 舵向电机
 
 CanManager can_core;
 TaskManager task_core;
 
-// m3508p lifter(1, &hcan1), pitcher(2, &hcan1); // 抬升电机，俯仰电机
+m3508p shooter(3, &hcan2), pitcher(1, &hcan2), lifter(2, &hcan2); // 抬升电机，俯仰电机
 
 vesc vesc_left_front(2, &hcan1, true), vesc_right_front(1, &hcan1, true), vesc_left_back(4, &hcan1, true), vesc_right_back(3, &hcan1); // 航向电调
 
@@ -13,7 +13,7 @@ RC9Protocol esp_port(&huart2, false), pc_port(&huart4, false); // 串口通信
 action Action(&huart3, 0.0f, 0.0f, false);
 
 swerve4 shooter_chassis(&Action, 0.2739f, 0.0365f); // 0.0365m轮子半径,0.2739m底盘半径
-shoot_xbox box_test(&m6020_left_front, nullptr, nullptr, &shooter_chassis);
+shoot_xbox box_test(&shooter, &pitcher, nullptr, &shooter_chassis);
 demo test2;
 
 extern "C" void shootcar_setup()

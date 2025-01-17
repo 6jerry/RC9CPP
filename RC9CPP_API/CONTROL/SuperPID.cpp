@@ -141,7 +141,7 @@ float superpid::superPID_ComputeError(float error_, float C_V)
     return output;
 }
 
-IncrePID::IncrePID(float kp_, float ki_, float kd_, float r_, float output_limit_, float deadzone_) : kp(kp_), kd(kd_), ki(ki_), output_limit(output_limit_), deadzone(deadzone_), r(r_)
+IncrePID::IncrePID(float kp_, float ki_, float kd_, float r_, float output_limit_, float deadzone_, bool if_enable_td_) : kp(kp_), kd(kd_), ki(ki_), output_limit(output_limit_), deadzone(deadzone_), r(r_), if_enable_td(if_enable_td_)
 {
 }
 
@@ -195,17 +195,25 @@ void IncrePID::calc()
 
 float IncrePID::increPID_Compute(float input)
 {
-    TD();
-    setpoint = V1; // 跟踪微分器输出平滑的期望
+
+    if (if_enable_td)
+    {
+        TD();
+        setpoint = V1; // 跟踪微分器输出平滑的期望
+    }
+    else
+    {
+        setpoint = expect;
+    }
 
     error = setpoint - input;
     calc();
 
     return output;
 }
-float IncrePID::increPID_Computerror(float error_)//直接传入误差
+float IncrePID::increPID_Computerror(float error_) // 直接传入误差
 {
-    error = error_;//这个函数没有TD哦，所以用这个的话参数r是没有意义的
+    error = error_; // 这个函数没有TD哦，所以用这个的话参数r是没有意义的
     calc();
     return output;
 }

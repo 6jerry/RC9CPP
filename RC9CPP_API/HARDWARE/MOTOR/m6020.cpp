@@ -17,7 +17,7 @@
  *             in the software.
  ******************************************************************************/
 #include "m6020.h"
-m6020s::m6020s(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool if_double_control_, float kp_r, float ki_r, float kd_r, float r_r_, float kp_p, float ki_p, float kd_p) : CanDevice(M6020, hcan_, can_id), rpm_pid(kp_r, ki_r, kd_r, r_r_, 25000.0f, 1.0f), pos_pid(kp_p, ki_p, kd_p, 10000.0f, 300.0f, 0.01f, 60.0f), dji_motor(3000.0f, 16384, 8191), if_double_control(if_double_control_)
+m6020s::m6020s(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool if_double_control_, float kp_r, float ki_r, float kd_r, float kp_p, float ki_p, float kd_p) : CanDevice(M6020, hcan_, can_id), rpm_pid(kp_r, ki_r, kd_r, 1000000.0f, 25000.0f, 1.0f, 90.0f), pos_pid(kp_p, ki_p, kd_p, 10000.0f, 300.0f, 0.01f, 60.0f), dji_motor(3000.0f, 16384, 8191), if_double_control(if_double_control_)
 {
 }
 
@@ -66,8 +66,8 @@ int16_t m6020s::motor_process()
         target_rpm = pos_pid.PID_ComputeError(angle_error);
         // target_rpm = 0.0f;
         //  rpm_pid.setpoint = target_rpm * (float)gear_ratio;
-        rpm_pid.increPID_setarget(target_rpm);
-        target_v = (int16_t)rpm_pid.increPID_Compute(rpm);
+        rpm_pid.setpoint = target_rpm * (float)gear_ratio;
+        target_v = (int16_t)rpm_pid.PID_Compute(rpm);
     }
     else
     { // 丸辣，机械已经装完了，只能单环硬调了
