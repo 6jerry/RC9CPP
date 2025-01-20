@@ -61,6 +61,7 @@
 "m3508_test\netswitch.o"
 "m3508_test\rcncore.o"
 "m3508_test\tb6612.o"
+"m3508_test\matrix_lite.o"
 "m3508_test\shootcar_setup.o"
 "m3508_test\shoot_xbox.o"
 "..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4lf_math.lib"

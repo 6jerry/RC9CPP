@@ -10,14 +10,14 @@
       <TargetName>m3508_test</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6210000::V6.21::ARMCLANG</pCCUsed>
+      <pCCUsed>6220000::V6.22::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32F407ZGTx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F4xx_DFP.2.14.0</PackID>
-          <PackURL>http://www.keil.com/pack/</PackURL>
+          <PackID>Keil.STM32F4xx_DFP.2.17.1</PackID>
+          <PackURL>https://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000-0x2001BFFF) IRAM2(0x2001C000-0x2001FFFF) IROM(0x8000000-0x80FFFFF)  CLOCK(25000000) FPU2 CPUTYPE("Cortex-M4") TZ</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -2891,6 +2891,16 @@
               <FileName>tb6612.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\RC9CPP_API\HARDWARE\MOTOR\tb6612.h</FilePath>
+            </File>
+            <File>
+              <FileName>Matrix_Lite.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\RC9CPP_API\MATH_LIB\Matrix_Lite.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Matrix_Lite.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RC9CPP_API\MATH_LIB\Matrix_Lite.h</FilePath>
             </File>
           </Files>
         </Group>
