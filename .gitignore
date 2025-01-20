@@ -1,0 +1,49 @@
+# 忽略编译生成的文件
+*.o
+*.a
+*.so
+*.dll
+*.exe
+*.out
+*.d
+*.s
+*.asm
+*.log
+*.tmp
+*.temp
+
+# 忽略构建系统生成的文件夹
+build/
+dist/
+out/
+bin/
+obj/
+
+# Keil MDK-ARM 生成的文件
+*.axf
+*.elf
+*.uvguix.*
+*.uvoptx
+*.dep
+*.d
+*.map
+*.crf
+*.lnp
+*.htm
+*.log
+*.bak
+
+# STM32CubeMX 生成的备份文件
+*.ioc.bak
+
+# 特定的编译文件夹
+MDK-ARM/
+Debug/
+Release/
+
+# 忽略 IDE 配置文件
+.vscode/
+.idea/
+.cproject
+.project
+.settings/
