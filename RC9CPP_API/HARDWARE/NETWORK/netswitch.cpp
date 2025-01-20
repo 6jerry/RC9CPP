@@ -4,6 +4,7 @@ rcnode *rcnode::MAC_2_NODE[MAX_NODES] = {nullptr};
 
 uint8_t rcnode::local_ip = LOCAL_RCIP;
 
+<<<<<<< HEAD
 /**
  * @brief 同步发送数据到指定的节点
  * @param rcnIP_ 目标节点的 IP 地址
@@ -12,12 +13,17 @@ uint8_t rcnode::local_ip = LOCAL_RCIP;
  * @param data 数据指针
  * @return 发送结果，成功返回1，失败返回0
  */
+=======
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
 uint8_t
 rcnode::ppsend_Syn(uint8_t rcnIP_, uint8_t rcnMAC_, uint8_t rcnID_, const void *data)
 {
     if (rcnIP_ == local_ip && MAC_2_NODE[rcnMAC_] != nullptr && rcnMAC_ < MAX_NODES)
     {
+<<<<<<< HEAD
         // 调用目标节点的 msgin 函数发送数据，并返回结果
+=======
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
         return MAC_2_NODE[rcnMAC_]->msgin(rcnID_, data);
     }
     else
@@ -124,4 +130,8 @@ uint8_t rcnode::ppget_AsynOverwrite()
     }
 
     return 0; // 队列中无消息
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2

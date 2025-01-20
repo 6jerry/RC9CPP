@@ -34,16 +34,21 @@ void shoot_xbox::process_data()
 
     if (speed_level == 1)
     {
+<<<<<<< HEAD
         MAX_ROBOT_SPEED_X = 8.20f;
         MAX_ROBOT_SPEED_Y = 8.20f;
         MAX_ROBOT_SPEED_W = 3.20f;
         MAX_RPM = 200.0f;
         // pitcher->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
         shooter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
+=======
+        MAX_RPM = 186.0f;
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
     }
 
     if (speed_level == 0)
     {
+<<<<<<< HEAD
         MAX_ROBOT_SPEED_X = 4.40f;
         MAX_ROBOT_SPEED_Y = 4.40f;
         MAX_ROBOT_SPEED_W = 1.10f;
@@ -58,6 +63,13 @@ void shoot_xbox::process_data()
         MAX_ROBOT_SPEED_W = 3.98f;
         MAX_RPM = 200.0f;
         // shooter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
+=======
+        MAX_RPM = 86.0f;
+    }
+    if (speed_level == 2)
+    {
+        MAX_RPM = 286.0f;
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
     }
 
     control_chassis->switch_chassis_mode(remote_robotv);

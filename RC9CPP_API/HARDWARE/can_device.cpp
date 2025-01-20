@@ -516,8 +516,13 @@ extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
             if (RxHeader1.ExtId >= 0x900 && RxHeader1.ExtId <= 0x908) // vesc电调的id范围
             {
                 uint8_t vesc_id = RxHeader1.ExtId & 0xFF;
+<<<<<<< HEAD
                 // current = (int16_t)((CanManager ::RxData1[4] << 8) | CanManager ::RxData1[5]); // 电流，要乘个0.1
                 //  erpm = (int32_t)((CanManager ::RxData1[0] << 24) | (CanManager ::RxData1[1] << 16) | (CanManager ::RxData1[2] << 8) | CanManager ::RxData1[3]); // 电器转速，记得除以电机的极对数
+=======
+                //current = (int16_t)((CanManager ::RxData1[4] << 8) | CanManager ::RxData1[5]); // 电流，要乘个0.1
+                // erpm = (int32_t)((CanManager ::RxData1[0] << 24) | (CanManager ::RxData1[1] << 16) | (CanManager ::RxData1[2] << 8) | CanManager ::RxData1[3]); // 电器转速，记得除以电机的极对数
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
 
                 // rrpm = (float)erpm / 7.0f;
                 // rcurrent = (float)current * 0.1f;

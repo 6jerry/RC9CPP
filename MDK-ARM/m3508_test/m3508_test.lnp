@@ -60,10 +60,18 @@
 "m3508_test\vesc.o"
 "m3508_test\netswitch.o"
 "m3508_test\rcncore.o"
+<<<<<<< HEAD
 "m3508_test\tb6612.o"
 "m3508_test\matrix_lite.o"
 "m3508_test\shootcar_setup.o"
 "m3508_test\shoot_xbox.o"
+=======
+"m3508_test\gyro.o"
+"m3508_test\gyro_fuc.o"
+"m3508_test\wit_c_sdk.o"
+"m3508_test\r2n_setup.o"
+"m3508_test\r2n_xbox.o"
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
 "..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4lf_math.lib"
 --strict --scatter "m3508_test\m3508_test.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols

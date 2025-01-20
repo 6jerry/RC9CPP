@@ -14,6 +14,7 @@ int mystrcmp(const char *str1, const char *str2)
     return *(unsigned char *)str1 - *(unsigned char *)str2;
 }
 
+<<<<<<< HEAD
 /**
  * @brief 查找或创建一个主题
  * @param topicName 主题名称
@@ -25,18 +26,28 @@ uint8_t rcncore::findOrCreateTopic(const char *topicName)
     for (uint8_t i = 0; i < topicCount; ++i)
     {
         // 比较当前主题名称与给定的主题名称是否相同
+=======
+uint8_t rcncore::findOrCreateTopic(const char *topicName)
+{
+    for (uint8_t i = 0; i < topicCount; ++i)
+    {
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
         if (mystrcmp(topicTable[i].topicName, topicName) == 0)
         {
             return topicTable[i].topicID; // 话题已存在，返回对应的 ID
         }
     }
 
+<<<<<<< HEAD
     // 如果主题数量已经达到最大值，则返回0xFF表示无法创建新主题
+=======
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
     if (topicCount >= MAX_TOPICS)
         return 0xFF; // 超过最大话题数量
 
     topicTable[topicCount].topicName = topicName; // 新建话题
     topicTable[topicCount].topicID = topicCount;
+<<<<<<< HEAD
     // 返回新主题的ID，并将主题数量加一
     return topicCount++;
 }
@@ -52,6 +63,14 @@ uint8_t rcncore::registerPublisher(const char *topicName, rcnode *node)
     // 查找或创建主题，并获取主题ID
     uint8_t topicID = findOrCreateTopic(topicName);
     // 如果主题ID为0xFF，表示没有找到或创建有效的主题，返回0xFF
+=======
+    return topicCount++;
+}
+
+uint8_t rcncore::registerPublisher(const char *topicName, rcnode *node)
+{
+    uint8_t topicID = findOrCreateTopic(topicName);
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
     if (topicID == 0xFF)
         return 0xFF;
 
@@ -59,6 +78,7 @@ uint8_t rcncore::registerPublisher(const char *topicName, rcnode *node)
     return topicID;
 }
 
+<<<<<<< HEAD
 /**
  * @brief 注册一个订阅者到指定的主题
  * @param topicName 主题名称
@@ -124,6 +144,44 @@ void rcncore::publish(uint8_t topicID, uint8_t dataID, const void *data, pptype_
             break;
         case ASYNOVERWRITE:
             // 异步覆盖发送数据
+=======
+bool rcncore::registerSubscriber(const char *topicName, rcnode *node)
+{
+    uint8_t topicID = findOrCreateTopic(topicName);
+    if (topicID == 0xFF)
+        return false;
+
+    topicinfo_ &topic = topicTable[topicID];
+    if (topic.subscriberCount >= MAX_SUBSCRIBERS_PER_TOPIC)
+        return false;
+
+    topic.subscribers[topic.subscriberCount++] = node;
+    return true;
+}
+
+void rcncore::publish(uint8_t topicID, uint8_t dataID, const void *data, pptype_ pptype)
+{
+    if (topicID >= topicCount)
+        return; // 无效话题 ID
+
+    topicinfo_ &topic = topicTable[topicID];
+    rcnode *publisher = topic.publisherNode;
+    if (publisher == nullptr)
+        return; // 没有发布者
+
+    for (uint8_t i = 0; i < topic.subscriberCount; ++i)
+    {
+        rcnode *subscriber = topic.subscribers[i];
+        switch (pptype)
+        {
+        case SYN:
+            publisher->ppsend_Syn(topicID, subscriber->rcmac, dataID, data);
+            break;
+        case ASYN:
+            publisher->ppsend_Asyn(topicID, subscriber->rcmac, dataID, data);
+            break;
+        case ASYNOVERWRITE:
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
             publisher->ppsend_AsynOverwrite(topicID, subscriber->rcmac, dataID, data);
             break;
         }
@@ -132,6 +190,7 @@ void rcncore::publish(uint8_t topicID, uint8_t dataID, const void *data, pptype_
 
 // 发布者实现
 
+<<<<<<< HEAD
 /**
  * @brief 初始化发布者
  * @param topicName_ 主题名称
@@ -200,6 +259,39 @@ uint8_t subscriber::hearfromtopic()
         return 0;
 
     // 根据发布类型选择相应的接收方法
+=======
+void publisher::init(const char *topicName_, pptype_ pptypeselect, rcnode *node_)
+{
+    topicName = topicName_;
+    pptype = pptypeselect;
+    node = node_;
+    topicID = rcncore::registerPublisher(topicName, node);
+}
+
+uint8_t publisher::publish(uint8_t dataID, const void *data)
+{
+    if (topicID == 0xFF)
+        return 0;
+
+    rcncore::publish(topicID, dataID, data, pptype);
+    return 1;
+}
+
+
+void subscriber::init(const char *topicName_, pptype_ pptypeselect, rcnode *node_)
+{
+    topicName = topicName_;
+    pptype = pptypeselect;
+    node = node_;
+    topicID = rcncore::findOrCreateTopic(topicName);
+    rcncore::registerSubscriber(topicName, node);
+}
+uint8_t subscriber::hearfromtopic()
+{
+    if (topicID == 0xFF)
+        return 0;
+
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
     switch (pptype)
     {
     case ASYN:
@@ -209,4 +301,8 @@ uint8_t subscriber::hearfromtopic()
         return node->ppget_AsynOverwrite(); // 异步接收消息
         break;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2

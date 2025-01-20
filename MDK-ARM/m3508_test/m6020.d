@@ -28,6 +28,7 @@ m3508_test/m6020.o: ..\RC9CPP_API\HARDWARE\MOTOR\m6020.cpp \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
   ..\RC9CPP_API\HARDWARE\TaskManager.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
+<<<<<<< HEAD
   ..\RC9CPP_API\HARDWARE\NETWORK\rcncore.h \
   ..\RC9CPP_API\HARDWARE\NETWORK\netswitch.h \
   ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
@@ -47,3 +48,6 @@ m3508_test/m6020.o: ..\RC9CPP_API\HARDWARE\MOTOR\m6020.cpp \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h \
   ..\RC9CPP_API\MATH_LIB\crc_util.h
+=======
+  ..\RC9CPP_API\CONTROL\pid.h ..\RC9CPP_API\HARDWARE\MOTOR\motor.h
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2

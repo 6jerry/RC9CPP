@@ -29,8 +29,13 @@
 /* USER CODE BEGIN Includes */
 #include <string.h>
 
+<<<<<<< HEAD
 // #include "r2n_setup.h"
 #include "shootcar_setup.h"
+=======
+#include "r2n_setup.h"
+//#include "push_shoot.h"
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -116,8 +121,13 @@ int main(void)
   osKernelInitialize();
 
   /* Call init function for freertos objects (in freertos.c) */
+<<<<<<< HEAD
   // MX_FREERTOS_Init();
   shootcar_setup();
+=======
+  r2n_setup();
+  //pshoot_setup();
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
   /* Start scheduler */
   // osKernelStart();
 

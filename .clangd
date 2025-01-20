@@ -1,0 +1,21 @@
+CompileFlags:
+  Add: [-IC:\Users\32806\Desktop\9th_R2\RC9CPP\Core\Inc,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\Drivers\CMSIS\Device\ST\STM32F4xx\Include,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\Drivers\CMSIS\Device\Include,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\Drivers\STM32F4xx_HAL_Driver\Inc,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\Drivers\CMSIS\Include,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\RC9CPP_API\CONTROL\STRUCTURE,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\Middlewares\Third_Party\FreeRTOS\Source\include,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\Middlewares\ST\ARM\DSP\Inc,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\RC9CPP_API\CONTROL,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\RC9CPP_API\DECISION,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\RC9CPP_API\HARDWARE\wit_IMU,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\RC9CPP_API\HARDWARE,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\RC9CPP_API\HARDWARE\MOTOR,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\RC9CPP_API\MATH_LIB,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\RC9CPP_API,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\RC9CPP_USER\R1N_USER,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\RC9CPP_USER\R2N_USER,
+-IC:\Users\32806\Desktop\9th_R2\RC9CPP\RC9CPP_USER\structure_test
+  ]
