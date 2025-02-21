@@ -31,18 +31,16 @@ extern "C"
 }
 #endif
 #ifdef __cplusplus
-class demo : public ITaskProcessor, public rcnode
+class demo : public ITaskProcessor, public RC9subscriber
 {
 private:
-    float testdd = 0.0f;
-    subscriber subber;
+    float elapsedTime = 0.0f, test_data = 0.0f, send_data = 6.0f;
+    uint32_t currentTick = 0;
+    uint32_t previousTick = 0;
 
 public:
     void process_data();
-    uint8_t msgin(uint8_t rcnID_, const void *data) override;
-    uint8_t msgout(uint8_t rcnID_, void *output) override;
-    demo(float init_ = 0.0f);
-    float testdata[6] = {0};
+    void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
 };
 
 #endif

@@ -17,7 +17,7 @@ extern "C"
 class xbox_r2n : public xbox, public ITaskProcessor
 {
 private:
-    RC9Protocol_cdc *robot_data_chain;
+    RC9Protocol *robot_data_chain;
     uint8_t head_locking_flag = 0;   // 0是不锁死，1是锁死
     uint8_t catch_ball_flag = 0;     // 0是松开，1是夹紧
     uint8_t world_robot_flag = 0;    // 0是机器人坐标系控制，1是世界坐标系控制

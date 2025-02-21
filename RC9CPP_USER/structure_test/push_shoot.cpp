@@ -39,7 +39,7 @@
 TaskManager task_core;
 // CanManager can_core;
 //  shoot_xbox shoot_control(&m3508_shooter, &m3508_pitch);
-RC9Protocol_cdc debug(false);
+RC9Protocol debug(cdc), esp32(uart, &huart3);
 
 HWT101CT yaw_sensor(&huart2);
 
@@ -70,25 +70,27 @@ extern "C" void pshoot_setup(void)
     mg996_right.init();
 
     yaw_sensor.startUartReceiveIT();
-    // wwwwfdi_test.startUartReceiveIT();
-    // esp32_serial.addsubscriber(&resxbox);
-    // task_core.registerTask(0, &can_core);
-    // task_core.registerTask(1, &vesc_test);
-    // task_core.registerTask(1, &box_test);
-    // task_core.registerTask(2, &mknum_test);
-    // task_core.registerTask(4, &right_front);
-    // task_core.registerTask(4, &right_back);
-    // task_core.registerTask(5, &left_front);
-    // task_core.registerTask(5, &left_back);
-    // task_core.registerTask(6, &odom_test);
-    // task_core.registerTask(6, &resxbox);
+    debug.initQueue();
+    esp32.startUartReceiveIT();
+    //  debug.startUartReceiveIT();
+    //  debug.addsubscriber(&test2);
+    //  test2.addsubscriber(&debug);
+    // esp32_serial.startUartReceiveIT();
+    //  wwwwfdi_test.startUartReceiveIT();
+    //  esp32_serial.addsubscriber(&resxbox);
+    //  task_core.registerTask(0, &can_core);
+    //  task_core.registerTask(1, &vesc_test);
+    //  task_core.registerTask(1, &box_test);
+    //  task_core.registerTask(2, &mknum_test);
+    //  task_core.registerTask(4, &right_front);
+    //  task_core.registerTask(4, &right_back);
+    //  task_core.registerTask(5, &left_front);
+    //  task_core.registerTask(5, &left_back);
+    //  task_core.registerTask(6, &odom_test);
+    //  task_core.registerTask(6, &resxbox);
     task_core.registerTask(8, &debug);
     task_core.registerTask(7, &test2);
-    //   task_core.registerTask(7, &esp32_serial);
-
-    debug.tx_frame_mat.frame_id = 1;
-    debug.tx_frame_mat.data_length = 24;
-
+    test2.addport(&debug);
     mg996_left.set_ccr(left_up); // 146 最低位,80最高位
     mg996_right.set_ccr(right_up);
     resxbox.rcninit(2);
@@ -105,43 +107,21 @@ extern "C" void pshoot_setup(void)
 
 void demo::process_data()
 {
-    // vesc_test.rpm_control.PID_SetParameters(debug.rx_frame_mat.data.msg_get[0], debug.rx_frame_mat.data.msg_get[1], debug.rx_frame_mat.data.msg_get[2]);
-    // mknum_test.pointracker.track_pid.PID_SetParameters(debug.rx_frame_mat.data.msg_get[0], debug.rx_frame_mat.data.msg_get[1], debug.rx_frame_mat.data.msg_get[2]);
-    // right_front.rpm_control.increPID_SetParameters(debug.rx_frame_mat.data.msg_get[0], debug.rx_frame_mat.data.msg_get[1], debug.rx_frame_mat.data.msg_get[2], debug.rx_frame_mat.data.msg_get[3]);
+    currentTick = HAL_GetTick(); // ???? tick ?
 
-    // debug.tx_frame_mat.data.msg_get[0] = odom_test.now_heading;
+    // ??????????????
+    elapsedTime = (float)(currentTick - previousTick);
 
-    // ppsend_Asyn(LOCAL_RCIP, 3, 0, &mknum_test.target_w);
-    //   debug.tx_frame_mat.data.msg_get[2] = right_front.rpm_control.setpoint / 45.0f;
-    //     debug.tx_frame_mat.data.msg_get[2] = vesc_test.target_rpm;
-    //      debug.tx_frame_mat.data.msg_get[2] = m3508_shooter.rpm_control.setpoint;
-    //       ppget_AsynOverwrite();
-    //       testdd += 0.001f;
-
-    // m6020_test.pos_pid.PID_SetParameters(debug.rx_frame_mat.data.msg_get[0], debug.rx_frame_mat.data.msg_get[1], debug.rx_frame_mat.data.msg_get[2]);
-
-    // debug.tx_frame_mat.data.msg_get[0] = m6020_test.get_rpm();
-
-    // debug.tx_frame_mat.data.msg_get[1] = m6020_test.target_angle;
-    // debug.tx_frame_mat.data.msg_get[2] = m6020_test.angle_error;
-}
-
-uint8_t demo::msgin(uint8_t rcnID_, const void *data)
-{
-    const float *inputData = static_cast<const float *>(data);
-    if (inputData)
+    if (elapsedTime >= 1) // ??????? 1 ??
     {
-        testdata[0] = inputData[0];
-        testdata[1] = inputData[1];
-        testdata[2] = inputData[2];
-        return 1;
+        previousTick = currentTick; // ????? tick ?
+                                    //  ????????????
+                                    //  ??,LED???
     }
-    return 0;
+
+    sendFloatData(1, &test_data, 1);
 }
-uint8_t demo::msgout(uint8_t rcnID_, void *output)
+void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
 {
-    return 0;
-}
-demo::demo(float init_) : testdd(init_)
-{
+    test_data = floatData[0];
 }

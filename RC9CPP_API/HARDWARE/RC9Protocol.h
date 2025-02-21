@@ -15,6 +15,7 @@ extern "C"
 #endif
 
 #ifdef __cplusplus
+class RC9Protocol;
 #define FRAME_HEAD_0_RC9 0xFC
 #define FRAME_HEAD_1_RC9 0xFB
 #define FRAME_END_0_RC9 0xFD
@@ -22,8 +23,22 @@ extern "C"
 #define MAX_DATA_LENGTH_RC9 64
 #define MAX_SUBSCRIBERS 5
 
+class RC9subscriber
+{
+public:
+    virtual void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) {}; // 数据回调函数
+    // 用户调用此函数发送浮动数据
+    bool sendFloatData(uint8_t id, const float *data, uint8_t count);
 
+    // 用户调用此函数发送字节数据
+    bool sendByteData(uint8_t id, const uint8_t *data, uint8_t length);
 
+    void addport(RC9Protocol *port_);
+
+protected:
+private:
+    RC9Protocol *serialport_ = nullptr;
+};
 
 typedef struct serial_frame_mat
 {
@@ -45,38 +60,42 @@ typedef struct serial_frame_mat
     uint8_t frame_end[2];
 } serial_frame_mat_t;
 
-class RC9Protocol_cdc : public SerialDevice, public ITaskProcessor
+
+class RC9Protocol : public SerialDevice, public ITaskProcessor
 {
 
 public:
-    // 面向用户的友好接口函数
-   
-    void load_Txfloat(uint8_t data_id, const float *data_float, uint8_t numbers); // id ,待传输的数组，要发送的数组长度
-    
+    bool load_Txfloat(uint8_t id, const float *data, uint8_t count);
+
+    // 实现发送字节数据
+    bool load_Txbyte(uint8_t id, const uint8_t *data, uint8_t length);
+
+    bool addSubscriber(RC9subscriber *subscriber);
 
 public:
     // 构造函数，传入 UART 句柄，是否启用发送任务，是否启用 CRC 校验
-    RC9Protocol_cdc(bool enableCrcCheck = true);
+    RC9Protocol(uart_type type_ = uart, UART_HandleTypeDef *huart = nullptr, bool enableCrcCheck = false);
 
     // 实现接收数据的处理逻辑
-    void handleReceiveData(uint8_t byte);
+    void handleReceiveData(uint8_t byte) override;
 
-   
     void process_data();
 
     serial_frame_mat_t rx_frame_mat; // 接收数据的数据帧结构体
     serial_frame_mat_t tx_frame_mat; // 发送数据的数据帧结构体
 
-  
+    void initQueue();
+
 private:
+    osMessageQueueId_t sendQueue_;
+    static const uint8_t MAX_QUEUE_SIZE = 5; // 最大队列大小
+
     uint8_t sendBuffer_[MAX_DATA_LENGTH_RC9 + 8];
     uint8_t rxIndex_; // 当前接收到的字节的索引
 
-   
-
     bool enableCrcCheck_; // 是否启用 CRC 校验
-   
-  
+
+    int observerCount_ = 0;
     // 状态机
     enum rxState
     {
@@ -90,6 +109,11 @@ private:
         WAITING_FOR_END_0,
         WAITING_FOR_END_1
     } state_;
+
+    RC9subscriber *subscribers[MAX_SUBSCRIBERS]; // 订阅者数组
+    uint8_t subscriberCount_ = 0;                // 订阅者数量
+
+    uart_type type = uart;
 };
 #endif
 #endif // RC9_PROTOCOL_H

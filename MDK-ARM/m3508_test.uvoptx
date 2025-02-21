@@ -777,6 +777,11 @@
           <WinNumber>2</WinNumber>
           <ItemText>esp32_serial</ItemText>
         </Ww>
+        <Ww>
+          <count>103</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>test_data</ItemText>
+        </Ww>
       </WatchWindow2>
       <MemoryWindow1>
         <Mm>
