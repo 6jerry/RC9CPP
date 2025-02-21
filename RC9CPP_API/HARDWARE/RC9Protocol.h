@@ -9,6 +9,7 @@ extern "C"
 #include "Serial_device.h"
 #include "netswitch.h"
 #include "rcncore.h"
+#include "usbd_cdc_if.h"
 #ifdef __cplusplus
 }
 #endif
@@ -21,15 +22,8 @@ extern "C"
 #define MAX_DATA_LENGTH_RC9 64
 #define MAX_SUBSCRIBERS 5
 
-// 该类的订阅者,一般这种生产数据的类都是发布者
-class RC9Protocol_subscriber
-{
-public:
-    virtual ~RC9Protocol_subscriber() {}
-    void *subtarget = nullptr; // 用来建立双向联系的
-    // 接口方法：更新数据
-    virtual void update(uint8_t data_id, uint8_t data_length, const uint8_t *data_char, const float *data_float) = 0;
-};
+
+
 
 typedef struct serial_frame_mat
 {
@@ -51,40 +45,38 @@ typedef struct serial_frame_mat
     uint8_t frame_end[2];
 } serial_frame_mat_t;
 
-class RC9Protocol : public SerialDevice, public ITaskProcessor, public rcnode
+class RC9Protocol_cdc : public SerialDevice, public ITaskProcessor
 {
 
 public:
     // 面向用户的友好接口函数
    
     void load_Txfloat(uint8_t data_id, const float *data_float, uint8_t numbers); // id ,待传输的数组，要发送的数组长度
-    float Get_Rxfloat(uint8_t numbers);                                           // 获取接收到的第几个float，传入“第几个”
+    
 
 public:
     // 构造函数，传入 UART 句柄，是否启用发送任务，是否启用 CRC 校验
-    RC9Protocol(UART_HandleTypeDef *huart, bool enableCrcCheck = true);
+    RC9Protocol_cdc(bool enableCrcCheck = true);
 
     // 实现接收数据的处理逻辑
     void handleReceiveData(uint8_t byte);
 
-    bool addsubscriber(RC9Protocol_subscriber *observer);
+   
     void process_data();
 
     serial_frame_mat_t rx_frame_mat; // 接收数据的数据帧结构体
     serial_frame_mat_t tx_frame_mat; // 发送数据的数据帧结构体
 
-    uint8_t msgin(uint8_t rcnID_, const void *data) override;
-    uint8_t msgout(uint8_t rcnID_, void *output) override;
-
+  
 private:
     uint8_t sendBuffer_[MAX_DATA_LENGTH_RC9 + 8];
     uint8_t rxIndex_; // 当前接收到的字节的索引
 
-    void publish(uint8_t data_id, uint8_t datalenth, const uint8_t *data_char, const float *data_float); // 发布数据
+   
 
     bool enableCrcCheck_; // 是否启用 CRC 校验
-    RC9Protocol_subscriber *observers_[MAX_SUBSCRIBERS] = {nullptr};
-    int observerCount_ = 0;
+   
+  
     // 状态机
     enum rxState
     {

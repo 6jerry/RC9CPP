@@ -5499,90 +5499,90 @@ Image Symbol Table
     [Anonymous Symbol]                       0x0800a054   Section        0  stm32f4xx_hal_dma.o(.rodata.cst8)
     .L.str.1                                 0x0800a05c   Data           5  timers.o(.rodata.str1.1)
     [Anonymous Symbol]                       0x0800a05c   Section        0  timers.o(.rodata.str1.1)
-    .init_array                              0x0800a08c   Section        0  init_aeabi.o(.init_array)
-    .L_MergedGlobals                         0x20000000   Data           8  stm32f4xx_hal.o(.data..L_MergedGlobals)
-    [Anonymous Symbol]                       0x20000000   Section        0  stm32f4xx_hal.o(.data..L_MergedGlobals)
-    uxCriticalNesting                        0x20000010   Data           4  port.o(.data.uxCriticalNesting)
-    [Anonymous Symbol]                       0x20000010   Section        0  port.o(.data.uxCriticalNesting)
-    .bss                                     0x20000018   Section       96  libspace.o(.bss)
-    .L_MergedGlobals                         0x20000078   Data         104  can.o(.bss..L_MergedGlobals)
-    [Anonymous Symbol]                       0x20000078   Section        0  can.o(.bss..L_MergedGlobals)
-    .L_MergedGlobals                         0x200000e0   Data         120  tasks.o(.bss..L_MergedGlobals)
-    [Anonymous Symbol]                       0x200000e0   Section        0  tasks.o(.bss..L_MergedGlobals)
-    uxTaskNumber                             0x200000e4   Data           4  tasks.o(.bss..L_MergedGlobals)
-    uxDeletedTasksWaitingCleanUp             0x200000e8   Data           4  tasks.o(.bss..L_MergedGlobals)
-    uxCurrentNumberOfTasks                   0x200000ec   Data           4  tasks.o(.bss..L_MergedGlobals)
-    xSchedulerRunning                        0x200000f0   Data           4  tasks.o(.bss..L_MergedGlobals)
-    uxSchedulerSuspended                     0x200000f4   Data           4  tasks.o(.bss..L_MergedGlobals)
-    xTickCount                               0x200000f8   Data           4  tasks.o(.bss..L_MergedGlobals)
-    pxDelayedTaskList                        0x200000fc   Data           4  tasks.o(.bss..L_MergedGlobals)
-    pxOverflowDelayedTaskList                0x20000100   Data           4  tasks.o(.bss..L_MergedGlobals)
-    uxTopReadyPriority                       0x20000104   Data           4  tasks.o(.bss..L_MergedGlobals)
-    xIdleTaskHandle                          0x20000108   Data           4  tasks.o(.bss..L_MergedGlobals)
-    xNextTaskUnblockTime                     0x2000010c   Data           4  tasks.o(.bss..L_MergedGlobals)
-    xYieldPending                            0x20000110   Data           4  tasks.o(.bss..L_MergedGlobals)
-    xPendedTicks                             0x20000114   Data           4  tasks.o(.bss..L_MergedGlobals)
-    xNumOfOverflows                          0x20000118   Data           4  tasks.o(.bss..L_MergedGlobals)
-    xTasksWaitingTermination                 0x2000011c   Data          20  tasks.o(.bss..L_MergedGlobals)
-    xSuspendedTaskList                       0x20000130   Data          20  tasks.o(.bss..L_MergedGlobals)
-    xPendingReadyList                        0x20000144   Data          20  tasks.o(.bss..L_MergedGlobals)
-    .L_MergedGlobals                         0x20000158   Data          60  timers.o(.bss..L_MergedGlobals)
-    xTimerQueue                              0x20000158   Data           4  timers.o(.bss..L_MergedGlobals)
-    [Anonymous Symbol]                       0x20000158   Section        0  timers.o(.bss..L_MergedGlobals)
-    xTimerTaskHandle                         0x2000015c   Data           4  timers.o(.bss..L_MergedGlobals)
-    pxCurrentTimerList                       0x20000160   Data           4  timers.o(.bss..L_MergedGlobals)
-    pxOverflowTimerList                      0x20000164   Data           4  timers.o(.bss..L_MergedGlobals)
-    prvSampleTimeNow.xLastTime               0x20000168   Data           4  timers.o(.bss..L_MergedGlobals)
-    xActiveTimerList1                        0x2000016c   Data          20  timers.o(.bss..L_MergedGlobals)
-    xActiveTimerList2                        0x20000180   Data          20  timers.o(.bss..L_MergedGlobals)
-    .L_MergedGlobals                         0x20000194   Data          32  heap_4.o(.bss..L_MergedGlobals)
-    xBlockAllocatedBit                       0x20000194   Data           1  heap_4.o(.bss..L_MergedGlobals)
-    [Anonymous Symbol]                       0x20000194   Section        0  heap_4.o(.bss..L_MergedGlobals)
-    pxEnd                                    0x20000198   Data           4  heap_4.o(.bss..L_MergedGlobals)
-    xFreeBytesRemaining                      0x2000019c   Data           4  heap_4.o(.bss..L_MergedGlobals)
-    xMinimumEverFreeBytesRemaining           0x200001a0   Data           4  heap_4.o(.bss..L_MergedGlobals)
-    xNumberOfSuccessfulAllocations           0x200001a4   Data           4  heap_4.o(.bss..L_MergedGlobals)
-    xNumberOfSuccessfulFrees                 0x200001a8   Data           4  heap_4.o(.bss..L_MergedGlobals)
-    xStart                                   0x200001ac   Data           8  heap_4.o(.bss..L_MergedGlobals)
-    .L_MergedGlobals                         0x200001b4   Data           8  port.o(.bss..L_MergedGlobals)
-    ucMaxSysCallPriority                     0x200001b4   Data           1  port.o(.bss..L_MergedGlobals)
-    [Anonymous Symbol]                       0x200001b4   Section        0  port.o(.bss..L_MergedGlobals)
-    ulMaxPRIGROUPValue                       0x200001b8   Data           4  port.o(.bss..L_MergedGlobals)
-    .L_MergedGlobals                         0x200001bc   Data         120  can_device.o(.bss..L_MergedGlobals)
-    [Anonymous Symbol]                       0x200001bc   Section        0  can_device.o(.bss..L_MergedGlobals)
-    .L_MergedGlobals                         0x20000234   Data          80  push_shoot.o(.bss..L_MergedGlobals)
-    [Anonymous Symbol]                       0x20000234   Section        0  push_shoot.o(.bss..L_MergedGlobals)
-    .L_MergedGlobals.1                       0x20000284   Data          32  can_device.o(.bss..L_MergedGlobals.1)
-    [Anonymous Symbol]                       0x20000284   Section        0  can_device.o(.bss..L_MergedGlobals.1)
-    .L_MergedGlobals.2                       0x200002a4   Data          40  tasks.o(.bss..L_MergedGlobals.2)
-    xDelayedTaskList1                        0x200002a4   Data          20  tasks.o(.bss..L_MergedGlobals.2)
-    [Anonymous Symbol]                       0x200002a4   Section        0  tasks.o(.bss..L_MergedGlobals.2)
-    xDelayedTaskList2                        0x200002b8   Data          20  tasks.o(.bss..L_MergedGlobals.2)
-    HAL_RCC_CAN1_CLK_ENABLED                 0x200002cc   Data           4  can.o(.bss.HAL_RCC_CAN1_CLK_ENABLED)
-    [Anonymous Symbol]                       0x200002cc   Section        0  can.o(.bss.HAL_RCC_CAN1_CLK_ENABLED)
-    KernelState                              0x200002d0   Data           4  cmsis_os2.o(.bss.KernelState)
-    [Anonymous Symbol]                       0x200002d0   Section        0  cmsis_os2.o(.bss.KernelState)
-    prvCheckForValidListAndQueue.ucStaticTimerQueueStorage 0x2000185c   Data         160  timers.o(.bss.prvCheckForValidListAndQueue.ucStaticTimerQueueStorage)
-    [Anonymous Symbol]                       0x2000185c   Section        0  timers.o(.bss.prvCheckForValidListAndQueue.ucStaticTimerQueueStorage)
-    prvCheckForValidListAndQueue.xStaticTimerQueue 0x200018fc   Data          80  timers.o(.bss.prvCheckForValidListAndQueue.xStaticTimerQueue)
-    [Anonymous Symbol]                       0x200018fc   Section        0  timers.o(.bss.prvCheckForValidListAndQueue.xStaticTimerQueue)
-    pxReadyTasksLists                        0x2000194c   Data        1120  tasks.o(.bss.pxReadyTasksLists)
-    [Anonymous Symbol]                       0x2000194c   Section        0  tasks.o(.bss.pxReadyTasksLists)
-    ucHeap                                   0x20002270   Data       15360  heap_4.o(.bss.ucHeap)
-    [Anonymous Symbol]                       0x20002270   Section        0  heap_4.o(.bss.ucHeap)
-    vApplicationGetIdleTaskMemory.Idle_Stack 0x20005e74   Data         512  cmsis_os2.o(.bss.vApplicationGetIdleTaskMemory.Idle_Stack)
-    [Anonymous Symbol]                       0x20005e74   Section        0  cmsis_os2.o(.bss.vApplicationGetIdleTaskMemory.Idle_Stack)
-    vApplicationGetIdleTaskMemory.Idle_TCB   0x20006074   Data          92  cmsis_os2.o(.bss.vApplicationGetIdleTaskMemory.Idle_TCB)
-    [Anonymous Symbol]                       0x20006074   Section        0  cmsis_os2.o(.bss.vApplicationGetIdleTaskMemory.Idle_TCB)
-    vApplicationGetTimerTaskMemory.Timer_Stack 0x200060d0   Data        1024  cmsis_os2.o(.bss.vApplicationGetTimerTaskMemory.Timer_Stack)
-    [Anonymous Symbol]                       0x200060d0   Section        0  cmsis_os2.o(.bss.vApplicationGetTimerTaskMemory.Timer_Stack)
-    vApplicationGetTimerTaskMemory.Timer_TCB 0x200064d0   Data          92  cmsis_os2.o(.bss.vApplicationGetTimerTaskMemory.Timer_TCB)
-    [Anonymous Symbol]                       0x200064d0   Section        0  cmsis_os2.o(.bss.vApplicationGetTimerTaskMemory.Timer_TCB)
-    Heap_Mem                                 0x20006570   Data         512  startup_stm32f407xx.o(HEAP)
-    HEAP                                     0x20006570   Section      512  startup_stm32f407xx.o(HEAP)
-    Stack_Mem                                0x20006770   Data        1024  startup_stm32f407xx.o(STACK)
-    STACK                                    0x20006770   Section     1024  startup_stm32f407xx.o(STACK)
-    __initial_sp                             0x20006b70   Data           0  startup_stm32f407xx.o(STACK)
+    .init_array                              0x0800a0ac   Section        0  init_aeabi.o(.init_array)
+    .L_MergedGlobals                         0x10000000   Data           8  stm32f4xx_hal.o(.data..L_MergedGlobals)
+    [Anonymous Symbol]                       0x10000000   Section        0  stm32f4xx_hal.o(.data..L_MergedGlobals)
+    uxCriticalNesting                        0x10000008   Data           4  port.o(.data.uxCriticalNesting)
+    [Anonymous Symbol]                       0x10000008   Section        0  port.o(.data.uxCriticalNesting)
+    .L_MergedGlobals                         0x1000000c   Data         120  tasks.o(.bss..L_MergedGlobals)
+    [Anonymous Symbol]                       0x1000000c   Section        0  tasks.o(.bss..L_MergedGlobals)
+    uxTaskNumber                             0x10000010   Data           4  tasks.o(.bss..L_MergedGlobals)
+    uxDeletedTasksWaitingCleanUp             0x10000014   Data           4  tasks.o(.bss..L_MergedGlobals)
+    uxCurrentNumberOfTasks                   0x10000018   Data           4  tasks.o(.bss..L_MergedGlobals)
+    xSchedulerRunning                        0x1000001c   Data           4  tasks.o(.bss..L_MergedGlobals)
+    uxSchedulerSuspended                     0x10000020   Data           4  tasks.o(.bss..L_MergedGlobals)
+    xTickCount                               0x10000024   Data           4  tasks.o(.bss..L_MergedGlobals)
+    pxDelayedTaskList                        0x10000028   Data           4  tasks.o(.bss..L_MergedGlobals)
+    pxOverflowDelayedTaskList                0x1000002c   Data           4  tasks.o(.bss..L_MergedGlobals)
+    uxTopReadyPriority                       0x10000030   Data           4  tasks.o(.bss..L_MergedGlobals)
+    xIdleTaskHandle                          0x10000034   Data           4  tasks.o(.bss..L_MergedGlobals)
+    xNextTaskUnblockTime                     0x10000038   Data           4  tasks.o(.bss..L_MergedGlobals)
+    xYieldPending                            0x1000003c   Data           4  tasks.o(.bss..L_MergedGlobals)
+    xPendedTicks                             0x10000040   Data           4  tasks.o(.bss..L_MergedGlobals)
+    xNumOfOverflows                          0x10000044   Data           4  tasks.o(.bss..L_MergedGlobals)
+    xTasksWaitingTermination                 0x10000048   Data          20  tasks.o(.bss..L_MergedGlobals)
+    xSuspendedTaskList                       0x1000005c   Data          20  tasks.o(.bss..L_MergedGlobals)
+    xPendingReadyList                        0x10000070   Data          20  tasks.o(.bss..L_MergedGlobals)
+    .L_MergedGlobals                         0x10000084   Data          60  timers.o(.bss..L_MergedGlobals)
+    xTimerQueue                              0x10000084   Data           4  timers.o(.bss..L_MergedGlobals)
+    [Anonymous Symbol]                       0x10000084   Section        0  timers.o(.bss..L_MergedGlobals)
+    xTimerTaskHandle                         0x10000088   Data           4  timers.o(.bss..L_MergedGlobals)
+    pxCurrentTimerList                       0x1000008c   Data           4  timers.o(.bss..L_MergedGlobals)
+    pxOverflowTimerList                      0x10000090   Data           4  timers.o(.bss..L_MergedGlobals)
+    prvSampleTimeNow.xLastTime               0x10000094   Data           4  timers.o(.bss..L_MergedGlobals)
+    xActiveTimerList1                        0x10000098   Data          20  timers.o(.bss..L_MergedGlobals)
+    xActiveTimerList2                        0x100000ac   Data          20  timers.o(.bss..L_MergedGlobals)
+    .L_MergedGlobals                         0x100000c0   Data          32  heap_4.o(.bss..L_MergedGlobals)
+    xBlockAllocatedBit                       0x100000c0   Data           1  heap_4.o(.bss..L_MergedGlobals)
+    [Anonymous Symbol]                       0x100000c0   Section        0  heap_4.o(.bss..L_MergedGlobals)
+    pxEnd                                    0x100000c4   Data           4  heap_4.o(.bss..L_MergedGlobals)
+    xFreeBytesRemaining                      0x100000c8   Data           4  heap_4.o(.bss..L_MergedGlobals)
+    xMinimumEverFreeBytesRemaining           0x100000cc   Data           4  heap_4.o(.bss..L_MergedGlobals)
+    xNumberOfSuccessfulAllocations           0x100000d0   Data           4  heap_4.o(.bss..L_MergedGlobals)
+    xNumberOfSuccessfulFrees                 0x100000d4   Data           4  heap_4.o(.bss..L_MergedGlobals)
+    xStart                                   0x100000d8   Data           8  heap_4.o(.bss..L_MergedGlobals)
+    .L_MergedGlobals                         0x100000e0   Data           8  port.o(.bss..L_MergedGlobals)
+    ucMaxSysCallPriority                     0x100000e0   Data           1  port.o(.bss..L_MergedGlobals)
+    [Anonymous Symbol]                       0x100000e0   Section        0  port.o(.bss..L_MergedGlobals)
+    ulMaxPRIGROUPValue                       0x100000e4   Data           4  port.o(.bss..L_MergedGlobals)
+    .L_MergedGlobals.2                       0x100000e8   Data          40  tasks.o(.bss..L_MergedGlobals.2)
+    xDelayedTaskList1                        0x100000e8   Data          20  tasks.o(.bss..L_MergedGlobals.2)
+    [Anonymous Symbol]                       0x100000e8   Section        0  tasks.o(.bss..L_MergedGlobals.2)
+    xDelayedTaskList2                        0x100000fc   Data          20  tasks.o(.bss..L_MergedGlobals.2)
+    KernelState                              0x10000110   Data           4  cmsis_os2.o(.bss.KernelState)
+    [Anonymous Symbol]                       0x10000110   Section        0  cmsis_os2.o(.bss.KernelState)
+    prvCheckForValidListAndQueue.ucStaticTimerQueueStorage 0x10000114   Data         160  timers.o(.bss.prvCheckForValidListAndQueue.ucStaticTimerQueueStorage)
+    [Anonymous Symbol]                       0x10000114   Section        0  timers.o(.bss.prvCheckForValidListAndQueue.ucStaticTimerQueueStorage)
+    prvCheckForValidListAndQueue.xStaticTimerQueue 0x100001b4   Data          80  timers.o(.bss.prvCheckForValidListAndQueue.xStaticTimerQueue)
+    [Anonymous Symbol]                       0x100001b4   Section        0  timers.o(.bss.prvCheckForValidListAndQueue.xStaticTimerQueue)
+    pxReadyTasksLists                        0x10000204   Data        1120  tasks.o(.bss.pxReadyTasksLists)
+    [Anonymous Symbol]                       0x10000204   Section        0  tasks.o(.bss.pxReadyTasksLists)
+    ucHeap                                   0x10000664   Data       15360  heap_4.o(.bss.ucHeap)
+    [Anonymous Symbol]                       0x10000664   Section        0  heap_4.o(.bss.ucHeap)
+    vApplicationGetIdleTaskMemory.Idle_Stack 0x10004268   Data         512  cmsis_os2.o(.bss.vApplicationGetIdleTaskMemory.Idle_Stack)
+    [Anonymous Symbol]                       0x10004268   Section        0  cmsis_os2.o(.bss.vApplicationGetIdleTaskMemory.Idle_Stack)
+    vApplicationGetIdleTaskMemory.Idle_TCB   0x10004468   Data          92  cmsis_os2.o(.bss.vApplicationGetIdleTaskMemory.Idle_TCB)
+    [Anonymous Symbol]                       0x10004468   Section        0  cmsis_os2.o(.bss.vApplicationGetIdleTaskMemory.Idle_TCB)
+    vApplicationGetTimerTaskMemory.Timer_Stack 0x100044c4   Data        1024  cmsis_os2.o(.bss.vApplicationGetTimerTaskMemory.Timer_Stack)
+    [Anonymous Symbol]                       0x100044c4   Section        0  cmsis_os2.o(.bss.vApplicationGetTimerTaskMemory.Timer_Stack)
+    vApplicationGetTimerTaskMemory.Timer_TCB 0x100048c4   Data          92  cmsis_os2.o(.bss.vApplicationGetTimerTaskMemory.Timer_TCB)
+    [Anonymous Symbol]                       0x100048c4   Section        0  cmsis_os2.o(.bss.vApplicationGetTimerTaskMemory.Timer_TCB)
+    .bss                                     0x20000008   Section       96  libspace.o(.bss)
+    .L_MergedGlobals                         0x20000068   Data         104  can.o(.bss..L_MergedGlobals)
+    [Anonymous Symbol]                       0x20000068   Section        0  can.o(.bss..L_MergedGlobals)
+    .L_MergedGlobals                         0x200000d0   Data         120  can_device.o(.bss..L_MergedGlobals)
+    [Anonymous Symbol]                       0x200000d0   Section        0  can_device.o(.bss..L_MergedGlobals)
+    .L_MergedGlobals                         0x20000148   Data          80  push_shoot.o(.bss..L_MergedGlobals)
+    [Anonymous Symbol]                       0x20000148   Section        0  push_shoot.o(.bss..L_MergedGlobals)
+    .L_MergedGlobals.1                       0x20000198   Data          32  can_device.o(.bss..L_MergedGlobals.1)
+    [Anonymous Symbol]                       0x20000198   Section        0  can_device.o(.bss..L_MergedGlobals.1)
+    HAL_RCC_CAN1_CLK_ENABLED                 0x200001b8   Data           4  can.o(.bss.HAL_RCC_CAN1_CLK_ENABLED)
+    [Anonymous Symbol]                       0x200001b8   Section        0  can.o(.bss.HAL_RCC_CAN1_CLK_ENABLED)
+    Heap_Mem                                 0x20001c08   Data         512  startup_stm32f407xx.o(HEAP)
+    HEAP                                     0x20001c08   Section      512  startup_stm32f407xx.o(HEAP)
+    Stack_Mem                                0x20001e08   Data        1024  startup_stm32f407xx.o(STACK)
+    STACK                                    0x20001e08   Section     1024  startup_stm32f407xx.o(STACK)
+    __initial_sp                             0x20002208   Data           0  startup_stm32f407xx.o(STACK)
 
     Global Symbols
 
@@ -6109,76 +6109,76 @@ Image Symbol Table
     vtable for odometry                      0x08009ff4   Data          20  odometry.o(.rodata._ZTV8odometry)
     vtable for xbox_r2n                      0x0800a008   Data          76  r2n_xbox.o(.rodata._ZTV8xbox_r2n)
     Region$$Table$$Base                      0x0800a064   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x0800a084   Number         0  anon$$obj.o(Region$$Table)
-    SHT$$INIT_ARRAY$$Base                    0x0800a084   Number         0  taskmanager.o(.init_array)
-    SHT$$INIT_ARRAY$$Limit                   0x0800a08c   Number         0  init_aeabi.o(.init_array)
-    uwTickFreq                               0x20000000   Data           1  stm32f4xx_hal.o(.data..L_MergedGlobals)
-    uwTickPrio                               0x20000004   Data           4  stm32f4xx_hal.o(.data..L_MergedGlobals)
-    SystemCoreClock                          0x20000008   Data           4  system_stm32f4xx.o(.data.SystemCoreClock)
-    rcnode::local_ip                         0x2000000c   Data           1  netswitch.o(.data._ZN6rcnode8local_ipE)
-    __libspace_start                         0x20000018   Data          96  libspace.o(.bss)
-    TxHeader                                 0x20000078   Data          24  can.o(.bss..L_MergedGlobals)
-    __temporary_stack_top$libspace           0x20000078   Data           0  libspace.o(.bss)
-    hcan1                                    0x20000090   Data          40  can.o(.bss..L_MergedGlobals)
-    hcan2                                    0x200000b8   Data          40  can.o(.bss..L_MergedGlobals)
-    pxCurrentTCB                             0x200000e0   Data           4  tasks.o(.bss..L_MergedGlobals)
-    CanDevice::instanceCount_m3508_can1      0x200001bc   Data           1  can_device.o(.bss..L_MergedGlobals)
-    CanDevice::instanceCount_m3508_can2      0x200001bd   Data           1  can_device.o(.bss..L_MergedGlobals)
-    CanDevice::instanceCount_go1_can1        0x200001be   Data           1  can_device.o(.bss..L_MergedGlobals)
-    CanDevice::instanceCount_go1_can2        0x200001bf   Data           1  can_device.o(.bss..L_MergedGlobals)
-    CanDevice::instanceCount_m6020_can1      0x200001c0   Data           1  can_device.o(.bss..L_MergedGlobals)
-    CanDevice::instanceCount_m6020_can2      0x200001c1   Data           1  can_device.o(.bss..L_MergedGlobals)
-    CanDevice::instanceCount_vesc_can1       0x200001c2   Data           1  can_device.o(.bss..L_MergedGlobals)
-    CanDevice::instanceCount_vesc_can2       0x200001c3   Data           1  can_device.o(.bss..L_MergedGlobals)
-    CanManager::RxData1                      0x200001c4   Data           8  can_device.o(.bss..L_MergedGlobals)
-    CanManager::RxData2                      0x200001cc   Data           8  can_device.o(.bss..L_MergedGlobals)
-    CanDevice::m3508_instances_can1          0x200001d4   Data          16  can_device.o(.bss..L_MergedGlobals)
-    CanDevice::m3508_instances_can2          0x200001e4   Data          16  can_device.o(.bss..L_MergedGlobals)
-    CanDevice::go1_instances_can1            0x200001f4   Data          16  can_device.o(.bss..L_MergedGlobals)
-    CanDevice::go1_instances_can2            0x20000204   Data          16  can_device.o(.bss..L_MergedGlobals)
-    CanDevice::m6020_instances_can1          0x20000214   Data          16  can_device.o(.bss..L_MergedGlobals)
-    CanDevice::m6020_instances_can2          0x20000224   Data          16  can_device.o(.bss..L_MergedGlobals)
-    task_core                                0x20000234   Data           1  push_shoot.o(.bss..L_MergedGlobals)
-    mg996_left                               0x20000238   Data          12  push_shoot.o(.bss..L_MergedGlobals)
-    mg996_right                              0x20000244   Data          12  push_shoot.o(.bss..L_MergedGlobals)
-    yaw_sensor                               0x20000250   Data          52  push_shoot.o(.bss..L_MergedGlobals)
-    CanDevice::vesc_instances_can1           0x20000284   Data          16  can_device.o(.bss..L_MergedGlobals.1)
-    CanDevice::vesc_instances_can2           0x20000294   Data          16  can_device.o(.bss..L_MergedGlobals.1)
-    TaskManager::tasks                       0x200002d4   Data        1080  taskmanager.o(.bss._ZN11TaskManager5tasksE)
-    SerialDevice::instances_                 0x2000070c   Data          40  serial_device.o(.bss._ZN12SerialDevice10instances_E)
-    SerialDevice::instanceCount_             0x20000734   Data           4  serial_device.o(.bss._ZN12SerialDevice14instanceCount_E)
-    rcnode::MAC_2_NODE                       0x20000738   Data         256  netswitch.o(.bss._ZN6rcnode10MAC_2_NODEE)
-    box_test                                 0x20000838   Data         616  push_shoot.o(.bss.box_test)
-    debug                                    0x20000aa0   Data         440  push_shoot.o(.bss.debug)
-    esp32_serial                             0x20000c58   Data         440  push_shoot.o(.bss.esp32_serial)
-    hdma_uart4_tx                            0x20000e10   Data          96  usart.o(.bss.hdma_uart4_tx)
-    hdma_uart5_tx                            0x20000e70   Data          96  usart.o(.bss.hdma_uart5_tx)
-    hdma_usart2_tx                           0x20000ed0   Data          96  usart.o(.bss.hdma_usart2_tx)
-    hdma_usart3_tx                           0x20000f30   Data          96  usart.o(.bss.hdma_usart3_tx)
-    hdma_usart6_tx                           0x20000f90   Data          96  usart.o(.bss.hdma_usart6_tx)
-    htim1                                    0x20000ff0   Data          72  tim.o(.bss.htim1)
-    htim12                                   0x20001038   Data          72  tim.o(.bss.htim12)
-    htim2                                    0x20001080   Data          72  tim.o(.bss.htim2)
-    htim3                                    0x200010c8   Data          72  tim.o(.bss.htim3)
-    htim4                                    0x20001110   Data          72  tim.o(.bss.htim4)
-    htim5                                    0x20001158   Data          72  stm32f4xx_hal_timebase_tim.o(.bss.htim5)
-    htim8                                    0x200011a0   Data          72  tim.o(.bss.htim8)
-    htim9                                    0x200011e8   Data          72  tim.o(.bss.htim9)
-    huart2                                   0x20001230   Data          72  usart.o(.bss.huart2)
-    huart3                                   0x20001278   Data          72  usart.o(.bss.huart3)
-    huart4                                   0x200012c0   Data          72  usart.o(.bss.huart4)
-    huart5                                   0x20001308   Data          72  usart.o(.bss.huart5)
-    huart6                                   0x20001350   Data          72  usart.o(.bss.huart6)
-    left_back                                0x20001398   Data         204  push_shoot.o(.bss.left_back)
-    left_front                               0x20001464   Data         204  push_shoot.o(.bss.left_front)
-    mknum_test                               0x20001530   Data         692  push_shoot.o(.bss.mknum_test)
-    odom_test                                0x200017e4   Data         120  push_shoot.o(.bss.odom_test)
-    resxbox                                  0x20001dac   Data         724  push_shoot.o(.bss.resxbox)
-    right_back                               0x20002080   Data         204  push_shoot.o(.bss.right_back)
-    right_front                              0x2000214c   Data         204  push_shoot.o(.bss.right_front)
-    test2                                    0x20002218   Data          88  push_shoot.o(.bss.test2)
-    uwTick                                   0x20005e70   Data           4  stm32f4xx_hal.o(.bss.uwTick)
-    xQueueRegistry                           0x2000652c   Data          64  queue.o(.bss.xQueueRegistry)
+    Region$$Table$$Limit                     0x0800a0a4   Number         0  anon$$obj.o(Region$$Table)
+    SHT$$INIT_ARRAY$$Base                    0x0800a0a4   Number         0  taskmanager.o(.init_array)
+    SHT$$INIT_ARRAY$$Limit                   0x0800a0ac   Number         0  init_aeabi.o(.init_array)
+    uwTickFreq                               0x10000000   Data           1  stm32f4xx_hal.o(.data..L_MergedGlobals)
+    uwTickPrio                               0x10000004   Data           4  stm32f4xx_hal.o(.data..L_MergedGlobals)
+    pxCurrentTCB                             0x1000000c   Data           4  tasks.o(.bss..L_MergedGlobals)
+    uwTick                                   0x10004264   Data           4  stm32f4xx_hal.o(.bss.uwTick)
+    xQueueRegistry                           0x10004920   Data          64  queue.o(.bss.xQueueRegistry)
+    SystemCoreClock                          0x20000000   Data           4  system_stm32f4xx.o(.data.SystemCoreClock)
+    rcnode::local_ip                         0x20000004   Data           1  netswitch.o(.data._ZN6rcnode8local_ipE)
+    __libspace_start                         0x20000008   Data          96  libspace.o(.bss)
+    TxHeader                                 0x20000068   Data          24  can.o(.bss..L_MergedGlobals)
+    __temporary_stack_top$libspace           0x20000068   Data           0  libspace.o(.bss)
+    hcan1                                    0x20000080   Data          40  can.o(.bss..L_MergedGlobals)
+    hcan2                                    0x200000a8   Data          40  can.o(.bss..L_MergedGlobals)
+    CanDevice::instanceCount_m3508_can1      0x200000d0   Data           1  can_device.o(.bss..L_MergedGlobals)
+    CanDevice::instanceCount_m3508_can2      0x200000d1   Data           1  can_device.o(.bss..L_MergedGlobals)
+    CanDevice::instanceCount_go1_can1        0x200000d2   Data           1  can_device.o(.bss..L_MergedGlobals)
+    CanDevice::instanceCount_go1_can2        0x200000d3   Data           1  can_device.o(.bss..L_MergedGlobals)
+    CanDevice::instanceCount_m6020_can1      0x200000d4   Data           1  can_device.o(.bss..L_MergedGlobals)
+    CanDevice::instanceCount_m6020_can2      0x200000d5   Data           1  can_device.o(.bss..L_MergedGlobals)
+    CanDevice::instanceCount_vesc_can1       0x200000d6   Data           1  can_device.o(.bss..L_MergedGlobals)
+    CanDevice::instanceCount_vesc_can2       0x200000d7   Data           1  can_device.o(.bss..L_MergedGlobals)
+    CanManager::RxData1                      0x200000d8   Data           8  can_device.o(.bss..L_MergedGlobals)
+    CanManager::RxData2                      0x200000e0   Data           8  can_device.o(.bss..L_MergedGlobals)
+    CanDevice::m3508_instances_can1          0x200000e8   Data          16  can_device.o(.bss..L_MergedGlobals)
+    CanDevice::m3508_instances_can2          0x200000f8   Data          16  can_device.o(.bss..L_MergedGlobals)
+    CanDevice::go1_instances_can1            0x20000108   Data          16  can_device.o(.bss..L_MergedGlobals)
+    CanDevice::go1_instances_can2            0x20000118   Data          16  can_device.o(.bss..L_MergedGlobals)
+    CanDevice::m6020_instances_can1          0x20000128   Data          16  can_device.o(.bss..L_MergedGlobals)
+    CanDevice::m6020_instances_can2          0x20000138   Data          16  can_device.o(.bss..L_MergedGlobals)
+    task_core                                0x20000148   Data           1  push_shoot.o(.bss..L_MergedGlobals)
+    mg996_left                               0x2000014c   Data          12  push_shoot.o(.bss..L_MergedGlobals)
+    mg996_right                              0x20000158   Data          12  push_shoot.o(.bss..L_MergedGlobals)
+    yaw_sensor                               0x20000164   Data          52  push_shoot.o(.bss..L_MergedGlobals)
+    CanDevice::vesc_instances_can1           0x20000198   Data          16  can_device.o(.bss..L_MergedGlobals.1)
+    CanDevice::vesc_instances_can2           0x200001a8   Data          16  can_device.o(.bss..L_MergedGlobals.1)
+    TaskManager::tasks                       0x200001bc   Data        1080  taskmanager.o(.bss._ZN11TaskManager5tasksE)
+    SerialDevice::instances_                 0x200005f4   Data          40  serial_device.o(.bss._ZN12SerialDevice10instances_E)
+    SerialDevice::instanceCount_             0x2000061c   Data           4  serial_device.o(.bss._ZN12SerialDevice14instanceCount_E)
+    rcnode::MAC_2_NODE                       0x20000620   Data         256  netswitch.o(.bss._ZN6rcnode10MAC_2_NODEE)
+    box_test                                 0x20000720   Data         616  push_shoot.o(.bss.box_test)
+    debug                                    0x20000988   Data         440  push_shoot.o(.bss.debug)
+    esp32_serial                             0x20000b40   Data         440  push_shoot.o(.bss.esp32_serial)
+    hdma_uart4_tx                            0x20000cf8   Data          96  usart.o(.bss.hdma_uart4_tx)
+    hdma_uart5_tx                            0x20000d58   Data          96  usart.o(.bss.hdma_uart5_tx)
+    hdma_usart2_tx                           0x20000db8   Data          96  usart.o(.bss.hdma_usart2_tx)
+    hdma_usart3_tx                           0x20000e18   Data          96  usart.o(.bss.hdma_usart3_tx)
+    hdma_usart6_tx                           0x20000e78   Data          96  usart.o(.bss.hdma_usart6_tx)
+    htim1                                    0x20000ed8   Data          72  tim.o(.bss.htim1)
+    htim12                                   0x20000f20   Data          72  tim.o(.bss.htim12)
+    htim2                                    0x20000f68   Data          72  tim.o(.bss.htim2)
+    htim3                                    0x20000fb0   Data          72  tim.o(.bss.htim3)
+    htim4                                    0x20000ff8   Data          72  tim.o(.bss.htim4)
+    htim5                                    0x20001040   Data          72  stm32f4xx_hal_timebase_tim.o(.bss.htim5)
+    htim8                                    0x20001088   Data          72  tim.o(.bss.htim8)
+    htim9                                    0x200010d0   Data          72  tim.o(.bss.htim9)
+    huart2                                   0x20001118   Data          72  usart.o(.bss.huart2)
+    huart3                                   0x20001160   Data          72  usart.o(.bss.huart3)
+    huart4                                   0x200011a8   Data          72  usart.o(.bss.huart4)
+    huart5                                   0x200011f0   Data          72  usart.o(.bss.huart5)
+    huart6                                   0x20001238   Data          72  usart.o(.bss.huart6)
+    left_back                                0x20001280   Data         204  push_shoot.o(.bss.left_back)
+    left_front                               0x2000134c   Data         204  push_shoot.o(.bss.left_front)
+    mknum_test                               0x20001418   Data         692  push_shoot.o(.bss.mknum_test)
+    odom_test                                0x200016cc   Data         120  push_shoot.o(.bss.odom_test)
+    resxbox                                  0x20001744   Data         724  push_shoot.o(.bss.resxbox)
+    right_back                               0x20001a18   Data         204  push_shoot.o(.bss.right_back)
+    right_front                              0x20001ae4   Data         204  push_shoot.o(.bss.right_front)
+    test2                                    0x20001bb0   Data          88  push_shoot.o(.bss.test2)
 
 
 
@@ -6188,9 +6188,9 @@ Memory Map of the image
 
   Image Entry point : 0x08000189
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000a0a8, Max: 0x00100000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000a0c4, Max: 0x00100000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0000a08c, Max: 0x00100000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0000a0ac, Max: 0x00100000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -6763,85 +6763,84 @@ Memory Map of the image
     0x0800a054   0x0800a054   0x00000008   Data   RO          801    .rodata.cst8        stm32f4xx_hal_dma.o
     0x0800a05c   0x0800a05c   0x00000005   Data   RO         1488    .rodata.str1.1      timers.o
     0x0800a061   0x0800a061   0x00000003   PAD
-    0x0800a064   0x0800a064   0x00000020   Data   RO         3126    Region$$Table       anon$$obj.o
-    0x0800a084   0x0800a084   0x00000004   Data   RO         1986    .init_array         taskmanager.o
-    0x0800a088   0x0800a084   0x00000004   Data   RO         2568    .init_array         push_shoot.o
-    0x0800a08c   0x0800a084   0x00000000   Data   RO         2668    .init_array         c_w.l(init_aeabi.o)
+    0x0800a064   0x0800a064   0x00000040   Data   RO         3126    Region$$Table       anon$$obj.o
+    0x0800a0a4   0x0800a0a4   0x00000004   Data   RO         1986    .init_array         taskmanager.o
+    0x0800a0a8   0x0800a0a4   0x00000004   Data   RO         2568    .init_array         push_shoot.o
+    0x0800a0ac   0x0800a0a4   0x00000000   Data   RO         2668    .init_array         c_w.l(init_aeabi.o)
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0800a090, Size: 0x00006b70, Max: 0x0001c000, ABSOLUTE)
+    Execution Region RW_IRAM2 (Exec base: 0x10000000, Load base: 0x0800a0b8, Size: 0x00004960, Max: 0x00010000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x0800a090   0x00000008   Data   RW          979    .data..L_MergedGlobals  stm32f4xx_hal.o
-    0x20000008   0x0800a098   0x00000004   Data   RW         1140    .data.SystemCoreClock  system_stm32f4xx.o
-    0x2000000c   0x0800a09c   0x00000001   Data   RW         2384    .data._ZN6rcnode8local_ipE  netswitch.o
-    0x2000000d   0x0800a09d   0x00000003   PAD
-    0x20000010   0x0800a0a0   0x00000004   Data   RW         1709    .data.uxCriticalNesting  port.o
-    0x20000014   0x0800a0a4   0x00000004   PAD
-    0x20000018        -       0x00000060   Zero   RW         3018    .bss                c_w.l(libspace.o)
-    0x20000078        -       0x00000068   Zero   RW           68    .bss..L_MergedGlobals  can.o
-    0x200000e0        -       0x00000078   Zero   RW         1438    .bss..L_MergedGlobals  tasks.o
-    0x20000158        -       0x0000003c   Zero   RW         1489    .bss..L_MergedGlobals  timers.o
-    0x20000194        -       0x00000020   Zero   RW         1674    .bss..L_MergedGlobals  heap_4.o
-    0x200001b4        -       0x00000008   Zero   RW         1710    .bss..L_MergedGlobals  port.o
-    0x200001bc        -       0x00000078   Zero   RW         1900    .bss..L_MergedGlobals  can_device.o
-    0x20000234        -       0x00000050   Zero   RW         2569    .bss..L_MergedGlobals  push_shoot.o
-    0x20000284        -       0x00000020   Zero   RW         1901    .bss..L_MergedGlobals.1  can_device.o
-    0x200002a4        -       0x00000028   Zero   RW         1439    .bss..L_MergedGlobals.2  tasks.o
-    0x200002cc        -       0x00000004   Zero   RW           65    .bss.HAL_RCC_CAN1_CLK_ENABLED  can.o
-    0x200002d0        -       0x00000004   Zero   RW         1648    .bss.KernelState    cmsis_os2.o
-    0x200002d4        -       0x00000438   Zero   RW         1985    .bss._ZN11TaskManager5tasksE  taskmanager.o
-    0x2000070c        -       0x00000028   Zero   RW         1964    .bss._ZN12SerialDevice10instances_E  serial_device.o
-    0x20000734        -       0x00000004   Zero   RW         1965    .bss._ZN12SerialDevice14instanceCount_E  serial_device.o
-    0x20000738        -       0x00000100   Zero   RW         2383    .bss._ZN6rcnode10MAC_2_NODEE  netswitch.o
-    0x20000838        -       0x00000268   Zero   RW         2564    .bss.box_test       push_shoot.o
-    0x20000aa0        -       0x000001b8   Zero   RW         2556    .bss.debug          push_shoot.o
-    0x20000c58        -       0x000001b8   Zero   RW         2557    .bss.esp32_serial   push_shoot.o
-    0x20000e10        -       0x00000060   Zero   RW          144    .bss.hdma_uart4_tx  usart.o
-    0x20000e70        -       0x00000060   Zero   RW          145    .bss.hdma_uart5_tx  usart.o
-    0x20000ed0        -       0x00000060   Zero   RW          146    .bss.hdma_usart2_tx  usart.o
-    0x20000f30        -       0x00000060   Zero   RW          147    .bss.hdma_usart3_tx  usart.o
-    0x20000f90        -       0x00000060   Zero   RW          148    .bss.hdma_usart6_tx  usart.o
-    0x20000ff0        -       0x00000048   Zero   RW          110    .bss.htim1          tim.o
-    0x20001038        -       0x00000048   Zero   RW          116    .bss.htim12         tim.o
-    0x20001080        -       0x00000048   Zero   RW          111    .bss.htim2          tim.o
-    0x200010c8        -       0x00000048   Zero   RW          112    .bss.htim3          tim.o
-    0x20001110        -       0x00000048   Zero   RW          113    .bss.htim4          tim.o
-    0x20001158        -       0x00000048   Zero   RW          221    .bss.htim5          stm32f4xx_hal_timebase_tim.o
-    0x200011a0        -       0x00000048   Zero   RW          114    .bss.htim8          tim.o
-    0x200011e8        -       0x00000048   Zero   RW          115    .bss.htim9          tim.o
-    0x20001230        -       0x00000048   Zero   RW          141    .bss.huart2         usart.o
-    0x20001278        -       0x00000048   Zero   RW          142    .bss.huart3         usart.o
-    0x200012c0        -       0x00000048   Zero   RW          139    .bss.huart4         usart.o
-    0x20001308        -       0x00000048   Zero   RW          140    .bss.huart5         usart.o
-    0x20001350        -       0x00000048   Zero   RW          143    .bss.huart6         usart.o
-    0x20001398        -       0x000000cc   Zero   RW         2561    .bss.left_back      push_shoot.o
-    0x20001464        -       0x000000cc   Zero   RW         2559    .bss.left_front     push_shoot.o
-    0x20001530        -       0x000002b4   Zero   RW         2563    .bss.mknum_test     push_shoot.o
-    0x200017e4        -       0x00000078   Zero   RW         2562    .bss.odom_test      push_shoot.o
-    0x2000185c        -       0x000000a0   Zero   RW         1487    .bss.prvCheckForValidListAndQueue.ucStaticTimerQueueStorage  timers.o
-    0x200018fc        -       0x00000050   Zero   RW         1486    .bss.prvCheckForValidListAndQueue.xStaticTimerQueue  timers.o
-    0x2000194c        -       0x00000460   Zero   RW         1437    .bss.pxReadyTasksLists  tasks.o
-    0x20001dac        -       0x000002d4   Zero   RW         2565    .bss.resxbox        push_shoot.o
-    0x20002080        -       0x000000cc   Zero   RW         2558    .bss.right_back     push_shoot.o
-    0x2000214c        -       0x000000cc   Zero   RW         2560    .bss.right_front    push_shoot.o
-    0x20002218        -       0x00000058   Zero   RW         2566    .bss.test2          push_shoot.o
-    0x20002270        -       0x00003c00   Zero   RW         1673    .bss.ucHeap         heap_4.o
-    0x20005e70        -       0x00000004   Zero   RW          978    .bss.uwTick         stm32f4xx_hal.o
-    0x20005e74        -       0x00000200   Zero   RW         1650    .bss.vApplicationGetIdleTaskMemory.Idle_Stack  cmsis_os2.o
-    0x20006074        -       0x0000005c   Zero   RW         1649    .bss.vApplicationGetIdleTaskMemory.Idle_TCB  cmsis_os2.o
-    0x200060d0        -       0x00000400   Zero   RW         1652    .bss.vApplicationGetTimerTaskMemory.Timer_Stack  cmsis_os2.o
-    0x200064d0        -       0x0000005c   Zero   RW         1651    .bss.vApplicationGetTimerTaskMemory.Timer_TCB  cmsis_os2.o
-    0x2000652c        -       0x00000040   Zero   RW         1272    .bss.xQueueRegistry  queue.o
-    0x2000656c   0x0800a0a4   0x00000004   PAD
-    0x20006570        -       0x00000200   Zero   RW            2    HEAP                startup_stm32f407xx.o
-    0x20006770        -       0x00000400   Zero   RW            1    STACK               startup_stm32f407xx.o
+    0x10000000   0x0800a0b8   0x00000008   Data   RW          979    .data..L_MergedGlobals  stm32f4xx_hal.o
+    0x10000008   0x0800a0c0   0x00000004   Data   RW         1709    .data.uxCriticalNesting  port.o
+    0x1000000c        -       0x00000078   Zero   RW         1438    .bss..L_MergedGlobals  tasks.o
+    0x10000084        -       0x0000003c   Zero   RW         1489    .bss..L_MergedGlobals  timers.o
+    0x100000c0        -       0x00000020   Zero   RW         1674    .bss..L_MergedGlobals  heap_4.o
+    0x100000e0        -       0x00000008   Zero   RW         1710    .bss..L_MergedGlobals  port.o
+    0x100000e8        -       0x00000028   Zero   RW         1439    .bss..L_MergedGlobals.2  tasks.o
+    0x10000110        -       0x00000004   Zero   RW         1648    .bss.KernelState    cmsis_os2.o
+    0x10000114        -       0x000000a0   Zero   RW         1487    .bss.prvCheckForValidListAndQueue.ucStaticTimerQueueStorage  timers.o
+    0x100001b4        -       0x00000050   Zero   RW         1486    .bss.prvCheckForValidListAndQueue.xStaticTimerQueue  timers.o
+    0x10000204        -       0x00000460   Zero   RW         1437    .bss.pxReadyTasksLists  tasks.o
+    0x10000664        -       0x00003c00   Zero   RW         1673    .bss.ucHeap         heap_4.o
+    0x10004264        -       0x00000004   Zero   RW          978    .bss.uwTick         stm32f4xx_hal.o
+    0x10004268        -       0x00000200   Zero   RW         1650    .bss.vApplicationGetIdleTaskMemory.Idle_Stack  cmsis_os2.o
+    0x10004468        -       0x0000005c   Zero   RW         1649    .bss.vApplicationGetIdleTaskMemory.Idle_TCB  cmsis_os2.o
+    0x100044c4        -       0x00000400   Zero   RW         1652    .bss.vApplicationGetTimerTaskMemory.Timer_Stack  cmsis_os2.o
+    0x100048c4        -       0x0000005c   Zero   RW         1651    .bss.vApplicationGetTimerTaskMemory.Timer_TCB  cmsis_os2.o
+    0x10004920        -       0x00000040   Zero   RW         1272    .bss.xQueueRegistry  queue.o
 
 
-    Execution Region RW_IRAM2 (Exec base: 0x2001c000, Load base: 0x0800a0a8, Size: 0x00000000, Max: 0x00004000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0800a0b0, Size: 0x00002208, Max: 0x0001c000, ABSOLUTE)
 
-    **** No section assigned to this execution region ****
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000000   0x0800a0b0   0x00000004   Data   RW         1140    .data.SystemCoreClock  system_stm32f4xx.o
+    0x20000004   0x0800a0b4   0x00000001   Data   RW         2384    .data._ZN6rcnode8local_ipE  netswitch.o
+    0x20000005   0x0800a0b5   0x00000003   PAD
+    0x20000008        -       0x00000060   Zero   RW         3018    .bss                c_w.l(libspace.o)
+    0x20000068        -       0x00000068   Zero   RW           68    .bss..L_MergedGlobals  can.o
+    0x200000d0        -       0x00000078   Zero   RW         1900    .bss..L_MergedGlobals  can_device.o
+    0x20000148        -       0x00000050   Zero   RW         2569    .bss..L_MergedGlobals  push_shoot.o
+    0x20000198        -       0x00000020   Zero   RW         1901    .bss..L_MergedGlobals.1  can_device.o
+    0x200001b8        -       0x00000004   Zero   RW           65    .bss.HAL_RCC_CAN1_CLK_ENABLED  can.o
+    0x200001bc        -       0x00000438   Zero   RW         1985    .bss._ZN11TaskManager5tasksE  taskmanager.o
+    0x200005f4        -       0x00000028   Zero   RW         1964    .bss._ZN12SerialDevice10instances_E  serial_device.o
+    0x2000061c        -       0x00000004   Zero   RW         1965    .bss._ZN12SerialDevice14instanceCount_E  serial_device.o
+    0x20000620        -       0x00000100   Zero   RW         2383    .bss._ZN6rcnode10MAC_2_NODEE  netswitch.o
+    0x20000720        -       0x00000268   Zero   RW         2564    .bss.box_test       push_shoot.o
+    0x20000988        -       0x000001b8   Zero   RW         2556    .bss.debug          push_shoot.o
+    0x20000b40        -       0x000001b8   Zero   RW         2557    .bss.esp32_serial   push_shoot.o
+    0x20000cf8        -       0x00000060   Zero   RW          144    .bss.hdma_uart4_tx  usart.o
+    0x20000d58        -       0x00000060   Zero   RW          145    .bss.hdma_uart5_tx  usart.o
+    0x20000db8        -       0x00000060   Zero   RW          146    .bss.hdma_usart2_tx  usart.o
+    0x20000e18        -       0x00000060   Zero   RW          147    .bss.hdma_usart3_tx  usart.o
+    0x20000e78        -       0x00000060   Zero   RW          148    .bss.hdma_usart6_tx  usart.o
+    0x20000ed8        -       0x00000048   Zero   RW          110    .bss.htim1          tim.o
+    0x20000f20        -       0x00000048   Zero   RW          116    .bss.htim12         tim.o
+    0x20000f68        -       0x00000048   Zero   RW          111    .bss.htim2          tim.o
+    0x20000fb0        -       0x00000048   Zero   RW          112    .bss.htim3          tim.o
+    0x20000ff8        -       0x00000048   Zero   RW          113    .bss.htim4          tim.o
+    0x20001040        -       0x00000048   Zero   RW          221    .bss.htim5          stm32f4xx_hal_timebase_tim.o
+    0x20001088        -       0x00000048   Zero   RW          114    .bss.htim8          tim.o
+    0x200010d0        -       0x00000048   Zero   RW          115    .bss.htim9          tim.o
+    0x20001118        -       0x00000048   Zero   RW          141    .bss.huart2         usart.o
+    0x20001160        -       0x00000048   Zero   RW          142    .bss.huart3         usart.o
+    0x200011a8        -       0x00000048   Zero   RW          139    .bss.huart4         usart.o
+    0x200011f0        -       0x00000048   Zero   RW          140    .bss.huart5         usart.o
+    0x20001238        -       0x00000048   Zero   RW          143    .bss.huart6         usart.o
+    0x20001280        -       0x000000cc   Zero   RW         2561    .bss.left_back      push_shoot.o
+    0x2000134c        -       0x000000cc   Zero   RW         2559    .bss.left_front     push_shoot.o
+    0x20001418        -       0x000002b4   Zero   RW         2563    .bss.mknum_test     push_shoot.o
+    0x200016cc        -       0x00000078   Zero   RW         2562    .bss.odom_test      push_shoot.o
+    0x20001744        -       0x000002d4   Zero   RW         2565    .bss.resxbox        push_shoot.o
+    0x20001a18        -       0x000000cc   Zero   RW         2558    .bss.right_back     push_shoot.o
+    0x20001ae4        -       0x000000cc   Zero   RW         2560    .bss.right_front    push_shoot.o
+    0x20001bb0        -       0x00000058   Zero   RW         2566    .bss.test2          push_shoot.o
+    0x20001c08        -       0x00000200   Zero   RW            2    HEAP                startup_stm32f407xx.o
+    0x20001e08        -       0x00000400   Zero   RW            1    STACK               startup_stm32f407xx.o
 
 
 ==============================================================================
@@ -6902,9 +6901,9 @@ Image component sizes
       1090         22         52          0          0      21506   xbox.o
 
     ----------------------------------------------------------------------
-     37136        420       1472         20      27388     652976   Object Totals
-         0          0         32          0          0          0   (incl. Generated)
-       338         12          3          3          8          0   (incl. Padding)
+     37136        420       1504         20      27380     652976   Object Totals
+         0          0         64          0          0          0   (incl. Generated)
+       338         12          3          3          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -6981,15 +6980,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     39596        666       1504         20      27484     653840   Grand Totals
-     39596        666       1504         20      27484     653840   ELF Image Totals
-     39596        666       1504         20          0          0   ROM Totals
+     39596        666       1536         20      27476     653840   Grand Totals
+     39596        666       1536         20      27476     653840   ELF Image Totals
+     39596        666       1536         20          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                41100 (  40.14kB)
-    Total RW  Size (RW Data + ZI Data)             27504 (  26.86kB)
-    Total ROM Size (Code + RO Data + RW Data)      41120 (  40.16kB)
+    Total RO  Size (Code + RO Data)                41132 (  40.17kB)
+    Total RW  Size (RW Data + ZI Data)             27496 (  26.85kB)
+    Total ROM Size (Code + RO Data + RW Data)      41152 (  40.19kB)
 
 ==============================================================================
 

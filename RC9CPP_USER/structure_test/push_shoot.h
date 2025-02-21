@@ -21,7 +21,7 @@ extern "C"
 #include "m6020.h"
 #include "chassis.h"
 #include "tb6612.h"
-
+#include "usb_device.h"
 #include "odometry.h"
 #include "servo.h"
 #include "r2n_xbox.h"

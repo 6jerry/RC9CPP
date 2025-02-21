@@ -89,7 +89,7 @@ typedef struct
 } XboxControllerData_t;
 
 // xbox的基类，只实现底盘控制，因为不同的车的机构不同
-class xbox : public RC9Protocol_subscriber, public rcnode
+class xbox :  public rcnode
 {
 public:
     float MAX_ROBOT_SPEED_Y = 1.50f;

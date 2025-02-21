@@ -39,7 +39,7 @@
 TaskManager task_core;
 // CanManager can_core;
 //  shoot_xbox shoot_control(&m3508_shooter, &m3508_pitch);
-RC9Protocol debug(&huart4, false), esp32_serial(&huart3, false);
+RC9Protocol_cdc debug(false);
 
 HWT101CT yaw_sensor(&huart2);
 
@@ -69,23 +69,21 @@ extern "C" void pshoot_setup(void)
     mg996_left.init();
     mg996_right.init();
 
-    debug.startUartReceiveIT();
-    esp32_serial.startUartReceiveIT();
     yaw_sensor.startUartReceiveIT();
     // wwwwfdi_test.startUartReceiveIT();
-    esp32_serial.addsubscriber(&resxbox);
+    // esp32_serial.addsubscriber(&resxbox);
     // task_core.registerTask(0, &can_core);
     // task_core.registerTask(1, &vesc_test);
     // task_core.registerTask(1, &box_test);
-    task_core.registerTask(2, &mknum_test);
-    task_core.registerTask(4, &right_front);
-    task_core.registerTask(4, &right_back);
-    task_core.registerTask(5, &left_front);
-    task_core.registerTask(5, &left_back);
-    task_core.registerTask(6, &odom_test);
-    task_core.registerTask(6, &resxbox);
-    //task_core.registerTask(8, &debug);
-     task_core.registerTask(7, &test2);
+    // task_core.registerTask(2, &mknum_test);
+    // task_core.registerTask(4, &right_front);
+    // task_core.registerTask(4, &right_back);
+    // task_core.registerTask(5, &left_front);
+    // task_core.registerTask(5, &left_back);
+    // task_core.registerTask(6, &odom_test);
+    // task_core.registerTask(6, &resxbox);
+    task_core.registerTask(8, &debug);
+    task_core.registerTask(7, &test2);
     //   task_core.registerTask(7, &esp32_serial);
 
     debug.tx_frame_mat.frame_id = 1;
@@ -94,9 +92,9 @@ extern "C" void pshoot_setup(void)
     mg996_left.set_ccr(left_up); // 146 最低位,80最高位
     mg996_right.set_ccr(right_up);
     resxbox.rcninit(2);
-    esp32_serial.rcninit(1);
-    debug.rcninit(3);
-    // mg996_left.set_ccr(150);
+
+    // debug.rcninit(3);
+    //  mg996_left.set_ccr(150);
     resxbox.SERVO = &mg996_left;
     resxbox.servo_right = &mg996_right;
 
@@ -113,12 +111,12 @@ void demo::process_data()
 
     // debug.tx_frame_mat.data.msg_get[0] = odom_test.now_heading;
 
-    ppsend_Asyn(LOCAL_RCIP, 3, 0, &mknum_test.target_w);
-    //  debug.tx_frame_mat.data.msg_get[2] = right_front.rpm_control.setpoint / 45.0f;
-    //    debug.tx_frame_mat.data.msg_get[2] = vesc_test.target_rpm;
-    //     debug.tx_frame_mat.data.msg_get[2] = m3508_shooter.rpm_control.setpoint;
-    //      ppget_AsynOverwrite();
-    //      testdd += 0.001f;
+    // ppsend_Asyn(LOCAL_RCIP, 3, 0, &mknum_test.target_w);
+    //   debug.tx_frame_mat.data.msg_get[2] = right_front.rpm_control.setpoint / 45.0f;
+    //     debug.tx_frame_mat.data.msg_get[2] = vesc_test.target_rpm;
+    //      debug.tx_frame_mat.data.msg_get[2] = m3508_shooter.rpm_control.setpoint;
+    //       ppget_AsynOverwrite();
+    //       testdd += 0.001f;
 
     // m6020_test.pos_pid.PID_SetParameters(debug.rx_frame_mat.data.msg_get[0], debug.rx_frame_mat.data.msg_get[1], debug.rx_frame_mat.data.msg_get[2]);
 
