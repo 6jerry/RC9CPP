@@ -17,41 +17,36 @@
  *             in the software.
  ******************************************************************************/
 #include "xbox.h"
-xbox::xbox(action *ACTION_, chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_, float MAX_ROBOT_SPEED_X_, float MAX_ROBOT_SPEED_W_) : ACTION(ACTION_), control_chassis(control_chassis_), MAX_ROBOT_SPEED_Y(MAX_ROBOT_SPEED_Y_), MAX_ROBOT_SPEED_X(MAX_ROBOT_SPEED_X_), MAX_ROBOT_SPEED_W(MAX_ROBOT_SPEED_W_)
-{
-    
-}
 
-
-void xbox::update(uint8_t data_id, uint8_t data_length, const uint8_t *data_char, const float *data_float)
+void xbox::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
 {
-    if (data_length == 28)
+    if (byteCount == 28)
     {
         // 解析按键数据 (bool 值)
-        xbox_msgs.btnY = data_char[0];
-        xbox_msgs.btnB = data_char[1];
-        xbox_msgs.btnA = data_char[2];
-        xbox_msgs.btnX = data_char[3];
-        xbox_msgs.btnShare = data_char[4];
-        xbox_msgs.btnStart = data_char[5];
-        xbox_msgs.btnSelect = data_char[6];
-        xbox_msgs.btnXbox = data_char[7];
-        xbox_msgs.btnLB = data_char[8];
-        xbox_msgs.btnRB = data_char[9];
-        xbox_msgs.btnLS = data_char[10];
-        xbox_msgs.btnRS = data_char[11];
-        xbox_msgs.btnDirUp = data_char[12];
-        xbox_msgs.btnDirLeft = data_char[13];
-        xbox_msgs.btnDirRight = data_char[14];
-        xbox_msgs.btnDirDown = data_char[15];
+        xbox_msgs.btnY = byteData[0];
+        xbox_msgs.btnB = byteData[1];
+        xbox_msgs.btnA = byteData[2];
+        xbox_msgs.btnX = byteData[3];
+        xbox_msgs.btnShare = byteData[4];
+        xbox_msgs.btnStart = byteData[5];
+        xbox_msgs.btnSelect = byteData[6];
+        xbox_msgs.btnXbox = byteData[7];
+        xbox_msgs.btnLB = byteData[8];
+        xbox_msgs.btnRB = byteData[9];
+        xbox_msgs.btnLS = byteData[10];
+        xbox_msgs.btnRS = byteData[11];
+        xbox_msgs.btnDirUp = byteData[12];
+        xbox_msgs.btnDirLeft = byteData[13];
+        xbox_msgs.btnDirRight = byteData[14];
+        xbox_msgs.btnDirDown = byteData[15];
 
         // 解析霍尔传感器值（16位数据，高8位和低8位拼接）
-        xbox_msgs.joyLHori = ((uint16_t)data_char[16] << 8) | data_char[17];
-        xbox_msgs.joyLVert = ((uint16_t)data_char[18] << 8) | data_char[19];
-        xbox_msgs.joyRHori = ((uint16_t)data_char[20] << 8) | data_char[21];
-        xbox_msgs.joyRVert = ((uint16_t)data_char[22] << 8) | data_char[23];
-        xbox_msgs.trigLT = ((uint16_t)data_char[24] << 8) | data_char[25];
-        xbox_msgs.trigRT = ((uint16_t)data_char[26] << 8) | data_char[27];
+        xbox_msgs.joyLHori = ((uint16_t)byteData[16] << 8) | byteData[17];
+        xbox_msgs.joyLVert = ((uint16_t)byteData[18] << 8) | byteData[19];
+        xbox_msgs.joyRHori = ((uint16_t)byteData[20] << 8) | byteData[21];
+        xbox_msgs.joyRVert = ((uint16_t)byteData[22] << 8) | byteData[23];
+        xbox_msgs.trigLT = ((uint16_t)byteData[24] << 8) | byteData[25];
+        xbox_msgs.trigRT = ((uint16_t)byteData[26] << 8) | byteData[27];
     }
 }
 void xbox::joymap_compute()

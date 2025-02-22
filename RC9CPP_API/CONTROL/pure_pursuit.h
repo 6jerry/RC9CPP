@@ -29,7 +29,7 @@ public:
 
     float get_dis(); // 获取与目标点的距离
 
-    pointrack(float kp_, float ki_, float kd_, float deadzone_ = 0.05f, float max_speed_ = 1.0f);
+    pointrack() {};
 
     pid track_pid;
 };
@@ -45,7 +45,7 @@ public:
     pid yaw_pid;
     float yaw_adjust(float now_angle, float target_angle_);
 
-    yaw_adjuster(float kp_, float ki_, float kd_, float deadzone_ = 0.01f, float max_w_ = 8.6f);
+    yaw_adjuster() {};
 };
 
 enum pure_pursuit_mode
@@ -102,7 +102,7 @@ private:
 public:
     Vector2D pursuit(Vector2D now_pos);
     float normal_dis = 0.0f;
-    pure_pursuit(pure_pursuit_mode mode, float kp_, float ki_, float kd_, float ktp, float kti, float ktd, float r_ = 0.0f);
+    pure_pursuit() {};
 
     pid normal_control; // 纯追踪的第一种控制方式，法向纠偏pid
 

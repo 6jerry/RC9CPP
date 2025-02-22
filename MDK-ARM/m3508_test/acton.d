@@ -221,4 +221,5 @@ m3508_test/acton.o: ..\RC9CPP_API\HARDWARE\Acton.cpp \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\roots.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\rounding_functions.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h \
+  ..\RC9CPP_API\HARDWARE\imu.h

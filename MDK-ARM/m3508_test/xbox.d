@@ -232,7 +232,8 @@ m3508_test/xbox.o: ..\RC9CPP_API\CONTROL\xbox.cpp \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\rounding_functions.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h \
-  ..\RC9CPP_API\CONTROL\pid.h ..\RC9CPP_API\MATH_LIB\Vector2D.h \
+  ..\RC9CPP_API\HARDWARE\imu.h ..\RC9CPP_API\CONTROL\pid.h \
+  ..\RC9CPP_API\MATH_LIB\Vector2D.h \
   ..\Middlewares\ST\ARM\DSP\Inc\arm_math.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\float.h \
@@ -241,4 +242,4 @@ m3508_test/xbox.o: ..\RC9CPP_API\CONTROL\xbox.cpp \
   G:\Keil_v5\ARM\ARMCLANG\include\limits.h \
   ..\RC9CPP_API\CONTROL\pure_pursuit.h \
   ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h \
-  ..\RC9CPP_API\HARDWARE\imu.h ..\RC9CPP_API\CONTROL\odometry.h
+  ..\RC9CPP_API\CONTROL\odometry.h

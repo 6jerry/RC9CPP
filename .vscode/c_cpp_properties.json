@@ -7,6 +7,7 @@
                 "${workspaceFolder}/Core/Inc",
                 "${workspaceFolder}/Drivers/STM32F4xx_HAL_Driver/Inc",
                 "${workspaceFolder}/Drivers/STM32F4xx_HAL_Driver/Src",
+                "${workspaceFolder}",
                 "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32F4xx/Include",
                 "${workspaceFolder}/Drivers/CMSIS/Include",
                 "${workspaceFolder}/Middlewares/Third_Party/FreeRTOS/Source/include",
@@ -15,16 +16,13 @@
                 "G:/Keil_v5/ARM/ARMCC/include",
                 "G:/STM32_PROJECT/R1_No2 - 改动/Drivers/STM32F4xx_HAL_Driver/Inc/",
                 "${workspaceFolder}/Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F",
-                
-                 "${workspaceFolder}/RC9CPP_API/MATH_LIB",
+                "${workspaceFolder}/RC9CPP_API/MATH_LIB",
                 "${workspaceFolder}/RC9CPP_API/HARDWARE",
-                  "${workspaceFolder}/RC9CPP_API/HARDWARE/MOTOR",
-                   "${workspaceFolder}/RC9CPP_API/CONTROL",
-                   "${workspaceFolder}/RC9CPP_API/CONTROL/STRUCTURE",
-                    "${workspaceFolder}/RC9CPP_API/DECISION",
-                     "${workspaceFolder}/RC9CPP_USER/R2N_USER"
-                 
-                
+                "${workspaceFolder}/RC9CPP_API/HARDWARE/MOTOR",
+                "${workspaceFolder}/RC9CPP_API/CONTROL",
+                "${workspaceFolder}/RC9CPP_API/CONTROL/STRUCTURE",
+                "${workspaceFolder}/RC9CPP_API/DECISION",
+                "${workspaceFolder}/RC9CPP_USER/R2N_USER"
             ],
             "compilerPath": "D:/program/mingw/bin/gcc.exe",
             "cStandard": "${default}",

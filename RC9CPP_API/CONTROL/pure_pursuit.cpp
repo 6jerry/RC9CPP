@@ -108,9 +108,7 @@ Vector2D pure_pursuit::pursuit(Vector2D now_pos)
     return target_wspeed;
 }
 
-pure_pursuit::pure_pursuit(pure_pursuit_mode mode, float kp_, float ki_, float kd_, float ktp, float kti, float ktd, float r_) : normal_control(kp_, kd_, ki_, 100.0f, MAX_NORSPEED, 9.6f, 56.0f), dir_control(ktp, kti, ktd, 100.0f, MAX_SPEED, 9.6f, 56.0f)
-{
-}
+
 
 bool pure_pursuit::pp_add_point(Vector2D new_point)
 {
@@ -147,9 +145,7 @@ float pointrack::get_dis()
     return taerget_dis;
 }
 
-pointrack::pointrack(float kp_, float ki_, float kd_, float deadzone_, float max_speed_) : track_pid(kp_, kd_, ki_, 0.0f, max_speed_, deadzone_, 0.0f)
-{
-}
+
 
 void yaw_adjuster::calc_angle_error()
 {
@@ -196,6 +192,3 @@ float yaw_adjuster::yaw_adjust(float now_angle, float target_angle_)
     return yaw_pid.PID_ComputeError(angle_error);
 }
 
-yaw_adjuster::yaw_adjuster(float kp_, float ki_, float kd_, float deadzone_ , float max_w_ ) : yaw_pid(kp_, ki_, kd_, 0.0f, max_w_, deadzone_, 0.0f)
-{
-}

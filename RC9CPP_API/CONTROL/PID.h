@@ -51,9 +51,12 @@ public:
 
     float last_output = 0.0f;
 
-    pid(float kp, float ki, float kd, float integral_limit, float output_limit, float deadzone, float integral_separation_threshold);
+    pid(float kp = 0.0f, float ki = 0.0f, float kd = 0.0f, float integral_limit = 0.0f, float output_limit = 0.0f, float deadzone = 0.0f, float integral_separation_threshold = 0.0f);
 
-    void PID_SetParameters(float kp, float ki, float kd);
+    void PID_SetParameters(float kp_, float ki_, float kd_);
+    void ConfigAll(float kp_, float ki_, float kd_, float integral_limit_, float output_limit_, float deadzone_, float integral_separation_threshold_);
+
+    
 
     float PID_Compute(float input);
 

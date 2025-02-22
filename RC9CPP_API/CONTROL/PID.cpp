@@ -27,6 +27,16 @@ void pid::PID_SetParameters(float kp_, float ki_, float kd_)
     ki = ki_;
     kd = kd_;
 }
+void pid::ConfigAll(float kp_, float ki_, float kd_, float integral_limit_, float output_limit_, float deadzone_, float integral_separation_threshold_)
+{
+    kp = kp_;
+    ki = ki_;
+    kd = kd_;
+    integral_limit = integral_limit_;
+    output_limit = output_limit_;
+    deadzone = deadzone_;
+    integral_separation_threshold = integral_separation_threshold_;
+}
 
 float pid::PID_Compute(float input)
 {
@@ -108,7 +118,7 @@ float pid::PID_ComputeError(float error_)
     {
         error_sum = 0.0f;
     }
-   
+
     i_out = ki * error_sum;
 
     d_out = kd * (error - previous_error);

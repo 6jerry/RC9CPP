@@ -7,6 +7,7 @@ extern "C"
 #endif
 #include "Serial_device.h"
 #include "math.h"
+#include "imu.h"
 #ifdef __cplusplus
 }
 #endif
@@ -92,7 +93,7 @@ typedef struct pose_data_
 
 } pose_data_;
 
-class action : public SerialDevice
+class action : public SerialDevice, public imu
 {
 
 public:                              // 面向用户的友好接口函数

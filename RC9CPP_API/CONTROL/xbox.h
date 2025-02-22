@@ -97,8 +97,6 @@ public:
     float locking_heading = 0.0f;
     float MAX_ROBOT_SPEED_W = 3.60f;
     XboxControllerData_t xbox_msgs;
-    action *ACTION = nullptr;
-    chassis *control_chassis = nullptr;
 
     enum class ButtonActionType
     {
@@ -124,9 +122,6 @@ public:
     void joymap_compute();
 
 public:
-    xbox(action *ACTION_ = nullptr, chassis *control_chassis_ = nullptr, float MAX_ROBOT_SPEED_Y_ = 1.50f, float MAX_ROBOT_SPEED_X_ = 1.50f, float MAX_ROBOT_SPEED_W_ = 3.60f);
-   
-   
     void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
 };
 

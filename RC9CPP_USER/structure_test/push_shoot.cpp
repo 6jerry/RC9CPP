@@ -42,16 +42,14 @@ TaskManager task_core;
 RC9Protocol debug(cdc), esp32(uart, &huart3);
 
 HWT101CT yaw_sensor(&huart2);
-
+RoboChassis m4(mecanum_chassis);
 servo mg996_left(&htim9, TIM_CHANNEL_1), mg996_right(&htim9, TIM_CHANNEL_2);
 
 // swerve4 swerve_test(&vesc_test, &m6020_test);
 tb6612 right_back(&htim2, TIM_CHANNEL_1, &htim8, GPIOC, GPIO_PIN_1, GPIOC, GPIO_PIN_0), left_front(&htim2, TIM_CHANNEL_2, &htim4, GPIOC, GPIO_PIN_3, GPIOC, GPIO_PIN_2), right_front(&htim2, TIM_CHANNEL_3, &htim3, GPIOF, GPIO_PIN_2, GPIOF, GPIO_PIN_1), left_back(&htim2, TIM_CHANNEL_4, &htim1, GPIOF, GPIO_PIN_4, GPIOF, GPIO_PIN_3);
-odometry odom_test(&right_front, &right_back, &left_back, &left_front, &yaw_sensor, mecanum4);
-mcknum4 mknum_test(&right_front, &right_back, &left_back, &left_front, 0.03f, 0.25f, &yaw_sensor, &odom_test); // 86.93mm,L 148mm W
 
-shoot_xbox box_test(nullptr, nullptr, &mknum_test);
-xbox_r2n resxbox(&mknum_test);
+debug_xbox xbox_test;
+
 demo test2;
 
 extern "C" void pshoot_setup(void)
@@ -68,7 +66,7 @@ extern "C" void pshoot_setup(void)
     left_back.init();
     mg996_left.init();
     mg996_right.init();
-
+    test2.add_chassis(&m4);
     yaw_sensor.startUartReceiveIT();
     debug.initQueue();
     esp32.startUartReceiveIT();
@@ -90,15 +88,14 @@ extern "C" void pshoot_setup(void)
     //  task_core.registerTask(6, &resxbox);
     task_core.registerTask(8, &debug);
     task_core.registerTask(7, &test2);
-    test2.addport(&debug);
+    task_core.registerTask(3, &m4);
+    m4.add4_motors(&right_front, &right_back, &left_back, &left_front);
+    xbox_test.addport(&esp32);
     mg996_left.set_ccr(left_up); // 146 最低位,80最高位
     mg996_right.set_ccr(right_up);
-    resxbox.rcninit(2);
 
     // debug.rcninit(3);
     //  mg996_left.set_ccr(150);
-    resxbox.SERVO = &mg996_left;
-    resxbox.servo_right = &mg996_right;
 
     // mknum_test.heading_pid.error > -0.01f;
     // mknum_test.heading_pid.error < 0.01f;
@@ -119,9 +116,8 @@ void demo::process_data()
                                     //  ??,LED???
     }
 
-    sendFloatData(1, &test_data, 1);
-}
-void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
-{
-    test_data = floatData[0];
+    // sendFloatData(1, &test_data, 1);
+    Vector2D vel(6.0f, 7.0f);
+    set_RobotVel(vel, 3);
+    set_RobotW(2.0f, 3);
 }
