@@ -10,6 +10,7 @@ extern "C"
 #include "TaskManager.h"
 #include <arm_math.h>
 #include "RC9Protocol.h"
+#include "robot_chassis.h"
 #ifdef __cplusplus
 }
 #endif
@@ -49,6 +50,10 @@ private:
 };
 
 class moters_debug_xbox : public xbox, public ITaskProcessor
+{
+};
+
+class chassis_debug_xbox : public xbox, public ITaskProcessor, public chassis_user
 {
 };
 
