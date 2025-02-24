@@ -37,10 +37,13 @@ extern UART_HandleTypeDef huart4;
 extern UART_HandleTypeDef huart5;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 extern UART_HandleTypeDef huart1;
 
 =======
 >>>>>>> origin/main
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 extern UART_HandleTypeDef huart2;
 
 extern UART_HandleTypeDef huart3;
@@ -54,9 +57,12 @@ extern UART_HandleTypeDef huart6;
 void MX_UART4_Init(void);
 void MX_UART5_Init(void);
 <<<<<<< HEAD
+<<<<<<< HEAD
 void MX_USART1_UART_Init(void);
 =======
 >>>>>>> origin/main
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 void MX_USART2_UART_Init(void);
 void MX_USART3_UART_Init(void);
 void MX_USART6_UART_Init(void);

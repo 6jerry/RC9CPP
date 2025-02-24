@@ -30,12 +30,21 @@
 #include <string.h>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include "r2n_setup.h"
 //#include "push_shoot.h"
 =======
 // #include "r2n_setup.h"
 #include "shootcar_setup.h"
 >>>>>>> origin/main
+=======
+// #include "r2n_setup.h"
+#include "shootcar_setup.h"
+=======
+#include "r2n_setup.h"
+//#include "push_shoot.h"
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -101,9 +110,12 @@ int main(void)
   MX_DMA_Init();
   MX_CAN1_Init();
 <<<<<<< HEAD
+<<<<<<< HEAD
   MX_USART1_UART_Init();
 =======
 >>>>>>> origin/main
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   MX_CAN2_Init();
   MX_TIM2_Init();
   MX_USART3_UART_Init();
@@ -111,6 +123,7 @@ int main(void)
   MX_USART2_UART_Init();
   MX_USART6_UART_Init();
   MX_UART5_Init();
+<<<<<<< HEAD
 <<<<<<< HEAD
   /* USER CODE BEGIN 2 */
 
@@ -126,6 +139,16 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
 >>>>>>> origin/main
+=======
+  MX_TIM1_Init();
+  MX_TIM3_Init();
+  MX_TIM4_Init();
+  MX_TIM8_Init();
+  MX_TIM9_Init();
+  MX_TIM12_Init();
+  /* USER CODE BEGIN 2 */
+
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -133,15 +156,26 @@ int main(void)
 
   /* Call init function for freertos objects (in freertos.c) */
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  // MX_FREERTOS_Init();
+  shootcar_setup();
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   r2n_setup();
   //pshoot_setup();
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
   /* Start scheduler */
+<<<<<<< HEAD
 =======
   // MX_FREERTOS_Init();
   shootcar_setup();
   /* Start scheduler */
   // osKernelStart();
 >>>>>>> origin/main
+=======
+  // osKernelStart();
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
@@ -207,10 +241,14 @@ void SystemClock_Config(void)
 /**
  * @brief  Period elapsed callback in non blocking mode
 <<<<<<< HEAD
+<<<<<<< HEAD
  * @note   This function is called  when TIM3 interrupt took place, inside
 =======
  * @note   This function is called  when TIM5 interrupt took place, inside
 >>>>>>> origin/main
+=======
+ * @note   This function is called  when TIM5 interrupt took place, inside
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
  * a global variable "uwTick" used as application time base.
  * @param  htim : TIM handle
@@ -222,10 +260,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
   /* USER CODE END Callback 0 */
 <<<<<<< HEAD
+<<<<<<< HEAD
   if (htim->Instance == TIM3)
 =======
   if (htim->Instance == TIM5)
 >>>>>>> origin/main
+=======
+  if (htim->Instance == TIM5)
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   {
     HAL_IncTick();
   }

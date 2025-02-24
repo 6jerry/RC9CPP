@@ -31,11 +31,17 @@ public:
     void switch_mode(motor_mode target_mode);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     virtual float get_pos() {};
     virtual void set_pos(float pos) {}; // 获取当前位置和设置目标位置的通用接口
 
 >>>>>>> origin/main
+=======
+    virtual float get_pos() {};
+    virtual void set_pos(float pos) {}; // 获取当前位置和设置目标位置的通用接口
+
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
     virtual void set_rpm_ff(float power_motor_rpm, float ff) {}; // 设置速度和前馈值
 };
 

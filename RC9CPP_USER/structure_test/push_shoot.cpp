@@ -1,6 +1,32 @@
 #include "push_shoot.h"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+m3508p m3508_shooter(3, &hcan1), m3508_pitch(2, &hcan1), m3508_lifter(1, &hcan1);
+m6020s m6020_test(4, &hcan2);
+vesc vesc_test(1, &hcan1);
+TaskManager task_core;
+CanManager can_core;
+// shoot_xbox shoot_control(&m3508_shooter, &m3508_pitch);
+RC9Protocol debug(&huart5, false), esp32_serial(&huart2, false);
+
+//swerve4 swerve_test(&vesc_test, &m6020_test);
+//tb6612 motor1(&htim2, TIM_CHANNEL_1, &htim8, nullptr, nullptr);
+
+shoot_xbox box_test(&m3508_pitch, &m3508_shooter, &m3508_lifter, nullptr);
+
+demo test2;
+
+extern "C" void pshoot_setup(void)
+{
+    // box_test.rcninit(2);
+    // esp32_serial.rcninit(1);
+
+    // esp32_serial.msgbuff_pub.init("xboxbuff", SYN, &esp32_serial);
+    // box_test.buff_sub.init("xboxbuff", SYN, &box_test);
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 m3508p m3508_shooter(1, &hcan1), m3508_pitch(2, &hcan1);
 // vesc vesc_test(1, &hcan2);
 TaskManager task_core;
@@ -18,16 +44,30 @@ extern "C" void pshoot_setup(void)
 
     esp32_serial.msgbuff_pub.init("xboxbuff", SYN, &esp32_serial);
     box_test.buff_sub.init("xboxbuff", SYN, &box_test);
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
     can_core.init();
+    //motor1.init();
 
     debug.startUartReceiveIT();
     esp32_serial.startUartReceiveIT();
+<<<<<<< HEAD
+    esp32_serial.addsubscriber(&box_test);
+    task_core.registerTask(0, &can_core);
+    //task_core.registerTask(1, &vesc_test);
+    task_core.registerTask(1, &box_test);
+    //task_core.registerTask(2, &swerve_test);
+    //task_core.registerTask(4, &motor1);
+    //task_core.registerTask(8, &debug);
+    task_core.registerTask(7, &test2);
+    // task_core.registerTask(7, &esp32_serial);
+=======
     // esp32_serial.addsubscriber(&shoot_control);
     task_core.registerTask(0, &can_core);
     // task_core.registerTask(1, &vesc_test);
     task_core.registerTask(1, &box_test);
     task_core.registerTask(8, &debug);
     task_core.registerTask(7, &esp32_serial);
+<<<<<<< HEAD
 =======
 m3508p m3508_shooter(3, &hcan1), m3508_pitch(2, &hcan1), m3508_lifter(1, &hcan1);
 m6020s m6020_test(4, &hcan2);
@@ -66,6 +106,9 @@ extern "C" void pshoot_setup(void)
     task_core.registerTask(7, &test2);
     // task_core.registerTask(7, &esp32_serial);
 >>>>>>> origin/main
+=======
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 
     debug.tx_frame_mat.frame_id = 1;
     debug.tx_frame_mat.data_length = 24;
@@ -76,15 +119,35 @@ extern "C" void pshoot_setup(void)
 void demo::process_data()
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+//    vesc_test.rpm_control.PID_SetParameters(debug.rx_frame_mat.data.msg_get[0], debug.rx_frame_mat.data.msg_get[1], debug.rx_frame_mat.data.msg_get[2]);
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
     /*m3508_shooter.rpm_control.increPID_SetParameters(debug.rx_frame_mat.data.msg_get[0], debug.rx_frame_mat.data.msg_get[1], debug.rx_frame_mat.data.msg_get[2], debug.rx_frame_mat.data.msg_get[3]);
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
 
-    debug.tx_frame_mat.data.msg_get[0] = m3508_shooter.get_rpm();
+//    debug.tx_frame_mat.data.msg_get[0] = motor1.get_rpm();
 
-    debug.tx_frame_mat.data.msg_get[1] = m3508_shooter.target_rpm;
+//    debug.tx_frame_mat.data.msg_get[1] = motor1.test_deltacount;
+//    debug.tx_frame_mat.data.msg_get[2] = (float)vesc_test.senderpm;
+//    // debug.tx_frame_mat.data.msg_get[2] = vesc_test.target_rpm;
+//    //  debug.tx_frame_mat.data.msg_get[2] = m3508_shooter.rpm_control.setpoint;
+//    //   ppget_AsynOverwrite();
+//    //   testdd += 0.001f;
 
+<<<<<<< HEAD
+//    // m6020_test.pos_pid.PID_SetParameters(debug.rx_frame_mat.data.msg_get[0], debug.rx_frame_mat.data.msg_get[1], debug.rx_frame_mat.data.msg_get[2]);
+
+//    // debug.tx_frame_mat.data.msg_get[0] = m6020_test.get_rpm();
+
+//    // debug.tx_frame_mat.data.msg_get[1] = m6020_test.target_angle;
+//    // debug.tx_frame_mat.data.msg_get[2] = m6020_test.angle_error;
+=======
     debug.tx_frame_mat.data.msg_get[2] = m3508_shooter.rpm_control.setpoint;*/
     ppget_AsynOverwrite();
     testdd += 0.001f;
+<<<<<<< HEAD
 =======
 //    vesc_test.rpm_control.PID_SetParameters(debug.rx_frame_mat.data.msg_get[0], debug.rx_frame_mat.data.msg_get[1], debug.rx_frame_mat.data.msg_get[2]);
 
@@ -104,6 +167,9 @@ void demo::process_data()
 //    // debug.tx_frame_mat.data.msg_get[1] = m6020_test.target_angle;
 //    // debug.tx_frame_mat.data.msg_get[2] = m6020_test.angle_error;
 >>>>>>> origin/main
+=======
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 }
 
 uint8_t demo::msgin(uint8_t rcnID_, const void *data)

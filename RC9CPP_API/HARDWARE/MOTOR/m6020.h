@@ -28,9 +28,13 @@ extern "C"
 #include "motor.h"
 #include <math.h>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 #include "SuperPID.h"
 >>>>>>> origin/main
+=======
+#include "SuperPID.h"
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 
 #ifdef __cplusplus
 }
@@ -39,20 +43,28 @@ extern "C"
 #ifdef __cplusplus
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 class m6020s : public CanDevice, public dji_motor // 动力电机版本的m3508
 =======
 class m6020s : public CanDevice, public dji_motor, public power_motor
 >>>>>>> origin/main
+=======
+class m6020s : public CanDevice, public dji_motor, public power_motor
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 {
 private:
     uint8_t gear_ratio = 1;
 
 public:
 <<<<<<< HEAD
+<<<<<<< HEAD
     m6020s(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool if_double_control_ = true, float kp_r = 270.0f, float ki_r = 1.8f, float kd_r = 6.0f, float kp_p = 0.0f, float ki_p = 0.0f, float kd_p = 0.0f);
 =======
     m6020s(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool if_double_control_ = true, float kp_r = 86.0f, float ki_r = 3.0f, float kd_r = 86.0f, float r_r_ = 225.0f, float kp_p = 2.6f, float ki_p = 0.0f, float kd_p = 0.36f);
 >>>>>>> origin/main
+=======
+    m6020s(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool if_double_control_ = true, float kp_r = 86.0f, float ki_r = 3.0f, float kd_r = 86.0f, float r_r_ = 225.0f, float kp_p = 2.6f, float ki_p = 0.0f, float kd_p = 0.36f);
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 
     int16_t motor_process() override;
     void can_update(uint8_t can_RxData[8]);
@@ -64,10 +76,14 @@ public:
     float angle_error = 0.0f;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     pid rpm_pid;
 =======
     IncrePID rpm_pid;
 >>>>>>> origin/main
+=======
+    IncrePID rpm_pid;
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 
     bool if_double_control = true; // 是否使用双环控制，因为有些电机无法360度旋转导致无法调速度环
     pid pos_pid;
@@ -81,7 +97,10 @@ public:
 
     float convert_angle_to_signed(float current_angle);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 
     float get_rpm();
     void set_rpm(float power_motor_rpm);
@@ -91,7 +110,10 @@ public:
     void target_angle_tf();
     void set_init_angle(float init_angle_);
     float delta_angle = 0.0f, init_angle = 0.0f, target_relative_angle = 0.0f;
+<<<<<<< HEAD
 >>>>>>> origin/main
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 };
 
 #endif

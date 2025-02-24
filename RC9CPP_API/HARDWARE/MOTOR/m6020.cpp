@@ -18,21 +18,31 @@
  ******************************************************************************/
 #include "m6020.h"
 <<<<<<< HEAD
+<<<<<<< HEAD
 m6020s::m6020s(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool if_double_control_, float kp_r, float ki_r, float kd_r, float kp_p, float ki_p, float kd_p) : CanDevice(M6020, hcan_, can_id), rpm_pid(kp_r, ki_r, kd_r, 1000000.0f, 25000.0f, 1.0f, 90.0f), pos_pid(kp_p, ki_p, kd_p, 10000.0f, 300.0f, 0.01f, 60.0f), dji_motor(3000.0f, 16384, 8191), if_double_control(if_double_control_)
 =======
 m6020s::m6020s(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool if_double_control_, float kp_r, float ki_r, float kd_r, float r_r_, float kp_p, float ki_p, float kd_p) : CanDevice(M6020, hcan_, can_id), rpm_pid(kp_r, ki_r, kd_r, r_r_, 25000.0f, 1.0f), pos_pid(kp_p, ki_p, kd_p, 10000.0f, 300.0f, 0.01f, 60.0f), dji_motor(3000.0f, 16384, 8191), if_double_control(if_double_control_)
 >>>>>>> origin/main
+=======
+m6020s::m6020s(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool if_double_control_, float kp_r, float ki_r, float kd_r, float r_r_, float kp_p, float ki_p, float kd_p) : CanDevice(M6020, hcan_, can_id), rpm_pid(kp_r, ki_r, kd_r, r_r_, 25000.0f, 1.0f), pos_pid(kp_p, ki_p, kd_p, 10000.0f, 300.0f, 0.01f, 60.0f), dji_motor(3000.0f, 16384, 8191), if_double_control(if_double_control_)
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 {
 }
 
 int16_t m6020s::motor_process()
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
     target_angle_tf();
 
 >>>>>>> origin/main
+=======
+
+    target_angle_tf();
+
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
     real_angle = convert_angle_to_signed(rangle);
     if (real_angle * target_angle >= 0)
     {
@@ -72,6 +82,7 @@ int16_t m6020s::motor_process()
     {
         target_rpm = pos_pid.PID_ComputeError(angle_error);
 <<<<<<< HEAD
+<<<<<<< HEAD
         rpm_pid.setpoint = target_rpm * (float)gear_ratio;
         target_v = (int16_t)rpm_pid.PID_Compute(rpm);
     }
@@ -90,14 +101,29 @@ int16_t m6020s::motor_process()
       // rpm_pid.integral_separation_threshold = 30.0f;
       // target_v = (int16_t)rpm_pid.PID_ComputeError(angle_error);
 >>>>>>> origin/main
+=======
+        // target_rpm = 0.0f;
+        //  rpm_pid.setpoint = target_rpm * (float)gear_ratio;
+        rpm_pid.increPID_setarget(target_rpm);
+        target_v = (int16_t)rpm_pid.increPID_Compute(rpm);
+    }
+    else
+    { // 丸辣，机械已经装完了，只能单环硬调了
+      // rpm_pid.integral_separation_threshold = 30.0f;
+      // target_v = (int16_t)rpm_pid.PID_ComputeError(angle_error);
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
     }
 
     return target_v;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> origin/main
+=======
+
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 void m6020s::can_update(uint8_t can_RxData[8])
 {
     uint16_t vangle = (can_RxData[0] << 8) | can_RxData[1];
@@ -110,7 +136,10 @@ void m6020s::can_update(uint8_t can_RxData[8])
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 void m6020s::target_angle_tf() // 考虑了机械初始安装角度的角度变换
 {
     delta_angle = target_relative_angle + init_angle;
@@ -147,7 +176,10 @@ void m6020s::set_rpm(float power_motor_rpm)
 {
     // target_angle = power_motor_rpm;
 }
+<<<<<<< HEAD
 >>>>>>> origin/main
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 float m6020s::get_relative_pos()
 {
     return 0;

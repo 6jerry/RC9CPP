@@ -132,7 +132,10 @@ void pure_pursuit::pp_refresh_points()
 {
     points_buffer.clear();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 }
 
 Vector2D pointrack::track(Vector2D now_pos_, Vector2D target_point_)
@@ -151,5 +154,8 @@ float pointrack::get_dis()
 
 pointrack::pointrack(float kp_, float ki_, float kd_, float deadzone_, float max_speed_) : track_pid(kp_, kd_, ki_, 0.0f, max_speed_, deadzone_, 0.0f)
 {
+<<<<<<< HEAD
 >>>>>>> origin/main
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 }

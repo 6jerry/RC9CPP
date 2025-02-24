@@ -19,11 +19,19 @@ extern "C"
 #include "netswitch.h"
 #include "rcncore.h"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 #include "m6020.h"
 #include "chassis.h"
 #include "tb6612.h"
 >>>>>>> origin/main
+=======
+#include "m6020.h"
+#include "chassis.h"
+#include "tb6612.h"
+=======
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 
     void pshoot_setup(void);
 #ifdef __cplusplus

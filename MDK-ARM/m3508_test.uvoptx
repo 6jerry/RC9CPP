@@ -145,7 +145,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>CMSIS_AGDI</Key>
-          <Name>-X"Any" -UAny -O206 -S8 -C0 -P00000000 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO65554 -TC10000000 -TT10000000 -TP20 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC1000 -FN1 -FF0STM32F4xx_1024.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32F407ZGTx$CMSIS\Flash\STM32F4xx_1024.FLM)</Name>
+          <Name>-X"Any" -UAny -O206 -S8 -C0 -P00000000 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO65554 -TC10000000 -TT10000000 -TP20 -TDS8003 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC1000 -FN1 -FF0STM32F4xx_1024.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32F407ZGTx$CMSIS\Flash\STM32F4xx_1024.FLM)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -677,6 +677,94 @@
           <WinNumber>2</WinNumber>
           <ItemText>esp32_serial</ItemText>
         </Ww>
+<<<<<<< HEAD
+        <Ww>
+          <count>83</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>vesc_test</ItemText>
+        </Ww>
+        <Ww>
+          <count>84</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>debug.tx_frame_mat.data.msg_get[0]</ItemText>
+        </Ww>
+        <Ww>
+          <count>85</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>esp32_serial</ItemText>
+        </Ww>
+        <Ww>
+          <count>86</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m6020_test</ItemText>
+        </Ww>
+        <Ww>
+          <count>87</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>swerve_test</ItemText>
+        </Ww>
+        <Ww>
+          <count>88</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>esp32_serial</ItemText>
+        </Ww>
+        <Ww>
+          <count>89</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>box_test</ItemText>
+        </Ww>
+        <Ww>
+          <count>90</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>motor1</ItemText>
+        </Ww>
+        <Ww>
+          <count>91</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>shooter_chassis</ItemText>
+        </Ww>
+        <Ww>
+          <count>92</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>esp_port</ItemText>
+        </Ww>
+        <Ww>
+          <count>93</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>esp_port</ItemText>
+        </Ww>
+        <Ww>
+          <count>94</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m6020_left_front</ItemText>
+        </Ww>
+        <Ww>
+          <count>95</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>vesc_right_back</ItemText>
+        </Ww>
+        <Ww>
+          <count>96</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m6020_left_back</ItemText>
+        </Ww>
+        <Ww>
+          <count>97</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m6020_right_back</ItemText>
+        </Ww>
+        <Ww>
+          <count>98</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m6020_right_front</ItemText>
+        </Ww>
+        <Ww>
+          <count>99</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>shooter_chassis</ItemText>
+        </Ww>
+=======
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
       </WatchWindow2>
       <MemoryWindow1>
         <Mm>
@@ -899,6 +987,30 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
+      <PathWithFileName>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f4xx_hal_tim.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>3</GroupNumber>
+      <FileNumber>13</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f4xx_hal_tim_ex.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>3</GroupNumber>
+      <FileNumber>14</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
       <PathWithFileName>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.c</PathWithFileName>
       <FilenameWithoutPath>stm32f4xx_hal_can.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
@@ -906,7 +1018,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>13</FileNumber>
+      <FileNumber>15</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -918,7 +1030,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>14</FileNumber>
+      <FileNumber>16</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -930,7 +1042,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>15</FileNumber>
+      <FileNumber>17</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -942,7 +1054,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>16</FileNumber>
+      <FileNumber>18</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -954,7 +1066,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>17</FileNumber>
+      <FileNumber>19</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -966,7 +1078,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>18</FileNumber>
+      <FileNumber>20</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -978,7 +1090,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>19</FileNumber>
+      <FileNumber>21</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -990,7 +1102,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>20</FileNumber>
+      <FileNumber>22</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1002,7 +1114,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>21</FileNumber>
+      <FileNumber>23</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1014,7 +1126,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>22</FileNumber>
+      <FileNumber>24</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1026,7 +1138,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>23</FileNumber>
+      <FileNumber>25</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1038,7 +1150,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>24</FileNumber>
+      <FileNumber>26</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1050,37 +1162,13 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>25</FileNumber>
+      <FileNumber>27</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c</PathWithFileName>
       <FilenameWithoutPath>stm32f4xx_hal_exti.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>3</GroupNumber>
-      <FileNumber>26</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f4xx_hal_tim.c</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>3</GroupNumber>
-      <FileNumber>27</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f4xx_hal_tim_ex.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1783,12 +1871,21 @@
     <File>
       <GroupNumber>6</GroupNumber>
       <FileNumber>84</FileNumber>
+<<<<<<< HEAD
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_API\HARDWARE\MOTOR\tb6612.cpp</PathWithFileName>
+      <FilenameWithoutPath>tb6612.cpp</FilenameWithoutPath>
+=======
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\RC9CPP_API\HARDWARE\wit_IMU\gyro.c</PathWithFileName>
       <FilenameWithoutPath>gyro.c</FilenameWithoutPath>
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1799,8 +1896,13 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
+<<<<<<< HEAD
+      <PathWithFileName>..\RC9CPP_API\HARDWARE\MOTOR\tb6612.h</PathWithFileName>
+      <FilenameWithoutPath>tb6612.h</FilenameWithoutPath>
+=======
       <PathWithFileName>..\RC9CPP_API\HARDWARE\wit_IMU\gyro.h</PathWithFileName>
       <FilenameWithoutPath>gyro.h</FilenameWithoutPath>
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1811,8 +1913,13 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
+<<<<<<< HEAD
+      <PathWithFileName>..\RC9CPP_API\MATH_LIB\Matrix_Lite.cpp</PathWithFileName>
+      <FilenameWithoutPath>Matrix_Lite.cpp</FilenameWithoutPath>
+=======
       <PathWithFileName>..\RC9CPP_API\HARDWARE\wit_IMU\GYRO_fuc.cpp</PathWithFileName>
       <FilenameWithoutPath>GYRO_fuc.cpp</FilenameWithoutPath>
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1823,6 +1930,10 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
+<<<<<<< HEAD
+      <PathWithFileName>..\RC9CPP_API\MATH_LIB\Matrix_Lite.h</PathWithFileName>
+      <FilenameWithoutPath>Matrix_Lite.h</FilenameWithoutPath>
+=======
       <PathWithFileName>..\RC9CPP_API\HARDWARE\wit_IMU\GYRO_fuc.h</PathWithFileName>
       <FilenameWithoutPath>GYRO_fuc.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
@@ -1849,6 +1960,7 @@
       <bDave2>0</bDave2>
       <PathWithFileName>..\RC9CPP_API\HARDWARE\wit_IMU\wit_c_sdk.h</PathWithFileName>
       <FilenameWithoutPath>wit_c_sdk.h</FilenameWithoutPath>
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1862,31 +1974,53 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>7</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>88</FileNumber>
+=======
       <FileNumber>90</FileNumber>
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
+<<<<<<< HEAD
+      <PathWithFileName>..\RC9CPP_USER\SHOOTER_CAR\shootcar_setup.cpp</PathWithFileName>
+      <FilenameWithoutPath>shootcar_setup.cpp</FilenameWithoutPath>
+=======
       <PathWithFileName>..\RC9CPP_USER\R2N_USER\r2n_setup.cpp</PathWithFileName>
       <FilenameWithoutPath>r2n_setup.cpp</FilenameWithoutPath>
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>89</FileNumber>
+=======
       <FileNumber>91</FileNumber>
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
+<<<<<<< HEAD
+      <PathWithFileName>..\RC9CPP_USER\SHOOTER_CAR\shootcar_setup.h</PathWithFileName>
+      <FilenameWithoutPath>shootcar_setup.h</FilenameWithoutPath>
+=======
       <PathWithFileName>..\RC9CPP_USER\R2N_USER\r2n_setup.h</PathWithFileName>
       <FilenameWithoutPath>r2n_setup.h</FilenameWithoutPath>
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>90</FileNumber>
+=======
       <FileNumber>92</FileNumber>
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1898,7 +2032,11 @@
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>91</FileNumber>
+=======
       <FileNumber>93</FileNumber>
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1918,7 +2056,11 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>8</GroupNumber>
+<<<<<<< HEAD
+      <FileNumber>92</FileNumber>
+=======
       <FileNumber>94</FileNumber>
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
       <FileType>4</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

@@ -118,6 +118,10 @@ void chassis::point_track_compute()
 chassis::chassis(ChassisType chassistype_, float Rwheel_, action *ACTION_, float headingkp, float headingki, float headingkd, float kp_, float ki_, float kd_) : chassistype(chassistype_), heading_pid(headingkp, headingki, headingkd, 100000.0f, 5.0f, 0.01f, 0.5f), ACTION(ACTION_), Rwheel(Rwheel_), distan_pid(kp_, ki_, kd_, 1000000.0f, 1.4f, 50.0f, 600.0f), pp_tracker(normalcontrol, 0.0057f, 0.0f, 0.0632f, 0.0f, 0.0f, 0.0f)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
     /*Vector2D array[] = {
         Vector2D(0.0f, 0.0f),
         Vector2D(30.6f, 24.5f),
@@ -170,8 +174,12 @@ chassis::chassis(ChassisType chassistype_, float Rwheel_, action *ACTION_, float
         Vector2D(1469.4f, 24.0f), Vector2D(1500.0f, 0.0f)};
 
     pp_tracker.pp_force_add_points(array, 50);*/
+<<<<<<< HEAD
 =======
 >>>>>>> origin/main
+=======
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 }
 
 float chassis ::v_to_rpm(float v)
@@ -181,7 +189,10 @@ float chassis ::v_to_rpm(float v)
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 swerve4 ::swerve4(action *ACTION_, float chassis_r_, float wheel_r_) : chassis(swerve4_, wheel_r_, ACTION_, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
 {
 }
@@ -321,7 +332,10 @@ void swerve4 ::process_data()
         //}
     }
 }
+<<<<<<< HEAD
 >>>>>>> origin/main
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 omni3_unusual::omni3_unusual(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor, float Rwheel_, action *ACTION_, float headingkp, float headingki, float headingkd, float point_kp, float point_ki, float point_kd) : chassis(omni3_unusual_, Rwheel_, ACTION_, headingkp, headingki, headingkd, point_kp, point_ki, point_kd)
 {
     motors[0] = front_motor;
@@ -416,12 +430,23 @@ void omni3::process_data()
 
     case pp:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        // Vector2D wpos(ACTION->pose_data.world_pos_x, ACTION->pose_data.world_pos_y);
+
+        // Vector2D tspeed = pp_tracker.pursuit(wpos);
+
+        // input_wvx = tspeed.x;
+        // input_wvy = tspeed.y;
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
         //Vector2D wpos(ACTION->pose_data.world_pos_x, ACTION->pose_data.world_pos_y);
 
         //Vector2D tspeed = pp_tracker.pursuit(wpos);
 
         //input_wvx = tspeed.x;
         //input_wvy = tspeed.y;
+<<<<<<< HEAD
 =======
         // Vector2D wpos(ACTION->pose_data.world_pos_x, ACTION->pose_data.world_pos_y);
 
@@ -430,6 +455,9 @@ void omni3::process_data()
         // input_wvx = tspeed.x;
         // input_wvy = tspeed.y;
 >>>>>>> origin/main
+=======
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
         worldv_to_robotv();
         break;
     }

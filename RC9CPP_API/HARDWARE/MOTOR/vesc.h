@@ -11,10 +11,17 @@ extern "C"
 #include "TaskManager.h"
 #include "motor.h"
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include "SuperPID.h"
 =======
 #include "PID.h"
 >>>>>>> origin/main
+=======
+#include "PID.h"
+=======
+#include "SuperPID.h"
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 
 #ifdef __cplusplus
 }
@@ -23,10 +30,21 @@ extern "C"
 #ifdef __cplusplus
 #define CAN_CMD_SET_CURRENT 0x01 // VESC设置电流的命令ID
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+#define CAN_CMD_SET_ERPM 0x03
+#define CAN_CMD_SET_BRAKE 0x02
+class vesc : public CanDevice, public ITaskProcessor, public power_motor
+{
+private:
+    float gear_ratio = 3.0f;
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 class vesc : public CanDevice, public ITaskProcessor, public power_motor
 {
 private:
     float gear_ratio = 1.0f;
+<<<<<<< HEAD
 =======
 #define CAN_CMD_SET_ERPM 0x03
 #define CAN_CMD_SET_BRAKE 0x02
@@ -35,6 +53,9 @@ class vesc : public CanDevice, public ITaskProcessor, public power_motor
 private:
     float gear_ratio = 3.0f;
 >>>>>>> origin/main
+=======
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
     uint8_t motor_polse = 7;
 
 public:
@@ -45,6 +66,20 @@ public:
     void can_update(uint8_t can_RxData[8]);
     void process_data();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    float delta_rpm = 0.0f;
+    bool if_invert = false;
+    uint32_t extid = 0;
+
+    vesc(uint8_t can_id_, CAN_HandleTypeDef *hcan_, bool invert = false, uint8_t motor_polse_ = 21, float gear_ratio_ = 3.0f, float kp_ = 0.0f, float ki_ = 0.0f, float kd_ = 0.0f, float r_ = 0.0f);
+
+    pid rpm_control;
+
+    float target_rpm = 0.0f, now_rpm = 0.0f, rcurrent = 0.0f;
+    int32_t target_erpm = 0, senderpm = 0, brake = 10000;
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 
     uint32_t extid = 0;
 
@@ -54,6 +89,7 @@ public:
 
     float target_rpm = 0.0f, now_rpm = 0.0f, rcurrent = 0.0f;
     int32_t target_current = 0;
+<<<<<<< HEAD
 =======
     float delta_rpm = 0.0f;
     bool if_invert = false;
@@ -66,6 +102,9 @@ public:
     float target_rpm = 0.0f, now_rpm = 0.0f, rcurrent = 0.0f;
     int32_t target_erpm = 0, senderpm = 0, brake = 10000;
 >>>>>>> origin/main
+=======
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 };
 #endif
 #endif

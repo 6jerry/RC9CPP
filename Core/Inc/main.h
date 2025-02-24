@@ -58,6 +58,7 @@ void Error_Handler(void);
 
 /* Private defines -----------------------------------------------------------*/
 <<<<<<< HEAD
+<<<<<<< HEAD
 #define shoot_key_Pin GPIO_PIN_7
 #define shoot_key_GPIO_Port GPIOF
 #define Right_Wall_Pin GPIO_PIN_0
@@ -76,6 +77,8 @@ void Error_Handler(void);
 #define Blue_GPIO_Port GPIOB
 =======
 >>>>>>> origin/main
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 
 /* USER CODE BEGIN Private defines */
 

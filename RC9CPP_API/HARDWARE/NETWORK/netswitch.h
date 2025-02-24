@@ -37,11 +37,19 @@ public:
     rcn_msg_ rcn_msg;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
    
     osMessageQueueId_t normalQueue;
 =======
        osMessageQueueId_t normalQueue;
 >>>>>>> origin/main
+=======
+       osMessageQueueId_t normalQueue;
+=======
+   
+    osMessageQueueId_t normalQueue;
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 
     osMessageQueueId_t overwriteQueue; // 覆盖式队列。长度强制为1
 

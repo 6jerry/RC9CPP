@@ -1,13 +1,23 @@
 #include "r2n_setup.h"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+RC9Protocol esp32_serial(&huart2, false),
+    data_chain(&huart5, false);
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 #include "GYRO_fuc.h"
 #include "usart.h"
 RC9Protocol esp32_serial(&huart1, false),
     data_chain(&huart2, false);
+<<<<<<< HEAD
 =======
 RC9Protocol esp32_serial(&huart2, false),
     data_chain(&huart5, false);
 >>>>>>> origin/main
+=======
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 m3508p m3508_front(1, &hcan1), m3508_left(3, &hcan1), m3508_right(2, &hcan1); // 九期r2，硬件连接：三只m3508作为底盘动力电机位于can1
 TaskManager task_core;
 CanManager can_core;
@@ -44,6 +54,7 @@ r2n_setup(void)
     // task_core.registerTask(4, &go1);
     task_core.registerTask(3, &r2n_chassis);
 <<<<<<< HEAD
+<<<<<<< HEAD
     //task_core.registerTask(9, &test2);
 
     // 以上为首次创建的新任务
@@ -54,6 +65,11 @@ r2n_setup(void)
     //data_chain.tx_frame_mat.frame_id = 1;
 =======
     task_core.registerTask(2, &r2_remote);
+=======
+    task_core.registerTask(2, &r2_remote);
+=======
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
     task_core.registerTask(9, &test2);
 
     // 以上为首次创建的新任务

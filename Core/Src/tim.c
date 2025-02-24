@@ -25,8 +25,18 @@
 /* USER CODE END 0 */
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+TIM_HandleTypeDef htim1;
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 TIM_HandleTypeDef htim2;
+TIM_HandleTypeDef htim3;
+TIM_HandleTypeDef htim4;
+TIM_HandleTypeDef htim8;
+TIM_HandleTypeDef htim9;
+TIM_HandleTypeDef htim12;
 
+<<<<<<< HEAD
 =======
 TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
@@ -36,6 +46,8 @@ TIM_HandleTypeDef htim8;
 TIM_HandleTypeDef htim9;
 TIM_HandleTypeDef htim12;
 
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 /* TIM1 init function */
 void MX_TIM1_Init(void)
 {
@@ -81,7 +93,10 @@ void MX_TIM1_Init(void)
   /* USER CODE END TIM1_Init 2 */
 
 }
+<<<<<<< HEAD
 >>>>>>> origin/main
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 /* TIM2 init function */
 void MX_TIM2_Init(void)
 {
@@ -93,19 +108,28 @@ void MX_TIM2_Init(void)
   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   TIM_OC_InitTypeDef sConfigOC = {0};
 >>>>>>> origin/main
+=======
+  TIM_OC_InitTypeDef sConfigOC = {0};
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 
   /* USER CODE BEGIN TIM2_Init 1 */
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
 <<<<<<< HEAD
+<<<<<<< HEAD
   htim2.Init.Prescaler = 83;
+=======
+  htim2.Init.Prescaler = 7;
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 10000;
+  htim2.Init.Period = 999;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+<<<<<<< HEAD
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
 =======
   htim2.Init.Prescaler = 7;
@@ -114,6 +138,9 @@ void MX_TIM2_Init(void)
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
 >>>>>>> origin/main
+=======
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
   {
     Error_Handler();
@@ -124,12 +151,18 @@ void MX_TIM2_Init(void)
     Error_Handler();
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   if (HAL_TIM_PWM_Init(&htim2) != HAL_OK)
   {
     Error_Handler();
   }
+<<<<<<< HEAD
 >>>>>>> origin/main
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
   if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
@@ -137,11 +170,36 @@ void MX_TIM2_Init(void)
     Error_Handler();
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_4) != HAL_OK)
+  {
+    Error_Handler();
+  }
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   /* USER CODE BEGIN TIM2_Init 2 */
 
   /* USER CODE END TIM2_Init 2 */
+  HAL_TIM_MspPostInit(&htim2);
 
 }
+<<<<<<< HEAD
 =======
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
   sConfigOC.Pulse = 0;
@@ -169,6 +227,8 @@ void MX_TIM2_Init(void)
   HAL_TIM_MspPostInit(&htim2);
 
 }
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 /* TIM3 init function */
 void MX_TIM3_Init(void)
 {
@@ -517,7 +577,10 @@ void HAL_TIM_Encoder_MspInit(TIM_HandleTypeDef* tim_encoderHandle)
   /* USER CODE END TIM8_MspInit 1 */
   }
 }
+<<<<<<< HEAD
 >>>>>>> origin/main
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
 {
@@ -530,18 +593,24 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
     /* TIM2 clock enable */
     __HAL_RCC_TIM2_CLK_ENABLE();
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     /* TIM2 interrupt Init */
     HAL_NVIC_SetPriority(TIM2_IRQn, 5, 0);
     HAL_NVIC_EnableIRQ(TIM2_IRQn);
 =======
 >>>>>>> origin/main
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   /* USER CODE BEGIN TIM2_MspInit 1 */
 
   /* USER CODE END TIM2_MspInit 1 */
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   else if(tim_baseHandle->Instance==TIM9)
   {
   /* USER CODE BEGIN TIM9_MspInit 0 */
@@ -718,7 +787,10 @@ void HAL_TIM_Encoder_MspDeInit(TIM_HandleTypeDef* tim_encoderHandle)
 
   /* USER CODE END TIM8_MspDeInit 1 */
   }
+<<<<<<< HEAD
 >>>>>>> origin/main
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 }
 
 void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
@@ -732,17 +804,23 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
     /* Peripheral clock disable */
     __HAL_RCC_TIM2_CLK_DISABLE();
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     /* TIM2 interrupt Deinit */
     HAL_NVIC_DisableIRQ(TIM2_IRQn);
 =======
 >>>>>>> origin/main
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   /* USER CODE BEGIN TIM2_MspDeInit 1 */
 
   /* USER CODE END TIM2_MspDeInit 1 */
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   else if(tim_baseHandle->Instance==TIM9)
   {
   /* USER CODE BEGIN TIM9_MspDeInit 0 */
@@ -765,7 +843,10 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 
   /* USER CODE END TIM12_MspDeInit 1 */
   }
+<<<<<<< HEAD
 >>>>>>> origin/main
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 }
 
 /* USER CODE BEGIN 1 */

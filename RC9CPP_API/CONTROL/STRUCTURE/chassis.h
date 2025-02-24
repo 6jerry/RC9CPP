@@ -92,10 +92,15 @@ public:
     pid distan_pid;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     bool if_adjust_heading = false;
 
 >>>>>>> origin/main
+=======
+    bool if_adjust_heading = false;
+
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
     void point_track_compute();
 
 public:
@@ -125,7 +130,10 @@ public:
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 class swerve4 : public ITaskProcessor, public chassis
 {
 private:
@@ -145,7 +153,10 @@ public:
     void add_heading_motor(power_motor *right_front_, power_motor *right_back_, power_motor *left_back_, power_motor *left_front_);
 };
 
+<<<<<<< HEAD
 >>>>>>> origin/main
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 // 常规三轮全向轮底盘，通常以一个电机为车头的朝向，典型车体：九期r2
 class omni3 : public ITaskProcessor, public chassis
 {

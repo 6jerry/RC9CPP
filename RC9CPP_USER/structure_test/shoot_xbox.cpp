@@ -35,6 +35,7 @@ void shoot_xbox::process_data()
     if (speed_level == 1)
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         MAX_RPM = 186.0f;
 =======
         MAX_ROBOT_SPEED_X = 8.20f;
@@ -44,21 +45,64 @@ void shoot_xbox::process_data()
         // pitcher->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
         shooter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
 >>>>>>> origin/main
+=======
+        MAX_ROBOT_SPEED_X = 8.20f;
+        MAX_ROBOT_SPEED_Y = 8.20f;
+        MAX_ROBOT_SPEED_W = 3.20f;
+        MAX_RPM = 200.0f;
+        // pitcher->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
+        shooter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
+=======
+        MAX_RPM = 186.0f;
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
     }
 
     if (speed_level == 0)
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        MAX_ROBOT_SPEED_X = 4.40f;
+        MAX_ROBOT_SPEED_Y = 4.40f;
+        MAX_ROBOT_SPEED_W = 1.10f;
+        MAX_RPM = 200.0f;
+        // lifter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map))
+        // shooter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
+    }
+    if (speed_level == 2)
+    {
+        MAX_ROBOT_SPEED_X = 9.96f;
+        MAX_ROBOT_SPEED_Y = 9.96f;
+        MAX_ROBOT_SPEED_W = 3.98f;
+        MAX_RPM = 200.0f;
+        // shooter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
         MAX_RPM = 86.0f;
     }
     if (speed_level == 2)
     {
         MAX_RPM = 286.0f;
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
     }
 
-    shooter->set_rpm((xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * MAX_RPM);
+    control_chassis->switch_chassis_mode(remote_robotv);
+
+    arm_sqrt_f32(xbox_msgs.joyLHori_map * xbox_msgs.joyLHori_map + xbox_msgs.joyLVert_map * xbox_msgs.joyLVert_map, &mapsum);
+
+    if (mapsum > 0.15f)
+    {
+        control_chassis->if_adjust_heading = true;
+    }
+    else
+    {
+        control_chassis->if_adjust_heading = false;
+    }
+    control_chassis->setrobotv(MAX_ROBOT_SPEED_X * xbox_msgs.joyLHori_map, -MAX_ROBOT_SPEED_Y * xbox_msgs.joyLVert_map, -MAX_ROBOT_SPEED_W * xbox_msgs.joyRHori_map);
 }
 
+<<<<<<< HEAD
 shoot_xbox::shoot_xbox(power_motor *shooter_, power_motor *pitch) : shooter(shooter_), pitcher(pitch)
 =======
         MAX_ROBOT_SPEED_X = 4.40f;
@@ -94,6 +138,9 @@ shoot_xbox::shoot_xbox(power_motor *shooter_, power_motor *pitch) : shooter(shoo
 
 shoot_xbox::shoot_xbox(power_motor *shooter_, power_motor *pitch, power_motor *lifter_, chassis *control_chassis_) : shooter(shooter_), pitcher(pitch), control_chassis(control_chassis_), lifter(lifter_)
 >>>>>>> origin/main
+=======
+shoot_xbox::shoot_xbox(power_motor *shooter_, power_motor *pitch, power_motor *lifter_, chassis *control_chassis_) : shooter(shooter_), pitcher(pitch), control_chassis(control_chassis_), lifter(lifter_)
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 {
     sbtnconfig_init();
 }

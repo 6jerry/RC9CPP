@@ -139,15 +139,25 @@ public:
 public:
     xbox(action *ACTION_ = nullptr, chassis *control_chassis_ = nullptr, float MAX_ROBOT_SPEED_Y_ = 1.50f, float MAX_ROBOT_SPEED_X_ = 1.50f, float MAX_ROBOT_SPEED_W_ = 3.60f);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+   
+    void update(uint8_t data_id, uint8_t data_length, const uint8_t *data_char, const float *data_float);
+=======
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
     uint8_t msgin(uint8_t rcnID_, const void *data) override;
     uint8_t msgout(uint8_t rcnID_, void *output) override;
     // void update(uint8_t data_id, uint8_t data_length, const uint8_t *data_char, const float *data_float);
 
    
+<<<<<<< HEAD
 =======
    
     void update(uint8_t data_id, uint8_t data_length, const uint8_t *data_char, const float *data_float);
 >>>>>>> origin/main
+=======
+>>>>>>> 40b0e7df49798d9cb74baf2e9eea4ee4dc4618a2
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 };
 
 #endif

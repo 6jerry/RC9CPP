@@ -13,9 +13,13 @@ extern "C"
 #include "can.h"
 #include "TaskManager.h"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 #include "rcncore.h"
 >>>>>>> origin/main
+=======
+#include "rcncore.h"
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 
 #ifdef __cplusplus
 }
@@ -102,10 +106,15 @@ public:
     static uint8_t RxData1[8];
     static uint8_t RxData2[8];
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
     static uint8_t canid_2_mac(CAN_HandleTypeDef *hcan);
 >>>>>>> origin/main
+=======
+
+    static uint8_t canid_2_mac(CAN_HandleTypeDef *hcan);
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 };
 
 #endif

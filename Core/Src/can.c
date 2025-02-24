@@ -26,10 +26,14 @@
 #include <stm32f407xx.h>
 CAN_TxHeaderTypeDef TxHeader; // 发�??
 <<<<<<< HEAD
+<<<<<<< HEAD
 uint8_t RxData[8];            // 数据接收数组，can的数据帧只有8�???
 =======
 uint8_t RxData[8];            // 数据接收数组，can的数据帧只有8�???
 >>>>>>> origin/main
+=======
+uint8_t RxData[8];            // 数据接收数组，can的数据帧只有8�???
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 uint8_t RxData2[8];
 int Rx_Flag = 1;
 /* USER CODE END 0 */
@@ -67,10 +71,14 @@ void MX_CAN1_Init(void)
   /* USER CODE BEGIN CAN1_Init 2 */
   // CAN1_Filter_Init();
 <<<<<<< HEAD
+<<<<<<< HEAD
   // HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING); // �???活指定的中断函数
 =======
   // HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING); // �???活指定的中断函数
 >>>>>>> origin/main
+=======
+  // HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING); // �???活指定的中断函数
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
 
   /* USER CODE END CAN1_Init 2 */
 
@@ -238,14 +246,19 @@ void CAN1_Filter_Init(void)
 
   sFilterConfig.FilterBank = 0;                      /* 过滤器组0 */
 <<<<<<< HEAD
+<<<<<<< HEAD
   sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;  /* 屏蔽位模�??? */
 =======
   sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;  /* 屏蔽位模�??? */
 >>>>>>> origin/main
+=======
+  sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;  /* 屏蔽位模�??? */
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT; /* 32位�??*/
 
   sFilterConfig.FilterIdHigh = (((uint32_t)CAN_RxExtId << 3) & 0xFFFF0000) >> 16; /* 要过滤的ID高位 */                  // 0x0000
   sFilterConfig.FilterIdLow = (((uint32_t)CAN_RxExtId << 3) | CAN_ID_EXT | CAN_RTR_DATA) & 0xFFFF; /* 要过滤的ID低位 */ // 0x0000
+<<<<<<< HEAD
 <<<<<<< HEAD
   //  sFilterConfig.FilterMaskIdHigh     = 0xFFFF;			/* 过滤器高16位每位必须匹�??? */
   //  sFilterConfig.FilterMaskIdLow      = 0xFFFF;			/* 过滤器低16位每位必须匹�??? */
@@ -261,6 +274,14 @@ void CAN1_Filter_Init(void)
   sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0; /* 过滤器被关联到FIFO 0 */
   sFilterConfig.FilterActivation = ENABLE;           /* 使能过滤�??? */
 >>>>>>> origin/main
+=======
+  //  sFilterConfig.FilterMaskIdHigh     = 0xFFFF;			/* 过滤器高16位每位必须匹�??? */
+  //  sFilterConfig.FilterMaskIdLow      = 0xFFFF;			/* 过滤器低16位每位必须匹�??? */
+  sFilterConfig.FilterMaskIdHigh = 0x0000;           /* 实际上是关闭了过滤器 */
+  sFilterConfig.FilterMaskIdLow = 0x0000;            /* 实际上是关闭了过滤器 */
+  sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0; /* 过滤器被关联到FIFO 0 */
+  sFilterConfig.FilterActivation = ENABLE;           /* 使能过滤�??? */
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   // sFilterConfig.SlaveStartFilterBank = 14;
 
   if (HAL_CAN_ConfigFilter(&hcan1, &sFilterConfig) != HAL_OK)
@@ -283,6 +304,7 @@ void CAN1_Filter_Init(void)
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   TxHeader.ExtId = CAN_TxExtId; // 扩展标识�???(29�???)
   TxHeader.IDE = CAN_ID_EXT;    // 使用标准�???
   TxHeader.RTR = CAN_RTR_DATA;  // 数据�???
@@ -291,6 +313,11 @@ void CAN1_Filter_Init(void)
   TxHeader.IDE = CAN_ID_EXT;    // 使用标准�???
   TxHeader.RTR = CAN_RTR_DATA;  // 数据�???
 >>>>>>> origin/main
+=======
+  TxHeader.ExtId = CAN_TxExtId; // 扩展标识�???(29�???)
+  TxHeader.IDE = CAN_ID_EXT;    // 使用标准�???
+  TxHeader.RTR = CAN_RTR_DATA;  // 数据�???
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   TxHeader.DLC = 8;
   TxHeader.TransmitGlobalTime = DISABLE;
 }
@@ -302,14 +329,19 @@ void CAN2_Filter_Init(void)
 
   sFilterConfig.FilterBank = 14;                     /* 过滤器组0 */
 <<<<<<< HEAD
+<<<<<<< HEAD
   sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;  /* 屏蔽位模�??? */
 =======
   sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;  /* 屏蔽位模�??? */
 >>>>>>> origin/main
+=======
+  sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;  /* 屏蔽位模�??? */
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT; /* 32位�??*/
 
   sFilterConfig.FilterIdHigh = (((uint32_t)CAN_RxExtId << 3) & 0xFFFF0000) >> 16; /* 要过滤的ID高位 */                  // 0x0000
   sFilterConfig.FilterIdLow = (((uint32_t)CAN_RxExtId << 3) | CAN_ID_EXT | CAN_RTR_DATA) & 0xFFFF; /* 要过滤的ID低位 */ // 0x0000
+<<<<<<< HEAD
 <<<<<<< HEAD
   //  sFilterConfig.FilterMaskIdHigh     = 0xFFFF;			/* 过滤器高16位每位必须匹�??? */
   //  sFilterConfig.FilterMaskIdLow      = 0xFFFF;			/* 过滤器低16位每位必须匹�??? */
@@ -325,6 +357,14 @@ void CAN2_Filter_Init(void)
   sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0; /* 过滤器被关联到FIFO 0 */
   sFilterConfig.FilterActivation = ENABLE;           /* 使能过滤�??? */
 >>>>>>> origin/main
+=======
+  //  sFilterConfig.FilterMaskIdHigh     = 0xFFFF;			/* 过滤器高16位每位必须匹�??? */
+  //  sFilterConfig.FilterMaskIdLow      = 0xFFFF;			/* 过滤器低16位每位必须匹�??? */
+  sFilterConfig.FilterMaskIdHigh = 0x0000;
+  sFilterConfig.FilterMaskIdLow = 0x0000;
+  sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0; /* 过滤器被关联到FIFO 0 */
+  sFilterConfig.FilterActivation = ENABLE;           /* 使能过滤�??? */
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   sFilterConfig.SlaveStartFilterBank = 14;
 
   if (HAL_CAN_ConfigFilter(&hcan2, &sFilterConfig) != HAL_OK)
@@ -347,6 +387,7 @@ void CAN2_Filter_Init(void)
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   TxHeader.ExtId = CAN_TxExtId; // 扩展标识�???(29�???)
   TxHeader.IDE = CAN_ID_EXT;    // 使用标准�???
   TxHeader.RTR = CAN_RTR_DATA;  // 数据�???
@@ -355,6 +396,11 @@ void CAN2_Filter_Init(void)
   TxHeader.IDE = CAN_ID_EXT;    // 使用标准�???
   TxHeader.RTR = CAN_RTR_DATA;  // 数据�???
 >>>>>>> origin/main
+=======
+  TxHeader.ExtId = CAN_TxExtId; // 扩展标识�???(29�???)
+  TxHeader.IDE = CAN_ID_EXT;    // 使用标准�???
+  TxHeader.RTR = CAN_RTR_DATA;  // 数据�???
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
   TxHeader.DLC = 8;
   TxHeader.TransmitGlobalTime = DISABLE;
 }
@@ -367,10 +413,14 @@ void CAN2_Filter_Init(void)
   {
     CAN_RxHeaderTypeDef RxHeader; // 接收
 <<<<<<< HEAD
+<<<<<<< HEAD
     Rx_Flag = 1;                  // 接收标志�???
 =======
     Rx_Flag = 1;                  // 接收标志�???
 >>>>>>> origin/main
+=======
+    Rx_Flag = 1;                  // 接收标志�???
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
     HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0, &RxHeader, RxData);
     // m3508_update_info(&RxHeader, RxData); // M3508电机数据处理
   }
@@ -378,10 +428,14 @@ void CAN2_Filter_Init(void)
   {
     CAN_RxHeaderTypeDef RxHeader2; // 接收
 <<<<<<< HEAD
+<<<<<<< HEAD
     Rx_Flag = 0;                   // 接收标志�???
 =======
     Rx_Flag = 0;                   // 接收标志�???
 >>>>>>> origin/main
+=======
+    Rx_Flag = 0;                   // 接收标志�???
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
     HAL_CAN_GetRxMessage(&hcan2, CAN_RX_FIFO0, &RxHeader2, RxData2);
     // shoot_motor_update(&RxHeader2, RxData2);
   }
@@ -392,10 +446,14 @@ void CAN2_Filter_Init(void)
   {
     CAN_RxHeaderTypeDef RxHeader; // 接收
 <<<<<<< HEAD
+<<<<<<< HEAD
     Rx_Flag = 0;                  // 接收标志�???
 =======
     Rx_Flag = 0;                  // 接收标志�???
 >>>>>>> origin/main
+=======
+    Rx_Flag = 0;                  // 接收标志�???
+>>>>>>> e9e92ea34931924eedf6897a5078319b30f9357d
     HAL_CAN_GetRxMessage(&hcan2, CAN_RX_FIFO1, &RxHeader, RxData2);
   }
 }
