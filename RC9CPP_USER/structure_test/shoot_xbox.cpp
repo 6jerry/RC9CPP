@@ -34,11 +34,21 @@ void shoot_xbox::process_data()
 
     if (speed_level == 1)
     {
+<<<<<<< HEAD
         MAX_RPM = 186.0f;
+=======
+        MAX_ROBOT_SPEED_X = 8.20f;
+        MAX_ROBOT_SPEED_Y = 8.20f;
+        MAX_ROBOT_SPEED_W = 3.20f;
+        MAX_RPM = 200.0f;
+        // pitcher->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
+        shooter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
+>>>>>>> origin/main
     }
 
     if (speed_level == 0)
     {
+<<<<<<< HEAD
         MAX_RPM = 86.0f;
     }
     if (speed_level == 2)
@@ -50,6 +60,40 @@ void shoot_xbox::process_data()
 }
 
 shoot_xbox::shoot_xbox(power_motor *shooter_, power_motor *pitch) : shooter(shooter_), pitcher(pitch)
+=======
+        MAX_ROBOT_SPEED_X = 4.40f;
+        MAX_ROBOT_SPEED_Y = 4.40f;
+        MAX_ROBOT_SPEED_W = 1.10f;
+        MAX_RPM = 200.0f;
+        // lifter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map))
+        // shooter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
+    }
+    if (speed_level == 2)
+    {
+        MAX_ROBOT_SPEED_X = 9.96f;
+        MAX_ROBOT_SPEED_Y = 9.96f;
+        MAX_ROBOT_SPEED_W = 3.98f;
+        MAX_RPM = 200.0f;
+        // shooter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
+    }
+
+    control_chassis->switch_chassis_mode(remote_robotv);
+
+    arm_sqrt_f32(xbox_msgs.joyLHori_map * xbox_msgs.joyLHori_map + xbox_msgs.joyLVert_map * xbox_msgs.joyLVert_map, &mapsum);
+
+    if (mapsum > 0.15f)
+    {
+        control_chassis->if_adjust_heading = true;
+    }
+    else
+    {
+        control_chassis->if_adjust_heading = false;
+    }
+    control_chassis->setrobotv(MAX_ROBOT_SPEED_X * xbox_msgs.joyLHori_map, -MAX_ROBOT_SPEED_Y * xbox_msgs.joyLVert_map, -MAX_ROBOT_SPEED_W * xbox_msgs.joyRHori_map);
+}
+
+shoot_xbox::shoot_xbox(power_motor *shooter_, power_motor *pitch, power_motor *lifter_, chassis *control_chassis_) : shooter(shooter_), pitcher(pitch), control_chassis(control_chassis_), lifter(lifter_)
+>>>>>>> origin/main
 {
     sbtnconfig_init();
 }

@@ -29,8 +29,13 @@
 /* USER CODE BEGIN Includes */
 #include <string.h>
 
+<<<<<<< HEAD
 #include "r2n_setup.h"
 //#include "push_shoot.h"
+=======
+// #include "r2n_setup.h"
+#include "shootcar_setup.h"
+>>>>>>> origin/main
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -95,7 +100,10 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_CAN1_Init();
+<<<<<<< HEAD
   MX_USART1_UART_Init();
+=======
+>>>>>>> origin/main
   MX_CAN2_Init();
   MX_TIM2_Init();
   MX_USART3_UART_Init();
@@ -103,19 +111,37 @@ int main(void)
   MX_USART2_UART_Init();
   MX_USART6_UART_Init();
   MX_UART5_Init();
+<<<<<<< HEAD
   /* USER CODE BEGIN 2 */
 
   HAL_TIM_Base_Start_IT(&htim2);
 
+=======
+  MX_TIM1_Init();
+  MX_TIM3_Init();
+  MX_TIM4_Init();
+  MX_TIM8_Init();
+  MX_TIM9_Init();
+  MX_TIM12_Init();
+  /* USER CODE BEGIN 2 */
+
+>>>>>>> origin/main
   /* USER CODE END 2 */
 
   /* Init scheduler */
   osKernelInitialize();
 
   /* Call init function for freertos objects (in freertos.c) */
+<<<<<<< HEAD
   r2n_setup();
   //pshoot_setup();
   /* Start scheduler */
+=======
+  // MX_FREERTOS_Init();
+  shootcar_setup();
+  /* Start scheduler */
+  // osKernelStart();
+>>>>>>> origin/main
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
@@ -180,7 +206,11 @@ void SystemClock_Config(void)
 
 /**
  * @brief  Period elapsed callback in non blocking mode
+<<<<<<< HEAD
  * @note   This function is called  when TIM3 interrupt took place, inside
+=======
+ * @note   This function is called  when TIM5 interrupt took place, inside
+>>>>>>> origin/main
  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
  * a global variable "uwTick" used as application time base.
  * @param  htim : TIM handle
@@ -191,7 +221,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
+<<<<<<< HEAD
   if (htim->Instance == TIM3)
+=======
+  if (htim->Instance == TIM5)
+>>>>>>> origin/main
   {
     HAL_IncTick();
   }

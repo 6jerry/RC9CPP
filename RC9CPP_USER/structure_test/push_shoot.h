@@ -18,6 +18,12 @@ extern "C"
 #include "vesc.h"
 #include "netswitch.h"
 #include "rcncore.h"
+<<<<<<< HEAD
+=======
+#include "m6020.h"
+#include "chassis.h"
+#include "tb6612.h"
+>>>>>>> origin/main
 
     void pshoot_setup(void);
 #ifdef __cplusplus

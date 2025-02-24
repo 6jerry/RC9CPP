@@ -131,4 +131,25 @@ void pure_pursuit::pp_force_add_points(Vector2D new_points[], uint8_t length)
 void pure_pursuit::pp_refresh_points()
 {
     points_buffer.clear();
+<<<<<<< HEAD
+=======
+}
+
+Vector2D pointrack::track(Vector2D now_pos_, Vector2D target_point_)
+{
+    // 计算误差
+    Vector2D now_to_target = target_point_ - now_pos_;
+    taerget_dis = now_to_target.magnitude();
+    float speed_sum = track_pid.PID_ComputeError(taerget_dis);
+
+    return speed_sum * now_to_target.normalize();
+}
+float pointrack::get_dis()
+{
+    return taerget_dis;
+}
+
+pointrack::pointrack(float kp_, float ki_, float kd_, float deadzone_, float max_speed_) : track_pid(kp_, kd_, ki_, 0.0f, max_speed_, deadzone_, 0.0f)
+{
+>>>>>>> origin/main
 }

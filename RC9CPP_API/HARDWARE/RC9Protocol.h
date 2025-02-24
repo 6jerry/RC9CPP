@@ -51,12 +51,20 @@ typedef struct serial_frame_mat
     uint8_t frame_end[2];
 } serial_frame_mat_t;
 
+<<<<<<< HEAD
 class RC9Protocol : public SerialDevice, public ITaskProcessor, public rcnode
+=======
+class RC9Protocol : public SerialDevice, public ITaskProcessor
+>>>>>>> origin/main
 {
 public:
     // 构造函数，传入 UART 句柄，是否启用发送任务，是否启用 CRC 校验
     RC9Protocol(UART_HandleTypeDef *huart, bool enableCrcCheck = true);
+<<<<<<< HEAD
     publisher msgbuff_pub;
+=======
+
+>>>>>>> origin/main
     // 实现接收数据的处理逻辑
     void handleReceiveData(uint8_t byte);
 
@@ -66,10 +74,13 @@ public:
     serial_frame_mat_t rx_frame_mat; // 接收数据的数据帧结构体
     serial_frame_mat_t tx_frame_mat; // 发送数据的数据帧结构体
 
+<<<<<<< HEAD
     uint8_t msgin(uint8_t rcnID_, const void *data) override;
     uint8_t msgout(uint8_t rcnID_, void *output) override;
     
 
+=======
+>>>>>>> origin/main
 private:
     uint8_t sendBuffer_[MAX_DATA_LENGTH_RC9 + 8];
     uint8_t rxIndex_; // 当前接收到的字节的索引

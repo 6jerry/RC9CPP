@@ -117,6 +117,7 @@ void chassis::point_track_compute()
 
 chassis::chassis(ChassisType chassistype_, float Rwheel_, action *ACTION_, float headingkp, float headingki, float headingkd, float kp_, float ki_, float kd_) : chassistype(chassistype_), heading_pid(headingkp, headingki, headingkd, 100000.0f, 5.0f, 0.01f, 0.5f), ACTION(ACTION_), Rwheel(Rwheel_), distan_pid(kp_, ki_, kd_, 1000000.0f, 1.4f, 50.0f, 600.0f), pp_tracker(normalcontrol, 0.0057f, 0.0f, 0.0632f, 0.0f, 0.0f, 0.0f)
 {
+<<<<<<< HEAD
     /*Vector2D array[] = {
         Vector2D(0.0f, 0.0f),
         Vector2D(30.6f, 24.5f),
@@ -169,6 +170,8 @@ chassis::chassis(ChassisType chassistype_, float Rwheel_, action *ACTION_, float
         Vector2D(1469.4f, 24.0f), Vector2D(1500.0f, 0.0f)};
 
     pp_tracker.pp_force_add_points(array, 50);*/
+=======
+>>>>>>> origin/main
 }
 
 float chassis ::v_to_rpm(float v)
@@ -177,6 +180,148 @@ float chassis ::v_to_rpm(float v)
     return rpm;
 }
 
+<<<<<<< HEAD
+=======
+swerve4 ::swerve4(action *ACTION_, float chassis_r_, float wheel_r_) : chassis(swerve4_, wheel_r_, ACTION_, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f)
+{
+}
+
+void swerve4 ::add_speed_motor(power_motor *right_front_, power_motor *right_back_, power_motor *left_back_, power_motor *left_front_)
+{
+    speed_motors[0] = right_front_;
+    speed_motors[1] = right_back_;
+    speed_motors[2] = left_back_;
+    speed_motors[3] = left_front_;
+}
+
+void swerve4 ::add_heading_motor(power_motor *right_front_, power_motor *right_back_, power_motor *left_back_, power_motor *left_front_)
+{
+    heading_motors[0] = right_front_;
+    heading_motors[1] = right_back_;
+    heading_motors[2] = left_back_;
+    heading_motors[3] = left_front_;
+}
+
+void swerve4 ::process_data()
+{
+    // 底盘内置小型状态机
+
+    switch (chassis_mode)
+    {
+    case chassis_standby:
+        target_rvx = 0.0f;
+        target_rvy = 0.0f;
+
+        break;
+    case remote_robotv:
+
+        target_rvx = input_rvx;
+        target_rvy = input_rvy;
+        break;
+    case remote_worldv:
+
+        // worldv_to_robotv();
+        break;
+    case line_tracking:
+
+        // worldv_to_robotv();
+        break;
+    case point_tracking:
+        point_track_compute();
+        input_wvx = point_track_info.target_speed_x;
+        input_wvy = point_track_info.target_speed_y;
+        // worldv_to_robotv();
+        break;
+
+    case pp:
+        // Vector2D wpos(ACTION->pose_data.world_pos_x, ACTION->pose_data.world_pos_y);
+
+        // Vector2D tspeed = pp_tracker.pursuit(wpos);
+
+        // input_wvx = tspeed.x;
+        // input_wvy = tspeed.y;
+        // worldv_to_robotv();
+        break;
+    }
+
+    target_w = input_w;
+
+    for (int i = 0; i < 4; i++)
+    {
+
+        switch (i) // 右前，右后，左后，左前
+        {
+        case 0:
+            motorspeeds[i].x = target_rvx - target_w * 0.2739f * (0.7071f);
+            motorspeeds[i].y = target_rvy - target_w * 0.2739f * (0.7071f);
+
+            break;
+
+        case 1:
+            motorspeeds[i].x = target_rvx + target_w * 0.2739f * (0.7071f);
+            motorspeeds[i].y = target_rvy - target_w * 0.2739f * (0.7071f);
+
+            break;
+
+        case 2:
+            motorspeeds[i].x = target_rvx + target_w * 0.2739f * (0.7071f);
+            motorspeeds[i].y = target_rvy + target_w * 0.2739f * (0.7071f);
+
+            break;
+
+        case 3:
+            motorspeeds[i].x = target_rvx - target_w * 0.2739f * (0.7071f);
+            motorspeeds[i].y = target_rvy + target_w * 0.2739f * (0.7071f);
+
+            break;
+
+        default:
+            break;
+        }
+
+        if (motorspeeds[i].x != 0.0f | motorspeeds[i].y != 0.0f)
+        {
+            target_angle = atan2f(motorspeeds[i].x, motorspeeds[i].y) * 57.296f;
+        }
+
+        headingerror = target_angle - heading_motors[i]->get_pos();
+
+        /*if (abs(headingerror) > 90.0f)
+        {
+            // 需要劣弧优化
+            if (headingerror > 0.0f)
+            {
+
+                setted_pos = target_angle - 180.0f;
+                setted_rpm = v_to_rpm(-motorspeeds[i].magnitude());
+            }
+            else
+            {
+                setted_pos = target_angle + 180.0f;
+                setted_rpm = v_to_rpm(-motorspeeds[i].magnitude());
+            }
+            if (if_adjust_heading) // 用来设置角度调整死区用的
+            {
+                heading_motors[i]->set_pos(setted_pos);
+            }
+
+            speed_motors[i]->set_rpm(setted_rpm);
+        }*/
+        // else
+        //{
+        //  无需劣弧优化
+        setted_pos = target_angle;
+        setted_rpm = v_to_rpm(motorspeeds[i].magnitude());
+        if (if_adjust_heading)
+        {
+            heading_motors[i]->set_pos(setted_pos);
+        }
+
+        speed_motors[i]->set_rpm(setted_rpm);
+        //}
+    }
+}
+>>>>>>> origin/main
 omni3_unusual::omni3_unusual(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor, float Rwheel_, action *ACTION_, float headingkp, float headingki, float headingkd, float point_kp, float point_ki, float point_kd) : chassis(omni3_unusual_, Rwheel_, ACTION_, headingkp, headingki, headingkd, point_kp, point_ki, point_kd)
 {
     motors[0] = front_motor;
@@ -270,12 +415,21 @@ void omni3::process_data()
         break;
 
     case pp:
+<<<<<<< HEAD
         //Vector2D wpos(ACTION->pose_data.world_pos_x, ACTION->pose_data.world_pos_y);
 
         //Vector2D tspeed = pp_tracker.pursuit(wpos);
 
         //input_wvx = tspeed.x;
         //input_wvy = tspeed.y;
+=======
+        // Vector2D wpos(ACTION->pose_data.world_pos_x, ACTION->pose_data.world_pos_y);
+
+        // Vector2D tspeed = pp_tracker.pursuit(wpos);
+
+        // input_wvx = tspeed.x;
+        // input_wvy = tspeed.y;
+>>>>>>> origin/main
         worldv_to_robotv();
         break;
     }

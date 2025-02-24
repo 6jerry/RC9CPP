@@ -57,6 +57,7 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+<<<<<<< HEAD
 #define shoot_key_Pin GPIO_PIN_7
 #define shoot_key_GPIO_Port GPIOF
 #define Right_Wall_Pin GPIO_PIN_0
@@ -73,6 +74,8 @@ void Error_Handler(void);
 #define Left_Wall_GPIO_Port GPIOC
 #define Blue_Pin GPIO_PIN_4
 #define Blue_GPIO_Port GPIOB
+=======
+>>>>>>> origin/main
 
 /* USER CODE BEGIN Private defines */
 

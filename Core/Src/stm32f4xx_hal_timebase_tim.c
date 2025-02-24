@@ -25,12 +25,20 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+<<<<<<< HEAD
 TIM_HandleTypeDef        htim3;
+=======
+TIM_HandleTypeDef        htim5;
+>>>>>>> origin/main
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
 /**
+<<<<<<< HEAD
   * @brief  This function configures the TIM3 as a time base source.
+=======
+  * @brief  This function configures the TIM5 as a time base source.
+>>>>>>> origin/main
   *         The time source is configured  to have 1ms time base with a dedicated
   *         Tick interrupt priority.
   * @note   This function is called  automatically at the beginning of program after
@@ -47,15 +55,24 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   uint32_t              pFLatency;
   HAL_StatusTypeDef     status;
 
+<<<<<<< HEAD
   /* Enable TIM3 clock */
   __HAL_RCC_TIM3_CLK_ENABLE();
+=======
+  /* Enable TIM5 clock */
+  __HAL_RCC_TIM5_CLK_ENABLE();
+>>>>>>> origin/main
 
   /* Get clock configuration */
   HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
 
   /* Get APB1 prescaler */
   uwAPB1Prescaler = clkconfig.APB1CLKDivider;
+<<<<<<< HEAD
   /* Compute TIM3 clock */
+=======
+  /* Compute TIM5 clock */
+>>>>>>> origin/main
   if (uwAPB1Prescaler == RCC_HCLK_DIV1)
   {
     uwTimclock = HAL_RCC_GetPCLK1Freq();
@@ -65,6 +82,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
     uwTimclock = 2UL * HAL_RCC_GetPCLK1Freq();
   }
 
+<<<<<<< HEAD
   /* Compute the prescaler value to have TIM3 counter clock equal to 1MHz */
   uwPrescalerValue = (uint32_t) ((uwTimclock / 1000000U) - 1U);
 
@@ -74,10 +92,22 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   /* Initialize TIMx peripheral as follow:
 
   + Period = [(TIM3CLK/1000) - 1]. to have a (1/1000) s time base.
+=======
+  /* Compute the prescaler value to have TIM5 counter clock equal to 1MHz */
+  uwPrescalerValue = (uint32_t) ((uwTimclock / 1000000U) - 1U);
+
+  /* Initialize TIM5 */
+  htim5.Instance = TIM5;
+
+  /* Initialize TIMx peripheral as follow:
+
+  + Period = [(TIM5CLK/1000) - 1]. to have a (1/1000) s time base.
+>>>>>>> origin/main
   + Prescaler = (uwTimclock/1000000 - 1) to have a 1MHz counter clock.
   + ClockDivision = 0
   + Counter direction = Up
   */
+<<<<<<< HEAD
   htim3.Init.Period = (1000000U / 1000U) - 1U;
   htim3.Init.Prescaler = uwPrescalerValue;
   htim3.Init.ClockDivision = 0;
@@ -93,11 +123,32 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
     {
     /* Enable the TIM3 global Interrupt */
         HAL_NVIC_EnableIRQ(TIM3_IRQn);
+=======
+  htim5.Init.Period = (1000000U / 1000U) - 1U;
+  htim5.Init.Prescaler = uwPrescalerValue;
+  htim5.Init.ClockDivision = 0;
+  htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+
+  status = HAL_TIM_Base_Init(&htim5);
+  if (status == HAL_OK)
+  {
+    /* Start the TIM time Base generation in interrupt mode */
+    status = HAL_TIM_Base_Start_IT(&htim5);
+    if (status == HAL_OK)
+    {
+    /* Enable the TIM5 global Interrupt */
+        HAL_NVIC_EnableIRQ(TIM5_IRQn);
+>>>>>>> origin/main
       /* Configure the SysTick IRQ priority */
       if (TickPriority < (1UL << __NVIC_PRIO_BITS))
       {
         /* Configure the TIM IRQ priority */
+<<<<<<< HEAD
         HAL_NVIC_SetPriority(TIM3_IRQn, TickPriority, 0U);
+=======
+        HAL_NVIC_SetPriority(TIM5_IRQn, TickPriority, 0U);
+>>>>>>> origin/main
         uwTickPrio = TickPriority;
       }
       else
@@ -113,25 +164,43 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 
 /**
   * @brief  Suspend Tick increment.
+<<<<<<< HEAD
   * @note   Disable the tick increment by disabling TIM3 update interrupt.
+=======
+  * @note   Disable the tick increment by disabling TIM5 update interrupt.
+>>>>>>> origin/main
   * @param  None
   * @retval None
   */
 void HAL_SuspendTick(void)
 {
+<<<<<<< HEAD
   /* Disable TIM3 update Interrupt */
   __HAL_TIM_DISABLE_IT(&htim3, TIM_IT_UPDATE);
+=======
+  /* Disable TIM5 update Interrupt */
+  __HAL_TIM_DISABLE_IT(&htim5, TIM_IT_UPDATE);
+>>>>>>> origin/main
 }
 
 /**
   * @brief  Resume Tick increment.
+<<<<<<< HEAD
   * @note   Enable the tick increment by Enabling TIM3 update interrupt.
+=======
+  * @note   Enable the tick increment by Enabling TIM5 update interrupt.
+>>>>>>> origin/main
   * @param  None
   * @retval None
   */
 void HAL_ResumeTick(void)
 {
+<<<<<<< HEAD
   /* Enable TIM3 Update interrupt */
   __HAL_TIM_ENABLE_IT(&htim3, TIM_IT_UPDATE);
+=======
+  /* Enable TIM5 Update interrupt */
+  __HAL_TIM_ENABLE_IT(&htim5, TIM_IT_UPDATE);
+>>>>>>> origin/main
 }
 

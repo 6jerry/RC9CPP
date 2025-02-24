@@ -88,8 +88,11 @@ void RC9Protocol::handleReceiveData(uint8_t byte)
 
                     publish(rx_frame_mat.frame_id, rx_frame_mat.data_length, rx_frame_mat.data.buff_msg, rx_frame_mat.data.msg_get); // 发布数据
 
+<<<<<<< HEAD
                     ppsend_Asyn(LOCAL_RCIP, 2, 0, rx_frame_mat.data.buff_msg);
 
+=======
+>>>>>>> origin/main
                     state_ = WAITING_FOR_HEADER_0;
                 }
             }
@@ -100,7 +103,11 @@ void RC9Protocol::handleReceiveData(uint8_t byte)
                     rx_frame_mat.data.buff_msg[i] = rx_frame_mat.rx_temp_data_mat[i];
                 }
 
+<<<<<<< HEAD
                 msgbuff_pub.publish(0, rx_frame_mat.data.buff_msg);
+=======
+                publish(rx_frame_mat.frame_id, rx_frame_mat.data_length, rx_frame_mat.data.buff_msg, rx_frame_mat.data.msg_get);
+>>>>>>> origin/main
 
                 state_ = WAITING_FOR_HEADER_0;
             }
@@ -160,6 +167,7 @@ void RC9Protocol::publish(uint8_t data_id, uint8_t datalenth, const uint8_t *dat
         }
     }
 }
+<<<<<<< HEAD
 
 uint8_t RC9Protocol::msgin(uint8_t rcnID_, const void *data)
 {
@@ -170,3 +178,5 @@ uint8_t RC9Protocol::msgout(uint8_t rcnID_, void *output)
 {
     return 0;
 }
+=======
+>>>>>>> origin/main

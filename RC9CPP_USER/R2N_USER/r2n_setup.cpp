@@ -1,13 +1,21 @@
 #include "r2n_setup.h"
+<<<<<<< HEAD
 #include "GYRO_fuc.h"
 #include "usart.h"
 RC9Protocol esp32_serial(&huart1, false),
     data_chain(&huart2, false);
+=======
+RC9Protocol esp32_serial(&huart2, false),
+    data_chain(&huart5, false);
+>>>>>>> origin/main
 m3508p m3508_front(1, &hcan1), m3508_left(3, &hcan1), m3508_right(2, &hcan1); // 九期r2，硬件连接：三只m3508作为底盘动力电机位于can1
 TaskManager task_core;
 CanManager can_core;
 action Action(&huart3, -160.0f, 120.0f, true);
+<<<<<<< HEAD
 GYRO roll_IMU(&huart4);
+=======
+>>>>>>> origin/main
 omni3 r2n_chassis(&m3508_front, &m3508_right, &m3508_left, 0.0719f, 0.406f, &Action, 4.0f, 0.0f, 1.0f, 0.0086f, 0.0f, 0.026f);
 xbox_r2n r2_remote(&Action, &r2n_chassis);
 demo test2, test3;
@@ -19,14 +27,23 @@ r2n_setup(void)
     can_core.init();
 
     // r2_remote.GO1 = &go1;
+<<<<<<< HEAD
     //Action.startUartReceiveIT();
     //esp32_serial.startUartReceiveIT();
 	roll_IMU.startUartReceiveIT();
     data_chain.startUartReceiveIT();
+=======
+    Action.startUartReceiveIT();
+    esp32_serial.startUartReceiveIT();
+
+    data_chain.startUartReceiveIT();
+    esp32_serial.addsubscriber(&r2_remote);
+>>>>>>> origin/main
 
     task_core.registerTask(0, &can_core);
     // task_core.registerTask(4, &go1);
     task_core.registerTask(3, &r2n_chassis);
+<<<<<<< HEAD
     //task_core.registerTask(9, &test2);
 
     // 以上为首次创建的新任务
@@ -35,6 +52,17 @@ r2n_setup(void)
     r2_remote.m3 = &m3508_front;
     //data_chain.tx_frame_mat.data_length = 24;
     //data_chain.tx_frame_mat.frame_id = 1;
+=======
+    task_core.registerTask(2, &r2_remote);
+    task_core.registerTask(9, &test2);
+
+    // 以上为首次创建的新任务
+
+    task_core.registerTask(8, &data_chain);
+    r2_remote.m3 = &m3508_front;
+    data_chain.tx_frame_mat.data_length = 24;
+    data_chain.tx_frame_mat.frame_id = 1;
+>>>>>>> origin/main
 
     osKernelStart();
 }

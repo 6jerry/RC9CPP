@@ -45,6 +45,7 @@ void MX_CAN1_Init(void);
 void MX_CAN2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+<<<<<<< HEAD
 void CAN1_Filter_Init(void);   //¹ýÂËÆ÷ÅäÖÃº¯Êý
 void CAN2_Filter_Init(void);   //¹ýÂËÆ÷ÅäÖÃº¯Êý
 uint8_t CAN_Send_Msg(uint8_t* msg,uint8_t len);  //Êý¾Ý·¢ËÍº¯Êý
@@ -52,6 +53,15 @@ uint8_t CAN_Send_Msg(uint8_t* msg,uint8_t len);  //Êý¾Ý·¢ËÍº¯Êý
 extern CAN_TxHeaderTypeDef	TxHeader;      //·¢ËÍ
 extern CAN_RxHeaderTypeDef	RxHeader;      //½ÓÊÕ
 extern uint8_t	RxData[8];   //Êý¾Ý½ÓÊÕÊý×é
+=======
+void CAN1_Filter_Init(void);   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãºï¿½ï¿½ï¿½
+void CAN2_Filter_Init(void);   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãºï¿½ï¿½ï¿½
+uint8_t CAN_Send_Msg(uint8_t* msg,uint8_t len);  //ï¿½ï¿½ï¿½Ý·ï¿½ï¿½Íºï¿½ï¿½ï¿½
+ 
+extern CAN_TxHeaderTypeDef	TxHeader;      //ï¿½ï¿½ï¿½ï¿½
+extern CAN_RxHeaderTypeDef	RxHeader;      //ï¿½ï¿½ï¿½ï¿½
+extern uint8_t	RxData[8];   //ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+>>>>>>> origin/main
 
 /* USER CODE END Prototypes */
 

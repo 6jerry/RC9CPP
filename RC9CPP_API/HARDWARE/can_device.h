@@ -12,6 +12,10 @@ extern "C"
 #include <stdbool.h>
 #include "can.h"
 #include "TaskManager.h"
+<<<<<<< HEAD
+=======
+#include "rcncore.h"
+>>>>>>> origin/main
 
 #ifdef __cplusplus
 }
@@ -97,6 +101,11 @@ public:
 
     static uint8_t RxData1[8];
     static uint8_t RxData2[8];
+<<<<<<< HEAD
+=======
+
+    static uint8_t canid_2_mac(CAN_HandleTypeDef *hcan);
+>>>>>>> origin/main
 };
 
 #endif

@@ -19,9 +19,17 @@
 #include "xbox.h"
 xbox::xbox(action *ACTION_, chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_, float MAX_ROBOT_SPEED_X_, float MAX_ROBOT_SPEED_W_) : ACTION(ACTION_), control_chassis(control_chassis_), MAX_ROBOT_SPEED_Y(MAX_ROBOT_SPEED_Y_), MAX_ROBOT_SPEED_X(MAX_ROBOT_SPEED_X_), MAX_ROBOT_SPEED_W(MAX_ROBOT_SPEED_W_)
 {
+<<<<<<< HEAD
 }
 
 /*void xbox::update(uint8_t data_id, uint8_t data_length, const uint8_t *data_char, const float *data_float)
+=======
+    
+}
+
+
+void xbox::update(uint8_t data_id, uint8_t data_length, const uint8_t *data_char, const float *data_float)
+>>>>>>> origin/main
 {
     if (data_length == 28)
     {
@@ -51,7 +59,11 @@ xbox::xbox(action *ACTION_, chassis *control_chassis_, float MAX_ROBOT_SPEED_Y_,
         xbox_msgs.trigLT = ((uint16_t)data_char[24] << 8) | data_char[25];
         xbox_msgs.trigRT = ((uint16_t)data_char[26] << 8) | data_char[27];
     }
+<<<<<<< HEAD
 }*/
+=======
+}
+>>>>>>> origin/main
 void xbox::joymap_compute()
 {
     if (xbox_msgs.joyLHori > 31000 && xbox_msgs.joyLHori < 350000)
@@ -131,6 +143,7 @@ void xbox::handleButton(ButtonConfig &config)
     *config.lastState = *config.currentState;
 }
 
+<<<<<<< HEAD
 uint8_t xbox::msgin(uint8_t rcnID_, const void *data)
 {
     const uint8_t *inputData = static_cast<const uint8_t *>(data);
@@ -171,3 +184,10 @@ uint8_t xbox::msgout(uint8_t rcnID_, void *output)
 {
     return 0;
 }
+=======
+
+
+
+
+
+>>>>>>> origin/main

@@ -2,20 +2,13 @@
 
 float vesc::get_rpm()
 {
-<<<<<<< HEAD
-    return now_rpm / gear_ratio;
-=======
     return now_rpm;
->>>>>>> origin/main
 }
 
 void vesc::set_rpm(float power_motor_rpm)
 {
     target_rpm = power_motor_rpm * gear_ratio;
-<<<<<<< HEAD
-=======
     target_erpm = (int32_t)(target_rpm * motor_polse);
->>>>>>> origin/main
 }
 
 void vesc::can_update(uint8_t can_RxData[8])
@@ -30,34 +23,10 @@ void vesc::can_update(uint8_t can_RxData[8])
 
 void vesc::process_data()
 {
-<<<<<<< HEAD
-    rpm_control.increPID_setarget(target_rpm);
-    //target_current = (int32_t)rpm_control.increPID_Compute(now_rpm);
-    uint8_t vesc_tx_buf[8] = {0};
-
-    vesc_tx_buf[0] = (target_current >> 24) & 0xFF;
-    vesc_tx_buf[1] = (target_current >> 16) & 0xFF;
-    vesc_tx_buf[2] = (target_current >> 8) & 0xFF;
-    vesc_tx_buf[3] = target_current & 0xFF;
-
-    CAN_Send(extid, true, vesc_tx_buf);
-}
-
-vesc::vesc(uint8_t can_id, CAN_HandleTypeDef *hcan_, uint8_t motor_polse_, float gear_ratio_, float kp_, float ki_, float kd_, float r_) : CanDevice(VESC, hcan_, can_id), rpm_control(kp_, ki_, kd_, r_, 25000.0f, 5.0f), motor_polse(motor_polse_), gear_ratio(gear_ratio_)
-{
-    extid = (CAN_CMD_SET_CURRENT << 8) | can_id;
-=======
 
     if (target_erpm != 0)
     {
-        if (if_invert)
-        {
-            senderpm = -target_erpm;
-        }
-        else
-        {
-            senderpm = target_erpm;
-        }
+        senderpm = target_erpm;
 
         extid = (CAN_CMD_SET_ERPM << 8) | can_id;
 
@@ -85,8 +54,7 @@ vesc::vesc(uint8_t can_id, CAN_HandleTypeDef *hcan_, uint8_t motor_polse_, float
     }
 }
 
-vesc::vesc(uint8_t can_id_, CAN_HandleTypeDef *hcan_, bool invert, uint8_t motor_polse_, float gear_ratio_, float kp_, float ki_, float kd_, float r_) : CanDevice(VESC, hcan_, can_id_), rpm_control(kp_, ki_, kd_, 25000.0f, 1000.0f, 20.0f, 400.0f), motor_polse(motor_polse_), gear_ratio(gear_ratio_), if_invert(invert)
+vesc::vesc(uint8_t can_id_, CAN_HandleTypeDef *hcan_, uint8_t motor_polse_, float gear_ratio_, float kp_, float ki_, float kd_, float r_) : CanDevice(VESC, hcan_, can_id_), rpm_control(kp_, ki_, kd_, 25000.0f, 1000.0f, 20.0f, 400.0f), motor_polse(motor_polse_), gear_ratio(gear_ratio_)
 {
     // extid = (CAN_CMD_SET_ERPM << 8) | can_id;
->>>>>>> origin/main
 }

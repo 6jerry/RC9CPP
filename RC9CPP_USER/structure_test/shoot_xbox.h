@@ -8,6 +8,12 @@ extern "C"
 #include "xbox.h"
 #include "motor.h"
 #include "TaskManager.h"
+<<<<<<< HEAD
+=======
+#include "chassis.h"
+
+#include <arm_math.h>
+>>>>>>> origin/main
 #ifdef __cplusplus
 }
 #endif
@@ -21,14 +27,27 @@ private:
     float MAX_RPM = 0.0f;
 
 public:
+<<<<<<< HEAD
     power_motor *shooter = nullptr; // 控拉弹簧发射的电机
     power_motor *pitcher = nullptr; // 俯仰角电机
 
     shoot_xbox(power_motor *shooter_, power_motor *pitch);
+=======
+    power_motor *shooter = nullptr;     // 控拉弹簧发射的电机
+    power_motor* lifter=nullptr;
+    power_motor *pitcher = nullptr;     // 俯仰角电机
+    chassis *control_chassis = nullptr; // 底盘指针
+
+    shoot_xbox(power_motor *shooter_, power_motor *pitch, power_motor *lifter_, chassis *control_chassis_);
+>>>>>>> origin/main
 
     void sbtnconfig_init(); // 按键初始化
     void process_data();
     void btn_scan(); // 扫描并获取按键状态
+<<<<<<< HEAD
+=======
+    float mapsum = 0.0f;
+>>>>>>> origin/main
 };
 
 #endif
