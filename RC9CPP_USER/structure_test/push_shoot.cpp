@@ -39,20 +39,27 @@
 TaskManager task_core;
 // CanManager can_core;
 //  shoot_xbox shoot_control(&m3508_shooter, &m3508_pitch);
-RC9Protocol debug(cdc), esp32(uart, &huart3);
+RC9Protocol debug(cdc), esp32(uart, &huart3), position_port(uart, &huart4);
 
-HWT101CT yaw_sensor(&huart2);
+position position_test;
+
 RoboChassis m4(mecanum_chassis);
 servo mg996_left(&htim9, TIM_CHANNEL_1), mg996_right(&htim9, TIM_CHANNEL_2);
 
 // swerve4 swerve_test(&vesc_test, &m6020_test);
-tb6612 right_back(&htim2, TIM_CHANNEL_1, &htim8, GPIOC, GPIO_PIN_1, GPIOC, GPIO_PIN_0), left_front(&htim2, TIM_CHANNEL_2, &htim4, GPIOC, GPIO_PIN_3, GPIOC, GPIO_PIN_2), right_front(&htim2, TIM_CHANNEL_3, &htim3, GPIOF, GPIO_PIN_2, GPIOF, GPIO_PIN_1), left_back(&htim2, TIM_CHANNEL_4, &htim1, GPIOF, GPIO_PIN_4, GPIOF, GPIO_PIN_3);
+tb6612 right_back(&htim2, TIM_CHANNEL_1, &htim8, GPIOC, GPIO_PIN_1, GPIOC, GPIO_PIN_0), right_front(&htim2, TIM_CHANNEL_2, &htim4, GPIOC, GPIO_PIN_3, GPIOC, GPIO_PIN_2), left_back(&htim2, TIM_CHANNEL_3, &htim3, GPIOF, GPIO_PIN_2, GPIOF, GPIO_PIN_1), left_front(&htim2, TIM_CHANNEL_4, &htim1, GPIOF, GPIO_PIN_4, GPIOF, GPIO_PIN_3);
 
 debug_xbox xbox_test;
+chassis_debug_xbox xbox_ctrl(1.6f, 1.2f);
 
 demo test2;
 
-extern "C" void pshoot_setup(void)
+chassis_info m4_chassis_info = {0.03f, 0.17f, 0.3f, 0.0f};
+
+catcher_fsm claw_test;
+
+extern "C" void
+pshoot_setup(void)
 {
     // box_test.rcninit(2);
     // esp32_serial.rcninit(1);
@@ -66,34 +73,41 @@ extern "C" void pshoot_setup(void)
     left_back.init();
     mg996_left.init();
     mg996_right.init();
-    test2.add_chassis(&m4);
-    yaw_sensor.startUartReceiveIT();
-    debug.initQueue();
-    esp32.startUartReceiveIT();
-    //  debug.startUartReceiveIT();
-    //  debug.addsubscriber(&test2);
-    //  test2.addsubscriber(&debug);
-    // esp32_serial.startUartReceiveIT();
-    //  wwwwfdi_test.startUartReceiveIT();
-    //  esp32_serial.addsubscriber(&resxbox);
-    //  task_core.registerTask(0, &can_core);
-    //  task_core.registerTask(1, &vesc_test);
-    //  task_core.registerTask(1, &box_test);
-    //  task_core.registerTask(2, &mknum_test);
-    //  task_core.registerTask(4, &right_front);
-    //  task_core.registerTask(4, &right_back);
-    //  task_core.registerTask(5, &left_front);
-    //  task_core.registerTask(5, &left_back);
-    //  task_core.registerTask(6, &odom_test);
-    //  task_core.registerTask(6, &resxbox);
-    task_core.registerTask(8, &debug);
-    task_core.registerTask(7, &test2);
-    task_core.registerTask(3, &m4);
-    m4.add4_motors(&right_front, &right_back, &left_back, &left_front);
-    xbox_test.addport(&esp32);
-    mg996_left.set_ccr(left_up); // 146 最低位,80最高位
-    mg996_right.set_ccr(right_up);
+    // test2.add_chassis(&m4);
+    m4.config(m4_chassis_info);
+    m4.pointtrack_config(1.96f, 0.0f, 0.86f, 0.0f, 3.0f, 0.005f, 0.0f);
+    m4.yawadjuster_config(0.032f, 0.0f, 0.04f, 0.0f, 2.0f, 0.5f, 0.0f);
 
+    debug.initQueue();
+
+    esp32.startUartReceiveIT();
+    position_port.startUartReceiveIT();
+
+    position_test.addport(&position_port);
+
+    task_core.registerTask(4, &right_front);
+    task_core.registerTask(4, &right_back);
+    task_core.registerTask(5, &left_back);
+    task_core.registerTask(5, &left_front);
+    task_core.registerTask(5, &claw_test);
+
+    task_core.registerTask(8, &debug);
+     //task_core.registerTask(7, &test2);
+    task_core.registerTask(3, &m4);
+    task_core.registerTask(3, &xbox_ctrl);
+    m4.add4_motors(&left_front, &right_front, &right_back, &left_back);
+    m4.add_imu(&position_test);
+    // xbox_test.addport(&esp32);
+    xbox_ctrl.addport(&esp32);
+    // mg996_left.set_ccr(left_up); // 146 最低位,80最高位
+    // mg996_right.set_ccr(right_up);
+
+    claw_test.add_servo(&mg996_left, &mg996_right);
+
+    // test2.add_IO(&xbox_test, &debug);
+    xbox_ctrl.add_chassis(&m4);
+    test2.addport(&debug);
+    xbox_ctrl.claw = &claw_test;
     // debug.rcninit(3);
     //  mg996_left.set_ccr(150);
 
@@ -116,8 +130,18 @@ void demo::process_data()
                                     //  ??,LED???
     }
 
-    // sendFloatData(1, &test_data, 1);
-    Vector2D vel(6.0f, 7.0f);
-    set_RobotVel(vel, 3);
-    set_RobotW(2.0f, 3);
+    Vector2D vel(0.0f, 0.0f);
+    // set_RobotVel(vel, 3);
+    //  set_RobotW(0.0f, 3);
+    // yaw_TurnTo(-get_input_mapvalue() * full_angle, 3);
+
+    // pid_send_debuginfo(get_input_mapvalue() * full_angle, get_yaw());
+    //  CCR = (uint32_t)test_ccr;
+    //  CCR2 = (uint32_t)test2_ccr;
+    //  mg996_right.set_ccr(CCR);
+    //  mg996_left.set_ccr(CCR2);
+
+    float test_datas[3] = {0.1f, 0.2f, 0.3f};
+    sendFloatData(1, test_datas, 3);
+     //claw_test.throw_ball();
 }

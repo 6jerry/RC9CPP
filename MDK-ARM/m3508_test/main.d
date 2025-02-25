@@ -70,16 +70,18 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\motor.h \
   ..\RC9CPP_API\HARDWARE\can_device.h ..\RC9CPP_API\HARDWARE\Action.h \
   G:\Keil_v5\ARM\ARMCLANG\include\math.h ..\RC9CPP_API\HARDWARE\imu.h \
-  ..\RC9CPP_API\CONTROL\pid.h ..\RC9CPP_API\MATH_LIB\Vector2D.h \
+  ..\RC9CPP_API\MATH_LIB\Vector2D.h \
   ..\Middlewares\ST\ARM\DSP\Inc\arm_math.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   G:\Keil_v5\ARM\ARMCLANG\include\float.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\limits.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\limits.h ..\RC9CPP_API\CONTROL\pid.h \
   ..\RC9CPP_API\CONTROL\pure_pursuit.h \
   ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h \
-  ..\RC9CPP_API\CONTROL\odometry.h ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h \
-  ..\RC9CPP_API\CONTROL\SuperPID.h ..\RC9CPP_API\HARDWARE\MOTOR\vesc.h \
-  ..\RC9CPP_API\HARDWARE\MOTOR\m6020.h \
+  ..\RC9CPP_API\CONTROL\odometry.h \
   ..\RC9CPP_API\CONTROL\STRUCTURE\robot_chassis.h \
-  ..\RC9CPP_API\HARDWARE\MOTOR\tb6612.h ..\RC9CPP_API\HARDWARE\servo.h \
-  ..\RC9CPP_API\HARDWARE\HWT101CT.h
+  ..\RC9CPP_USER\structure_test\GCFSM.h ..\RC9CPP_API\HARDWARE\servo.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h ..\RC9CPP_API\CONTROL\SuperPID.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\vesc.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\m6020.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\tb6612.h \
+  ..\RC9CPP_API\HARDWARE\position.h

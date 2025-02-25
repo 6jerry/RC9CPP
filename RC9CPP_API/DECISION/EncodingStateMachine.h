@@ -24,7 +24,7 @@ extern "C"
 {
 #endif
 
-#include "TaskManager.h" 
+#include "TaskManager.h"
 
 #ifdef __cplusplus
 }
@@ -45,7 +45,7 @@ struct FlagConfig
 class EncodingStateMachine
 {
 public:
-    static const uint16_t maxIndex = 64;     // 假设最大索引值为 64
+    static const uint16_t maxIndex = 128;    // 假设最大索引值为 64
     static const uint8_t invalidState = 255; // 无效状态定义为 255
 
     // 构造函数，初始化标志位配置数组

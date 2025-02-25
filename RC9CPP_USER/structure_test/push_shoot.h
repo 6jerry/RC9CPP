@@ -24,23 +24,26 @@ extern "C"
 #include "usb_device.h"
 #include "odometry.h"
 #include "servo.h"
-
-#include "HWT101CT.h"
+#include "GCFSM.h"
+#include "position.h"
     void pshoot_setup(void);
 #ifdef __cplusplus
 }
 #endif
 #ifdef __cplusplus
-class demo : public ITaskProcessor, public chassis_user
+class demo : public ITaskProcessor, public chassis_user,public RC9subscriber
 {
 private:
     float elapsedTime = 0.0f, test_data = 0.0f, send_data = 6.0f;
     uint32_t currentTick = 0;
     uint32_t previousTick = 0;
 
+    const float full_angle = 180.0f;
+
 public:
     void process_data();
-   
+    float test_ccr = 0.0f, test2_ccr = 0.0f;
+    uint32_t CCR = 0, CCR2 = 0;
 };
 
 #endif

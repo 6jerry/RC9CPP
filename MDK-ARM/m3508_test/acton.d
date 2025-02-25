@@ -222,4 +222,10 @@ m3508_test/acton.o: ..\RC9CPP_API\HARDWARE\Acton.cpp \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\rounding_functions.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h \
-  ..\RC9CPP_API\HARDWARE\imu.h
+  ..\RC9CPP_API\HARDWARE\imu.h ..\RC9CPP_API\MATH_LIB\Vector2D.h \
+  ..\Middlewares\ST\ARM\DSP\Inc\arm_math.h \
+  ..\Drivers\CMSIS\Include\cmsis_compiler.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\float.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\float.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\limits.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\limits.h

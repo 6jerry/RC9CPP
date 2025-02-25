@@ -74,3 +74,83 @@ void algorithm_debug::DataReceivedCallback(const uint8_t *byteData, const float 
         temp_param[i] = floatData[i];
     }
 }
+
+void chassis_debug_xbox::process_data()
+{
+    btn_scan();
+    joymap_compute();
+    // currentState = stateMachine.getState();
+    currentState = 0;
+    Vector2D worldvel_(full_speed * xbox_msgs.joyLHori_map, full_speed * xbox_msgs.joyLVert_map);
+    set_RobotVel(worldvel_, priocode);
+    set_RobotW(-full_w * xbox_msgs.joyRHori_map, priocode);
+    if (btna_flag == 0)
+    {
+        claw->ready_catch_ball();
+    }
+    else if (btna_flag == 1)
+    {
+        claw->move_ball();
+    }
+    else
+    {
+        claw->throw_ball();
+    }
+}
+
+chassis_debug_xbox::chassis_debug_xbox(float full_speed_, float full_w_) : full_speed(full_speed_), full_w(full_w_)
+{
+    btn_config();
+}
+
+void chassis_debug_xbox::btn_config()
+{
+    btnAConfig = {
+        &xbox_msgs.btnA,
+        &xbox_msgs.btnA_last,
+        &btna_flag,
+        2,
+        ButtonActionType::Toggle,
+        nullptr};
+
+    btnBConfig = {
+        &xbox_msgs.btnB,
+        &xbox_msgs.btnB_last,
+        &btnb_flag,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
+
+    btnXConfig = {
+        &xbox_msgs.btnX,
+        &xbox_msgs.btnX_last,
+        &btnx_flag,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
+
+    btnYConfig = {
+        &xbox_msgs.btnY,
+        &xbox_msgs.btnY_last,
+        &btny_flag,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
+
+    btnShareConfig = {
+        &xbox_msgs.btnShare,
+        &xbox_msgs.btnShare_last,
+        &btnshare_flag,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
+}
+
+void chassis_debug_xbox::btn_scan()
+{
+    handleButton(btnAConfig);
+    handleButton(btnBConfig);
+    handleButton(btnXConfig);
+    handleButton(btnYConfig);
+    handleButton(btnShareConfig);
+}

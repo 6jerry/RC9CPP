@@ -6,6 +6,7 @@ extern "C"
 {
 #endif
 #include "Serial_device.h"
+#include "Vector2D.h"
 #ifdef __cplusplus
 }
 #endif
@@ -17,6 +18,7 @@ class imu
 
 public:
     virtual float get_world_pos_x() {};
+    virtual Vector2D get_world_pos() {};
     virtual float get_world_pos_y() {};
 
     virtual float get_world_vel_x() {};
@@ -27,6 +29,7 @@ public:
 
 public:
     virtual float get_heading() {};
+    virtual float get_yaw_rad() {};
     virtual float get_acc_x() {};
     virtual float get_acc_y() {};
 

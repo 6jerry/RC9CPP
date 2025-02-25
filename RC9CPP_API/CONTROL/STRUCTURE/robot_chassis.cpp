@@ -17,6 +17,7 @@ void RoboChassis::process_data()
         chassis_calc(worldv_2_robov(target.target_worldvel), yawadjuster_process());
         break;
     case point_track:
+        chassis_calc(worldv_2_robov(pointtracker.track(IMU->get_world_pos(), target.target_point)), yawadjuster_process());
         break;
     case point_track_speedplan:
         break;
@@ -32,6 +33,7 @@ float RoboChassis::yawadjuster_process()
     case yaw_lock:
         break;
     case yaw_TurnTo:
+        return yawadjuster.yaw_adjust(IMU->get_heading(), target.target_yaw);
         break;
     case yaw_TurnTo_speedplan:
         break;
@@ -70,10 +72,20 @@ float RoboChassis::v_2_rpm(float v)
 
 Vector2D RoboChassis::worldv_2_robov(Vector2D worldvel)
 {
+    Vector2D robov;
+
+    robov.x = worldvel.x * arm_cos_f32(IMU->get_yaw_rad()) + worldvel.y * arm_sin_f32(IMU->get_yaw_rad());
+    robov.y = worldvel.y * arm_cos_f32(IMU->get_yaw_rad()) - worldvel.x * arm_sin_f32(IMU->get_yaw_rad());
+
+    return robov;
 }
 
 void RoboChassis::mecanum_calc(Vector2D robovel, float w)
 {
+    robovel.x = -robovel.x;
+    robovel.y = -robovel.y;
+    w = -w;
+
     motors[0]->set_rpm(-v_2_rpm((-robovel.x + robovel.y + w * (chassis_info_.length + chassis_info_.wide))));
     motors[1]->set_rpm(v_2_rpm((robovel.x + robovel.y - w * (chassis_info_.length + chassis_info_.wide))));
     motors[2]->set_rpm(v_2_rpm((-robovel.x + robovel.y - w * (chassis_info_.length + chassis_info_.wide))));
@@ -207,9 +219,70 @@ uint8_t chassis_user::set_RobotW(float w, uint8_t PriorityCode)
 
 void chassis_user::chassis_back_priority()
 {
-    robochassis_->chassis_back_priorityC(); 
+    robochassis_->chassis_back_priorityC();
 }
 void chassis_user::chassis_rst_priority()
 {
     robochassis_->chassis_rst_priorityC();
+}
+
+void RoboChassis::yawadjuster_config(float kp, float ki, float kd, float integral_limit, float output_limit, float deadzone, float integral_separation_threshold)
+{
+    yawadjuster.yaw_pid.ConfigAll(kp, ki, kd, integral_limit, output_limit, deadzone, integral_separation_threshold);
+}
+
+uint8_t RoboChassis::yaw_CTurnTo(float yaw, uint8_t PriorityCode, chassis_user *user_)
+{
+    if (priority_judge(PriorityCode, user_, turn_cmd))
+    {
+        yaw_mode = yaw_TurnTo;
+        target.target_yaw = yaw;
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+void RoboChassis::pointtrack_config(float kp, float ki, float kd, float integral_limit, float output_limit, float deadzone, float integral_separation_threshold)
+{
+    pointtracker.track_pid.ConfigAll(kp, ki, kd, integral_limit, output_limit, deadzone, integral_separation_threshold);
+}
+
+uint8_t RoboChassis::Cmove_to(Vector2D target_p, uint8_t PriorityCode, chassis_user *user_)
+{
+    if (priority_judge(PriorityCode, user_, move_cmd))
+    {
+        mode = point_track;
+        target.target_point = target_p;
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+uint8_t chassis_user::set_WorldVel(Vector2D worldvel, uint8_t PriorityCode)
+{
+    return robochassis_->set_CWorldVel(worldvel, PriorityCode, this);
+}
+
+uint8_t chassis_user::yaw_TurnTo(float yaw, uint8_t PriorityCode)
+{
+    return robochassis_->yaw_CTurnTo(yaw, PriorityCode, this);
+}
+
+float RoboChassis::get_cyaw()
+{
+    return IMU->get_heading();
+}
+float chassis_user::get_yaw()
+{
+    return robochassis_->get_cyaw();
+}
+
+uint8_t chassis_user::move_to(Vector2D target_p, uint8_t PriorityCode)
+{
+    return robochassis_->Cmove_to(target_p, PriorityCode, this);
 }

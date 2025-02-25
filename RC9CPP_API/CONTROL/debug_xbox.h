@@ -11,6 +11,7 @@ extern "C"
 #include <arm_math.h>
 #include "RC9Protocol.h"
 #include "robot_chassis.h"
+#include "GCFSM.h"
 #ifdef __cplusplus
 }
 #endif
@@ -55,6 +56,24 @@ class moters_debug_xbox : public xbox, public ITaskProcessor
 
 class chassis_debug_xbox : public xbox, public ITaskProcessor, public chassis_user
 {
+public:
+    uint8_t btny_flag = 0, btnx_flag = 0, btna_flag = 0, btnb_flag = 0, btnshare_flag = 0;
+
+    float full_speed = 0.0f, full_w = 0.0f;
+
+    uint8_t priocode = 1;
+
+    uint8_t currentState = 0;
+    catcher_fsm *claw = nullptr;
+
+public:
+    void
+    btn_config();
+    void process_data();
+
+    void btn_scan();
+
+    chassis_debug_xbox(float full_speed_, float full_w_);
 };
 
 #endif
