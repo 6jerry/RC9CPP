@@ -33,11 +33,11 @@
 // 放球的车头朝向
 #define target_push_heading 1.27f
 
-// m3508p m3508_shooter(1, &hcan1), m3508_pitch(2, &hcan1);
+m3508p m3508_shooter(1, &hcan1), m3508_pitch(2, &hcan1);
 // m6020s m6020_test(4, &hcan2);
 // vesc vesc_test(1, &hcan1);
 TaskManager task_core;
-// CanManager can_core;
+CanManager can_core;
 //  shoot_xbox shoot_control(&m3508_shooter, &m3508_pitch);
 RC9Protocol debug(cdc), esp32(uart, &huart3), position_port(uart, &huart4);
 
@@ -66,7 +66,7 @@ pshoot_setup(void)
 
     // esp32_serial.msgbuff_pub.init("xboxbuff", SYN, &esp32_serial);
     // box_test.buff_sub.init("xboxbuff", SYN, &box_test);
-    // can_core.init();
+    can_core.init();
     right_front.init();
     right_back.init();
     left_front.init();
@@ -92,7 +92,7 @@ pshoot_setup(void)
     task_core.registerTask(5, &claw_test);
 
     task_core.registerTask(8, &debug);
-     //task_core.registerTask(7, &test2);
+    task_core.registerTask(1, &can_core);
     task_core.registerTask(3, &m4);
     task_core.registerTask(3, &xbox_ctrl);
     m4.add4_motors(&left_front, &right_front, &right_back, &left_back);
@@ -143,5 +143,5 @@ void demo::process_data()
 
     float test_datas[3] = {0.1f, 0.2f, 0.3f};
     sendFloatData(1, test_datas, 3);
-     //claw_test.throw_ball();
+    // claw_test.throw_ball();
 }
