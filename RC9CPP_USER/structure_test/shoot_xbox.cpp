@@ -17,6 +17,14 @@ void shoot_xbox::sbtnconfig_init()
         2,
         ButtonActionType::Decrement,
         nullptr};
+
+    btnAConfig = {
+        &xbox_msgs.btnA,
+        &xbox_msgs.btnA_last,
+        &trigger_flag,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
     // 按键B使得速度档位减一，按键X使得速度档位加一
 }
 
@@ -24,6 +32,7 @@ void shoot_xbox::btn_scan()
 {
     handleButton(btnXConfig);
     handleButton(btnBConfig);
+    handleButton(btnAConfig);
     // 实时检查这两个按键的状态
 }
 
@@ -31,6 +40,16 @@ void shoot_xbox::process_data()
 {
     btn_scan();
     joymap_compute(); // 计算各个线性遥感的映射值
+
+    if (trigger_flag == 1)
+    {
+
+        HAL_GPIO_WritePin(trigger_port, trigger_pin, GPIO_PIN_SET);
+    }
+    else if (trigger_flag == 0)
+    {
+        HAL_GPIO_WritePin(trigger_port, trigger_pin, GPIO_PIN_RESET);
+    }
 
     if (speed_level == 1)
     {
@@ -48,7 +67,7 @@ void shoot_xbox::process_data()
         MAX_ROBOT_SPEED_Y = 3.40f;
         MAX_ROBOT_SPEED_W = 6.10f;
         MAX_RPM = 200.0f;
-        // lifter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map))
+        lifter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
         // shooter->set_rpm(MAX_RPM * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map));
     }
     if (speed_level == 2)
@@ -78,4 +97,10 @@ void shoot_xbox::process_data()
 shoot_xbox::shoot_xbox(power_motor *shooter_, power_motor *pitch, power_motor *lifter_, chassis *control_chassis_) : shooter(shooter_), pitcher(pitch), control_chassis(control_chassis_), lifter(lifter_)
 {
     sbtnconfig_init();
+}
+
+void shoot_xbox::config_trigger(GPIO_TypeDef *port, uint16_t pin)
+{
+    trigger_port = port;
+    trigger_pin = pin;
 }

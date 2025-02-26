@@ -1,5 +1,5 @@
 #include "shootcar_setup.h"
-m6020s m6020_left_front(4, &hcan2, true, 286.0f, 1.96f, 6.0f, 6.2f, 0.0f, 2.0f), m6020_right_front(3, &hcan2), m6020_left_back(1, &hcan2), m6020_right_back(2, &hcan2); // 舵向电机
+m6020s m6020_left_front(4, &hcan2), m6020_right_front(3, &hcan2), m6020_left_back(1, &hcan2,true,230.0f, 1.0f, 1.0f,  5.0f, 0.0f, 1.8f), m6020_right_back(2, &hcan2); // 舵向电机
 
 CanManager can_core;
 TaskManager task_core;
@@ -37,8 +37,9 @@ extern "C" void shootcar_setup()
     task_core.registerTask(2, &shooter_chassis);
     task_core.registerTask(3, &box_test);
     task_core.registerTask(9, &pc_port);
-
-    m6020_left_front.set_init_angle(91.24f);
+    box_test.config_trigger(GPIOF, GPIO_PIN_6);
+	//HAL_GPIO_WritePin(GPIOF, GPIO_PIN_6,GPIO_PIN_SET);
+    m6020_left_front.set_init_angle(314.25f);
     m6020_left_back.set_init_angle(88.956f);
     m6020_right_back.set_init_angle(74.628f);
     m6020_right_front.set_init_angle(238.652f);

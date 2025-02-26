@@ -19,6 +19,7 @@ extern "C"
 #include "netswitch.h"
 #include "m6020.h"
 #include "vesc.h"
+#include "gpio.h"
     void shootcar_setup();
 
 #ifdef __cplusplus
