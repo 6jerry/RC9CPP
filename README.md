@@ -1,11 +1,38 @@
-RC9CPP架构，其中RC9CPP_API不提供机器人具体的代码，而是提供大量预制菜和预制框架便于用户快速完成机器人的开发，但又足够灵活，便于用户深度自定义。
+# Project Directory Structure
 
-用户可根据RC9CPP架构的使用说明，在RC9CPP_USER里编写自己的机器人代码
+## Project Overview
+This project is designed to demonstrate the directory structure and organization of a typical software project.
 
-用户如果想参与RC9CPP_API的开发，则要阅读使用手册中的GIT协作准则部分
+## Directory Tree
+```plaintext
++ RC9CPP_sensor_device/
++ filter/
+    - CMakeLists.txt
+    - README.md
+    - filter.cpp
+    - filter.h
+    - main.cpp
++ laser_device/
+    - README.md
+    - laser_processor.cpp
+    - laser_processor.h
+    - test_laser.py
++ matlab_tools/
+    - README.md
+    - data_fusion_test.m
+    - statebits_map_table.asv
+    - statebits_map_table.m
++ mpc_code/
+    - MPC_test_RTT_no_obstacle.m
+    - MPC_test_RTT_obstacle.m
+    - MPC_test_no_RTT.m
+    - display.md
+    - mpc&RTT_test.cpp
+- MakeFlieTree.py
+- README.md
+```
+## Usage
+To use this project, simply clone the repository and navigate to the root directory.
 
-V2.0
-
-加入了pp通讯机制，为每一个stm32主控和nuc主控分配一个ip地址，为stm32主控中的每一个控制模块分配一个mac地址，在数据链路层采用pp通讯，基于mac地址和ip地址，提供同步，异步等三种传输方式。在传输层目前有话题通讯协议，话题通讯基于pp通讯，采用话题通讯用户就不用去管地址了，简单易用，同时没有动态内存，并且执行效率相当高
-
-![图片说明](./ACG_PICTURE/GBC/gbc1.png)
+## License
+This project is licensed under the MIT License.
