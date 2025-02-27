@@ -85,17 +85,17 @@ pshoot_setup(void)
 
     position_test.addport(&position_port);
 
-    task_core.registerTask(4, &right_front);
+    //task_core.registerTask(4, &right_front);
     task_core.registerTask(4, &right_back);
     task_core.registerTask(5, &left_back);
-    task_core.registerTask(5, &left_front);
+    //task_core.registerTask(5, &left_front);
     task_core.registerTask(5, &claw_test);
 
     task_core.registerTask(8, &debug);
     task_core.registerTask(1, &can_core);
-    task_core.registerTask(3, &m4);
+    //task_core.registerTask(3, &m4);
     task_core.registerTask(3, &xbox_ctrl);
-    m4.add4_motors(&left_front, &right_front, &right_back, &left_back);
+    //m4.add4_motors(&left_front, &right_front, &right_back, &left_back);
     m4.add_imu(&position_test);
     // xbox_test.addport(&esp32);
     xbox_ctrl.addport(&esp32);

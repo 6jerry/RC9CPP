@@ -807,6 +807,11 @@
           <WinNumber>2</WinNumber>
           <ItemText>claw_test</ItemText>
         </Ww>
+        <Ww>
+          <count>108</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>right_back</ItemText>
+        </Ww>
       </WatchWindow2>
       <MemoryWindow1>
         <Mm>
