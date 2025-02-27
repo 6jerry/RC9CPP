@@ -6,6 +6,16 @@ This project is designed to demonstrate the directory structure and organization
 ## Directory Tree
 ```plaintext
 + RC9CPP_sensor_device/
++ Matrix_Calculation/
+    - Matrix_Lite.cpp
+    - Matrix_Lite.h
+    - README.md
++ STP_23L/
+    - STP_23L.cpp
+    - STP_23L.h
++ dt35/
+    - dt35.cpp
+    - dt35.h
 + filter/
     - CMakeLists.txt
     - README.md
@@ -28,6 +38,15 @@ This project is designed to demonstrate the directory structure and organization
     - MPC_test_no_RTT.m
     - display.md
     - mpc&RTT_test.cpp
++ wit_IMU/
+    - GYRO_fuc.cpp
+    - GYRO_fuc.h
+    - README.md
+    - REG.h
+    - gyro.c
+    - gyro.h
+    - wit_c_sdk.c
+    - wit_c_sdk.h
 - MakeFlieTree.py
 - README.md
 ```
