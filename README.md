@@ -5,7 +5,7 @@ This project is designed to demonstrate the directory structure and organization
 
 ## Directory Tree
 ```plaintext
-+ RC9CPP_sensor_device/
++ my_device/
 + Matrix_Calculation/
     - Matrix_Lite.cpp
     - Matrix_Lite.h
@@ -16,6 +16,9 @@ This project is designed to demonstrate the directory structure and organization
 + dt35/
     - dt35.cpp
     - dt35.h
++ feedforward_compensation/
+    - PID.cpp
+    - PID.h
 + filter/
     - CMakeLists.txt
     - README.md
