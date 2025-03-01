@@ -21,7 +21,7 @@ SerialDevice::SerialDevice(UART_HandleTypeDef *huart, uart_type type_)
     }
     else if (type == cdc)
     {
-        registerCDCInstance(this);
+       // registerCDCInstance(this);
     }
 
     // 自动启动 UART 接收中断

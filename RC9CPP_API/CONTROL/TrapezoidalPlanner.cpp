@@ -1,78 +1,152 @@
 #include "TrapezoidalPlanner.h"
-
-bool TrapezoidalPlanner::speed_pulse_plan_start(float max_speed, float slowdown_pos, float acc_, float dec_, float start_pos, float start_speed, float end_speed)
+TrapezoidalPlanner::TrapezoidalPlanner()
+    : m_phase(FINISHED_PHASE), m_profileType(TRAPEZOIDAL),
+      m_maxAcc(0), m_maxDec(0), m_maxSpeed(0),
+      m_initialSpeed(0), m_finalSpeed(0), m_totalDistance(0),
+      m_accelDistance(0), m_decelDistance(0),
+      m_pidThreshold(0)
 {
-    if (now_state == plan_standby)
+}
+
+void TrapezoidalPlanner::start_plan(float maxAcc, float maxDec, float maxSpeed, float initialSpeed, float finalSpeed,
+                                    const Vector2D &startPos, const Vector2D &targetPos, float pidThreshold)
+{
+    // 保存用户参数
+    m_maxAcc = maxAcc;
+    m_maxDec = maxDec;
+    m_maxSpeed = maxSpeed;
+    m_initialSpeed = initialSpeed;
+    m_finalSpeed = finalSpeed;
+    m_startPos = startPos;
+    m_targetPos = targetPos;
+    m_pidThreshold = pidThreshold;
+
+    // 计算总路程：起点到目标点的直线距离
+    Vector2D diff = m_targetPos - m_startPos;
+    m_totalDistance = diff.magnitude();
+
+    // 计算若能达到设定最大速度时的加速和减速路程
+    float d_acc = 0;
+    if (m_maxSpeed > m_initialSpeed)
+        d_acc = (m_maxSpeed * m_maxSpeed - m_initialSpeed * m_initialSpeed) / (2.0f * m_maxAcc);
+    float d_dec = 0;
+    if (m_maxSpeed > m_finalSpeed)
+        d_dec = (m_maxSpeed * m_maxSpeed - m_finalSpeed * m_finalSpeed) / (2.0f * m_maxDec);
+
+    // 判断是否能够达到设定最大速度
+    if (d_acc + d_dec <= m_totalDistance)
     {
-
-        // 计算uniform_start_pos
-        startspeed2 = start_speed * start_speed;
-        uniform_speed2 = max_speed * max_speed;
-        plan_info.uniform_start_pos = (uniform_speed2 - startspeed2) / (2 * acc_) + start_pos;
-
-        // 检查一下上述规划结果是否合理
-        if (plan_info.uniform_start_pos > slowdown_pos)
-        {
-            // plan_info.uniform_start_pos = 0.0f;
-            return false;
-        }
-        plan_info.acc = acc_;
-        plan_info.dec = dec_;
-        plan_info.dec_start_pos = slowdown_pos;
-        plan_info.uniform_speed = max_speed;
-        plan_info.start_pos = start_pos;
-        plan_info.start_speed = start_speed;
-        plan_info.end_speed = end_speed;
-
-        // 下一步计算 end_pos
-        plan_info.end_pos = (plan_info.end_speed * plan_info.end_speed - plan_info.uniform_speed * plan_info.uniform_speed) / (2 * plan_info.dec) + plan_info.dec_start_pos;
-
-        now_state = uniform_acc;
-        return true;
+        // 梯形规划：存在加速、匀速、减速三个阶段
+        m_profileType = TRAPEZOIDAL;
+        m_accelDistance = d_acc;
+        m_decelDistance = d_dec;
     }
     else
     {
-        return false;
+        // 三角形规划：无法达到设定最大速度，计算可达到的峰值速度 v_peak
+        m_profileType = TRIANGULAR;
+        float v_peak_sq = (m_maxDec * m_initialSpeed * m_initialSpeed +
+                           m_maxAcc * m_finalSpeed * m_finalSpeed +
+                           2 * m_maxAcc * m_maxDec * m_totalDistance) /
+                          (m_maxAcc + m_maxDec);
+        float v_peak = 0.0f;
+        arm_sqrt_f32(v_peak_sq, &v_peak);
+        m_accelDistance = (v_peak * v_peak - m_initialSpeed * m_initialSpeed) / (2.0f * m_maxAcc);
+        m_decelDistance = (v_peak * v_peak - m_finalSpeed * m_finalSpeed) / (2.0f * m_maxDec);
+    }
+
+    // 初始化阶段为加速段
+    m_phase = ACCEL_PHASE;
+}
+
+Phase TrapezoidalPlanner::determinePhase(float traveled)
+{
+    if (traveled >= m_totalDistance)
+        return FINISHED_PHASE;
+
+    if (m_profileType == TRAPEZOIDAL)
+    {
+        if (traveled < m_accelDistance)
+            return ACCEL_PHASE;
+        else if (traveled < (m_totalDistance - m_decelDistance))
+            return CONST_PHASE;
+        else
+            return DECEL_PHASE;
+    }
+    else
+    { // TRIANGULAR
+        if (traveled < m_accelDistance)
+            return ACCEL_PHASE;
+        else
+            return DECEL_PHASE;
     }
 }
 
-float TrapezoidalPlanner::speed_pulse_plan_setpos(float pos)
+Vector2D TrapezoidalPlanner::plan(const Vector2D &currentPos)
 {
-    if (pos >= plan_info.end_pos)
+    // 计算路径及单位方向
+    Vector2D path = m_targetPos - m_startPos;
+    if (m_totalDistance < 0.0001f)
     {
-        target_speed = 0.0f;
-        now_state = plan_standby;
-        return target_speed;
+        m_phase = FINISHED_PHASE;
+        return Vector2D(0, 0);
     }
-    else if (pos >= plan_info.start_pos && pos < plan_info.uniform_start_pos) // 加速段
-    {
-        float32_t input = 2 * plan_info.acc * (pos - plan_info.start_pos) + startspeed2; // 输入值
-        float32_t output;
-        arm_sqrt_f32(input, &output);
-        target_speed = output;
-        now_state = uniform_acc;
-        return target_speed;
-    }
-    else if (pos >= plan_info.uniform_start_pos && pos < plan_info.dec_start_pos) // 匀速段
-    {
+    Vector2D direction = path.normalize();
 
-        target_speed = plan_info.uniform_speed;
-        now_state = uniform;
-        return target_speed;
-    }
-    else if (pos >= plan_info.dec_start_pos && pos < plan_info.end_pos) // 减速段
+    // 计算当前位置在规划路径上的投影距离
+    Vector2D delta = currentPos - m_startPos;
+    float traveled = delta * direction;
+    if (traveled < 0)
+        traveled = 0;
+    if (traveled > m_totalDistance)
+        traveled = m_totalDistance;
+
+    // 计算当前位置与目标点之间的直线距离
+    float distanceToTarget = (m_targetPos - currentPos).magnitude();
+
+    // 当用户设置了 PID 阈值且当前位置距离目标点小于该阈值时，切换到 PID 点追踪控制
+    if (m_pidThreshold > 0 && distanceToTarget < m_pidThreshold)
     {
-        float32_t input = 2 * plan_info.dec * (pos - plan_info.dec_start_pos) + uniform_speed2; // 输入值
-        float32_t output;
-        arm_sqrt_f32(input, &output);
-        target_speed = output;
-        now_state = uniform_dec;
-        return target_speed;
+        m_phase = PID_PHASE;
+        // 使用你提供的 pointrack 类进行 PID 控制
+        return m_pointTrack.track(currentPos, m_targetPos);
     }
-    else
+
+    // 未进入 PID 控制则继续采用梯形规划，根据 traveled 判断当前阶段
+    m_phase = determinePhase(traveled);
+    float v_target = 0;
+    switch (m_phase)
     {
-        target_speed = 0.0f;
-        now_state = plan_standby;
-        return target_speed;
+    case ACCEL_PHASE:
+    {
+        float expr = m_initialSpeed * m_initialSpeed + 2 * m_maxAcc * traveled;
+        float sqrt_val = 0;
+        arm_sqrt_f32(expr, &sqrt_val);
+        v_target = sqrt_val;
+        break;
     }
+    case CONST_PHASE:
+        v_target = m_maxSpeed;
+        break;
+    case DECEL_PHASE:
+    {
+        float expr = m_finalSpeed * m_finalSpeed + 2 * m_maxDec * (m_totalDistance - traveled);
+        float sqrt_val = 0;
+        arm_sqrt_f32(expr, &sqrt_val);
+        v_target = sqrt_val;
+        break;
+    }
+    case FINISHED_PHASE:
+    default:
+        v_target = m_finalSpeed;
+        break;
+    }
+
+    if (traveled >= m_totalDistance)
+    {
+        m_phase = FINISHED_PHASE;
+        v_target = m_finalSpeed;
+    }
+
+    return direction * v_target;
 }

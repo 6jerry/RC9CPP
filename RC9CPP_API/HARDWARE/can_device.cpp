@@ -370,7 +370,7 @@ void CanManager::process_data()
             send_buf1[2 * i] = (uint8_t)(temp_vcurrent >> 8);
             send_buf1[2 * i + 1] = (uint8_t)temp_vcurrent;
         }
-        tx_message_1.StdId = 0x1FF;
+        tx_message_1.StdId = 0x1FE;
         if (HAL_CAN_AddTxMessage(&hcan1, &tx_message_1, send_buf1, &msg_box1) == HAL_ERROR)
         {
             error_flag = 1;
@@ -402,7 +402,7 @@ void CanManager::process_data()
             send_buf2[2 * 3] = (uint8_t)(temp_vcurrent2 >> 8);
             send_buf2[2 * 3 + 1] = (uint8_t)temp_vcurrent2;
         }
-        tx_message_2.StdId = 0x1FF;
+        tx_message_2.StdId = 0x1FE;
         if (HAL_CAN_AddTxMessage(&hcan2, &tx_message_2, send_buf2, &msg_box2) != HAL_OK)
         {
             error_flag = 1;

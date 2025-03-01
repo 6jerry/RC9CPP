@@ -86,15 +86,15 @@ void chassis_debug_xbox::process_data()
     set_RobotW(-full_w * xbox_msgs.joyRHori_map, priocode);
     if (btna_flag == 0)
     {
-        claw->ready_catch_ball();
+        // claw->ready_catch_ball();
     }
     else if (btna_flag == 1)
     {
-        claw->move_ball();
+        // claw->move_ball();
     }
     else
     {
-        claw->throw_ball();
+        // claw->throw_ball();
     }
 }
 
@@ -153,4 +153,73 @@ void chassis_debug_xbox::btn_scan()
     handleButton(btnXConfig);
     handleButton(btnYConfig);
     handleButton(btnShareConfig);
+}
+
+moters_debug_xbox::moters_debug_xbox()
+{
+    btnconfig_init();
+}
+
+void moters_debug_xbox::btnconfig_init()
+{
+
+    btnBConfig = {
+        &xbox_msgs.btnB,
+        &xbox_msgs.btnB_last,
+        &debug_mode,
+        3,
+        ButtonActionType::Increment,
+        nullptr};
+
+    btnXConfig = {
+        &xbox_msgs.btnX,
+        &xbox_msgs.btnX_last,
+        &debug_mode,
+        3,
+        ButtonActionType::Decrement,
+        nullptr};
+
+    btnAConfig = {
+        &xbox_msgs.btnA,
+        &xbox_msgs.btnA_last,
+        &start_flag,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
+}
+
+void moters_debug_xbox::btn_scan()
+{
+    handleButton(btnAConfig);
+    handleButton(btnXConfig);
+    handleButton(btnBConfig);
+}
+
+void moters_debug_xbox::process_data()
+{
+    btn_scan();
+    joymap_compute();
+
+    if (start_flag == 1)
+    {
+        switch (debug_mode)
+        {
+        case 0:
+            setted_f = (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_F;
+            debug_motor->set_F(setted_f);
+
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        }
+    }
+}
+
+void moters_debug_xbox::add_motor(power_motor *motor_)
+{
+    debug_motor = motor_;
 }

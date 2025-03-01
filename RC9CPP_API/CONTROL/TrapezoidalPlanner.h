@@ -6,55 +6,88 @@ extern "C"
 {
 #endif
 #include "arm_math.h"
+#include "Vector2D.h"
+#include "pure_pursuit.h" 
 #ifdef __cplusplus
 }
 #endif
 #ifdef __cplusplus
 
-enum plan_state
+// 定义运动阶段枚举，新增 PID_PHASE 表示进入 PID 点追踪控制
+enum Phase
 {
-
-    plan_standby,
-    uniform_acc, // 匀加速
-    uniform,     // 匀速
-    uniform_dec  // 匀减速
-
+    ACCEL_PHASE,   // 加速段
+    CONST_PHASE,   // 匀速段
+    DECEL_PHASE,   // 减速段
+    PID_PHASE,     // PID 控制段（接近目标点）
+    FINISHED_PHASE // 规划结束
 };
 
-enum plan_mode
+// 定义规划类型枚举
+enum ProfileType
 {
-    speed_pulse, // 速度脉冲模式，可能停的不准
-    displacement // 位移模式，停的又快又准
-
-};
-
-typedef struct plan_info_
-{
-    float start_pos = 0.0f;
-    float uniform_start_pos = 0.0f;
-    float dec_start_pos = 0.0f;
-    float acc = 0.0f;
-    float dec = 0.0f; // 减速度，取赋值，规划器返回的目标速度都是正的
-    float uniform_speed = 0.0f;
-    float end_pos = 0.0f;
-    float start_speed = 0.0f;
-    float end_speed = 0.0f;
+    TRAPEZOIDAL, // 梯形规划：存在加速、匀速、减速三个阶段
+    TRIANGULAR   // 三角形规划：仅有加速和减速两个阶段，无法达到设定的最大速度
 };
 
 class TrapezoidalPlanner
 {
 public:
-    bool speed_pulse_plan_start(float max_speed, float slowdown_pos, float acc_, float dec_, float start_pos = 0.0f, float start_speed = 0.0f, float end_speed = 0.0f); // 速度脉冲模式，该模式只关注速度峰值和达到速度峰值的位置，而不关注整体的移动距离
-    float speed_pulse_plan_setpos(float pos);                                                                                                                           // 速度脉冲模式下传入实时的位置,返回当前的期望速度
+    // 构造函数，初始状态为 FINISHED（无规划）
+    TrapezoidalPlanner();
 
-    plan_state get_state(); // 看看当前处在哪一个速度段
-    plan_state now_state = plan_standby;
-    plan_info_ plan_info;
+    /**
+     * @brief 初始化一次新的规划，重置内部状态和参数
+     * @param maxAcc       最大加速度（正值）
+     * @param maxDec       最大减速度（正值）
+     * @param maxSpeed     最大允许速度
+     * @param initialSpeed 起始时的速度
+     * @param finalSpeed   目标点的速度
+     * @param startPos     起始坐标（Vector2D 类型）
+     * @param targetPos    目标坐标（Vector2D 类型）
+     * @param pidThreshold 用户设置的 PID 控制距离阈值，若为 0 则不使用 PID 控制
+     */
+    void start_plan(float maxAcc, float maxDec, float maxSpeed, float initialSpeed, float finalSpeed,
+                    const Vector2D &startPos, const Vector2D &targetPos, float pidThreshold = 0.0f);
+
+    /**
+     * @brief 根据当前坐标规划目标速度向量（x 和 y 分量）
+     * @param currentPos 当前坐标（Vector2D 类型）
+     * @return 目标速度向量（Vector2D 类型）；若规划结束则返回终点速度方向
+     */
+    Vector2D plan(const Vector2D &currentPos);
+
+    // 辅助接口：根据当前已行驶距离判断处于哪个阶段（不含 PID 判断）
+    Phase determinePhase(float traveled);
+
+    // 获取当前阶段（调试或外部查询）
+    Phase getPhase() const { return m_phase; }
 
 private:
-   
-   
-    float target_speed = 0.0f, startspeed2 = 0.0f, uniform_speed2 = 0.0f;
+    // 内部状态
+    Phase m_phase;
+    ProfileType m_profileType;
+
+    // 规划参数
+    float m_maxAcc;       // 最大加速度
+    float m_maxDec;       // 最大减速度
+    float m_maxSpeed;     // 最大允许速度
+    float m_initialSpeed; // 起始速度
+    float m_finalSpeed;   // 目标点速度
+
+    // 路径信息
+    Vector2D m_startPos;   // 起始坐标
+    Vector2D m_targetPos;  // 目标坐标
+    float m_totalDistance; // 总路程
+
+    // 各阶段路程
+    float m_accelDistance; // 加速段长度
+    float m_decelDistance; // 减速段长度
+
+    // PID 控制：当距离目标点低于 pidThreshold 时启用 PID 点追踪
+    float m_pidThreshold;   // PID 控制距离阈值
+    pointrack m_pointTrack; // 使用你提供的 PID 点追踪类
 };
+
 #endif
 #endif // TRAPEZOIDAL_PLANNER_H

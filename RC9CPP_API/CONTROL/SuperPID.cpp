@@ -1,9 +1,18 @@
 #include "superpid.h"
 
-superpid::superpid(float kp_, float ki_, float kd_, float output_limit_, float deadzone_, float integral_separation_threshold_, bool if_inertia_comp) : kp(kp_), ki(ki_), kd(kd_), output_limit(output_limit_),
-                                                                                                                                                        deadzone(deadzone_),
-                                                                                                                                                        integral_separation_threshold(integral_separation_threshold_), inertia_comp(if_inertia_comp)
+superpid::superpid(float kp_, float ki_, float kd_, float output_limit_, float deadzone_, float integral_separation_threshold_) : kp(kp_), ki(ki_), kd(kd_), output_limit(output_limit_),
+                                                                                                                                  deadzone(deadzone_),
+                                                                                                                                  integral_separation_threshold(integral_separation_threshold_)
 {
+}
+void superpid::config_all(float kp_, float ki_, float kd_, float output_limit_, float deadzone_, float integral_separation_threshold_)
+{
+    kp = kp_;
+    ki = ki_;
+    kd = kd_;
+    output_limit = output_limit_;
+    deadzone = deadzone_;
+    integral_separation_threshold = integral_separation_threshold_;
 }
 
 void superpid::superPID_SetParameters(float kp_, float ki_, float kd_)
@@ -44,18 +53,14 @@ float superpid::superPID_Compute(float input)
     {
         error_sum = 0.0f;
     }
+    if (max_output)
+    {
+        error_sum = 0.0f; // 积分抗饱和
+    }
 
     i_out = ki * error_sum;
 
-    // 微分项（微分先行）
-    if (inertia_comp)
-    {
-        d_out = kd * (input - previous_input) / sampling_period; // 惯性补偿，微分项取正
-    }
-    else
-    {
-        d_out = -kd * (input - previous_input) / sampling_period;
-    }
+    d_out = -kd * (input - previous_input) / sampling_period;
 
     // 更新状态
     previous_error = error;
@@ -65,13 +70,19 @@ float superpid::superPID_Compute(float input)
     output = p_out + i_out + d_out;
 
     // 输出限幅
-    if (output > output_limit)
+    if (output >= output_limit)
     {
         output = output_limit;
+        max_output = true;
     }
-    else if (output < -output_limit)
+    else if (output <= -output_limit)
     {
         output = -output_limit;
+        max_output = true;
+    }
+    else
+    {
+        max_output = false;
     }
 
     return output;
@@ -111,15 +122,10 @@ float superpid::superPID_ComputeError(float error_, float C_V)
 
     i_out = ki * error_sum;
 
-    // 微分项（微分先行）
-    if (inertia_comp)
-    {
-        d_out = kd * (C_V - previous_input) / sampling_period; // 惯性补偿，微分项取正
-    }
-    else
-    {
+   
+    
         d_out = -kd * (C_V - previous_input) / sampling_period;
-    }
+    
 
     // 更新状态
     previous_error = error;
@@ -203,9 +209,9 @@ float IncrePID::increPID_Compute(float input)
 
     return output;
 }
-float IncrePID::increPID_Computerror(float error_)//直接传入误差
+float IncrePID::increPID_Computerror(float error_) // 直接传入误差
 {
-    error = error_;//这个函数没有TD哦，所以用这个的话参数r是没有意义的
+    error = error_; // 这个函数没有TD哦，所以用这个的话参数r是没有意义的
     calc();
     return output;
 }

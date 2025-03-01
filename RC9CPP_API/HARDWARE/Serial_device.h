@@ -11,7 +11,7 @@ extern "C"
 #include <cmsis_os.h>
 #include <stdbool.h>
 #include "crc_util.h"
-#include "usbd_cdc_if.h"
+
 #ifdef __cplusplus
 }
 #endif

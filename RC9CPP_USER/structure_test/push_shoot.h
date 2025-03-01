@@ -9,7 +9,7 @@ extern "C"
 #include "FreeRTOS.h"
 #include "task.h"
 // #include <stdint.h>
-#include <cmsis_os.h>
+#include <cmsis_os2.h>
 #include "RC9Protocol.h"
 #include "usart.h"
 #include "TaskManager.h"

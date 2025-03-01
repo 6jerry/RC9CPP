@@ -52,6 +52,19 @@ private:
 
 class moters_debug_xbox : public xbox, public ITaskProcessor
 {
+private:
+    power_motor *debug_motor = nullptr;
+
+    uint8_t debug_mode = 1, start_flag = 0;
+
+    float max_F = 1.2f, max_rpm = 140.0f, setted_f = 0.0f;
+
+public:
+    void process_data();
+    void btn_scan();
+    void btnconfig_init();
+    void add_motor(power_motor *motor_);
+    moters_debug_xbox();
 };
 
 class chassis_debug_xbox : public xbox, public ITaskProcessor, public chassis_user
@@ -59,12 +72,12 @@ class chassis_debug_xbox : public xbox, public ITaskProcessor, public chassis_us
 public:
     uint8_t btny_flag = 0, btnx_flag = 0, btna_flag = 0, btnb_flag = 0, btnshare_flag = 0;
 
-    float full_speed = 0.0f, full_w = 0.0f;
+    float full_speed = 0.0f, full_w = 0.0f, setted_f = 0.0f;
 
     uint8_t priocode = 1;
 
     uint8_t currentState = 0;
-    catcher_fsm *claw = nullptr;
+    //catcher_fsm *claw = nullptr;
 
 public:
     void

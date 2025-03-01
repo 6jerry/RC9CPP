@@ -13,6 +13,10 @@ LR_IROM1 0x08000000 0x00100000  {    ; load region size_region
    .ANY (+RW +ZI)
   }
   RW_IRAM2 0x10000000 0x00010000  {
+    usbd_core.o (+ZI +RW)
+    usbd_ctlreq.o (+ZI +RW)
+    usbd_ioreq.o (+ZI +RW)
+    usbd_cdc.o (+ZI +RW)
    .ANY (+RW +ZI)
   }
 }

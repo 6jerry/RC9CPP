@@ -17,12 +17,15 @@
  *             in the software.
  ******************************************************************************/
 #include "m6020.h"
-m6020s::m6020s(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool if_double_control_, float kp_r, float ki_r, float kd_r, float r_r_, float kp_p, float ki_p, float kd_p) : CanDevice(M6020, hcan_, can_id), rpm_pid(kp_r, ki_r, kd_r, r_r_, 25000.0f, 1.0f), pos_pid(kp_p, ki_p, kd_p, 10000.0f, 300.0f, 0.01f, 60.0f), dji_motor(3000.0f, 16384, 8191), if_double_control(if_double_control_)
+m6020s::m6020s(uint8_t can_id, CAN_HandleTypeDef *hcan_) : CanDevice(M6020, hcan_, can_id), dji_motor(3000.0f, 16384, 8191)
 {
 }
 
 int16_t m6020s::motor_process()
 {
+
+    target_angle_tf();
+
     real_angle = convert_angle_to_signed(rangle);
     if (real_angle * target_angle >= 0)
     {
@@ -58,21 +61,77 @@ int16_t m6020s::motor_process()
         }
     }
 
-    if (if_double_control) // 对于那些可以360度旋转的机构采用双环控制
+    /*if (if_double_control) // 对于那些可以360度旋转的机构采用双环控制
     {
         target_rpm = pos_pid.PID_ComputeError(angle_error);
-        // rpm_pid.setpoint = target_rpm * (float)gear_ratio;
-        rpm_pid.increPID_setarget(target_rpm);
-        target_v = (int16_t)rpm_pid.increPID_Compute(rpm);
+        // target_rpm = 0.0f;
+        //  rpm_pid.setpoint = target_rpm * (float)gear_ratio;
+        rpm_pid.setpoint = target_rpm * (float)gear_ratio;
+        target_v = (int16_t)rpm_pid.PID_Compute(rpm);
     }
     else
-    { // 丸辣，机械已经装完了，只能单环硬调了
-      // rpm_pid.integral_separation_threshold = 30.0f;
-      // target_v = (int16_t)rpm_pid.PID_ComputeError(angle_error);
-    }
+    {
+        // rpm_pid.integral_separation_threshold = 30.0f;
+        // target_v = (int16_t)rpm_pid.PID_ComputeError(angle_error);
+    }*/
 
+    // return target_v;
+
+    switch (work_mode)
+    {
+    case m6020_servo_pid:
+        target_v = servo_pid();
+        break;
+    case m6020_servo_speed_plan:
+        target_v = servo_speed_plan();
+        break;
+    case m6020_rpm_pid:
+        target_v = rpm_ctrl();
+        break;
+    case m6020_F:
+        target_v = F_ctrl();
+        break;
+    }
+    // target_test_v = (float)target_v;
+    real_F = get_F();
     return target_v;
 }
+
+int16_t m6020s::F_ctrl()
+{
+    target_test_v = (target_F / TorqueConstant) * 1000.0f;
+
+    return rcurrent_to_vcurrent((target_F / TorqueConstant) * 1000.0f);
+}
+
+int16_t m6020s::
+    servo_pid()
+{
+    return 0;
+}
+
+int16_t m6020s::
+    servo_speed_plan()
+{
+    return 0;
+}
+
+int16_t m6020s::rpm_ctrl()
+{
+    return 0;
+}
+
+void m6020s::set_F(float F_)
+{
+    target_F = F_;
+    work_mode = m6020_F;
+}
+
+float m6020s::get_F()
+{
+    return (rcurrent / 1000.0f) * TorqueConstant;
+}
+
 void m6020s::can_update(uint8_t can_RxData[8])
 {
     uint16_t vangle = (can_RxData[0] << 8) | can_RxData[1];
@@ -82,6 +141,25 @@ void m6020s::can_update(uint8_t can_RxData[8])
 
     int16_t vcurrent = (can_RxData[4] << 8) | can_RxData[5];
     rcurrent = vcurrent_to_rcurrent(vcurrent);
+}
+
+void m6020s::target_angle_tf() // 考虑了机械初始安装角度的角度变换
+{
+    delta_angle = target_relative_angle + init_angle;
+    if (delta_angle >= 180.0f)
+    {
+        delta_angle -= 360.0f;
+    }
+    else if (delta_angle < -180.0f)
+    {
+        delta_angle += 360.0f;
+    }
+
+    target_angle = delta_angle;
+}
+void m6020s::set_init_angle(float init_angle_)
+{
+    init_angle = init_angle_;
 }
 
 float m6020s::get_rpm()
@@ -95,7 +173,7 @@ float m6020s::get_pos()
 }
 void m6020s::set_pos(float pos)
 {
-    target_angle = pos;
+    target_relative_angle = pos;
 }
 void m6020s::set_rpm(float power_motor_rpm)
 {

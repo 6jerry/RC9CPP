@@ -35,24 +35,44 @@ extern "C"
 
 #ifdef __cplusplus
 
+enum m6020_mdoe
+{
+    m6020_servo_pid,        // pid角度控制
+    m6020_servo_speed_plan, // 梯形速度控制
+    m6020_rpm_pid,          // pid转速控制
+    m6020_F                 // 力矩控制
+};
+
 class m6020s : public CanDevice, public dji_motor, public power_motor
 {
 private:
     uint8_t gear_ratio = 1;
 
+    m6020_mdoe work_mode = m6020_F;
+
+    const float TorqueConstant = 0.741f; // 转矩常数，单位为 N·m/A
+
+    float send_vc = 0.0f;
+
+    int16_t
+    servo_pid();
+    int16_t servo_speed_plan();
+    int16_t rpm_ctrl();
+    int16_t F_ctrl();
+
 public:
-    m6020s(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool if_double_control_ = true, float kp_r = 86.0f, float ki_r = 3.0f, float kd_r = 86.0f, float r_r_ = 225.0f, float kp_p = 2.6f, float ki_p = 0.0f, float kd_p = 0.36f);
+    m6020s(uint8_t can_id, CAN_HandleTypeDef *hcan_);
 
     int16_t motor_process() override;
     void can_update(uint8_t can_RxData[8]);
     float target_angle = 0;
-    float target_rpm = 0;
+    float target_rpm = 0, target_F = 0, real_F = 0.0f;
     int16_t target_v = 0;
 
-    float real_angle = 0.0f;
+    float real_angle = 0.0f, target_test_v = 0.0f;
     float angle_error = 0.0f;
 
-    IncrePID rpm_pid;
+    superpid rpm_pid;
 
     bool if_double_control = true; // 是否使用双环控制，因为有些电机无法360度旋转导致无法调速度环
     pid pos_pid;
@@ -70,6 +90,13 @@ public:
     void set_rpm(float power_motor_rpm);
     float get_pos() override;
     void set_pos(float pos) override;
+
+    void set_F(float F_) override;
+    float get_F() override;
+
+    void target_angle_tf();
+    void set_init_angle(float init_angle_);
+    float delta_angle = 0.0f, init_angle = 0.0f, target_relative_angle = 0.0f;
 };
 
 #endif

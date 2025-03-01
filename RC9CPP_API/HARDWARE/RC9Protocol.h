@@ -9,7 +9,7 @@ extern "C"
 #include "Serial_device.h"
 #include "netswitch.h"
 #include "rcncore.h"
-#include "usbd_cdc_if.h"
+
 #ifdef __cplusplus
 }
 #endif

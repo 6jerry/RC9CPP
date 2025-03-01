@@ -35,7 +35,13 @@ public:
 
     virtual float get_odom() {}; // 获取里程
 
+    virtual void set_F(float F_) {}; // 设置力矩
+
+    virtual float get_F() {}; // 获取力矩
+
     virtual void set_rpm_ff(float power_motor_rpm, float ff) {}; // 设置速度和前馈值
+
+  
 };
 
 class dji_motor

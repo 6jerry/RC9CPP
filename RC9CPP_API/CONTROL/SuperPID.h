@@ -35,12 +35,14 @@ public:
     float error = 0.0f;
     float sampling_period = 0.0f; // 新增采样周期，单位：秒
 
-    bool inertia_comp = false;
+    bool max_output = false;
     uint32_t previous_time = 0;
 
-    superpid(float kp_, float ki_, float kd_, float output_limit_, float deadzone_, float integral_separation_threshold_, bool if_inertia_comp);
+    superpid(float kp_ = 0.0f, float ki_ = 0.0f, float kd_ = 0.0f, float output_limit_ = 0.0f, float deadzone_ = 0.0f, float integral_separation_threshold_ = 0.0f);
 
     void superPID_SetParameters(float kp, float ki, float kd);
+
+    void config_all(float kp_, float ki_, float kd_, float output_limit_, float deadzone_, float integral_separation_threshold_);
 
     float superPID_Compute(float input);
 
