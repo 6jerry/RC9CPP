@@ -29,21 +29,18 @@
 #ifndef LASER_PROCESSOR_H
 #define LASER_PROCESSOR_H
 
-#ifdef __cplusplus
+#ifndef __cplusplus
 extern "C" {
 #endif
 
 #include <stdbool.h>
 #include <cstdint>
-#include "Serial_device.h"
-#include "math.h"
-#ifdef __cplusplus
-}
-#endif
 
-class LaserProcessor : public SerialDevice {
+
+
+class LaserProcessor {
 public:
-    LaserProcessor(UART_HandleTypeDef *huart);
+    LaserProcessor();
     const static uint8_t CMD_GROUP_SIZE  = 4;
 	const static uint8_t FILTER_WINDOW_SIZE  = 4;
     // 保持原有公共接口
@@ -93,9 +90,9 @@ public:
 	
     const Command* InitCommands() const { return init_commands_; }
     static constexpr int InitCommandCount() { return CMD_GROUP_SIZE; }
-    float laser_distance = 0.2; //读取该值获得距离数据
+    
     float get_distance(uint8_t byte);
-    void handleReceiveData(uint8_t byte);
+    
     CmdStatus GetCmdStatus(int index) const;
 
 private:
@@ -121,6 +118,8 @@ private:
 
 extern LaserProcessor laser;
 
-
+#ifndef __cplusplus
+}
+#endif
 
 #endif

@@ -30,6 +30,9 @@ This project is designed to demonstrate the directory structure and organization
     - laser_processor.cpp
     - laser_processor.h
     - test_laser.py
++ laser_device_MUCbackup/
+    - laser_processor.cpp
+    - laser_processor.h
 + matlab_tools/
     - README.md
     - data_fusion_test.m
@@ -52,6 +55,7 @@ This project is designed to demonstrate the directory structure and organization
     - wit_c_sdk.h
 - MakeFlieTree.py
 - README.md
+- add_licence.py
 ```
 ## Usage
 To use this project, simply clone the repository and navigate to the root directory.

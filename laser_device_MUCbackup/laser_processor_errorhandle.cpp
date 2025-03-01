@@ -25,7 +25,7 @@
  * SOFTWARE.
  */
 
-#include "laser_processor.h"
+#include "laser_processor_errorhandle.h"
 #include <cstring>
 
 static float my_fabs(float x){
@@ -35,9 +35,9 @@ static float my_fabs(float x){
 constexpr float max_distance = 0.5f;
 constexpr float min_distance = 0.03f;
  
-LaserProcessor::LaserProcessor(UART_HandleTypeDef *huart_) : 
-    SerialDevice(huart_), rx_length_(0), resolution_(2), data_count_(0), 
-    window_index_(0), last_data_(0){
+LaserProcessor::LaserProcessor() : 
+    rx_length_(0), resolution_(2), data_count_(0), 
+    window_index_(0), last_data_(0) {
     memset(filter_window_, 0, sizeof(filter_window_));
     memset(cmd_tracker_, 0, sizeof(cmd_tracker_));
 }
@@ -187,7 +187,6 @@ float LaserProcessor::ParseAsciiDistance(const uint8_t* start, uint16_t bytes) {
     return negative ? -(int_part + frac_part/divisor) : (int_part + frac_part/divisor);
 }
 
-//数据后处理
 float LaserProcessor::get_distance(uint8_t byte){
 	static float last_distance = 0.04f;
 	float distance = ProcessByte(byte);
@@ -199,6 +198,4 @@ float LaserProcessor::get_distance(uint8_t byte){
 	return distance;
 }
 
-void LaserProcessor::handleReceiveData(uint8_t byte){
-    laser_distance = get_distance(byte);
-}
+

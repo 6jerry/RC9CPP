@@ -151,6 +151,57 @@ private:
 - 在发送命令时，确保 UART 配置与模块的通信参数匹配。
 - 在处理接收到的数据时，确保数据格式与模块的输出一致。
 
-## 示例代码
-完整的示例代码可以在 [GitHub](https://github.com/6jerry/RC9CPP/tree/device/laser_device) 上找到。
+## 使用示例
+**init_code**
+```c
+void SendInitCommands() {
+    for(int i=0; i<LaserProcessor::CMD_GROUP_SIZE; i++) {
+        int retry = 0;
+        do {
+            // 发送命令
+            const auto& cmd = laser.InitCommands()[i];
+            HAL_UART_Transmit(&huart1, cmd.data, cmd.length, 100);
+            
+            // 重置状态
+            laser.cmd_tracker_[i].sent_time = HAL_GetTick();
+            laser.cmd_tracker_[i].status = LaserProcessor::CMD_PENDING;
+            
+            // 等待响应（200ms超时）
+            while((HAL_GetTick() - laser.cmd_tracker_[i].sent_time) < 200) {
+                if(laser.GetCmdStatus(i) != LaserProcessor::CMD_PENDING) break;
+                HAL_Delay(10);
+            }
+            
+            // 处理超时
+            if(laser.GetCmdStatus(i) == LaserProcessor::CMD_PENDING) {
+                laser.cmd_tracker_[i].status = LaserProcessor::CMD_TIMEOUT;
+            }
+            
+        } while(retry++ < 3 && 
+              (laser.GetCmdStatus(i) == LaserProcessor::CMD_TIMEOUT ||
+               laser.GetCmdStatus(i) == LaserProcessor::CMD_CHECKSUM_ERR));
+        
+        HAL_Delay(50); // 保持协议要求的时间间隔
+    }
+}
+```
+**recieve_code**
+```c
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart) {
+    if (huart->Instance == USART1) {		
+        // 处理字节
+        distance = laser.get_distance(rx_buffer[0]);
+        // 继续接收下一个字节
+        HAL_UART_Receive_IT(&huart1, rx_buffer, 1);
+    }
+}
+```
+
+## Notion
+---
+**波特率：9600bps**
+
+---
+
+
 
