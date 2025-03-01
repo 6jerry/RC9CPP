@@ -52,10 +52,10 @@ class pid {
    private:
     //------------------------- 用户可配置参数 -------------------------
    
-    const float h = 0.7f;   // 重心高度（单位：米）
-    const float L = 0.4f;    // 轴距（单位：米）
+    const float h = 0.266f;   // 重心高度（单位：米）
+    const float L = 0.38755f;    // 轴距（单位：米）
     const float g = 9.81f;   // 重力加速度（默认9.81 m/s²）
-    const float m = 17.0f;  // 质量（单位：kg）
+    const float m = 19.44f;  // 质量（单位：kg）
 
    public:
     float kp = 0.0f;
