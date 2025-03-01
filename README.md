@@ -33,6 +33,8 @@ This project is designed to demonstrate the directory structure and organization
 + laser_device_MUCbackup/
     - laser_processor.cpp
     - laser_processor.h
+    - laser_processor_errorhandle.cpp
+    - laser_processor_errorhandle.h
 + matlab_tools/
     - README.md
     - data_fusion_test.m
