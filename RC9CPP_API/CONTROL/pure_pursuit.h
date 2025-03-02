@@ -8,7 +8,7 @@ extern "C"
 
 #include "Vector2D.h"
 #include "PID.h"
-#include "TrapezoidalPlanner.h"
+
 
 #ifdef __cplusplus
 }

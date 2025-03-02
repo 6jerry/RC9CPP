@@ -5,14 +5,21 @@
 extern "C"
 {
 #endif
-#include "TaskManager.h"
-#include "RC9Protocol.h"
-#include "debug_xbox.h"
+
 #include <cmsis_os2.h>
+#include "RC9Protocol.h"
+#include "TaskManager.h"
+
+#include "M3508.h"
+
+#include "rc_test_xbox.h"
+#include "gpio.h"
+    void yunball_test_setup(void);
 #ifdef __cplusplus
 }
 #endif
 #ifdef __cplusplus
+
 
 #endif
 #endif
