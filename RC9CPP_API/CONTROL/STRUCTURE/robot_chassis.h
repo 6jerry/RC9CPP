@@ -81,7 +81,7 @@ public:
     uint8_t move_to_speedplan(Vector2D target, uint8_t PriorityCode);
     uint8_t move_through(Vector2D new_points[], uint8_t length, uint8_t PriorityCode);
 
-    uint8_t get_track_dis(float *dis); // 看看追踪还剩多少
+    float get_track_dis(); // 看看追踪还剩多少
 
     float get_yaw(); // 获取当前的yaw
 
@@ -151,7 +151,7 @@ public:
     uint8_t Cmove_to(Vector2D target_p, uint8_t PriorityCode, chassis_user *user_);
     uint8_t Cmove_to_speedplan(Vector2D target, uint8_t PriorityCode, chassis_user *user_);
 
-    uint8_t get_track_disC(float *dis); // 看看追踪还剩多少
+    float get_track_disC(); // 看看追踪还剩多少
 
     void chassis_back_priorityC(); // 回退到上一个优先级
     void chassis_rst_priorityC();  // 重置优先级

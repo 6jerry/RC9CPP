@@ -64,7 +64,7 @@ public:
     uint8_t priocode = 1;
 
     uint8_t currentState = 0;
-    catcher_fsm *claw = nullptr;
+    catch_ball_fsm *catcher = nullptr;
 
 public:
     void

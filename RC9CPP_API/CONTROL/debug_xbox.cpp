@@ -81,20 +81,17 @@ void chassis_debug_xbox::process_data()
     joymap_compute();
     // currentState = stateMachine.getState();
     currentState = 0;
-    Vector2D worldvel_(full_speed * xbox_msgs.joyLHori_map, full_speed * xbox_msgs.joyLVert_map);
-    set_RobotVel(worldvel_, priocode);
-    set_RobotW(-full_w * xbox_msgs.joyRHori_map, priocode);
+
     if (btna_flag == 0)
     {
-        claw->ready_catch_ball();
+        Vector2D worldvel_(full_speed * xbox_msgs.joyLHori_map, full_speed * xbox_msgs.joyLVert_map);
+        set_RobotVel(worldvel_, priocode);
+        set_RobotW(-full_w * xbox_msgs.joyRHori_map, priocode);
+        catcher->stop_catch_ball();
     }
     else if (btna_flag == 1)
     {
-        claw->move_ball();
-    }
-    else
-    {
-        claw->throw_ball();
+        catcher->start_catch_ball();
     }
 }
 
@@ -109,7 +106,7 @@ void chassis_debug_xbox::btn_config()
         &xbox_msgs.btnA,
         &xbox_msgs.btnA_last,
         &btna_flag,
-        2,
+        1,
         ButtonActionType::Toggle,
         nullptr};
 

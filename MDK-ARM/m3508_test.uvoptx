@@ -812,6 +812,16 @@
           <WinNumber>2</WinNumber>
           <ItemText>right_back</ItemText>
         </Ww>
+        <Ww>
+          <count>109</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m4</ItemText>
+        </Ww>
+        <Ww>
+          <count>110</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>position_test</ItemText>
+        </Ww>
       </WatchWindow2>
       <MemoryWindow1>
         <Mm>

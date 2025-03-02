@@ -39,7 +39,7 @@ m3508p m3508_shooter(1, &hcan1), m3508_pitch(2, &hcan1);
 TaskManager task_core;
 CanManager can_core;
 //  shoot_xbox shoot_control(&m3508_shooter, &m3508_pitch);
-RC9Protocol debug(cdc), esp32(uart, &huart3), position_port(uart, &huart4);
+RC9Protocol debug(cdc), esp32(uart, &huart3), position_port(uart, &huart2);
 
 position position_test;
 
@@ -57,6 +57,7 @@ demo test2;
 chassis_info m4_chassis_info = {0.03f, 0.17f, 0.3f, 0.0f};
 
 catcher_fsm claw_test;
+catch_ball_fsm catcher_test;
 
 extern "C" void
 pshoot_setup(void)
@@ -85,31 +86,33 @@ pshoot_setup(void)
 
     position_test.addport(&position_port);
 
-    //task_core.registerTask(4, &right_front);
+    task_core.registerTask(4, &right_front);
     task_core.registerTask(4, &right_back);
     task_core.registerTask(5, &left_back);
-    //task_core.registerTask(5, &left_front);
+    task_core.registerTask(5, &left_front);
     task_core.registerTask(5, &claw_test);
+    task_core.registerTask(5, &catcher_test);
 
-    task_core.registerTask(8, &debug);
+    // task_core.registerTask(8, &test2);
     task_core.registerTask(1, &can_core);
-    //task_core.registerTask(3, &m4);
+     task_core.registerTask(3, &m4);
     task_core.registerTask(3, &xbox_ctrl);
-    //m4.add4_motors(&left_front, &right_front, &right_back, &left_back);
+    m4.add4_motors(&left_front, &right_front, &right_back, &left_back);
     m4.add_imu(&position_test);
     // xbox_test.addport(&esp32);
     xbox_ctrl.addport(&esp32);
     // mg996_left.set_ccr(left_up); // 146 最低位,80最高位
     // mg996_right.set_ccr(right_up);
-
+    xbox_ctrl.catcher = &catcher_test;
+    catcher_test.catcher = &claw_test;
     claw_test.add_servo(&mg996_left, &mg996_right);
 
     // test2.add_IO(&xbox_test, &debug);
     xbox_ctrl.add_chassis(&m4);
     test2.addport(&debug);
-    xbox_ctrl.claw = &claw_test;
-    // debug.rcninit(3);
-    //  mg996_left.set_ccr(150);
+    // xbox_ctrl.claw = &claw_test;
+    //  debug.rcninit(3);
+    //   mg996_left.set_ccr(150);
 
     // mknum_test.heading_pid.error > -0.01f;
     // mknum_test.heading_pid.error < 0.01f;
@@ -136,12 +139,12 @@ void demo::process_data()
     // yaw_TurnTo(-get_input_mapvalue() * full_angle, 3);
 
     // pid_send_debuginfo(get_input_mapvalue() * full_angle, get_yaw());
-    //  CCR = (uint32_t)test_ccr;
-    //  CCR2 = (uint32_t)test2_ccr;
-    //  mg996_right.set_ccr(CCR);
-    //  mg996_left.set_ccr(CCR2);
+    CCR = (uint32_t)test_ccr;
+    CCR2 = (uint32_t)test2_ccr;
+    mg996_right.set_ccr(CCR);
+    mg996_left.set_ccr(CCR2);
 
-    float test_datas[3] = {0.1f, 0.2f, 0.3f};
-    sendFloatData(1, test_datas, 3);
-    // claw_test.throw_ball();
+    // float test_datas[3] = {0.1f, 0.2f, 0.3f};
+    // sendFloatData(1, test_datas, 3);
+    //  claw_test.throw_ball();
 }

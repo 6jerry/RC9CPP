@@ -286,3 +286,14 @@ uint8_t chassis_user::move_to(Vector2D target_p, uint8_t PriorityCode)
 {
     return robochassis_->Cmove_to(target_p, PriorityCode, this);
 }
+
+float RoboChassis::get_track_disC()
+{
+
+    return pointtracker.get_dis();
+}
+
+float chassis_user::get_track_dis()
+{
+    return robochassis_->get_track_disC();
+}
