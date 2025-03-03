@@ -94,7 +94,7 @@ void RoboChassis::mecanum_calc(Vector2D robovel, float w)
 
 bool RoboChassis::priority_judge(uint8_t PriorityCode, chassis_user *user_, chassis_cmd_type cmd_type)
 {
-    if (user_ == user)
+    /*if (user_ == user)
     {
         if (PriorityCode < current_priority)
         {
@@ -121,7 +121,8 @@ bool RoboChassis::priority_judge(uint8_t PriorityCode, chassis_user *user_, chas
             current_priority = PriorityCode;
             return true;
         }
-    }
+    }*/
+    return true;
 }
 
 uint8_t RoboChassis::set_CRobotVel(Vector2D robovel, uint8_t PriorityCode, chassis_user *user_)
@@ -255,12 +256,14 @@ uint8_t RoboChassis::Cmove_to(Vector2D target_p, uint8_t PriorityCode, chassis_u
     {
         mode = point_track;
         target.target_point = target_p;
+        pointtracker.track(IMU->get_world_pos(), target.target_point);
         return 1;
     }
     else
     {
         return 0;
     }
+    // chassis_calc(worldv_2_robov(pointtracker.), yawadjuster_process());
 }
 
 uint8_t chassis_user::set_WorldVel(Vector2D worldvel, uint8_t PriorityCode)

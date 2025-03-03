@@ -82,24 +82,31 @@ typedef struct
     bool if_conflict = false; // 是否有冲突，无冲突就正常捡球，有冲突就找球
 } ball_info;
 
-
 enum catch_ball_state
 {
     catch_ball_standby,
-    catch_ball_locking_ball,
     catch_ball_lock_yaw,
+    catch_ball_locking_ball,
+
     catch_ball_ball_entered,
     catch_ball_move_to_throw_ball_point,
     catch_ball_ready_to_throw_ball,
     catch_ball_rush_to_throw_ball,
- 
+    catch_ball_back_to_serch_ball_point,
+    catch_ball_go_to_1_ball_point,
+    catch_ball_wait_ball_in
 
 };
+// ball 1 kanqiu -0.053,0.508,0.0
+// ball push -0.855,0.4473,61.6
+// find ball again -0.3998,0.455,-38
 
+// center point 0.0,1.05,0.0
+// front wall y->1.84;;left wall x->0.874;;right wall x->-0.81
 class catch_ball_fsm : public ITaskProcessor, public chassis_user, public RC9subscriber
 {
 private:
-    
+    Vector2D catch_speed;
 
     catch_ball_state state = catch_ball_standby;
 
@@ -111,9 +118,11 @@ private:
 
     pid ball_locker_pid;
 
-    float catch_ball_speed = 0.3f, entererd_ball_size = 500.0f, throw_ball_speed = 1.1f;
+    float catch_ball_speed = 0.3f, entererd_ball_size = 800.0f, throw_ball_speed = 1.6f;
 
-    Vector2D throw_point;
+    Vector2D throw_point, serch_point, first_ball_point;
+
+    float throw_point_yaw = 0.0f, serch_point_yaw = 0.0f, first_ball_point_yaw = 0.0f;
 
 public:
     void process_data();
@@ -121,16 +130,41 @@ public:
 
     void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
 
-   void start_catch_ball();
-   void stop_catch_ball();
+    void start_catch_ball();
+    void stop_catch_ball();
 
-   bool if_finish_catch_ball();
+    bool if_finish_catch_ball();
 
-   void set_throw_point(Vector2D point);
+    void set_throw_point(Vector2D point);
 
-    
+    void config_ball_pid(float kp_, float ki_, float kd_, float integral_limit_, float output_limit_, float deadzone_, float integral_separation_threshold_);
 
-    
+    catch_ball_fsm();
+};
+
+enum dead_ball_state
+{
+    dead_ball_standby,
+    dead_ball_go_to_1_ball_point,
+    dead_ball_catch_1_ball,
+    dead_ball_go_to_put_1_ball_point_1,
+    dead_ball_ready_put_1_ball,
+    dead_ball_rush_put_1_ball,
+    dead_ball_go_to_2_ball_point,
+};
+
+class dead_ball_catch : public ITaskProcessor, public chassis_user
+{
+private:
+    Vector2D catch_speed;
+
+    const Vector2D dead_ball_point_1 = Vector2D(0.0f, 0.0f), put_ball1_point_1 = Vector2D(0.0f, 0.0f);
+
+    dead_ball_state state = dead_ball_standby;
+
+public:
+    void process_data();
+    catcher_fsm *catcher = nullptr;
 };
 
 #endif

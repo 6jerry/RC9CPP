@@ -39,7 +39,7 @@ m3508p m3508_shooter(1, &hcan1), m3508_pitch(2, &hcan1);
 TaskManager task_core;
 CanManager can_core;
 //  shoot_xbox shoot_control(&m3508_shooter, &m3508_pitch);
-RC9Protocol debug(cdc), esp32(uart, &huart3), position_port(uart, &huart2);
+RC9Protocol debug(cdc), esp32(uart, &huart3), position_port(uart, &huart4);
 
 position position_test;
 
@@ -95,7 +95,7 @@ pshoot_setup(void)
 
     // task_core.registerTask(8, &test2);
     task_core.registerTask(1, &can_core);
-     task_core.registerTask(3, &m4);
+    task_core.registerTask(3, &m4);
     task_core.registerTask(3, &xbox_ctrl);
     m4.add4_motors(&left_front, &right_front, &right_back, &left_back);
     m4.add_imu(&position_test);
@@ -105,11 +105,16 @@ pshoot_setup(void)
     // mg996_right.set_ccr(right_up);
     xbox_ctrl.catcher = &catcher_test;
     catcher_test.catcher = &claw_test;
+    catcher_test.addport(&debug);
+    catcher_test.add_chassis(&m4);
     claw_test.add_servo(&mg996_left, &mg996_right);
 
     // test2.add_IO(&xbox_test, &debug);
     xbox_ctrl.add_chassis(&m4);
     test2.addport(&debug);
+    catcher_test.config_ball_pid(0.0028f, 0.0f, 0.0045f, 0.0f, 1.1f, 5.0f, 0.0f
+
+    );
     // xbox_ctrl.claw = &claw_test;
     //  debug.rcninit(3);
     //   mg996_left.set_ccr(150);

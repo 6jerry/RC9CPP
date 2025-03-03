@@ -822,6 +822,21 @@
           <WinNumber>2</WinNumber>
           <ItemText>position_test</ItemText>
         </Ww>
+        <Ww>
+          <count>111</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>position_port</ItemText>
+        </Ww>
+        <Ww>
+          <count>112</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>debug</ItemText>
+        </Ww>
+        <Ww>
+          <count>113</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>catcher_test</ItemText>
+        </Ww>
       </WatchWindow2>
       <MemoryWindow1>
         <Mm>
