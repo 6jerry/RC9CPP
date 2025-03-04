@@ -307,16 +307,27 @@ vector<double> compute_control_velocities(
     vector<Eigen::Vector2d>& path_points,
     int& current_path_index
 ) {
-    // 控制逻辑
+    static Eigen::Vector2d last_target_pos = original_target_pos;
+
+    // 检测目标点是否变化
+    if ((original_target_pos - last_target_pos).norm() > 1.2) {
+        is_path_planned = false;
+        path_points.clear();
+        current_path_index = 0;
+        last_target_pos = original_target_pos;
+        cout << "Target changed! Replanning path..." << endl;
+    }
+
     Eigen::Vector2d current_target;
 
     if (!is_path_planned) {
         double distance_to_original = (original_target_pos - state).norm();
-        if (distance_to_original > 1.5) {
+        if (distance_to_original > 1.2) {
             path_points = rtt_planner(state, original_target_pos);
             if (!path_points.empty()) {
                 current_path_index = 0;
                 is_path_planned = true;
+                cout << "New path planned with " << path_points.size() << " waypoints." << endl;
             }
         }
     }
@@ -329,21 +340,25 @@ vector<double> compute_control_velocities(
 
     auto [trajectory, control] = position_control_mpc(state, current_target, time_step);
 
-    // 检查是否到达当前路径点（路径规划模式）
+    // 更新路径点跟踪
     if (is_path_planned) {
-        double distance_to_current_target = (current_target - state).norm();
-        if (distance_to_current_target < 0.1) {
+        double dist_to_waypoint = (current_target - state).norm();
+        if (dist_to_waypoint < 0.2) { // 增加路径点到达阈值
             current_path_index++;
             if (current_path_index >= path_points.size()) {
                 is_path_planned = false;
+                cout << "All waypoints reached." << endl;
+            } else {
+                cout << "Reached waypoint " << current_path_index-1
+                     << ", next waypoint: " << path_points[current_path_index].transpose() << endl;
             }
         }
     }
 
-    // 如果到达原始目标点
-    if (!is_path_planned && (original_target_pos - state).norm() < 0.05) {
-        cout << "Target reached." << endl;
-        control = {0.0, 0.0}; // 停止运动
+    // 最终目标检查
+    if (!is_path_planned && (original_target_pos - state).norm() < 0.1) {
+        cout << "Final target reached." << endl;
+        return {0.0, 0.0};
     }
 
     return control;
@@ -354,13 +369,13 @@ int main() {
     // 输入参数
     Eigen::Vector2d state(0.0, 0.0);          // 起始状态
     Eigen::Vector2d original_target_pos(3.0, 4.5); // 原始目标位置
-    double time_step = 0.01;                  // 时间步长
+    double time_step = 0.05;                  // 时间步长
     bool is_path_planned = false;             // 路径规划是否已执行
     vector<Eigen::Vector2d> path_points;      // 路径点
     int current_path_index = 0;               // 当前路径点索引
 
     // 控制循环
-    int max_steps = 300; // 最大步数
+    int max_steps = 1000; // 最大步数
     for (int step = 0; step < max_steps; ++step) {
         vector<double> control = compute_control_velocities(
             state,
@@ -378,6 +393,7 @@ int main() {
         // **状态更新**：根据控制输入更新状态
         state(0) += control[0] * time_step; // 更新x位置
         state(1) += control[1] * time_step; // 更新y位置
+        original_target_pos += Eigen::Vector2d(step*0.1, step*0.05);
     }
 
     // 输出最终位置
