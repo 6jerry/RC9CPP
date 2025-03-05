@@ -11,6 +11,7 @@ extern "C"
 #include "TaskManager.h"
 
 #include "M3508.h"
+#include "M6020.h"
 
 #include "rc_test_xbox.h"
 #include "gpio.h"
@@ -19,7 +20,6 @@ extern "C"
 }
 #endif
 #ifdef __cplusplus
-
 
 #endif
 #endif

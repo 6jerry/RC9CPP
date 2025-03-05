@@ -6,6 +6,8 @@ RC9Protocol esp_port(uart, &huart2);
 
 m3508p shooter(3, &hcan2), pitcher(1, &hcan2), lifter(2, &hcan2), turnner(4, &hcan2); // 抬升电机，俯仰电机
 
+m6020s m6020_front(4, &hcan2), m6020_left(1, &hcan2), m6020_right(2, &hcan2); // 舵向电机
+
 yun_ball_xbox xbox_test;
 extern "C"
 {
