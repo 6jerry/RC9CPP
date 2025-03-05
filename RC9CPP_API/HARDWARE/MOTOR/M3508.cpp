@@ -96,9 +96,9 @@ void m3508p::many_pos_locate() // 差分定位计算3508多圈位置
 
     temp_delta = now_pos - last_pos;
 
-    if (now_pos > 357.0f)
+    if (now_pos > 300.0f)
     {
-        if (last_pos < 3.0f)
+        if (last_pos < 60.0f)
         {
             delta_pos = -(360.0f - now_pos + last_pos);
         }
@@ -107,9 +107,9 @@ void m3508p::many_pos_locate() // 差分定位计算3508多圈位置
             delta_pos = temp_delta;
         }
     }
-    else if (now_pos < 3.0f)
+    else if (now_pos < 60.0f)
     {
-        if (last_pos > 357.0f)
+        if (last_pos > 300.0f)
         {
             delta_pos = now_pos + (360.0f - last_pos);
         }
@@ -124,9 +124,16 @@ void m3508p::many_pos_locate() // 差分定位计算3508多圈位置
     }
 
     pos_sum += delta_pos;
+    dis_sum += (delta_pos / 360.0f) * wheel_perimeter;
 }
 
 void m3508p::locate_restart()
 {
     pos_sum = 0.0f;
+}
+
+void m3508p::config_mech_param(float gear_ratio_, float wheel_D_)
+{
+    gear_ratio = gear_ratio_;
+    wheel_perimeter = (wheel_D_ * PI) / gear_ratio;
 }

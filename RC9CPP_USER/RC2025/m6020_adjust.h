@@ -10,8 +10,9 @@ extern "C"
 #include "TaskManager.h"
 #include "RC9Protocol.h"
 #include "debug_xbox.h"
-
-void m6020_adjust_setup(void);
+#include "M3508.h"
+    void m6020_adjust_setup(void);
+    void swerve_motor_adjust();
 #ifdef __cplusplus
 }
 #endif

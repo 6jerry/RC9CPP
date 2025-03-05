@@ -89,6 +89,18 @@ void xbox::joymap_compute()
     {
         xbox_msgs.joyRHori_map = (35000.0f - (float)xbox_msgs.joyRHori) / 30535.0f;
     }
+    if (xbox_msgs.joyRVert > 31000 && xbox_msgs.joyRVert < 35000)
+    {
+        xbox_msgs.joyRVert_map = 0.0f;
+    }
+    if (xbox_msgs.joyRVert <= 31000)
+    {
+        xbox_msgs.joyRVert_map = (31000.0f - (float)xbox_msgs.joyRVert) / 31000.0f;
+    }
+    if (xbox_msgs.joyRVert >= 35000)
+    {
+        xbox_msgs.joyRVert_map = (35000.0f - (float)xbox_msgs.joyRVert) / 30535.0f;
+    }
     xbox_msgs.trigRT_map = (float)xbox_msgs.trigRT / 1023.0f;
     xbox_msgs.trigLT_map = (float)xbox_msgs.trigLT / 1023.0f;
 }

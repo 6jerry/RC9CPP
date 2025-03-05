@@ -67,6 +67,7 @@
 "m3508_test\debug_xbox.o"
 "m3508_test\robot_chassis.o"
 "m3508_test\position.o"
+"m3508_test\filters.o"
 "m3508_test\rc_test_xbox.o"
 "m3508_test\yunball_teat.o"
 "..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4lf_math.lib"

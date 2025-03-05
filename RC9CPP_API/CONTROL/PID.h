@@ -24,6 +24,7 @@ extern "C"
 {
 #endif
 #include <stdbool.h>
+#include "filters.h"
 #ifdef __cplusplus
 }
 #endif
@@ -54,13 +55,14 @@ public:
     pid(float kp = 0.0f, float ki = 0.0f, float kd = 0.0f, float integral_limit = 0.0f, float output_limit = 0.0f, float deadzone = 0.0f, float integral_separation_threshold = 0.0f);
 
     void PID_SetParameters(float kp_, float ki_, float kd_);
-    void ConfigAll(float kp_, float ki_, float kd_, float integral_limit_, float output_limit_, float deadzone_, float integral_separation_threshold_);
-
-    
+    void ConfigAll(float kp_, float ki_, float kd_, float integral_limit_, float output_limit_, float deadzone_, float integral_separation_threshold_, float filter_a = 1.0f);
 
     float PID_Compute(float input);
 
     float PID_ComputeError(float error_); // 可以直接传入误差来进行计算
+
+private:
+    SimpleLowPassFilter d_filter;
 };
 
 #endif

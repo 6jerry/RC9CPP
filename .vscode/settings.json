@@ -15,7 +15,8 @@
     "vector2d.h": "c",
     "new": "c",
     "gpio.h": "c",
-    "usb_device.h": "c"
+    "usb_device.h": "c",
+    "random": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

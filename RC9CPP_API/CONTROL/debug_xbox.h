@@ -52,12 +52,12 @@ private:
 
 class moters_debug_xbox : public xbox, public ITaskProcessor
 {
-private:
-    power_motor *debug_motor = nullptr;
+public:
+    power_motor *debug_motor = nullptr, *moon = nullptr;
 
     uint8_t debug_mode = 1, start_flag = 0;
 
-    float max_F = 1.2f, max_rpm = 140.0f, setted_f = 0.0f;
+    float max_F = 2.2f, max_rpm = 140.0f, setted_f = 0.0f;
 
 public:
     void process_data();
@@ -77,7 +77,7 @@ public:
     uint8_t priocode = 1;
 
     uint8_t currentState = 0;
-    //catcher_fsm *claw = nullptr;
+    // catcher_fsm *claw = nullptr;
 
 public:
     void

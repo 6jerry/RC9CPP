@@ -17,7 +17,7 @@
  *             in the software.
  ******************************************************************************/
 #include "pid.h"
-pid::pid(float kp_, float ki_, float kd_, float integral_limit_, float output_limit_, float deadzone_, float integral_separation_threshold_) : kp(kp_), ki(ki_), kd(kd_), integral_limit(integral_limit_), output_limit(output_limit_), deadzone(deadzone_), integral_separation_threshold(integral_separation_threshold_)
+pid::pid(float kp_, float ki_, float kd_, float integral_limit_, float output_limit_, float deadzone_, float integral_separation_threshold_) : kp(kp_), ki(ki_), kd(kd_), integral_limit(integral_limit_), output_limit(output_limit_), deadzone(deadzone_), integral_separation_threshold(integral_separation_threshold_), d_filter(1.0f)
 {
 }
 
@@ -27,7 +27,7 @@ void pid::PID_SetParameters(float kp_, float ki_, float kd_)
     ki = ki_;
     kd = kd_;
 }
-void pid::ConfigAll(float kp_, float ki_, float kd_, float integral_limit_, float output_limit_, float deadzone_, float integral_separation_threshold_)
+void pid::ConfigAll(float kp_, float ki_, float kd_, float integral_limit_, float output_limit_, float deadzone_, float integral_separation_threshold_, float filter_a)
 {
     kp = kp_;
     ki = ki_;
@@ -36,6 +36,7 @@ void pid::ConfigAll(float kp_, float ki_, float kd_, float integral_limit_, floa
     output_limit = output_limit_;
     deadzone = deadzone_;
     integral_separation_threshold = integral_separation_threshold_;
+    d_filter.setAlpha(filter_a);
 }
 
 float pid::PID_Compute(float input)
@@ -78,7 +79,7 @@ float pid::PID_Compute(float input)
     d_out = kd * (error - previous_error);
     previous_error = error;
 
-    output = p_out + i_out + d_out;
+    output = p_out + i_out + d_filter.update(d_out);
 
     // 输出限幅
     if (output > output_limit)
@@ -124,7 +125,7 @@ float pid::PID_ComputeError(float error_)
     d_out = kd * (error - previous_error);
     previous_error = error;
 
-    output = p_out + i_out + d_out;
+    output = p_out + i_out + d_filter.update(d_out);
 
     // 输出限幅
     if (output > output_limit)

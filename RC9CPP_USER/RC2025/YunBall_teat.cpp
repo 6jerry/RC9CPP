@@ -14,8 +14,8 @@ extern "C"
         can_core.init();
         esp_port.startUartReceiveIT();
         xbox_test.addport(&esp_port);
-        xbox_test.add_motor(&pitcher, &lifter);
-        xbox_test.add_trigger(GPIOC, GPIO_PIN_15);
+        xbox_test.add_motor(&pitcher, &lifter, &shooter, &turnner);
+        xbox_test.add_trigger(GPIOC, GPIO_PIN_15, GPIOC, GPIO_PIN_13); // shooter c 13
         task_core.registerTask(0, &can_core);
         task_core.registerTask(3, &xbox_test);
         osKernelStart();

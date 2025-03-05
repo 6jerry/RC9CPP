@@ -28,7 +28,7 @@ extern "C"
 #include "motor.h"
 #include <math.h>
 #include "SuperPID.h"
-
+#include "RC9Protocol.h"
 #ifdef __cplusplus
 }
 #endif
@@ -43,7 +43,7 @@ enum m6020_mdoe
     m6020_F                 // 力矩控制
 };
 
-class m6020s : public CanDevice, public dji_motor, public power_motor
+class m6020s : public CanDevice, public dji_motor, public power_motor, public RC9subscriber
 {
 private:
     uint8_t gear_ratio = 1;
@@ -59,6 +59,8 @@ private:
     int16_t servo_speed_plan();
     int16_t rpm_ctrl();
     int16_t F_ctrl();
+
+    bool ebable_debug = false;
 
 public:
     m6020s(uint8_t can_id, CAN_HandleTypeDef *hcan_);
@@ -97,6 +99,10 @@ public:
     void target_angle_tf();
     void set_init_angle(float init_angle_);
     float delta_angle = 0.0f, init_angle = 0.0f, target_relative_angle = 0.0f;
+
+    void config_rpm_pid(float kp, float ki, float kd, float output_limit, float deadzone, float integral_separation_threshold);
+
+    void start_debug();
 };
 
 #endif

@@ -42,7 +42,8 @@ m3508_test/m6020.o: ..\RC9CPP_API\HARDWARE\MOTOR\m6020.cpp \
   ..\RC9CPP_API\HARDWARE\NETWORK\rcncore.h \
   ..\RC9CPP_API\HARDWARE\NETWORK\netswitch.h \
   ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
-  ..\RC9CPP_API\CONTROL\pid.h ..\RC9CPP_API\HARDWARE\MOTOR\motor.h \
+  ..\RC9CPP_API\CONTROL\pid.h ..\RC9CPP_API\CONTROL\filters.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\motor.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\math.h \
   G:\Keil_v5\ARM\ARMCLANG\include\math.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\abs.h \
@@ -217,4 +218,4 @@ m3508_test/m6020.o: ..\RC9CPP_API\HARDWARE\MOTOR\m6020.cpp \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h \
-  ..\RC9CPP_API\MATH_LIB\crc_util.h
+  ..\RC9CPP_API\MATH_LIB\crc_util.h ..\RC9CPP_API\HARDWARE\RC9Protocol.h

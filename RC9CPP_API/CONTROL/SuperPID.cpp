@@ -58,6 +58,11 @@ float superpid::superPID_Compute(float input)
         error_sum = 0.0f; // 积分抗饱和
     }
 
+    if (ki == 0.0f)
+    {
+        error_sum = 0.0f;
+    }
+
     i_out = ki * error_sum;
 
     d_out = -kd * (input - previous_input) / sampling_period;
@@ -122,10 +127,7 @@ float superpid::superPID_ComputeError(float error_, float C_V)
 
     i_out = ki * error_sum;
 
-   
-    
-        d_out = -kd * (C_V - previous_input) / sampling_period;
-    
+    d_out = -kd * (C_V - previous_input) / sampling_period;
 
     // 更新状态
     previous_error = error;

@@ -87,6 +87,7 @@ int16_t m6020s::motor_process()
         break;
     case m6020_rpm_pid:
         target_v = rpm_ctrl();
+
         break;
     case m6020_F:
         target_v = F_ctrl();
@@ -118,9 +119,20 @@ int16_t m6020s::
 
 int16_t m6020s::rpm_ctrl()
 {
-    return 0;
-}
+    rpm_pid.setpoint = target_rpm * (float)gear_ratio;
 
+    if (ebable_debug)
+    {
+        float to_send_datas[2] = {target_rpm, (float)rpm};
+        sendFloatData(1, to_send_datas, 2);
+    }
+
+    return rcurrent_to_vcurrent(rpm_pid.superPID_Compute(rpm));
+}
+void m6020s::start_debug()
+{
+    ebable_debug = true;
+}
 void m6020s::set_F(float F_)
 {
     target_F = F_;
@@ -130,6 +142,10 @@ void m6020s::set_F(float F_)
 float m6020s::get_F()
 {
     return (rcurrent / 1000.0f) * TorqueConstant;
+}
+void m6020s::config_rpm_pid(float kp, float ki, float kd, float output_limit, float deadzone, float integral_separation_threshold)
+{
+    rpm_pid.config_all(kp, ki, kd, output_limit, deadzone, integral_separation_threshold);
 }
 
 void m6020s::can_update(uint8_t can_RxData[8])
@@ -177,6 +193,8 @@ void m6020s::set_pos(float pos)
 }
 void m6020s::set_rpm(float power_motor_rpm)
 {
+    work_mode = m6020_rpm_pid;
+    target_rpm = power_motor_rpm;
     // target_angle = power_motor_rpm;
 }
 float m6020s::get_relative_pos()

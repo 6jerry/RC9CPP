@@ -135,6 +135,9 @@ private:
     Vector2D worldv_2_robov(Vector2D worldvel);
 
     void mecanum_calc(Vector2D robovel, float w);
+    // void swerve4_calc(Vector2D robovel, float w);
+
+    void swerve3_calc(Vector2D robovel, float w);
 
     float v_2_rpm(float v);
 

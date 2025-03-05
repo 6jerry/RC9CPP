@@ -37,13 +37,14 @@ extern "C"
 #define M3508_KT 0.01562f   // 3508的内圈转矩常数 单位：N.M/A
 #define M3508_G 19.2032f    // 最常见的3508减速比，还是建议不要直接取整，0.2也不算小了
 #define M3508_MAXT 0.15622f // 内圈最大转矩
+#define PI 3.14159265f
 
 // PID输入速度误差，输出内圈期望转矩
 
 class m3508p : public CanDevice, public power_motor, public dji_motor // 动力电机版本的m3508
 {
 private:
-    float gear_ratio = 19.2032f;
+    float gear_ratio = 19.2032f, wheel_perimeter = 0.0f;
 
 public:
     m3508p(uint8_t can_id, CAN_HandleTypeDef *hcan_, motor_mode mode_ = speed, float gear_ratio = M3508_G, float kp_ = 32.0f, float ki_ = 0.76f, float kd_ = 8.6f, float r_ = 106.0f);
@@ -56,7 +57,7 @@ public:
     float targrt_T = 0.0f;        // 期望转矩
     float Tff = 0.0f, Cff = 0.0f; // 前馈力矩和换算成的前馈电流
 
-    float last_pos = 0.0f, delta_pos = 0.0f, pos_sum = 0.0f, now_pos = 0.0f, temp_delta=0.0f;
+    float last_pos = 0.0f, delta_pos = 0.0f, pos_sum = 0.0f, now_pos = 0.0f, temp_delta = 0.0f, dis_sum = 0.0f;
     uint8_t init_cnt = 0;
     bool if_init = true;
 
@@ -69,6 +70,8 @@ public:
     void set_fTff(float Tff_); // 设置动摩擦力前馈补偿
 
     void T_TO_C(); // 力矩转换为电流
+
+    void config_mech_param(float gear_ratio_, float wheel_D_);
 
     // bool if_stalling(); // 判断电机是否堵转
 

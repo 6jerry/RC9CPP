@@ -3,7 +3,7 @@
 <title>Static Call Graph - [m3508_test\m3508_test.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image m3508_test\m3508_test.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6210000: Last Updated: Sat Mar  1 23:17:08 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6210000: Last Updated: Wed Mar  5 21:51:07 2025
 <BR><P>
 <H3>Maximum Stack Usage =        280 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -625,9 +625,9 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 48 + Unknown Stack Size
 <LI>Call Chain = abort &rArr; __rt_SIGABRT &rArr; __rt_SIGABRT_inner &rArr; __default_signal_display &rArr; _ttywrch
 </UL>
-<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_exit
-<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_shutdown
+<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_shutdown
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_SIGABRT
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_exit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;abort_message
 </UL>
@@ -1752,11 +1752,11 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;yunball_test_setup
 </UL>
 
-<P><STRONG><a name="[155]"></a>yun_ball_xbox::add_trigger(GPIO_TypeDef*, unsigned short)</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, rc_test_xbox.o(.text._ZN13yun_ball_xbox11add_triggerEP12GPIO_TypeDeft))
+<P><STRONG><a name="[155]"></a>yun_ball_xbox::add_trigger(GPIO_TypeDef*, unsigned short, GPIO_TypeDef*, unsigned short)</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, rc_test_xbox.o(.text._ZN13yun_ball_xbox11add_triggerEP12GPIO_TypeDeftS1_t))
 <BR><BR>[Called By]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;yunball_test_setup
 </UL>
 
-<P><STRONG><a name="[76]"></a>yun_ball_xbox::process_data()</STRONG> (Thumb, 168 bytes, Stack size 24 bytes, rc_test_xbox.o(.text._ZN13yun_ball_xbox12process_dataEv))
+<P><STRONG><a name="[76]"></a>yun_ball_xbox::process_data()</STRONG> (Thumb, 316 bytes, Stack size 24 bytes, rc_test_xbox.o(.text._ZN13yun_ball_xbox12process_dataEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = yun_ball_xbox::process_data() &rArr; xbox::handleButton(xbox::ButtonConfig&)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
@@ -1765,17 +1765,17 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rc_test_xbox.o(.rodata._ZTV13yun_ball_xbox)
 </UL>
-<P><STRONG><a name="[154]"></a>yun_ball_xbox::add_motor(power_motor*, power_motor*)</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, rc_test_xbox.o(.text._ZN13yun_ball_xbox9add_motorEP11power_motorS1_))
+<P><STRONG><a name="[154]"></a>yun_ball_xbox::add_motor(power_motor*, power_motor*, power_motor*, power_motor*)</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, rc_test_xbox.o(.text._ZN13yun_ball_xbox9add_motorEP11power_motorS1_S1_S1_))
 <BR><BR>[Called By]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;yunball_test_setup
 </UL>
 
-<P><STRONG><a name="[10a]"></a>yun_ball_xbox::yun_ball_xbox()</STRONG> (Thumb, 158 bytes, Stack size 16 bytes, rc_test_xbox.o(.text._ZN13yun_ball_xboxC2Ev))
+<P><STRONG><a name="[10a]"></a>yun_ball_xbox::yun_ball_xbox()</STRONG> (Thumb, 224 bytes, Stack size 16 bytes, rc_test_xbox.o(.text._ZN13yun_ball_xboxC2Ev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = yun_ball_xbox::yun_ball_xbox()
 </UL>
 <BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_YunBall_teat.cpp
 </UL>
 
-<P><STRONG><a name="[18d]"></a>yun_ball_xbox::yun_ball_xbox__sub_object()</STRONG> (Thumb, 158 bytes, Stack size 16 bytes, rc_test_xbox.o(.text._ZN13yun_ball_xboxC2Ev), UNUSED)
+<P><STRONG><a name="[18d]"></a>yun_ball_xbox::yun_ball_xbox__sub_object()</STRONG> (Thumb, 224 bytes, Stack size 16 bytes, rc_test_xbox.o(.text._ZN13yun_ball_xboxC2Ev), UNUSED)
 
 <P><STRONG><a name="[77]"></a>yun_ball_xbox::~yun_ball_xbox__deallocating()</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, rc_test_xbox.o(.text._ZN13yun_ball_xboxD0Ev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = yun_ball_xbox::~yun_ball_xbox__deallocating() &rArr; operator delete(void*, unsigned int) &rArr; operator delete(void*) &rArr; free
@@ -1797,7 +1797,7 @@ Global Symbols
 <P><STRONG><a name="[79]"></a>xbox::btnRB_callback()</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, xbox.o(.text._ZN4xbox14btnRB_callbackEv))
 <BR>[Address Reference Count : 1]<UL><LI> rc_test_xbox.o(.rodata._ZTV13yun_ball_xbox)
 </UL>
-<P><STRONG><a name="[11a]"></a>xbox::joymap_compute()</STRONG> (Thumb, 276 bytes, Stack size 0 bytes, xbox.o(.text._ZN4xbox14joymap_computeEv))
+<P><STRONG><a name="[11a]"></a>xbox::joymap_compute()</STRONG> (Thumb, 352 bytes, Stack size 0 bytes, xbox.o(.text._ZN4xbox14joymap_computeEv))
 <BR><BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;yun_ball_xbox::process_data()
 </UL>
 
@@ -1807,7 +1807,7 @@ Global Symbols
 <P><STRONG><a name="[78]"></a>xbox::DataReceivedCallback(unsigned char const*, float const*, unsigned char, unsigned short)</STRONG> (Thumb, 246 bytes, Stack size 0 bytes, xbox.o(.text._ZN4xbox20DataReceivedCallbackEPKhPKfht))
 <BR>[Address Reference Count : 1]<UL><LI> rc_test_xbox.o(.rodata._ZTV13yun_ball_xbox)
 </UL>
-<P><STRONG><a name="[7c]"></a>m3508p::can_update(unsigned char*)</STRONG> (Thumb, 200 bytes, Stack size 16 bytes, m3508.o(.text._ZN6m3508p10can_updateEPh))
+<P><STRONG><a name="[7c]"></a>m3508p::can_update(unsigned char*)</STRONG> (Thumb, 228 bytes, Stack size 16 bytes, m3508.o(.text._ZN6m3508p10can_updateEPh))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = m3508p::can_update(unsigned char*)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dji_motor::vcurrent_to_rcurrent(short)
@@ -1948,8 +1948,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;abort_message
 </UL>
 <BR>[Address Reference Count : 3]<UL><LI> can_device.o(.rodata._ZTV9CanDevice)
-<LI> m3508.o(.rodata._ZTV11power_motor)
 <LI> serial_device.o(.rodata._ZTV12SerialDevice)
+<LI> m3508.o(.rodata._ZTV11power_motor)
 </UL>
 <P><STRONG><a name="[124]"></a>abort_message</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, abort_message.cpp.o(.text.abort_message))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48 + Unknown Stack Size
@@ -2396,14 +2396,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
 </UL>
 
-<P><STRONG><a name="[126]"></a>yunball_test_setup</STRONG> (Thumb, 130 bytes, Stack size 24 bytes, yunball_teat.o(.text.yunball_test_setup))
+<P><STRONG><a name="[126]"></a>yunball_test_setup</STRONG> (Thumb, 164 bytes, Stack size 24 bytes, yunball_teat.o(.text.yunball_test_setup))
 <BR><BR>[Stack]<UL><LI>Max Depth = 240 + Unknown Stack Size
 <LI>Call Chain = yunball_test_setup &rArr; TaskManager::registerTask(int, ITaskProcessor*) &rArr; osThreadNew &rArr; xTaskCreate &rArr; vPortFree &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CanManager::init()
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
-<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;yun_ball_xbox::add_trigger(GPIO_TypeDef*, unsigned short)
-<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;yun_ball_xbox::add_motor(power_motor*, power_motor*)
+<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;yun_ball_xbox::add_trigger(GPIO_TypeDef*, unsigned short, GPIO_TypeDef*, unsigned short)
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;yun_ball_xbox::add_motor(power_motor*, power_motor*, power_motor*, power_motor*)
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskManager::registerTask(int, ITaskProcessor*)
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialDevice::startUartReceiveIT()
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC9subscriber::addport(RC9Protocol*)

@@ -210,12 +210,19 @@ void moters_debug_xbox::process_data()
 
             break;
         case 1:
+            debug_motor->set_rpm((xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_rpm);
+
+            moon->set_rpm((xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_rpm);
             break;
         case 2:
             break;
         case 3:
             break;
         }
+    }
+    else
+    {
+        debug_motor->set_F(0);
     }
 }
 
