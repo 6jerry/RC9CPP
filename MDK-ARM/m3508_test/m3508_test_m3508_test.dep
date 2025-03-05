@@ -1,7 +1,7 @@
 Dependencies for Project 'm3508_test', Target 'm3508_test': (DO NOT MODIFY !)
 CompilerVersion: 6210000::V6.21::ARMCLANG
-F (startup_stm32f407xx.s)(0x67C31D09)(--cpu Cortex-M4.fp.sp -g --diag_suppress=A1950W -I ../Core/Inc-I.\RTE\_m3508_test-IG:\Keil_v5\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IG:\Keil_v5\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 539"--pd "_RTE_ SETA 1"--pd "STM32F407xx SETA 1"--pd "_RTE_ SETA 1"--list ..\startup_stm32f407xx.lst--xref -o m3508_test\startup_stm32f407xx.o--depend m3508_test\startup_stm32f407xx.d)
-F (../Core/Src/main.c)(0x67C83EA9)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test -I ../RC9CPP_USER/R1N_USER -I ../RC9CPP_API/HARDWARE/NETWORK -I G:/stm32_project_cpp/RC9CPP_H7/Drivers/CMSIS/DSP/Include -I ../RC9CPP_USER/SHOOTER_CAR -I ../RC9CPP_USER/RC2025-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/main.o -MD)
+F (startup_stm32f407xx.s)(0x67C865B8)(--cpu Cortex-M4.fp.sp -g --diag_suppress=A1950W -I ../Core/Inc-I.\RTE\_m3508_test-IG:\Keil_v5\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IG:\Keil_v5\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 539"--pd "_RTE_ SETA 1"--pd "STM32F407xx SETA 1"--pd "_RTE_ SETA 1"--list ..\startup_stm32f407xx.lst--xref -o m3508_test\startup_stm32f407xx.o--depend m3508_test\startup_stm32f407xx.d)
+F (../Core/Src/main.c)(0x67C86CEC)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test -I ../RC9CPP_USER/R1N_USER -I ../RC9CPP_API/HARDWARE/NETWORK -I G:/stm32_project_cpp/RC9CPP_H7/Drivers/CMSIS/DSP/Include -I ../RC9CPP_USER/SHOOTER_CAR -I ../RC9CPP_USER/RC2025-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/main.o -MD)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x66E439FF)
 I (..\Core\Inc\stm32f4xx_hal_conf.h)(0x67C56A4E)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h)(0x66E43A00)
@@ -47,7 +47,7 @@ I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h)(0x66E43
 I (..\Core\Inc\can.hi.\Core\Inc\dma.hS.\Core\Inc\tim.h)(0x00000000)
 I (..\Core\Inc\usart.h\.\Core\Inc\gpio.h)(0x00000000)
 I (G:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x6569B012)
-I (..\RC9CPP_USER\RC2025\YunBall_test.h)(0x67C56A4F)
+I (..\RC9CPP_USER\RC2025\YunBall_test.h)(0x67C87B89)
 I (..\RC9CPP_API\HARDWARE\RC9Protocol.h)(0x67C56A4F)
 I (..\RC9CPP_API\HARDWARE\TaskManager.h)(0x67BDA864)
 I (..\RC9CPP_API\HARDWARE\Serial_device.h)(0x67C56A4F)
@@ -59,17 +59,19 @@ I (..\RC9CPP_API\HARDWARE\NETWORK\rcncore.h)(0x67BDA864)
 I (..\RC9CPP_API\HARDWARE\MOTOR\M3508.h)(0x67C706DA)
 I (..\RC9CPP_API\HARDWARE\can_device.hh.\RC9CPP_API\CONTROL\SuperPID.h)(0x00000000)
 I (..\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x67C56A4F)
-I (..\RC9CPP_USER\RC2025\rc_test_xbox.h)(0x67C85248)
+I (..\RC9CPP_API\HARDWARE\MOTOR\M6020.h)(0x67C86B25)
+I (..\RC9CPP_API\CONTROL\filters.h0:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x00000000)
+I (..\RC9CPP_API\HARDWARE\MOTOR\VESC.h)(0x67C2DE28)
+I (..\RC9CPP_USER\RC2025\rc_test_xbox.hi.\RC9CPP_API\CONTROL\xbox.h)(0x00000000)
 I (..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h)(0x67C2DE28)
-I (..\RC9CPP_API\HARDWARE\Action.h\:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x00000000)
-I (..\RC9CPP_API\HARDWARE\imu.hn.\RC9CPP_API\MATH_LIB\Vector2D.h)(0x00000000)
+I (..\RC9CPP_API\HARDWARE\Action.h\.\RC9CPP_API\HARDWARE\imu.h)(0x00000000)
+I (..\RC9CPP_API\MATH_LIB\Vector2D.h)(0x67BDA864)
 I (..\Middlewares\ST\ARM\DSP\Inc\arm_math.h)(0x6694F37F)
 I (..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x66E439B9)
 I (G:\Keil_v5\ARM\ARMCLANG\include\float.h)(0x6569B012)
-I (G:\Keil_v5\ARM\ARMCLANG\include\limits.hh\RC9CPP_API\CONTROL\pid.h)(0x00000000)
-I (..\RC9CPP_API\CONTROL\filters.h\.\RC9CPP_API\CONTROL\pure_pursuit.h)(0x00000000)
-I (..\RC9CPP_API\CONTROL\odometry.h)(0x67C2DE28)
-F (../Core/Src/gpio.c)(0x67C56A4E)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test -I ../RC9CPP_USER/R1N_USER -I ../RC9CPP_API/HARDWARE/NETWORK -I G:/stm32_project_cpp/RC9CPP_H7/Drivers/CMSIS/DSP/Include -I ../RC9CPP_USER/SHOOTER_CAR -I ../RC9CPP_USER/RC2025-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/gpio.o -MD)
+I (G:\Keil_v5\ARM\ARMCLANG\include\limits.h)(0x6569B012)
+I (..\RC9CPP_API\CONTROL\pure_pursuit.ht.\RC9CPP_API\CONTROL\odometry.h)(0x00000000)
+F (../Core/Src/gpio.c)(0x67C865B4)(-xc -std=gnu11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test -I ../RC9CPP_USER/R1N_USER -I ../RC9CPP_API/HARDWARE/NETWORK -I G:/stm32_project_cpp/RC9CPP_H7/Drivers/CMSIS/DSP/Include -I ../RC9CPP_USER/SHOOTER_CAR -I ../RC9CPP_USER/RC2025-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/gpio.o -MD)
 I (..\Core\Inc\main.hR.\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x00000000)
 I (..\Core\Inc\stm32f4xx_hal_conf.h)(0x67C56A4E)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h)(0x66E43A00)
@@ -1570,7 +1572,7 @@ I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\float.h)(0x64F9642C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\float.h)(0x6569B012)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\limits.h)(0x64F9642C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\limits.h)(0x6569B012)
-F (..\RC9CPP_API\HARDWARE\can_device.cpp)(0x67C5AF07)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test -I ../RC9CPP_USER/R1N_USER -I ../RC9CPP_API/HARDWARE/NETWORK -I G:/stm32_project_cpp/RC9CPP_H7/Drivers/CMSIS/DSP/Include -I ../RC9CPP_USER/SHOOTER_CAR -I ../RC9CPP_USER/RC2025-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/can_device.o -MD)
+F (..\RC9CPP_API\HARDWARE\can_device.cpp)(0x67C86B25)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test -I ../RC9CPP_USER/R1N_USER -I ../RC9CPP_API/HARDWARE/NETWORK -I G:/stm32_project_cpp/RC9CPP_H7/Drivers/CMSIS/DSP/Include -I ../RC9CPP_USER/SHOOTER_CAR -I ../RC9CPP_USER/RC2025-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/can_device.o -MD)
 I (..\RC9CPP_API\HARDWARE\can_device.h)(0x67BDA864)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h)(0x64F9642C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config)(0x6569B00C)
@@ -1792,8 +1794,8 @@ I (..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h)(0x66E439BB)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h)(0x66E439BB)
 I (..\RC9CPP_API\MATH_LIB\crc_util.hO.\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x00000000)
 F (..\RC9CPP_API\HARDWARE\MOTOR\M3508.h)(0x67C706DA)()
-F (..\RC9CPP_API\HARDWARE\MOTOR\m6020.cpp)(0x67C5B288)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test -I ../RC9CPP_USER/R1N_USER -I ../RC9CPP_API/HARDWARE/NETWORK -I G:/stm32_project_cpp/RC9CPP_H7/Drivers/CMSIS/DSP/Include -I ../RC9CPP_USER/SHOOTER_CAR -I ../RC9CPP_USER/RC2025-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/m6020.o -MD)
-I (..\RC9CPP_API\HARDWARE\MOTOR\m6020.h)(0x67C5AE6B)
+F (..\RC9CPP_API\HARDWARE\MOTOR\m6020.cpp)(0x67C86B25)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test -I ../RC9CPP_USER/R1N_USER -I ../RC9CPP_API/HARDWARE/NETWORK -I G:/stm32_project_cpp/RC9CPP_H7/Drivers/CMSIS/DSP/Include -I ../RC9CPP_USER/SHOOTER_CAR -I ../RC9CPP_USER/RC2025-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/m6020.o -MD)
+I (..\RC9CPP_API\HARDWARE\MOTOR\m6020.h)(0x67C86B25)
 I (..\RC9CPP_API\HARDWARE\can_device.h)(0x67BDA864)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h)(0x64F9642C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config)(0x6569B00C)
@@ -2013,7 +2015,7 @@ I (..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h)(0x66E439BB)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h)(0x66E439BB)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h)(0x66E439BB)
 I (..\RC9CPP_API\MATH_LIB\crc_util.hO.\RC9CPP_API\HARDWARE\RC9Protocol.h)(0x00000000)
-F (..\RC9CPP_API\HARDWARE\MOTOR\m6020.h)(0x67C5AE6B)()
+F (..\RC9CPP_API\HARDWARE\MOTOR\m6020.h)(0x67C86B25)()
 F (..\RC9CPP_API\HARDWARE\MOTOR\motor.cpp)(0x67BDA864)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -Ofast -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test -I ../RC9CPP_USER/R1N_USER -I ../RC9CPP_API/HARDWARE/NETWORK -I G:/stm32_project_cpp/RC9CPP_H7/Drivers/CMSIS/DSP/Include -I ../RC9CPP_USER/SHOOTER_CAR -I ../RC9CPP_USER/RC2025-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/motor.o -MD)
 I (..\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x67C56A4F)
 I (..\RC9CPP_API\HARDWARE\can_device.h)(0x67BDA864)
@@ -4672,8 +4674,8 @@ I (G:\Keil_v5\ARM\ARMCLANG\include\limits.hi\RC9CPP_API\CONTROL\pid.h)(0x0000000
 I (..\RC9CPP_API\CONTROL\filters.h\.\RC9CPP_API\CONTROL\pure_pursuit.h)(0x00000000)
 I (..\RC9CPP_API\CONTROL\odometry.h..\Core\Inc\gpio.h)(0x00000000)
 F (..\RC9CPP_USER\RC2025\rc_test_xbox.h)(0x67C85248)()
-F (..\RC9CPP_USER\RC2025\YunBall_teat.cpp)(0x67C854D1)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O3 -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test -I ../RC9CPP_USER/R1N_USER -I ../RC9CPP_API/HARDWARE/NETWORK -I G:/stm32_project_cpp/RC9CPP_H7/Drivers/CMSIS/DSP/Include -I ../RC9CPP_USER/SHOOTER_CAR -I ../RC9CPP_USER/RC2025-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/yunball_teat.o -MD)
-I (..\RC9CPP_USER\RC2025\YunBall_test.h)(0x67C56A4F)
+F (..\RC9CPP_USER\RC2025\YunBall_teat.cpp)(0x67C87BD7)(-xc++ -std=gnu++17 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O3 -ffunction-sections -w -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/ST/ARM/DSP/Inc -I ../RC9CPP_API -I ../RC9CPP_API/CONTROL -I ../RC9CPP_API/CONTROL/STRUCTURE -I ../RC9CPP_API/DECISION -I ../RC9CPP_API/HARDWARE -I ../RC9CPP_API/HARDWARE/MOTOR -I ../RC9CPP_API/MATH_LIB -I ../RC9CPP_USER -I ../RC9CPP_USER/R2N_USER -I ../RC9CPP_USER/structure_test -I ../RC9CPP_USER/R1N_USER -I ../RC9CPP_API/HARDWARE/NETWORK -I G:/stm32_project_cpp/RC9CPP_H7/Drivers/CMSIS/DSP/Include -I ../RC9CPP_USER/SHOOTER_CAR -I ../RC9CPP_USER/RC2025-I./RTE/_m3508_test-IG:/Keil_v5/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IG:/Keil_v5/Keil/STM32F4xx_DFP/2.14.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DUSE_STDPERIPH_DRIVER -DARM_MATH_CM4-o m3508_test/yunball_teat.o -MD)
+I (..\RC9CPP_USER\RC2025\YunBall_test.h)(0x67C87B89)
 I (..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h)(0x66E439BB)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdint.h)(0x64F9642C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config)(0x6569B00C)
@@ -4732,9 +4734,8 @@ I (..\RC9CPP_API\HARDWARE\NETWORK\rcncore.h)(0x67BDA864)
 I (..\RC9CPP_API\HARDWARE\MOTOR\M3508.h)(0x67C706DA)
 I (..\RC9CPP_API\HARDWARE\can_device.hh.\Core\Inc\can.h)(0x00000000)
 I (..\RC9CPP_API\CONTROL\SuperPID.he.\RC9CPP_API\HARDWARE\MOTOR\motor.h)(0x00000000)
-I (..\RC9CPP_USER\RC2025\rc_test_xbox.hC.\RC9CPP_API\CONTROL\xbox.h)(0x00000000)
-I (..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h)(0x67C2DE28)
-I (..\RC9CPP_API\HARDWARE\Action.h)(0x67C2DE28)
+I (..\RC9CPP_API\HARDWARE\MOTOR\M6020.hC.\RC9CPP_API\CONTROL\pid.h)(0x00000000)
+I (..\RC9CPP_API\CONTROL\filters.h)(0x67C5A5D3)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\math.h)(0x6569B010)
 I (G:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x6569B012)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\abs.h)(0x6569B004)
@@ -4894,7 +4895,11 @@ I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\rounding_functions.h)(0x6569B00
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h)(0x6569B004)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h)(0x6569B004)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h)(0x6569B010)
-I (G:\Keil_v5\ARM\ARMCLANG\include\stdlib.ht\RC9CPP_API\HARDWARE\imu.h)(0x00000000)
+I (G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x6569B012)
+I (..\RC9CPP_API\HARDWARE\MOTOR\VESC.h)(0x67C2DE28)
+I (..\RC9CPP_USER\RC2025\rc_test_xbox.hi.\RC9CPP_API\CONTROL\xbox.h)(0x00000000)
+I (..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h)(0x67C2DE28)
+I (..\RC9CPP_API\HARDWARE\Action.h\.\RC9CPP_API\HARDWARE\imu.h)(0x00000000)
 I (..\RC9CPP_API\MATH_LIB\Vector2D.h)(0x67BDA864)
 I (..\Middlewares\ST\ARM\DSP\Inc\arm_math.h)(0x6694F37F)
 I (..\Drivers\CMSIS\Include\cmsis_compiler.h)(0x66E439B9)
@@ -4903,8 +4908,8 @@ I (G:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x6569B012)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\float.h)(0x64F9642C)
 I (G:\Keil_v5\ARM\ARMCLANG\include\float.h)(0x6569B012)
 I (G:\Keil_v5\ARM\ARMCLANG\include\libcxx\limits.h)(0x64F9642C)
-I (G:\Keil_v5\ARM\ARMCLANG\include\limits.hi\RC9CPP_API\CONTROL\pid.h)(0x00000000)
-I (..\RC9CPP_API\CONTROL\filters.h\.\RC9CPP_API\CONTROL\pure_pursuit.h)(0x00000000)
-I (..\RC9CPP_API\CONTROL\odometry.h..\Core\Inc\gpio.h)(0x00000000)
-F (..\RC9CPP_USER\RC2025\YunBall_test.h)(0x67C56A4F)()
+I (G:\Keil_v5\ARM\ARMCLANG\include\limits.h)(0x6569B012)
+I (..\RC9CPP_API\CONTROL\pure_pursuit.ht.\RC9CPP_API\CONTROL\odometry.h)(0x00000000)
+I (..\Core\Inc\gpio.h)(0x66D9DA36)
+F (..\RC9CPP_USER\RC2025\YunBall_test.h)(0x67C87B89)()
 F (../Middlewares/ST/ARM/DSP/Lib/arm_cortexM4lf_math.lib)(0x6694F37F)()

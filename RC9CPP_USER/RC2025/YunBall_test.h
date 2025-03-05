@@ -12,7 +12,7 @@ extern "C"
 
 #include "M3508.h"
 #include "M6020.h"
-
+#include "VESC.h"
 #include "rc_test_xbox.h"
 #include "gpio.h"
     void yunball_test_setup(void);
