@@ -18,12 +18,12 @@ extern "C"
         task_core.registerTask(3, &m6020_debug);
         task_core.registerTask(7, &debug_port);
         // task_core.registerTask(8, &esp_port);
-        m6020_debug.add_motor(&m6020_front);
+        m6020_debug.add_motor(&m6020_right);
         m6020_debug.addport(&esp_port);
-        m6020_front.rpm_pid.config_all(0.0f, 0.0f, 0.0f, 3000.0f, 2.0f, 65.0f);
-        m6020_front.pos_pid.ConfigAll(0.0f, 0.0f, 0.0f, 0.0f, 130.0f, 0.2f, 0.0f);
-        m6020_front.addport(&debug_port);
-        m6020_front.start_debug();
+        m6020_right.rpm_pid.config_all(0.0f, 0.0f, 0.0f, 3000.0f, 2.0f, 65.0f);
+        m6020_right.pos_pid.ConfigAll(0.0f, 0.0f, 0.0f, 0.0f, 130.0f, 0.2f, 0.0f);
+        m6020_right.addport(&debug_port);
+        m6020_right.start_debug();
 
         osKernelStart();
     }

@@ -2221,8 +2221,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\YunBall_teat.cpp</PathWithFileName>
-      <FilenameWithoutPath>YunBall_teat.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\m6020_adjust.cpp</PathWithFileName>
+      <FilenameWithoutPath>m6020_adjust.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2233,8 +2233,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\YunBall_test.h</PathWithFileName>
-      <FilenameWithoutPath>YunBall_test.h</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\m6020_adjust.h</PathWithFileName>
+      <FilenameWithoutPath>m6020_adjust.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

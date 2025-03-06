@@ -3386,9 +3386,9 @@
               <FilePath>..\RC9CPP_USER\RC2025\rc_test_xbox.h</FilePath>
             </File>
             <File>
-              <FileName>YunBall_teat.cpp</FileName>
+              <FileName>m6020_adjust.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\RC9CPP_USER\RC2025\YunBall_teat.cpp</FilePath>
+              <FilePath>..\RC9CPP_USER\RC2025\m6020_adjust.cpp</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -3442,9 +3442,9 @@
               </FileOption>
             </File>
             <File>
-              <FileName>YunBall_test.h</FileName>
+              <FileName>m6020_adjust.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\RC9CPP_USER\RC2025\YunBall_test.h</FilePath>
+              <FilePath>..\RC9CPP_USER\RC2025\m6020_adjust.h</FilePath>
             </File>
           </Files>
         </Group>

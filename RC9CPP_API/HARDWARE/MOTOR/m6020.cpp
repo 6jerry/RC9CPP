@@ -101,6 +101,11 @@ int16_t m6020s::motor_process()
 int16_t m6020s::F_ctrl()
 {
     target_test_v = (target_F / TorqueConstant) * 1000.0f;
+    if (ebable_debug)
+    {
+        float to_send_datas[2] = {0.0f, (float)rpm};
+        sendFloatData(1, to_send_datas, 2);
+    }
 
     return rcurrent_to_vcurrent((target_F / TorqueConstant) * 1000.0f);
 }
