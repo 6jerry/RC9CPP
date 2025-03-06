@@ -53,7 +53,7 @@ private:
 class moters_debug_xbox : public xbox, public ITaskProcessor
 {
 public:
-    power_motor *debug_motor = nullptr, *moon = nullptr;
+    power_motor *debug_motor = nullptr;
 
     uint8_t debug_mode = 1, start_flag = 0;
 

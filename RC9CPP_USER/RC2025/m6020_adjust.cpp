@@ -1,7 +1,6 @@
 #include "m6020_adjust.h"
 
-m6020s m6020_left_front(4, &hcan1), m6020_right_front(3, &hcan1), m6020_left_back(1, &hcan1), m6020_right_back(2, &hcan1); // 舵向电机
-m3508p mo1(1, &hcan1), mo2(2, &hcan1);
+m6020s m6020_front(3, &hcan1), m6020_left(1, &hcan1), m6020_right(2, &hcan1); // 舵向电机
 
 moters_debug_xbox m6020_debug;
 TaskManager task_core;
@@ -19,12 +18,13 @@ extern "C"
         task_core.registerTask(3, &m6020_debug);
         task_core.registerTask(7, &debug_port);
         // task_core.registerTask(8, &esp_port);
-        m6020_debug.add_motor(&m6020_right_front);
+        m6020_debug.add_motor(&m6020_front);
         m6020_debug.addport(&esp_port);
-        m6020_right_front.rpm_pid.config_all(0.0f, 0.0f, 0.0f, 3000.0f, 2.0f, 65.0f);
-        m6020_right_front.addport(&debug_port);
-        m6020_right_front.start_debug();
-        m6020_debug.moon = &mo2;
+        m6020_front.rpm_pid.config_all(0.0f, 0.0f, 0.0f, 3000.0f, 2.0f, 65.0f);
+        m6020_front.pos_pid.ConfigAll(0.0f, 0.0f, 0.0f, 0.0f, 130.0f, 0.2f, 0.0f);
+        m6020_front.addport(&debug_port);
+        m6020_front.start_debug();
+
         osKernelStart();
     }
 

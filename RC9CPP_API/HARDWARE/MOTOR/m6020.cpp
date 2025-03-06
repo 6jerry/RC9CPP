@@ -108,7 +108,14 @@ int16_t m6020s::F_ctrl()
 int16_t m6020s::
     servo_pid()
 {
-    return 0;
+    target_rpm = pos_pid.PID_ComputeError(angle_error);
+    if (ebable_debug)
+    {
+        float to_send_datas[2] = {0.0f, angle_error};
+        sendFloatData(1, to_send_datas, 2);
+    }
+
+    return rpm_ctrl();
 }
 
 int16_t m6020s::
@@ -189,6 +196,7 @@ float m6020s::get_pos()
 }
 void m6020s::set_pos(float pos)
 {
+    work_mode = m6020_servo_pid;
     target_relative_angle = pos;
 }
 void m6020s::set_rpm(float power_motor_rpm)
