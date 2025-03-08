@@ -344,7 +344,7 @@ void MX_TIM12_Init(void)
   htim12.Instance = TIM12;
   htim12.Init.Prescaler = 1679;
   htim12.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim12.Init.Period = 999;
+  htim12.Init.Period = 1999;
   htim12.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim12.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim12) != HAL_OK)

@@ -81,6 +81,7 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+
   HAL_Init();
 
   /* USER CODE BEGIN Init */
@@ -101,7 +102,6 @@ int main(void)
   MX_TIM2_Init();
   MX_USART3_UART_Init();
   MX_UART4_Init();
-  MX_USART2_UART_Init();
   MX_USART6_UART_Init();
   MX_UART5_Init();
   MX_TIM3_Init();
@@ -118,10 +118,10 @@ int main(void)
   osKernelInitialize();
 
   /* Call init function for freertos objects (in cmsis_os2.c) */
-
+  //MX_FREERTOS_Init();
 
   /* Start scheduler */
-
+  //osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
 

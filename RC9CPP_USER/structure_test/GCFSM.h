@@ -13,6 +13,7 @@ extern "C"
 #include "robot_chassis.h"
 #include "servo.h"
 #include "PID.h"
+#include "gpio.h"
 #ifdef __cplusplus
 }
 #endif
@@ -33,16 +34,24 @@ enum GCCLAW_STATE
     claw_move_1ball,
 
     claw_throw_ball,
+
+    claw_close_1ball,
 };
 
 #define left_foward 165
 #define right_foward 197
 #define left_inside 260
-#define right_inside 92
+#define right_inside 86
 #define left_outside 128
 #define right_outside 240
 #define left_ready_for_ball 190
 #define right_ready_for_ball 174
+
+#define right_hold_for_ball 166
+#define left_hold_for_ball 198
+
+#define pitch_search_ball 76
+#define pitch_check_ball 150
 
 class catcher_fsm : public ITaskProcessor
 {
@@ -60,6 +69,7 @@ public:
     void move_ball();
     void ready_catch_ball();
     void throw_ball();
+    void close_for_ball();
 };
 
 enum GCSTATE
@@ -94,7 +104,13 @@ enum catch_ball_state
     catch_ball_rush_to_throw_ball,
     catch_ball_back_to_serch_ball_point,
     catch_ball_go_to_1_ball_point,
-    catch_ball_wait_ball_in
+    catch_ball_wait_ball_in,
+    catch_ball_go_to_retry_point_up_left,
+    catch_ball_go_to_retry_point_up_right,
+    catch_ball_go_to_retry_point_down_left,
+    catch_ball_go_to_retry_point_down_right,
+    catch_ball_go_to_retry_exit_left,
+    catch_ball_go_to_retry_exit_right
 
 };
 // ball 1 kanqiu -0.053,0.508,0.0
@@ -120,12 +136,25 @@ private:
 
     float catch_ball_speed = 0.3f, entererd_ball_size = 800.0f, throw_ball_speed = 1.6f;
 
-    Vector2D throw_point, serch_point, first_ball_point;
+    float able_to_open_size = 700.0f;
+
+    Vector2D throw_point, serch_point, first_ball_point, retry_point_up_left, retry_point_up_right, retry_point_down_left, retry_point_down_right, retry_exit_left, retry_exit_right;
+
+    float red_zone_retry_x = 0.5452f, blue_zone_retry_x = -0.537f, re_try_y_down = 0.5304f, re_try_y_up = 1.466f;
+
+    float zone_judge = 1.0f, ask_lock_ball = 2.0f;
 
     float throw_point_yaw = 0.0f, serch_point_yaw = 0.0f, first_ball_point_yaw = 0.0f;
 
+    servo *pitcher_motor = nullptr;
+    GPIO_TypeDef *sensor_port = nullptr;
+    uint16_t GPIO_sensor_pin;
+
+    uint8_t sensor_flag = 0;
+
 public:
-    void process_data();
+    void
+    process_data();
     catcher_fsm *catcher = nullptr;
 
     void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
@@ -134,12 +163,17 @@ public:
     void stop_catch_ball();
 
     bool if_finish_catch_ball();
+    void add_servo_and_sensor(servo *pitcher_motor_, GPIO_TypeDef *sensor_port_, uint16_t GPIO_sensor_pin_);
+
+    void set_serch_point(Vector2D point);
 
     void set_throw_point(Vector2D point);
 
     void config_ball_pid(float kp_, float ki_, float kd_, float integral_limit_, float output_limit_, float deadzone_, float integral_separation_threshold_);
 
     catch_ball_fsm();
+
+    void re_try_judge();
 };
 
 enum dead_ball_state

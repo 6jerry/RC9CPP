@@ -85,6 +85,9 @@ public:
 
     float get_yaw(); // 获取当前的yaw
 
+    float get_world_x();
+    float get_world_y();
+
     void chassis_back_priority(); // 回退到上一个优先级
     void chassis_rst_priority();  // 重置优先级
 
@@ -110,6 +113,9 @@ public:
     void pointtrack_config(float kp, float ki, float kd, float integral_limit, float output_limit, float deadzone, float integral_separation_threshold);
 
     void yawadjuster_config(float kp, float ki, float kd, float integral_limit, float output_limit, float deadzone, float integral_separation_threshold);
+
+    float get_cworld_x();
+    float get_cworld_y();
 
 private:
     chassis_user *user = nullptr; // 当前是哪个类正在使用底盘

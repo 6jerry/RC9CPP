@@ -31,7 +31,7 @@ extern "C"
 }
 #endif
 #ifdef __cplusplus
-class demo : public ITaskProcessor, public chassis_user,public RC9subscriber
+class demo : public ITaskProcessor, public chassis_user, public RC9subscriber
 {
 private:
     float elapsedTime = 0.0f, test_data = 0.0f, send_data = 6.0f;
@@ -40,10 +40,12 @@ private:
 
     const float full_angle = 180.0f;
 
+    uint8_t enter_flag = 0;
+
 public:
     void process_data();
-    float test_ccr = 0.0f, test2_ccr = 0.0f;
-    uint32_t CCR = 0, CCR2 = 0;
+    float test_ccr = 0.0f, test2_ccr = 0.0f,test3_ccr = 0.0f;
+    uint32_t CCR = 0, CCR2 = 0, CCR3 = 0;
 };
 
 #endif

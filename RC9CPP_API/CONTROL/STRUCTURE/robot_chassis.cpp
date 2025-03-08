@@ -82,8 +82,8 @@ Vector2D RoboChassis::worldv_2_robov(Vector2D worldvel)
 
 void RoboChassis::mecanum_calc(Vector2D robovel, float w)
 {
-    robovel.x = -robovel.x;
-    robovel.y = -robovel.y;
+    // robovel.x = -robovel.x;
+    // robovel.y = -robovel.y;
     w = -w;
 
     motors[0]->set_rpm(-v_2_rpm((-robovel.x + robovel.y + w * (chassis_info_.length + chassis_info_.wide))));
@@ -299,4 +299,22 @@ float RoboChassis::get_track_disC()
 float chassis_user::get_track_dis()
 {
     return robochassis_->get_track_disC();
+}
+
+float RoboChassis::get_cworld_x()
+{
+    return IMU->get_world_pos().x;
+}
+float RoboChassis::get_cworld_y()
+{
+    return IMU->get_world_pos().y;
+}
+
+float chassis_user::get_world_x()
+{
+    return robochassis_->get_cworld_x();
+}
+float chassis_user::get_world_y()
+{
+    return robochassis_->get_cworld_y();
 }

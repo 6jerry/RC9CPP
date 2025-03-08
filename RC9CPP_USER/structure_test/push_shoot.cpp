@@ -33,18 +33,18 @@
 // 放球的车头朝向
 #define target_push_heading 1.27f
 
-m3508p m3508_shooter(1, &hcan1), m3508_pitch(2, &hcan1);
-// m6020s m6020_test(4, &hcan2);
-// vesc vesc_test(1, &hcan1);
+// m3508p m3508_shooter(1, &hcan1), m3508_pitch(2, &hcan1);
+//  m6020s m6020_test(4, &hcan2);
+//  vesc vesc_test(1, &hcan1);
 TaskManager task_core;
-CanManager can_core;
-//  shoot_xbox shoot_control(&m3508_shooter, &m3508_pitch);
+// CanManager can_core;
+//   shoot_xbox shoot_control(&m3508_shooter, &m3508_pitch);
 RC9Protocol debug(cdc), esp32(uart, &huart3), position_port(uart, &huart4);
 
 position position_test;
 
 RoboChassis m4(mecanum_chassis);
-servo mg996_left(&htim9, TIM_CHANNEL_1), mg996_right(&htim9, TIM_CHANNEL_2);
+servo mg996_left(&htim9, TIM_CHANNEL_1), mg996_right(&htim9, TIM_CHANNEL_2), sg90(&htim12, TIM_CHANNEL_1);
 
 // swerve4 swerve_test(&vesc_test, &m6020_test);
 tb6612 right_back(&htim2, TIM_CHANNEL_1, &htim8, GPIOC, GPIO_PIN_1, GPIOC, GPIO_PIN_0), right_front(&htim2, TIM_CHANNEL_2, &htim4, GPIOC, GPIO_PIN_3, GPIOC, GPIO_PIN_2), left_back(&htim2, TIM_CHANNEL_3, &htim3, GPIOF, GPIO_PIN_2, GPIOF, GPIO_PIN_1), left_front(&htim2, TIM_CHANNEL_4, &htim1, GPIOF, GPIO_PIN_4, GPIOF, GPIO_PIN_3);
@@ -67,13 +67,14 @@ pshoot_setup(void)
 
     // esp32_serial.msgbuff_pub.init("xboxbuff", SYN, &esp32_serial);
     // box_test.buff_sub.init("xboxbuff", SYN, &box_test);
-    can_core.init();
+    // can_core.init();
     right_front.init();
     right_back.init();
     left_front.init();
     left_back.init();
     mg996_left.init();
     mg996_right.init();
+    sg90.init();
     // test2.add_chassis(&m4);
     m4.config(m4_chassis_info);
     m4.pointtrack_config(1.96f, 0.0f, 0.86f, 0.0f, 3.0f, 0.005f, 0.0f);
@@ -92,21 +93,23 @@ pshoot_setup(void)
     task_core.registerTask(5, &left_front);
     task_core.registerTask(5, &claw_test);
     task_core.registerTask(5, &catcher_test);
-
+    task_core.registerTask(8, &debug);
     // task_core.registerTask(8, &test2);
-    task_core.registerTask(1, &can_core);
+    //  task_core.registerTask(1, &can_core);
     task_core.registerTask(3, &m4);
     task_core.registerTask(3, &xbox_ctrl);
     m4.add4_motors(&left_front, &right_front, &right_back, &left_back);
     m4.add_imu(&position_test);
     // xbox_test.addport(&esp32);
     xbox_ctrl.addport(&esp32);
+
     // mg996_left.set_ccr(left_up); // 146 最低位,80最高位
     // mg996_right.set_ccr(right_up);
     xbox_ctrl.catcher = &catcher_test;
     catcher_test.catcher = &claw_test;
     catcher_test.addport(&debug);
     catcher_test.add_chassis(&m4);
+    catcher_test.add_servo_and_sensor(&sg90, GPIOD, GPIO_PIN_6);
     claw_test.add_servo(&mg996_left, &mg996_right);
 
     // test2.add_IO(&xbox_test, &debug);
@@ -115,6 +118,8 @@ pshoot_setup(void)
     catcher_test.config_ball_pid(0.0028f, 0.0f, 0.0045f, 0.0f, 1.1f, 5.0f, 0.0f
 
     );
+    // claw_test.close_for_ball();
+    sg90.set_ccr(76);
     // xbox_ctrl.claw = &claw_test;
     //  debug.rcninit(3);
     //   mg996_left.set_ccr(150);
@@ -146,10 +151,12 @@ void demo::process_data()
     // pid_send_debuginfo(get_input_mapvalue() * full_angle, get_yaw());
     CCR = (uint32_t)test_ccr;
     CCR2 = (uint32_t)test2_ccr;
+    CCR3 = (uint32_t)test3_ccr;
     mg996_right.set_ccr(CCR);
     mg996_left.set_ccr(CCR2);
-
-    // float test_datas[3] = {0.1f, 0.2f, 0.3f};
-    // sendFloatData(1, test_datas, 3);
-    //  claw_test.throw_ball();
+    sg90.set_ccr(CCR3);
+    // enter_flag = HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_6);
+    //  float test_datas[3] = {0.1f, 0.2f, 0.3f};
+    //  sendFloatData(1, test_datas, 3);
+    //   claw_test.throw_ball();
 }
