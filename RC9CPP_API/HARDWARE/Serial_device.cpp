@@ -71,7 +71,7 @@ extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
 extern "C"
 {
-    // 这是 C 接口，允许从 C 调用
+    // 这是 C 接口，在虚拟串口cdc的回调函数中手动调用
     void ProcessReceivedData(uint8_t *Buf, uint32_t Len)
     {
         if (SerialDevice::cdc_instance != nullptr)
