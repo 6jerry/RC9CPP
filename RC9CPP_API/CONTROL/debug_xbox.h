@@ -59,6 +59,8 @@ public:
 
     float max_F = 2.2f, max_rpm = 140.0f, setted_f = 0.0f;
 
+    float max_speed = 500.0f, max_acc = 800.0f, max_dec = 800.0f, final_speed = 0.0f, target_dis = 600.0f;
+
 public:
     void process_data();
     void btn_scan();

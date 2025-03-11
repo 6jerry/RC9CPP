@@ -7,7 +7,7 @@ extern "C"
 #endif
 #include "arm_math.h"
 #include "Vector2D.h"
-#include "pure_pursuit.h" 
+#include "pure_pursuit.h"
 #ifdef __cplusplus
 }
 #endif
@@ -89,5 +89,65 @@ private:
     pointrack m_pointTrack; // 使用你提供的 PID 点追踪类
 };
 
+class TrapezoidalPlanner1D
+{
+public:
+    // 构造函数，初始状态为 FINISHED（无规划）
+    TrapezoidalPlanner1D();
+
+    /**
+     * @brief 初始化一次新的规划，重置内部状态和参数
+     * @param maxAcc       最大加速度（正值）
+     * @param maxDec       最大减速度（正值）
+     * @param maxSpeed     最大允许速度
+     * @param initialSpeed 起始时的速度
+     * @param finalSpeed   目标点的速度
+     * @param startPos     起始位置
+     * @param targetPos    目标位置
+     */
+    void start_plan(float maxAcc, float maxDec, float maxSpeed, float initialSpeed, float finalSpeed, float startPos, float targetPos);
+
+    /**
+     * @brief 根据当前已行驶的距离，规划目标速度
+     * @param traveled 已行驶的距离
+     * @return 目标速度
+     */
+    float plan(float now_dis);
+
+    float traveled = 0.0f;
+
+    // 辅助接口：根据当前已行驶距离判断处于哪个阶段
+    Phase determinePhase(float traveled);
+
+    // 获取当前阶段
+    Phase getPhase() const { return m_phase; }
+
+    bool isFinished() const { return m_phase == FINISHED_PHASE; }
+
+    void reset();
+
+private:
+    // 内部状态
+    Phase m_phase;
+    // 规划参数
+    float m_maxAcc;        // 最大加速度
+    float m_maxDec;        // 最大减速度
+    float m_maxSpeed;      // 最大速度
+    float m_initialSpeed;  // 起始速度
+    float m_finalSpeed;    // 目标速度
+    float m_startPos;      // 起始位置
+    float m_targetPos;     // 目标位置
+    float m_totalDistance; // 总路程
+
+    // 各阶段路程
+    float m_accelDistance; // 加速段长度
+    float m_decelDistance; // 减速段长度
+
+    float direction = 0.0f;
+
+    float min_dead_speed = 0.0f;
+    float v_target = 0.0f;
+};
+
 #endif
-#endif // TRAPEZOIDAL_PLANNER_H
+#endif 

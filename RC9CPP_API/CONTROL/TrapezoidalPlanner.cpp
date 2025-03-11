@@ -150,3 +150,127 @@ Vector2D TrapezoidalPlanner::plan(const Vector2D &currentPos)
 
     return direction * v_target;
 }
+
+TrapezoidalPlanner1D::TrapezoidalPlanner1D()
+    : m_phase(FINISHED_PHASE), m_maxAcc(0), m_maxDec(0), m_maxSpeed(0),
+      m_initialSpeed(0), m_finalSpeed(0), m_totalDistance(0),
+      m_accelDistance(0), m_decelDistance(0)
+{
+}
+
+void TrapezoidalPlanner1D::start_plan(float maxAcc, float maxDec, float maxSpeed, float initialSpeed, float finalSpeed, float startPos, float targetPos)
+{
+    // 保存用户参数
+    m_maxAcc = abs(maxAcc);
+    m_maxDec = abs(maxDec);
+    m_maxSpeed = abs(maxSpeed);
+    m_initialSpeed = abs(initialSpeed);
+    m_finalSpeed = abs(finalSpeed);
+    m_startPos = startPos;
+    m_targetPos = targetPos;
+
+    // 计算总路程
+    m_totalDistance = abs(targetPos - startPos);
+
+    if (targetPos - startPos > 0.0f)
+    {
+        direction = 1.0f;
+    }
+    else if (targetPos - startPos < 0.0f)
+    {
+        direction = -1.0f;
+    }
+
+    // 计算加速和减速所需的路程
+    float d_acc = (m_maxSpeed * m_maxSpeed - m_initialSpeed * m_initialSpeed) / (2.0f * m_maxAcc);
+    float d_dec = (m_maxSpeed * m_maxSpeed - m_finalSpeed * m_finalSpeed) / (2.0f * m_maxDec);
+
+    // 判断是否能够达到设定最大速度
+    if (d_acc + d_dec <= m_totalDistance)
+    {
+        // 梯形规划：存在加速、匀速、减速三个阶段
+        m_accelDistance = d_acc;
+        m_decelDistance = d_dec;
+    }
+    else
+    {
+        // 三角形规划：无法达到设定最大速度，计算可达到的峰值速度 v_peak
+        float v_peak_sq = (m_maxDec * m_initialSpeed * m_initialSpeed +
+                           m_maxAcc * m_finalSpeed * m_finalSpeed +
+                           2 * m_maxAcc * m_maxDec * m_totalDistance) /
+                          (m_maxAcc + m_maxDec);
+        float v_peak = 0.0f;
+        arm_sqrt_f32(v_peak_sq, &v_peak);
+        m_accelDistance = (v_peak * v_peak - m_initialSpeed * m_initialSpeed) / (2.0f * m_maxAcc);
+        m_decelDistance = (v_peak * v_peak - m_finalSpeed * m_finalSpeed) / (2.0f * m_maxDec);
+    }
+
+    // 初始化阶段为加速段
+    m_phase = ACCEL_PHASE;
+}
+
+Phase TrapezoidalPlanner1D::determinePhase(float traveled)
+{
+    if (traveled >= m_totalDistance)
+        return FINISHED_PHASE;
+
+    if (traveled < m_accelDistance)
+        return ACCEL_PHASE;
+    else if (traveled < (m_totalDistance - m_decelDistance))
+        return CONST_PHASE;
+    else
+        return DECEL_PHASE;
+}
+
+float TrapezoidalPlanner1D::plan(float now_dis)
+{
+
+    traveled = abs(now_dis - m_startPos);
+    if (traveled > m_totalDistance)
+    {
+        traveled = m_totalDistance;
+    }
+
+    // 判断当前阶段
+    m_phase = determinePhase(traveled);
+
+    switch (m_phase)
+    {
+    case ACCEL_PHASE:
+    {
+        float expr = m_initialSpeed * m_initialSpeed + 2.0f * m_maxAcc * traveled;
+        float sqrt_val = 0.0f;
+        arm_sqrt_f32(expr, &sqrt_val);
+        v_target = sqrt_val;
+
+        break;
+    }
+    case CONST_PHASE:
+        v_target = m_maxSpeed;
+        break;
+    case DECEL_PHASE:
+    {
+        float expr = m_finalSpeed * m_finalSpeed + 2 * m_maxDec * (m_totalDistance - traveled);
+        float sqrt_val = 0;
+        arm_sqrt_f32(expr, &sqrt_val);
+        v_target = sqrt_val;
+        break;
+    }
+    case FINISHED_PHASE:
+    default:
+        v_target = m_finalSpeed;
+        break;
+    }
+
+    return v_target * direction;
+}
+
+void TrapezoidalPlanner1D::reset()
+{
+    m_phase = FINISHED_PHASE;
+    m_totalDistance = 0;
+    m_accelDistance = 0;
+    m_decelDistance = 0;
+    m_totalDistance = 0;
+    direction = 0;
+}

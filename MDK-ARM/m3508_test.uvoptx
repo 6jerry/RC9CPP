@@ -887,6 +887,16 @@
           <WinNumber>2</WinNumber>
           <ItemText>m6020_right</ItemText>
         </Ww>
+        <Ww>
+          <count>124</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>pitcher</ItemText>
+        </Ww>
+        <Ww>
+          <count>125</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m3508_debuger</ItemText>
+        </Ww>
       </WatchWindow2>
       <MemoryWindow1>
         <Mm>
@@ -2221,8 +2231,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\m6020_adjust.cpp</PathWithFileName>
-      <FilenameWithoutPath>m6020_adjust.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\YunBall_teat.cpp</PathWithFileName>
+      <FilenameWithoutPath>YunBall_teat.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2233,8 +2243,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\m6020_adjust.h</PathWithFileName>
-      <FilenameWithoutPath>m6020_adjust.h</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\YunBall_test.h</PathWithFileName>
+      <FilenameWithoutPath>YunBall_test.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

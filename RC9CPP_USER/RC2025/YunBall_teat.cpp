@@ -2,12 +2,14 @@
 
 TaskManager task_core;
 CanManager can_core;
-RC9Protocol esp_port(uart, &huart2);
+RC9Protocol esp_port(uart, &huart2), debug_port(uart, &huart5);
 
-m3508p shooter(3, &hcan2), pitcher(1, &hcan2), lifter(2, &hcan2), turnner(4, &hcan2); // 抬升电机，俯仰电机
+m3508p shooter(3, &hcan2), pitcher(1, &hcan2, true), lifter(2, &hcan2), turnner(4, &hcan2); // 抬升电机，俯仰电机
 
-m6020s m6020_front(3, &hcan1), m6020_left(1, &hcan1), m6020_right(2, &hcan1); // 舵向电机
-vesc vesc1(1, &hcan1), vesc2(2, &hcan1), vesc3(3, &hcan1);
+moters_debug_xbox m3508_debuger;
+
+// m6020s m6020_front(3, &hcan1), m6020_left(1, &hcan1), m6020_right(2, &hcan1); // 舵向电机
+// vesc vesc1(1, &hcan1), vesc2(2, &hcan1), vesc3(3, &hcan1);
 yun_ball_xbox xbox_test;
 extern "C"
 {
@@ -15,14 +17,38 @@ extern "C"
     {
         can_core.init();
         esp_port.startUartReceiveIT();
+        debug_port.initQueue();
+        pitcher.start_debug();
+        pitcher.addport(&debug_port);
+        pitcher.config_mech_param(19.2032f, 35.0f); // 光电门f6
         xbox_test.addport(&esp_port);
         xbox_test.add_motor(&pitcher, &lifter, &shooter, &turnner);
         xbox_test.add_trigger(GPIOC, GPIO_PIN_15, GPIOC, GPIO_PIN_13); // shooter c 13
         task_core.registerTask(0, &can_core);
         task_core.registerTask(3, &xbox_test);
-        task_core.registerTask(2, &vesc1);
-        task_core.registerTask(2, &vesc2);
-        task_core.registerTask(2, &vesc3);
+        // task_core.registerTask(2, &vesc1);
+        // task_core.registerTask(2, &vesc2);
+        // task_core.registerTask(2, &vesc3);
+        task_core.registerTask(8, &debug_port);
+
+        osKernelStart();
+    }
+
+    void m3508_adjust(void)
+    {
+        can_core.init();
+        esp_port.startUartReceiveIT();
+        debug_port.initQueue();
+        pitcher.start_debug();
+        pitcher.addport(&debug_port);
+
+        pitcher.distance_pid_control.ConfigAll(4.0f, 0.0f, 0.086f, 0.0f, 430.0f, 1.0f, 0.0f);
+        m3508_debuger.addport(&esp_port);
+        m3508_debuger.add_motor(&pitcher);
+        pitcher.config_mech_param(19.2032f, 35.0f);
+        task_core.registerTask(0, &can_core);
+        task_core.registerTask(3, &m3508_debuger);
+        task_core.registerTask(8, &debug_port);
 
         osKernelStart();
     }

@@ -83,7 +83,9 @@ public:
     void
     increPID_SetParameters(float kp_, float ki_, float kd_, float r_);
 
-    IncrePID(float kp_, float ki_, float kd_, float r_, float output_limit_, float deadzone_);
+    void config_all(float kp_, float ki_, float kd_, float r_, float output_limit_, float deadzone_);
+
+    IncrePID(float kp_ = 0.0f, float ki_ = 0.0f, float kd_ = 0.0f, float r_ = 0.0f, float output_limit_ = 0.0f, float deadzone_ = 0.0f);
 };
 
 #endif

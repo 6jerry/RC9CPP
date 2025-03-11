@@ -17,32 +17,37 @@
  *             in the software.
  ******************************************************************************/
 #include "M3508.h"
-m3508p::m3508p(uint8_t can_id, CAN_HandleTypeDef *hcan_, motor_mode mode_, float gear_ratio, float kp_, float ki_, float kd_, float r_) : CanDevice(M3508, hcan_, can_id), gear_ratio(gear_ratio), dji_motor(20000.0f, 16384, 8191), rpm_control(kp_, ki_, kd_, r_, 20000.0f, 5.0f) // 选择使用积分分离的话积分限幅就是无意义的，随便给个爆大的值就行
+m3508p::m3508p(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool enable_locate_, float gear_ratio) : CanDevice(M3508, hcan_, can_id), gear_ratio(gear_ratio), dji_motor(20000.0f, 16384, 8191), rpm_control(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f), enable_locate(enable_locate_) // 选择使用积分分离的话积分限幅就是无意义的，随便给个爆大的值就行
 {
-    mode = mode_;
 }
 
 int16_t m3508p::motor_process()
 {
-    // T_TO_C();
 
-    rpm_control.increPID_setarget(target_rpm * gear_ratio);
-    vtarget_current = rcurrent_to_vcurrent(rpm_control.increPID_Compute(rpm)) + rcurrent_to_vcurrent(Cff);
-
-    switch (mode)
+    switch (work_mode)
     {
-    case speed:
-        /* code */
+    case m3508_increPID_speed:
+        return increPID_speed();
         break;
-    case pos_single:
-        /* code */
+    case m3508_pid_speed:
+        return pid_speed();
         break;
-    case pos_many:
-        /* code */
+    case m3508_angle_pid:
+        break;
+    case m3508_angle_speedplan:
+        break;
+    case m3508_distance_pid:
+        return distance_pid();
+        break;
+    case m3508_distance_speedplan:
+        return distance_speedplan();
+        break;
+    case m3508_F:
+        return F();
+        break;
+    default:
         break;
     }
-
-    return vtarget_current;
 }
 void m3508p::can_update(uint8_t can_RxData[8])
 {
@@ -54,11 +59,86 @@ void m3508p::can_update(uint8_t can_RxData[8])
     int16_t vcurrent = (can_RxData[4] << 8) | can_RxData[5];
     rcurrent = vcurrent_to_rcurrent(vcurrent); // 虚拟电流，mA
 
-    if (mode == pos_many)
+    if (enable_locate)
     {
         many_pos_locate();
     }
 }
+
+int16_t m3508p::increPID_speed()
+{
+    rpm_control.increPID_setarget(target_rpm * gear_ratio);
+    return rcurrent_to_vcurrent(rpm_control.increPID_Compute(rpm));
+}
+
+int16_t m3508p::distance_pid()
+{
+    time_cnt++;
+    if (time_cnt > 10)
+    {
+        distance_pid_control.setpoint = target_distance;
+        target_rpm = distance_pid_control.PID_Compute(dis_sum); // 位置控制的控制频率要远小于速度控制
+        time_cnt = 0;
+    }
+
+    return increPID_speed();
+}
+
+int16_t m3508p::distance_speedplan()
+{
+
+    if (enable_debug)
+    {
+        float send_data[3] = {rpm / gear_ratio, target_rpm, dis_sum};
+        sendFloatData(1, send_data, 3);
+    }
+    if (abs(target_distance - dis_sum) < speed_plan_end_dis)
+    {
+        dis_speed_plan.reset();
+        return distance_pid();
+    }
+    else
+    {
+        target_rpm = v_2_rpm(dis_speed_plan.plan(dis_sum));
+        return increPID_speed();
+    }
+}
+
+bool m3508p::set_dis_speedplan(float targetdis, float max_speed, float max_acc, float max_dec, float finalspeed)
+{
+    if (dis_speed_plan.isFinished())
+    {
+        target_distance = targetdis;
+        work_mode = m3508_distance_speedplan;
+
+        if (abs((float)rpm) > min_start_rpm)
+        {
+            dis_speed_plan.start_plan(max_acc, max_dec, max_speed, rpm_2_v(rpm), finalspeed, dis_sum, targetdis);
+            return true;
+        }
+        else
+        {
+
+            dis_speed_plan.start_plan(max_acc, max_dec, max_speed, rpm_2_v(min_start_rpm), finalspeed, dis_sum, targetdis);
+            return true;
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
+
+int16_t m3508p::pid_speed()
+{
+    return 0;
+}
+
+int16_t m3508p::F()
+{
+    return 0;
+}
+
 float m3508p::get_rpm()
 {
     return (float)rpm / gear_ratio;
@@ -66,9 +146,20 @@ float m3508p::get_rpm()
 
 void m3508p::set_rpm(float power_motor_rpm)
 {
+    work_mode = m3508_increPID_speed;
     target_rpm = power_motor_rpm;
 }
 
+void m3508p::set_dis(float dis)
+{
+    work_mode = m3508_distance_pid;
+    target_distance = dis;
+}
+void m3508p::set_F(float F_)
+{
+    work_mode = m3508_F;
+    targrt_T = F_;
+}
 void m3508p::T_TO_C()
 {
     Cff = (Tff / gear_ratio) * 64020.49;
@@ -130,10 +221,30 @@ void m3508p::many_pos_locate() // 差分定位计算3508多圈位置
 void m3508p::locate_restart()
 {
     pos_sum = 0.0f;
+    dis_sum = 0.0f;
 }
 
 void m3508p::config_mech_param(float gear_ratio_, float wheel_D_)
 {
     gear_ratio = gear_ratio_;
-    wheel_perimeter = (wheel_D_ * PI) / gear_ratio;
+    wheel_perimeter = (wheel_D_ * PI) / gear_ratio; // 内圈屁股转一圈相当于外圈轮子转了多远
+
+    wheel_R = wheel_D_ / 2.0f;
+
+    v_2_rpm_k = 60.0f / (wheel_D_ * PI);
+    rpm_2_v_k = (wheel_D_ * PI) / 60.0f;
+}
+
+void m3508p::start_debug()
+{
+    enable_debug = true;
+}
+
+float m3508p::v_2_rpm(float v)
+{
+    return v * v_2_rpm_k;
+}
+float m3508p::rpm_2_v(float rpm_)
+{
+    return rpm_ * rpm_2_v_k;
 }

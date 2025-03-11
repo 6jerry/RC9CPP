@@ -14,8 +14,10 @@ extern "C"
 #include "M6020.h"
 #include "VESC.h"
 #include "rc_test_xbox.h"
+#include "debug_xbox.h"
 #include "gpio.h"
     void yunball_test_setup(void);
+    void m3508_adjust(void);
 #ifdef __cplusplus
 }
 #endif

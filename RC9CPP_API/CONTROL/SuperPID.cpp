@@ -235,3 +235,13 @@ void IncrePID::increPID_setarget(float target_)
 {
     expect = target_;
 }
+
+void IncrePID::config_all(float kp_, float ki_, float kd_, float r_, float output_limit_, float deadzone_)
+{
+    kp = kp_;
+    ki = ki_;
+    kd = kd_;
+    r = r_;
+    output_limit = output_limit_;
+    deadzone = deadzone_;
+}

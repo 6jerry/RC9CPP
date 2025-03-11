@@ -69,7 +69,7 @@
 "m3508_test\position.o"
 "m3508_test\filters.o"
 "m3508_test\rc_test_xbox.o"
-"m3508_test\m6020_adjust.o"
+"m3508_test\yunball_teat.o"
 "..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4lf_math.lib"
 --strict --scatter "m3508_test\m3508_test.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols

@@ -33,6 +33,12 @@ public:
     virtual float get_pos() {};
     virtual void set_pos(float pos) {}; // 获取当前位置和设置目标位置的通用接口
 
+    virtual void set_dis(float dis) {}; // 设置距离
+
+    virtual bool set_dis_speedplan(float targetdis, float max_speed, float max_acc, float max_dec, float finalspeed) {}; // 设置距离和速度和加速度
+
+    virtual void set_angle(float angle) {}; // 设置角度
+
     virtual float get_odom() {}; // 获取里程
 
     virtual void set_F(float F_) {}; // 设置力矩
@@ -40,8 +46,6 @@ public:
     virtual float get_F() {}; // 获取力矩
 
     virtual void set_rpm_ff(float power_motor_rpm, float ff) {}; // 设置速度和前馈值
-
-  
 };
 
 class dji_motor
@@ -51,7 +55,7 @@ public:
     dji_motor(float max_rcurrent_, int16_t max_vcurrent_, uint16_t max_vangle_);
 
     float rangle = 0;
-    int16_t rpm = 0;
+    int16_t rpm = 0.0f;
     float rcurrent = 0;
     int16_t vtarget_current = 0;
 

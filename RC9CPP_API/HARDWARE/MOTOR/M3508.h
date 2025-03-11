@@ -27,7 +27,9 @@ extern "C"
 #include "can_device.h"
 #include "SuperPID.h"
 #include "motor.h"
-
+#include "RC9Protocol.h"
+#include "PID.h"
+#include "TrapezoidalPlanner.h"
 #ifdef __cplusplus
 }
 #endif
@@ -41,18 +43,49 @@ extern "C"
 
 // PID输入速度误差，输出内圈期望转矩
 
-class m3508p : public CanDevice, public power_motor, public dji_motor // 动力电机版本的m3508
+enum m3508_mode
+{
+    m3508_increPID_speed,
+    m3508_pid_speed,
+    m3508_angle_pid,
+    m3508_angle_speedplan,
+    m3508_distance_pid,
+    m3508_distance_speedplan,
+    m3508_F
+};
+
+class m3508p : public CanDevice,
+               public power_motor,
+               public dji_motor,
+               public RC9subscriber
 {
 private:
-    float gear_ratio = 19.2032f, wheel_perimeter = 0.0f;
+    float gear_ratio = 19.2032f, wheel_perimeter = 0.0f, wheel_R = 0.0f, v_2_rpm_k = 0.0f, rpm_2_v_k = 0.0f, speed_plan_end_dis = 10.0f, min_start_rpm = 60.0f;
+
+    uint8_t time_cnt = 0;
+
+    m3508_mode work_mode = m3508_increPID_speed;
+
+    bool enable_locate = false, enable_debug = false;
+
+    int16_t increPID_speed();
+    int16_t pid_speed();
+    int16_t angle_pid();
+    int16_t angle_speedplan();
+    int16_t distance_pid();
+    int16_t distance_speedplan();
+    int16_t F();
+
+    float v_2_rpm(float v);
+    float rpm_2_v(float rpm_);
 
 public:
-    m3508p(uint8_t can_id, CAN_HandleTypeDef *hcan_, motor_mode mode_ = speed, float gear_ratio = M3508_G, float kp_ = 32.0f, float ki_ = 0.76f, float kd_ = 8.6f, float r_ = 106.0f);
+    m3508p(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool enable_locate_ = false, float gear_ratio = M3508_G);
 
     int16_t motor_process() override;
     void can_update(uint8_t can_RxData[8]);
-    float rtarget_angle = 0;
-    float target_rpm = 0;
+    float rtarget_angle = 0.0f, target_distance = 0.0f;
+    float target_rpm = 0.0f;
 
     float targrt_T = 0.0f;        // 期望转矩
     float Tff = 0.0f, Cff = 0.0f; // 前馈力矩和换算成的前馈电流
@@ -69,6 +102,10 @@ public:
     void set_rpm(float power_motor_rpm);
     void set_fTff(float Tff_); // 设置动摩擦力前馈补偿
 
+    void set_dis(float dis) override;
+    void set_F(float F_) override;
+    bool set_dis_speedplan(float targetdis, float max_speed, float max_acc, float max_dec, float finalspeed) override;
+
     void T_TO_C(); // 力矩转换为电流
 
     void config_mech_param(float gear_ratio_, float wheel_D_);
@@ -76,6 +113,12 @@ public:
     // bool if_stalling(); // 判断电机是否堵转
 
     IncrePID rpm_control;
+
+    pid distance_pid_control;
+
+    TrapezoidalPlanner1D dis_speed_plan;
+
+    void start_debug();
 };
 
 #endif
