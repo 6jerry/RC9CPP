@@ -92,7 +92,7 @@ int16_t m3508p::distance_speedplan()
         float send_data[3] = {rpm / gear_ratio, target_rpm, dis_sum};
         sendFloatData(1, send_data, 3);
     }
-    if (abs(target_distance - dis_sum) < speed_plan_end_dis)
+    if (abs(target_distance - dis_sum) < speed_plan_end_dis && dis_speed_plan.m_finalSpeed == 0.0f)
     {
         dis_speed_plan.reset();
         return distance_pid();
@@ -111,7 +111,7 @@ bool m3508p::set_dis_speedplan(float targetdis, float max_speed, float max_acc, 
         target_distance = targetdis;
         work_mode = m3508_distance_speedplan;
 
-        if (abs((float)rpm) > min_start_rpm)
+        if (abs((float)rpm) > min_start_rpm && (targetdis - dis_sum) * (float)rpm > 0.0f)
         {
             dis_speed_plan.start_plan(max_acc, max_dec, max_speed, rpm_2_v(rpm), finalspeed, dis_sum, targetdis);
             return true;

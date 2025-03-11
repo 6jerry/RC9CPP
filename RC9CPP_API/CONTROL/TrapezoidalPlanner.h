@@ -126,7 +126,7 @@ public:
 
     void reset();
 
-private:
+public:
     // 内部状态
     Phase m_phase;
     // 规划参数
@@ -150,4 +150,4 @@ private:
 };
 
 #endif
-#endif 
+#endif

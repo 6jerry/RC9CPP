@@ -226,9 +226,11 @@ float TrapezoidalPlanner1D::plan(float now_dis)
 {
 
     traveled = abs(now_dis - m_startPos);
-    if (traveled > m_totalDistance)
+    if (traveled >= m_totalDistance)
     {
         traveled = m_totalDistance;
+       // m_phase = FINISHED_PHASE;
+        return m_finalSpeed * direction;
     }
 
     // 判断当前阶段
