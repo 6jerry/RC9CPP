@@ -4,7 +4,7 @@ TaskManager task_core;
 CanManager can_core;
 RC9Protocol esp_port(uart, &huart2), debug_port(uart, &huart5);
 
-m3508p shooter(3, &hcan2), pitcher(1, &hcan2, true), lifter(2, &hcan2), turnner(4, &hcan2); // 抬升电机，俯仰电机
+m3508p shooter(3, &hcan2), pitcher(1, &hcan2, true), lifter(2, &hcan2, true), turnner(4, &hcan2); // 抬升电机，俯仰电机
 
 moters_debug_xbox m3508_debuger;
 
@@ -43,9 +43,12 @@ extern "C"
         pitcher.addport(&debug_port);
 
         pitcher.distance_pid_control.ConfigAll(4.0f, 0.0f, 0.086f, 0.0f, 430.0f, 1.0f, 0.0f);
+
         m3508_debuger.addport(&esp_port);
-        m3508_debuger.add_motor(&pitcher);
+        m3508_debuger.add_motor(&lifter);
         pitcher.config_mech_param(19.2032f, 35.0f);
+
+        lifter.config_mech_param(49.1376f, 0.0f);
         task_core.registerTask(0, &can_core);
         task_core.registerTask(3, &m3508_debuger);
         task_core.registerTask(8, &debug_port);

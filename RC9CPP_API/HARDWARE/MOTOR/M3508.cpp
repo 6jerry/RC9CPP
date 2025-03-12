@@ -33,6 +33,7 @@ int16_t m3508p::motor_process()
         return pid_speed();
         break;
     case m3508_angle_pid:
+        return angle_pid();
         break;
     case m3508_angle_speedplan:
         break;
@@ -104,6 +105,58 @@ int16_t m3508p::distance_speedplan()
     }
 }
 
+int16_t m3508p::angle_pid()
+{
+
+    time_cnt++;
+    if (time_cnt > 10)
+    {
+        if (pos_sum * target_angle >= 0)
+        {
+            angle_error = target_angle - pos_sum;
+        }
+        else
+        {
+            if (pos_sum > 0 && target_angle < 0)
+            {
+                float positive = 180.0f - pos_sum + 180.0f + target_angle; // 正路径
+                float negative = target_angle - pos_sum;
+                if (abs(positive) <= abs(negative))
+                {
+                    angle_error = positive;
+                }
+                else
+                {
+                    angle_error = negative; // 选择一个较短的路径
+                }
+            }
+            else if (pos_sum < 0 && target_angle > 0)
+            {
+                float positive = target_angle - pos_sum;
+                float negative = -(360.0f + pos_sum - target_angle);
+                if (abs(positive) <= abs(negative))
+                {
+                    angle_error = positive;
+                }
+                else
+                {
+                    angle_error = negative; // 选择一个较短的路径
+                }
+            }
+        }
+
+        target_rpm = angle_pid_control.PID_ComputeError(angle_error);
+        time_cnt = 0;
+    }
+    return increPID_speed();
+}
+
+void m3508p::set_pos(float pos)
+{
+    target_angle = pos;
+    work_mode = m3508_angle_pid;
+}
+
 bool m3508p::set_dis_speedplan(float targetdis, float max_speed, float max_acc, float max_dec, float finalspeed)
 {
     if (dis_speed_plan.isFinished())
@@ -127,6 +180,11 @@ bool m3508p::set_dis_speedplan(float targetdis, float max_speed, float max_acc, 
     {
         return false;
     }
+}
+
+void m3508p::dis_speedplan_restart()
+{
+    dis_speed_plan.reset();
 }
 
 int16_t m3508p::pid_speed()
@@ -214,7 +272,16 @@ void m3508p::many_pos_locate() // 差分定位计算3508多圈位置
         delta_pos = temp_delta;
     }
 
-    pos_sum += delta_pos;
+    if (pos_sum >= 180.0f)
+    {
+        pos_sum -= 360.0f;
+    }
+    else if (pos_sum < -180.0f)
+    {
+        pos_sum += 360.0f;
+    }
+
+    pos_sum += delta_pos / gear_ratio;
     dis_sum += (delta_pos / 360.0f) * wheel_perimeter;
 }
 

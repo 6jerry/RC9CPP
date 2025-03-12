@@ -84,7 +84,7 @@ public:
 
     int16_t motor_process() override;
     void can_update(uint8_t can_RxData[8]);
-    float rtarget_angle = 0.0f, target_distance = 0.0f;
+    float target_angle = 0.0f, target_distance = 0.0f, angle_error = 0.0f, dis_error = 0.0f;
     float target_rpm = 0.0f;
 
     float targrt_T = 0.0f;        // 期望转矩
@@ -102,9 +102,13 @@ public:
     void set_rpm(float power_motor_rpm);
     void set_fTff(float Tff_); // 设置动摩擦力前馈补偿
 
+    void set_pos(float pos) override;
+
     void set_dis(float dis) override;
     void set_F(float F_) override;
     bool set_dis_speedplan(float targetdis, float max_speed, float max_acc, float max_dec, float finalspeed) override;
+
+    void dis_speedplan_restart() override;
 
     void T_TO_C(); // 力矩转换为电流
 
@@ -114,7 +118,7 @@ public:
 
     IncrePID rpm_control;
 
-    pid distance_pid_control;
+    pid distance_pid_control, angle_pid_control;
 
     TrapezoidalPlanner1D dis_speed_plan;
 

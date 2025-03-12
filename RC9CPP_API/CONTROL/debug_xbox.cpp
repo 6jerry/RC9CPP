@@ -208,18 +208,22 @@ void moters_debug_xbox::process_data()
             setted_f = (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_F;
             debug_motor->set_F(setted_f);
 
+            debug_motor->dis_speedplan_restart();
+
             break;
         case 1:
             debug_motor->set_rpm((xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_rpm);
+            debug_motor->dis_speedplan_restart();
 
             break;
         case 2:
             // debug_motor->set_pos((xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * 180.0f);
 
-            debug_motor->set_dis_speedplan(target_dis, max_speed, max_acc, max_dec, final_speed);
+            //debug_motor->set_dis_speedplan(target_dis, max_speed, max_acc, max_dec, final_speed);
             break;
         case 3:
-            debug_motor->set_dis(xbox_msgs.trigRT_map * 720.0f + 100.0f);
+            //debug_motor->set_dis(xbox_msgs.trigRT_map * 720.0f + 100.0f);
+            debug_motor->dis_speedplan_restart();
             break;
         }
     }

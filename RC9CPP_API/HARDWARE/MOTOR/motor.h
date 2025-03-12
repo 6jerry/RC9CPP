@@ -37,6 +37,8 @@ public:
 
     virtual bool set_dis_speedplan(float targetdis, float max_speed, float max_acc, float max_dec, float finalspeed) {}; // 设置距离和速度和加速度
 
+    virtual void dis_speedplan_restart() {}; // 重新开始距离速度规划
+
     virtual void set_angle(float angle) {}; // 设置角度
 
     virtual float get_odom() {}; // 获取里程
