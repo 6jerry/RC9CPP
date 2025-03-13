@@ -209,7 +209,7 @@ void STP23L::handleReceiveData(uint8_t byte)
                     receive_cnt++;  /* 输出接收到正确数据的次数 */
                 }
                 distance = Pack_Data[0].distance;
-								 real_distance = (float)distance;
+                real_distance = (float)distance;
                 crc = 0;
                 state = 0;
                 state_flag = 1;
@@ -258,7 +258,7 @@ void STP23L::data_process(void)
     {
 
         distance = Pack_sum.distance / count;
-       
+
         noise = Pack_sum.noise / count;
         peak = Pack_sum.peak / count;
         confidence = Pack_sum.confidence / count;
