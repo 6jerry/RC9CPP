@@ -41,6 +41,8 @@ TaskManager task_core;
 //   shoot_xbox shoot_control(&m3508_shooter, &m3508_pitch);
 RC9Protocol debug(cdc), esp32(uart, &huart3), position_port(uart, &huart4);
 
+STP23L lidar(&huart5);
+
 position position_test;
 
 RoboChassis m4(mecanum_chassis);
@@ -84,13 +86,14 @@ pshoot_setup(void)
 
     esp32.startUartReceiveIT();
     position_port.startUartReceiveIT();
+    lidar.startUartReceiveIT();
 
     position_test.addport(&position_port);
 
-    task_core.registerTask(4, &right_front);
-    task_core.registerTask(4, &right_back);
-    task_core.registerTask(5, &left_back);
-    task_core.registerTask(5, &left_front);
+//    task_core.registerTask(4, &right_front);
+//    task_core.registerTask(4, &right_back);
+//    task_core.registerTask(5, &left_back);
+//    task_core.registerTask(5, &left_front);
     task_core.registerTask(5, &claw_test);
     task_core.registerTask(5, &catcher_test);
     task_core.registerTask(8, &debug);

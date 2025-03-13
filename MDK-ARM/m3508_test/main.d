@@ -84,4 +84,4 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\vesc.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\m6020.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\tb6612.h \
-  ..\RC9CPP_API\HARDWARE\position.h
+  ..\RC9CPP_API\HARDWARE\position.h ..\RC9CPP_API\HARDWARE\STP23L.h

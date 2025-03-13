@@ -26,6 +26,8 @@ extern "C"
 #include "servo.h"
 #include "GCFSM.h"
 #include "position.h"
+
+#include "STP23L.h"
     void pshoot_setup(void);
 #ifdef __cplusplus
 }
@@ -44,7 +46,7 @@ private:
 
 public:
     void process_data();
-    float test_ccr = 0.0f, test2_ccr = 0.0f,test3_ccr = 0.0f;
+    float test_ccr = 0.0f, test2_ccr = 0.0f, test3_ccr = 0.0f;
     uint32_t CCR = 0, CCR2 = 0, CCR3 = 0;
 };
 
