@@ -80,7 +80,7 @@ void yun_ball_xbox::process_data()
         }
         else if (shoot_or_yun == 1)
         {
-            shooter_motor->set_rpm(xbox_msgs.joyLVert_map * max_lifter_speed);
+            shooter_motor->set_rpm(-xbox_msgs.joyLVert_map * max_lifter_speed);
             pithcer_motor->set_rpm(-xbox_msgs.joyRVert_map * max_turn_speed);
         }
     }

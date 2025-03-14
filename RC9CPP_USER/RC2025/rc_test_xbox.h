@@ -24,7 +24,7 @@ private:
 
     uint8_t if_motor_start = 0, trigger_start = 0, shooter_trigger = 0, shoot_or_yun = 0;
 
-    float max_lifter_speed = 420.0f, max_turn_speed = 80.0f;
+    float max_lifter_speed = 3520.0f, max_turn_speed = 80.0f;
 
 public:
     void process_data();
