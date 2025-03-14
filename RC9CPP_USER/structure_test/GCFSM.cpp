@@ -320,6 +320,6 @@ catch_ball_fsm::catch_ball_fsm()
 
     retry_exit_left.x = 0.344f;
     retry_exit_left.y = 1.01026f;
-    retry_exit_right.x = -0.287f;
+    retry_exit_right.x = -0.32f;
     retry_exit_right.y = 0.99f;
 }

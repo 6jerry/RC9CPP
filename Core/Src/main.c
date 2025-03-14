@@ -109,6 +109,7 @@ int main(void)
   MX_TIM9_Init();
   MX_TIM12_Init();
   MX_TIM1_Init();
+  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -120,7 +121,7 @@ int main(void)
   //MX_FREERTOS_Init();
 
   /* Start scheduler */
- // osKernelStart();
+  //osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
 
