@@ -49,6 +49,7 @@ extern "C"
         pitcher.config_mech_param(19.2032f, 35.0f);
 
         lifter.config_mech_param(49.1376f, 0.0f);
+        lifter.angle_pid_control.ConfigAll(0.0f, 0.0f, 0.0f, 0.0f, 160.0f, 0.2f, 0.0f);
         task_core.registerTask(0, &can_core);
         task_core.registerTask(3, &m3508_debuger);
         task_core.registerTask(8, &debug_port);
