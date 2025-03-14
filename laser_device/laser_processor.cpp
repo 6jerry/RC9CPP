@@ -28,18 +28,48 @@
 #include "laser_processor.h"
 #include <cstring>
 
+
 static float my_fabs(float x){
 	return x < 0 ? -x : x;
 }
 // 协议参数
-constexpr float max_distance = 0.5f;
-constexpr float min_distance = 0.03f;
+constexpr float max_distance = 0.6f;
+constexpr float min_distance = 0.04f;
  
 LaserProcessor::LaserProcessor(UART_HandleTypeDef *huart_) : 
     SerialDevice(huart_), rx_length_(0), resolution_(2), data_count_(0), 
     window_index_(0), last_data_(0){
     memset(filter_window_, 0, sizeof(filter_window_));
     memset(cmd_tracker_, 0, sizeof(cmd_tracker_));
+
+    for(int i=0; i<CMD_GROUP_SIZE; i++) {
+        int retry = 0;
+        do {
+            // 发送命令
+            const auto& cmd = InitCommands()[i];
+            HAL_UART_Transmit(huart_, cmd.data, cmd.length, HAL_MAX_DELAY);
+          
+            // 重置状态
+            cmd_tracker_[i].sent_time = HAL_GetTick();
+            cmd_tracker_[i].status = CMD_PENDING;
+          
+            // 等待响应（200ms超时）
+            while((HAL_GetTick() - cmd_tracker_[i].sent_time) < 200) {
+                if(GetCmdStatus(i) != CMD_PENDING) break;
+                HAL_Delay(10);
+            }
+          
+            // 处理超时
+            if(GetCmdStatus(i) == CMD_PENDING) {
+                cmd_tracker_[i].status = CMD_TIMEOUT;
+            }
+          
+        } while(retry++ < 3 && 
+              (GetCmdStatus(i) == LaserProcessor::CMD_TIMEOUT ||
+               GetCmdStatus(i) == LaserProcessor::CMD_CHECKSUM_ERR));
+      
+        HAL_Delay(50); // 保持协议要求的时间间隔
+    }
 }
 
 uint8_t LaserProcessor::CalculateChecksum(const uint8_t* data, uint16_t len) {

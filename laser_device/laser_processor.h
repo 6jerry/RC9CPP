@@ -41,6 +41,12 @@ extern "C" {
 }
 #endif
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+
 class LaserProcessor : public SerialDevice {
 public:
     LaserProcessor(UART_HandleTypeDef *huart);
@@ -122,5 +128,7 @@ private:
 extern LaserProcessor laser;
 
 
-
+#ifdef __cplusplus
+}
+#endif
 #endif
