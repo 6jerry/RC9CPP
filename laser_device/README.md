@@ -137,26 +137,26 @@ LaserProcessor::LaserProcessor(UART_HandleTypeDef *huart_) :
             // 发送命令
             const auto& cmd = InitCommands()[i];
             HAL_UART_Transmit(huart_, cmd.data, cmd.length, HAL_MAX_DELAY);
-          
+        
             // 重置状态
             cmd_tracker_[i].sent_time = HAL_GetTick();
             cmd_tracker_[i].status = CMD_PENDING;
-          
+        
             // 等待响应（200ms超时）
             while((HAL_GetTick() - cmd_tracker_[i].sent_time) < 200) {
                 if(GetCmdStatus(i) != CMD_PENDING) break;
                 HAL_Delay(10);
             }
-          
+        
             // 处理超时
             if(GetCmdStatus(i) == CMD_PENDING) {
                 cmd_tracker_[i].status = CMD_TIMEOUT;
             }
-          
+        
         } while(retry++ < 3 && 
               (laser.GetCmdStatus(i) == LaserProcessor::CMD_TIMEOUT ||
                laser.GetCmdStatus(i) == LaserProcessor::CMD_CHECKSUM_ERR));
-      
+    
         HAL_Delay(50); // 保持协议要求的时间间隔
     }
 }
@@ -176,5 +176,7 @@ void LaserProcessor::handleReceiveData(uint8_t byte){
 ---
 
 **波特率：9600bps**
-** 串口初始化后调用构造函数 **
----
+串口初始化后调用构造函数
+------------------------
+
+串口接收使用请见[serialdevice](https://github.com/6jerry/RC9CPP/blob/shootercar/RC9CPP_API%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/%E7%A1%AC%E4%BB%B6%E7%B1%BB/%E4%B8%B2%E5%8F%A3%E5%9F%BA%E7%B1%BBserial_device.md)
