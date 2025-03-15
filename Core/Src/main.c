@@ -130,7 +130,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   // MX_USB_DEVICE_Init();
-  SendInitCommands();
+
   yunball_test_setup();
   while (1)
   {

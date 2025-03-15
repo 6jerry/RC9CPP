@@ -19,7 +19,7 @@ extern "C"
 #include "laser_processor.h"
     void yunball_test_setup(void);
     void m3508_adjust(void);
-    void SendInitCommands();
+
 #ifdef __cplusplus
 }
 #endif

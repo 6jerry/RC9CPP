@@ -17,9 +17,11 @@ extern "C"
 {
     void yunball_test_setup(void)
     {
-        can_core.init();
+
         esp_port.startUartReceiveIT();
+        laser.SendInitCommands();
         laser.startUartReceiveIT();
+        can_core.init();
         debug_port.initQueue();
         pitcher.start_debug();
         pitcher.addport(&debug_port);
@@ -33,6 +35,8 @@ extern "C"
         // task_core.registerTask(2, &vesc2);
         // task_core.registerTask(2, &vesc3);
         task_core.registerTask(8, &debug_port);
+
+      
 
         osKernelStart();
     }
@@ -58,41 +62,5 @@ extern "C"
         task_core.registerTask(8, &debug_port);
 
         osKernelStart();
-    }
-    void SendInitCommands()
-    {
-        for (int i = 0; i < LaserProcessor::CMD_GROUP_SIZE; i++)
-        {
-            int retry = 0;
-            do
-            {
-                // 发送命令
-                const auto &cmd = laser.InitCommands()[i];
-                HAL_UART_Transmit(&huart6, cmd.data, cmd.length, 100);
-
-                // 重置状态
-                laser.cmd_tracker_[i].sent_time = HAL_GetTick();
-                laser.cmd_tracker_[i].status = LaserProcessor::CMD_PENDING;
-
-                // 等待响应（200ms超时）
-                while ((HAL_GetTick() - laser.cmd_tracker_[i].sent_time) < 200)
-                {
-                    if (laser.GetCmdStatus(i) != LaserProcessor::CMD_PENDING)
-                        break;
-                    HAL_Delay(10);
-                }
-
-                // 处理超时
-                if (laser.GetCmdStatus(i) == LaserProcessor::CMD_PENDING)
-                {
-                    laser.cmd_tracker_[i].status = LaserProcessor::CMD_TIMEOUT;
-                }
-
-            } while (retry++ < 3 &&
-                     (laser.GetCmdStatus(i) == LaserProcessor::CMD_TIMEOUT ||
-                      laser.GetCmdStatus(i) == LaserProcessor::CMD_CHECKSUM_ERR));
-
-            HAL_Delay(50); // 保持协议要求的时间间隔
-        }
     }
 }
