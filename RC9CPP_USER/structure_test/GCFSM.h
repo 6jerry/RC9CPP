@@ -142,7 +142,7 @@ private:
 
     float red_zone_retry_x = 0.5452f, blue_zone_retry_x = -0.537f, re_try_y_down = 0.5304f, re_try_y_up = 1.466f;
 
-    float zone_judge = 1.0f, ask_lock_ball = 2.0f;
+    float zone_judge = 2.0f, ask_lock_ball = 1.0f;
 
     float throw_point_yaw = 0.0f, serch_point_yaw = 0.0f, first_ball_point_yaw = 0.0f;
 
