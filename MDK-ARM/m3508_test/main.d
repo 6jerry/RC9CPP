@@ -71,4 +71,5 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\RC9CPP_API\HARDWARE\Action.h ..\RC9CPP_API\HARDWARE\imu.h \
   ..\RC9CPP_API\CONTROL\odometry.h ..\RC9CPP_API\CONTROL\debug_xbox.h \
   ..\RC9CPP_API\CONTROL\STRUCTURE\robot_chassis.h \
-  ..\RC9CPP_USER\structure_test\GCFSM.h ..\RC9CPP_API\HARDWARE\servo.h
+  ..\RC9CPP_USER\structure_test\GCFSM.h ..\RC9CPP_API\HARDWARE\servo.h \
+  ..\RC9CPP_API\HARDWARE\laser_processor.h

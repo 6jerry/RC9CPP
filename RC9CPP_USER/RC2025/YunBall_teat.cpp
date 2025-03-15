@@ -4,6 +4,8 @@ TaskManager task_core;
 CanManager can_core;
 RC9Protocol esp_port(uart, &huart2), debug_port(uart, &huart5);
 
+LaserProcessor laser(&huart6);
+
 m3508p shooter(3, &hcan2), pitcher(1, &hcan2, true), lifter(2, &hcan2, true), turnner(4, &hcan2); // 抬升电机，俯仰电机
 
 moters_debug_xbox m3508_debuger;
@@ -17,6 +19,7 @@ extern "C"
     {
         can_core.init();
         esp_port.startUartReceiveIT();
+        laser.startUartReceiveIT();
         debug_port.initQueue();
         pitcher.start_debug();
         pitcher.addport(&debug_port);
@@ -55,5 +58,41 @@ extern "C"
         task_core.registerTask(8, &debug_port);
 
         osKernelStart();
+    }
+    void SendInitCommands()
+    {
+        for (int i = 0; i < LaserProcessor::CMD_GROUP_SIZE; i++)
+        {
+            int retry = 0;
+            do
+            {
+                // 发送命令
+                const auto &cmd = laser.InitCommands()[i];
+                HAL_UART_Transmit(&huart6, cmd.data, cmd.length, 100);
+
+                // 重置状态
+                laser.cmd_tracker_[i].sent_time = HAL_GetTick();
+                laser.cmd_tracker_[i].status = LaserProcessor::CMD_PENDING;
+
+                // 等待响应（200ms超时）
+                while ((HAL_GetTick() - laser.cmd_tracker_[i].sent_time) < 200)
+                {
+                    if (laser.GetCmdStatus(i) != LaserProcessor::CMD_PENDING)
+                        break;
+                    HAL_Delay(10);
+                }
+
+                // 处理超时
+                if (laser.GetCmdStatus(i) == LaserProcessor::CMD_PENDING)
+                {
+                    laser.cmd_tracker_[i].status = LaserProcessor::CMD_TIMEOUT;
+                }
+
+            } while (retry++ < 3 &&
+                     (laser.GetCmdStatus(i) == LaserProcessor::CMD_TIMEOUT ||
+                      laser.GetCmdStatus(i) == LaserProcessor::CMD_CHECKSUM_ERR));
+
+            HAL_Delay(50); // 保持协议要求的时间间隔
+        }
     }
 }

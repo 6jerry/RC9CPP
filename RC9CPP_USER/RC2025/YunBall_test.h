@@ -16,8 +16,10 @@ extern "C"
 #include "rc_test_xbox.h"
 #include "debug_xbox.h"
 #include "gpio.h"
+#include "laser_processor.h"
     void yunball_test_setup(void);
     void m3508_adjust(void);
+    void SendInitCommands();
 #ifdef __cplusplus
 }
 #endif
