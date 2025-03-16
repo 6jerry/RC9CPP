@@ -53,23 +53,24 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\RC9CPP_API\HARDWARE\NETWORK\netswitch.h \
   ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
   ..\RC9CPP_API\HARDWARE\NETWORK\rcncore.h \
-  ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h \
-  ..\RC9CPP_API\HARDWARE\can_device.h ..\RC9CPP_API\CONTROL\SuperPID.h \
-  ..\RC9CPP_API\HARDWARE\MOTOR\motor.h ..\RC9CPP_API\CONTROL\PID.h \
-  ..\RC9CPP_API\CONTROL\filters.h \
-  ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h \
+  ..\RC9CPP_API\CONTROL\STRUCTURE\robot_chassis.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\motor.h \
+  ..\RC9CPP_API\HARDWARE\can_device.h ..\RC9CPP_API\MATH_LIB\Vector2D.h \
   ..\Middlewares\ST\ARM\DSP\Inc\arm_math.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   G:\Keil_v5\ARM\ARMCLANG\include\math.h \
   G:\Keil_v5\ARM\ARMCLANG\include\float.h \
   G:\Keil_v5\ARM\ARMCLANG\include\limits.h \
-  ..\RC9CPP_API\MATH_LIB\Vector2D.h ..\RC9CPP_API\CONTROL\pure_pursuit.h \
+  ..\RC9CPP_API\CONTROL\pure_pursuit.h ..\RC9CPP_API\CONTROL\PID.h \
+  ..\RC9CPP_API\CONTROL\filters.h ..\RC9CPP_API\HARDWARE\imu.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h ..\RC9CPP_API\CONTROL\SuperPID.h \
+  ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\M6020.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\VESC.h \
   ..\RC9CPP_USER\RC2025\rc_test_xbox.h ..\RC9CPP_API\CONTROL\xbox.h \
   ..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h \
-  ..\RC9CPP_API\HARDWARE\Action.h ..\RC9CPP_API\HARDWARE\imu.h \
-  ..\RC9CPP_API\CONTROL\odometry.h ..\RC9CPP_API\CONTROL\debug_xbox.h \
-  ..\RC9CPP_API\CONTROL\STRUCTURE\robot_chassis.h \
+  ..\RC9CPP_API\HARDWARE\Action.h ..\RC9CPP_API\CONTROL\odometry.h \
+  ..\RC9CPP_API\CONTROL\debug_xbox.h \
   ..\RC9CPP_USER\structure_test\GCFSM.h ..\RC9CPP_API\HARDWARE\servo.h \
-  ..\RC9CPP_API\HARDWARE\laser_processor.h
+  ..\RC9CPP_API\HARDWARE\laser_processor.h \
+  ..\RC9CPP_USER\RC2025\ball_shooter.h

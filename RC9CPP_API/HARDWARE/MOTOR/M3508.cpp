@@ -145,6 +145,12 @@ int16_t m3508p::angle_pid()
             }
         }
 
+        if (enable_debug)
+        {
+            float send_data[3] = {target_angle, pos_sum, rpm / gear_ratio};
+            sendFloatData(1, send_data, 3);
+        }
+
         target_rpm = angle_pid_control.PID_ComputeError(angle_error);
         time_cnt = 0;
     }
@@ -155,6 +161,11 @@ void m3508p::set_pos(float pos)
 {
     target_angle = pos;
     work_mode = m3508_angle_pid;
+}
+
+void m3508p::relocate_pos(float angle)
+{
+    pos_sum = angle;
 }
 
 bool m3508p::set_dis_speedplan(float targetdis, float max_speed, float max_acc, float max_dec, float finalspeed)

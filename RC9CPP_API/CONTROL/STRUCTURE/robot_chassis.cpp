@@ -23,6 +23,9 @@ void RoboChassis::process_data()
         break;
     case curve_track:
         break;
+    case chassis_init:
+        chassis_initialize();
+        break;
     }
 }
 
@@ -40,6 +43,7 @@ float RoboChassis::yawadjuster_process()
     case yaw_free:
         return target.target_w;
         break;
+
     default:
         break;
     }
@@ -61,9 +65,75 @@ void RoboChassis::chassis_calc(Vector2D robovel, float w)
     case swerve4_chassis:
         break;
     case swerve3_chassis:
+        swerve3_calc(robovel, w);
         break;
     }
 }
+void RoboChassis::chassis_initialize()
+{
+    switch (type)
+    {
+    case omni3_chassis:
+        break;
+    case custom_chassis:
+        break;
+    case omni4_chassis:
+        break;
+    case mecanum_chassis:
+        break;
+    case swerve4_chassis:
+        break;
+    case swerve3_chassis:
+        swerve3_initialize();
+        break;
+    }
+}
+
+void RoboChassis::swerve3_initialize()
+{
+    scan_photogate();
+    // dmotors[0]->set_rpm(20.0f);
+    // dmotors[1]->set_rpm(10.0f);
+    // dmotors[2]->set_rpm(20.0f);
+
+    /*
+    if (photogate_state[0] == 1 && if_not_init[0])
+    {
+        dmotors[0]->relocate_pos(-45.0f);
+        if_not_init[0] = false;
+        dmotors[0]->set_rpm(0.0f);
+    }
+
+    if (photogate_state[1] == 1 && if_not_init[1])
+    {
+        dmotors[1]->relocate_pos(90.0f);
+        if_not_init[1] = false;
+        dmotors[1]->set_rpm(0.0f);
+    }
+    if (photogate_state[2] == 1 && if_not_init[2])
+    {
+        dmotors[2]->relocate_pos(-90.0f);
+        if_not_init[2] = false;
+        dmotors[2]->set_rpm(0.0f);
+    }
+
+    if (if_not_init[0] == false && if_not_init[1] == false && if_not_init[2] == false)
+    {
+        mode = stop;
+    }
+        */
+
+    mode = stop;
+}
+
+void RoboChassis::scan_photogate()
+{
+    for (int i = 0; i < 4; i++)
+    {
+        photogate_state[i] = HAL_GPIO_ReadPin(photogate_port[i], photogate_pin[i]);
+    }
+}
+
 float RoboChassis::v_2_rpm(float v)
 {
     float rpm = v / chassis_info_.wheel_r / (2 * PI) * 60;
@@ -90,6 +160,108 @@ void RoboChassis::mecanum_calc(Vector2D robovel, float w)
     motors[1]->set_rpm(v_2_rpm((robovel.x + robovel.y - w * (chassis_info_.length + chassis_info_.wide))));
     motors[2]->set_rpm(v_2_rpm((-robovel.x + robovel.y - w * (chassis_info_.length + chassis_info_.wide))));
     motors[3]->set_rpm(-v_2_rpm((robovel.x + robovel.y + w * (chassis_info_.length + chassis_info_.wide))));
+}
+
+void RoboChassis::swerve3_calc(Vector2D robovel, float w)
+{
+    // scan_photogate();
+
+    scan_photogate();
+
+    target.swerve_motor_target[0].x = robovel.x - w * 0.44f;
+    target.swerve_motor_target[0].y = robovel.y;
+
+    if (target.swerve_motor_target[0].x != 0.0f | target.swerve_motor_target[0].y != 0.0f)
+    {
+        target.swerve_motor_angle[0] = atan2f(target.swerve_motor_target[0].x, target.swerve_motor_target[0].y) * 57.296f;
+    }
+
+    if (target.swerve_motor_angle[0] >= -90.0f && target.swerve_motor_angle[0] <= 90.0f)
+    { // 无需劣弧优化
+
+        motors[0]->set_rpm(v_2_rpm(target.swerve_motor_target[0].magnitude()));
+        dmotors[0]->set_pos(target.swerve_motor_angle[0]);
+    }
+    else if (target.swerve_motor_angle[0] > 90.0f && target.swerve_motor_angle[0] <= 180.0f)
+    {
+        dmotors[0]->set_pos(target.swerve_motor_angle[0] - 180.0f);
+        motors[0]->set_rpm(v_2_rpm(-target.swerve_motor_target[0].magnitude()));
+    }
+    else if (target.swerve_motor_angle[0] >= -180.0f && target.swerve_motor_angle[0] < -90.0f)
+    {
+        dmotors[0]->set_pos(target.swerve_motor_angle[0] + 180.0f);
+        motors[0]->set_rpm(v_2_rpm(-target.swerve_motor_target[0].magnitude()));
+    }
+
+    target.swerve_motor_target[1].x = robovel.x + w * 0.38735f;
+    target.swerve_motor_target[1].y = robovel.y - w * 0.38735f;
+
+    if (target.swerve_motor_target[1].x != 0.0f | target.swerve_motor_target[1].y != 0.0f)
+    {
+        target.swerve_motor_angle[1] = atan2f(target.swerve_motor_target[1].x, target.swerve_motor_target[1].y) * 57.296f;
+    }
+
+    if (target.swerve_motor_angle[1] >= -90.0f && target.swerve_motor_angle[1] <= 90.0f)
+    { // 无需劣弧优化
+
+        motors[1]->set_rpm(v_2_rpm(-target.swerve_motor_target[1].magnitude()));
+        dmotors[1]->set_pos(target.swerve_motor_angle[1]);
+    }
+    else if (target.swerve_motor_angle[1] > 90.0f && target.swerve_motor_angle[1] <= 180.0f)
+    {
+        dmotors[1]->set_pos(target.swerve_motor_angle[1] - 180.0f);
+        motors[1]->set_rpm(v_2_rpm(target.swerve_motor_target[1].magnitude()));
+    }
+    else if (target.swerve_motor_angle[1] >= -180.0f && target.swerve_motor_angle[1] < -90.0f)
+    {
+        dmotors[1]->set_pos(target.swerve_motor_angle[1] + 180.0f);
+        motors[1]->set_rpm(v_2_rpm(target.swerve_motor_target[1].magnitude()));
+    }
+
+    target.swerve_motor_target[2].x = robovel.x + w * 0.38735f;
+    target.swerve_motor_target[2].y = robovel.y + w * 0.38735f;
+    if (target.swerve_motor_target[2].x != 0.0f | target.swerve_motor_target[2].y != 0.0f)
+    {
+        target.swerve_motor_angle[2] = atan2f(target.swerve_motor_target[2].x, target.swerve_motor_target[2].y) * 57.296f;
+    }
+
+    if (target.swerve_motor_angle[2] >= -90.0f && target.swerve_motor_angle[2] <= 90.0f)
+    { // 无需劣弧优化
+
+        motors[2]->set_rpm(v_2_rpm(target.swerve_motor_target[2].magnitude()));
+        dmotors[2]->set_pos(target.swerve_motor_angle[2]);
+    }
+    else if (target.swerve_motor_angle[2] > 90.0f && target.swerve_motor_angle[2] <= 180.0f)
+    {
+        dmotors[2]->set_pos(target.swerve_motor_angle[2] - 180.0f);
+        motors[2]->set_rpm(v_2_rpm(-target.swerve_motor_target[2].magnitude()));
+    }
+    else if (target.swerve_motor_angle[2] >= -180.0f && target.swerve_motor_angle[2] < -90.0f)
+    {
+        dmotors[2]->set_pos(target.swerve_motor_angle[2] + 180.0f);
+        motors[2]->set_rpm(v_2_rpm(-target.swerve_motor_target[2].magnitude()));
+    }
+}
+
+void RoboChassis::add_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3, GPIO_TypeDef *port4, uint16_t pin4)
+{
+
+    photogate_port[0] = port1;
+    photogate_pin[0] = pin1;
+    photogate_port[1] = port2;
+    photogate_pin[1] = pin2;
+    photogate_port[2] = port3;
+    photogate_pin[2] = pin3;
+}
+
+void RoboChassis::add_6_motors(power_motor *front_d_motor, power_motor *front_motor, power_motor *right_d_motor, power_motor *right_motor, power_motor *left_d_motor, power_motor *left_motor)
+{
+    dmotors[0] = front_d_motor;
+    motors[0] = front_motor;
+    dmotors[1] = right_d_motor;
+    motors[1] = right_motor;
+    dmotors[2] = left_d_motor;
+    motors[2] = left_motor;
 }
 
 bool RoboChassis::priority_judge(uint8_t PriorityCode, chassis_user *user_, chassis_cmd_type cmd_type)
@@ -126,44 +298,33 @@ bool RoboChassis::priority_judge(uint8_t PriorityCode, chassis_user *user_, chas
 
 uint8_t RoboChassis::set_CRobotVel(Vector2D robovel, uint8_t PriorityCode, chassis_user *user_)
 {
-    if (priority_judge(PriorityCode, user_, move_cmd))
+    if (mode != chassis_init)
     {
         mode = robotv;
-        target.target_robovel = robovel;
-        return 1;
     }
-    else
-    {
-        return 0;
-    }
+
+    target.target_robovel = robovel;
+    return 1;
 }
 
 uint8_t RoboChassis::set_CWorldVel(Vector2D worldvel, uint8_t PriorityCode, chassis_user *user_)
 {
-    if (priority_judge(PriorityCode, user_, move_cmd))
+
+    if (mode != chassis_init)
     {
         mode = worldv;
-        target.target_worldvel = worldvel;
-        return 1;
     }
-    else
-    {
-        return 0;
-    }
+
+    target.target_worldvel = worldvel;
+    return 1;
 }
 
 uint8_t RoboChassis::set_CRobotW(float w, uint8_t PriorityCode, chassis_user *user_)
 {
-    if (priority_judge(PriorityCode, user_, turn_cmd))
-    {
-        yaw_mode = yaw_free;
-        target.target_w = w;
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
+
+    yaw_mode = yaw_free;
+    target.target_w = w;
+    return 1;
 }
 
 RoboChassis::RoboChassis(RoboChassisType type_) : type(type_)
@@ -233,16 +394,10 @@ void RoboChassis::yawadjuster_config(float kp, float ki, float kd, float integra
 
 uint8_t RoboChassis::yaw_CTurnTo(float yaw, uint8_t PriorityCode, chassis_user *user_)
 {
-    if (priority_judge(PriorityCode, user_, turn_cmd))
-    {
-        yaw_mode = yaw_TurnTo;
-        target.target_yaw = yaw;
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
+
+    yaw_mode = yaw_TurnTo;
+    target.target_yaw = yaw;
+    return 1;
 }
 void RoboChassis::pointtrack_config(float kp, float ki, float kd, float integral_limit, float output_limit, float deadzone, float integral_separation_threshold)
 {
@@ -251,16 +406,13 @@ void RoboChassis::pointtrack_config(float kp, float ki, float kd, float integral
 
 uint8_t RoboChassis::Cmove_to(Vector2D target_p, uint8_t PriorityCode, chassis_user *user_)
 {
-    if (priority_judge(PriorityCode, user_, move_cmd))
+    if (mode != chassis_init)
     {
         mode = point_track;
-        target.target_point = target_p;
-        return 1;
     }
-    else
-    {
-        return 0;
-    }
+
+    target.target_point = target_p;
+    return 1;
 }
 
 uint8_t chassis_user::set_WorldVel(Vector2D worldvel, uint8_t PriorityCode)

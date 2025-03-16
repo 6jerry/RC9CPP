@@ -11,6 +11,7 @@ extern "C"
 #include "pure_pursuit.h"
 #include "imu.h"
 #include <arm_math.h>
+#include "gpio.h"
 #ifdef __cplusplus
 }
 #endif
@@ -35,6 +36,7 @@ enum RoboChassis_mode
     point_track,
     point_track_speedplan,
     curve_track,
+    chassis_init
 
 };
 
@@ -58,12 +60,19 @@ typedef struct chassis_info
     float wide = 0.0f;
     float length = 0.0f;
     float R = 0.0f; // 轮子到底盘中心
+
+    float L1 = 0.0f;
+    float L2 = 0.0f;
 };
 
 typedef struct chassis_target
 {
     Vector2D target_robovel, target_worldvel, target_point;
     float target_yaw = 0.0f, target_w = 0.0f;
+
+    float swerve_motor_angle[4] = {0.0f};
+
+    Vector2D swerve_motor_target[4];
 };
 
 class RoboChassis;
@@ -111,10 +120,14 @@ public:
 
     void yawadjuster_config(float kp, float ki, float kd, float integral_limit, float output_limit, float deadzone, float integral_separation_threshold);
 
+    void add_6_motors(power_motor *front_d_motor, power_motor *front_motor, power_motor *right_d_motor, power_motor *right_motor, power_motor *left_d_motor, power_motor *left_motor);
+
+    void add_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3, GPIO_TypeDef *port4, uint16_t pin4);
+
 private:
     chassis_user *user = nullptr; // 当前是哪个类正在使用底盘
     RoboChassisType type = omni3_chassis;
-    RoboChassis_mode mode = stop;
+    RoboChassis_mode mode = chassis_init;
     chassis_yaw_mode yaw_mode = yaw_free;
     uint8_t current_priority = 0, last_priority = 0;
     imu *IMU = nullptr;
@@ -124,10 +137,22 @@ private:
     power_motor *motors[4] = {nullptr};
     power_motor *dmotors[4] = {nullptr};
 
+    float dmotor_locate_angles[4] = {0.0f};
+
+    GPIO_TypeDef *photogate_port[4] = {nullptr};
+    uint16_t photogate_pin[4] = {0};
+    uint8_t photogate_state[4] = {0}; // 前轮，右轮，左轮
+
+    bool if_not_init[4] = {true};
+
+    bool if_init_ok = false;
+
 private:
     pointrack pointtracker;
     // pure_pursuit purepursuiter;
     yaw_adjuster yawadjuster;
+
+    void scan_photogate();
 
     float yawadjuster_process();
 
@@ -136,6 +161,10 @@ private:
 
     void mecanum_calc(Vector2D robovel, float w);
     // void swerve4_calc(Vector2D robovel, float w);
+
+    void chassis_initialize();
+
+    void swerve3_initialize();
 
     void swerve3_calc(Vector2D robovel, float w);
 

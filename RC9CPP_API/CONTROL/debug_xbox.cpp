@@ -217,7 +217,7 @@ void moters_debug_xbox::process_data()
 
             break;
         case 2:
-            // debug_motor->set_pos((xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * 180.0f);
+             debug_motor->set_pos((xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * 180.0f);
 
             //debug_motor->set_dis_speedplan(target_dis, max_speed, max_acc, max_dec, final_speed);
             break;

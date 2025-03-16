@@ -10,7 +10,7 @@ extern "C"
 #include "can_device.h"
 #include "TaskManager.h"
 #include "motor.h"
-#include "PID.h"
+#include "SuperPID.h"
 
 #ifdef __cplusplus
 }
@@ -20,16 +20,32 @@ extern "C"
 #define CAN_CMD_SET_CURRENT 0x01 // VESC设置电流的命令ID
 #define CAN_CMD_SET_ERPM 0x03
 #define CAN_CMD_SET_BRAKE 0x02
+
+enum vesc_mode
+{
+    vesc_current,
+    vesc_erpm,
+    vesc_rpm_increpid
+
+};
 class vesc : public CanDevice, public ITaskProcessor, public power_motor
 {
 private:
     float gear_ratio = 3.0f;
     uint8_t motor_polse = 7;
 
+    vesc_mode vesc_mode = vesc_current;
+
+    void erpm_mode();
+    void current_mode();
+    void rpm_increpid_mode();
+
 public:
     float get_rpm();
     void set_rpm(float power_motor_rpm);
     // void set_rpm_ff(float power_motor_rpm, float ff) override;
+
+    void set_current(float target_c_) override;
 
     void can_update(uint8_t can_RxData[8]);
     void process_data();
@@ -39,10 +55,10 @@ public:
 
     vesc(uint8_t can_id_, CAN_HandleTypeDef *hcan_, uint8_t motor_polse_ = 21, float gear_ratio_ = 3.0f, float kp_ = 0.0f, float ki_ = 0.0f, float kd_ = 0.0f, float r_ = 0.0f);
 
-    pid rpm_control;
+    IncrePID rpm_control;
 
-    float target_rpm = 0.0f, now_rpm = 0.0f, rcurrent = 0.0f;
-    int32_t target_erpm = 0, senderpm = 0, brake = 10000;
+    float target_rpm = 0.0f, now_rpm = 0.0f, rcurrent = 0.0f, target_current = 0.0f;
+    int32_t target_erpm = 0, senderpm = 0, brake = 10000, send_current = 0;
 };
 #endif
 #endif

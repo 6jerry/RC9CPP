@@ -65,15 +65,12 @@ float pid::PID_Compute(float input)
     {
         error_sum = 0.0f;
     }
-    // 积分限幅
-    if (error_sum > integral_limit)
+
+    if (ki == 0.0f)
     {
-        error_sum = integral_limit;
+        error_sum = 0.0f;
     }
-    if (error_sum < -integral_limit)
-    {
-        error_sum = -integral_limit;
-    }
+
     i_out = ki * error_sum;
 
     d_out = kd * (error - previous_error);

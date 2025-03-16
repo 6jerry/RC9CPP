@@ -120,7 +120,7 @@ int main(void)
   osKernelInitialize();
 
   /* Call init function for freertos objects (in cmsis_os2.c) */
- // MX_FREERTOS_Init();
+  //MX_FREERTOS_Init();
 
   /* Start scheduler */
   //osKernelStart();
@@ -131,7 +131,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   // MX_USB_DEVICE_Init();
 
-  yunball_test_setup();
+  chassis_adjust();
   while (1)
   {
     /* USER CODE END WHILE */

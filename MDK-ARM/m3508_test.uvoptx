@@ -158,7 +158,24 @@
           <Name>-U-O142 -O2254 -S0 -C0 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC800 -FN1 -FF0STM32F4xx_1024.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32F407ZGTx$CMSIS\Flash\STM32F4xx_1024.FLM)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint/>
+      <Breakpoint>
+        <Bp>
+          <Number>0</Number>
+          <Type>0</Type>
+          <LineNumber>110</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134240762</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>G:\STM32_PROJECT\R1_NEW\R1_No2 - 鏀瑰姩\RC9CPP_API\CONTROL\STRUCTURE\robot_chassis.cpp</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\m3508_test\../RC9CPP_API/CONTROL/STRUCTURE/robot_chassis.cpp\110</Expression>
+        </Bp>
+      </Breakpoint>
       <WatchWindow1>
         <Ww>
           <count>0</count>
@@ -896,6 +913,46 @@
           <count>125</count>
           <WinNumber>2</WinNumber>
           <ItemText>m3508_debuger</ItemText>
+        </Ww>
+        <Ww>
+          <count>126</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>laser</ItemText>
+        </Ww>
+        <Ww>
+          <count>127</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>xbox_test</ItemText>
+        </Ww>
+        <Ww>
+          <count>128</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m8080</ItemText>
+        </Ww>
+        <Ww>
+          <count>129</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>shooter_core</ItemText>
+        </Ww>
+        <Ww>
+          <count>130</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>lifter</ItemText>
+        </Ww>
+        <Ww>
+          <count>131</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m3508_front</ItemText>
+        </Ww>
+        <Ww>
+          <count>132</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m3508_right</ItemText>
+        </Ww>
+        <Ww>
+          <count>133</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>s3_chassis</ItemText>
         </Ww>
       </WatchWindow2>
       <MemoryWindow1>
@@ -2272,23 +2329,27 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
-  </Group>
-
-  <Group>
-    <GroupName>Middlewares/Library/DSP Library/DSP Library</GroupName>
-    <tvExp>0</tvExp>
-    <tvExpOptDlg>0</tvExpOptDlg>
-    <cbSel>0</cbSel>
-    <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>8</GroupNumber>
+      <GroupNumber>7</GroupNumber>
       <FileNumber>106</FileNumber>
-      <FileType>4</FileType>
+      <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>../Middlewares/ST/ARM/DSP/Lib/arm_cortexM4lf_math.lib</PathWithFileName>
-      <FilenameWithoutPath>arm_cortexM4lf_math.lib</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\ball_shooter.cpp</PathWithFileName>
+      <FilenameWithoutPath>ball_shooter.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>107</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\ball_shooter.h</PathWithFileName>
+      <FilenameWithoutPath>ball_shooter.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2300,6 +2361,26 @@
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>1</RteFlg>
+  </Group>
+
+  <Group>
+    <GroupName>Middlewares/Library/DSP Library/DSP Library</GroupName>
+    <tvExp>0</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
+    <File>
+      <GroupNumber>9</GroupNumber>
+      <FileNumber>108</FileNumber>
+      <FileType>4</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>../Middlewares/ST/ARM/DSP/Lib/arm_cortexM4lf_math.lib</PathWithFileName>
+      <FilenameWithoutPath>arm_cortexM4lf_math.lib</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
   </Group>
 
 </ProjectOpt>

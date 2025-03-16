@@ -76,5 +76,6 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "C_Cpp.dimInactiveRegions": false,
-  "C_Cpp.errorSquiggles": "enabled"
+  "C_Cpp.errorSquiggles": "enabled",
+  "cmake.sourceDirectory": "G:/STM32_PROJECT/R1_NEW/R1_No2 - 改动/handware_test/filter"
 }

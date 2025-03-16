@@ -33,6 +33,7 @@ public:
     virtual float get_pos() {};
     virtual void set_pos(float pos) {}; // 获取当前位置和设置目标位置的通用接口
 
+    virtual void set_current(float target_c_) {};
     virtual void set_dis(float dis) {}; // 设置距离
 
     virtual bool set_dis_speedplan(float targetdis, float max_speed, float max_acc, float max_dec, float finalspeed) {}; // 设置距离和速度和加速度
@@ -41,7 +42,9 @@ public:
 
     virtual void set_angle(float angle) {}; // 设置角度
 
-    virtual float get_odom() {}; // 获取里程
+    virtual void relocate_pos(float angle) {}; // 重新定位角度
+
+       virtual float get_odom() {}; // 获取里程
 
     virtual void set_F(float F_) {}; // 设置力矩
 
