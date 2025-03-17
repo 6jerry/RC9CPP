@@ -4,6 +4,7 @@
 #include "esp_event.h"
 #include "nvs_flash.h"
 #include "tcp_server.h"
+#include "udp_server.h"
 #include "driver/uart.h"
 #include "driver/gpio.h"
 
@@ -65,6 +66,9 @@ void app_main(void)
     // 启动WiFi AP
     wifi_init_softap();
 
-    // 创建TCP服务器任务
-    xTaskCreate(tcp_server_task, "tcp_server", 4096, NULL, 5, NULL);
+    // 创建UDP服务器任务
+    xTaskCreate(udp_server_task, "udp_server", 4096, NULL, 5, NULL);
+    
+    // 注释掉TCP服务器任务
+    // xTaskCreate(tcp_server_task, "tcp_server", 4096, NULL, 5, NULL);
 }
