@@ -50,9 +50,10 @@ void udp_server_task(void *pvParameters)
 
         // 直接转发接收到的数据，不添加结束符
         uart_write_bytes(UART_NUM_1, rx_buffer, len);
+        uart_write_bytes(UART_NUM_0, rx_buffer, len);
         
         // 打印客户端发送的信息
-        ESP_LOGI(TAG, "Received data from client: %.*s", len, rx_buffer);
+        //ESP_LOGI(TAG, "Received data from client: %.*s", len, rx_buffer);
     }
 
     // 关闭socket

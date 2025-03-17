@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"path": "C:/Users/Tang/Desktop/2025RC/cpp_code/RC9CPP-shootercar"
+		},
+		{
+			"name": "wifi_test",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"fsm.h": "c",
+			"compare": "c",
+			"main.h": "c",
+			"cstdint": "c",
+			"communicate.h": "c",
+			"driver_usart.h": "c",
+			"movebase.h": "c",
+			"usart.h": "c",
+			"serial_to_matlab.h": "c",
+			"simple_task.h": "c",
+			"stm32f4xx_hal_can.h": "c",
+			"limits": "cpp",
+			"vector2d.h": "c",
+			"new": "c",
+			"gpio.h": "c",
+			"usb_device.h": "c",
+			"random": "cpp"
+		}
+	}
+}

@@ -1,0 +1,498 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "esp-idf/pthread/libpthread.a"
+		}
+	],
+	"backtrace" : 2,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"idf_component_register",
+			"add_compile_options",
+			"add_c_compile_options",
+			"add_compile_definitions",
+			"include_directories",
+			"target_include_directories",
+			"__component_add_include_dirs"
+		],
+		"files" : 
+		[
+			"C:/Users/Tang/.platformio/packages/framework-espidf/tools/cmake/component.cmake",
+			"C:/Users/Tang/.platformio/packages/framework-espidf/components/pthread/CMakeLists.txt",
+			"C:/Users/Tang/.platformio/packages/framework-espidf/tools/cmake/utilities.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 19,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 490,
+				"parent" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 475,
+				"parent" : 1
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 477,
+				"parent" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 281,
+				"parent" : 4
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 476,
+				"parent" : 1
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 474,
+				"parent" : 1
+			},
+			{
+				"command" : 7,
+				"file" : 0,
+				"line" : 492,
+				"parent" : 1
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 319,
+				"parent" : 8
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-mlongcalls  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy  "
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-ffunction-sections"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-fdata-sections"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-Wall"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-Werror=all"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-Wno-error=unused-function"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-Wno-error=unused-variable"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-Wno-error=unused-but-set-variable"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-Wno-error=deprecated-declarations"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-Wextra"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-Wno-error=extra"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-Wno-unused-parameter"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-Wno-sign-compare"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-Wno-enum-conversion"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-gdwarf-4"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-ggdb"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-Og"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-fno-shrink-wrap"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-fmacro-prefix-map=D:/esp_project/RC9CPP/esp32_servor=."
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-fmacro-prefix-map=C:/Users/Tang/.platformio/packages/framework-espidf=/IDF"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-fstrict-volatile-bitfields"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-fno-jump-tables"
+				},
+				{
+					"backtrace" : 3,
+					"fragment" : "-fno-tree-switch-conversion"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-std=gnu17"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wno-old-style-declaration"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 6,
+					"define" : "ESP_PLATFORM"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "IDF_VER=\"5.4.0\""
+				},
+				{
+					"backtrace" : 2,
+					"define" : "SOC_MMU_PAGE_SIZE=CONFIG_MMU_PAGE_SIZE"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "SOC_XTAL_FREQ_MHZ=CONFIG_XTAL_FREQ"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "_GLIBCXX_HAVE_POSIX_SEMAPHORE"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "_GLIBCXX_USE_POSIX_SEMAPHORE"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "_GNU_SOURCE"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "_POSIX_READER_WRITER_LOCKS"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 7,
+					"path" : "D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/config"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/pthread/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/newlib/platform_include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/freertos/config/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/freertos/config/include/freertos"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/freertos/config/xtensa/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/freertos/FreeRTOS-Kernel/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/freertos/esp_additions/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/esp_hw_support/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/esp_hw_support/include/soc"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/esp_hw_support/include/soc/esp32s3"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/esp_hw_support/dma/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/esp_hw_support/ldo/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/esp_hw_support/debug_probe/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/esp_hw_support/port/esp32s3/."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/esp_hw_support/port/esp32s3/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/heap/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/heap/tlsf"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/log/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/soc/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/soc/esp32s3"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/soc/esp32s3/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/soc/esp32s3/register"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/hal/platform_port/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/hal/esp32s3/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/hal/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/esp_rom/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/esp_rom/esp32s3/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/esp_rom/esp32s3/include/esp32s3"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/esp_rom/esp32s3"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/esp_common/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/esp_system/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/esp_system/port/soc"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/esp_system/port/include/private"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/xtensa/esp32s3/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/xtensa/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/xtensa/deprecated_include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/lwip/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/lwip/include/apps"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/lwip/include/apps/sntp"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/lwip/lwip/src/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/lwip/port/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/lwip/port/freertos/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/lwip/port/esp32xx/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/lwip/port/esp32xx/include/arch"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/lwip/port/esp32xx/include/sys"
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"id" : "__idf_cxx::@fc68b7334ac9a9392d41"
+		}
+	],
+	"id" : "__idf_pthread::@52b2aa0be8fa4ca9e52e",
+	"name" : "__idf_pthread",
+	"nameOnDisk" : "libpthread.a",
+	"paths" : 
+	{
+		"build" : "esp-idf/pthread",
+		"source" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/pthread"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/pthread/pthread.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/pthread/pthread_cond_var.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/pthread/pthread_local_storage.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/pthread/pthread_rwlock.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "C:/Users/Tang/.platformio/packages/framework-espidf/components/pthread/pthread_semaphore.c",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

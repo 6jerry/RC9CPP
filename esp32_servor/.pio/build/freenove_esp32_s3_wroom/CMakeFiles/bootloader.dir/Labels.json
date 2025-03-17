@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/CMakeFiles/bootloader"
+		},
+		{
+			"file" : "D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/CMakeFiles/bootloader.rule"
+		},
+		{
+			"file" : "D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/CMakeFiles/bootloader-complete.rule"
+		},
+		{
+			"file" : "D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule"
+		},
+		{
+			"file" : "D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule"
+		},
+		{
+			"file" : "D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule"
+		},
+		{
+			"file" : "D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule"
+		},
+		{
+			"file" : "D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule"
+		},
+		{
+			"file" : "D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule"
+		},
+		{
+			"file" : "D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"bootloader"
+		],
+		"name" : "bootloader"
+	}
+}

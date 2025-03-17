@@ -1,0 +1,82 @@
+{
+	"backtrace" : 3,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_custom_target",
+			"__add_dfu_targets",
+			"project"
+		],
+		"files" : 
+		[
+			"C:/Users/Tang/.platformio/packages/framework-espidf/tools/cmake/dfu.cmake",
+			"C:/Users/Tang/.platformio/packages/framework-espidf/tools/cmake/project.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 67,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 885,
+				"parent" : 1
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 45,
+				"parent" : 2
+			}
+		]
+	},
+	"id" : "dfu-list::@6890427a1f51a3e7e1df",
+	"name" : "dfu-list",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 3,
+			"isGenerated" : true,
+			"path" : "D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/bootloader/CMakeFiles/dfu-list",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/bootloader/CMakeFiles/dfu-list.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}

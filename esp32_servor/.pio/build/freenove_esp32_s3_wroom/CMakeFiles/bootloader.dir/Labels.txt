@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/CMakeFiles/bootloader
+D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/CMakeFiles/bootloader.rule
+D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/CMakeFiles/bootloader-complete.rule
+D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+D:/esp_project/RC9CPP/esp32_servor/.pio/build/freenove_esp32_s3_wroom/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
