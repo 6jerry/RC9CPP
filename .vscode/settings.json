@@ -16,7 +16,12 @@
     "new": "c",
     "gpio.h": "c",
     "usb_device.h": "c",
-    "random": "cpp"
+    "random": "cpp",
+    "memory": "cpp",
+    "optional": "cpp",
+    "array": "cpp",
+    "string": "cpp",
+    "string_view": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
