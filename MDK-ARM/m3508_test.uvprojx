@@ -16,8 +16,17 @@
         <TargetCommonOption>
           <Device>STM32F407ZGTx</Device>
           <Vendor>STMicroelectronics</Vendor>
+<<<<<<< HEAD
           <PackID>Keil.STM32F4xx_DFP.2.14.0</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
+=======
+<<<<<<< HEAD
+          <PackID>Keil.STM32F4xx_DFP.2.17.1</PackID>
+=======
+          <PackID>Keil.STM32F4xx_DFP.3.0.0</PackID>
+>>>>>>> 830c9049 (改keil)
+          <PackURL>https://www.keil.com/pack/</PackURL>
+>>>>>>> 2db587d7 (改keil)
           <Cpu>IRAM(0x20000000-0x2001BFFF) IRAM2(0x2001C000-0x2001FFFF) IROM(0x8000000-0x80FFFFF)  CLOCK(25000000) FPU2 CPUTYPE("Cortex-M4") TZ</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
