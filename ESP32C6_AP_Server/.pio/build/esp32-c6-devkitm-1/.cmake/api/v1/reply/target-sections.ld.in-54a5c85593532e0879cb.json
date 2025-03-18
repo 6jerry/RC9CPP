@@ -1,0 +1,91 @@
+{
+	"backtrace" : 4,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_custom_target",
+			"preprocess_linker_file",
+			"include"
+		],
+		"files" : 
+		[
+			"C:/Users/32806/.platformio/packages/framework-espidf/components/esp_system/ld/ld.cmake",
+			"C:/Users/32806/.platformio/packages/framework-espidf/components/esp_system/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 92,
+				"parent" : 0
+			},
+			{
+				"file" : 0,
+				"parent" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 51,
+				"parent" : 2
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 42,
+				"parent" : 3
+			}
+		]
+	},
+	"id" : "sections.ld.in::@874df54e61e20112dfd4",
+	"name" : "sections.ld.in",
+	"paths" : 
+	{
+		"build" : "esp-idf/esp_system",
+		"source" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_system"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				0,
+				2
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 4,
+			"isGenerated" : true,
+			"path" : ".pio/build/esp32-c6-devkitm-1/esp-idf/esp_system/CMakeFiles/sections.ld.in",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : ".pio/build/esp32-c6-devkitm-1/esp-idf/esp_system/CMakeFiles/sections.ld.in.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_system/ld/esp32c6/sections.ld.in",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "UTILITY"
+}
