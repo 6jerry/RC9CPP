@@ -176,25 +176,8 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
         target.swerve_motor_angle[0] = atan2f(target.swerve_motor_target[0].x, target.swerve_motor_target[0].y) * 57.296f;
     }
 
-    if (target.swerve_motor_angle[0] > -90.0f && target.swerve_motor_angle[0] < 90.0f)
-    { // 无需劣弧优化
-
-        motors[0]->set_rpm(v_2_rpm(target.swerve_motor_target[0].magnitude()));
-        dmotors[0]->set_pos(target.swerve_motor_angle[0]);
-    }
-    // motors[0]->set_rpm(v_2_rpm(target.swerve_motor_target[0].magnitude()));
-    // dmotors[0]->set_pos(target.swerve_motor_angle[0]);
-
-    else if (target.swerve_motor_angle[0] >= 90.0f && target.swerve_motor_angle[0] <= 180.0f)
-    {
-        dmotors[0]->set_pos(target.swerve_motor_angle[0] - 180.0f);
-        motors[0]->set_rpm(v_2_rpm(-target.swerve_motor_target[0].magnitude()));
-    }
-    else if (target.swerve_motor_angle[0] >= -180.0f && target.swerve_motor_angle[0] <= -90.0f)
-    {
-        dmotors[0]->set_pos(target.swerve_motor_angle[0] + 180.0f);
-        motors[0]->set_rpm(v_2_rpm(-target.swerve_motor_target[0].magnitude()));
-    }
+    motors[0]->send_rpm(v_2_rpm(target.swerve_motor_target[0].magnitude()));
+    dmotors[0]->set_pos(target.swerve_motor_angle[0]);
 
     target.swerve_motor_target[1].x = robovel.x + w * 0.38735f;
     target.swerve_motor_target[1].y = robovel.y - w * 0.38735f;
@@ -204,25 +187,8 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
         target.swerve_motor_angle[1] = atan2f(target.swerve_motor_target[1].x, target.swerve_motor_target[1].y) * 57.296f;
     }
 
-    if (target.swerve_motor_angle[1] > -90.0f && target.swerve_motor_angle[1] < 90.0f)
-    { // 无需劣弧优化
-
-        motors[1]->set_rpm(v_2_rpm(-target.swerve_motor_target[1].magnitude()));
-        dmotors[1]->set_pos(target.swerve_motor_angle[1]);
-    }
-    // motors[1]->set_rpm(v_2_rpm(-target.swerve_motor_target[1].magnitude()));
-    // dmotors[1]->set_pos(target.swerve_motor_angle[1]);
-
-    else if (target.swerve_motor_angle[1] >= 90.0f && target.swerve_motor_angle[1] <= 180.0f)
-    {
-        dmotors[1]->set_pos(target.swerve_motor_angle[1] - 180.0f);
-        motors[1]->set_rpm(v_2_rpm(target.swerve_motor_target[1].magnitude()));
-    }
-    else if (target.swerve_motor_angle[1] >= -180.0f && target.swerve_motor_angle[1] <= -90.0f)
-    {
-        dmotors[1]->set_pos(target.swerve_motor_angle[1] + 180.0f);
-        motors[1]->set_rpm(v_2_rpm(target.swerve_motor_target[1].magnitude()));
-    }
+    motors[1]->send_rpm(v_2_rpm(-target.swerve_motor_target[1].magnitude()));
+    dmotors[1]->set_pos(target.swerve_motor_angle[1]);
 
     target.swerve_motor_target[2].x = robovel.x + w * 0.38735f;
     target.swerve_motor_target[2].y = robovel.y + w * 0.38735f;
@@ -231,26 +197,8 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
         target.swerve_motor_angle[2] = atan2f(target.swerve_motor_target[2].x, target.swerve_motor_target[2].y) * 57.296f;
     }
 
-    if (target.swerve_motor_angle[2] > -90.0f && target.swerve_motor_angle[2] < 90.0f)
-    { // 无需劣弧优化
-
-        motors[2]->set_rpm(v_2_rpm(target.swerve_motor_target[2].magnitude()));
-        dmotors[2]->set_pos(target.swerve_motor_angle[2]);
-    }
-
-    // motors[2]->set_rpm(-v_2_rpm(target.swerve_motor_target[2].magnitude()));
-    // dmotors[2]->set_pos(target.swerve_motor_angle[2]);
-
-    else if (target.swerve_motor_angle[2] >= 90.0f && target.swerve_motor_angle[2] <= 180.0f)
-    {
-        dmotors[2]->set_pos(target.swerve_motor_angle[2] - 180.0f);
-        motors[2]->set_rpm(v_2_rpm(-target.swerve_motor_target[2].magnitude()));
-    }
-    else if (target.swerve_motor_angle[2] >= -180.0f && target.swerve_motor_angle[2] <= -90.0f)
-    {
-        dmotors[2]->set_pos(target.swerve_motor_angle[2] + 180.0f);
-        motors[2]->set_rpm(v_2_rpm(-target.swerve_motor_target[2].magnitude()));
-    }
+    motors[2]->send_rpm(-v_2_rpm(target.swerve_motor_target[2].magnitude()));
+    dmotors[2]->set_pos(target.swerve_motor_angle[2]);
 }
 
 void RoboChassis::add_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3, GPIO_TypeDef *port4, uint16_t pin4)

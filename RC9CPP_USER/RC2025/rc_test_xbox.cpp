@@ -62,27 +62,37 @@ void yun_ball_xbox::process_data()
         HAL_GPIO_WritePin(trigger_port, trigger_pin, GPIO_PIN_RESET);
     }
 
-    if (shooter_trigger == 1)
+    if (shoot_or_yun == 0)
     {
-        HAL_GPIO_WritePin(shooter_port, shooter_pin, GPIO_PIN_SET);
+        if (shooter_trigger == 1)
+        {
+            HAL_GPIO_WritePin(shooter_port, shooter_pin, GPIO_PIN_SET);
+        }
+        else if (shooter_trigger == 0)
+        {
+            HAL_GPIO_WritePin(shooter_port, shooter_pin, GPIO_PIN_RESET);
+        }
     }
-    else if (shooter_trigger == 0)
+    else if (shoot_or_yun == 1)
     {
-        HAL_GPIO_WritePin(shooter_port, shooter_pin, GPIO_PIN_RESET);
+
+        if (laser->get_distance() <= shoot_dis && laser->get_distance() > 0.06f)
+        {
+            HAL_GPIO_WritePin(shooter_port, shooter_pin, GPIO_PIN_SET);
+        }
+        else if (laser->get_distance() > shoot_dis)
+        {
+            HAL_GPIO_WritePin(shooter_port, shooter_pin, GPIO_PIN_RESET);
+        }
     }
 
     if (if_motor_start == 1)
     {
-        if (shoot_or_yun == 0)
-        {
-            lfter_motor->set_rpm(xbox_msgs.joyLVert_map * max_lifter_speed);
-            turn_motor->set_rpm(xbox_msgs.joyRHori_map * max_turn_speed);
-        }
-        else if (shoot_or_yun == 1)
-        {
-            shooter_motor->set_rpm(-xbox_msgs.joyLVert_map * max_lifter_speed);
-            pithcer_motor->set_rpm(-xbox_msgs.joyRVert_map * max_turn_speed);
-        }
+        lfter_motor->set_rpm(xbox_msgs.joyRVert_map * max_lifter_speed);
+        turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
+
+        shooter_motor->set_rpm(xbox_msgs.joyLVert_map * max_shooter_speed);
+        pithcer_motor->set_rpm(-(xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_pithcer_speed);
     }
     else if (if_motor_start == 0)
     {
@@ -106,4 +116,9 @@ void yun_ball_xbox::add_trigger(GPIO_TypeDef *trigger_port_, uint16_t trigger_pi
     trigger_pin = trigger_pin_;
     shooter_port = shooter_port_;
     shooter_pin = shooter_pin_;
+}
+
+void yun_ball_xbox::add_laser(imu *laser_)
+{
+    laser = laser_;
 }

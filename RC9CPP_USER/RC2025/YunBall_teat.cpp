@@ -6,9 +6,9 @@ RC9Protocol esp_port(uart, &huart2), debug_port(uart, &huart5);
 
 LaserProcessor laser(&huart6);
 
-m3508p shooter(2, &hcan1), m3508_left(4, &hcan1, true), m3508_front(3, &hcan1, true), m3508_right(1, &hcan1, true);
+//m3508p shooter(2, &hcan1), m3508_left(4, &hcan1, true), m3508_front(3, &hcan1, true), m3508_right(1, &hcan1, true);
 
-// m3508p lifter(1, &hcan2, true);
+m3508p lifter(1, &hcan1, true), turnner(2, &hcan1), pithcer(3, &hcan1);
 
 moters_debug_xbox m3508_debuger;
 
@@ -27,6 +27,7 @@ RoboChassis s3_chassis(swerve3_chassis);
 chassis_debug_xbox s3_xbox(8.0f, 6.0f);
 extern "C"
 {
+    
     void yunball_test_setup(void)
     {
 
@@ -35,21 +36,27 @@ extern "C"
         esp_port.startUartReceiveIT();
         can_core.init();
         debug_port.initQueue();
-        m3508_left.start_debug();
-        m3508_left.addport(&debug_port);
-        m3508_left.config_mech_param(19.2032f, 35.0f); // 光电门f6
+        lifter.start_debug();
+        lifter.addport(&debug_port);
+        lifter.config_mech_param(19.2032f, 35.0f); // 光电门f6
         xbox_test.addport(&esp_port);
-        xbox_test.add_motor(&shooter, &m3508_front, &m8080, &m3508_right);
-        xbox_test.add_trigger(GPIOC, GPIO_PIN_15, GPIOC, GPIO_PIN_13); // shooter c 13
+        xbox_test.add_motor(&lifter, &turnner, &m8080, &pithcer);
+        xbox_test.add_trigger(GPIOC, GPIO_PIN_14, GPIOC, GPIO_PIN_13); // shooter c 13
+
+        xbox_test.add_laser(&laser);
         task_core.registerTask(0, &can_core);
         task_core.registerTask(3, &xbox_test);
-        task_core.registerTask(2, &m8080);
+        task_core.registerTask(1, &m8080);
         // task_core.registerTask(2, &vesc2);
         // task_core.registerTask(2, &vesc3);
-        task_core.registerTask(8, &debug_port);
+        // task_core.registerTask(8, &debug_port);
+
+        m8080.rpm_control.config_all(230.0f, 2.2f, 486.0f, 0.0f, 50000.0f, 6.0f);
 
         osKernelStart();
     }
+        
+    /*
 
     void m3508_adjust(void)
     {
@@ -138,4 +145,5 @@ extern "C"
         task_core.registerTask(3, &s3_xbox);
         osKernelStart();
     }
+*/
 }
