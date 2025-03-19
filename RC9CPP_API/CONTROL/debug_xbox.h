@@ -12,6 +12,7 @@ extern "C"
 #include "RC9Protocol.h"
 #include "robot_chassis.h"
 #include "GCFSM.h"
+#include "TrapezoidalPlanner.h"
 #ifdef __cplusplus
 }
 #endif
@@ -88,7 +89,11 @@ public:
 
     void btn_scan();
 
+    void init_plan(float max_xy_acc, float max_w_acc);
+
     chassis_debug_xbox(float full_speed_, float full_w_);
+
+    VelocityPlanner x_planner, y_planner, w_planner;
 };
 
 #endif

@@ -229,7 +229,7 @@ float TrapezoidalPlanner1D::plan(float now_dis)
     if (traveled >= m_totalDistance)
     {
         traveled = m_totalDistance;
-       // m_phase = FINISHED_PHASE;
+        // m_phase = FINISHED_PHASE;
         return m_finalSpeed * direction;
     }
 
@@ -275,4 +275,46 @@ void TrapezoidalPlanner1D::reset()
     m_decelDistance = 0;
     m_totalDistance = 0;
     direction = 0;
+}
+
+VelocityPlanner::VelocityPlanner(float maxAcceleration)
+{
+    this->maxAcceleration = maxAcceleration;
+    lastOutput = 0.0f;
+}
+
+float VelocityPlanner::plan(float targetSpeed)
+{
+    float diff = targetSpeed - lastOutput;
+    // 如果目标速度与上一次规划的速度差超过上限，则限制增量
+    if (fabs(diff) > maxAcceleration)
+    {
+        if (diff > 0)
+        {
+            diff = maxAcceleration;
+        }
+        else
+        {
+            diff = -maxAcceleration;
+        }
+    }
+    lastOutput += diff;
+    return lastOutput;
+}
+
+void VelocityPlanner::setMaxAcceleration(float acceleration)
+{
+    maxAcceleration = acceleration;
+}
+
+void VelocityPlanner::reset(float initialValue, float maxAcceleration)
+{
+    lastOutput = initialValue;
+
+    this->maxAcceleration = maxAcceleration;
+}
+
+void VelocityPlanner::reset_speed()
+{
+    lastOutput = 0.0f;
 }

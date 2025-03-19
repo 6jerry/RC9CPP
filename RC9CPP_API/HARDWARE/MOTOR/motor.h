@@ -30,6 +30,10 @@ public:
     virtual void set_rpm(float power_motor_rpm) = 0; // 获取当前转速和设置目标转速的通用接口
     void switch_mode(motor_mode target_mode);
 
+    virtual void send_rpm(float power_motor_rpm) {};
+
+    virtual void set_ff_current(float target_c_) {};
+
     virtual float get_pos() {};
     virtual void set_pos(float pos) {}; // 获取当前位置和设置目标位置的通用接口
 
@@ -44,7 +48,7 @@ public:
 
     virtual void relocate_pos(float angle) {}; // 重新定位角度
 
-       virtual float get_odom() {}; // 获取里程
+    virtual float get_odom() {}; // 获取里程
 
     virtual void set_F(float F_) {}; // 设置力矩
 
