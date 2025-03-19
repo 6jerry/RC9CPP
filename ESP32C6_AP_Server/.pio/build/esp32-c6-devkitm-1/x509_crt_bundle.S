@@ -1,4 +1,4 @@
-/* * Data converted from D:\Destop\RC9_device\ESP32C6_AP_Server\.pio\build\esp32-c6-devkitm-1\x509_crt_bundle
+/* * Data converted from C:\Users\32806\Desktop\my_device\ESP32C6_AP_Server\.pio\build\esp32-c6-devkitm-1\x509_crt_bundle
  */
 .data
 #if !defined (__APPLE__) && !defined (__linux__)

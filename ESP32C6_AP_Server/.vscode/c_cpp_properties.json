@@ -8,10 +8,10 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "D:/Destop/RC9_device/ESP32C6_AP_Server/include",
-                "D:/Destop/RC9_device/ESP32C6_AP_Server/src",
+                "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/include",
+                "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/src",
                 "C:/Users/32806/.platformio/packages/framework-espidf/components/riscv/include",
-                "D:/Destop/RC9_device/ESP32C6_AP_Server/.pio/build/esp32-c6-devkitm-1/config",
+                "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/.pio/build/esp32-c6-devkitm-1/config",
                 "C:/Users/32806/.platformio/packages/framework-espidf/components/newlib/platform_include",
                 "C:/Users/32806/.platformio/packages/framework-espidf/components/freertos/config/include",
                 "C:/Users/32806/.platformio/packages/framework-espidf/components/freertos/config/include/freertos",
@@ -173,10 +173,10 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "D:/Destop/RC9_device/ESP32C6_AP_Server/include",
-                    "D:/Destop/RC9_device/ESP32C6_AP_Server/src",
+                    "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/include",
+                    "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/src",
                     "C:/Users/32806/.platformio/packages/framework-espidf/components/riscv/include",
-                    "D:/Destop/RC9_device/ESP32C6_AP_Server/.pio/build/esp32-c6-devkitm-1/config",
+                    "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/.pio/build/esp32-c6-devkitm-1/config",
                     "C:/Users/32806/.platformio/packages/framework-espidf/components/newlib/platform_include",
                     "C:/Users/32806/.platformio/packages/framework-espidf/components/freertos/config/include",
                     "C:/Users/32806/.platformio/packages/framework-espidf/components/freertos/config/include/freertos",
@@ -346,6 +346,9 @@
                 "IDF_VER=\"5.4.0\"",
                 "ESP_PLATFORM",
                 "PLATFORMIO=60118",
+                "CONFIG_ESP_WIFI_11AX_ENABLED=y",
+                "CONFIG_ESP_WIFI_11N_ENABLED=y",
+                "CONFIG_ESP_PHY_ENABLE_USB=y",
                 ""
             ],
             "cStandard": "gnu17",

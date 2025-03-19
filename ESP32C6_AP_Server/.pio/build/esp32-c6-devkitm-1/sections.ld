@@ -1,6 +1,6 @@
 /* Automatically generated file; DO NOT EDIT */
 /* Espressif IoT Development Framework Linker Script */
-/* Generated from: D:\Destop\RC9_device\ESP32C6_AP_Server\.pio\build\esp32-c6-devkitm-1\esp-idf\esp_system\ld\sections.ld.in */
+/* Generated from: C:\Users\32806\Desktop\my_device\ESP32C6_AP_Server\.pio\build\esp32-c6-devkitm-1\esp-idf\esp_system\ld\sections.ld.in */
 
 /*
  * SPDX-FileCopyrightText: 2022 Espressif Systems (Shanghai) CO LTD

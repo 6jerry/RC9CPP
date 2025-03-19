@@ -1,4 +1,4 @@
-# Install script for directory: D:/Destop/RC9_device/ESP32C6_AP_Server/src
+# Install script for directory: C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

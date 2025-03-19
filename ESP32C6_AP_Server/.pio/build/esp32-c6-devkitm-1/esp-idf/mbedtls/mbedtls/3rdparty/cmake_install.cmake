@@ -34,8 +34,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("D:/Destop/RC9_device/ESP32C6_AP_Server/.pio/build/esp32-c6-devkitm-1/esp-idf/mbedtls/mbedtls/3rdparty/everest/cmake_install.cmake")
-  include("D:/Destop/RC9_device/ESP32C6_AP_Server/.pio/build/esp32-c6-devkitm-1/esp-idf/mbedtls/mbedtls/3rdparty/p256-m/cmake_install.cmake")
+  include("C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/.pio/build/esp32-c6-devkitm-1/esp-idf/mbedtls/mbedtls/3rdparty/everest/cmake_install.cmake")
+  include("C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/.pio/build/esp32-c6-devkitm-1/esp-idf/mbedtls/mbedtls/3rdparty/p256-m/cmake_install.cmake")
 
 endif()
 

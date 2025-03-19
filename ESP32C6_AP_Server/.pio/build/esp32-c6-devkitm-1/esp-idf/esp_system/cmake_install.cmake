@@ -34,6 +34,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("D:/Destop/RC9_device/ESP32C6_AP_Server/.pio/build/esp32-c6-devkitm-1/esp-idf/esp_system/port/cmake_install.cmake")
+  include("C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/.pio/build/esp32-c6-devkitm-1/esp-idf/esp_system/port/cmake_install.cmake")
 endif()
 
