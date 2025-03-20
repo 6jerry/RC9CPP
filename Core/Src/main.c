@@ -32,7 +32,7 @@
 // #include "r2n_setup.h"
 
 // #include "m6020_adjust.h"
-#include "YunBall_test.h"
+#include "chassis_test.h"
 
 /* USER CODE END Includes */
 
@@ -131,7 +131,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   // MX_USB_DEVICE_Init();
 
-  yunball_test_setup();
+  chassis_move_test();
   while (1)
   {
     /* USER CODE END WHILE */

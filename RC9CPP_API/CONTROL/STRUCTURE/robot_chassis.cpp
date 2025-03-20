@@ -168,36 +168,126 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
 
     scan_photogate();
 
+    float angle_diff;
+    float target_angle;
+    float speed_magnitude;
+
+    // 第一个舵轮
     target.swerve_motor_target[0].x = robovel.x - w * 0.44f;
     target.swerve_motor_target[0].y = robovel.y;
 
-    if (target.swerve_motor_target[0].x != 0.0f | target.swerve_motor_target[0].y != 0.0f)
+    if (target.swerve_motor_target[0].x != 0.0f || target.swerve_motor_target[0].y != 0.0f)
     {
-        target.swerve_motor_angle[0] = atan2f(target.swerve_motor_target[0].x, target.swerve_motor_target[0].y) * 57.296f;
-    }
+        target_angle = atan2f(target.swerve_motor_target[0].x, target.swerve_motor_target[0].y) * 57.296f;
 
-    motors[0]->send_rpm(v_2_rpm(target.swerve_motor_target[0].magnitude()));
+        // 获取当前角度
+        float current_angle = dmotors[0]->get_pos();
+
+        // 计算角度差（假设角度已经在合适范围内）
+        angle_diff = target_angle - current_angle;
+        if (angle_diff > 180.0f)
+            angle_diff -= 360.0f;
+        if (angle_diff < -180.0f)
+            angle_diff += 360.0f;
+
+        // 应用劣弧优化 - 只考虑轮子反转
+        if (fabsf(angle_diff) > 90.0f)
+        {
+            // 角度差超过90度，旋转180度并反转轮子方向
+            target.swerve_motor_angle[0] = target_angle + 180.0f;
+            if (target.swerve_motor_angle[0] > 180.0f)
+                target.swerve_motor_angle[0] -= 360.0f;
+            speed_magnitude = -target.swerve_motor_target[0].magnitude();
+        }
+        else
+        {
+            // 角度差小于90度，保持原方向
+            target.swerve_motor_angle[0] = target_angle;
+            speed_magnitude = target.swerve_motor_target[0].magnitude();
+        }
+    }
+ 
+    // 发送指令到电机
+    motors[0]->send_rpm(v_2_rpm(speed_magnitude));
     dmotors[0]->set_pos(target.swerve_motor_angle[0]);
 
+    // 第二个舵轮
     target.swerve_motor_target[1].x = robovel.x + w * 0.38735f;
     target.swerve_motor_target[1].y = robovel.y - w * 0.38735f;
 
-    if (target.swerve_motor_target[1].x != 0.0f | target.swerve_motor_target[1].y != 0.0f)
+    if (target.swerve_motor_target[1].x != 0.0f || target.swerve_motor_target[1].y != 0.0f)
     {
-        target.swerve_motor_angle[1] = atan2f(target.swerve_motor_target[1].x, target.swerve_motor_target[1].y) * 57.296f;
-    }
+        target_angle = atan2f(target.swerve_motor_target[1].x, target.swerve_motor_target[1].y) * 57.296f;
 
-    motors[1]->send_rpm(v_2_rpm(-target.swerve_motor_target[1].magnitude()));
+        // 获取当前角度
+        float current_angle = dmotors[1]->get_pos();
+
+        // 计算角度差
+        angle_diff = target_angle - current_angle;
+        if (angle_diff > 180.0f)
+            angle_diff -= 360.0f;
+        if (angle_diff < -180.0f)
+            angle_diff += 360.0f;
+
+        // 应用劣弧优化 - 只考虑轮子反转
+        if (fabsf(angle_diff) > 90.0f)
+        {
+            // 角度差超过90度，旋转180度并反转轮子方向
+            target.swerve_motor_angle[1] = target_angle + 180.0f;
+            if (target.swerve_motor_angle[1] > 180.0f)
+                target.swerve_motor_angle[1] -= 360.0f;
+            speed_magnitude = target.swerve_motor_target[1].magnitude(); // 注意这里原本是负的，反转后变正
+        }
+        else
+        {
+            // 角度差小于90度，保持原方向
+            target.swerve_motor_angle[1] = target_angle;
+            speed_magnitude = -target.swerve_motor_target[1].magnitude(); // 原本是负的
+        }
+    }
+   
+
+    // 发送指令到电机
+    motors[1]->send_rpm(v_2_rpm(speed_magnitude));
     dmotors[1]->set_pos(target.swerve_motor_angle[1]);
 
+    // 第三个舵轮
     target.swerve_motor_target[2].x = robovel.x + w * 0.38735f;
     target.swerve_motor_target[2].y = robovel.y + w * 0.38735f;
-    if (target.swerve_motor_target[2].x != 0.0f | target.swerve_motor_target[2].y != 0.0f)
-    {
-        target.swerve_motor_angle[2] = atan2f(target.swerve_motor_target[2].x, target.swerve_motor_target[2].y) * 57.296f;
-    }
 
-    motors[2]->send_rpm(-v_2_rpm(target.swerve_motor_target[2].magnitude()));
+    if (target.swerve_motor_target[2].x != 0.0f || target.swerve_motor_target[2].y != 0.0f)
+    {
+        target_angle = atan2f(target.swerve_motor_target[2].x, target.swerve_motor_target[2].y) * 57.296f;
+
+        // 获取当前角度
+        float current_angle = dmotors[2]->get_pos();
+
+        // 计算角度差
+        angle_diff = target_angle - current_angle;
+        if (angle_diff > 180.0f)
+            angle_diff -= 360.0f;
+        if (angle_diff < -180.0f)
+            angle_diff += 360.0f;
+
+        // 应用劣弧优化 - 只考虑轮子反转
+        if (fabsf(angle_diff) > 90.0f)
+        {
+            // 角度差超过90度，旋转180度并反转轮子方向
+            target.swerve_motor_angle[2] = target_angle + 180.0f;
+            if (target.swerve_motor_angle[2] > 180.0f)
+                target.swerve_motor_angle[2] -= 360.0f;
+            speed_magnitude = target.swerve_motor_target[2].magnitude();
+        }
+        else
+        {
+            // 角度差小于90度，保持原方向
+            target.swerve_motor_angle[2] = target_angle;
+            speed_magnitude = -target.swerve_motor_target[2].magnitude();
+        }
+    }
+   
+    // 发送指令到电机
+    motors[2]->send_rpm(v_2_rpm(speed_magnitude));
     dmotors[2]->set_pos(target.swerve_motor_angle[2]);
 }
 
