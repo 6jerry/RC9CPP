@@ -80,17 +80,23 @@ void chassis_debug_xbox::process_data()
     btn_scan();
     joymap_compute();
     // currentState = stateMachine.getState();
-    currentState = 0;
-    Vector2D worldvel_(full_speed * xbox_msgs.joyLHori_map, full_speed * xbox_msgs.joyLVert_map);
-    set_RobotVel(worldvel_, priocode);
-    set_RobotW(-full_w * xbox_msgs.joyRHori_map, priocode);
-    if (btna_flag == 0)
+
+       if (btna_flag == 0)
     {
         // claw->ready_catch_ball();
+
+        set_RobotVel(Vector2D(0.0f, 0.0f), priocode);
+        set_RobotW(0.0f, priocode);
+
+        x_planner.reset_speed();
+        y_planner.reset_speed();
+        w_planner.reset_speed();
     }
     else if (btna_flag == 1)
     {
-        // claw->move_ball();
+        Vector2D worldvel_(x_planner.plan(full_speed * xbox_msgs.joyLHori_map), y_planner.plan(full_speed * xbox_msgs.joyLVert_map));
+        set_RobotVel(worldvel_, priocode);
+        set_RobotW(-w_planner.plan(full_w * xbox_msgs.joyRHori_map), priocode);
     }
     else
     {
@@ -109,7 +115,7 @@ void chassis_debug_xbox::btn_config()
         &xbox_msgs.btnA,
         &xbox_msgs.btnA_last,
         &btna_flag,
-        2,
+        1,
         ButtonActionType::Toggle,
         nullptr};
 
@@ -153,6 +159,13 @@ void chassis_debug_xbox::btn_scan()
     handleButton(btnXConfig);
     handleButton(btnYConfig);
     handleButton(btnShareConfig);
+}
+
+void chassis_debug_xbox::init_plan(float max_xy_acc, float max_w_acc)
+{
+    x_planner.reset(0.0f, max_xy_acc);
+    y_planner.reset(0.0f, max_xy_acc);
+    w_planner.reset(0.0f, max_w_acc);
 }
 
 moters_debug_xbox::moters_debug_xbox()
@@ -217,12 +230,12 @@ void moters_debug_xbox::process_data()
 
             break;
         case 2:
-            // debug_motor->set_pos((xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * 180.0f);
+            debug_motor->set_pos((xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * 180.0f);
 
-            //debug_motor->set_dis_speedplan(target_dis, max_speed, max_acc, max_dec, final_speed);
+            // debug_motor->set_dis_speedplan(target_dis, max_speed, max_acc, max_dec, final_speed);
             break;
         case 3:
-            //debug_motor->set_dis(xbox_msgs.trigRT_map * 720.0f + 100.0f);
+            // debug_motor->set_dis(xbox_msgs.trigRT_map * 720.0f + 100.0f);
             debug_motor->dis_speedplan_restart();
             break;
         }

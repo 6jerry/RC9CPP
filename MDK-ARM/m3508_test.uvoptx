@@ -897,6 +897,71 @@
           <WinNumber>2</WinNumber>
           <ItemText>m3508_debuger</ItemText>
         </Ww>
+        <Ww>
+          <count>126</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>laser</ItemText>
+        </Ww>
+        <Ww>
+          <count>127</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>xbox_test</ItemText>
+        </Ww>
+        <Ww>
+          <count>128</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m8080</ItemText>
+        </Ww>
+        <Ww>
+          <count>129</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>shooter_core</ItemText>
+        </Ww>
+        <Ww>
+          <count>130</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>lifter</ItemText>
+        </Ww>
+        <Ww>
+          <count>131</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m3508_front</ItemText>
+        </Ww>
+        <Ww>
+          <count>132</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m3508_right</ItemText>
+        </Ww>
+        <Ww>
+          <count>133</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>s3_chassis</ItemText>
+        </Ww>
+        <Ww>
+          <count>134</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>vx_temp</ItemText>
+        </Ww>
+        <Ww>
+          <count>135</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m8080</ItemText>
+        </Ww>
+        <Ww>
+          <count>136</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>shooter_debuger</ItemText>
+        </Ww>
+        <Ww>
+          <count>137</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>vesc_right</ItemText>
+        </Ww>
+        <Ww>
+          <count>138</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m3508_front</ItemText>
+        </Ww>
       </WatchWindow2>
       <MemoryWindow1>
         <Mm>
@@ -2255,8 +2320,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\YunBall_teat.cpp</PathWithFileName>
-      <FilenameWithoutPath>YunBall_teat.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\ball_shooter.cpp</PathWithFileName>
+      <FilenameWithoutPath>ball_shooter.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2267,8 +2332,32 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\YunBall_test.h</PathWithFileName>
-      <FilenameWithoutPath>YunBall_test.h</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\ball_shooter.h</PathWithFileName>
+      <FilenameWithoutPath>ball_shooter.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>106</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\chassis_test.cpp</PathWithFileName>
+      <FilenameWithoutPath>chassis_test.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>107</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\chassis_test.h</PathWithFileName>
+      <FilenameWithoutPath>chassis_test.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2282,7 +2371,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>8</GroupNumber>
-      <FileNumber>106</FileNumber>
+      <FileNumber>108</FileNumber>
       <FileType>4</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

@@ -8,6 +8,7 @@ extern "C"
 #include "arm_math.h"
 #include "Vector2D.h"
 #include "pure_pursuit.h"
+
 #ifdef __cplusplus
 }
 #endif
@@ -147,6 +148,28 @@ public:
 
     float min_dead_speed = 0.0f;
     float v_target = 0.0f;
+};
+
+class VelocityPlanner
+{
+public:
+    // 构造函数，传入加速度上限，单位 m/s²
+    VelocityPlanner(float maxAcceleration = 0.0f);
+
+    // 规划函数：传入当前目标速度，返回经过时间补偿后的平滑输出速度
+    float plan(float targetSpeed);
+
+    // 设置新的加速度上限，单位 m/s²
+    void setMaxAcceleration(float acceleration);
+
+    // 重置规划器状态，可设置初始速度，单位 m/s
+    void reset(float initialValue = 0.0f, float maxAcceleration = 0.0f);
+
+    void reset_speed();
+
+private:
+    float maxAcceleration; // 加速度上限（单位 m/s²，后缀平方秒）
+    float lastOutput;      // 上一次输出的速度（单位 m/s）
 };
 
 #endif

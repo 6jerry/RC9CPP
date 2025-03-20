@@ -30,9 +30,14 @@ public:
     virtual void set_rpm(float power_motor_rpm) = 0; // 获取当前转速和设置目标转速的通用接口
     void switch_mode(motor_mode target_mode);
 
+    virtual void send_rpm(float power_motor_rpm) {};
+
+    virtual void set_ff_current(float target_c_) {};
+
     virtual float get_pos() {};
     virtual void set_pos(float pos) {}; // 获取当前位置和设置目标位置的通用接口
 
+    virtual void set_current(float target_c_) {};
     virtual void set_dis(float dis) {}; // 设置距离
 
     virtual bool set_dis_speedplan(float targetdis, float max_speed, float max_acc, float max_dec, float finalspeed) {}; // 设置距离和速度和加速度
@@ -40,6 +45,8 @@ public:
     virtual void dis_speedplan_restart() {}; // 重新开始距离速度规划
 
     virtual void set_angle(float angle) {}; // 设置角度
+
+    virtual void relocate_pos(float angle) {}; // 重新定位角度
 
     virtual float get_odom() {}; // 获取里程
 
