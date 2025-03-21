@@ -32,11 +32,8 @@
 // #include "r2n_setup.h"
 
 // #include "m6020_adjust.h"
-<<<<<<< HEAD
 #include "LJH_test.h"
-=======
-#include "chassis_test.h"
->>>>>>> shootercar
+//#include "chassis_test.h"
 
 /* USER CODE END Includes */
 
@@ -135,11 +132,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   // MX_USB_DEVICE_Init();
 
-<<<<<<< HEAD
   LJH_test_setup();
-=======
-  chassis_move_test();
->>>>>>> shootercar
+  //chassis_move_test();
   while (1)
   {
     /* USER CODE END WHILE */

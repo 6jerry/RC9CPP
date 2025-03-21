@@ -43,10 +43,12 @@ void xbox_controller::process_data()
     if(test1 == 1)
     {
         //事件1 - on
+        motor1->set_rpm(xbox_msgs.joyRVert_map * max_lifter_speed);
     }
     else if(test1 == 0)
     {
         //事件1 - off
+        motor1->set_rpm(0.0f);
     }
 
     if(test2 == 1)
@@ -61,6 +63,7 @@ void xbox_controller::process_data()
     if(test3 == 1)
     {
         //事件3 - on
+        //motor1->set_dis_speedplan();
     }
     else if(test3 == 0)
     {
@@ -85,12 +88,12 @@ void xbox_controller::btn_scan()
     handleButton(btnLBConfig);      
 }
 
-void xbox_controller::add_motor(power_motor* motor1, power_motor* motor2, power_motor* motor3, power_motor* motor4)
+void xbox_controller::add_motor(power_motor* motor1_, power_motor* motor2_, power_motor* motor3_, power_motor* motor4_)
 {
-    this->motor1 = motor1;
-    this->motor2 = motor2;
-    this->motor3 = motor3;
-    this->motor4 = motor4;
+    motor1 = motor1_;
+    motor2 = motor2_;
+    motor3 = motor3_;
+    motor4 = motor4_;
 }
 
 void xbox_controller::add_trigger(GPIO_TypeDef *port_1, uint16_t pin_1, GPIO_TypeDef *port_2, uint16_t pin_2)

@@ -28,6 +28,7 @@ private:
     power_motor* motor1 = nullptr, *motor2 = nullptr, *motor3 = nullptr, *motor4 = nullptr;
     GPIO_TypeDef* port_1 = nullptr, *port_2 = nullptr;
     uint16_t pin_1 = 0, pin_2 = 0;
+    float max_lifter_speed = 420.0f;
 };
 #endif
 
