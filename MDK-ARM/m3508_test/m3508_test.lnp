@@ -69,6 +69,7 @@
 "m3508_test\position.o"
 "m3508_test\filters.o"
 "m3508_test\laser_processor.o"
+"m3508_test\encoder.o"
 "m3508_test\rc_test_xbox.o"
 "m3508_test\ball_shooter.o"
 "m3508_test\chassis_test.o"

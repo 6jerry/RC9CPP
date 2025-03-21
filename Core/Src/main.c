@@ -132,6 +132,7 @@ int main(void)
   // MX_USB_DEVICE_Init();
 
   chassis_move_test();
+
   while (1)
   {
     /* USER CODE END WHILE */

@@ -4,6 +4,8 @@ TaskManager task_core;
 CanManager can_core;
 RC9Protocol esp_port(uart, &huart2), debug_port(uart, &huart5);
 
+Encoder encoder(&huart6);
+
 m3508p shooter(2, &hcan1), m3508_left(4, &hcan1, true), m3508_front(3, &hcan1, true), m3508_right(1, &hcan1, true);
 
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
@@ -21,8 +23,8 @@ extern "C"
     {
         can_core.init();
         esp_port.startUartReceiveIT();
+		encoder.startUartReceiveIT();
         debug_port.initQueue();
-
         m3508_front.config_mech_param(48.26f, 0.0f);
         m3508_front.angle_pid_control.ConfigAll(3.1f, 0.4f, 1.4f, 0.0f, 160.0f, 0.2f, 3.0f);
 
@@ -50,4 +52,7 @@ extern "C"
         task_core.registerTask(3, &s3_xbox);
         osKernelStart();
     }
+	
+	
+
 }
