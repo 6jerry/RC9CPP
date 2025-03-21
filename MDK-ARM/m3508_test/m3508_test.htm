@@ -5,7 +5,7 @@
 <H1>Static Call Graph for image m3508_test\m3508_test.axf</H1><HR>
 <BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6210000: Last Updated: Wed Mar 26 21:09:33 2025
 <BR><P>
-<H3>Maximum Stack Usage =        344 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        336 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 __rt_entry_main &rArr; main &rArr; chassis_move_test &rArr; TaskManager::registerTask(int, ITaskProcessor*) &rArr; osThreadNew &rArr; xTaskCreate &rArr; vPortFree &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 <P>
@@ -869,14 +869,14 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f407xx.o(RESET)
 </UL>
 <P><STRONG><a name="[1e]"></a>CAN1_RX0_IRQHandler</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f4xx_it.o(.text.CAN1_RX0_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = CAN1_RX0_IRQHandler &rArr; HAL_CAN_IRQHandler &rArr; HAL_CAN_RxFifo0MsgPendingCallback &rArr; HAL_CAN_GetRxMessage
+<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = CAN1_RX0_IRQHandler &rArr; HAL_CAN_IRQHandler &rArr; HAL_CAN_RxFifo0MsgPendingCallback &rArr; HAL_CAN_GetRxMessage
 </UL>
 <BR>[Calls]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_IRQHandler
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f407xx.o(RESET)
 </UL>
 <P><STRONG><a name="[4a]"></a>CAN2_RX0_IRQHandler</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f4xx_it.o(.text.CAN2_RX0_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = CAN2_RX0_IRQHandler &rArr; HAL_CAN_IRQHandler &rArr; HAL_CAN_RxFifo0MsgPendingCallback &rArr; HAL_CAN_GetRxMessage
+<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = CAN2_RX0_IRQHandler &rArr; HAL_CAN_IRQHandler &rArr; HAL_CAN_RxFifo0MsgPendingCallback &rArr; HAL_CAN_GetRxMessage
 </UL>
 <BR>[Calls]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_IRQHandler
 </UL>
@@ -1799,7 +1799,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> can_device.o(.rodata._ZTV10CanManager)
 </UL>
-<P><STRONG><a name="[69]"></a>RC9Protocol::process_data()</STRONG> (Thumb, 168 bytes, Stack size 160 bytes, rc9protocol.o(.text._ZN11RC9Protocol12process_dataEv))
+<P><STRONG><a name="[69]"></a>RC9Protocol::process_data()</STRONG> (Thumb, 164 bytes, Stack size 160 bytes, rc9protocol.o(.text._ZN11RC9Protocol12process_dataEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 280 + Unknown Stack Size
 <LI>Call Chain = RC9Protocol::process_data() &rArr; osMessageQueueGet &rArr; xQueueReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
@@ -1813,7 +1813,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rc9protocol.o(.rodata._ZTV11RC9Protocol)
 </UL>
-<P><STRONG><a name="[68]"></a>RC9Protocol::handleReceiveData(unsigned char)</STRONG> (Thumb, 568 bytes, Stack size 32 bytes, rc9protocol.o(.text._ZN11RC9Protocol17handleReceiveDataEh))
+<P><STRONG><a name="[68]"></a>RC9Protocol::handleReceiveData(unsigned char)</STRONG> (Thumb, 552 bytes, Stack size 32 bytes, rc9protocol.o(.text._ZN11RC9Protocol17handleReceiveDataEh))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = RC9Protocol::handleReceiveData(unsigned char) &rArr; CRC16_Table
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CRC16_Table
@@ -1948,7 +1948,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> robot_chassis.o(.rodata._ZTV11RoboChassis)
 </UL>
-<P><STRONG><a name="[61]"></a>TaskManager::TaskFunction(void*)</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, taskmanager.o(.text._ZN11TaskManager12TaskFunctionEPv))
+<P><STRONG><a name="[61]"></a>TaskManager::TaskFunction(void*)</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, taskmanager.o(.text._ZN11TaskManager12TaskFunctionEPv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = TaskManager::TaskFunction(void*) &rArr; osDelay &rArr; vTaskDelay &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[184]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
@@ -3669,7 +3669,7 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> tasks.o(.text.vTaskStartScheduler)
 </UL>
-<P><STRONG><a name="[64]"></a>prvTimerTask</STRONG> (Thumb, 906 bytes, Stack size 32 bytes, timers.o(.text.prvTimerTask))
+<P><STRONG><a name="[64]"></a>prvTimerTask</STRONG> (Thumb, 890 bytes, Stack size 32 bytes, timers.o(.text.prvTimerTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = prvTimerTask &rArr; xQueueReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount

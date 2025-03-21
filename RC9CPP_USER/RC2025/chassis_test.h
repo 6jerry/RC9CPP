@@ -15,9 +15,12 @@ extern "C"
 #include "Action.h"
 #include <cmsis_os2.h>
 #include "RC9Protocol.h"
-
+#include "encoder.h"
+	
     void chassis_move_test(void);
     void u8_adjust(void);
+	
+	void encoder_test(void);
 #ifdef __cplusplus
 }
 #endif
