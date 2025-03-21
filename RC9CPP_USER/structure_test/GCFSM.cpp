@@ -89,9 +89,7 @@ void catch_ball_fsm::process_data()
 {
     sensor_flag = HAL_GPIO_ReadPin(sensor_port, GPIO_sensor_pin);
 
-    float send_datas[2] = {zone_judge, ask_lock_ball};
-
-    sendFloatData(1, send_datas, 2);
+   
 
     switch (state)
     {
@@ -103,7 +101,42 @@ void catch_ball_fsm::process_data()
         yaw_TurnTo(first_ball_point_yaw, prio_code);
         if (get_track_dis() < 0.005f && get_track_dis() != 0.0f)
         {
-            state = catch_ball_lock_yaw;
+            state = catch_catch_the_first_ball;
+        }
+        break;
+
+    case catch_catch_the_first_ball:
+        ask_lock_ball = 1.0f;
+        yaw_TurnTo(0.0f, prio_code);
+        if (ball_info_.y_dis > ball_close_size && abs(ball_info_.x_dis) > 70.0f)
+        {
+            catch_speed.y = -catch_ball_speed;
+            catch_speed.x = 0.0f;
+            catcher->close_for_ball();
+            set_RobotVel(catch_speed, prio_code);
+        }
+        else
+        {
+            if (ball_info_.y_dis < ball_close_size)
+            {
+                catcher->close_for_ball();
+            }
+            else if (ball_info_.y_dis > ball_close_size)
+            {
+                catcher->ready_catch_ball();
+            }
+
+            catch_speed.x = ball_locker_pid.PID_ComputeError(ball_info_.x_dis);
+            catch_speed.y = catch_ball_speed;
+
+            set_RobotVel(catch_speed, prio_code);
+        }
+
+        re_try_judge();
+        if ((ball_info_.y_dis > entererd_ball_size && abs(ball_info_.x_dis) < 10.0f) | sensor_flag == 1)
+        {
+            catcher->move_ball();
+            state = catch_ball_ball_entered;
         }
         break;
 
@@ -115,11 +148,23 @@ void catch_ball_fsm::process_data()
         state = catch_ball_locking_ball;
         break;
     case catch_ball_locking_ball:
+        ask_lock_ball = 1.0f;
 
-        catch_speed.x = ball_locker_pid.PID_ComputeError(ball_info_.x_dis);
-        catch_speed.y = catch_ball_speed;
-        catcher->ready_catch_ball();
-        set_RobotVel(catch_speed, prio_code);
+        if (ball_info_.y_dis > ball_close_size && abs(ball_info_.x_dis) > 70.0f)
+        {
+            catch_speed.y = -catch_ball_speed;
+            catch_speed.x = 0.0f;
+            catcher->ready_catch_ball();
+            set_RobotVel(catch_speed, prio_code);
+        }
+        else
+        {
+            catch_speed.x = ball_locker_pid.PID_ComputeError(ball_info_.x_dis);
+            catch_speed.y = catch_ball_speed;
+            catcher->ready_catch_ball();
+            set_RobotVel(catch_speed, prio_code);
+        }
+
         re_try_judge();
         if (ball_info_.y_dis > entererd_ball_size && abs(ball_info_.x_dis) < 10.0f)
         {
@@ -230,6 +275,10 @@ void catch_ball_fsm::process_data()
         }
         break;
     }
+
+    float send_datas[2] = {zone_judge, ask_lock_ball};
+
+    sendFloatData(1, send_datas, 2);
 }
 
 void catch_ball_fsm::re_try_judge()

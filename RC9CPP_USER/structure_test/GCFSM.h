@@ -110,7 +110,14 @@ enum catch_ball_state
     catch_ball_go_to_retry_point_down_left,
     catch_ball_go_to_retry_point_down_right,
     catch_ball_go_to_retry_exit_left,
-    catch_ball_go_to_retry_exit_right
+    catch_ball_go_to_retry_exit_right,
+
+    catch_catch_the_first_ball,
+
+    catch_rolling_to_find_ball,
+    catch_relocate_x,
+
+    catch_ball_relocate_y,
 
 };
 // ball 1 kanqiu -0.053,0.508,0.0
@@ -134,7 +141,7 @@ private:
 
     pid ball_locker_pid;
 
-    float catch_ball_speed = 0.3f, entererd_ball_size = 800.0f, throw_ball_speed = 1.6f;
+    float catch_ball_speed = 0.3f, entererd_ball_size = 800.0f, throw_ball_speed = 1.6f, ball_close_size = 720.0f;
 
     float able_to_open_size = 700.0f;
 
