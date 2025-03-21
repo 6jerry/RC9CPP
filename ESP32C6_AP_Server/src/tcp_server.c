@@ -20,7 +20,7 @@ static void client_handler_task(void *pvParameters)
     int len;
 
     while ((len = recv(client_sock, buffer, sizeof(buffer) - 1, 0)) > 0) {
-        buffer[len] = '0';
+        buffer[len] = '\0';
         ESP_LOGI(TAG, "Received: %s", buffer);
         send(client_sock, buffer, len, 0);
     }
