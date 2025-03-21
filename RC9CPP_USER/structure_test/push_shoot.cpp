@@ -39,9 +39,9 @@
 TaskManager task_core;
 // CanManager can_core;
 //   shoot_xbox shoot_control(&m3508_shooter, &m3508_pitch);
-RC9Protocol debug(cdc), esp32(uart, &huart3), position_port(uart, &huart2);
+RC9Protocol debug(cdc), esp32(uart, &huart3), position_port(uart, &huart4);
 
-STP23L lidarback(&huart5), lidarright(&huart4);
+//STP23L lidarback(&huart5), lidarright(&huart4);
 
 position position_test;
 
@@ -86,7 +86,7 @@ pshoot_setup(void)
 
     esp32.startUartReceiveIT();
     position_port.startUartReceiveIT();
-    lidarback.startUartReceiveIT();
+//    lidarback.startUartReceiveIT();
 
     position_test.addport(&position_port);
 
