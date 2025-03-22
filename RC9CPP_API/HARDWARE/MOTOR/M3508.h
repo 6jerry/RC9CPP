@@ -103,7 +103,8 @@ public:
     void set_fTff(float Tff_); // 设置动摩擦力前馈补偿
 
     void set_pos(float pos) override;
-
+    float get_pos() override;
+    void relocate_pos(float angle) override;
     void set_dis(float dis) override;
     void set_F(float F_) override;
     bool set_dis_speedplan(float targetdis, float max_speed, float max_acc, float max_dec, float finalspeed) override;

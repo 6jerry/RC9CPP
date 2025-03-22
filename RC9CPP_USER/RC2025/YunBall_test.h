@@ -9,7 +9,7 @@ extern "C"
 #include <cmsis_os2.h>
 #include "RC9Protocol.h"
 #include "TaskManager.h"
-
+#include "robot_chassis.h"
 #include "M3508.h"
 #include "M6020.h"
 #include "VESC.h"
@@ -17,8 +17,11 @@ extern "C"
 #include "debug_xbox.h"
 #include "gpio.h"
 #include "laser_processor.h"
+#include "ball_shooter.h"
     void yunball_test_setup(void);
     void m3508_adjust(void);
+    void shooter_adjust(void);
+    void chassis_adjust(void);
 
 #ifdef __cplusplus
 }

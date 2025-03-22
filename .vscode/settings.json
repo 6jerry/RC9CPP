@@ -16,7 +16,9 @@
     "new": "c",
     "gpio.h": "c",
     "usb_device.h": "c",
-    "random": "cpp"
+    "random": "cpp",
+    "memory": "cpp",
+    "optional": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
@@ -76,5 +78,6 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "C_Cpp.dimInactiveRegions": false,
-  "C_Cpp.errorSquiggles": "enabled"
+  "C_Cpp.errorSquiggles": "enabled",
+  "cmake.sourceDirectory": "G:/STM32_PROJECT/R1_NEW/R1_No2 - 改动/handware_test/filter"
 }

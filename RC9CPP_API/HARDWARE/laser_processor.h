@@ -100,7 +100,7 @@ public:
 
     const Command *InitCommands() const { return init_commands_; }
     static int InitCommandCount() { return CMD_GROUP_SIZE; }
-    float get_distance(void);
+    float get_distance(void) override;
     void handleReceiveData(uint8_t byte);
     CmdStatus GetCmdStatus(int index) const;
     void SendInitCommands();

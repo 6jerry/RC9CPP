@@ -9,6 +9,7 @@ extern "C"
 #include "TaskManager.h"
 #include "motor.h"
 #include "gpio.h"
+#include "imu.h"
 #ifdef __cplusplus
 }
 #endif
@@ -24,7 +25,9 @@ private:
 
     uint8_t if_motor_start = 0, trigger_start = 0, shooter_trigger = 0, shoot_or_yun = 0;
 
-    float max_lifter_speed = 3520.0f, max_turn_speed = 80.0f;
+    float max_lifter_speed = 420.0f, max_turn_speed = 80.0f, max_shooter_speed = 600.0f, max_pithcer_speed = 430.0f, shoot_dis = 0.16f;
+
+    imu *laser = nullptr;
 
 public:
     void process_data();
@@ -33,6 +36,8 @@ public:
     void btnconfig_init();
     void add_motor(power_motor *lfter_motor_, power_motor *turn_motor_, power_motor *shooter_motor_, power_motor *pithcer_motor_);
     void add_trigger(GPIO_TypeDef *trigger_port_, uint16_t trigger_pin_, GPIO_TypeDef *shooter_port_, uint16_t shooter_pin_);
+
+    void add_laser(imu *laser_);
 };
 
 #endif

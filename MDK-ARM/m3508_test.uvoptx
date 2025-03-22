@@ -163,107 +163,77 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>MOTOR_REAL_INFO,0x0A</ItemText>
+          <ItemText>MOTOR_PID_RPM</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>USART6_Rx_buf</ItemText>
+          <ItemText>laser_take_pid</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>USART2_Rx_buf</ItemText>
+          <ItemText>laser_take_pid</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>MOTOR_PID_RPM</ItemText>
+          <ItemText>Laser_Real_Data</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>laser_take_pid</ItemText>
+          <ItemText>MOTOR_REAL_INFO</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
-          <ItemText>laser_take_pid</ItemText>
+          <ItemText>motorleft_r</ItemText>
         </Ww>
         <Ww>
           <count>6</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Laser_Real_Data</ItemText>
+          <ItemText>motorright_r</ItemText>
         </Ww>
         <Ww>
           <count>7</count>
           <WinNumber>1</WinNumber>
-          <ItemText>MOTOR_REAL_INFO</ItemText>
+          <ItemText>shoot_down_right</ItemText>
         </Ww>
         <Ww>
           <count>8</count>
           <WinNumber>1</WinNumber>
-          <ItemText>motorleft_r</ItemText>
+          <ItemText>shoot_up_left</ItemText>
         </Ww>
         <Ww>
           <count>9</count>
           <WinNumber>1</WinNumber>
-          <ItemText>motorright_r</ItemText>
+          <ItemText>shoot_up_right</ItemText>
         </Ww>
         <Ww>
           <count>10</count>
           <WinNumber>1</WinNumber>
-          <ItemText>shoot_down_right</ItemText>
+          <ItemText>shoot_up_right</ItemText>
         </Ww>
         <Ww>
           <count>11</count>
           <WinNumber>1</WinNumber>
-          <ItemText>shoot_up_left</ItemText>
+          <ItemText>motorright_r</ItemText>
         </Ww>
         <Ww>
           <count>12</count>
           <WinNumber>1</WinNumber>
-          <ItemText>shoot_up_right</ItemText>
+          <ItemText>shoot_down_left</ItemText>
         </Ww>
         <Ww>
           <count>13</count>
           <WinNumber>1</WinNumber>
-          <ItemText>shoot_up_right</ItemText>
+          <ItemText>PPM_buf</ItemText>
         </Ww>
         <Ww>
           <count>14</count>
           <WinNumber>1</WinNumber>
-          <ItemText>motorright_r</ItemText>
-        </Ww>
-        <Ww>
-          <count>15</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>shoot_down_left</ItemText>
-        </Ww>
-        <Ww>
-          <count>16</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>PPM_buf</ItemText>
-        </Ww>
-        <Ww>
-          <count>17</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>Robot_Chassis.Robot_V</ItemText>
-        </Ww>
-        <Ww>
-          <count>18</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>Robot_Chassis.Robot_V[2] * 0.3149 + 0.6712 * Robot_Chassis.Robot_V[1] - Robot_Chassis.Robot_V[0] * 0.7412</ItemText>
-        </Ww>
-        <Ww>
-          <count>19</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>ACTION_GL_POS_INFO</ItemText>
-        </Ww>
-        <Ww>
-          <count>20</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>xbox_test</ItemText>
+          <ItemText>encoder</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
@@ -896,6 +866,71 @@
           <count>125</count>
           <WinNumber>2</WinNumber>
           <ItemText>m3508_debuger</ItemText>
+        </Ww>
+        <Ww>
+          <count>126</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>laser</ItemText>
+        </Ww>
+        <Ww>
+          <count>127</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>xbox_test</ItemText>
+        </Ww>
+        <Ww>
+          <count>128</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m8080</ItemText>
+        </Ww>
+        <Ww>
+          <count>129</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>shooter_core</ItemText>
+        </Ww>
+        <Ww>
+          <count>130</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>lifter</ItemText>
+        </Ww>
+        <Ww>
+          <count>131</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m3508_front</ItemText>
+        </Ww>
+        <Ww>
+          <count>132</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m3508_right</ItemText>
+        </Ww>
+        <Ww>
+          <count>133</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>s3_chassis</ItemText>
+        </Ww>
+        <Ww>
+          <count>134</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>vx_temp</ItemText>
+        </Ww>
+        <Ww>
+          <count>135</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m8080</ItemText>
+        </Ww>
+        <Ww>
+          <count>136</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>shooter_debuger</ItemText>
+        </Ww>
+        <Ww>
+          <count>137</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>vesc_right</ItemText>
+        </Ww>
+        <Ww>
+          <count>138</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m3508_front</ItemText>
         </Ww>
       </WatchWindow2>
       <MemoryWindow1>
@@ -2216,6 +2251,30 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+    <File>
+      <GroupNumber>6</GroupNumber>
+      <FileNumber>102</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_API\HARDWARE\encoder.cpp</PathWithFileName>
+      <FilenameWithoutPath>encoder.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>6</GroupNumber>
+      <FileNumber>103</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_API\HARDWARE\encoder.h</PathWithFileName>
+      <FilenameWithoutPath>encoder.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
   </Group>
 
   <Group>
@@ -2226,7 +2285,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>102</FileNumber>
+      <FileNumber>104</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2238,7 +2297,7 @@
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>103</FileNumber>
+      <FileNumber>105</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -2250,25 +2309,49 @@
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>104</FileNumber>
+      <FileNumber>106</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\YunBall_teat.cpp</PathWithFileName>
-      <FilenameWithoutPath>YunBall_teat.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\ball_shooter.cpp</PathWithFileName>
+      <FilenameWithoutPath>ball_shooter.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>105</FileNumber>
+      <FileNumber>107</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\YunBall_test.h</PathWithFileName>
-      <FilenameWithoutPath>YunBall_test.h</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\ball_shooter.h</PathWithFileName>
+      <FilenameWithoutPath>ball_shooter.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>108</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\chassis_test.cpp</PathWithFileName>
+      <FilenameWithoutPath>chassis_test.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>109</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\chassis_test.h</PathWithFileName>
+      <FilenameWithoutPath>chassis_test.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2282,7 +2365,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>8</GroupNumber>
-      <FileNumber>106</FileNumber>
+      <FileNumber>110</FileNumber>
       <FileType>4</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
