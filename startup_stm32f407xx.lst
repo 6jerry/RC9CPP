@@ -849,11 +849,11 @@ Command Line: --debug --xref --diag_suppress=9931,A1950W --cpu=Cortex-M4.fp.sp
 ARM Macro Assembler    Page 14 
 
 
-../Core/Inc -I.\RTE\_m3508_test -ID:\Keil5\ARM\PACK\ARM\CMSIS\6.1.0\CMSIS\Core\
-Include -ID:\Keil5\ARM\PACK\Keil\STM32F4xx_DFP\2.17.1\Drivers\CMSIS\Device\ST\S
-TM32F4xx\Include --predefine="__UVISION_VERSION SETA 540" --predefine="STM32F40
-7xx SETA 1" --predefine="_RTE_ SETA 1" --list=..\startup_stm32f407xx.lst startu
-p_stm32f407xx.s
+../Core/Inc -I../Middlewares/ST/ARM/DSP/Inc -I.\RTE\_m3508_test -ID:\Keil5\ARM\
+PACK\ARM\CMSIS\6.1.0\CMSIS\Core\Include -ID:\Keil5\ARM\PACK\Keil\STM32F4xx_DFP\
+2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include --predefine="__UVISION_VERSION
+ SETA 540" --predefine="STM32F407xx SETA 1" --predefine="_RTE_ SETA 1" --list=.
+.\startup_stm32f407xx.lst startup_stm32f407xx.s
 
 
 
