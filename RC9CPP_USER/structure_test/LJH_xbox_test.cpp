@@ -44,16 +44,23 @@ void xbox_controller::process_data()
     {
         //事件1 - on
         motor1->set_rpm(xbox_msgs.joyRVert_map * max_lifter_speed);
+        motor2->set_rpm(xbox_msgs.joyLHori_map * max_turn_speed);
+        motor3->set_rpm(0.0f);
+        motor4->set_rpm(0.0f);
     }
     else if(test1 == 0)
     {
         //事件1 - off
         motor1->set_rpm(0.0f);
+        motor2->set_rpm(0.0f);
+        motor3->set_rpm(xbox_msgs.joyLVert_map * max_pithcer_speed);
+        motor4->set_rpm((xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_shooter_speed);
     }
 
     if(test2 == 1)
     {
         //事件2 - on
+        motor1->set_dis_speedplan(700,);
     }
     else if(test2 == 0)
     {
@@ -63,20 +70,23 @@ void xbox_controller::process_data()
     if(test3 == 1)
     {
         //事件3 - on
-        //motor1->set_dis_speedplan();
+        HAL_GPIO_WritePin(port_1, pin_1, GPIO_PIN_SET);
     }
     else if(test3 == 0)
     {
         //事件3 - off
+        HAL_GPIO_WritePin(port_1, pin_1, GPIO_PIN_RESET);
     }
 
     if(test4 == 1)
     {
         //事件4 - on
+        HAL_GPIO_WritePin(port_2, pin_2, GPIO_PIN_SET);
     }
     else if(test4 == 0)
     {
         //事件4 - off
+        HAL_GPIO_WritePin(port_2, pin_2, GPIO_PIN_RESET);
     }
 }
 
