@@ -157,6 +157,11 @@ int16_t m3508p::angle_pid()
     return increPID_speed();
 }
 
+float m3508p::get_pos()
+{
+    return pos_sum;
+}
+
 void m3508p::set_pos(float pos)
 {
     target_angle = pos;

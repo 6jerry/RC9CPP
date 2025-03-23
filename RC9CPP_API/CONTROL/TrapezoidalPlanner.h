@@ -25,10 +25,12 @@ enum Phase
 };
 
 // 定义规划类型枚举
+// 在ProfileType枚举中添加S型规划
 enum ProfileType
 {
-    TRAPEZOIDAL, // 梯形规划：存在加速、匀速、减速三个阶段
-    TRIANGULAR   // 三角形规划：仅有加速和减速两个阶段，无法达到设定的最大速度
+    TRAPEZOIDAL, // 梯形规划
+    TRIANGULAR,  // 三角形规划
+    S_CURVE      // S型规划
 };
 
 class TrapezoidalPlanner
@@ -174,3 +176,5 @@ private:
 
 #endif
 #endif
+
+   

@@ -82,7 +82,7 @@ private:
 public:
     m3508p(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool enable_locate_ = false, float gear_ratio = M3508_G);
 
-    int16_t motor_process() override; 
+    int16_t motor_process() override;
     void can_update(uint8_t can_RxData[8]);
     float target_angle = 0.0f, target_distance = 0.0f, angle_error = 0.0f, dis_error = 0.0f;
     float target_rpm = 0.0f;
@@ -103,6 +103,7 @@ public:
     void set_fTff(float Tff_); // 设置动摩擦力前馈补偿
 
     void set_pos(float pos) override;
+    float get_pos() override;
     void relocate_pos(float angle) override;
     void set_dis(float dis) override;
     void set_F(float F_) override;
