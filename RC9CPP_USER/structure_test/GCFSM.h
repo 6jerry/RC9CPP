@@ -141,7 +141,7 @@ private:
 
     pid ball_locker_pid;
 
-    float catch_ball_speed = 0.3f, entererd_ball_size = 800.0f, throw_ball_speed = 1.6f, ball_close_size = 720.0f;
+    float catch_ball_speed = 0.3f, entererd_ball_size = 800.0f, throw_ball_speed = 1.6f, ball_close_size = 560.0f;
 
     float able_to_open_size = 700.0f;
 

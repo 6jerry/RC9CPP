@@ -65,6 +65,7 @@ public:
 
     uint8_t currentState = 0;
     catch_ball_fsm *catcher = nullptr;
+    catcher_fsm *claw = nullptr;
 
 public:
     void

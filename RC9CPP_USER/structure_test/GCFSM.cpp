@@ -89,9 +89,7 @@ void catch_ball_fsm::process_data()
 {
     sensor_flag = HAL_GPIO_ReadPin(sensor_port, GPIO_sensor_pin);
 
-   
-
-    switch (state)
+       switch (state)
     {
     case catch_ball_standby:
         prio_code = 0;
@@ -133,7 +131,7 @@ void catch_ball_fsm::process_data()
         }
 
         re_try_judge();
-        if ((ball_info_.y_dis > entererd_ball_size && abs(ball_info_.x_dis) < 10.0f) | sensor_flag == 1)
+        if ((ball_info_.y_dis > entererd_ball_size && abs(ball_info_.x_dis) < 10.0f) && sensor_flag == 1)
         {
             catcher->move_ball();
             state = catch_ball_ball_entered;
@@ -148,7 +146,7 @@ void catch_ball_fsm::process_data()
         state = catch_ball_locking_ball;
         break;
     case catch_ball_locking_ball:
-        ask_lock_ball = 1.0f;
+        ask_lock_ball = 2.0f;
 
         if (ball_info_.y_dis > ball_close_size && abs(ball_info_.x_dis) > 70.0f)
         {

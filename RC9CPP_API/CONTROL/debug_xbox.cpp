@@ -88,6 +88,19 @@ void chassis_debug_xbox::process_data()
         set_RobotVel(worldvel_, priocode);
         set_RobotW(-full_w * xbox_msgs.joyRHori_map, priocode);
         catcher->stop_catch_ball();
+
+        if (btny_flag == 0)
+        {
+           claw->throw_ball();
+        }
+        else if (btny_flag == 1)
+        {
+           claw->hold_claw();
+        }
+        else if (btny_flag == 2)
+        {
+           claw->ready_catch_ball();
+        }
     }
     else if (btna_flag == 1)
     {
@@ -130,7 +143,7 @@ void chassis_debug_xbox::btn_config()
         &xbox_msgs.btnY,
         &xbox_msgs.btnY_last,
         &btny_flag,
-        1,
+        2,
         ButtonActionType::Toggle,
         nullptr};
 

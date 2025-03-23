@@ -39,9 +39,9 @@
 TaskManager task_core;
 // CanManager can_core;
 //   shoot_xbox shoot_control(&m3508_shooter, &m3508_pitch);
-RC9Protocol debug(cdc), esp32(uart, &huart3), position_port(uart, &huart4);
+RC9Protocol debug(cdc), esp32(uart, &huart4), position_port(uart, &huart3);
 
-//STP23L lidarback(&huart5), lidarright(&huart4);
+// STP23L lidarback(&huart5), lidarright(&huart4);
 
 position position_test;
 
@@ -86,14 +86,14 @@ pshoot_setup(void)
 
     esp32.startUartReceiveIT();
     position_port.startUartReceiveIT();
-//    lidarback.startUartReceiveIT();
+    //    lidarback.startUartReceiveIT();
 
     position_test.addport(&position_port);
 
-      task_core.registerTask(4, &right_front);
-      task_core.registerTask(4, &right_back);
-       task_core.registerTask(5, &left_back);
-       task_core.registerTask(5, &left_front);
+     task_core.registerTask(4, &right_front);
+     task_core.registerTask(4, &right_back);
+     task_core.registerTask(5, &left_back);
+    task_core.registerTask(5, &left_front);
     task_core.registerTask(5, &claw_test);
     task_core.registerTask(5, &catcher_test);
     task_core.registerTask(8, &debug);
@@ -109,6 +109,7 @@ pshoot_setup(void)
     // mg996_left.set_ccr(left_up); // 146 最低位,80最高位
     // mg996_right.set_ccr(right_up);
     xbox_ctrl.catcher = &catcher_test;
+    xbox_ctrl.claw = &claw_test;
     catcher_test.catcher = &claw_test;
     catcher_test.addport(&debug);
     catcher_test.add_chassis(&m4);
