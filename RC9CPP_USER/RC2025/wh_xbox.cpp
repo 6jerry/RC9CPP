@@ -60,4 +60,5 @@ void wh_xbox::btn_scan() {
 void wh_xbox::process_data() {
     btn_scan();
     joymap_compute();
+
 }
