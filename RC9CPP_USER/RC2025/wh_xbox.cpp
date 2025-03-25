@@ -1,5 +1,4 @@
 
-
 #include "wh_xbox.h"
 
 void wh_xbox::xbox_init()
