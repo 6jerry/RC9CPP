@@ -29,6 +29,7 @@ public:
     void process_data();
     void xbox_init();
     void btn_scan();
+    void load_motor();
 };
 
 #endif

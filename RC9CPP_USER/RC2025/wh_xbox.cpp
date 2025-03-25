@@ -51,7 +51,9 @@ void wh_xbox::xbox_init()
 }
 
 void wh_xbox::btn_scan() {
-    handleButton(btnAConfig);
+    handleButton(btnBConfig);
+    handleButton(btnXConfig);
+    handleButton(btnYConfig);
     handleButton(btnYConfig);
     handleButton(btnDirLeftConfig);
     handleButton(btnDirRightConfig);
