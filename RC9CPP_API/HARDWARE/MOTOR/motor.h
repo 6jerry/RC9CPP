@@ -40,6 +40,10 @@ public:
     virtual void set_current(float target_c_) {};
     virtual void set_dis(float dis) {}; // 设置距离
 
+    virtual void relocate_dis(float dis) {}; // 重新定位距离
+
+    virtual float get_dis() {}; // 获取距离
+
     virtual bool set_dis_speedplan(float targetdis, float max_speed, float max_acc, float max_dec, float finalspeed) {}; // 设置距离和速度和加速度
 
     virtual void dis_speedplan_restart() {}; // 重新开始距离速度规划

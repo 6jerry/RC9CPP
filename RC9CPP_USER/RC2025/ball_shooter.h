@@ -27,7 +27,8 @@ enum shooter_mode
     shooter_rpm,
     shooter_dis,
     shooter_stop,
-    shooter_custom_rpm
+    shooter_custom_rpm,
+    shooter_laser_init
 
 };
 
@@ -35,7 +36,7 @@ class BallShooter : public ITaskProcessor, public RC9subscriber
 {
 private:
     power_motor *pull_moter = nullptr;
-    imu *laser = nullptr;
+    imu *laser = nullptr, *a_encoder = nullptr;
 
     float min_dis = 0.06f, max_dis = 0.485f, real_dis = 0.0f, target_dis = 0.0f, target_rpm = 0.0f, target_current = 0.0f;
 

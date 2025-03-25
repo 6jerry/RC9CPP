@@ -96,5 +96,28 @@ public:
     VelocityPlanner x_planner, y_planner, w_planner;
 };
 
+class xbox_debug_base : public xbox, public ITaskProcessor
+{
+public:
+    uint8_t mode_flag = 2, start_flag = 0, lb_flag = 0, rb_flag = 0;
+
+    virtual void not_start() {};
+    virtual void mode_0() {};
+    virtual void mode_1() {};
+    virtual void mode_2() {};
+    virtual void mode_3() {};
+    virtual void mode_4() {};
+
+    virtual void lb_on() {};
+    virtual void rb_on() {};
+    virtual void lb_off() {};
+    virtual void rb_off() {};
+
+    void process_data();
+    void btn_scan();
+    void btnconfig_init();
+    xbox_debug_base();
+};
+
 #endif
 #endif
