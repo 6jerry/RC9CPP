@@ -13,7 +13,7 @@ extern "C"
 #endif
 
 #ifdef __cplusplus
-#define QUEUE_CAPACITY 8 // 队列最大容量
+#define QUEUE_CAPACITY 16 // 队列最大容量
 class Vector2D
 {
 public:
@@ -84,7 +84,7 @@ public:
     bool dequeue(Vector2D &vec);
 
     // 查看队首元素
-    bool peek(Vector2D &vec) const;
+    Vector2D peek() const;
 
     // 将一个数组压入队列，数组索引小的元素先压入
     bool enqueueArray(const Vector2D arr[], int length);
@@ -93,6 +93,8 @@ public:
 
     // 清空队列
     void clear();
+
+    float totalDistance() const;
 };
 
 #endif // VECTOR2D_H

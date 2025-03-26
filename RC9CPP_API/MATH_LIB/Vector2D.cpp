@@ -133,14 +133,14 @@ bool Vector2DQueue::dequeue(Vector2D &vec)
 }
 
 // 查看队首元素
-bool Vector2DQueue::peek(Vector2D &vec) const
+Vector2D Vector2DQueue::peek() const
 {
     if (isEmpty())
     {
-        return false; // 队列为空，查看失败
+        return Vector2D(0.0f, 0.0f); // 队列为空，查看失败
     }
-    vec = data[front]; // 获取队首元素
-    return true;       // 查看成功
+
+    return data[front]; // 查看成功
 }
 
 // 强制入队操作（覆盖队尾元素）
@@ -190,4 +190,20 @@ void Vector2DQueue::clear()
     front = 0;
     rear = -1;
     size = 0;
+}
+
+float Vector2DQueue::totalDistance() const
+{
+    float total = 0.0f;
+    if (size < 2)
+        return total;
+    int idx = front;
+    Vector2D prev = data[idx];
+    for (int i = 1; i < size; i++)
+    {
+        idx = (front + i) % QUEUE_CAPACITY;
+        total += (data[idx] - prev).magnitude();
+        prev = data[idx];
+    }
+    return total;
 }

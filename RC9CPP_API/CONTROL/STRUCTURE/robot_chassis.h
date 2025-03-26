@@ -12,6 +12,7 @@ extern "C"
 #include "imu.h"
 #include <arm_math.h>
 #include "gpio.h"
+#include "RC9Protocol.h"
 #ifdef __cplusplus
 }
 #endif
@@ -36,7 +37,9 @@ enum RoboChassis_mode
     point_track,
     point_track_speedplan,
     curve_track,
-    chassis_init
+    chassis_init,
+    ppp_track,
+    ppc_track
 
 };
 
@@ -73,6 +76,8 @@ typedef struct chassis_target
     float swerve_motor_angle[4] = {0.0f};
 
     Vector2D swerve_motor_target[4];
+
+    Vector2D pppoint[2];
 };
 
 class RoboChassis;
@@ -93,7 +98,7 @@ public:
     uint8_t get_track_dis(float *dis); // 看看追踪还剩多少
 
     float get_yaw(); // 获取当前的yaw
-
+    float calc_dis(Vector2D target);
     void chassis_back_priority(); // 回退到上一个优先级
     void chassis_rst_priority();  // 重置优先级
 
@@ -105,7 +110,7 @@ private:
 public:
 };
 
-class RoboChassis : public ITaskProcessor
+class RoboChassis : public ITaskProcessor, public RC9subscriber
 {
 
 public:
@@ -123,6 +128,8 @@ public:
     void add_6_motors(power_motor *front_d_motor, power_motor *front_motor, power_motor *right_d_motor, power_motor *right_motor, power_motor *left_d_motor, power_motor *left_motor);
 
     void add_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3, GPIO_TypeDef *port4, uint16_t pin4);
+
+    void enable_debug();
 
 private:
     chassis_user *user = nullptr; // 当前是哪个类正在使用底盘
@@ -143,14 +150,20 @@ private:
     uint16_t photogate_pin[4] = {0};
     uint8_t photogate_state[4] = {0}; // 前轮，右轮，左轮
 
-    bool if_not_init[4] = {true};
+    bool if_not_init[4] = {true, true, true, true};
 
     bool if_init_ok = false;
+
+    bool if_enable_debug = false;
+
+    uint32_t time_cnt = 0;
 
 private:
     pointrack pointtracker;
     // pure_pursuit purepursuiter;
     yaw_adjuster yawadjuster;
+
+    pure_pursuit pp_tracker;
 
     void scan_photogate();
 
@@ -181,12 +194,15 @@ public:
     uint8_t yaw_CTurnTo(float yaw, uint8_t PriorityCode, chassis_user *user_);
     uint8_t yaw_CTurnTo_speedplan(float yaw, uint8_t PriorityCode, chassis_user *user_);
     uint8_t Cmove_to(Vector2D target_p, uint8_t PriorityCode, chassis_user *user_);
+    float C_calc_dis(Vector2D target);
     uint8_t Cmove_to_speedplan(Vector2D target, uint8_t PriorityCode, chassis_user *user_);
 
     uint8_t get_track_disC(float *dis); // 看看追踪还剩多少
 
     void chassis_back_priorityC(); // 回退到上一个优先级
     void chassis_rst_priorityC();  // 重置优先级
+
+    void C_pp_move_2_point(Vector2D target_p, chassis_user *user_);
 
     float get_cyaw();
 };

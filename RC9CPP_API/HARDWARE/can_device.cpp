@@ -40,23 +40,8 @@ CanDevice::CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_
         case CanDeviceType::M3508:
             if (instanceCount_m3508_can1 < MAX_INSTANCES)
             {
-                // 使用插入排序方法，根据 can_id 插入到合适位置
-                int insertPos = instanceCount_m3508_can1;
-                for (int i = 0; i < instanceCount_m3508_can1; ++i)
-                {
-                    if (m3508_instances_can1[i]->can_id > can_id)
-                    {
-                        insertPos = i;
-                        break;
-                    }
-                }
 
-                for (int i = instanceCount_m3508_can1; i > insertPos; --i)
-                {
-                    m3508_instances_can1[i] = m3508_instances_can1[i - 1];
-                }
-
-                m3508_instances_can1[insertPos] = this;
+                m3508_instances_can1[can_id - 1] = this;
                 instanceCount_m3508_can1++;
             }
             break;
@@ -64,22 +49,8 @@ CanDevice::CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_
         case CanDeviceType::M6020:
             if (instanceCount_m6020_can1 < MAX_INSTANCES)
             {
-                int insertPos = instanceCount_m6020_can1;
-                for (int i = 0; i < instanceCount_m6020_can1; ++i)
-                {
-                    if (m6020_instances_can1[i]->can_id > can_id)
-                    {
-                        insertPos = i;
-                        break;
-                    }
-                }
 
-                for (int i = instanceCount_m6020_can1; i > insertPos; --i)
-                {
-                    m6020_instances_can1[i] = m6020_instances_can1[i - 1];
-                }
-
-                m6020_instances_can1[insertPos] = this;
+                m6020_instances_can1[can_id - 1] = this;
                 instanceCount_m6020_can1++;
             }
             break;
@@ -87,20 +58,8 @@ CanDevice::CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_
         case CanDeviceType::GO1:
             if (instanceCount_go1_can1 < MAX_INSTANCES)
             {
-                int insertPos = instanceCount_go1_can1;
-                for (int i = 0; i < instanceCount_go1_can1; ++i)
-                {
-                    if (go1_instances_can1[i]->can_id > can_id)
-                    {
-                        insertPos = i;
-                        break;
-                    }
-                }
-                for (int i = instanceCount_go1_can1; i > insertPos; --i)
-                {
-                    go1_instances_can1[i] = go1_instances_can1[i - 1];
-                }
-                go1_instances_can1[insertPos] = this;
+
+                go1_instances_can1[can_id - 1] = this;
                 instanceCount_go1_can1++;
             }
             break;
@@ -108,23 +67,8 @@ CanDevice::CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_
         case CanDeviceType::VESC:
             if (instanceCount_vesc_can1 < MAX_INSTANCES)
             {
-                // 插入排序，将新设备按 can_id 插入到合适位置
-                int insertPos = instanceCount_vesc_can1;
-                for (int i = 0; i < instanceCount_vesc_can1; ++i)
-                {
-                    if (vesc_instances_can1[i]->can_id > can_id)
-                    {
-                        insertPos = i;
-                        break;
-                    }
-                }
 
-                for (int i = instanceCount_vesc_can1; i > insertPos; --i)
-                {
-                    vesc_instances_can1[i] = vesc_instances_can1[i - 1];
-                }
-
-                vesc_instances_can1[insertPos] = this;
+                vesc_instances_can1[can_id - 1] = this;
                 instanceCount_vesc_can1++;
             }
             break;
@@ -140,22 +84,8 @@ CanDevice::CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_
         case CanDeviceType::M3508:
             if (instanceCount_m3508_can2 < MAX_INSTANCES)
             {
-                int insertPos = instanceCount_m3508_can2;
-                for (int i = 0; i < instanceCount_m3508_can2; ++i)
-                {
-                    if (m3508_instances_can2[i]->can_id > can_id)
-                    {
-                        insertPos = i;
-                        break;
-                    }
-                }
 
-                for (int i = instanceCount_m3508_can2; i > insertPos; --i)
-                {
-                    m3508_instances_can2[i] = m3508_instances_can2[i - 1];
-                }
-
-                m3508_instances_can2[insertPos] = this;
+                m3508_instances_can2[can_id - 1] = this;
                 instanceCount_m3508_can2++;
             }
             break;
@@ -163,22 +93,8 @@ CanDevice::CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_
         case CanDeviceType::M6020:
             if (instanceCount_m6020_can2 < MAX_INSTANCES)
             {
-                int insertPos = instanceCount_m6020_can2;
-                for (int i = 0; i < instanceCount_m6020_can2; ++i)
-                {
-                    if (m6020_instances_can2[i]->can_id > can_id)
-                    {
-                        insertPos = i;
-                        break;
-                    }
-                }
 
-                for (int i = instanceCount_m6020_can2; i > insertPos; --i)
-                {
-                    m6020_instances_can2[i] = m6020_instances_can2[i - 1];
-                }
-
-                m6020_instances_can2[insertPos] = this;
+                m6020_instances_can2[can_id - 1] = this;
                 instanceCount_m6020_can2++;
             }
             break;
@@ -186,20 +102,8 @@ CanDevice::CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_
         case CanDeviceType::GO1:
             if (instanceCount_go1_can2 < MAX_INSTANCES)
             {
-                int insertPos = instanceCount_go1_can2;
-                for (int i = 0; i < instanceCount_go1_can2; ++i)
-                {
-                    if (go1_instances_can2[i]->can_id > can_id)
-                    {
-                        insertPos = i;
-                        break;
-                    }
-                }
-                for (int i = instanceCount_go1_can2; i > insertPos; --i)
-                {
-                    go1_instances_can2[i] = go1_instances_can2[i - 1];
-                }
-                go1_instances_can2[insertPos] = this;
+
+                go1_instances_can2[can_id - 1] = this;
                 instanceCount_go1_can2++;
             }
             break;
@@ -207,23 +111,8 @@ CanDevice::CanDevice(CanDeviceType deviceType_, CAN_HandleTypeDef *hcan_, uint8_
         case CanDeviceType::VESC:
             if (instanceCount_vesc_can2 < MAX_INSTANCES)
             {
-                // 插入排序，将新设备按 can_id 插入到合适位置
-                int insertPos = instanceCount_vesc_can2;
-                for (int i = 0; i < instanceCount_vesc_can2; ++i)
-                {
-                    if (vesc_instances_can2[i]->can_id > can_id)
-                    {
-                        insertPos = i;
-                        break;
-                    }
-                }
 
-                for (int i = instanceCount_vesc_can2; i > insertPos; --i)
-                {
-                    vesc_instances_can2[i] = vesc_instances_can2[i - 1];
-                }
-
-                vesc_instances_can2[insertPos] = this;
+                vesc_instances_can2[can_id - 1] = this;
                 instanceCount_vesc_can2++;
             }
             break;
@@ -347,11 +236,14 @@ void CanManager::process_data()
     // 如果 CAN1 上有 m3508 设备
     if (CanDevice::instanceCount_m3508_can1 > 0)
     {
-        for (int i = 0; i < CanDevice::instanceCount_m3508_can1; ++i)
+        for (int i = 0; i < MAX_INSTANCES; ++i)
         {
-            int16_t temp_vcurrent = CanDevice::m3508_instances_can1[i]->motor_process();
-            send_buf1[2 * i] = (uint8_t)(temp_vcurrent >> 8);
-            send_buf1[2 * i + 1] = (uint8_t)temp_vcurrent;
+            if (CanDevice::m3508_instances_can1[i] != nullptr)
+            {
+                int16_t temp_vcurrent = CanDevice::m3508_instances_can1[i]->motor_process();
+                send_buf1[2 * i] = (uint8_t)(temp_vcurrent >> 8);
+                send_buf1[2 * i + 1] = (uint8_t)temp_vcurrent;
+            }
         }
         tx_message_1.StdId = 0x200;
         if (HAL_CAN_AddTxMessage(&hcan1, &tx_message_1, send_buf1, &msg_box1) == HAL_ERROR)
@@ -364,11 +256,14 @@ void CanManager::process_data()
     // 如果 CAN1 上有 m6020 设备
     if (CanDevice::instanceCount_m6020_can1 > 0)
     {
-        for (int i = 0; i < CanDevice::instanceCount_m6020_can1; ++i)
+        for (int i = 0; i < MAX_INSTANCES; ++i)
         {
-            int16_t temp_vcurrent = CanDevice::m6020_instances_can1[i]->motor_process();
-            send_buf1[2 * i] = (uint8_t)(temp_vcurrent >> 8);
-            send_buf1[2 * i + 1] = (uint8_t)temp_vcurrent;
+            if (CanDevice::m6020_instances_can1[i] != nullptr)
+            {
+                int16_t temp_vcurrent = CanDevice::m6020_instances_can1[i]->motor_process();
+                send_buf1[2 * i] = (uint8_t)(temp_vcurrent >> 8);
+                send_buf1[2 * i + 1] = (uint8_t)temp_vcurrent;
+            }
         }
         tx_message_1.StdId = 0x1FE;
         if (HAL_CAN_AddTxMessage(&hcan1, &tx_message_1, send_buf1, &msg_box1) == HAL_ERROR)
@@ -380,11 +275,14 @@ void CanManager::process_data()
     // 如果 CAN2 上有 m3508 设备
     if (CanDevice::instanceCount_m3508_can2 > 0)
     {
-        for (int i = 0; i < CanDevice::instanceCount_m3508_can2; ++i)
+        for (int i = 0; i < MAX_INSTANCES; ++i)
         {
-            int16_t temp_vcurrent2 = CanDevice::m3508_instances_can2[i]->motor_process();
-            send_buf2[2 * i] = (uint8_t)(temp_vcurrent2 >> 8);
-            send_buf2[2 * i + 1] = (uint8_t)temp_vcurrent2;
+            if (CanDevice::m3508_instances_can2[i] == nullptr)
+            {
+                int16_t temp_vcurrent2 = CanDevice::m3508_instances_can2[i]->motor_process();
+                send_buf2[2 * i] = (uint8_t)(temp_vcurrent2 >> 8);
+                send_buf2[2 * i + 1] = (uint8_t)temp_vcurrent2;
+            }
         }
         tx_message_2.StdId = 0x200;
         if (HAL_CAN_AddTxMessage(&hcan2, &tx_message_2, send_buf2, &msg_box2) != HAL_OK)
@@ -396,11 +294,14 @@ void CanManager::process_data()
     // 如果 CAN2 上有 m6020 设备
     if (CanDevice::instanceCount_m6020_can2 > 0)
     {
-        for (int i = 0; i < CanDevice::instanceCount_m6020_can2; ++i)
+        for (int i = 0; i < MAX_INSTANCES; ++i)
         {
-            int16_t temp_vcurrent2 = CanDevice::m6020_instances_can2[i]->motor_process();
-            send_buf2[2 * 3] = (uint8_t)(temp_vcurrent2 >> 8);
-            send_buf2[2 * 3 + 1] = (uint8_t)temp_vcurrent2;
+            if (CanDevice::m6020_instances_can2[i] == nullptr)
+            {
+                int16_t temp_vcurrent2 = CanDevice::m6020_instances_can2[i]->motor_process();
+                send_buf2[2 * 3] = (uint8_t)(temp_vcurrent2 >> 8);
+                send_buf2[2 * 3 + 1] = (uint8_t)temp_vcurrent2;
+            }
         }
         tx_message_2.StdId = 0x1FE;
         if (HAL_CAN_AddTxMessage(&hcan2, &tx_message_2, send_buf2, &msg_box2) != HAL_OK)
@@ -439,10 +340,7 @@ void CanManager::process_data()
         send_buf1[i] = 0;
     }
 }
-uint8_t test_id = 0;
-int16_t current = 0;
-int32_t erpm = 0;
-float rcurrent = 0.0f, rrpm = 0.0f;
+
 extern "C" void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
     if (hcan == &hcan1)

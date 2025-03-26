@@ -75,99 +75,6 @@ void algorithm_debug::DataReceivedCallback(const uint8_t *byteData, const float 
     }
 }
 
-void chassis_debug_xbox::process_data()
-{
-    btn_scan();
-    joymap_compute();
-    // currentState = stateMachine.getState();
-
-    if (btna_flag == 0)
-    {
-        // claw->ready_catch_ball();
-
-        set_RobotVel(Vector2D(0.0f, 0.0f), priocode);
-        set_RobotW(0.0f, priocode);
-
-        x_planner.reset_speed();
-        y_planner.reset_speed();
-        w_planner.reset_speed();
-    }
-    else if (btna_flag == 1)
-    {
-        Vector2D worldvel_(x_planner.plan(full_speed * xbox_msgs.joyLHori_map), y_planner.plan(full_speed * xbox_msgs.joyLVert_map));
-        set_RobotVel(worldvel_, priocode);
-        set_RobotW(-w_planner.plan(full_w * xbox_msgs.joyRHori_map), priocode);
-    }
-    else
-    {
-        // claw->throw_ball();
-    }
-}
-
-chassis_debug_xbox::chassis_debug_xbox(float full_speed_, float full_w_) : full_speed(full_speed_), full_w(full_w_)
-{
-    btn_config();
-}
-
-void chassis_debug_xbox::btn_config()
-{
-    btnAConfig = {
-        &xbox_msgs.btnA,
-        &xbox_msgs.btnA_last,
-        &btna_flag,
-        1,
-        ButtonActionType::Toggle,
-        nullptr};
-
-    btnBConfig = {
-        &xbox_msgs.btnB,
-        &xbox_msgs.btnB_last,
-        &btnb_flag,
-        1,
-        ButtonActionType::Toggle,
-        nullptr};
-
-    btnXConfig = {
-        &xbox_msgs.btnX,
-        &xbox_msgs.btnX_last,
-        &btnx_flag,
-        1,
-        ButtonActionType::Toggle,
-        nullptr};
-
-    btnYConfig = {
-        &xbox_msgs.btnY,
-        &xbox_msgs.btnY_last,
-        &btny_flag,
-        1,
-        ButtonActionType::Toggle,
-        nullptr};
-
-    btnShareConfig = {
-        &xbox_msgs.btnShare,
-        &xbox_msgs.btnShare_last,
-        &btnshare_flag,
-        1,
-        ButtonActionType::Toggle,
-        nullptr};
-}
-
-void chassis_debug_xbox::btn_scan()
-{
-    handleButton(btnAConfig);
-    handleButton(btnBConfig);
-    handleButton(btnXConfig);
-    handleButton(btnYConfig);
-    handleButton(btnShareConfig);
-}
-
-void chassis_debug_xbox::init_plan(float max_xy_acc, float max_w_acc)
-{
-    x_planner.reset(0.0f, max_xy_acc);
-    y_planner.reset(0.0f, max_xy_acc);
-    w_planner.reset(0.0f, max_w_acc);
-}
-
 moters_debug_xbox::moters_debug_xbox()
 {
     btnconfig_init();
@@ -358,4 +265,29 @@ void xbox_debug_base::process_data()
     {
         rb_off();
     }
+}
+
+void chassis_adjust_xbox::not_start()
+{
+    set_RobotVel(Vector2D(0.0f, 0.0f), 0);
+    set_RobotW(0.0f, 0);
+}
+
+void chassis_adjust_xbox::mode_2()
+{
+    Vector2D tvel_((1.0f * xbox_msgs.joyLHori_map), (1.0f * xbox_msgs.joyLVert_map));
+
+    set_RobotVel(tvel_, 0);
+    set_RobotW(-(5.0f * xbox_msgs.joyRHori_map), 0);
+}
+
+void chassis_adjust_xbox::mode_1()
+{
+    Vector2D tvel_(0.0f, 0.0f);
+    move_to(tvel_, 1);
+    yaw_TurnTo(0.0f, 0);
+}
+
+void chassis_adjust_xbox::mode_3()
+{
 }

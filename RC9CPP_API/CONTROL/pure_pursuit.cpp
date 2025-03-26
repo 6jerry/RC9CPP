@@ -40,17 +40,11 @@ Vector2D pure_pursuit::pursuit(Vector2D now_pos)
     case pp_standby: // 等待追踪，如果缓冲区中有超过两个以上的点则开始追踪
         target_wspeed.x = 0.0f;
         target_wspeed.y = 0.0f;
-        if (points_buffer.queueSize() > 2)
+        if (points_buffer.queueSize() >= 2)
         {
             points_buffer.dequeue(head);
             points_buffer.dequeue(tail); // 取出两个点作为第一次追踪的向量，注意取出顺序不要乱!!!
             state = pp_tracking;
-        }
-        else if (points_buffer.queueSize() == 2) // 只有两个点，可以直接停了
-        {
-            points_buffer.dequeue(head);
-            points_buffer.dequeue(tail);
-            state = pp_stoping;
         }
 
         break;
@@ -73,14 +67,10 @@ Vector2D pure_pursuit::pursuit(Vector2D now_pos)
 
         if (tangent_dis < change_point) // 要切换点了？
         {
-            if (points_buffer.queueSize() > 1) // 还有超过一个点，可以继续追踪
+            if (points_buffer.queueSize() >= 1) // 还有超过一个点，可以继续追踪
             {
                 head = tail;
                 points_buffer.dequeue(tail);
-            }
-            else if (points_buffer.queueSize() <= 1) // 缓冲队列点数不够，准备停止追踪
-            {
-                state = pp_stoping;
             }
         }
 
@@ -108,7 +98,18 @@ Vector2D pure_pursuit::pursuit(Vector2D now_pos)
     return target_wspeed;
 }
 
+float pure_pursuit::getRemainingDistance()
+{
+    float remaining = 0.0f;
+    remaining += points_buffer.totalDistance() + tangent_dis;
 
+    if (points_buffer.queueSize() >= 1)
+    {
+        remaining += (tail - points_buffer.peek()).magnitude();
+    }
+
+    return remaining;
+}
 
 bool pure_pursuit::pp_add_point(Vector2D new_point)
 {
@@ -144,8 +145,6 @@ float pointrack::get_dis()
 {
     return taerget_dis;
 }
-
-
 
 void yaw_adjuster::calc_angle_error()
 {
@@ -191,4 +190,3 @@ float yaw_adjuster::yaw_adjust(float now_angle, float target_angle_)
     calc_angle_error();
     return yaw_pid.PID_ComputeError(angle_error);
 }
-

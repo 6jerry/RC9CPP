@@ -90,8 +90,8 @@ void action::Update_Action_gl_position(float value[6])
     if (if_inverse_install)
     {
         action_info.now_pos_z = value[0];
-        action_info.now_pos_x = value[3];
-        action_info.now_pos_y = -value[4];
+        action_info.now_pos_x = value[4];
+        action_info.now_pos_y = -value[3];
     }
     else
     {
@@ -191,4 +191,13 @@ float action::get_speedx()
 float action::get_speedy()
 {
     return pose_data.world_speed_y;
+}
+
+Vector2D action::get_world_pos()
+{
+    Vector2D pos;
+    pos.x = pose_data.world_pos_x / 1000.0f;
+    pos.y = pose_data.world_pos_y / 1000.0f;
+
+    return pos;
 }

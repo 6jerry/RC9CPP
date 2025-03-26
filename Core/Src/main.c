@@ -32,8 +32,8 @@
 // #include "r2n_setup.h"
 
 // #include "m6020_adjust.h"
-#include "YunBall_test.h"
 
+#include "chassis_test.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -120,10 +120,10 @@ int main(void)
   osKernelInitialize();
 
   /* Call init function for freertos objects (in cmsis_os2.c) */
- // MX_FREERTOS_Init();
+  //MX_FREERTOS_Init();
 
   /* Start scheduler */
-  //osKernelStart();
+ // osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
 
@@ -131,7 +131,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   // MX_USB_DEVICE_Init();
 
-  yunball_test_setup();
+  chassis_move_test();
   while (1)
   {
     /* USER CODE END WHILE */

@@ -25,17 +25,43 @@ void RoboChassis::process_data()
         break;
     case chassis_init:
         chassis_initialize();
+
+        break;
+    case ppp_track:
+
+        //target.pppoint[0] = IMU->get_world_pos();
+        //target.pppoint[1] = target.target_point;
+
+        //pp_tracker.pp_refresh_points();
+        //pp_tracker.pp_force_add_points(target.pppoint, 2);
+
+        chassis_calc(worldv_2_robov(pp_tracker.pursuit(IMU->get_world_pos())), yawadjuster_process());
+
+        break;
+
+    case ppc_track:
+
         break;
     }
 }
 
 float RoboChassis::yawadjuster_process()
 {
+
+    float to_send_datas[2] = {0.0f};
     switch (yaw_mode)
     {
     case yaw_lock:
         break;
     case yaw_TurnTo:
+        if (if_enable_debug)
+        {
+            to_send_datas[0] = IMU->get_heading();
+            to_send_datas[1] = target.target_yaw;
+
+            sendFloatData(1, to_send_datas, 2);
+        }
+
         return yawadjuster.yaw_adjust(IMU->get_heading(), target.target_yaw);
         break;
     case yaw_TurnTo_speedplan:
@@ -47,6 +73,11 @@ float RoboChassis::yawadjuster_process()
     default:
         break;
     }
+}
+
+void RoboChassis::enable_debug()
+{
+    if_enable_debug = true;
 }
 
 void RoboChassis::chassis_calc(Vector2D robovel, float w)
@@ -93,37 +124,55 @@ void RoboChassis::swerve3_initialize()
 {
     scan_photogate();
     // dmotors[0]->set_rpm(20.0f);
-    // dmotors[1]->set_rpm(10.0f);
-    // dmotors[2]->set_rpm(20.0f);
+    //  dmotors[1]->set_rpm(20.0f);
+    //  dmotors[2]->set_rpm(20.0f);
 
-    /*
     if (photogate_state[0] == 1 && if_not_init[0])
     {
-        dmotors[0]->relocate_pos(-45.0f);
+        dmotors[1]->relocate_pos(90.0f);
         if_not_init[0] = false;
-        dmotors[0]->set_rpm(0.0f);
+        dmotors[1]->set_pos(0.0f);
+    }
+    else if (if_not_init[0] && photogate_state[0] == 0)
+    {
+        dmotors[1]->set_rpm(5.0f);
     }
 
     if (photogate_state[1] == 1 && if_not_init[1])
     {
-        dmotors[1]->relocate_pos(90.0f);
+        dmotors[2]->relocate_pos(-90.0f);
         if_not_init[1] = false;
-        dmotors[1]->set_rpm(0.0f);
+        dmotors[2]->set_pos(0.0f);
+        // mode = stop;
     }
+    else if (if_not_init[1] && photogate_state[1] == 0)
+    {
+        dmotors[2]->set_rpm(5.0f);
+    }
+
     if (photogate_state[2] == 1 && if_not_init[2])
     {
-        dmotors[2]->relocate_pos(-90.0f);
+        dmotors[0]->relocate_pos(-45.0f);
         if_not_init[2] = false;
-        dmotors[2]->set_rpm(0.0f);
+        dmotors[0]->set_pos(0.0f);
+    }
+    else if (if_not_init[2] && photogate_state[2] == 0)
+    {
+        dmotors[0]->set_rpm(5.0f);
     }
 
     if (if_not_init[0] == false && if_not_init[1] == false && if_not_init[2] == false)
     {
-        mode = stop;
+        // mode = stop;
+        time_cnt++;
+        if (time_cnt > 400)
+        {
+            mode = stop;
+            time_cnt = 0;
+        }
     }
-        */
 
-    mode = stop;
+    // mode = stop;
 }
 
 void RoboChassis::scan_photogate()
@@ -206,7 +255,7 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
             speed_magnitude = target.swerve_motor_target[0].magnitude();
         }
     }
- 
+
     // 发送指令到电机
     motors[0]->send_rpm(v_2_rpm(speed_magnitude));
     dmotors[0]->set_pos(target.swerve_motor_angle[0]);
@@ -245,7 +294,6 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
             speed_magnitude = -target.swerve_motor_target[1].magnitude(); // 原本是负的
         }
     }
-   
 
     // 发送指令到电机
     motors[1]->send_rpm(v_2_rpm(speed_magnitude));
@@ -285,7 +333,7 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
             speed_magnitude = -target.swerve_motor_target[2].magnitude();
         }
     }
-   
+
     // 发送指令到电机
     motors[2]->send_rpm(v_2_rpm(speed_magnitude));
     dmotors[2]->set_pos(target.swerve_motor_angle[2]);
@@ -300,6 +348,8 @@ void RoboChassis::add_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef
     photogate_pin[1] = pin2;
     photogate_port[2] = port3;
     photogate_pin[2] = pin3;
+    photogate_port[3] = port4;
+    photogate_pin[3] = pin4;
 }
 
 void RoboChassis::add_6_motors(power_motor *front_d_motor, power_motor *front_motor, power_motor *right_d_motor, power_motor *right_motor, power_motor *left_d_motor, power_motor *left_motor)
@@ -461,6 +511,16 @@ uint8_t RoboChassis::Cmove_to(Vector2D target_p, uint8_t PriorityCode, chassis_u
 
     target.target_point = target_p;
     return 1;
+}
+
+float RoboChassis::C_calc_dis(Vector2D target)
+{
+    return (IMU->get_world_pos() - target).magnitude();
+}
+
+float chassis_user::calc_dis(Vector2D target)
+{
+    return robochassis_->C_calc_dis(target);
 }
 
 uint8_t chassis_user::set_WorldVel(Vector2D worldvel, uint8_t PriorityCode)

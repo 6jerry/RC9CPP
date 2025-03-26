@@ -4,37 +4,37 @@ TaskManager task_core;
 CanManager can_core;
 RC9Protocol esp_port(uart, &huart2), debug_port(uart, &huart5);
 
-LaserProcessor laser(&huart6);
+// LaserProcessor laser(&huart6);
 
 // m3508p shooter(2, &hcan1), m3508_left(4, &hcan1, true), m3508_front(3, &hcan1, true), m3508_right(1, &hcan1, true);
 
-m3508p lifter(1, &hcan1, true), turnner(2, &hcan1, true), pithcer(3, &hcan1);
+m3508p lifter(1, &hcan1, true), turnner(2, &hcan1, true);
 
-moters_debug_xbox m3508_debuger;
+// moters_debug_xbox m3508_debuger;
 
-ball_shooter_xbox shooter_debuger;
+// ball_shooter_xbox shooter_debuger;
 
-BallShooter shooter_core;
+// BallShooter shooter_core;
 
-chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
-// m6020s m6020_front(3, &hcan1), m6020_left(1, &hcan1), m6020_right(2, &hcan1); // 舵向电机
-vesc vesc_front(1, &hcan2, 21.0f, 3.0f),
-    vesc_left(2, &hcan2, 21.0f, 3.0f), vesc_right(3, &hcan2, 21.0f, 3.0f), m8080(4, &hcan2, 7.0f, 1.0f);
+// chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
+//  m6020s m6020_front(3, &hcan1), m6020_left(1, &hcan1), m6020_right(2, &hcan1); // 舵向电机
+// vesc vesc_front(1, &hcan2, 21.0f, 3.0f),
+//  vesc_left(2, &hcan2, 21.0f, 3.0f), vesc_right(3, &hcan2, 21.0f, 3.0f), m8080(4, &hcan2, 7.0f, 1.0f);
 
 auto_yunball yunball_core;
 auto_yunball_xbox yunball_xbox;
 
-RoboChassis s3_chassis(swerve3_chassis);
+// RoboChassis s3_chassis(swerve3_chassis);
 
-chassis_debug_xbox s3_xbox(8.0f, 6.0f);
+// chassis_debug_xbox s3_xbox(8.0f, 6.0f);
 extern "C"
 {
 
     void yunball_test_setup(void)
     {
 
-        laser.SendInitCommands();
-        laser.startUartReceiveIT();
+        // laser.SendInitCommands();
+        // laser.startUartReceiveIT();
         esp_port.startUartReceiveIT();
         can_core.init();
         debug_port.initQueue();
@@ -44,9 +44,9 @@ extern "C"
         lifter.distance_pid_control.ConfigAll(4.0f, 0.0f, 0.086f, 0.0f, 430.0f, 1.0f, 0.0f);
 
         turnner.config_mech_param(48.26f, 0.0f);
-        turnner.angle_pid_control.ConfigAll(3.1f, 0.4f, 1.4f, 0.0f, 160.0f, 0.2f, 3.0f);
+        turnner.angle_pid_control.ConfigAll(2.8f, 0.0f, 1.4f, 0.0f, 160.0f, 0.2f, 3.0f);
 
-        pithcer.config_mech_param(48.26f, 0.0f);
+        // pithcer.config_mech_param(48.26f, 0.0f);
         yunball_xbox.addport(&esp_port);
 
         yunball_core.add_io(GPIOA, GPIO_PIN_7, GPIOF, GPIO_PIN_6, GPIOC, GPIO_PIN_13);
@@ -62,11 +62,13 @@ extern "C"
         // task_core.registerTask(2, &vesc3);
         // task_core.registerTask(8, &debug_port);
 
-        m8080.rpm_control.config_all(230.0f, 2.2f, 486.0f, 0.0f, 50000.0f, 6.0f);
-        //turnner.set_pos(0.0f);
+        //m8080.rpm_control.config_all(230.0f, 2.2f, 486.0f, 0.0f, 50000.0f, 6.0f);
+        // turnner.set_pos(0.0f);
 
         osKernelStart();
     }
+
+    /*
 
     void m3508_adjust(void)
     {
