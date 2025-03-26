@@ -21,7 +21,7 @@ SerialDevice::SerialDevice(UART_HandleTypeDef *huart, uart_type type_)
     }
     else if (type == cdc)
     {
-        // registerCDCInstance(this);
+        registerCDCInstance(this);
     }
 
     // 自动启动 UART 接收中断
@@ -71,7 +71,7 @@ extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
 extern "C"
 {
-    // 这是 C 接口，要在cdc虚拟串口的接收回调里手动调用一下
+    // 这是 C 接口，允许从 C 调用
     void ProcessReceivedData(uint8_t *Buf, uint32_t Len)
     {
         if (SerialDevice::cdc_instance != nullptr)

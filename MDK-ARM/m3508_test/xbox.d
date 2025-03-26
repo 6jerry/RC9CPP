@@ -45,18 +45,31 @@ m3508_test/xbox.o: ..\RC9CPP_API\CONTROL\xbox.cpp \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd.h \
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_ll_usb.h \
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pcd_ex.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h \
   G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h \
+  ..\USB_DEVICE\App\usbd_cdc_if.h \
+  ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h \
+  ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h \
+  ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h \
+  ..\USB_DEVICE\Target\usbd_conf.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdio.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\stdio.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\string.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\string.h \
+  ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h \
+  ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h \
   ..\RC9CPP_API\HARDWARE\NETWORK\netswitch.h \
   ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
   ..\RC9CPP_API\HARDWARE\NETWORK\rcncore.h \
-  ..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h \
-  ..\RC9CPP_API\HARDWARE\MOTOR\motor.h \
-  ..\RC9CPP_API\HARDWARE\can_device.h ..\Core\Inc\can.h \
   ..\RC9CPP_API\HARDWARE\Action.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\math.h \
   G:\Keil_v5\ARM\ARMCLANG\include\math.h \
@@ -216,16 +229,10 @@ m3508_test/xbox.o: ..\RC9CPP_API\CONTROL\xbox.cpp \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\rounding_functions.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\traits.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\trigonometric_functions.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h ..\RC9CPP_API\HARDWARE\imu.h \
-  ..\RC9CPP_API\MATH_LIB\Vector2D.h \
+  ..\RC9CPP_API\HARDWARE\imu.h ..\RC9CPP_API\MATH_LIB\Vector2D.h \
   ..\Middlewares\ST\ARM\DSP\Inc\arm_math.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\string.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\string.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\float.h \
   G:\Keil_v5\ARM\ARMCLANG\include\float.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\limits.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\limits.h ..\RC9CPP_API\CONTROL\pid.h \
-  ..\RC9CPP_API\CONTROL\filters.h ..\RC9CPP_API\CONTROL\pure_pursuit.h \
-  ..\RC9CPP_API\CONTROL\odometry.h
+  G:\Keil_v5\ARM\ARMCLANG\include\limits.h
