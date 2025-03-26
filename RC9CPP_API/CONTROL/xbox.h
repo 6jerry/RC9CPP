@@ -25,7 +25,7 @@ extern "C"
 #endif
 #include "TaskManager.h"
 #include "RC9Protocol.h"
-#include "chassis.h"
+
 #include "Action.h"
 #include "EncodingStateMachine.h"
 

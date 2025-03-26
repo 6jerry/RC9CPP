@@ -54,9 +54,6 @@ m3508_test/xbox.o: ..\RC9CPP_API\CONTROL\xbox.cpp \
   ..\RC9CPP_API\HARDWARE\NETWORK\netswitch.h \
   ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
   ..\RC9CPP_API\HARDWARE\NETWORK\rcncore.h \
-  ..\RC9CPP_API\CONTROL\STRUCTURE\chassis.h \
-  ..\RC9CPP_API\HARDWARE\MOTOR\motor.h \
-  ..\RC9CPP_API\HARDWARE\can_device.h ..\Core\Inc\can.h \
   ..\RC9CPP_API\HARDWARE\Action.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\math.h \
   G:\Keil_v5\ARM\ARMCLANG\include\math.h \
@@ -226,6 +223,4 @@ m3508_test/xbox.o: ..\RC9CPP_API\CONTROL\xbox.cpp \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\float.h \
   G:\Keil_v5\ARM\ARMCLANG\include\float.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\limits.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\limits.h ..\RC9CPP_API\CONTROL\pid.h \
-  ..\RC9CPP_API\CONTROL\filters.h ..\RC9CPP_API\CONTROL\pure_pursuit.h \
-  ..\RC9CPP_API\CONTROL\odometry.h
+  G:\Keil_v5\ARM\ARMCLANG\include\limits.h
