@@ -2037,7 +2037,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "ESP32C6_AP_Server.elf::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-ESP32C6_AP_Server.elf-fd55788ec9e4b045cb43.json",
+					"jsonFile" : "target-ESP32C6_AP_Server.elf-d2d536cf6b4a3d44aac4.json",
 					"name" : "ESP32C6_AP_Server.elf",
 					"projectIndex" : 0
 				},
@@ -2121,7 +2121,7 @@
 				{
 					"directoryIndex" : 17,
 					"id" : "__idf_esp_app_format::@08c2bdce7fd85cdbea06",
-					"jsonFile" : "target-__idf_esp_app_format-b84ed8ac8019e8b4cebd.json",
+					"jsonFile" : "target-__idf_esp_app_format-d35a19f6a94f7eabfd5b.json",
 					"name" : "__idf_esp_app_format",
 					"projectIndex" : 1
 				},
@@ -2338,7 +2338,7 @@
 				{
 					"directoryIndex" : 101,
 					"id" : "__idf_esp_local_ctrl::@d6aad58d2946e56208ef",
-					"jsonFile" : "target-__idf_esp_local_ctrl-ccc48343b7702158cb46.json",
+					"jsonFile" : "target-__idf_esp_local_ctrl-4a9c1076b051733a124c.json",
 					"name" : "__idf_esp_local_ctrl",
 					"projectIndex" : 1
 				},
@@ -2597,7 +2597,7 @@
 				{
 					"directoryIndex" : 116,
 					"id" : "__idf_src::@2478b13de56d3028f688",
-					"jsonFile" : "target-__idf_src-3283bb895da77d3ed2c2.json",
+					"jsonFile" : "target-__idf_src-655436d68263304ebff9.json",
 					"name" : "__idf_src",
 					"projectIndex" : 1
 				},
@@ -2632,7 +2632,7 @@
 				{
 					"directoryIndex" : 115,
 					"id" : "__idf_wifi_provisioning::@9d7e7ffe1b15746c1098",
-					"jsonFile" : "target-__idf_wifi_provisioning-b8bec74536369869fad6.json",
+					"jsonFile" : "target-__idf_wifi_provisioning-0e2113a958e94c6c80e2.json",
 					"name" : "__idf_wifi_provisioning",
 					"projectIndex" : 1
 				},
@@ -2646,7 +2646,7 @@
 				{
 					"directoryIndex" : 25,
 					"id" : "__ldgen_output_sections.ld::@874df54e61e20112dfd4",
-					"jsonFile" : "target-__ldgen_output_sections.ld-67c6594b277a970558ef.json",
+					"jsonFile" : "target-__ldgen_output_sections.ld-a84fe1bdc6f787f2b105.json",
 					"name" : "__ldgen_output_sections.ld",
 					"projectIndex" : 1
 				},
@@ -2793,7 +2793,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "flash::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-flash-5222a84e29c3d7018bf3.json",
+					"jsonFile" : "target-flash-7b0b08c91daebd92d818.json",
 					"name" : "flash",
 					"projectIndex" : 0
 				},

@@ -63,40 +63,16 @@
 			"id" : "__idf_app_trace::@dd7eb3aa23293586d3b8"
 		},
 		{
-			"id" : "__idf_cmock::@38f9eb59693b7394f54c"
+			"id" : "__idf_unity::@fec746937506b5690992"
 		},
 		{
-			"id" : "__idf_unity::@fec746937506b5690992"
+			"id" : "__idf_cmock::@38f9eb59693b7394f54c"
 		},
 		{
 			"id" : "__idf_console::@4311ed8d271cc0ee1422"
 		},
 		{
 			"id" : "__idf_esp_driver_cam::@d005630ea6316acc7c7d"
-		},
-		{
-			"id" : "__idf_protocomm::@d76d01c8dec06205e1fc"
-		},
-		{
-			"id" : "__idf_esp_local_ctrl::@d6aad58d2946e56208ef"
-		},
-		{
-			"id" : "__idf_protobuf-c::@b14513c4bd859268ec22"
-		},
-		{
-			"id" : "__idf_espcoredump::@718b9a7d55ab42cfc0a3"
-		},
-		{
-			"id" : "__idf_wear_levelling::@cb21b0d7c0815cff11c6"
-		},
-		{
-			"id" : "__idf_fatfs::@75ac1d9b25dacc8cc9e7"
-		},
-		{
-			"id" : "__idf_ieee802154::@4f032233b439602167f9"
-		},
-		{
-			"id" : "__idf_json::@c78a8bdc820334f01148"
 		},
 		{
 			"id" : "__idf_esp_eth::@68140d310044213ed0bc"
@@ -108,25 +84,49 @@
 			"id" : "__idf_esp_https_server::@a47490a9e49b7eabdb18"
 		},
 		{
+			"id" : "__idf_protobuf-c::@b14513c4bd859268ec22"
+		},
+		{
 			"id" : "__idf_esp_lcd::@d5a84597e1633c9ab0d3"
 		},
 		{
-			"id" : "__idf_nvs_sec_provider::@06580cba064af97f59fd"
+			"id" : "__idf_protocomm::@d76d01c8dec06205e1fc"
+		},
+		{
+			"id" : "__idf_espcoredump::@718b9a7d55ab42cfc0a3"
+		},
+		{
+			"id" : "__idf_fatfs::@75ac1d9b25dacc8cc9e7"
+		},
+		{
+			"id" : "__idf_esp_local_ctrl::@d6aad58d2946e56208ef"
+		},
+		{
+			"id" : "__idf_wear_levelling::@cb21b0d7c0815cff11c6"
 		},
 		{
 			"id" : "__idf_mqtt::@c1ab2c6a99226d1f4b56"
 		},
 		{
-			"id" : "__idf_rt::@c044be52929cb104e3c1"
+			"id" : "__idf_ieee802154::@4f032233b439602167f9"
 		},
 		{
-			"id" : "__idf_src::@2478b13de56d3028f688"
+			"id" : "__idf_json::@c78a8bdc820334f01148"
+		},
+		{
+			"id" : "__idf_nvs_sec_provider::@06580cba064af97f59fd"
+		},
+		{
+			"id" : "__idf_rt::@c044be52929cb104e3c1"
 		},
 		{
 			"id" : "__idf_spiffs::@df881b71474064c86689"
 		},
 		{
 			"id" : "__idf_wifi_provisioning::@9d7e7ffe1b15746c1098"
+		},
+		{
+			"id" : "__idf_src::@2478b13de56d3028f688"
 		}
 	],
 	"id" : "__ldgen_output_sections.ld::@874df54e61e20112dfd4",

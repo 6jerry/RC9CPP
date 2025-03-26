@@ -1370,12 +1370,12 @@
 	"dependencies" : 
 	[
 		{
-			"backtrace" : 96,
-			"id" : "_project_elf_src::@6890427a1f51a3e7e1df"
-		},
-		{
 			"backtrace" : 10,
 			"id" : "__idf_riscv::@5eeb1a2ca709d020776e"
+		},
+		{
+			"backtrace" : 96,
+			"id" : "_project_elf_src::@6890427a1f51a3e7e1df"
 		},
 		{
 			"backtrace" : 102,
@@ -1390,12 +1390,12 @@
 			"id" : "__idf_app_trace::@dd7eb3aa23293586d3b8"
 		},
 		{
-			"backtrace" : 67,
-			"id" : "__idf_cmock::@38f9eb59693b7394f54c"
-		},
-		{
 			"backtrace" : 66,
 			"id" : "__idf_unity::@fec746937506b5690992"
+		},
+		{
+			"backtrace" : 67,
+			"id" : "__idf_cmock::@38f9eb59693b7394f54c"
 		},
 		{
 			"backtrace" : 68,
@@ -1404,38 +1404,6 @@
 		{
 			"backtrace" : 72,
 			"id" : "__idf_esp_driver_cam::@d005630ea6316acc7c7d"
-		},
-		{
-			"backtrace" : 83,
-			"id" : "__idf_protocomm::@d76d01c8dec06205e1fc"
-		},
-		{
-			"backtrace" : 84,
-			"id" : "__idf_esp_local_ctrl::@d6aad58d2946e56208ef"
-		},
-		{
-			"backtrace" : 82,
-			"id" : "__idf_protobuf-c::@b14513c4bd859268ec22"
-		},
-		{
-			"backtrace" : 85,
-			"id" : "__idf_espcoredump::@718b9a7d55ab42cfc0a3"
-		},
-		{
-			"backtrace" : 86,
-			"id" : "__idf_wear_levelling::@cb21b0d7c0815cff11c6"
-		},
-		{
-			"backtrace" : 87,
-			"id" : "__idf_fatfs::@75ac1d9b25dacc8cc9e7"
-		},
-		{
-			"backtrace" : 88,
-			"id" : "__idf_ieee802154::@4f032233b439602167f9"
-		},
-		{
-			"backtrace" : 89,
-			"id" : "__idf_json::@c78a8bdc820334f01148"
 		},
 		{
 			"backtrace" : 73,
@@ -1450,24 +1418,52 @@
 			"id" : "__idf_esp_https_server::@a47490a9e49b7eabdb18"
 		},
 		{
+			"backtrace" : 82,
+			"id" : "__idf_protobuf-c::@b14513c4bd859268ec22"
+		},
+		{
 			"backtrace" : 81,
 			"id" : "__idf_esp_lcd::@d5a84597e1633c9ab0d3"
 		},
 		{
-			"backtrace" : 91,
-			"id" : "__idf_nvs_sec_provider::@06580cba064af97f59fd"
+			"backtrace" : 83,
+			"id" : "__idf_protocomm::@d76d01c8dec06205e1fc"
+		},
+		{
+			"backtrace" : 85,
+			"id" : "__idf_espcoredump::@718b9a7d55ab42cfc0a3"
+		},
+		{
+			"backtrace" : 87,
+			"id" : "__idf_fatfs::@75ac1d9b25dacc8cc9e7"
+		},
+		{
+			"backtrace" : 84,
+			"id" : "__idf_esp_local_ctrl::@d6aad58d2946e56208ef"
+		},
+		{
+			"backtrace" : 86,
+			"id" : "__idf_wear_levelling::@cb21b0d7c0815cff11c6"
 		},
 		{
 			"backtrace" : 90,
 			"id" : "__idf_mqtt::@c1ab2c6a99226d1f4b56"
 		},
 		{
-			"backtrace" : 92,
-			"id" : "__idf_rt::@c044be52929cb104e3c1"
+			"backtrace" : 88,
+			"id" : "__idf_ieee802154::@4f032233b439602167f9"
 		},
 		{
-			"backtrace" : 95,
-			"id" : "__idf_src::@2478b13de56d3028f688"
+			"backtrace" : 89,
+			"id" : "__idf_json::@c78a8bdc820334f01148"
+		},
+		{
+			"backtrace" : 91,
+			"id" : "__idf_nvs_sec_provider::@06580cba064af97f59fd"
+		},
+		{
+			"backtrace" : 92,
+			"id" : "__idf_rt::@c044be52929cb104e3c1"
 		},
 		{
 			"backtrace" : 93,
@@ -1476,6 +1472,10 @@
 		{
 			"backtrace" : 94,
 			"id" : "__idf_wifi_provisioning::@9d7e7ffe1b15746c1098"
+		},
+		{
+			"backtrace" : 95,
+			"id" : "__idf_src::@2478b13de56d3028f688"
 		}
 	],
 	"id" : "ESP32C6_AP_Server.elf::@6890427a1f51a3e7e1df",

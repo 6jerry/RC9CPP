@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "ESP32C6_AP_Server",
-    "project_version":    "d3f2213-dirty",
+    "project_version":    "50837955-dirty",
     "project_path":       "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server",
     "idf_path":           "C:/Users/32806/.platformio/packages/framework-espidf",
     "build_dir":          "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/.pio/build/esp32-c6-generic",
@@ -1450,7 +1450,7 @@
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "file": "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/.pio/build/esp32-c6-generic/esp-idf/src/libsrc.a",
-            "sources": [ "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/src/CMakeLists.txt", "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/src/main.c", "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/src/tcp_server.c", "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/src/tcp_server.h", "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/src/udp_server.c", "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/src/udp_server.h" ],
+            "sources": [ "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/src/CMakeLists.txt", "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/src/device_info.c", "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/src/device_info.h", "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/src/main.c", "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/src/tcp_server.c", "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/src/tcp_server.h", "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/src/udp_server.c", "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/src/udp_server.h" ],
             "include_dirs": [ "." ]
         },
         "tcp_transport": {

@@ -83,11 +83,11 @@
 	[
 		{
 			"backtrace" : 9,
-			"id" : "bootloader::@6890427a1f51a3e7e1df"
+			"id" : "app::@6890427a1f51a3e7e1df"
 		},
 		{
 			"backtrace" : 9,
-			"id" : "app::@6890427a1f51a3e7e1df"
+			"id" : "bootloader::@6890427a1f51a3e7e1df"
 		},
 		{
 			"backtrace" : 9,
