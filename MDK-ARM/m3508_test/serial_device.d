@@ -1,6 +1,11 @@
 m3508_test/serial_device.o: ..\RC9CPP_API\HARDWARE\Serial_device.cpp \
   ..\RC9CPP_API\HARDWARE\Serial_device.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\libcxx\stddef.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\libcxx\__config \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\stddef.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\libcxx\stdint.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\stdint.h \
   ..\Core\Inc\FreeRTOSConfig.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \
@@ -15,6 +20,10 @@ m3508_test/serial_device.o: ..\RC9CPP_API\HARDWARE\Serial_device.cpp \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h \
   ..\Drivers\CMSIS\Include\core_cm4.h \
+  ..\Drivers\CMSIS\Include\cmsis_version.h \
+  ..\Drivers\CMSIS\Include\cmsis_compiler.h \
+  ..\Drivers\CMSIS\Include\cmsis_armclang.h \
+  ..\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h \
@@ -38,4 +47,6 @@ m3508_test/serial_device.o: ..\RC9CPP_API\HARDWARE\Serial_device.cpp \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\libcxx\stdbool.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
   ..\RC9CPP_API\MATH_LIB\crc_util.h

@@ -850,10 +850,10 @@ ARM Macro Assembler    Page 14
 
 
 ../Core/Inc -I../Middlewares/ST/ARM/DSP/Inc -I.\RTE\_m3508_test -ID:\Keil5\ARM\
-PACK\ARM\CMSIS\6.1.0\CMSIS\Core\Include -ID:\Keil5\ARM\PACK\Keil\STM32F4xx_DFP\
-2.17.1\Drivers\CMSIS\Device\ST\STM32F4xx\Include --predefine="__UVISION_VERSION
- SETA 540" --predefine="STM32F407xx SETA 1" --predefine="_RTE_ SETA 1" --list=.
-.\startup_stm32f407xx.lst startup_stm32f407xx.s
+PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include -ID:\Keil5\ARM\PACK\Keil\STM32F4xx_DFP\
+2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include --predefine="__UVISION_VERSION
+ SETA 538" --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SETA 1" --predef
+ine="_RTE_ SETA 1" --list=..\startup_stm32f407xx.lst startup_stm32f407xx.s
 
 
 

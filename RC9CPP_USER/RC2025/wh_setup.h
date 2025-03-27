@@ -18,7 +18,7 @@ extern "C"
 #include "VESC.h"
 #include "gpio.h"
 #include "wh_xbox.h"
-
+#include "main.h"
 void wh_setup(void);
 #ifdef __cplusplus
 }

@@ -16,7 +16,7 @@ m3508p lifter(1, &hcan1, true),
 vesc vesc_front(1, &hcan2, 21.0f, 3.0f),
      vesc_left(2, &hcan2, 21.0f, 3.0f),
      vesc_right(3, &hcan2, 21.0f, 3.0f);
-//vesc m8080(4, &hcan2, 7.0f, 1.0f);
+vesc m8080(4, &hcan2, 7.0f, 1.0f);
 
 wh_xbox my_xbox;
 
@@ -25,9 +25,15 @@ void wh_setup()
     esp_port.startUartReceiveIT();
     can_core.init();
 
+	
+    my_xbox.addport(&esp_port);
+    my_xbox.load_pin(GPIOC, GPIOC, GPIO_PIN_14, GPIO_PIN_13);
+    my_xbox.load_motor(&lifter, &turnner, &m8080, &pithcer);
+
+
     task_core.registerTask(0, &can_core);
     task_core.registerTask(3, &my_xbox);
-//    task_core.registerTask(1, &m8080);
+    task_core.registerTask(1, &m8080);
 
 
     osKernelStart();
