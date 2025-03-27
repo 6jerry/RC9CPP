@@ -11,6 +11,7 @@
 *.log
 *.tmp
 *.temp
+*.lst
 
 # 忽略构建系统生成的文件夹
 build/
@@ -48,3 +49,5 @@ Release/
 .project
 .settings/
 .qodo
+
+#test

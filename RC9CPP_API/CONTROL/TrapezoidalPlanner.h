@@ -31,6 +31,7 @@ enum ProfileType
     TRIANGULAR   // 三角形规划：仅有加速和减速两个阶段，无法达到设定的最大速度
 };
 
+//二维机器人运动规划类，控底盘
 class TrapezoidalPlanner
 {
 public:
@@ -90,6 +91,7 @@ private:
     pointrack m_pointTrack; // 使用你提供的 PID 点追踪类
 };
 
+// 一维运动规划类，控电机
 class TrapezoidalPlanner1D
 {
 public:
@@ -150,6 +152,7 @@ public:
     float v_target = 0.0f;
 };
 
+// 速度规划器类，用于平滑输出速度
 class VelocityPlanner
 {
 public:

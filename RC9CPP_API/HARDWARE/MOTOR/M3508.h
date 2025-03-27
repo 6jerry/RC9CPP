@@ -41,15 +41,13 @@ extern "C"
 #define M3508_MAXT 0.15622f // 内圈最大转矩
 #define PI 3.14159265f
 
-// PID输入速度误差，输出内圈期望转矩
-
 enum m3508_mode
 {
-    m3508_increPID_speed,
-    m3508_pid_speed,
-    m3508_angle_pid,
-    m3508_angle_speedplan,
-    m3508_distance_pid,
+    m3508_increPID_speed,  // 增量式PID速度控制
+    m3508_pid_speed,       // PID位置式速度控制
+    m3508_angle_pid,       // 角度PID控制
+    m3508_angle_speedplan, // 角度速度规划
+    m3508_distance_pid,    // 位置PID控制
     m3508_distance_speedplan,
     m3508_F
 };
@@ -60,13 +58,20 @@ class m3508p : public CanDevice,
                public RC9subscriber
 {
 private:
-    float gear_ratio = 19.2032f, wheel_perimeter = 0.0f, wheel_R = 0.0f, v_2_rpm_k = 0.0f, rpm_2_v_k = 0.0f, speed_plan_end_dis = 10.0f, min_start_rpm = 60.0f;
+    float gear_ratio = 19.2032f;   // 电机自身减速比
+    float wheel_perimeter = 0.0f;  // 轮子周长
+    float wheel_R = 0.0f;          // 轮子半径
+    float v_2_rpm_k = 0.0f;        // 速度转换为转速的系数
+    float rpm_2_v_k = 0.0f;        // 转速转换为速度的系数
+    float speed_plan_end_dis = 10.0f; // 速度规划结束的距离
+    float min_start_rpm = 60.0f;   // 最小启动转速
 
-    uint8_t time_cnt = 0;
+    uint8_t time_cnt = 0;//初略计数用于PID计算降频
 
     m3508_mode work_mode = m3508_increPID_speed;
 
-    bool enable_locate = false, enable_debug = false;
+    bool enable_locate = false; // 是否开启多圈定位
+    bool enable_debug = false;   // 是否开启调试功能（通过RC9subscriber发送信息）
 
     int16_t increPID_speed();
     int16_t pid_speed();
@@ -80,19 +85,20 @@ private:
     float rpm_2_v(float rpm_);
 
 public:
-    m3508p(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool enable_locate_ = false, float gear_ratio = M3508_G);
-
-    int16_t motor_process() override;
-    void can_update(uint8_t can_RxData[8]);
-    float target_angle = 0.0f, target_distance = 0.0f, angle_error = 0.0f, dis_error = 0.0f;
-    float target_rpm = 0.0f;
+    float target_angle = 0.0f, target_rpm = 0.0f, target_distance = 0.0f, angle_error = 0.0f, dis_error = 0.0f;
 
     float targrt_T = 0.0f;        // 期望转矩
     float Tff = 0.0f, Cff = 0.0f; // 前馈力矩和换算成的前馈电流
 
+    // 差分定位所需变量
     float last_pos = 0.0f, delta_pos = 0.0f, pos_sum = 0.0f, now_pos = 0.0f, temp_delta = 0.0f, dis_sum = 0.0f;
     uint8_t init_cnt = 0;
     bool if_init = true;
+
+    m3508p(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool enable_locate_ = false, float gear_ratio = M3508_G);
+
+    int16_t motor_process() override;
+    void can_update(uint8_t can_RxData[8]);
 
     void many_pos_locate(); // 3508多圈差分定位
     void locate_restart();
@@ -101,27 +107,25 @@ public:
     float get_rpm();
     void set_rpm(float power_motor_rpm);
     void set_fTff(float Tff_); // 设置动摩擦力前馈补偿
-
     void set_pos(float pos) override;
     float get_pos() override;
     void relocate_pos(float angle) override;
     void set_dis(float dis) override;
     void set_F(float F_) override;
     bool set_dis_speedplan(float targetdis, float max_speed, float max_acc, float max_dec, float finalspeed) override;
-
     void dis_speedplan_restart() override;
 
     void T_TO_C(); // 力矩转换为电流
 
-    void config_mech_param(float gear_ratio_, float wheel_D_);
+    void config_mech_param(float gear_ratio_, float wheel_D_); 
 
     // bool if_stalling(); // 判断电机是否堵转
 
-    IncrePID rpm_control;
+    IncrePID rpm_control; // 增量式PID
 
-    pid distance_pid_control, angle_pid_control;
+    pid distance_pid_control, angle_pid_control; // 位置式PID
 
-    TrapezoidalPlanner1D dis_speed_plan;
+    TrapezoidalPlanner1D dis_speed_plan; // T型速度规划器
 
     void start_debug();
 };

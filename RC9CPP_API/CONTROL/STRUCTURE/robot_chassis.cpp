@@ -178,7 +178,7 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
 
     if (target.swerve_motor_target[0].x != 0.0f || target.swerve_motor_target[0].y != 0.0f)
     {
-        target_angle = atan2f(target.swerve_motor_target[0].x, target.swerve_motor_target[0].y) * 57.296f;
+        target_angle = atan2f(target.swerve_motor_target[0].x, target.swerve_motor_target[0].y) * 57.296f;// 180/PI=57.296
 
         // 获取当前角度
         float current_angle = dmotors[0]->get_pos();
@@ -212,7 +212,7 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
     dmotors[0]->set_pos(target.swerve_motor_angle[0]);
 
     // 第二个舵轮
-    target.swerve_motor_target[1].x = robovel.x + w * 0.38735f;
+    target.swerve_motor_target[1].x = robovel.x + w * 0.38735f;// 0.38735=0.44*sin(45)
     target.swerve_motor_target[1].y = robovel.y - w * 0.38735f;
 
     if (target.swerve_motor_target[1].x != 0.0f || target.swerve_motor_target[1].y != 0.0f)
@@ -236,7 +236,7 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
             target.swerve_motor_angle[1] = target_angle + 180.0f;
             if (target.swerve_motor_angle[1] > 180.0f)
                 target.swerve_motor_angle[1] -= 360.0f;
-            speed_magnitude = target.swerve_motor_target[1].magnitude(); // 注意这里原本是负的，反转后变正
+            speed_magnitude = target.swerve_motor_target[1].magnitude(); // 注意这里原本是负的，反转后变正，改的是轮向
         }
         else
         {

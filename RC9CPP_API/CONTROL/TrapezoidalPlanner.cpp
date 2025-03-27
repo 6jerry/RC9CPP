@@ -266,7 +266,7 @@ float TrapezoidalPlanner1D::plan(float now_dis)
 
     return v_target * direction;
 }
-
+// 重置规划器
 void TrapezoidalPlanner1D::reset()
 {
     m_phase = FINISHED_PHASE;
