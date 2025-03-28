@@ -60,11 +60,12 @@ void xbox_controller::process_data()
     if(test2 == 1)
     {
         //事件2 - on
-        motor1->set_dis_speedplan(700,);
+        motor1->set_dis_speedplan(700,max_lifter_speed,400,500,0);
     }
     else if(test2 == 0)
     {
         //事件2 - off
+				motor1->set_dis_speedplan(0,max_lifter_speed,400,500,0);
     }
 
     if(test3 == 1)

@@ -2336,8 +2336,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\rc_test_xbox.cpp</PathWithFileName>
-      <FilenameWithoutPath>rc_test_xbox.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\structure_test\LJH_xbox_test.h</PathWithFileName>
+      <FilenameWithoutPath>LJH_xbox_test.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2348,8 +2348,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\rc_test_xbox.h</PathWithFileName>
-      <FilenameWithoutPath>rc_test_xbox.h</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\structure_test\LJH_xbox_test.cpp</PathWithFileName>
+      <FilenameWithoutPath>LJH_xbox_test.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2360,8 +2360,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\ball_shooter.cpp</PathWithFileName>
-      <FilenameWithoutPath>ball_shooter.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\structure_test\LJH_test.h</PathWithFileName>
+      <FilenameWithoutPath>LJH_test.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2435,7 +2435,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>8</GroupNumber>
-      <FileNumber>110</FileNumber>
+      <FileNumber>108</FileNumber>
       <FileType>4</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

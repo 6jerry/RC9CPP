@@ -25,6 +25,7 @@ extern "C"
 			  motor_1.config_mech_param(19.2032f, 35.0f);
         task.registerTask(0, &can);
         task.registerTask(2, &xbox_test);
+				task.registerTask(8, &debug_port);
 
 
         osKernelStart();

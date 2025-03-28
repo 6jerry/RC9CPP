@@ -23,7 +23,11 @@ m3508p::m3508p(uint8_t can_id, CAN_HandleTypeDef *hcan_, bool enable_locate_, fl
 
 int16_t m3508p::motor_process()
 {
-
+	  if (enable_debug)
+    {
+        float send_data[3] = {rpm / gear_ratio, target_rpm, dis_sum};
+        sendFloatData(1, send_data, 3);
+    }
     switch (work_mode)
     {
     case m3508_increPID_speed:
@@ -88,11 +92,11 @@ int16_t m3508p::distance_pid()
 int16_t m3508p::distance_speedplan()
 {
 
-    if (enable_debug)
-    {
-        float send_data[3] = {rpm / gear_ratio, target_rpm, dis_sum};
-        sendFloatData(1, send_data, 3);
-    }
+//    if (enable_debug)
+//    {
+//        float send_data[3] = {rpm / gear_ratio, target_rpm, dis_sum};
+//        sendFloatData(1, send_data, 3);
+//    }
     if (abs(target_distance - dis_sum) < speed_plan_end_dis && dis_speed_plan.m_finalSpeed == 0.0f)
     {
         dis_speed_plan.reset();
