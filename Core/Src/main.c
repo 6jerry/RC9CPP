@@ -34,6 +34,7 @@
 // #include "m6020_adjust.h"
 #include "Wch_setup.h"
 
+#include "chassis_test.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -106,12 +107,12 @@ int main(void)
   MX_USART2_UART_Init();
   MX_USART6_UART_Init();
   MX_UART5_Init();
-  MX_TIM3_Init();
   MX_TIM4_Init();
   MX_TIM8_Init();
   MX_TIM9_Init();
   MX_TIM12_Init();
   MX_TIM1_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -123,7 +124,7 @@ int main(void)
   //MX_FREERTOS_Init();
 
   /* Start scheduler */
-  //osKernelStart();
+ // osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
 

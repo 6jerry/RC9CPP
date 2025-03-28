@@ -69,30 +69,38 @@ public:
     moters_debug_xbox();
 };
 
-class chassis_debug_xbox : public xbox, public ITaskProcessor, public chassis_user
+
+
+class xbox_debug_base : public xbox, public ITaskProcessor
 {
 public:
-    uint8_t btny_flag = 0, btnx_flag = 0, btna_flag = 0, btnb_flag = 0, btnshare_flag = 0;
+    uint8_t mode_flag = 2, start_flag = 0, lb_flag = 0, rb_flag = 0;
 
-    float full_speed = 0.0f, full_w = 0.0f, setted_f = 0.0f;
+    virtual void not_start() {};
+    virtual void mode_0() {};
+    virtual void mode_1() {};
+    virtual void mode_2() {};
+    virtual void mode_3() {};
+    virtual void mode_4() {};
 
-    uint8_t priocode = 1;
+    virtual void lb_on() {};
+    virtual void rb_on() {};
+    virtual void lb_off() {};
+    virtual void rb_off() {};
 
-    uint8_t currentState = 0;
-    // catcher_fsm *claw = nullptr;
-
-public:
-    void
-    btn_config();
     void process_data();
-
     void btn_scan();
+    void btnconfig_init();
+    xbox_debug_base();
+};
 
-    void init_plan(float max_xy_acc, float max_w_acc);
-
-    chassis_debug_xbox(float full_speed_, float full_w_);
-
-    VelocityPlanner x_planner, y_planner, w_planner;
+class chassis_adjust_xbox : public xbox_debug_base, public chassis_user
+{
+public:
+    void not_start() override;
+    void mode_2() override;
+    void mode_1() override;
+    void mode_3() override;
 };
 
 #endif

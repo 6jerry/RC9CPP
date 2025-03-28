@@ -18,6 +18,7 @@ extern "C"
 #include "gpio.h"
 #include "laser_processor.h"
 #include "ball_shooter.h"
+#include "auto_yunball.h"
     void yunball_test_setup(void);
     void m3508_adjust(void);
     void shooter_adjust(void);

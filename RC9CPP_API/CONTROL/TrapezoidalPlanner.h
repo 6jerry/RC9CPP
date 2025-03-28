@@ -64,6 +64,7 @@ public:
 
     // 获取当前阶段（调试或外部查询）
     Phase getPhase() const { return m_phase; }
+    bool isFinished() const { return m_phase == FINISHED_PHASE; }
 
 private:
     // 内部状态
@@ -85,10 +86,6 @@ private:
     // 各阶段路程
     float m_accelDistance; // 加速段长度
     float m_decelDistance; // 减速段长度
-
-    // PID 控制：当距离目标点低于 pidThreshold 时启用 PID 点追踪
-    float m_pidThreshold;   // PID 控制距离阈值
-    pointrack m_pointTrack; // 使用你提供的 PID 点追踪类
 };
 
 // 一维运动规划类，控电机

@@ -103,6 +103,9 @@ public:
     void many_pos_locate(); // 3508多圈差分定位
     void locate_restart();
 
+    void relocate_dis(float dis) override;
+    float get_dis() override;
+
     // 动力电机通用接口
     float get_rpm();
     void set_rpm(float power_motor_rpm);

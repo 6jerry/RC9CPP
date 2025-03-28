@@ -932,6 +932,46 @@
           <WinNumber>2</WinNumber>
           <ItemText>m3508_front</ItemText>
         </Ww>
+        <Ww>
+          <count>139</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>yunball_core</ItemText>
+        </Ww>
+        <Ww>
+          <count>140</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>lifter</ItemText>
+        </Ww>
+        <Ww>
+          <count>141</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>yunball_xbox</ItemText>
+        </Ww>
+        <Ww>
+          <count>142</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>turnner</ItemText>
+        </Ww>
+        <Ww>
+          <count>143</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>s3_chassis</ItemText>
+        </Ww>
+        <Ww>
+          <count>144</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>action_imu</ItemText>
+        </Ww>
+        <Ww>
+          <count>145</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>m3508_left</ItemText>
+        </Ww>
+        <Ww>
+          <count>146</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>debug_port</ItemText>
+        </Ww>
       </WatchWindow2>
       <MemoryWindow1>
         <Mm>
@@ -2338,6 +2378,30 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\auto_yunball.cpp</PathWithFileName>
+      <FilenameWithoutPath>auto_yunball.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>107</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\auto_yunball.h</PathWithFileName>
+      <FilenameWithoutPath>auto_yunball.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>108</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
       <PathWithFileName>..\RC9CPP_USER\RC2025\chassis_test.cpp</PathWithFileName>
       <FilenameWithoutPath>chassis_test.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
@@ -2413,7 +2477,11 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>8</GroupNumber>
+<<<<<<< HEAD
       <FileNumber>114</FileNumber>
+=======
+      <FileNumber>110</FileNumber>
+>>>>>>> origin/shootercar
       <FileType>4</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

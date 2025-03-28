@@ -3,23 +3,22 @@ TrapezoidalPlanner::TrapezoidalPlanner()
     : m_phase(FINISHED_PHASE), m_profileType(TRAPEZOIDAL),
       m_maxAcc(0), m_maxDec(0), m_maxSpeed(0),
       m_initialSpeed(0), m_finalSpeed(0), m_totalDistance(0),
-      m_accelDistance(0), m_decelDistance(0),
-      m_pidThreshold(0)
-{
-}
+      m_accelDistance(0), m_decelDistance(0)
+{}
+
+
 
 void TrapezoidalPlanner::start_plan(float maxAcc, float maxDec, float maxSpeed, float initialSpeed, float finalSpeed,
                                     const Vector2D &startPos, const Vector2D &targetPos, float pidThreshold)
 {
     // 保存用户参数
-    m_maxAcc = maxAcc;
-    m_maxDec = maxDec;
-    m_maxSpeed = maxSpeed;
-    m_initialSpeed = initialSpeed;
-    m_finalSpeed = finalSpeed;
+    m_maxAcc = abs(maxAcc);
+    m_maxDec = abs(maxDec);
+    m_maxSpeed = abs(maxSpeed);
+    m_initialSpeed = abs(initialSpeed);
+    m_finalSpeed = abs(finalSpeed);
     m_startPos = startPos;
     m_targetPos = targetPos;
-    m_pidThreshold = pidThreshold;
 
     // 计算总路程：起点到目标点的直线距离
     Vector2D diff = m_targetPos - m_startPos;
@@ -85,7 +84,7 @@ Phase TrapezoidalPlanner::determinePhase(float traveled)
 Vector2D TrapezoidalPlanner::plan(const Vector2D &currentPos)
 {
     // 计算路径及单位方向
-    Vector2D path = m_targetPos - m_startPos;
+    Vector2D path = m_targetPos - currentPos;
     if (m_totalDistance < 0.0001f)
     {
         m_phase = FINISHED_PHASE;
@@ -98,19 +97,14 @@ Vector2D TrapezoidalPlanner::plan(const Vector2D &currentPos)
     float traveled = delta * direction;
     if (traveled < 0)
         traveled = 0;
-    if (traveled > m_totalDistance)
-        traveled = m_totalDistance;
+    if (traveled >= m_totalDistance)
+    {
+        return m_finalSpeed * (m_targetPos - m_startPos).normalize();
+    }
+    // traveled = m_totalDistance;
 
     // 计算当前位置与目标点之间的直线距离
     float distanceToTarget = (m_targetPos - currentPos).magnitude();
-
-    // 当用户设置了 PID 阈值且当前位置距离目标点小于该阈值时，切换到 PID 点追踪控制
-    if (m_pidThreshold > 0 && distanceToTarget < m_pidThreshold)
-    {
-        m_phase = PID_PHASE;
-        // 使用你提供的 pointrack 类进行 PID 控制
-        return m_pointTrack.track(currentPos, m_targetPos);
-    }
 
     // 未进入 PID 控制则继续采用梯形规划，根据 traveled 判断当前阶段
     m_phase = determinePhase(traveled);
@@ -142,12 +136,7 @@ Vector2D TrapezoidalPlanner::plan(const Vector2D &currentPos)
         break;
     }
 
-    if (traveled >= m_totalDistance)
-    {
-        m_phase = FINISHED_PHASE;
-        v_target = m_finalSpeed;
-    }
-
+ 
     return direction * v_target;
 }
 

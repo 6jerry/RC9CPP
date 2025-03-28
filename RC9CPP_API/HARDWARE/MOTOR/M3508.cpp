@@ -378,3 +378,13 @@ float m3508p::rpm_2_v(float rpm_)
 {
     return rpm_ * rpm_2_v_k;
 }
+
+void m3508p::relocate_dis(float dis)
+{
+    dis_sum = dis;
+}
+
+float m3508p::get_dis()
+{
+    return dis_sum;
+}

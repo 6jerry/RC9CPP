@@ -4,7 +4,11 @@ TaskManager task_core;
 CanManager can_core;
 RC9Protocol esp_port(uart, &huart2), debug_port(uart, &huart5);
 
+<<<<<<< HEAD
 Encoder encoder(&huart6);
+=======
+action action_imu(&huart3, 0.0f, 0.0f, true);
+>>>>>>> origin/shootercar
 
 m3508p shooter(2, &hcan1), m3508_left(4, &hcan1, true), m3508_front(3, &hcan1, true), m3508_right(1, &hcan1, true);
 
@@ -15,7 +19,7 @@ vesc vesc_front(1, &hcan2, 21.0f, 3.0f),
 
 RoboChassis s3_chassis(swerve3_chassis);
 
-chassis_debug_xbox s3_xbox(8.0f, 6.0f);
+chassis_adjust_xbox s3_xbox;
 
 extern "C"
 {
@@ -23,7 +27,11 @@ extern "C"
     {
         can_core.init();
         esp_port.startUartReceiveIT();
+<<<<<<< HEAD
 		encoder.startUartReceiveIT();
+=======
+        action_imu.startUartReceiveIT();
+>>>>>>> origin/shootercar
         debug_port.initQueue();
         m3508_front.config_mech_param(48.26f, 0.0f);
         m3508_front.angle_pid_control.ConfigAll(3.1f, 0.4f, 1.4f, 0.0f, 160.0f, 0.2f, 3.0f);
@@ -37,10 +45,15 @@ extern "C"
         s3_chassis.config(s3_chassis_info);
         s3_chassis.add_6_motors(&m3508_front, &vesc_front, &m3508_right, &vesc_right, &m3508_left, &vesc_left);
 
-        s3_chassis.add_photogate(GPIOF, GPIO_PIN_11, GPIOF, GPIO_PIN_12, GPIOF, GPIO_PIN_13, GPIOF, GPIO_PIN_10);
+        s3_chassis.add_photogate(GPIOF, GPIO_PIN_14, GPIOF, GPIO_PIN_15, GPIOG, GPIO_PIN_0, GPIOF, GPIO_PIN_13);
 
-        s3_xbox.init_plan(0.09f, 0.01f);
+        s3_chassis.enable_debug();
 
+        s3_chassis.add_imu(&action_imu);
+        s3_chassis.addport(&debug_port);
+        s3_chassis.yawadjuster_config(0.036f, 0.0f, 0.0f, 0.0f, 8.6f, 0.2f, 0.0f);
+        s3_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
+        task_core.customize(4, osPriorityRealtime, 10, 20 * 128);
         s3_xbox.addport(&esp_port);
         s3_xbox.add_chassis(&s3_chassis);
         task_core.registerTask(1, &vesc_front);
@@ -48,8 +61,10 @@ extern "C"
         task_core.registerTask(1, &vesc_right);
 
         task_core.registerTask(0, &can_core);
-        task_core.registerTask(2, &s3_chassis);
-        task_core.registerTask(3, &s3_xbox);
+        task_core.registerTask(4, &s3_chassis);
+        task_core.registerTask(7, &s3_xbox);
+        task_core.registerTask(8, &debug_port);
+
         osKernelStart();
     }
 	

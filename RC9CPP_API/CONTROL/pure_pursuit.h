@@ -9,7 +9,6 @@ extern "C"
 #include "Vector2D.h"
 #include "PID.h"
 
-
 #ifdef __cplusplus
 }
 #endif
@@ -115,6 +114,8 @@ public:
     void pp_force_add_points(Vector2D new_points[], uint8_t length);
 
     void pp_refresh_points(); // 清空目标点缓冲队列
+
+    float getRemainingDistance();
 };
 
 #endif
