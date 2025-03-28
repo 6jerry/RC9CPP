@@ -51,7 +51,7 @@ void xbox_controller::process_data()
     else if(test1 == 0)
     {
         //事件1 - off
-        motor1->set_rpm(0.0f);
+        //motor1->set_rpm(0.0f);
         motor2->set_rpm(0.0f);
         motor3->set_rpm(xbox_msgs.joyLVert_map * max_pithcer_speed);
         motor4->set_rpm((xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_shooter_speed);
@@ -60,34 +60,90 @@ void xbox_controller::process_data()
     if(test2 == 1)
     {
         //事件2 - on
-        motor1->set_dis_speedplan(700,max_lifter_speed,400,500,0);
+        //motor1->set_dis_speedplan(700,400,400,500,0);
+				//HAL_GPIO_WritePin(port_3, pin_3, GPIO_PIN_SET);
     }
     else if(test2 == 0)
     {
         //事件2 - off
-				motor1->set_dis_speedplan(0,max_lifter_speed,400,500,0);
+				//motor1->set_dis_speedplan(400,400,400,500,0);
+				//motor1->dis_speedplan_restart();
+				//HAL_GPIO_WritePin(port_3, pin_3, GPIO_PIN_RESET);
     }
 
     if(test3 == 1)
     {
         //事件3 - on
-        HAL_GPIO_WritePin(port_1, pin_1, GPIO_PIN_SET);
+        if (HAL_GPIO_ReadPin(port_1, pin_1) != 0)
+        {
+            motor1->set_rpm(-60.0f);
+        }
+        else if (HAL_GPIO_ReadPin(port_1, pin_1) == 0)
+        {
+            motor1->set_rpm(0.0f);
+            motor1->relocate_dis(0.0f);
+            test3 = 0;
+        }
     }
     else if(test3 == 0)
     {
         //事件3 - off
-        HAL_GPIO_WritePin(port_1, pin_1, GPIO_PIN_RESET);
     }
 
     if(test4 == 1)
     {
         //事件4 - on
-        HAL_GPIO_WritePin(port_2, pin_2, GPIO_PIN_SET);
+        auto_yunball();
     }
     else if(test4 == 0)
     {
         //事件4 - off
-        HAL_GPIO_WritePin(port_2, pin_2, GPIO_PIN_RESET);
+        step = catch_point;
+		motor1->dis_speedplan_restart();
+    }
+}
+
+void xbox_controller::auto_yunball()
+{
+    switch(step)
+    {
+        case reset:
+            motor1->set_dis_speedplan(500,max_lifter_speed,400,500,0);
+            if (abs(500 - motor1->get_dis()) <= 10.0f)
+            {
+                test4 = 0;
+            }
+        break;
+        break;
+        
+        case catch_point:
+            motor1->set_dis_speedplan(750,1500,2500,2500,800);
+            if (abs(700 - motor1->get_dis()) <= 10.0f)
+            {
+                step = throw_point;
+                motor1->dis_speedplan_restart();
+				HAL_GPIO_WritePin(port_3, pin_3, GPIO_PIN_RESET);
+            }
+        break;
+        
+        case throw_point:
+            motor1->set_dis_speedplan(100,1500,3000,3000,0);
+            if (abs(360 - motor1->get_dis()) <= 50.0f)
+            {
+				motor1->set_rpm(0.0f);
+				time_cnt++;
+                if(time_cnt>=50)
+                {
+                    step = reset;
+                    motor1->dis_speedplan_restart();
+                    HAL_GPIO_WritePin(port_3, pin_3, GPIO_PIN_SET);
+                    time_cnt=0;
+                }
+            }
+        break;
+        
+        default:
+        break;
     }
 }
 
@@ -107,10 +163,12 @@ void xbox_controller::add_motor(power_motor* motor1_, power_motor* motor2_, powe
     motor4 = motor4_;
 }
 
-void xbox_controller::add_trigger(GPIO_TypeDef *port_1, uint16_t pin_1, GPIO_TypeDef *port_2, uint16_t pin_2)
+void xbox_controller::add_trigger(GPIO_TypeDef *port_1, uint16_t pin_1, GPIO_TypeDef *port_2, uint16_t pin_2,GPIO_TypeDef *port_3, uint16_t pin_3)
 {
     this->port_1 = port_1;
     this->pin_1 = pin_1;
     this->port_2 = port_2;
     this->pin_2 = pin_2;
+    this->port_3 = port_3;
+    this->pin_3 = pin_3;
 }

@@ -13,6 +13,14 @@ extern "C" {
 }
 #endif
 
+enum yunball_step
+{
+    reset,
+    catch_point,
+    throw_point
+};
+
+
 #ifdef __cplusplus
 class xbox_controller : public ITaskProcessor, public xbox
 {
@@ -21,14 +29,18 @@ public:
     void process_data();
     void btn_scan();
     void add_motor(power_motor* motor1, power_motor* motor2, power_motor* motor3, power_motor* motor4);
-    void add_trigger(GPIO_TypeDef *port_1, uint16_t pin_1, GPIO_TypeDef *port_2, uint16_t pin_2);
+    void add_trigger(GPIO_TypeDef *port_1, uint16_t pin_1, GPIO_TypeDef *port_2, uint16_t pin_2,GPIO_TypeDef *port_3, uint16_t pin_3);
+    void auto_yunball();
 
 private:
     uint8_t test1 = 0, test2 = 0, test3 = 0, test4 = 0;
     power_motor* motor1 = nullptr, *motor2 = nullptr, *motor3 = nullptr, *motor4 = nullptr;
-    GPIO_TypeDef* port_1 = nullptr, *port_2 = nullptr;
-    uint16_t pin_1 = 0, pin_2 = 0;
-    float max_lifter_speed = 420.0f,max_turn_speed = 80.0f, max_pithcer_speed = 430.0f,max_shooter_speed = 600.0f;
+
+    GPIO_TypeDef* port_1 = nullptr, *port_2 = nullptr, *port_3 = nullptr;
+    uint16_t pin_1 = 0, pin_2 = 0, pin_3 = 0;
+    float max_lifter_speed = 1500.0f,max_turn_speed = 80.0f, max_pithcer_speed = 430.0f,max_shooter_speed = 600.0f;
+    yunball_step step = reset;
+		int time_cnt = 0;
 };
 #endif
 

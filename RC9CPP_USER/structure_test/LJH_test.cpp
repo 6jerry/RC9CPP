@@ -19,7 +19,7 @@ extern "C"
         task.registerTask(0, &can);
         xbox_test.addport(&ESP);
         xbox_test.add_motor(&motor_1, &motor_2, &motor_3, &motor_4);
-        xbox_test.add_trigger(GPIOC, GPIO_PIN_14, GPIOC, GPIO_PIN_13);
+        xbox_test.add_trigger(GPIOA, GPIO_PIN_7, GPIOF, GPIO_PIN_6, GPIOC, GPIO_PIN_13);
         motor_1.start_debug();
 				motor_1.addport(&debug_port);
 			  motor_1.config_mech_param(19.2032f, 35.0f);
