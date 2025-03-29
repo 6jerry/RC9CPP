@@ -29,6 +29,13 @@ private:
     uint16_t Catcher_pin = 0, Shooter_pin = 0;
 
     uint8_t Stop_flag=0,Catcher_flag=0,Speed_level=0,Shoot_flag=0;
+    float Speed_map;
+
+    float max_lifter_speed = 420.0f,
+    max_turn_speed = 80.0f,
+    max_shooter_speed = 600.0f,
+    max_pithcer_speed = 430.0f,
+    shoot_dis = 0.16f;
 
     power_motor *lifter_motor=nullptr, *turn_motor=nullptr, *shooter_motor=nullptr, *pithcer_motor=nullptr;
     GPIO_TypeDef *trigger_port=nullptr, *shooter_port = nullptr;

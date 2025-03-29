@@ -29,6 +29,7 @@
 /* USER CODE BEGIN Includes */
 #include <string.h>
 #include "wh_setup.h"
+//#include "YunBall_test.h"
 // #include "r2n_setup.h"
 
 // #include "m6020_adjust.h"
@@ -114,26 +115,26 @@ int main(void)
   MX_TIM1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  //wh_setup();
+ 
   /* USER CODE END 2 */
 
   /* Init scheduler */
   osKernelInitialize();
 
   /* Call init function for freertos objects (in cmsis_os2.c) */
-  MX_FREERTOS_Init();
+  //MX_FREERTOS_Init();
 
   /* Start scheduler */
-  osKernelStart();
+ //osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   // MX_USB_DEVICE_Init();
-
-  //chassis_move_test();
   wh_setup();
+  //chassis_move_test();
   while (1)
   {
     /* USER CODE END WHILE */

@@ -69,7 +69,7 @@ void wh_xbox::btn_scan() {
     handleButton(btnBConfig);
     handleButton(btnXConfig);
     handleButton(btnYConfig);
-    handleButton(btnYConfig);
+    //handleButton(btnYConfig);
     handleButton(btnDirLeftConfig);
     handleButton(btnDirRightConfig);
 }
@@ -78,24 +78,38 @@ void wh_xbox::process_data() {
     btn_scan();
     joymap_compute();
 
+    switch (Speed_level) {
+        case 0:Speed_map=0.4;break;
+        case 1:Speed_map=0.8;break;
+        case 2:Speed_map=1.2;break;
+        default:Speed_map=0;break;
+    }
+    
     if(Stop_flag==1){
-        Stop_flag=0;
         lifter_motor->set_rpm(0);
         turn_motor->set_rpm(0);
         shooter_motor->set_rpm(0);
         pithcer_motor->set_rpm(0);
     }
+    else if(Stop_flag==0){
+        lifter_motor->set_rpm(Speed_map*xbox_msgs.joyRVert_map * max_lifter_speed);
+        turn_motor->set_rpm(-Speed_map*xbox_msgs.joyRHori_map * max_turn_speed);
+
+        shooter_motor->set_rpm(Speed_map*xbox_msgs.joyLVert_map * max_shooter_speed);
+        pithcer_motor->set_rpm(-(Speed_map*xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_pithcer_speed);
+    }
+
     if(Catcher_flag==1){
         HAL_GPIO_WritePin(Catcher_port,Catcher_pin,GPIO_PIN_SET);
     }
-    else if(Catcher_flag==1){
+    else if(Catcher_flag==0){
         HAL_GPIO_WritePin(Catcher_port,Catcher_pin,GPIO_PIN_RESET);
     }
 
     if(Shoot_flag==1){
         HAL_GPIO_WritePin(Shooter_port,Shooter_pin,GPIO_PIN_SET);
     }
-    else if(Shoot_flag==1){
+    else if(Shoot_flag==0){
         HAL_GPIO_WritePin(Shooter_port,Shooter_pin,GPIO_PIN_RESET);
     }
 
