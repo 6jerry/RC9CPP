@@ -45,8 +45,10 @@ public:
     virtual float get_dis() {}; // 获取距离
 
     virtual bool set_dis_speedplan(float targetdis, float max_speed, float max_acc, float max_dec, float finalspeed) {}; // 设置距离和速度和加速度
+    virtual bool set_pos_speedplan(float target_angle_, float max_speed, float max_acc, float max_dec, float finalspeed) {};
 
     virtual void dis_speedplan_restart() {}; // 重新开始距离速度规划
+    virtual void pos_speedplan_restart() {}; // 重新开始位置速度规划
 
     virtual void set_angle(float angle) {}; // 设置角度
 

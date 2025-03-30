@@ -4,8 +4,8 @@ TaskManager task;
 CanManager can;
 RC9Protocol ESP(uart, &huart2), debug_port(uart, &huart5);
 
-m3508p motor_1(1,&hcan1,true), motor_2(2,&hcan1), motor_3(3,&hcan1);
-vesc motor_4(1,&hcan2);
+m3508p motor_1(1,&hcan1,true), motor_2(2,&hcan1,true,49.1376f), motor_3(3,&hcan1);
+vesc motor_4(4,&hcan2);
 
 xbox_controller xbox_test;
 
@@ -19,13 +19,14 @@ extern "C"
         task.registerTask(0, &can);
         xbox_test.addport(&ESP);
         xbox_test.add_motor(&motor_1, &motor_2, &motor_3, &motor_4);
-        xbox_test.add_trigger(GPIOA, GPIO_PIN_7, GPIOF, GPIO_PIN_6, GPIOC, GPIO_PIN_13);
+        xbox_test.add_trigger(GPIOA, GPIO_PIN_7, GPIOF, GPIO_PIN_6, GPIOC, GPIO_PIN_13, GPIOA, GPIO_PIN_7);
         motor_1.start_debug();
 				motor_1.addport(&debug_port);
 			  motor_1.config_mech_param(19.2032f, 35.0f);
         task.registerTask(0, &can);
         task.registerTask(2, &xbox_test);
 				task.registerTask(8, &debug_port);
+				task.registerTask(0, &motor_4);
 
 
         osKernelStart();
