@@ -3,7 +3,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "esp-idf/esp_https_ota/libesp_https_ota.a"
+			"path" : "esp-idf/esp_app_format/libesp_app_format.a"
 		}
 	],
 	"backtrace" : 2,
@@ -13,26 +13,18 @@
 		[
 			"add_library",
 			"idf_component_register",
-			"add_dependencies",
-			"preprocess_linker_file",
-			"include",
 			"add_compile_options",
 			"add_c_compile_options",
 			"add_compile_definitions",
 			"include_directories",
 			"target_include_directories",
 			"__component_add_include_dirs",
-			"set_property",
-			"__component_set_dependencies",
-			"__component_set_all_dependencies"
+			"set_source_files_properties"
 		],
 		"files" : 
 		[
 			"C:/Users/32806/.platformio/packages/framework-espidf/tools/cmake/component.cmake",
-			"C:/Users/32806/.platformio/packages/framework-espidf/components/esp_https_ota/CMakeLists.txt",
-			"C:/Users/32806/.platformio/packages/framework-espidf/components/mbedtls/CMakeLists.txt",
-			"C:/Users/32806/.platformio/packages/framework-espidf/components/esp_system/ld/ld.cmake",
-			"C:/Users/32806/.platformio/packages/framework-espidf/components/esp_system/CMakeLists.txt",
+			"C:/Users/32806/.platformio/packages/framework-espidf/components/esp_app_format/CMakeLists.txt",
 			"C:/Users/32806/.platformio/packages/framework-espidf/tools/cmake/utilities.cmake"
 		],
 		"nodes" : 
@@ -43,7 +35,7 @@
 			{
 				"command" : 1,
 				"file" : 1,
-				"line" : 7,
+				"line" : 8,
 				"parent" : 0
 			},
 			{
@@ -53,134 +45,52 @@
 				"parent" : 1
 			},
 			{
-				"file" : 2
-			},
-			{
 				"command" : 2,
-				"file" : 2,
-				"line" : 77,
-				"parent" : 3
-			},
-			{
-				"file" : 4
-			},
-			{
-				"command" : 4,
-				"file" : 4,
-				"line" : 92,
-				"parent" : 5
-			},
-			{
-				"file" : 3,
-				"parent" : 6
-			},
-			{
-				"command" : 3,
-				"file" : 3,
-				"line" : 47,
-				"parent" : 7
-			},
-			{
-				"command" : 2,
-				"file" : 3,
-				"line" : 43,
-				"parent" : 8
-			},
-			{
-				"command" : 3,
-				"file" : 3,
-				"line" : 51,
-				"parent" : 7
-			},
-			{
-				"command" : 2,
-				"file" : 3,
-				"line" : 43,
-				"parent" : 10
-			},
-			{
-				"command" : 5,
 				"file" : 0,
 				"line" : 475,
 				"parent" : 1
 			},
 			{
-				"command" : 6,
+				"command" : 3,
 				"file" : 0,
 				"line" : 477,
 				"parent" : 1
 			},
 			{
-				"command" : 5,
-				"file" : 5,
+				"command" : 2,
+				"file" : 2,
 				"line" : 281,
-				"parent" : 13
+				"parent" : 4
 			},
 			{
-				"command" : 7,
+				"command" : 4,
 				"file" : 0,
 				"line" : 476,
 				"parent" : 1
 			},
 			{
-				"command" : 8,
+				"command" : 5,
 				"file" : 0,
 				"line" : 474,
 				"parent" : 1
 			},
 			{
-				"command" : 10,
+				"command" : 7,
 				"file" : 0,
 				"line" : 492,
 				"parent" : 1
 			},
 			{
-				"command" : 9,
+				"command" : 6,
 				"file" : 0,
 				"line" : 319,
-				"parent" : 17
+				"parent" : 8
 			},
 			{
-				"command" : 13,
-				"file" : 0,
-				"line" : 524,
-				"parent" : 1
-			},
-			{
-				"command" : 12,
-				"file" : 0,
-				"line" : 358,
-				"parent" : 19
-			},
-			{
-				"command" : 11,
-				"file" : 0,
-				"line" : 343,
-				"parent" : 20
-			},
-			{
-				"command" : 11,
-				"file" : 0,
-				"line" : 343,
-				"parent" : 20
-			},
-			{
-				"command" : 11,
-				"file" : 0,
-				"line" : 343,
-				"parent" : 20
-			},
-			{
-				"command" : 12,
-				"file" : 0,
-				"line" : 361,
-				"parent" : 19
-			},
-			{
-				"command" : 11,
-				"file" : 0,
-				"line" : 340,
-				"parent" : 24
+				"command" : 8,
+				"file" : 1,
+				"line" : 35,
+				"parent" : 0
 			}
 		]
 	},
@@ -193,115 +103,123 @@
 					"fragment" : "-march=rv32imac_zicsr_zifencei   "
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-ffunction-sections"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-fdata-sections"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-Wall"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-Werror=all"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-Wno-error=unused-function"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-Wno-error=unused-variable"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-Wno-error=unused-but-set-variable"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-Wno-error=deprecated-declarations"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-Wextra"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-Wno-error=extra"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-Wno-unused-parameter"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-Wno-sign-compare"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-Wno-enum-conversion"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-gdwarf-4"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-ggdb"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-nostartfiles"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-Og"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-fno-shrink-wrap"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-fmacro-prefix-map=C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server=."
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-fmacro-prefix-map=C:/Users/32806/.platformio/packages/framework-espidf=/IDF"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-fstrict-volatile-bitfields"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-fno-jump-tables"
 				},
 				{
-					"backtrace" : 12,
+					"backtrace" : 3,
 					"fragment" : "-fno-tree-switch-conversion"
 				},
 				{
-					"backtrace" : 14,
+					"backtrace" : 5,
 					"fragment" : "-std=gnu17"
 				},
 				{
-					"backtrace" : 14,
+					"backtrace" : 5,
 					"fragment" : "-Wno-old-style-declaration"
 				}
 			],
 			"defines" : 
 			[
 				{
-					"backtrace" : 15,
+					"backtrace" : 10,
+					"define" : " PROJECT_NAME=\"ESP32C6_AP_Server\""
+				},
+				{
+					"backtrace" : 6,
 					"define" : "ESP_PLATFORM"
 				},
 				{
-					"backtrace" : 15,
+					"backtrace" : 6,
 					"define" : "IDF_VER=\"5.4.0\""
+				},
+				{
+					"backtrace" : 10,
+					"define" : "PROJECT_VER=\"ccd76277-dirty\""
 				},
 				{
 					"backtrace" : 2,
@@ -312,31 +230,31 @@
 					"define" : "SOC_XTAL_FREQ_MHZ=CONFIG_XTAL_FREQ"
 				},
 				{
-					"backtrace" : 15,
+					"backtrace" : 6,
 					"define" : "_GLIBCXX_HAVE_POSIX_SEMAPHORE"
 				},
 				{
-					"backtrace" : 15,
+					"backtrace" : 6,
 					"define" : "_GLIBCXX_USE_POSIX_SEMAPHORE"
 				},
 				{
-					"backtrace" : 15,
+					"backtrace" : 6,
 					"define" : "_GNU_SOURCE"
 				},
 				{
-					"backtrace" : 15,
+					"backtrace" : 6,
 					"define" : "_POSIX_READER_WRITER_LOCKS"
 				}
 			],
 			"includes" : 
 			[
 				{
-					"backtrace" : 16,
+					"backtrace" : 7,
 					"path" : "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/.pio/build/esp32-c6-generic/config"
 				},
 				{
-					"backtrace" : 18,
-					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_https_ota/include"
+					"backtrace" : 9,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_app_format/include"
 				},
 				{
 					"backtrace" : 2,
@@ -521,38 +439,6 @@
 				{
 					"backtrace" : 2,
 					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/lwip/port/esp32xx/include/sys"
-				},
-				{
-					"backtrace" : 21,
-					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_http_client/include"
-				},
-				{
-					"backtrace" : 21,
-					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_event/include"
-				},
-				{
-					"backtrace" : 22,
-					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/bootloader_support/include"
-				},
-				{
-					"backtrace" : 22,
-					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/bootloader_support/bootloader_flash/include"
-				},
-				{
-					"backtrace" : 23,
-					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_app_format/include"
-				},
-				{
-					"backtrace" : 25,
-					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/app_update/include"
-				},
-				{
-					"backtrace" : 25,
-					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_bootloader_format/include"
-				},
-				{
-					"backtrace" : 25,
-					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_partition/include"
 				}
 			],
 			"language" : "C",
@@ -565,25 +451,16 @@
 	"dependencies" : 
 	[
 		{
-			"backtrace" : 4,
-			"id" : "custom_bundle::@9d0b8d44c897d31e7973"
-		},
-		{
-			"backtrace" : 9,
-			"id" : "memory.ld::@874df54e61e20112dfd4"
-		},
-		{
-			"backtrace" : 11,
-			"id" : "sections.ld.in::@874df54e61e20112dfd4"
+			"id" : "__idf_esp_bootloader_format::@d2aa1b1547bed85670ee"
 		}
 	],
-	"id" : "__idf_esp_https_ota::@55ee5ec07370a5473c2b",
-	"name" : "__idf_esp_https_ota",
-	"nameOnDisk" : "libesp_https_ota.a",
+	"id" : "__idf_esp_app_format::@08c2bdce7fd85cdbea06",
+	"name" : "__idf_esp_app_format",
+	"nameOnDisk" : "libesp_app_format.a",
 	"paths" : 
 	{
-		"build" : "esp-idf/esp_https_ota",
-		"source" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_https_ota"
+		"build" : "esp-idf/esp_app_format",
+		"source" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_app_format"
 	},
 	"sourceGroups" : 
 	[
@@ -600,7 +477,7 @@
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_https_ota/src/esp_https_ota.c",
+			"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_app_format/esp_app_desc.c",
 			"sourceGroupIndex" : 0
 		}
 	],
