@@ -74,7 +74,7 @@ public:
 class xbox_debug_base : public xbox, public ITaskProcessor
 {
 public:
-    uint8_t mode_flag = 2, start_flag = 0, lb_flag = 0, rb_flag = 0;
+    uint8_t mode_flag = 2, start_flag = 0, lb_flag = 0, rb_flag = 0,init_flag = 0;
 
     virtual void not_start() {};
     virtual void mode_0() {};
@@ -98,9 +98,11 @@ class chassis_adjust_xbox : public xbox_debug_base, public chassis_user
 {
 public:
     void not_start() override;
+    void mode_0() override;
     void mode_2() override;
     void mode_1() override;
     void mode_3() override;
+
 };
 
 #endif

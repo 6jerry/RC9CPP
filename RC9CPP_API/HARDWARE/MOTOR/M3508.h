@@ -76,7 +76,7 @@ private:
     int16_t increPID_speed();
     int16_t pid_speed();
     int16_t angle_pid();
-    int16_t angle_speedplan();
+    //int16_t angle_speedplan();
     int16_t distance_pid();
     int16_t distance_speedplan();
     int16_t F();

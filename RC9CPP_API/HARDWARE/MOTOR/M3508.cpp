@@ -35,7 +35,7 @@ int16_t m3508p::motor_process()
         return angle_pid();
         break;
     case m3508_angle_speedplan:
-        return angle_speedplan();
+        //return angle_speedplan();
         break;
     case m3508_distance_pid:
         return distance_pid();
@@ -215,36 +215,6 @@ void m3508p::relocate_pos(float angle)
     pos_sum = angle;
 }
 
-bool m3508p::set_dis_speedplan(float targetdis, float max_speed, float max_acc, float max_dec, float finalspeed)
-{
-    if (dis_speed_plan.isFinished())
-    {
-        target_distance = targetdis;
-        work_mode = m3508_distance_speedplan;
-
-        if (abs((float)rpm) > min_start_rpm && (targetdis - dis_sum) * (float)rpm > 0.0f)
-        {
-            dis_speed_plan.start_plan(max_acc, max_dec, max_speed, rpm_2_v(rpm), finalspeed, dis_sum, targetdis);
-            return true;
-        }
-        else
-        {
-
-            dis_speed_plan.start_plan(max_acc, max_dec, max_speed, rpm_2_v(min_start_rpm), finalspeed, dis_sum, targetdis);
-            return true;
-        }
-    }
-    else
-    {
-        return false;
-    }
-}
-
-void m3508p::dis_speedplan_restart()
-{
-    dis_speed_plan.reset();
-}
-
 int16_t m3508p::pid_speed()
 {
     return 0;
@@ -259,11 +229,7 @@ float m3508p::get_rpm()
 {
     return (float)rpm / gear_ratio;
 }
-void m3508p::set_pos(float pos)
-{
-    target_angle = pos;
-    work_mode = m3508_angle_pid;
-}
+
 void m3508p::set_rpm(float power_motor_rpm)
 {
     work_mode = m3508_increPID_speed;

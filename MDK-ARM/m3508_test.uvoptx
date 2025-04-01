@@ -12,7 +12,7 @@
     <lExt>*.lib</lExt>
     <tExt>*.txt; *.h; *.inc; *.md</tExt>
     <pExt>*.plm</pExt>
-    <CppX>*.cpp</CppX>
+    <CppX>*.cpp; *.cc; *.cxx</CppX>
     <nMigrate>0</nMigrate>
   </Extensions>
 
@@ -26,7 +26,7 @@
     <ToolsetNumber>0x4</ToolsetNumber>
     <ToolsetName>ARM-ADS</ToolsetName>
     <TargetOption>
-      <CLKADS>8000000</CLKADS>
+      <CLKADS>25000000</CLKADS>
       <OPTTT>
         <gFlags>1</gFlags>
         <BeepAtEnd>1</BeepAtEnd>
@@ -93,7 +93,7 @@
         <tRbreak>1</tRbreak>
         <tRwatch>1</tRwatch>
         <tRmem>1</tRmem>
-        <tRfunc>1</tRfunc>
+        <tRfunc>0</tRfunc>
         <tRbox>1</tRbox>
         <tRtrace>1</tRtrace>
         <sRSysVw>1</sRSysVw>
@@ -119,11 +119,6 @@
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
-          <Key>DLGDARM</Key>
-          <Name>(1010=-1,-1,-1,-1,0)(1007=-1,-1,-1,-1,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)</Name>
-        </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
           <Key>ARMRTXEVENTFLAGS</Key>
           <Name>-L70 -Z18 -C0 -M0 -T1</Name>
         </SetRegEntry>
@@ -135,7 +130,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>ARMDBGFLAGS</Key>
-          <Name>-T0</Name>
+          <Name></Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -145,17 +140,12 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>CMSIS_AGDI</Key>
-          <Name>-X"Any" -UAny -O206 -S8 -C0 -P00000000 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO65554 -TC10000000 -TT10000000 -TP20 -TDS8003 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC1000 -FN1 -FF0STM32F4xx_1024.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32F407ZGTx$CMSIS\Flash\STM32F4xx_1024.FLM)</Name>
+          <Name>-X"Any" -UAny -O206 -S8 -C0 -P00000000 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO65554 -TC10000000 -TT10000000 -TP20 -TDS8000 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC1000 -FN1 -FF0STM32F4xx_1024.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32F407ZGTx$CMSIS\Flash\STM32F4xx_1024.FLM)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
           <Key>UL2CM3</Key>
           <Name>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0STM32F4xx_1024 -FS08000000 -FL0100000 -FP0($$Device:STM32F407ZGTx$CMSIS\Flash\STM32F4xx_1024.FLM))</Name>
-        </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
-          <Key>ST-LINKIII-KEIL_SWO</Key>
-          <Name>-U-O142 -O2254 -S0 -C0 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC800 -FN1 -FF0STM32F4xx_1024.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32F407ZGTx$CMSIS\Flash\STM32F4xx_1024.FLM)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
       <Breakpoint/>
@@ -163,830 +153,15 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>MOTOR_PID_RPM</ItemText>
-        </Ww>
-        <Ww>
-          <count>1</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>laser_take_pid</ItemText>
-        </Ww>
-        <Ww>
-          <count>2</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>laser_take_pid</ItemText>
-        </Ww>
-        <Ww>
-          <count>3</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>Laser_Real_Data</ItemText>
-        </Ww>
-        <Ww>
-          <count>4</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>MOTOR_REAL_INFO</ItemText>
-        </Ww>
-        <Ww>
-          <count>5</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>motorleft_r</ItemText>
-        </Ww>
-        <Ww>
-          <count>6</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>motorright_r</ItemText>
-        </Ww>
-        <Ww>
-          <count>7</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>shoot_down_right</ItemText>
-        </Ww>
-        <Ww>
-          <count>8</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>shoot_up_left</ItemText>
-        </Ww>
-        <Ww>
-          <count>9</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>shoot_up_right</ItemText>
-        </Ww>
-        <Ww>
-          <count>10</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>shoot_up_right</ItemText>
-        </Ww>
-        <Ww>
-          <count>11</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>motorright_r</ItemText>
-        </Ww>
-        <Ww>
-          <count>12</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>shoot_down_left</ItemText>
-        </Ww>
-        <Ww>
-          <count>13</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>PPM_buf</ItemText>
-        </Ww>
-        <Ww>
-          <count>14</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>encoder</ItemText>
+          <ItemText>mode_flag</ItemText>
         </Ww>
       </WatchWindow1>
-      <WatchWindow2>
-        <Ww>
-          <count>0</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>vx_temp</ItemText>
-        </Ww>
-        <Ww>
-          <count>1</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>one_yaw</ItemText>
-        </Ww>
-        <Ww>
-          <count>2</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>\\m3508_test\../robocon_robot/MoveBase.c\Robot_Chassis</ItemText>
-        </Ww>
-        <Ww>
-          <count>3</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>send_buf1</ItemText>
-        </Ww>
-        <Ww>
-          <count>4</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>send_buf1</ItemText>
-        </Ww>
-        <Ww>
-          <count>5</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>PPM_buf[2]</ItemText>
-        </Ww>
-        <Ww>
-          <count>6</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>PPM_buf[0]</ItemText>
-        </Ww>
-        <Ww>
-          <count>7</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>PPM_buf[1]</ItemText>
-        </Ww>
-        <Ww>
-          <count>8</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>PPM_buf[4]</ItemText>
-        </Ww>
-        <Ww>
-          <count>9</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>PPM_buf[7]</ItemText>
-        </Ww>
-        <Ww>
-          <count>10</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>PPM_buf[5]</ItemText>
-        </Ww>
-        <Ww>
-          <count>11</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>PPM_buf[6]</ItemText>
-        </Ww>
-        <Ww>
-          <count>12</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>RL_Y,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>13</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>RR_X,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>14</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>	RR_Y,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>15</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>SA,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>16</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>SB,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>17</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>SC,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>18</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>SD,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>19</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>rx_frame_mat</ItemText>
-        </Ww>
-        <Ww>
-          <count>20</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>xbox_msgs</ItemText>
-        </Ww>
-        <Ww>
-          <count>21</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>SHOOT_MOTOR_INFO</ItemText>
-        </Ww>
-        <Ww>
-          <count>22</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>Robot_Chassis.Robot_V[1]</ItemText>
-        </Ww>
-        <Ww>
-          <count>23</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>ROCK_L_X</ItemText>
-        </Ww>
-        <Ww>
-          <count>24</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>Robot_Chassis.Robot_V</ItemText>
-        </Ww>
-        <Ww>
-          <count>25</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>head_locking_flag</ItemText>
-        </Ww>
-        <Ww>
-          <count>26</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>world_robot_flag</ItemText>
-        </Ww>
-        <Ww>
-          <count>27</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>r1_chassis</ItemText>
-        </Ww>
-        <Ww>
-          <count>28</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>r1_remote</ItemText>
-        </Ww>
-        <Ww>
-          <count>29</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m3508_shoot1</ItemText>
-        </Ww>
-        <Ww>
-          <count>30</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m6020_1</ItemText>
-        </Ww>
-        <Ww>
-          <count>31</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>temp_vcurrent</ItemText>
-        </Ww>
-        <Ww>
-          <count>32</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m6020_back_left</ItemText>
-        </Ww>
-        <Ww>
-          <count>33</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m6020_back_right</ItemText>
-        </Ww>
-        <Ww>
-          <count>34</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m6020_shoot</ItemText>
-        </Ww>
-        <Ww>
-          <count>35</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>dis_vector_x</ItemText>
-        </Ww>
-        <Ww>
-          <count>36</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>data_chain</ItemText>
-        </Ww>
-        <Ww>
-          <count>37</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>Action</ItemText>
-        </Ww>
-        <Ww>
-          <count>38</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>r2n_chassis</ItemText>
-        </Ww>
-        <Ww>
-          <count>39</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>r2_remote</ItemText>
-        </Ww>
-        <Ww>
-          <count>40</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m3508_front</ItemText>
-        </Ww>
-        <Ww>
-          <count>41</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>ros_serial</ItemText>
-        </Ww>
-        <Ww>
-          <count>42</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>r2n_chassis.distan_pid</ItemText>
-        </Ww>
-        <Ww>
-          <count>43</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>\\m3508_test\../GDUT_ROBOCON/SIMPLE_TASK.cpp\r2_remote.xbox.target_tracking_dis</ItemText>
-        </Ww>
-        <Ww>
-          <count>44</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>FRAME_HEAD_ACTION_0</ItemText>
-        </Ww>
-        <Ww>
-          <count>45</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>esp32_serial</ItemText>
-        </Ww>
-        <Ww>
-          <count>46</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>data_chain</ItemText>
-        </Ww>
-        <Ww>
-          <count>47</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>r2n_chassis.point_track_info.target_x</ItemText>
-        </Ww>
-        <Ww>
-          <count>48</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>r2n_chassis.point_track_info.target_y</ItemText>
-        </Ww>
-        <Ww>
-          <count>49</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>sum</ItemText>
-        </Ww>
-        <Ww>
-          <count>50</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>dot_sum</ItemText>
-        </Ww>
-        <Ww>
-          <count>51</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>change_flag</ItemText>
-        </Ww>
-        <Ww>
-          <count>52</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m3508_left_front</ItemText>
-        </Ww>
-        <Ww>
-          <count>53</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>xbox_r2n</ItemText>
-        </Ww>
-        <Ww>
-          <count>54</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>r2_remote</ItemText>
-        </Ww>
-        <Ww>
-          <count>55</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m3508_front</ItemText>
-        </Ww>
-        <Ww>
-          <count>56</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>r2_remote</ItemText>
-        </Ww>
-        <Ww>
-          <count>57</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>shooter</ItemText>
-        </Ww>
-        <Ww>
-          <count>58</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>data_chain</ItemText>
-        </Ww>
-        <Ww>
-          <count>59</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>task_core</ItemText>
-        </Ww>
-        <Ww>
-          <count>60</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>Action</ItemText>
-        </Ww>
-        <Ww>
-          <count>61</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>esp32_serial</ItemText>
-        </Ww>
-        <Ww>
-          <count>62</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>run_taskID</ItemText>
-        </Ww>
-        <Ww>
-          <count>63</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>controlTxMessage</ItemText>
-        </Ww>
-        <Ww>
-          <count>64</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>go1</ItemText>
-        </Ww>
-        <Ww>
-          <count>65</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>r2_remote</ItemText>
-        </Ww>
-        <Ww>
-          <count>66</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>data_chain</ItemText>
-        </Ww>
-        <Ww>
-          <count>67</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m3508_front</ItemText>
-        </Ww>
-        <Ww>
-          <count>68</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>r2n_chassis</ItemText>
-        </Ww>
-        <Ww>
-          <count>69</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>test_id</ItemText>
-        </Ww>
-        <Ww>
-          <count>70</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>current</ItemText>
-        </Ww>
-        <Ww>
-          <count>71</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>erpm</ItemText>
-        </Ww>
-        <Ww>
-          <count>72</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>rcurrent</ItemText>
-        </Ww>
-        <Ww>
-          <count>73</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>rrpm</ItemText>
-        </Ww>
-        <Ww>
-          <count>74</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>vesc_test</ItemText>
-        </Ww>
-        <Ww>
-          <count>75</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>shoot_control</ItemText>
-        </Ww>
-        <Ww>
-          <count>76</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>MAC_2_NODE</ItemText>
-        </Ww>
-        <Ww>
-          <count>77</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>MAC_2_NODE</ItemText>
-        </Ww>
-        <Ww>
-          <count>78</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m3508_shooter</ItemText>
-        </Ww>
-        <Ww>
-          <count>79</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>test3</ItemText>
-        </Ww>
-        <Ww>
-          <count>80</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>MAC_2_NODE</ItemText>
-        </Ww>
-        <Ww>
-          <count>81</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>box_test</ItemText>
-        </Ww>
-        <Ww>
-          <count>82</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>esp32_serial</ItemText>
-        </Ww>
-        <Ww>
-          <count>83</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>vesc_test</ItemText>
-        </Ww>
-        <Ww>
-          <count>84</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>debug.tx_frame_mat.data.msg_get[0]</ItemText>
-        </Ww>
-        <Ww>
-          <count>85</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>esp32_serial</ItemText>
-        </Ww>
-        <Ww>
-          <count>86</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m6020_test</ItemText>
-        </Ww>
-        <Ww>
-          <count>87</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>swerve_test</ItemText>
-        </Ww>
-        <Ww>
-          <count>88</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>esp32_serial</ItemText>
-        </Ww>
-        <Ww>
-          <count>89</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>box_test</ItemText>
-        </Ww>
-        <Ww>
-          <count>90</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>motor1</ItemText>
-        </Ww>
-        <Ww>
-          <count>91</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>fdi_test</ItemText>
-        </Ww>
-        <Ww>
-          <count>92</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>odom_test</ItemText>
-        </Ww>
-        <Ww>
-          <count>93</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>right_back</ItemText>
-        </Ww>
-        <Ww>
-          <count>94</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>right_front</ItemText>
-        </Ww>
-        <Ww>
-          <count>95</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>left_front</ItemText>
-        </Ww>
-        <Ww>
-          <count>96</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>mknum_test</ItemText>
-        </Ww>
-        <Ww>
-          <count>97</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>res_state_now</ItemText>
-        </Ww>
-        <Ww>
-          <count>98</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>esp32_serial</ItemText>
-        </Ww>
-        <Ww>
-          <count>99</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>resxbox</ItemText>
-        </Ww>
-        <Ww>
-          <count>100</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>yaw_sensor</ItemText>
-        </Ww>
-        <Ww>
-          <count>101</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>debug</ItemText>
-        </Ww>
-        <Ww>
-          <count>102</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>esp32</ItemText>
-        </Ww>
-        <Ww>
-          <count>103</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m4</ItemText>
-        </Ww>
-        <Ww>
-          <count>104</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>test2</ItemText>
-        </Ww>
-        <Ww>
-          <count>105</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>position_test</ItemText>
-        </Ww>
-        <Ww>
-          <count>106</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>test2</ItemText>
-        </Ww>
-        <Ww>
-          <count>107</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>claw_test</ItemText>
-        </Ww>
-        <Ww>
-          <count>108</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>right_back</ItemText>
-        </Ww>
-        <Ww>
-          <count>109</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m6020_left_back</ItemText>
-        </Ww>
-        <Ww>
-          <count>110</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m6020_debug</ItemText>
-        </Ww>
-        <Ww>
-          <count>111</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>esp_port</ItemText>
-        </Ww>
-        <Ww>
-          <count>112</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m6020_right_front</ItemText>
-        </Ww>
-        <Ww>
-          <count>113</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m6020_left_front</ItemText>
-        </Ww>
-        <Ww>
-          <count>114</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m6020_left_front</ItemText>
-        </Ww>
-        <Ww>
-          <count>115</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m6020_debug</ItemText>
-        </Ww>
-        <Ww>
-          <count>116</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>esp_port</ItemText>
-        </Ww>
-        <Ww>
-          <count>117</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m6020_right_front</ItemText>
-        </Ww>
-        <Ww>
-          <count>118</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>mo2</ItemText>
-        </Ww>
-        <Ww>
-          <count>119</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>yun_ball_xbox</ItemText>
-        </Ww>
-        <Ww>
-          <count>120</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>xbox_test</ItemText>
-        </Ww>
-        <Ww>
-          <count>121</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m6020_left</ItemText>
-        </Ww>
-        <Ww>
-          <count>122</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m6020_front</ItemText>
-        </Ww>
-        <Ww>
-          <count>123</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m6020_right</ItemText>
-        </Ww>
-        <Ww>
-          <count>124</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>pitcher</ItemText>
-        </Ww>
-        <Ww>
-          <count>125</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m3508_debuger</ItemText>
-        </Ww>
-        <Ww>
-          <count>126</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>laser</ItemText>
-        </Ww>
-        <Ww>
-          <count>127</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>xbox_test</ItemText>
-        </Ww>
-        <Ww>
-          <count>128</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m8080</ItemText>
-        </Ww>
-        <Ww>
-          <count>129</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>shooter_core</ItemText>
-        </Ww>
-        <Ww>
-          <count>130</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>lifter</ItemText>
-        </Ww>
-        <Ww>
-          <count>131</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m3508_front</ItemText>
-        </Ww>
-        <Ww>
-          <count>132</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m3508_right</ItemText>
-        </Ww>
-        <Ww>
-          <count>133</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>s3_chassis</ItemText>
-        </Ww>
-        <Ww>
-          <count>134</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>vx_temp</ItemText>
-        </Ww>
-        <Ww>
-          <count>135</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m8080</ItemText>
-        </Ww>
-        <Ww>
-          <count>136</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>shooter_debuger</ItemText>
-        </Ww>
-        <Ww>
-          <count>137</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>vesc_right</ItemText>
-        </Ww>
-        <Ww>
-          <count>138</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m3508_front</ItemText>
-        </Ww>
-        <Ww>
-          <count>139</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>yunball_core</ItemText>
-        </Ww>
-        <Ww>
-          <count>140</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>lifter</ItemText>
-        </Ww>
-        <Ww>
-          <count>141</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>yunball_xbox</ItemText>
-        </Ww>
-        <Ww>
-          <count>142</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>turnner</ItemText>
-        </Ww>
-        <Ww>
-          <count>143</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>s3_chassis</ItemText>
-        </Ww>
-        <Ww>
-          <count>144</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>action_imu</ItemText>
-        </Ww>
-        <Ww>
-          <count>145</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>m3508_left</ItemText>
-        </Ww>
-        <Ww>
-          <count>146</count>
-          <WinNumber>2</WinNumber>
-          <ItemText>debug_port</ItemText>
-        </Ww>
-      </WatchWindow2>
-      <MemoryWindow1>
-        <Mm>
-          <WinNumber>1</WinNumber>
-          <SubType>0</SubType>
-          <ItemText>ROCK_L_X</ItemText>
-          <AccSizeX>0</AccSizeX>
-        </Mm>
-      </MemoryWindow1>
       <Tracepoint>
         <THDelay>0</THDelay>
       </Tracepoint>
       <DebugFlag>
         <trace>0</trace>
-        <periodic>1</periodic>
+        <periodic>0</periodic>
         <aLwin>1</aLwin>
         <aCover>0</aCover>
         <aSer1>0</aSer1>
@@ -1005,7 +180,7 @@
         <aPa1>0</aPa1>
         <AscS4>0</AscS4>
         <aSer4>0</aSer4>
-        <StkLoc>1</StkLoc>
+        <StkLoc>0</StkLoc>
         <TrcWin>0</TrcWin>
         <newCpu>0</newCpu>
         <uProt>0</uProt>
@@ -1024,8 +199,8 @@
       <pSingCmdsp></pSingCmdsp>
       <pMultCmdsp></pMultCmdsp>
       <DebugDescription>
-        <Enable>0</Enable>
-        <EnableFlashSeq>0</EnableFlashSeq>
+        <Enable>1</Enable>
+        <EnableFlashSeq>1</EnableFlashSeq>
         <EnableLog>0</EnableLog>
         <Protocol>2</Protocol>
         <DbgClock>10000000</DbgClock>
@@ -1055,7 +230,7 @@
 
   <Group>
     <GroupName>Application/User/Core</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -2330,8 +1505,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\rc_test_xbox.cpp</PathWithFileName>
-      <FilenameWithoutPath>rc_test_xbox.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\chassis_test.cpp</PathWithFileName>
+      <FilenameWithoutPath>chassis_test.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2342,128 +1517,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\rc_test_xbox.h</PathWithFileName>
-      <FilenameWithoutPath>rc_test_xbox.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>106</FileNumber>
-      <FileType>8</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\ball_shooter.cpp</PathWithFileName>
-      <FilenameWithoutPath>ball_shooter.cpp</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>107</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\ball_shooter.h</PathWithFileName>
-      <FilenameWithoutPath>ball_shooter.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>108</FileNumber>
-      <FileType>8</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\auto_yunball.cpp</PathWithFileName>
-      <FilenameWithoutPath>auto_yunball.cpp</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>107</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\auto_yunball.h</PathWithFileName>
-      <FilenameWithoutPath>auto_yunball.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>108</FileNumber>
-      <FileType>8</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\chassis_test.cpp</PathWithFileName>
-      <FilenameWithoutPath>chassis_test.cpp</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>109</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
       <PathWithFileName>..\RC9CPP_USER\RC2025\chassis_test.h</PathWithFileName>
       <FilenameWithoutPath>chassis_test.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>110</FileNumber>
-      <FileType>8</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\Wch_test\Wch_setup.cpp</PathWithFileName>
-      <FilenameWithoutPath>Wch_setup.cpp</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>111</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\Wch_test\Wch_setup.h</PathWithFileName>
-      <FilenameWithoutPath>Wch_setup.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>112</FileNumber>
-      <FileType>8</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\Wch_test\Wch_xbox.cpp</PathWithFileName>
-      <FilenameWithoutPath>Wch_xbox.cpp</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>113</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\Wch_test\Wch_xbox.h</PathWithFileName>
-      <FilenameWithoutPath>Wch_xbox.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2477,11 +1532,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>8</GroupNumber>
-<<<<<<< HEAD
-      <FileNumber>114</FileNumber>
-=======
-      <FileNumber>110</FileNumber>
->>>>>>> origin/shootercar
+      <FileNumber>106</FileNumber>
       <FileType>4</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

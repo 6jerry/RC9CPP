@@ -199,6 +199,14 @@ void xbox_debug_base::btnconfig_init()
         1,
         ButtonActionType::Toggle,
         nullptr};
+
+    btnYConfig = {
+        &xbox_msgs.btnY,
+        &xbox_msgs.btnY_last,
+        &init_flag,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
 }
 
 void xbox_debug_base::btn_scan()
@@ -265,6 +273,12 @@ void xbox_debug_base::process_data()
     {
         rb_off();
     }
+
+    if (init_flag == 1)
+    {
+        //chassis_initialize();
+        init_flag = 0;
+    }
 }
 
 void chassis_adjust_xbox::not_start()
@@ -275,19 +289,32 @@ void chassis_adjust_xbox::not_start()
 
 void chassis_adjust_xbox::mode_2()
 {
+    Vector2D tvel_((3.0f * xbox_msgs.joyLHori_map), (3.0f * xbox_msgs.joyLVert_map));
+
+    set_RobotVel(tvel_, 0);
+    set_RobotW(-(3.0f * xbox_msgs.joyRHori_map), 0);
+}
+
+void chassis_adjust_xbox::mode_1()
+{
     Vector2D tvel_((1.0f * xbox_msgs.joyLHori_map), (1.0f * xbox_msgs.joyLVert_map));
+
+    set_RobotVel(tvel_, 0);
+    set_RobotW(-(1.0f * xbox_msgs.joyRHori_map), 0);
+}
+
+void chassis_adjust_xbox::mode_3()
+{
+    Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
 
     set_RobotVel(tvel_, 0);
     set_RobotW(-(5.0f * xbox_msgs.joyRHori_map), 0);
 }
 
-void chassis_adjust_xbox::mode_1()
+void chassis_adjust_xbox::mode_0()
 {
-    Vector2D tvel_(0.0f, 0.0f);
-    move_to(tvel_, 1);
-    yaw_TurnTo(0.0f, 0);
-}
+    Vector2D tvel_(0.0f, 0.25f);
 
-void chassis_adjust_xbox::mode_3()
-{
+    set_RobotVel(tvel_, 0);
+    set_RobotW(-(5.0f * xbox_msgs.joyRHori_map), 0);
 }
