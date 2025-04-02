@@ -271,6 +271,8 @@ void chassis_adjust_xbox::not_start()
 {
     set_RobotVel(Vector2D(0.0f, 0.0f), 0);
     set_RobotW(0.0f, 0);
+    // rst_state();
+    // rst_state();
 }
 
 void chassis_adjust_xbox::mode_2()
@@ -279,15 +281,27 @@ void chassis_adjust_xbox::mode_2()
 
     set_RobotVel(tvel_, 0);
     set_RobotW(-(5.0f * xbox_msgs.joyRHori_map), 0);
+    rst_state();
 }
 
 void chassis_adjust_xbox::mode_1()
 {
-    Vector2D tvel_(0.0f, 0.0f);
-    move_to(tvel_, 1);
-    yaw_TurnTo(0.0f, 0);
+    Vector2D tvel_((1.0f * xbox_msgs.joyLHori_map), (1.0f * xbox_msgs.joyLVert_map));
+    rst_state();
+
+    set_RobotVel(tvel_, 0);
+    yaw_TurnTo(-(180.0f * xbox_msgs.joyRHori_map), 0);
 }
 
 void chassis_adjust_xbox::mode_3()
 {
+
+    t_points[0].x = get_world_x();
+    t_points[0].y = get_world_y();
+
+    pp_track_point(Vector2D(0.0f, 0.0f));
+    yaw_TurnTo(0.0f, 0);
+
+    // yaw_TurnTo(0.0f, 0);
+    // set_RobotVel(Vector2D(0.0f, 0.0f), 0);
 }

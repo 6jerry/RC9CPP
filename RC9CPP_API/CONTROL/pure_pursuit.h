@@ -80,11 +80,11 @@ private:
     float tangent_dis = 0.0f;
     float target_dis = 0.0f;
     Vector2D target_wspeed;
-    float tan_speed = 0.28f;
+    float tan_speed = 0.0f;
 
-    bool if_loop = false;       // 是否是环形轨迹?,如果是环形轨迹的话起始点要写两次
-    float tracked_lenth = 0.0f; // 沿着轨迹追踪多远了？
-    float change_point = 16.0f; // 啥时候切换点
+    bool if_loop = false;        // 是否是环形轨迹?,如果是环形轨迹的话起始点要写两次
+    float tracked_lenth = 0.0f;  // 沿着轨迹追踪多远了？
+    float change_point = 0.004f; // 啥时候切换点
 
     pure_pursuit_mode nor_mode = normalcontrol; // 法向纠偏所选择的控制模式
 
@@ -103,7 +103,7 @@ public:
     float normal_dis = 0.0f;
     pure_pursuit() {};
 
-    pid normal_control; // 纯追踪的第一种控制方式，法向纠偏pid
+    pid normal_control, tangent_control; // 纯追踪的第一种控制方式，法向纠偏pid
 
     pid dir_control; // 纯追踪的第二种控制方式，速度矢量方向控制
 
@@ -112,6 +112,9 @@ public:
 
     bool pp_add_points(Vector2D new_points[], uint8_t length);
     void pp_force_add_points(Vector2D new_points[], uint8_t length);
+
+    void pp_start_plan(Vector2D start_point, Vector2D end_point);
+    void pp_rst_plan();
 
     void pp_refresh_points(); // 清空目标点缓冲队列
 

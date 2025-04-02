@@ -1002,6 +1002,16 @@
           <WinNumber>2</WinNumber>
           <ItemText>debug_port</ItemText>
         </Ww>
+        <Ww>
+          <count>147</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>s3_xbox</ItemText>
+        </Ww>
+        <Ww>
+          <count>148</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>vesc_left</ItemText>
+        </Ww>
       </WatchWindow2>
       <MemoryWindow1>
         <Mm>
@@ -1581,7 +1591,7 @@
       <GroupNumber>6</GroupNumber>
       <FileNumber>40</FileNumber>
       <FileType>8</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\RC9CPP_API\CONTROL\PID.cpp</PathWithFileName>

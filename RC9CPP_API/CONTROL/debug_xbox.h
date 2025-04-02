@@ -70,8 +70,6 @@ public:
     moters_debug_xbox();
 };
 
-
-
 class xbox_debug_base : public xbox, public ITaskProcessor
 {
 public:
@@ -97,6 +95,9 @@ public:
 
 class chassis_adjust_xbox : public xbox_debug_base, public chassis_user
 {
+private:
+    Vector2D t_points[2] = {{0.0f, 0.0f}, {0.0f, 0.0f}};
+
 public:
     void not_start() override;
     void mode_2() override;

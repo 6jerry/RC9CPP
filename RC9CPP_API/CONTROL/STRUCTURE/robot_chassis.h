@@ -39,7 +39,8 @@ enum RoboChassis_mode
     curve_track,
     chassis_init,
     ppp_track,
-    ppc_track
+    ppc_track,
+    swerve_stable
 
 };
 
@@ -95,6 +96,10 @@ public:
     uint8_t move_to_speedplan(Vector2D target, uint8_t PriorityCode);
     uint8_t move_through(Vector2D new_points[], uint8_t length, uint8_t PriorityCode);
 
+    void pp_track_point(Vector2D target_p);
+
+    void rst_state();
+
     uint8_t get_track_dis(float *dis); // 看看追踪还剩多少
 
     float get_yaw(); // 获取当前的yaw
@@ -103,6 +108,10 @@ public:
     void chassis_rst_priority();  // 重置优先级
 
     void add_chassis(RoboChassis *chassis_); // 加入底盘
+    float get_world_x();
+    float get_world_y();
+
+    void stablize_swerve(); // 稳定四舵轮
 
 private:
     RoboChassis *robochassis_ = nullptr;
@@ -158,7 +167,7 @@ private:
 
     uint32_t time_cnt = 0;
 
-private:
+public:
     pointrack pointtracker;
     // pure_pursuit purepursuiter;
     yaw_adjuster yawadjuster;
@@ -205,6 +214,16 @@ public:
     void C_pp_move_2_point(Vector2D target_p, chassis_user *user_);
 
     float get_cyaw();
+    void C_pp_track_point(Vector2D target_p);
+
+    void C_rst_state();
+
+    float get_cworld_x();
+    float get_cworld_y();
+
+    void swerve_stablize();
+
+    void C_stablize();
 };
 
 #endif
