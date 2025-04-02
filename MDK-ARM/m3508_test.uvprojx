@@ -3415,6 +3415,16 @@
               <FileType>5</FileType>
               <FilePath>..\RC9CPP_USER\RC2025\wh_xbox.h</FilePath>
             </File>
+            <File>
+              <FileName>Shoot_info.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\RC9CPP_USER\RC2025\Shoot_info.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Shoot_info.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RC9CPP_USER\RC2025\Shoot_info.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

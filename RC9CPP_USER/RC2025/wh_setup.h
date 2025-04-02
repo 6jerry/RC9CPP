@@ -19,6 +19,9 @@ extern "C"
 #include "gpio.h"
 #include "wh_xbox.h"
 #include "main.h"
+#include "encoder.h"
+#include "pid.h"
+#include "wit_gyro.h"
 void wh_setup(void);
 #ifdef __cplusplus
 }
@@ -26,6 +29,6 @@ void wh_setup(void);
 #ifdef __cplusplus
 
 
-#endif
 
+#endif
 #endif //RC9CPP_WH_SETUP_H

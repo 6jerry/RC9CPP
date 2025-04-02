@@ -18,6 +18,8 @@ vesc vesc_front(1, &hcan2, 21.0f, 3.0f),
      vesc_right(3, &hcan2, 21.0f, 3.0f);
 vesc m8080(4, &hcan2, 7.0f, 1.0f);
 
+Encoder  wh_encoder(&huart6);
+//Shoot_cal demo;
 wh_xbox my_xbox;
 extern "C"
 {
@@ -28,7 +30,7 @@ void wh_setup()
 
 	my_xbox.xbox_init();
     my_xbox.addport(&esp_port);
-    my_xbox.load_pin(GPIOC, GPIOC, GPIO_PIN_14, GPIO_PIN_13);
+    my_xbox.load_pin(GPIOC,GPIO_PIN_14,GPIOC,GPIO_PIN_13,GPIOC,GPIO_PIN_15);
     my_xbox.load_motor(&lifter, &turnner, &m8080, &pithcer);
 
     task_core.registerTask(0, &can_core);
@@ -40,3 +42,8 @@ void wh_setup()
     osKernelStart();
 }
 }
+
+//void demo::process_data()
+//{
+//    Now_distance
+//}
