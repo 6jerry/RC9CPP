@@ -199,14 +199,6 @@ void xbox_debug_base::btnconfig_init()
         1,
         ButtonActionType::Toggle,
         nullptr};
-
-    btnYConfig = {
-        &xbox_msgs.btnY,
-        &xbox_msgs.btnY_last,
-        &init_flag,
-        1,
-        ButtonActionType::Toggle,
-        nullptr};
 }
 
 void xbox_debug_base::btn_scan()
@@ -273,48 +265,43 @@ void xbox_debug_base::process_data()
     {
         rb_off();
     }
-
-    if (init_flag == 1)
-    {
-        //chassis_initialize();
-        init_flag = 0;
-    }
 }
 
 void chassis_adjust_xbox::not_start()
 {
     set_RobotVel(Vector2D(0.0f, 0.0f), 0);
     set_RobotW(0.0f, 0);
+    // rst_state();
+    // rst_state();
 }
 
 void chassis_adjust_xbox::mode_2()
 {
-    Vector2D tvel_((3.0f * xbox_msgs.joyLHori_map), (3.0f * xbox_msgs.joyLVert_map));
+    Vector2D tvel_((1.0f * xbox_msgs.joyLHori_map), (1.0f * xbox_msgs.joyLVert_map));
 
     set_RobotVel(tvel_, 0);
-    set_RobotW(-(3.0f * xbox_msgs.joyRHori_map), 0);
+    set_RobotW(-(5.0f * xbox_msgs.joyRHori_map), 0);
+    rst_state();
 }
 
 void chassis_adjust_xbox::mode_1()
 {
     Vector2D tvel_((1.0f * xbox_msgs.joyLHori_map), (1.0f * xbox_msgs.joyLVert_map));
+    rst_state();
 
     set_RobotVel(tvel_, 0);
-    set_RobotW(-(1.0f * xbox_msgs.joyRHori_map), 0);
+    yaw_TurnTo(-(180.0f * xbox_msgs.joyRHori_map), 0);
 }
 
 void chassis_adjust_xbox::mode_3()
 {
-    Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
 
-    set_RobotVel(tvel_, 0);
-    set_RobotW(-(5.0f * xbox_msgs.joyRHori_map), 0);
-}
+    t_points[0].x = get_world_x();
+    t_points[0].y = get_world_y();
 
-void chassis_adjust_xbox::mode_0()
-{
-    Vector2D tvel_(0.0f, 0.25f);
+    pp_track_point(Vector2D(0.0f, 0.0f));
+    yaw_TurnTo(0.0f, 0);
 
-    set_RobotVel(tvel_, 0);
-    set_RobotW(-(5.0f * xbox_msgs.joyRHori_map), 0);
+    // yaw_TurnTo(0.0f, 0);
+    // set_RobotVel(Vector2D(0.0f, 0.0f), 0);
 }

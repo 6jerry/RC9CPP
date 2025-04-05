@@ -15,7 +15,7 @@ void pure_pursuit::compute_error()
 
     normal_dis = normal_vector.magnitude(); // 法向误差
 
-    tangent_dir = -target_line.normalize(); // 切向单位向量，指向未追踪的点
+    tangent_dir = -projected.normalize(); // 切向单位向量，指向未追踪的点
 
     normal_dir = normal_vector.normalize(); // 法向单位向量，指向目标向量
 }
@@ -23,8 +23,12 @@ void pure_pursuit::compute_error()
 void pure_pursuit::purepusit_normal_control()
 {
     float nor_speed = normal_control.PID_ComputeError(normal_dis); // 法向纠偏速度的大小
-    Vector2D normal_speed = nor_speed * normal_dir;                // 法向速度矢量
-    Vector2D tangent_speed = tan_speed * tangent_dir;              // 切向速度矢量
+
+    tan_speed = tangent_control.PID_ComputeError(getRemainingDistance()); // 切向速度的大小
+
+    //tan_speed = 0.2f;
+    Vector2D normal_speed = nor_speed * normal_dir;   // 法向速度矢量
+    Vector2D tangent_speed = tan_speed * tangent_dir; // 切向速度矢量
 
     target_wspeed = normal_speed + tangent_speed; // 最终输出的期望速度合矢量
 }
@@ -40,19 +44,19 @@ Vector2D pure_pursuit::pursuit(Vector2D now_pos)
     case pp_standby: // 等待追踪，如果缓冲区中有超过两个以上的点则开始追踪
         target_wspeed.x = 0.0f;
         target_wspeed.y = 0.0f;
+
+        /*
         if (points_buffer.queueSize() >= 2)
         {
             points_buffer.dequeue(head);
             points_buffer.dequeue(tail); // 取出两个点作为第一次追踪的向量，注意取出顺序不要乱!!!
             state = pp_tracking;
         }
+            */
 
         break;
 
     case pp_tracking:
-
-        target_line_initpoint = tail;
-        target_line = head - tail;
 
         compute_error();
 
@@ -65,6 +69,8 @@ Vector2D pure_pursuit::pursuit(Vector2D now_pos)
         {
         }
 
+        /*
+
         if (tangent_dis < change_point) // 要切换点了？
         {
             if (points_buffer.queueSize() >= 1) // 还有超过一个点，可以继续追踪
@@ -73,6 +79,7 @@ Vector2D pure_pursuit::pursuit(Vector2D now_pos)
                 points_buffer.dequeue(tail);
             }
         }
+        */
 
         break;
 
@@ -130,6 +137,25 @@ void pure_pursuit::pp_force_add_points(Vector2D new_points[], uint8_t length)
 void pure_pursuit::pp_refresh_points()
 {
     points_buffer.clear();
+    state = pp_standby;
+}
+
+void pure_pursuit::pp_start_plan(Vector2D start_point, Vector2D end_point)
+{
+
+    if (state == pp_standby)
+    {
+        head = start_point;
+        tail = end_point;
+        target_line_initpoint = tail;
+        target_line = head - tail;
+        state = pp_tracking;
+    }
+}
+
+void pure_pursuit::pp_rst_plan()
+{
+    state = pp_standby;
 }
 
 Vector2D pointrack::track(Vector2D now_pos_, Vector2D target_point_)

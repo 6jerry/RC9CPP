@@ -11,6 +11,7 @@ extern "C"
 #include <arm_math.h>
 #include "RC9Protocol.h"
 #include "robot_chassis.h"
+#include "GCFSM.h"
 #include "TrapezoidalPlanner.h"
 #ifdef __cplusplus
 }
@@ -69,12 +70,10 @@ public:
     moters_debug_xbox();
 };
 
-
-
 class xbox_debug_base : public xbox, public ITaskProcessor
 {
 public:
-    uint8_t mode_flag = 2, start_flag = 0, lb_flag = 0, rb_flag = 0,init_flag = 0;
+    uint8_t mode_flag = 2, start_flag = 0, lb_flag = 0, rb_flag = 0;
 
     virtual void not_start() {};
     virtual void mode_0() {};
@@ -96,13 +95,14 @@ public:
 
 class chassis_adjust_xbox : public xbox_debug_base, public chassis_user
 {
+private:
+    Vector2D t_points[2] = {{0.0f, 0.0f}, {0.0f, 0.0f}};
+
 public:
     void not_start() override;
-    void mode_0() override;
     void mode_2() override;
     void mode_1() override;
     void mode_3() override;
-
 };
 
 #endif

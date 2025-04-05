@@ -1,5 +1,5 @@
-#ifndef WCH_SETUP_H
-#define WCH_SETUP_H
+#ifndef Up_SETUP_H
+#define Up_SETUP_H
 
 #ifdef __cplusplus
 extern "C"
@@ -11,7 +11,7 @@ extern "C"
 #include "TaskManager.h"
 #include "M3508.h"
 #include "VESC.h"
-#include "Wch_xbox.h"
+#include "Up_xbox.h"
 #include "gpio.h"
 #include "robot_chassis.h"
 void mytest(void);
@@ -22,4 +22,4 @@ void mytest(void);
 #ifdef __cplusplus
 
 #endif
-#endif /* WCH_SETUP_H */
+#endif /* Up_SETUP_H */

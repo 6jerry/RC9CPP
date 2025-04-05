@@ -29,11 +29,11 @@ void RoboChassis::process_data()
         break;
     case ppp_track:
 
-        //target.pppoint[0] = IMU->get_world_pos();
-        //target.pppoint[1] = target.target_point;
+        // target.pppoint[0] = IMU->get_world_pos();
+        // target.pppoint[1] = target.target_point;
 
-        //pp_tracker.pp_refresh_points();
-        //pp_tracker.pp_force_add_points(target.pppoint, 2);
+        // pp_tracker.pp_refresh_points();
+        // pp_tracker.pp_force_add_points(target.pppoint, 2);
 
         chassis_calc(worldv_2_robov(pp_tracker.pursuit(IMU->get_world_pos())), yawadjuster_process());
 
@@ -42,7 +42,28 @@ void RoboChassis::process_data()
     case ppc_track:
 
         break;
+
+    case swerve_stable:
+        swerve_stablize();
+        break;
     }
+}
+
+void RoboChassis::swerve_stablize()
+{
+    dmotors[0]->set_pos(0.0f);
+    dmotors[1]->set_pos(-45.0f);
+    dmotors[2]->set_pos(45.0f);
+}
+
+void RoboChassis::C_stablize()
+{
+    mode = swerve_stable;
+}
+
+void chassis_user::stablize_swerve()
+{
+    robochassis_->C_stablize();
 }
 
 float RoboChassis::yawadjuster_process()
@@ -368,7 +389,7 @@ bool RoboChassis::priority_judge(uint8_t PriorityCode, chassis_user *user_, chas
     {
         if (PriorityCode < current_priority)
         {
-            return false;
+            return true;
         }
 
         else if (PriorityCode >= current_priority)
@@ -382,7 +403,7 @@ bool RoboChassis::priority_judge(uint8_t PriorityCode, chassis_user *user_, chas
     {
         if (PriorityCode <= current_priority)
         {
-            return false;
+            return true;
         }
         else
         {
@@ -459,6 +480,31 @@ void RoboChassis::chassis_rst_priorityC()
     current_priority = 0;
     last_priority = 0;
     user = nullptr;
+}
+
+void RoboChassis::C_pp_track_point(Vector2D target_p)
+{
+    if (mode != ppp_track)
+    {
+        pp_tracker.pp_start_plan(IMU->get_world_pos(), target_p);
+        mode = ppp_track;
+    }
+}
+
+void RoboChassis::C_rst_state()
+{
+    // mode = stop;
+    pp_tracker.pp_rst_plan();
+}
+
+void chassis_user::pp_track_point(Vector2D target_p)
+{
+    robochassis_->C_pp_track_point(target_p);
+}
+
+void chassis_user::rst_state()
+{
+    robochassis_->C_rst_state();
 }
 
 void chassis_user::add_chassis(RoboChassis *chassis_)
@@ -545,4 +591,22 @@ float chassis_user::get_yaw()
 uint8_t chassis_user::move_to(Vector2D target_p, uint8_t PriorityCode)
 {
     return robochassis_->Cmove_to(target_p, PriorityCode, this);
+}
+
+float RoboChassis::get_cworld_x()
+{
+    return IMU->get_world_pos().x;
+}
+float RoboChassis::get_cworld_y()
+{
+    return IMU->get_world_pos().y;
+}
+
+float chassis_user::get_world_x()
+{
+    return robochassis_->get_cworld_x();
+}
+float chassis_user::get_world_y()
+{
+    return robochassis_->get_cworld_y();
 }
