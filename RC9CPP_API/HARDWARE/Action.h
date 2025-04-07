@@ -104,10 +104,14 @@ public:                              // 面向用户的友好接口函数
     float get_pose_x();
     float get_pose_y();
     float get_heading() override;
+
+    float get_yaw_rad() override;
     float get_speedx();
     float get_speedy();
 
     Vector2D get_world_pos() override;
+
+    void imu_rst() override;
 
 public:
     // 内部状态机的状态

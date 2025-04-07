@@ -128,6 +128,12 @@ void action::restart()
     action_info.pos_x_sum = action_install_pos.delta_x;
     action_info.pos_y_sum = action_install_pos.delta_y;
 }
+
+void action::imu_rst()
+{
+    restart();
+}
+
 void action::relocate(float x, float y)
 {
     action_info.pos_x_sum = x + action_info.Dx;
@@ -182,6 +188,11 @@ float action::get_pose_y()
 float action::get_heading()
 {
     return pose_data.yaw_angle;
+}
+
+float action::get_yaw_rad()
+{
+    return pose_data.yaw_rad;
 }
 
 float action::get_speedx()

@@ -51,9 +51,13 @@ void RoboChassis::process_data()
 
 void RoboChassis::swerve_stablize()
 {
-    dmotors[0]->set_pos(0.0f);
-    dmotors[1]->set_pos(-45.0f);
-    dmotors[2]->set_pos(45.0f);
+   // dmotors[0]->set_pos(0.0f);
+    //dmotors[1]->set_pos(45.0f);
+   // dmotors[2]->set_pos(-45.0f);
+
+    motors[0]->set_rpm(0.0f);
+    motors[1]->set_rpm(0.0f);
+    motors[2]->set_rpm(0.0f);
 }
 
 void RoboChassis::C_stablize()
@@ -562,6 +566,16 @@ uint8_t RoboChassis::Cmove_to(Vector2D target_p, uint8_t PriorityCode, chassis_u
 float RoboChassis::C_calc_dis(Vector2D target)
 {
     return (IMU->get_world_pos() - target).magnitude();
+}
+
+void RoboChassis::C_init_locate()
+{
+    IMU->imu_rst();
+}
+
+void chassis_user::init_locate()
+{
+    robochassis_->C_init_locate();
 }
 
 float chassis_user::calc_dis(Vector2D target)

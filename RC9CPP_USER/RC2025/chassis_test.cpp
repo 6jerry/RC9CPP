@@ -44,10 +44,10 @@ extern "C"
 
         s3_chassis.add_imu(&action_imu);
         s3_chassis.addport(&debug_port);
-        s3_chassis.yawadjuster_config(0.029f, 0.0f, 0.002f, 0.0f, 5.6f, 0.2f, 0.0f);
+        s3_chassis.yawadjuster_config(0.029f, 0.0f, 0.002f, 0.0f, 2.0f, 0.2f, 0.0f);
         s3_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
-        s3_chassis.pp_tracker.normal_control.ConfigAll(2.8f, 0.0f, 0.2f, 0.0f, 5.0f, 0.005f, 0.0f);
-        s3_chassis.pp_tracker.tangent_control.ConfigAll(0.86f, 0.0f, 3.6f, 0.0f, 1.0f, 0.005f, 0.0f);
+        s3_chassis.pp_tracker.normal_control.ConfigAll(2.8f, 0.0f, 0.2f, 0.0f, 5.0f, 0.002f, 0.0f);
+        s3_chassis.pp_tracker.tangent_control.ConfigAll(1.2f, 0.0f, 3.8f, 0.0f, 1.5f, 0.002f, 0.0f);
 
         task_core.customize(4, osPriorityRealtime, 10, 20 * 128);
         s3_xbox.addport(&esp_port);

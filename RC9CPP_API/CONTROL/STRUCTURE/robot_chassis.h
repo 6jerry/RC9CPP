@@ -113,6 +113,8 @@ public:
 
     void stablize_swerve(); // 稳定四舵轮
 
+    void init_locate(); // 初始化定位
+
 private:
     RoboChassis *robochassis_ = nullptr;
 
@@ -224,6 +226,8 @@ public:
     void swerve_stablize();
 
     void C_stablize();
+
+    void C_init_locate();
 };
 
 #endif

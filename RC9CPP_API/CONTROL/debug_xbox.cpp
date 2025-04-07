@@ -199,6 +199,22 @@ void xbox_debug_base::btnconfig_init()
         1,
         ButtonActionType::Toggle,
         nullptr};
+
+    btnXboxConfig = {
+        &xbox_msgs.btnXbox,
+        &xbox_msgs.btnXbox_last,
+        nullptr,
+        0,
+        ButtonActionType::Custom,
+        &xbox::btnXBOX_callback};
+
+    btnYConfig = {
+        &xbox_msgs.btnY,
+        &xbox_msgs.btnY_last,
+        &cnt_flag,
+        7,
+        ButtonActionType::Toggle,
+        nullptr};
 }
 
 void xbox_debug_base::btn_scan()
@@ -208,6 +224,14 @@ void xbox_debug_base::btn_scan()
     handleButton(btnBConfig);
     handleButton(btnLBConfig);
     handleButton(btnRBConfig);
+
+    handleButton(btnXboxConfig);
+    handleButton(btnYConfig);
+}
+
+void xbox_debug_base::btnXBOX_callback()
+{
+    xbox_on();
 }
 
 xbox_debug_base::xbox_debug_base()
@@ -279,6 +303,8 @@ void chassis_adjust_xbox::mode_2()
 {
     Vector2D tvel_((1.0f * xbox_msgs.joyLHori_map), (1.0f * xbox_msgs.joyLVert_map));
 
+    test_dis = calc_dis(Vector2D(0.0f, 0.0f));
+
     set_RobotVel(tvel_, 0);
     set_RobotW(-(5.0f * xbox_msgs.joyRHori_map), 0);
     rst_state();
@@ -289,19 +315,33 @@ void chassis_adjust_xbox::mode_1()
     Vector2D tvel_((1.0f * xbox_msgs.joyLHori_map), (1.0f * xbox_msgs.joyLVert_map));
     rst_state();
 
-    set_RobotVel(tvel_, 0);
-    yaw_TurnTo(-(180.0f * xbox_msgs.joyRHori_map), 0);
+    // set_RobotVel(tvel_, 0);
+    // yaw_TurnTo(-(180.0f * xbox_msgs.joyRHori_map), 0);
+
+    stablize_swerve();
 }
 
 void chassis_adjust_xbox::mode_3()
 {
 
-    t_points[0].x = get_world_x();
-    t_points[0].y = get_world_y();
-
-    pp_track_point(Vector2D(0.0f, 0.0f));
-    yaw_TurnTo(0.0f, 0);
+       if (calc_dis(t_points[cnt_flag]) > change_dis)
+    {
+        pp_track_point(t_points[cnt_flag]);
+        yaw_TurnTo(t_heading[cnt_flag], 0);
+    }
+    else
+    {
+        set_RobotVel(Vector2D(0.0f, 0.0f), 0);
+        set_RobotW(0.0f, 0);
+        rst_state();
+    }
 
     // yaw_TurnTo(0.0f, 0);
     // set_RobotVel(Vector2D(0.0f, 0.0f), 0);
+}
+
+void chassis_adjust_xbox::xbox_on()
+{
+
+    init_locate();
 }

@@ -26,7 +26,7 @@ void pure_pursuit::purepusit_normal_control()
 
     tan_speed = tangent_control.PID_ComputeError(getRemainingDistance()); // 切向速度的大小
 
-    //tan_speed = 0.2f;
+    // tan_speed = 0.2f;
     Vector2D normal_speed = nor_speed * normal_dir;   // 法向速度矢量
     Vector2D tangent_speed = tan_speed * tangent_dir; // 切向速度矢量
 
