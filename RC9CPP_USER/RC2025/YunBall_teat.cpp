@@ -8,7 +8,7 @@ RC9Protocol esp_port(uart, &huart2), debug_port(uart, &huart5);
 Encoder encoder(&huart6);
 wit_gyro imu(&huart3);
 // m3508p shooter(2, &hcan1), m3508_left(4, &hcan1, true), m3508_front(3, &hcan1, true), m3508_right(1, &hcan1, true);
-serial_studio test_port;
+
 m3508p lifter(1, &hcan1, true), turnner(2, &hcan1), pithcer(3, &hcan1);
 
 // moters_debug_xbox m3508_debuger;
@@ -76,7 +76,7 @@ extern "C"
         encoder.startUartReceiveIT();
         imu.startUartReceiveIT();
         esp_port.startUartReceiveIT();
-        test_port.addport(&debug_port);
+       // test_port.addport(&debug_port);
         debug_port.initQueue();
 
         can_core.init();
@@ -86,7 +86,7 @@ extern "C"
         xbox_test.add_motor(&lifter, &turnner, &m8080, &pithcer);
         xbox_test.add_trigger(GPIOC, GPIO_PIN_14, GPIOC, GPIO_PIN_15, GPIO_PIN_13, GPIOC, GPIO_PIN_7, GPIOB);
         xbox_test.add_encoder(&encoder);
-        xbox_test.add_serial_studio(&test_port);
+        //  xbox_test.add_serial_studio(&test_port);
         // xbox_test.add_laser(&laser);
         task_core.registerTask(0, &can_core);
         task_core.registerTask(3, &xbox_test);
@@ -95,7 +95,7 @@ extern "C"
         // task_core.registerTask(2, &vesc3);
         task_core.registerTask(8, &debug_port);
 
-        m8080.rpm_control.ConfigAll(230.0f, 2.2f, 486.0f, 0.0f, 50000.0f, 6.0f, 1.0f);
+        m8080.rpm_control.config_all(230.0f, 2.2f, 486.0f, 0.0f, 50000.0f, 6.0f);
 
         osKernelStart();
     }

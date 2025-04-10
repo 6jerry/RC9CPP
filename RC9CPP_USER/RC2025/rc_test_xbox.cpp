@@ -54,7 +54,7 @@ void yun_ball_xbox::btnconfig_init()
         &xbox_msgs.btnDirLeft,
         &xbox_msgs.btnDirLeft_last,
         &lifter_status,
-        4,
+        9,
         ButtonActionType::Increment,
         nullptr};
 }
@@ -121,8 +121,17 @@ void yun_ball_xbox::process_data()
 
             lfter_motor->set_rpm(xbox_msgs.joyRVert_map * max_lifter_speed);
             turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
-
-            shooter_motor->set_rpm(xbox_msgs.joyLVert_map * max_shooter_speed);
+				// 棘轮锁住后，电机无法动
+					if (trigger_start == 0)
+					{
+						shooter_motor->set_rpm( xbox_msgs.joyLVert_map* max_shooter_speed);
+					}
+					// 触发微动后，无法继续向上拉
+					if (Read_GPIO_State() == GPIO_PIN_RESET && shooter_motor->get_rpm() > 0)
+					{
+						shooter_motor->set_rpm(0.0f);
+					}
+           // shooter_motor->set_rpm(xbox_msgs.joyLVert_map * max_shooter_speed);
 
             pithcer_motor->set_rpm(-(xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_pithcer_speed);
 
@@ -160,21 +169,13 @@ void yun_ball_xbox::process_data()
                     lifter_status == 0;
                 }
 
-                adjust_lifter(inital);
+                adjust_lifter(dis_data[0]);
             }
-            else if (lifter_status == 2)
+            else 
             {
-                adjust_lifter(one);
+                adjust_lifter(dis_data[lifter_status-1]);
+           
             }
-            else if (lifter_status == 3)
-            {
-                adjust_lifter(two);
-            }
-            else if (lifter_status == 4)
-            {
-                adjust_lifter(three);
-            }
-        }
     }
     else if (if_motor_start == 0)
     {
@@ -183,7 +184,8 @@ void yun_ball_xbox::process_data()
         shooter_motor->set_rpm(0.0f);
         pithcer_motor->set_rpm(0.0f);
     }
-}
+		}
+		}
 void yun_ball_xbox::add_motor(power_motor *lfter_motor_, power_motor *turn_motor_, power_motor *shooter_motor_, power_motor *pithcer_motor_)
 {
     lfter_motor = lfter_motor_;
@@ -237,7 +239,7 @@ void yun_ball_xbox::adjust_pitcher(float pitch_angle)
 
     if (shoot_pitch_angle > pitch_angle - 0.005f && shoot_pitch_angle < pitch_angle + 0.005f)
     {
-        pithcer_status = 0;
+       
         pithcer_motor->set_rpm(0.0f);
     }
 }

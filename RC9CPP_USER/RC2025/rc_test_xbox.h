@@ -26,8 +26,8 @@ private:
 
     uint8_t plan_flag = 0;
     // 梯形规划参数
-    float max_acc = 150.0f, max_dcc = 150.0f,
-          max_speed = 600.0f, inital_speed = 250.0f, final_speed = 250.0f;
+    float max_acc = 200.0f, max_dcc = 200.0f,
+          max_speed = 1000.0f, inital_speed = 400.0f, final_speed = 250.0f;
 
     power_motor *lfter_motor = nullptr, *turn_motor = nullptr, *shooter_motor = nullptr, *pithcer_motor = nullptr;
 
@@ -47,7 +47,8 @@ private:
     // 0.1720
     //  0.1620
     //  0.1920
-
+    float dis_data[9] = {0.023f, 0.217f, 0.1827f, 0.1820f, 0.2320f, 0.2340f, 0.1771f, 0.1890f, 0.2211f};
+ 
     float inital = 0.023f, one = 0.1600f, two = 0.1580f, three = 0.1920f;
 
     // 初始拉伸距离

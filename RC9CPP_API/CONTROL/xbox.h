@@ -64,7 +64,7 @@ typedef struct
     bool btnRS;
     bool btnRS_last;
     bool btnDirUp;
-    bool btnDirup_last;
+    bool btnDirUp_last;
     bool btnDirLeft;
     bool btnDirLeft_last;
     bool btnDirRight;
