@@ -1,0 +1,38 @@
+#ifndef AUTO_LOCK_H
+#define AUTO_LOCK_H
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+#include "debug_xbox.h"
+#include "motor.h"
+#include "TaskManager.h"
+#include <arm_math.h>
+#include "RC9Protocol.h"
+#include "robot_chassis.h"
+#include "PID.h"
+
+#ifdef __cplusplus
+}
+#endif
+#ifdef __cplusplus
+
+class auto_lock_test : public xbox_debug_base, public chassis_user
+{
+private:
+    Vector2D center_point, tan_dir, nor_dir;                                           // 圆心坐标
+    float radius = 0.0f, dis_2_center = 0.0f, center_heading = 0.0f, nor_speed = 0.0f; // 半径
+
+    void calc_error(); // 计算误差
+
+    void mode_2() override;
+    void mode_3() override;
+
+    void mode_1() override;
+
+    pid nor_control; // 半径控制
+};
+
+#endif
+#endif
