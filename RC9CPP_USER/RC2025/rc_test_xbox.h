@@ -14,6 +14,7 @@ extern "C"
 #include "serial_studio.h"
 #include "wit_gyro.h"
 #include "TrapezoidalPlanner.h"
+#include "auto_yunball.h"
 #ifdef __cplusplus
 }
 #endif
@@ -34,6 +35,7 @@ private:
     Encoder *encoder = nullptr;
     wit_gyro *wit_imu = nullptr;
     serial_studio *test_port = nullptr;
+    auto_yunball *yunball = nullptr;
 
     GPIO_TypeDef *trigger_port = nullptr, *shooter_port = nullptr;
     GPIO_TypeDef *yun_port = nullptr, *stop_port = nullptr;
@@ -79,6 +81,7 @@ public:
     void add_imu(wit_gyro *imu_);
     void adjust_pitcher(float pitch_angle);
     void adjust_lifter(float lifter_distance);
+    void add_yunball(auto_yunball *yunball_);
     // 读取GPIO状态
     uint32_t Read_GPIO_State(void);
 };

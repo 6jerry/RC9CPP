@@ -57,6 +57,14 @@ void yun_ball_xbox::btnconfig_init()
         9,
         ButtonActionType::Increment,
         nullptr};
+
+    btnShareConfig = {
+        &xbox_msgs.btnShare,
+        &xbox_msgs.btnShare_last,
+        &shoot_yunball,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
 }
 
 void yun_ball_xbox::btn_scan()
@@ -115,67 +123,75 @@ void yun_ball_xbox::process_data()
 
     if (if_motor_start == 1)
     {
-        // 手动模式
-        if (auto_shooter == 0)
+        if(shoot_yunball == 0) //射球模式
         {
-
-            lfter_motor->set_rpm(xbox_msgs.joyRVert_map * max_lifter_speed);
-            turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
-				// 棘轮锁住后，电机无法动
-					if (trigger_start == 0)
-					{
-						shooter_motor->set_rpm( xbox_msgs.joyLVert_map* max_shooter_speed);
-					}
-					// 触发微动后，无法继续向上拉
-					if (Read_GPIO_State() == GPIO_PIN_RESET && shooter_motor->get_rpm() > 0)
-					{
-						shooter_motor->set_rpm(0.0f);
-					}
-           // shooter_motor->set_rpm(xbox_msgs.joyLVert_map * max_shooter_speed);
-
-            pithcer_motor->set_rpm(-(xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_pithcer_speed);
-
-            // float send_data[1] = {encoder->get_absolute_distance()};
-            // test_port->sendFloatData(1, send_data, 1);
-        }
-        // 自动模式
-        else if (auto_shooter == 1)
-        {
-            // 0.1720
-            //  0.1620
-            //  0.1920
-            // 俯仰状态
-            if (pithcer_status == 0)
+            // 手动模式
+            if (auto_shooter == 0)
             {
-                pithcer_motor->set_rpm(0.0f);
+
+                lfter_motor->set_rpm(xbox_msgs.joyRVert_map * max_lifter_speed);
+                turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
+                    // 棘轮锁住后，电机无法动
+                        if (trigger_start == 0)
+                        {
+                            shooter_motor->set_rpm( xbox_msgs.joyLVert_map* max_shooter_speed);
+                        }
+                        // 触发微动后，无法继续向上拉
+                        if (Read_GPIO_State() == GPIO_PIN_RESET && shooter_motor->get_rpm() > 0)
+                        {
+                            shooter_motor->set_rpm(0.0f);
+                        }
+            // shooter_motor->set_rpm(xbox_msgs.joyLVert_map * max_shooter_speed);
+
+                pithcer_motor->set_rpm(-(xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_pithcer_speed);
+
+                // float send_data[1] = {encoder->get_absolute_distance()};
+                // test_port->sendFloatData(1, send_data, 1);
             }
-            else if (pithcer_status == 1)
+            // 自动模式
+            else if (auto_shooter == 1)
             {
-                adjust_pitcher(-1.141f);
-            }
-
-            // 拉伸状态
-            if (lifter_status == 0)
-            {
-                shooter_motor->set_rpm(0.0f);
-            }
-            else if (lifter_status == 1)
-            {
-
-                if (Read_GPIO_State() == GPIO_PIN_RESET)
+                // 0.1720
+                //  0.1620
+                //  0.1920
+                // 俯仰状态
+                if (pithcer_status == 0)
                 {
-                    // 触发微动
-                    shooter_motor->set_rpm(0.0f);
-                    lifter_status == 0;
+                    pithcer_motor->set_rpm(0.0f);
+                }
+                else if (pithcer_status == 1)
+                {
+                    adjust_pitcher(-1.141f);
                 }
 
-                adjust_lifter(dis_data[0]);
+                // 拉伸状态
+                if (lifter_status == 0)
+                {
+                    shooter_motor->set_rpm(0.0f);
+                }
+                else if (lifter_status == 1)
+                {
+
+                    if (Read_GPIO_State() == GPIO_PIN_RESET)
+                    {
+                        // 触发微动
+                        shooter_motor->set_rpm(0.0f);
+                        lifter_status == 0;
+                    }
+
+                    adjust_lifter(dis_data[0]);
+                }
+                else 
+                {
+                    adjust_lifter(dis_data[lifter_status-1]);
+            
+                }
             }
-            else 
-            {
-                adjust_lifter(dis_data[lifter_status-1]);
-           
-            }
+        }
+        else if(shoot_yunball == 1) //运球模式
+        {
+
+        }
     }
     else if (if_motor_start == 0)
     {
@@ -184,8 +200,7 @@ void yun_ball_xbox::process_data()
         shooter_motor->set_rpm(0.0f);
         pithcer_motor->set_rpm(0.0f);
     }
-		}
-		}
+}
 void yun_ball_xbox::add_motor(power_motor *lfter_motor_, power_motor *turn_motor_, power_motor *shooter_motor_, power_motor *pithcer_motor_)
 {
     lfter_motor = lfter_motor_;
@@ -283,4 +298,9 @@ void yun_ball_xbox::adjust_lifter(float lifter_distance)
 uint32_t yun_ball_xbox::Read_GPIO_State(void)
 {
     return HAL_GPIO_ReadPin(stop_port, stop_pin);
+}
+
+void yun_ball_xbox::add_yunball(auto_yunball *yunball_)
+{
+    yunball = yunball_;
 }
