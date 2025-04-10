@@ -3,7 +3,7 @@
 <title>Static Call Graph - [m3508_test\m3508_test.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image m3508_test\m3508_test.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6210000: Last Updated: Mon Apr  7 20:07:41 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6210000: Last Updated: Thu Apr 10 15:28:52 2025
 <BR><P>
 <H3>Maximum Stack Usage =        344 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -966,8 +966,8 @@ Global Symbols
 <P><STRONG><a name="[16b]"></a>HAL_CAN_AddTxMessage</STRONG> (Thumb, 168 bytes, Stack size 8 bytes, stm32f4xx_hal_can.o(.text.HAL_CAN_AddTxMessage))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HAL_CAN_AddTxMessage
 </UL>
-<BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CanManager::process_data()
-<LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CanDevice::CAN_Send(unsigned int, unsigned char, unsigned char*)
+<BR>[Called By]<UL><LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CanDevice::CAN_Send(unsigned int, unsigned char, unsigned char*)
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CanManager::process_data()
 </UL>
 
 <P><STRONG><a name="[16d]"></a>HAL_CAN_ConfigFilter</STRONG> (Thumb, 222 bytes, Stack size 16 bytes, stm32f4xx_hal_can.o(.text.HAL_CAN_ConfigFilter))
@@ -1154,7 +1154,6 @@ Global Symbols
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_Init
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_ClockConfig
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
-<LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;action::Update_Action_gl_position(float*)
 </UL>
 
 <P><STRONG><a name="[138]"></a>HAL_IncTick</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f4xx_hal.o(.text.HAL_IncTick))
@@ -1456,7 +1455,10 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Start_IT
 </UL>
-<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC9Protocol::process_data()
+<BR>[Called By]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;non-virtual thunk to action::imu_rst()
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;action::imu_rst()
+<LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;action::Update_Action_gl_position(float*)
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC9Protocol::process_data()
 </UL>
 
 <P><STRONG><a name="[13c]"></a>HAL_UART_TxCpltCallback</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f4xx_hal_uart.o(.text.HAL_UART_TxCpltCallback))
@@ -2595,23 +2597,27 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> acton.o(.rodata._ZTV6action)
 </UL>
 <P><STRONG><a name="[b2]"></a>action::handleReceiveData(unsigned char)</STRONG> (Thumb, 166 bytes, Stack size 8 bytes, acton.o(.text._ZN6action17handleReceiveDataEh))
-<BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = action::handleReceiveData(unsigned char) &rArr; action::Update_Action_gl_position(float*) &rArr; __hardfp_sinf &rArr; __mathlib_rredf2
+<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = action::handleReceiveData(unsigned char) &rArr; action::Update_Action_gl_position(float*) &rArr; __hardfp_sinf &rArr; __mathlib_rredf2
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;action::Update_Action_gl_position(float*)
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> acton.o(.rodata._ZTV6action)
 </UL>
-<P><STRONG><a name="[1b6]"></a>action::Update_Action_gl_position(float*)</STRONG> (Thumb, 384 bytes, Stack size 64 bytes, acton.o(.text._ZN6action25Update_Action_gl_positionEPf))
-<BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = action::Update_Action_gl_position(float*) &rArr; __hardfp_sinf &rArr; __mathlib_rredf2
+<P><STRONG><a name="[1b6]"></a>action::Update_Action_gl_position(float*)</STRONG> (Thumb, 272 bytes, Stack size 80 bytes, acton.o(.text._ZN6action25Update_Action_gl_positionEPf))
+<BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = action::Update_Action_gl_position(float*) &rArr; __hardfp_sinf &rArr; __mathlib_rredf2
 </UL>
-<BR>[Calls]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
+<BR>[Calls]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit_DMA
 <LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sinf
 <LI><a href="#[1b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cosf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;action::handleReceiveData(unsigned char)
 </UL>
 
-<P><STRONG><a name="[b6]"></a>action::imu_rst()</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, acton.o(.text._ZN6action7imu_rstEv))
+<P><STRONG><a name="[b6]"></a>action::imu_rst()</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, acton.o(.text._ZN6action7imu_rstEv))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = action::imu_rst() &rArr; HAL_UART_Transmit_DMA &rArr; HAL_DMA_Start_IT
+</UL>
+<BR>[Calls]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit_DMA
+</UL>
 <BR>[Address Reference Count : 1]<UL><LI> acton.o(.rodata._ZTV6action)
 </UL>
 <P><STRONG><a name="[165]"></a>action::action(__UART_HandleTypeDef*, float, float, bool)</STRONG> (Thumb, 120 bytes, Stack size 32 bytes, acton.o(.text._ZN6actionC2EP20__UART_HandleTypeDefffb))
@@ -2943,7 +2949,11 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> acton.o(.rodata._ZTV6action)
 </UL>
-<P><STRONG><a name="[c3]"></a>non-virtual thunk to action::imu_rst()</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, acton.o(.text._ZThn12_N6action7imu_rstEv))
+<P><STRONG><a name="[c3]"></a>non-virtual thunk to action::imu_rst()</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, acton.o(.text._ZThn12_N6action7imu_rstEv))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = non-virtual thunk to action::imu_rst() &rArr; HAL_UART_Transmit_DMA &rArr; HAL_DMA_Start_IT
+</UL>
+<BR>[Calls]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit_DMA
+</UL>
 <BR>[Address Reference Count : 1]<UL><LI> acton.o(.rodata._ZTV6action)
 </UL>
 <P><STRONG><a name="[d7]"></a>non-virtual thunk to m3508p::relocate_dis(float)</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, m3508.o(.text._ZThn12_N6m3508p12relocate_disEf))
