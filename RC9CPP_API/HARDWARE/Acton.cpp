@@ -137,11 +137,9 @@ void action::imu_rst()
 
 void action::Update_ACTION(void)
 {
-    const char *str = "ACT0";
-    while (*str)
-    {
-        HAL_UART_Transmit_DMA(&huart3, (uint8_t *)str++, 1);
-    }
+    uint8_t data[8] = "ACT0";
+
+    HAL_UART_Transmit(huart_, data, 4,1);
 }
 
 void action::relocate(float x, float y)
