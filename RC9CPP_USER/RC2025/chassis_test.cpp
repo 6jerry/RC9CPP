@@ -4,7 +4,7 @@ TaskManager task_core;
 CanManager can_core;
 RC9Protocol esp_port(uart, &huart2), debug_port(uart, &huart5);
 
-action action_imu(&huart3, 0.0f, 18.9f, false);
+action action_imu(&huart4, 0.0f, 18.9f, false);
 
 m3508p shooter(2, &hcan1), m3508_left(4, &hcan1, true), m3508_front(3, &hcan1, true), m3508_right(1, &hcan1, true);
 
