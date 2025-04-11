@@ -80,7 +80,7 @@ extern "C"
         debug_port.initQueue();
 
         can_core.init();
-
+				lifter.config_mech_param(19.2032f, 35.0f);
         xbox_test.add_imu(&imu);
         xbox_test.addport(&esp_port);
         xbox_test.add_motor(&lifter, &turnner, &m8080, &pithcer);
