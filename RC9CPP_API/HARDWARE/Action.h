@@ -112,6 +112,7 @@ public:                              // 面向用户的友好接口函数
     Vector2D get_world_pos() override;
 
     void imu_rst() override;
+    void Update_ACTION(void);
 
 public:
     // 内部状态机的状态
