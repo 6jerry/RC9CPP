@@ -51,9 +51,9 @@ void RoboChassis::process_data()
 
 void RoboChassis::swerve_stablize()
 {
-   // dmotors[0]->set_pos(0.0f);
-    //dmotors[1]->set_pos(45.0f);
-   // dmotors[2]->set_pos(-45.0f);
+    // dmotors[0]->set_pos(0.0f);
+    // dmotors[1]->set_pos(45.0f);
+    // dmotors[2]->set_pos(-45.0f);
 
     motors[0]->set_rpm(0.0f);
     motors[1]->set_rpm(0.0f);
