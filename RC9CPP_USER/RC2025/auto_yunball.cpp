@@ -72,17 +72,12 @@ void auto_yunball::add_motor(power_motor *lift_motor_, power_motor *turn_motor_)
 
 void auto_yunball::system_init()
 {
-    if (locate_flag != 0)
-    {
-        lift_motor->set_rpm(-60.0f);
-    }
-    else if (locate_flag == 0)
-    {
-        lift_motor->set_rpm(0.0f);
-        lift_motor->relocate_dis(0.0f);
-
-        workmode = yunball_move_2_catch_point;
-    }
+		lift_motor->set_dis_speedplan(500,1500,400,500,0);
+		if (abs(500 - lift_motor->get_dis()) <= 10.0f)
+		{
+				lift_motor->dis_speedplan_restart();
+				workmode = yunball_move_2_throw_point;
+		}
 }
 
 void auto_yunball::move_2_throw_point()

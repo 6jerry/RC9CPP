@@ -41,7 +41,7 @@ private:
     GPIO_TypeDef *yun_port = nullptr, *stop_port = nullptr;
     uint16_t trigger_pin = 0, shooter_pin = 0, yun_pin = 0, stop_pin = 0;
 
-    uint8_t if_motor_start = 0, trigger_start = 0, shooter_trigger = 0, yun_trigger = 0, auto_shooter = 0;
+    uint8_t if_motor_start = 0, trigger_start = 0, shooter_trigger = 0, yun_trigger = 0, auto_shooter = 0, shoot_yunball = 0;
     // 拉伸状态 0静止状态 1复位状态 2三分 3罚球线
     uint8_t lifter_status = 0;
     // 俯仰状态 0静止状态 1标准俯仰

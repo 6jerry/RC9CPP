@@ -76,6 +76,7 @@ void yun_ball_xbox::btn_scan()
     handleButton(btnDirUpConfig);
     handleButton(btnDirDownConfig);
     handleButton(btnDirLeftConfig);
+		handleButton(btnShareConfig);
 }
 
 yun_ball_xbox::yun_ball_xbox()
@@ -125,6 +126,8 @@ void yun_ball_xbox::process_data()
     {
         if(shoot_yunball == 0) //射球模式
         {
+
+					//yunball->stop();//停止自动运球
             // 手动模式
             if (auto_shooter == 0)
             {
@@ -188,9 +191,16 @@ void yun_ball_xbox::process_data()
                 }
             }
         }
-        else if(shoot_yunball == 1) //运球模式
+        else if(shoot_yunball == 1) //自动运球模式
         {
-
+            if(yun_trigger == 1)
+            {
+                yunball->start_multi_yun();
+            }
+            else if(yun_trigger == 0)
+            {
+                yunball->stop();
+            }
         }
     }
     else if (if_motor_start == 0)
