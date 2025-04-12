@@ -1,0 +1,618 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "esp-idf/mqtt/libmqtt.a"
+		}
+	],
+	"backtrace" : 4,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"idf_component_register",
+			"include",
+			"add_compile_options",
+			"add_c_compile_options",
+			"add_compile_definitions",
+			"set_property",
+			"__component_set_dependencies",
+			"__component_set_all_dependencies",
+			"include_directories",
+			"target_include_directories",
+			"__component_add_include_dirs"
+		],
+		"files" : 
+		[
+			"C:/Users/32806/.platformio/packages/framework-espidf/tools/cmake/component.cmake",
+			"C:/Users/32806/.platformio/packages/framework-espidf/components/mqtt/esp-mqtt/CMakeLists.txt",
+			"C:/Users/32806/.platformio/packages/framework-espidf/components/mqtt/CMakeLists.txt",
+			"C:/Users/32806/.platformio/packages/framework-espidf/tools/cmake/utilities.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 5,
+				"parent" : 0
+			},
+			{
+				"file" : 1,
+				"parent" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 8,
+				"parent" : 2
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 490,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 475,
+				"parent" : 3
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 477,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 3,
+				"line" : 281,
+				"parent" : 6
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 476,
+				"parent" : 3
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 524,
+				"parent" : 3
+			},
+			{
+				"command" : 7,
+				"file" : 0,
+				"line" : 358,
+				"parent" : 9
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 343,
+				"parent" : 10
+			},
+			{
+				"command" : 9,
+				"file" : 0,
+				"line" : 474,
+				"parent" : 3
+			},
+			{
+				"command" : 11,
+				"file" : 0,
+				"line" : 492,
+				"parent" : 3
+			},
+			{
+				"command" : 10,
+				"file" : 0,
+				"line" : 319,
+				"parent" : 13
+			},
+			{
+				"command" : 11,
+				"file" : 0,
+				"line" : 493,
+				"parent" : 3
+			},
+			{
+				"command" : 10,
+				"file" : 0,
+				"line" : 319,
+				"parent" : 15
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 343,
+				"parent" : 10
+			},
+			{
+				"command" : 7,
+				"file" : 0,
+				"line" : 361,
+				"parent" : 9
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 340,
+				"parent" : 18
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-march=rv32imac_zicsr_zifencei   "
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-ffunction-sections"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-fdata-sections"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wall"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Werror=all"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wno-error=unused-function"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wno-error=unused-variable"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wno-error=unused-but-set-variable"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wno-error=deprecated-declarations"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wextra"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wno-error=extra"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wno-unused-parameter"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wno-sign-compare"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wno-enum-conversion"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-gdwarf-4"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-ggdb"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-nostartfiles"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Og"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-fno-shrink-wrap"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-fmacro-prefix-map=C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server=."
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-fmacro-prefix-map=C:/Users/32806/.platformio/packages/framework-espidf=/IDF"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-fstrict-volatile-bitfields"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-fno-jump-tables"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-fno-tree-switch-conversion"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-std=gnu17"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wno-old-style-declaration"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 8,
+					"define" : "ESP_PLATFORM"
+				},
+				{
+					"backtrace" : 8,
+					"define" : "IDF_VER=\"5.4.0\""
+				},
+				{
+					"backtrace" : 11,
+					"define" : "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\""
+				},
+				{
+					"backtrace" : 4,
+					"define" : "SOC_MMU_PAGE_SIZE=CONFIG_MMU_PAGE_SIZE"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "SOC_XTAL_FREQ_MHZ=CONFIG_XTAL_FREQ"
+				},
+				{
+					"backtrace" : 8,
+					"define" : "_GLIBCXX_HAVE_POSIX_SEMAPHORE"
+				},
+				{
+					"backtrace" : 8,
+					"define" : "_GLIBCXX_USE_POSIX_SEMAPHORE"
+				},
+				{
+					"backtrace" : 8,
+					"define" : "_GNU_SOURCE"
+				},
+				{
+					"backtrace" : 8,
+					"define" : "_POSIX_READER_WRITER_LOCKS"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 12,
+					"path" : "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/.pio/build/esp32-c6-generic/config"
+				},
+				{
+					"backtrace" : 14,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/mqtt/esp-mqtt/include"
+				},
+				{
+					"backtrace" : 16,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/mqtt/esp-mqtt/lib/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/newlib/platform_include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/freertos/config/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/freertos/config/include/freertos"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/freertos/config/riscv/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/freertos/FreeRTOS-Kernel/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/freertos/FreeRTOS-Kernel/portable/riscv/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/freertos/FreeRTOS-Kernel/portable/riscv/include/freertos"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/freertos/esp_additions/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_hw_support/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_hw_support/include/soc"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_hw_support/include/soc/esp32c6"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_hw_support/dma/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_hw_support/ldo/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_hw_support/debug_probe/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_hw_support/port/esp32c6/."
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_hw_support/port/esp32c6/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_hw_support/port/esp32c6/private_include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/heap/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/heap/tlsf"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/log/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/soc/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/soc/esp32c6"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/soc/esp32c6/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/soc/esp32c6/register"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/hal/platform_port/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/hal/esp32c6/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/hal/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_rom/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_rom/esp32c6/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_rom/esp32c6/include/esp32c6"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_rom/esp32c6"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_common/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_system/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_system/port/soc"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_system/port/include/riscv"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_system/port/include/private"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/riscv/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/lwip/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/lwip/include/apps"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/lwip/include/apps/sntp"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/lwip/lwip/src/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/lwip/port/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/lwip/port/freertos/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/lwip/port/esp32xx/include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/lwip/port/esp32xx/include/arch"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/lwip/port/esp32xx/include/sys"
+				},
+				{
+					"backtrace" : 17,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_event/include"
+				},
+				{
+					"backtrace" : 11,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/tcp_transport/include"
+				},
+				{
+					"backtrace" : 11,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp-tls"
+				},
+				{
+					"backtrace" : 11,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp-tls/esp-tls-crypto"
+				},
+				{
+					"backtrace" : 11,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/mbedtls/port/include"
+				},
+				{
+					"backtrace" : 11,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/mbedtls/mbedtls/include"
+				},
+				{
+					"backtrace" : 11,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/mbedtls/mbedtls/library"
+				},
+				{
+					"backtrace" : 11,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/mbedtls/esp_crt_bundle/include"
+				},
+				{
+					"backtrace" : 11,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/mbedtls/mbedtls/3rdparty/everest/include"
+				},
+				{
+					"backtrace" : 11,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/mbedtls/mbedtls/3rdparty/p256-m"
+				},
+				{
+					"backtrace" : 11,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/mbedtls/mbedtls/3rdparty/p256-m/p256-m"
+				},
+				{
+					"backtrace" : 11,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/esp_timer/include"
+				},
+				{
+					"backtrace" : 19,
+					"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/http_parser"
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 4,
+			"id" : "__idf_riscv::@5eeb1a2ca709d020776e"
+		}
+	],
+	"id" : "__idf_mqtt::@c1ab2c6a99226d1f4b56",
+	"name" : "__idf_mqtt",
+	"nameOnDisk" : "libmqtt.a",
+	"paths" : 
+	{
+		"build" : "esp-idf/mqtt",
+		"source" : "C:/Users/32806/.platformio/packages/framework-espidf/components/mqtt"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/mqtt/esp-mqtt/mqtt_client.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/mqtt/esp-mqtt/lib/mqtt_msg.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/mqtt/esp-mqtt/lib/mqtt_outbox.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "C:/Users/32806/.platformio/packages/framework-espidf/components/mqtt/esp-mqtt/lib/platform_esp32_idf.c",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}
