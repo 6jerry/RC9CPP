@@ -100,11 +100,12 @@ public:
 class chassis_adjust_xbox : public xbox_debug_base, public chassis_user
 {
 private:
-    Vector2D t_points[8] = {{-4.355f, 3.936f}, {-5.628f, 2.25f}, {-2.773f, 2.217f}, {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}};
+    Vector2D t_points[8] = {{0.0f, 0.0f}, {-0.628f, 0.25f}, {-2.773f, 2.217f},\
+     {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}};
 
-    float t_heading[8] = {-178.47f, -137.93f, 138.93f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+    float t_heading[8] = {0.0f, -137.93f, 138.93f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
 
-    float test_dis = 0.0f, change_dis = 0.01f;
+    float test_dis = 0.0f, change_dis = 0.03f;
 
 public:
     void not_start() override;
