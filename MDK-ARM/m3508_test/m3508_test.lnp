@@ -77,6 +77,7 @@
 "m3508_test\ball_shooter.o"
 "m3508_test\auto_yunball.o"
 "m3508_test\chassis_test.o"
+"m3508_test\auto_lock.o"
 "m3508_test\usb_device.o"
 "m3508_test\usbd_desc.o"
 "m3508_test\usbd_cdc_if.o"

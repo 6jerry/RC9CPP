@@ -30,6 +30,7 @@ private:
     void mode_3() override;
 
     void mode_1() override;
+    void xbox_on() override;
 
     pid nor_control; // 半径控制
 };

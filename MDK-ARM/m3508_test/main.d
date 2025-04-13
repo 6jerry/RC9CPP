@@ -51,7 +51,7 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   G:\Keil_v5\ARM\ARMCLANG\include\stdio.h \
   G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h \
   G:\Keil_v5\ARM\ARMCLANG\include\string.h ..\Core\Inc\gpio.h \
-  ..\RC9CPP_USER\RC2025\chassis_test.h \
+  ..\RC9CPP_USER\RC2025\chassis_test.h ..\RC9CPP_USER\RC2025\auto_lock.h \
   ..\RC9CPP_API\CONTROL\debug_xbox.h ..\RC9CPP_API\CONTROL\xbox.h \
   ..\RC9CPP_API\HARDWARE\TaskManager.h \
   ..\RC9CPP_API\HARDWARE\RC9Protocol.h ..\RC9CPP_API\MATH_LIB\crc_util.h \

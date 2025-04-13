@@ -342,6 +342,7 @@ void chassis_adjust_xbox::mode_3()
 
 void chassis_adjust_xbox::xbox_on()
 {
+    
 
     init_locate();
 }
