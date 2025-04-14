@@ -36,8 +36,8 @@ extern "C"
 
         s3_chassis.config(s3_chassis_info);
         s3_chassis.add_6_motors(&m3508_front, &vesc_front, &m3508_right, &vesc_right, &m3508_left, &vesc_left);
-
-        s3_chassis.add_photogate(GPIOF, GPIO_PIN_14, GPIOF, GPIO_PIN_15, GPIOG, GPIO_PIN_0, GPIOF, GPIO_PIN_13);
+        s3_chassis.add_3_photogate(GPIOG, GPIO_PIN_0, GPIOF, GPIO_PIN_14, GPIOF, GPIO_PIN_15);
+        s3_chassis.add_3_correction_angle(-45, 90, -90);
 
         s3_chassis.enable_debug();
 

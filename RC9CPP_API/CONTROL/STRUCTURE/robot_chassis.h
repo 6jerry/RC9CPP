@@ -24,9 +24,9 @@ enum RoboChassisType
     omni3_chassis,
     custom_chassis,
     omni4_chassis,
-    mecanum_chassis,
+    swerve3_chassis,
     swerve4_chassis, // 四舵轮
-    swerve3_chassis
+    mecanum_chassis
 };
 
 enum RoboChassis_mode
@@ -128,16 +128,20 @@ public:
     void config(chassis_info info_);
     void add_imu(imu *imu_);
     void add4_motors(power_motor *front_left_motor, power_motor *front_right_motor, power_motor *back_right_motor, power_motor *back_left_motor);
-    void add3_motors(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor);
-    void add8_motors(power_motor *front_right_motor, power_motor *front_left_motor, power_motor *back_right_motor, power_motor *back_left_motor, power_motor *front_right_dmotor, power_motor *front_left_dmotor, power_motor *back_right_dmotor, power_motor *back_left_dmotor);
+    void add_3_motors(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor);
+
     void pointtrack_config(float kp, float ki, float kd, float integral_limit, float output_limit, float deadzone, float integral_separation_threshold);
 
     void yawadjuster_config(float kp, float ki, float kd, float integral_limit, float output_limit, float deadzone, float integral_separation_threshold);
-
+    
+    void add_3_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3);
+    void add_3_correction_angle(int8_t front_angle, int8_t right_angle, int8_t left_angle);
     void add_6_motors(power_motor *front_d_motor, power_motor *front_motor, power_motor *right_d_motor, power_motor *right_motor, power_motor *left_d_motor, power_motor *left_motor);
 
-    void add_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3, GPIO_TypeDef *port4, uint16_t pin4);
-
+    void add_4_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3, GPIO_TypeDef *port4, uint16_t pin4);
+    void add_4_correction_angle(int8_t frontL_angle, int8_t frontR_angle, int8_t backL_angle, int8_t backR_angle);
+    void add_8_motors(power_motor *frontL_d_motor, power_motor *frontL_motor, power_motor *frontR_d_motor, power_motor *frontR_motor, power_motor *backL_d_motor, power_motor *backL_motor, power_motor *backR_d_motor, power_motor *backR_motor);
+    
     void enable_debug();
 
 private:
@@ -158,6 +162,7 @@ private:
     GPIO_TypeDef *photogate_port[4] = {nullptr};
     uint16_t photogate_pin[4] = {0};
     uint8_t photogate_state[4] = {0}; // 前轮，右轮，左轮
+    int8_t correction_angle[4] = {0};  
 
     bool if_not_init[4] = {true, true, true, true};
 

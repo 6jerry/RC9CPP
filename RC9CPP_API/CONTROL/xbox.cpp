@@ -52,7 +52,7 @@ void xbox::DataReceivedCallback(const uint8_t *byteData, const float *floatData,
 // 计算摇杆映射值
 void xbox::joymap_compute()
 {
-    if (xbox_msgs.joyLHori > 31000 && xbox_msgs.joyLHori < 350000)
+    if (xbox_msgs.joyLHori > 31000 && xbox_msgs.joyLHori < 35000)
     {
         xbox_msgs.joyLHori_map = 0.0f;
     }
@@ -65,7 +65,7 @@ void xbox::joymap_compute()
         xbox_msgs.joyLHori_map = (35000.0f - (float)xbox_msgs.joyLHori) / 30535.0f;
     }
 
-    if (xbox_msgs.joyLVert > 31000 && xbox_msgs.joyLVert < 350000)
+    if (xbox_msgs.joyLVert > 31000 && xbox_msgs.joyLVert < 35000)
     {
         xbox_msgs.joyLVert_map = 0.0f;
     }

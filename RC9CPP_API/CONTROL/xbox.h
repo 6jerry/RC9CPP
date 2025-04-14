@@ -86,11 +86,11 @@ typedef struct
     bool btnDirDown;
     bool btnDirDown_last;
 
-    // 霍尔值（16位数值）
-    uint16_t joyLHori;
-    uint16_t joyLVert;
-    uint16_t joyRHori;
-    uint16_t joyRVert;
+    // 霍尔值（16位数值）,给出回正默认值
+    uint16_t joyLHori=33333;
+    uint16_t joyLVert=33333;
+    uint16_t joyRHori=33333;
+    uint16_t joyRVert=33333;
     uint16_t trigLT;
     uint16_t trigRT;
 

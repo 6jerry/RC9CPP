@@ -51,9 +51,19 @@ void RoboChassis::process_data()
 
 void RoboChassis::swerve_stablize()
 {
-    dmotors[0]->set_pos(0.0f);
-    dmotors[1]->set_pos(-45.0f);
-    dmotors[2]->set_pos(45.0f);
+    if (type == 3)
+    {
+        dmotors[0]->set_pos(0.0f);
+        dmotors[1]->set_pos(-45.0f);
+        dmotors[2]->set_pos(45.0f);
+    }
+    else if (type == 4)
+    {
+        dmotors[0]->set_pos(45.0f);
+        dmotors[1]->set_pos(-45.0f);
+        dmotors[2]->set_pos(-45.0f);
+        dmotors[3]->set_pos(45.0f);
+    }
 }
 
 void RoboChassis::C_stablize()
@@ -143,48 +153,57 @@ void RoboChassis::chassis_initialize()
 
 void RoboChassis::swerve3_initialize()
 {
+    static bool wait = true;
+    if (wait)
+    {
+        for (int i = 0; i < 1000; i++)
+        {
+            dmotors[0]->set_rpm(5.0f);
+            dmotors[1]->set_rpm(5.0f);
+            dmotors[2]->set_rpm(5.0f);
+        }
+        wait = false;
+    }
     scan_photogate();
-    // dmotors[0]->set_rpm(20.0f);
-    //  dmotors[1]->set_rpm(20.0f);
-    //  dmotors[2]->set_rpm(20.0f);
 
+    // Front motor (index 0)
     if (photogate_state[0] == 1 && if_not_init[0])
     {
-        dmotors[1]->relocate_pos(90.0f);
+        dmotors[0]->relocate_pos(correction_angle[0]);
         if_not_init[0] = false;
-        dmotors[1]->set_pos(0.0f);
+        dmotors[0]->set_pos(0.0f);
     }
     else if (if_not_init[0] && photogate_state[0] == 0)
     {
-        dmotors[1]->set_rpm(5.0f);
+        dmotors[0]->set_rpm(10.0f);
     }
 
+    // Right motor (index 1)
     if (photogate_state[1] == 1 && if_not_init[1])
     {
-        dmotors[2]->relocate_pos(-90.0f);
+        dmotors[1]->relocate_pos(correction_angle[1]);
         if_not_init[1] = false;
-        dmotors[2]->set_pos(0.0f);
-        // mode = stop;
+        dmotors[1]->set_pos(0.0f);
     }
     else if (if_not_init[1] && photogate_state[1] == 0)
     {
-        dmotors[2]->set_rpm(5.0f);
+        dmotors[1]->set_rpm(10.0f);
     }
 
+    // Left motor (index 2)
     if (photogate_state[2] == 1 && if_not_init[2])
     {
-        dmotors[0]->relocate_pos(-45.0f);
+        dmotors[2]->relocate_pos(correction_angle[2]);
         if_not_init[2] = false;
-        dmotors[0]->set_pos(0.0f);
+        dmotors[2]->set_pos(0.0f);
     }
     else if (if_not_init[2] && photogate_state[2] == 0)
     {
-        dmotors[0]->set_rpm(5.0f);
+        dmotors[2]->set_rpm(10.0f);
     }
 
     if (if_not_init[0] == false && if_not_init[1] == false && if_not_init[2] == false)
     {
-        // mode = stop;
         time_cnt++;
         if (time_cnt > 400)
         {
@@ -192,13 +211,11 @@ void RoboChassis::swerve3_initialize()
             time_cnt = 0;
         }
     }
-
-    // mode = stop;
 }
 
 void RoboChassis::scan_photogate()
 {
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < type; i++)
     {
         photogate_state[i] = HAL_GPIO_ReadPin(photogate_port[i], photogate_pin[i]);
     }
@@ -235,9 +252,6 @@ void RoboChassis::mecanum_calc(Vector2D robovel, float w)
 void RoboChassis::swerve3_calc(Vector2D robovel, float w)
 {
     // scan_photogate();
-
-    scan_photogate();
-
     float angle_diff;
     float target_angle;
     float speed_magnitude;
@@ -248,7 +262,7 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
 
     if (target.swerve_motor_target[0].x != 0.0f || target.swerve_motor_target[0].y != 0.0f)
     {
-        target_angle = atan2f(target.swerve_motor_target[0].x, target.swerve_motor_target[0].y) * 57.296f;// 180/PI=57.296
+        target_angle = atan2f(target.swerve_motor_target[0].x, target.swerve_motor_target[0].y) * 57.296f; // 180/PI=57.296
 
         // 获取当前角度
         float current_angle = dmotors[0]->get_pos();
@@ -282,7 +296,7 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
     dmotors[0]->set_pos(target.swerve_motor_angle[0]);
 
     // 第二个舵轮
-    target.swerve_motor_target[1].x = robovel.x + w * 0.38735f;// 0.38735=0.44*sin(45)
+    target.swerve_motor_target[1].x = robovel.x + w * 0.38735f; // 0.38735=0.44*sin(45)
     target.swerve_motor_target[1].y = robovel.y - w * 0.38735f;
 
     if (target.swerve_motor_target[1].x != 0.0f || target.swerve_motor_target[1].y != 0.0f)
@@ -360,9 +374,8 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
     dmotors[2]->set_pos(target.swerve_motor_angle[2]);
 }
 
-void RoboChassis::add_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3, GPIO_TypeDef *port4, uint16_t pin4)
+void RoboChassis::add_4_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3, GPIO_TypeDef *port4, uint16_t pin4)
 {
-
     photogate_port[0] = port1;
     photogate_pin[0] = pin1;
     photogate_port[1] = port2;
@@ -371,6 +384,43 @@ void RoboChassis::add_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef
     photogate_pin[2] = pin3;
     photogate_port[3] = port4;
     photogate_pin[3] = pin4;
+}
+
+void RoboChassis::add_4_correction_angle(int8_t frontL, int8_t frontR, int8_t backL, int8_t backR)
+{
+    correction_angle[0] = frontL;
+    correction_angle[1] = frontR;
+    correction_angle[2] = backL;
+    correction_angle[3] = backR;
+}
+
+void RoboChassis::add_8_motors(power_motor *frontL_d_motor, power_motor *frontL_motor, power_motor *frontR_d_motor, power_motor *frontR_motor, power_motor *backL_d_motor, power_motor *backL_motor, power_motor *backR_d_motor, power_motor *backR_motor)
+{
+    dmotors[0] = frontL_d_motor;
+    motors[0] = frontL_motor;
+    dmotors[1] = frontR_d_motor;
+    motors[1] = frontR_motor;
+    dmotors[2] = backL_d_motor;
+    motors[2] = backL_motor;
+    dmotors[3] = backR_d_motor;
+    motors[3] = backR_motor;
+}
+
+void RoboChassis::add_3_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3)
+{
+    photogate_port[0] = port1;
+    photogate_pin[0] = pin1;
+    photogate_port[1] = port2;
+    photogate_pin[1] = pin2;
+    photogate_port[2] = port3;
+    photogate_pin[2] = pin3;
+}
+
+void RoboChassis::add_3_correction_angle(int8_t front, int8_t right, int8_t left)
+{
+    correction_angle[0] = front;
+    correction_angle[1] = right;
+    correction_angle[2] = left;
 }
 
 void RoboChassis::add_6_motors(power_motor *front_d_motor, power_motor *front_motor, power_motor *right_d_motor, power_motor *right_motor, power_motor *left_d_motor, power_motor *left_motor)

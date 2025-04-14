@@ -11,7 +11,6 @@ extern "C"
 #include <arm_math.h>
 #include "RC9Protocol.h"
 #include "robot_chassis.h"
-#include "GCFSM.h"
 #include "TrapezoidalPlanner.h"
 #ifdef __cplusplus
 }

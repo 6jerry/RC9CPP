@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-#include "debug_xbox.h"
+#include "chassis_xbox.h"
 
 #include "gpio.h"
 #include "VESC.h"
