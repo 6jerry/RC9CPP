@@ -72,9 +72,10 @@
 "m3508_test\position.o"
 "m3508_test\filters.o"
 "m3508_test\laser_processor.o"
-"m3508_test\rc_test_xbox.o"
-"m3508_test\ball_shooter.o"
-"m3508_test\auto_yunball.o"
+"m3508_test\wit_c_sdk.o"
+"m3508_test\wit_gyro.o"
+"m3508_test\encoder.o"
+"m3508_test\ros_laser.o"
 "m3508_test\chassis_test.o"
 "m3508_test\usb_device.o"
 "m3508_test\usbd_desc.o"
@@ -85,7 +86,7 @@
 "m3508_test\usbd_ioreq.o"
 "m3508_test\usbd_cdc.o"
 "..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM4lf_math.lib"
---strict --scatter "m3508_test\m3508_test.sct"
+--library_type=microlib --strict --scatter "m3508_test\m3508_test.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "..\m3508_test.map" -o m3508_test\m3508_test.axf
