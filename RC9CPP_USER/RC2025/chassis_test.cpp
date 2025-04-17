@@ -4,7 +4,7 @@ TaskManager task_core;
 CanManager can_core;
 RC9Protocol esp_port(uart, &huart2), debug_port(uart, &huart5);
 
-action action_imu(&huart4, 0.0f, 18.9f, false);
+action action_imu(&huart4, 0.0f, 0.0f, false);
 
 m3508p shooter(2, &hcan1), m3508_left(4, &hcan1, true), m3508_front(3, &hcan1, true), m3508_right(1, &hcan1, true);
 
@@ -15,7 +15,7 @@ vesc vesc_front(1, &hcan2, 21.0f, 3.0f),
 
 RoboChassis s3_chassis(swerve3_chassis);
 
-chassis_adjust_xbox s3_xbox;
+auto_lock_test s3_xbox(&action_imu);
 
 extern "C"
 {
@@ -44,7 +44,7 @@ extern "C"
 
         s3_chassis.add_imu(&action_imu);
         s3_chassis.addport(&debug_port);
-        s3_chassis.yawadjuster_config(0.029f, 0.0f, 0.002f, 0.0f, 2.0f, 0.2f, 0.0f);
+        s3_chassis.yawadjuster_config(0.039f, 0.0f, 0.002f, 0.0f, 5.0f, 0.2f, 0.0f);
         s3_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
         s3_chassis.pp_tracker.normal_control.ConfigAll(2.8f, 0.0f, 0.2f, 0.0f, 5.0f, 0.002f, 0.0f);
         s3_chassis.pp_tracker.tangent_control.ConfigAll(1.2f, 0.0f, 3.8f, 0.0f, 1.5f, 0.002f, 0.0f);

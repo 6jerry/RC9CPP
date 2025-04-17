@@ -212,7 +212,7 @@ void xbox_debug_base::btnconfig_init()
         &xbox_msgs.btnY,
         &xbox_msgs.btnY_last,
         &cnt_flag,
-        7,
+        3,
         ButtonActionType::Toggle,
         nullptr};
 }
@@ -342,6 +342,7 @@ void chassis_adjust_xbox::mode_3()
 
 void chassis_adjust_xbox::xbox_on()
 {
+    
 
     init_locate();
 }
