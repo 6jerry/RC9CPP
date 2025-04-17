@@ -116,8 +116,8 @@ void action::Update_Action_gl_position(float value[6])
     action_info.Dx = cos(pose_data.yaw_rad) * action_install_pos.delta_x - sin(pose_data.yaw_rad) * action_install_pos.delta_y;
     action_info.Dy = sin(pose_data.yaw_rad) * action_install_pos.delta_x + cos(pose_data.yaw_rad) * action_install_pos.delta_y;
     // 减去安装偏移量
-    pose_data.world_pos_x = action_info.pos_x_sum - action_info.Dx;
-    pose_data.world_pos_y = action_info.pos_y_sum - action_info.Dy;
+    pose_data.world_pos_x = action_info.pos_x_sum;
+    pose_data.world_pos_y = action_info.pos_y_sum;
     // calculateWorldSpeed();
 }
 
@@ -135,11 +135,42 @@ void action::imu_rst()
     restart();
 }
 
+void action::imu_relocate(float x, float y, float angle)
+{
+    relocateAll(-angle, x * 1000.0f, -y * 1000.0f);
+}
+
 void action::Update_ACTION(void)
 {
     uint8_t data[8] = "ACT0";
 
-    HAL_UART_Transmit(huart_, data, 4,1);
+    HAL_UART_Transmit(huart_, data, 4, 1);
+}
+
+void action::relocateAll(float angle, float pos_x, float pos_y)
+{
+    // 构造命令："ACTA" + angle + pos_x + pos_y（float, 小端序发送）
+    uint8_t buf[4 + 3 * sizeof(float)];
+    buf[0] = 'A';
+    buf[1] = 'C';
+    buf[2] = 'T';
+    buf[3] = 'A';
+    // 使用union确保按IEEE754小端格式打包
+    union
+    {
+        float f;
+        uint8_t b[4];
+    } u;
+
+    u.f = angle;
+    memcpy(&buf[4], u.b, 4);
+    u.f = pos_x;
+    memcpy(&buf[8], u.b, 4);
+    u.f = pos_y;
+    memcpy(&buf[12], u.b, 4);
+
+    // 发送校准命令
+    HAL_UART_Transmit(huart_, buf, sizeof(buf), 1);
 }
 
 void action::relocate(float x, float y)

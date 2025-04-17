@@ -15,7 +15,7 @@ vesc vesc_front(1, &hcan2, 21.0f, 3.0f),
 
 RoboChassis s3_chassis(swerve3_chassis);
 
-auto_lock_test s3_xbox;
+auto_lock_test s3_xbox(&action_imu);
 
 extern "C"
 {

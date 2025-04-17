@@ -212,7 +212,7 @@ void xbox_debug_base::btnconfig_init()
         &xbox_msgs.btnY,
         &xbox_msgs.btnY_last,
         &cnt_flag,
-        7,
+        3,
         ButtonActionType::Toggle,
         nullptr};
 }

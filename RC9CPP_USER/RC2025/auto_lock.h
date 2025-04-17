@@ -12,7 +12,7 @@ extern "C"
 #include "RC9Protocol.h"
 #include "robot_chassis.h"
 #include "PID.h"
-
+#include "imu.h"
 #ifdef __cplusplus
 }
 #endif
@@ -21,8 +21,10 @@ extern "C"
 class auto_lock_test : public xbox_debug_base, public chassis_user
 {
 private:
-    Vector2D center_point, tan_dir, nor_dir;                                           // 圆心坐标
-    float radius = 0.0f, dis_2_center = 0.0f, center_heading = 0.0f, nor_speed = 0.0f; // 半径
+    Vector2D center_point, tan_dir, nor_dir;                            // 圆心坐标
+    float dis_2_center = 0.0f, center_heading = 0.0f, nor_speed = 0.0f; // 半径
+
+    float radius[4] = {2.25f, 2.5f, 2.75f, 3.0f}; // 半径
 
     void calc_error(); // 计算误差
 
@@ -33,6 +35,11 @@ private:
     void xbox_on() override;
 
     pid nor_control; // 半径控制
+
+    imu *imu_ptr; // 指向imu类的指针
+
+public:
+    auto_lock_test(imu *imu_ptr_);
 };
 
 #endif
