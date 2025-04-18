@@ -16,7 +16,6 @@ extern "C"
 #include "rc_test_xbox.h"
 #include "debug_xbox.h"
 #include "laser_processor.h"
-#include "ball_shooter.h"
 #include "auto_yunball.h"
 #include "encoder.h"
 #include "wit_gyro.h"
@@ -25,6 +24,7 @@ extern "C"
     void shooter_adjust(void);
     void chassis_adjust(void);
     void auto_shooter_setup(void);
+
 #ifdef __cplusplus
 }
 #endif

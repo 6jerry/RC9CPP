@@ -1,0 +1,266 @@
+#include "auto_shooter.h"
+/**
+ * auto_shooter
+ * author: yanqy
+ * 2025/4/10
+ */
+AutoShooter::AutoShooter()
+{
+    plan_info.max_acc = 400.0f;
+    plan_info.max_dcc = 400.0f;
+    plan_info.max_speed = 1200.0f;
+    plan_info.inital_speed = 200.0f;
+    plan_info.final_speed = 200.0f;
+}
+void AutoShooter::process_data()
+{
+    // 获取拉伸距离和俯仰角度
+    get_data();
+
+    switch (shooter_mode)
+    {
+    case shooter_stop:
+        shooter_motor->set_rpm(0.0f);
+        break;
+    case shooter_hand:
+        hand_adjust();
+        break;
+    case shooter_auto:
+        auto_adjust(shooter_info.shoot_dis);
+        break;
+    case shooter_allAuto:
+
+        allAuto_adjust(shooter_info.shoot_dis);
+        break;
+    case shooter_debug:
+        // 隐藏模式：
+        // 开启debug后，手动改变worknode为4，即可进入调试模式，
+        // 修改debug_dis,即可调整拉伸距离
+        auto_adjust(shooter_info.debug_dis);
+        break;
+
+    default:
+        break;
+    }
+
+    switch (pitcher_mode)
+    {
+    case pitcher_stop:
+        pitcher_motor->set_rpm(0.0f);
+        break;
+    case pitcher_inital:
+        pitcher_adjust(inital_angle);
+        break;
+    case pitcher_inside:
+        pitcher_adjust(inside_angle);
+        break;
+    case pitcher_hand:
+        pitcher_motor->set_rpm(shooter_info.hand_pitcher_rpm);
+        break;
+    default:
+        break;
+    }
+
+    // 检查扳机
+    check_trigger();
+    check_shooter();
+}
+void AutoShooter::pitcher_adjust(float pitch_angle)
+{
+
+//    if (shooter_info.shoot_pitch_angle > pitch_angle)
+//    {
+//        pitcher_motor->set_rpm(200.0f);
+//    }
+//    else
+//    {
+//        pitcher_motor->set_rpm(-200.0f);
+//    }
+
+//    if (shooter_info.shoot_pitch_angle > pitch_angle - 0.003f && shooter_info.shoot_pitch_angle < pitch_angle + 0.003f)
+//    {
+//        pitcher_mode = pitcher_stop;
+//        pitcher_motor->set_rpm(0.0f);
+//        shooter_info.pitcher_status = 1;
+//    }
+}
+void AutoShooter::hand_adjust()
+{
+	
+    // 棘轮锁住后，电机无法动
+    if (trigger_flag == 0)
+    {
+        shooter_motor->set_rpm(shooter_info.hand_shooter_rpm);
+    }
+		
+		    if (Read_GPIO_State() == GPIO_PIN_RESET )
+        {
+    			 plan_flag = 0;
+        }else{
+					 plan_flag = 1;
+				}
+}
+
+void AutoShooter::allAuto_adjust(float lifter_distance)
+{
+
+    if (shooter_info.shooter_status == auto_lift)
+    {
+        if (auto_adjust(dis_data[0]))
+        {
+
+            shooter_info.shooter_status = auto_shoot;
+        }
+    }
+    else if (shooter_info.shooter_status == auto_shoot)
+    {
+        timecnt++;
+        if (timecnt > 20)
+        {
+            shooter_flag = 1;
+            if (timecnt > 40)
+            {
+                timecnt = 0;
+                shooter_info.shooter_status = auto_revert;
+            }
+        }
+    }
+    else if (shooter_info.shooter_status == auto_revert)
+    {
+
+        if (auto_adjust(dis_data[0]))
+        {
+            shooter_info.auto_status = 1;
+            shooter_info.shooter_status = auto_stop;
+        }
+    }
+    else if (shooter_info.shooter_status == auto_stop)
+    {
+        shooter_motor->set_rpm(0.0f);
+    }
+}
+bool AutoShooter::auto_adjust(float lifter_distance)
+{
+
+    if (trigger_flag == 1)
+    {
+        trigger_flag == 0;
+    }
+
+    if (shooter_flag == 1)
+    {
+
+        shooter_flag == 0;
+    }
+    // 使用梯形规划
+    if (plan_flag == 0)
+    {
+        timecnt = 0;
+        planer.start_plan(plan_info.max_acc,
+                          plan_info.max_dcc,
+                          plan_info.max_speed,
+                          plan_info.inital_speed,
+                          plan_info.final_speed,
+                          shooter_info.shoot_disdance * 36000,
+                          lifter_distance * 36000);
+        plan_flag = 1;
+    }
+
+    shooter_motor->set_rpm(-planer.plan(shooter_info.shoot_disdance * 36000));
+
+    // 到达终点锁住
+    if (shooter_info.shoot_disdance > lifter_distance - 0.003f && shooter_info.shoot_disdance < lifter_distance + 0.003f)
+    {
+
+        plan_flag = 0;
+        return true;
+    }
+
+    return false;
+
+    // 触发微动后，
+    //    if (Read_GPIO_State() == GPIO_PIN_RESET &&  shooter_motor->get_rpm() > 0.0f )
+    //    {
+    //			shooter_motor->set_rpm(0.0f);
+    //        plan_flag = 0;
+    //        shooter_info.shooter_status = 1;
+    //    }
+}
+void AutoShooter::add_imu(Encoder *encoder_, wit_gyro *wit_imu_)
+{
+    encoder = encoder_;
+    wit_imu = wit_imu_;
+}
+void AutoShooter::add_trigger(GPIO_TypeDef *stop_port_, uint8_t stop_pin_, GPIO_TypeDef *trigger_port_, uint16_t trigger_pin_, GPIO_TypeDef *shooter_port_, uint16_t shooter_pin_)
+{
+    trigger_port = trigger_port_;
+    trigger_pin = trigger_pin_;
+    shooter_port = shooter_port_;
+    shooter_pin = shooter_pin_;
+    stop_port = stop_port_;
+    stop_pin = stop_pin_;
+}
+void AutoShooter::add_motor(power_motor *shooter_motor_, power_motor *pithcer_motor_)
+{
+    shooter_motor = shooter_motor_;
+    pitcher_motor = pithcer_motor_;
+}
+
+// 获取拉伸距离和俯仰角度
+void AutoShooter::get_data()
+{
+    shooter_info.shoot_disdance = encoder->get_absolute_distance();
+    wit_imu->Get_Data();
+    shooter_info.shoot_pitch_angle = wit_imu->Pitch_angle;
+}
+
+// 读取GPIO状态
+uint32_t AutoShooter::Read_GPIO_State(void)
+{
+    return HAL_GPIO_ReadPin(stop_port, stop_pin);
+}
+
+void AutoShooter::check_trigger()
+{
+    if (trigger_flag == 0)
+    {
+        HAL_GPIO_WritePin(trigger_port, trigger_pin, GPIO_PIN_RESET);
+    }
+    else if (trigger_flag == 1)
+    {
+        HAL_GPIO_WritePin(trigger_port, trigger_pin, GPIO_PIN_SET);
+    }
+}
+void AutoShooter::check_shooter()
+{
+
+    if (shooter_flag == 0)
+    {
+        HAL_GPIO_WritePin(shooter_port, shooter_pin, GPIO_PIN_RESET);
+        /* code */
+    }
+    else if (shooter_flag == 1)
+    {
+
+        // 发射时记录当前数据
+        // float send_data[2] = {shooter_info.shoot_disdance,shooter_info.shoot_pitch_angle};
+        // sendFloatData(1,send_data,2);
+        HAL_GPIO_WritePin(shooter_port, shooter_pin, GPIO_PIN_SET);
+    }
+}
+
+void AutoShooter::set_shooter_mode(uint8_t mode)
+{
+    shooter_mode = static_cast<shooterMode>(mode);
+}
+void AutoShooter::set_auto(uint8_t index)
+{
+    shooter_mode = shooter_allAuto;
+    shooter_info.shoot_dis = lidar_data[index];
+    shooter_info.shooter_status = auto_lift;
+}
+
+void AutoShooter::set_pitcher_mode(uint8_t mode)
+{
+    pitcher_mode = static_cast<pitcherMode>(mode);
+}
