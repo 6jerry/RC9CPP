@@ -158,7 +158,6 @@ bool AutoShooter::auto_adjust(float lifter_distance)
     // 使用梯形规划
     if (plan_flag == 0)
     {
-
         planer.start_plan(plan_info.max_acc,
                           plan_info.max_dcc,
                           plan_info.max_speed,

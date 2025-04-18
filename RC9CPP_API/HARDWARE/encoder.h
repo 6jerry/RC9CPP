@@ -30,23 +30,28 @@ class Encoder : public SerialDevice, public imu
 {
 public:
     /**
+     * @brief 获取当前绝对距离
+     * @return float 计算得到的绝对距离值
+     */
+
+    float get_absolute_distance(void);
+
+    /**
      * @brief 获取当前距离
      * @return float 计算得到的距离值
      */
     float get_distance(void);
-
     /**
      * @brief 数据接收处理函数
      * @param byte 接收到的单字节数据
      */
     void handleReceiveData(uint8_t byte);
-
     /**
      * @brief 构造函数
      * @param huart_ UART句柄指针
      */
     Encoder(UART_HandleTypeDef *huart_);
-	  float get_absolute_distance(void);
+ 
 private:
     float length = 0;           ///< 当前计算长度
     float distance = 0;         ///< 当前编码器距离

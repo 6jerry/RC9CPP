@@ -66,6 +66,13 @@ void yun_ball_xbox::btnconfig_init()
         ButtonActionType::Increment,
         nullptr};
 
+    btnDirRightConfig = {
+        &xbox_msgs.btnDirRight,
+        &xbox_msgs.btnDirRight_last,
+        &lifter_status,
+        9,
+        ButtonActionType::Decrement,
+        nullptr};
     btnShareConfig = {
         &xbox_msgs.btnShare,
         &xbox_msgs.btnShare_last,
@@ -105,6 +112,17 @@ void yun_ball_xbox::process_data()
 
             if (yun_trigger == 1)
             {
+                HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_SET);
+            }
+            else if (yun_trigger == 0)
+            {
+                HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_RESET);
+            }
+            // 手动模式
+            if (auto_mode == 0)
+            {
+                auto_shooter->trigger_flag = trigger_start;
+                auto_shooter->shooter_flag = shooter_trigger;
 
                 HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_SET);
             }
@@ -140,6 +158,7 @@ void yun_ball_xbox::process_data()
                         auto_shooter->set_allAuto(lifter_status - 1);
                         auto_flag = 1;
                     }
+                }
 
                     if (auto_shooter->shooter_info.auto_status)
                     {
