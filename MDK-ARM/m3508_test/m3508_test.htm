@@ -3,7 +3,7 @@
 <title>Static Call Graph - [m3508_test\m3508_test.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image m3508_test\m3508_test.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6230001: Last Updated: Mon Apr 14 19:55:37 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6230001: Last Updated: Thu Apr 17 18:29:56 2025
 <BR><P>
 <H3>Maximum Stack Usage =        328 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -755,7 +755,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sinf
 <LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cosf
-<LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2f
+<LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2f
 </UL>
 
 <P><STRONG><a name="[f3]"></a>__rt_heap_descriptor</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, rt_heap_descriptor_intlibspace.o(.text))
@@ -1132,9 +1132,8 @@ Global Symbols
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 </UL>
 
-<P><STRONG><a name="[17c]"></a>HAL_GPIO_ReadPin</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f4xx_hal_gpio.o(.text.HAL_GPIO_ReadPin))
-<BR><BR>[Called By]<UL><LI><a href="#[173]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RoboChassis::swerve3_calc(Vector2D, float)
-<LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RoboChassis::swerve3_initialize()
+<P><STRONG><a name="[180]"></a>HAL_GPIO_ReadPin</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f4xx_hal_gpio.o(.text.HAL_GPIO_ReadPin))
+<BR><BR>[Called By]<UL><LI><a href="#[17b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RoboChassis::swerve3_initialize()
 </UL>
 
 <P><STRONG><a name="[146]"></a>HAL_GPIO_WritePin</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f4xx_hal_gpio.o(.text.HAL_GPIO_WritePin))
@@ -1867,7 +1866,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_move_test
 </UL>
 
-<P><STRONG><a name="[6f]"></a>RoboChassis::process_data()</STRONG> (Thumb, 688 bytes, Stack size 48 bytes, robot_chassis.o(.text._ZN11RoboChassis12process_dataEv))
+<P><STRONG><a name="[6f]"></a>RoboChassis::process_data()</STRONG> (Thumb, 732 bytes, Stack size 48 bytes, robot_chassis.o(.text._ZN11RoboChassis12process_dataEv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = RoboChassis::process_data() &rArr; RoboChassis::chassis_calc(Vector2D, float) &rArr; RoboChassis::swerve3_calc(Vector2D, float) &rArr; __hardfp_atan2f &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[175]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::Vector2D()
@@ -1882,12 +1881,11 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> robot_chassis.o(.rodata._ZTV11RoboChassis)
 </UL>
-<P><STRONG><a name="[173]"></a>RoboChassis::swerve3_calc(Vector2D, float)</STRONG> (Thumb, 764 bytes, Stack size 80 bytes, robot_chassis.o(.text._ZN11RoboChassis12swerve3_calcE8Vector2Df))
+<P><STRONG><a name="[173]"></a>RoboChassis::swerve3_calc(Vector2D, float)</STRONG> (Thumb, 716 bytes, Stack size 80 bytes, robot_chassis.o(.text._ZN11RoboChassis12swerve3_calcE8Vector2Df))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = RoboChassis::swerve3_calc(Vector2D, float) &rArr; __hardfp_atan2f &rArr; __set_errno
 </UL>
-<BR>[Calls]<UL><LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin
-<LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::magnitude() const
-<LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2f
+<BR>[Calls]<UL><LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::magnitude() const
+<LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[172]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RoboChassis::chassis_calc(Vector2D, float)
 </UL>
@@ -1898,22 +1896,22 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_move_test
 </UL>
 
-<P><STRONG><a name="[17f]"></a>RoboChassis::pointtrack_config(float, float, float, float, float, float, float)</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, robot_chassis.o(.text._ZN11RoboChassis17pointtrack_configEfffffff))
-<BR><BR>[Calls]<UL><LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pid::ConfigAll(float, float, float, float, float, float, float, float)
+<P><STRONG><a name="[17e]"></a>RoboChassis::pointtrack_config(float, float, float, float, float, float, float)</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, robot_chassis.o(.text._ZN11RoboChassis17pointtrack_configEfffffff))
+<BR><BR>[Calls]<UL><LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pid::ConfigAll(float, float, float, float, float, float, float, float)
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_move_test
 </UL>
 
-<P><STRONG><a name="[17b]"></a>RoboChassis::swerve3_initialize()</STRONG> (Thumb, 400 bytes, Stack size 24 bytes, robot_chassis.o(.text._ZN11RoboChassis18swerve3_initializeEv))
-<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = RoboChassis::swerve3_initialize()
+<P><STRONG><a name="[17b]"></a>RoboChassis::swerve3_initialize()</STRONG> (Thumb, 356 bytes, Stack size 16 bytes, robot_chassis.o(.text._ZN11RoboChassis18swerve3_initializeEv))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = RoboChassis::swerve3_initialize()
 </UL>
-<BR>[Calls]<UL><LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin
+<BR>[Calls]<UL><LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RoboChassis::process_data()
 </UL>
 
 <P><STRONG><a name="[181]"></a>RoboChassis::yawadjuster_config(float, float, float, float, float, float, float)</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, robot_chassis.o(.text._ZN11RoboChassis18yawadjuster_configEfffffff))
-<BR><BR>[Calls]<UL><LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pid::ConfigAll(float, float, float, float, float, float, float, float)
+<BR><BR>[Calls]<UL><LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pid::ConfigAll(float, float, float, float, float, float, float, float)
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_move_test
 </UL>
@@ -2143,7 +2141,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::operator-() const
 <LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::project_onto(Vector2D const&) const
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::normalize() const
-<LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::magnitude() const
+<LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::magnitude() const
 <LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::operator-(Vector2D const&) const
 <LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::operator+(Vector2D const&) const
 <LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::operator=(Vector2D const&)
@@ -2158,7 +2156,7 @@ Global Symbols
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2DQueue::totalDistance() const
 <LI><a href="#[195]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2DQueue::peek() const
 <LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2DQueue::queueSize() const
-<LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::magnitude() const
+<LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::magnitude() const
 <LI><a href="#[196]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator*(float, Vector2D const&)
 <LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::operator-(Vector2D const&) const
 <LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::operator+(Vector2D const&) const
@@ -2324,7 +2322,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1a1]"></a>SimpleLowPassFilter::setAlpha(float)</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, filters.o(.text._ZN19SimpleLowPassFilter8setAlphaEf))
-<BR><BR>[Called By]<UL><LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pid::ConfigAll(float, float, float, float, float, float, float, float)
+<BR><BR>[Called By]<UL><LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pid::ConfigAll(float, float, float, float, float, float, float, float)
 </UL>
 
 <P><STRONG><a name="[1a2]"></a>SimpleLowPassFilter::SimpleLowPassFilter(float)</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, filters.o(.text._ZN19SimpleLowPassFilterC2Ef))
@@ -2414,11 +2412,11 @@ Global Symbols
 <LI><a href="#[1b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;m3508p::angle_pid()
 </UL>
 
-<P><STRONG><a name="[180]"></a>pid::ConfigAll(float, float, float, float, float, float, float, float)</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, pid.o(.text._ZN3pid9ConfigAllEffffffff))
+<P><STRONG><a name="[17f]"></a>pid::ConfigAll(float, float, float, float, float, float, float, float)</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, pid.o(.text._ZN3pid9ConfigAllEffffffff))
 <BR><BR>[Calls]<UL><LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimpleLowPassFilter::setAlpha(float)
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_move_test
-<LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RoboChassis::pointtrack_config(float, float, float, float, float, float, float)
+<LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RoboChassis::pointtrack_config(float, float, float, float, float, float, float)
 <LI><a href="#[181]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RoboChassis::yawadjuster_config(float, float, float, float, float, float, float)
 </UL>
 
@@ -2770,7 +2768,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pid::PID_ComputeError(float)
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::normalize() const
-<LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::magnitude() const
+<LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::magnitude() const
 <LI><a href="#[196]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;operator*(float, Vector2D const&)
 <LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector2D::operator-(Vector2D const&) const
 </UL>
@@ -2799,7 +2797,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pure_pursuit::compute_error()
 </UL>
 
-<P><STRONG><a name="[17e]"></a>Vector2D::magnitude() const</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, vector2d.o(.text._ZNK8Vector2D9magnitudeEv))
+<P><STRONG><a name="[17d]"></a>Vector2D::magnitude() const</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, vector2d.o(.text._ZNK8Vector2D9magnitudeEv))
 <BR><BR>[Called By]<UL><LI><a href="#[178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pointrack::track(Vector2D, Vector2D)
 <LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pure_pursuit::purepusit_normal_control()
 <LI><a href="#[18b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pure_pursuit::compute_error()
@@ -3012,7 +3010,7 @@ Global Symbols
 <LI>Call Chain = chassis_move_test &rArr; TaskManager::registerTask(int, ITaskProcessor*) &rArr; osThreadNew &rArr; xTaskCreate &rArr; vPortFree &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CanManager::init()
-<LI><a href="#[180]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pid::ConfigAll(float, float, float, float, float, float, float, float)
+<LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pid::ConfigAll(float, float, float, float, float, float, float, float)
 <LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osKernelStart
 <LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;m3508p::config_mech_param(float, float)
 <LI><a href="#[1c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TaskManager::customize(int, osPriority_t, unsigned int, unsigned int)
@@ -3020,7 +3018,7 @@ Global Symbols
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SerialDevice::startUartReceiveIT()
 <LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC9subscriber::addport(RC9Protocol*)
 <LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RC9Protocol::initQueue()
-<LI><a href="#[17f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RoboChassis::pointtrack_config(float, float, float, float, float, float, float)
+<LI><a href="#[17e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RoboChassis::pointtrack_config(float, float, float, float, float, float, float)
 <LI><a href="#[181]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RoboChassis::yawadjuster_config(float, float, float, float, float, float, float)
 <LI><a href="#[1c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chassis_user::add_chassis(RoboChassis*)
 <LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RoboChassis::add_imu(imu*)
@@ -3531,10 +3529,10 @@ Global Symbols
 
 <P><STRONG><a name="[1f6]"></a>__ARM_fpclassifyf</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, fpclassifyf.o(i.__ARM_fpclassifyf))
 <BR><BR>[Called By]<UL><LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sinf
-<LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2f
+<LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2f
 </UL>
 
-<P><STRONG><a name="[17d]"></a>__hardfp_atan2f</STRONG> (Thumb, 594 bytes, Stack size 32 bytes, atan2f.o(i.__hardfp_atan2f))
+<P><STRONG><a name="[17c]"></a>__hardfp_atan2f</STRONG> (Thumb, 594 bytes, Stack size 32 bytes, atan2f.o(i.__hardfp_atan2f))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = __hardfp_atan2f &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_flt_underflow
@@ -3575,7 +3573,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1f8]"></a>__mathlib_flt_infnan2</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, funder.o(i.__mathlib_flt_infnan2))
-<BR><BR>[Called By]<UL><LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2f
+<BR><BR>[Called By]<UL><LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2f
 </UL>
 
 <P><STRONG><a name="[1fa]"></a>__mathlib_flt_invalid</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, funder.o(i.__mathlib_flt_invalid))
@@ -3585,7 +3583,7 @@ Global Symbols
 
 <P><STRONG><a name="[1f7]"></a>__mathlib_flt_underflow</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, funder.o(i.__mathlib_flt_underflow))
 <BR><BR>[Called By]<UL><LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sinf
-<LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2f
+<LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2f
 </UL>
 
 <P><STRONG><a name="[1f9]"></a>__mathlib_rredf2</STRONG> (Thumb, 316 bytes, Stack size 20 bytes, rredf.o(i.__mathlib_rredf2))

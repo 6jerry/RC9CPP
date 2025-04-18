@@ -153,63 +153,59 @@ void RoboChassis::chassis_initialize()
 
 void RoboChassis::swerve3_initialize()
 {
-    static bool wait = true;
-    if (wait)
+    scan_photogate(); // 1. 读取所有光电门状态
+
+    bool all_motors_are_holding_zero = true; // 假设所有电机都在0位或正在前往0位
+
+    for (int i = 0; i < 3; ++i) // 2. 循环处理每个电机
     {
-        for (int i = 0; i < 1000; i++)
+        if (if_not_init[i]) // 检查电机 i 是否尚未完成标定
         {
-            dmotors[0]->set_rpm(5.0f);
-            dmotors[1]->set_rpm(5.0f);
-            dmotors[2]->set_rpm(5.0f);
+            // --- 电机尚未初始化 ---
+            all_motors_are_holding_zero = false; // 只要有一个还在初始化，就不能认为都已稳定
+
+            if (photogate_state[i] == 1) // 当前是否在触发点？
+            {
+                // 是：执行标定，标记完成，并命令去0度
+                dmotors[i]->relocate_pos(correction_angle[i]);
+                if_not_init[i] = false; // 标记完成！
+                dmotors[i]->set_pos(0.0f);
+            }
+            else
+            {
+                // 否：命令旋转寻找触发点
+                dmotors[i]->set_rpm(10.0f);
+            }
         }
-        wait = false;
-    }
-    scan_photogate();
-
-    // Front motor (index 0)
-    if (photogate_state[0] == 1 && if_not_init[0])
-    {
-        dmotors[0]->relocate_pos(correction_angle[0]);
-        if_not_init[0] = false;
-        dmotors[0]->set_pos(0.0f);
-    }
-    else if (if_not_init[0] && photogate_state[0] == 0)
-    {
-        dmotors[0]->set_rpm(10.0f);
-    }
-
-    // Right motor (index 1)
-    if (photogate_state[1] == 1 && if_not_init[1])
-    {
-        dmotors[1]->relocate_pos(correction_angle[1]);
-        if_not_init[1] = false;
-        dmotors[1]->set_pos(0.0f);
-    }
-    else if (if_not_init[1] && photogate_state[1] == 0)
-    {
-        dmotors[1]->set_rpm(10.0f);
-    }
-
-    // Left motor (index 2)
-    if (photogate_state[2] == 1 && if_not_init[2])
-    {
-        dmotors[2]->relocate_pos(correction_angle[2]);
-        if_not_init[2] = false;
-        dmotors[2]->set_pos(0.0f);
-    }
-    else if (if_not_init[2] && photogate_state[2] == 0)
-    {
-        dmotors[2]->set_rpm(10.0f);
-    }
-
-    if (if_not_init[0] == false && if_not_init[1] == false && if_not_init[2] == false)
-    {
-        time_cnt++;
-        if (time_cnt > 400)
+        else
         {
-            mode = stop;
-            time_cnt = 0;
+            // --- 电机已经初始化过 ---
+            // 持续命令它保持在 0 度位置
+            dmotors[i]->set_pos(0.0f);
+            // (可选，但有助于判断是否真的稳定) 检查电机是否已接近0度
+            // if (fabsf(dmotors[i]->get_pos()) > SOME_SMALL_THRESHOLD) {
+            //     all_motors_are_holding_zero = false; // 如果还没到0位，也不能算稳定
+            // }
         }
+    }
+
+    // 3. 检查退出条件
+    if (all_motors_are_holding_zero)
+    {
+        // 如果循环结束后，没有电机处于“寻找”状态（并且可选地，都已接近0度）
+        // 说明所有电机都已完成标定且正在被命令去0度或保持在0度
+        time_cnt++; // 开始或继续稳定计时
+        if (time_cnt > 150) // 等待足够长的时间以确保物理稳定
+        {
+            mode = stop;       // 切换到底盘停止模式
+            if_init_ok = true; // (可选) 标记初始化成功
+            time_cnt = 0;      // 重置计时器
+        }
+    }
+    else
+    {
+        // 如果还有电机在寻找触发点（或者还没稳定在0度）
+        time_cnt = 0; // 重置稳定计时器，必须等所有电机都完成后才能开始计时
     }
 }
 
