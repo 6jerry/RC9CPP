@@ -23,6 +23,7 @@
 #include "dma.h"
 #include "tim.h"
 #include "usart.h"
+#include "usb_device.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -32,6 +33,7 @@
 // #include "r2n_setup.h"
 
 // #include "m6020_adjust.h"
+
 #include "chassis_test.h"
 /* USER CODE END Includes */
 
@@ -82,9 +84,7 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-
-
-  HAL_Init();
+		HAL_Init();
 
   /* USER CODE BEGIN Init */
   /* USER CODE END Init */
@@ -110,6 +110,7 @@ int main(void)
   MX_TIM4_Init();
   MX_TIM8_Init();
   MX_TIM9_Init();
+	
   MX_TIM12_Init();
   MX_TIM1_Init();
   MX_USART1_UART_Init();
@@ -124,13 +125,13 @@ int main(void)
   //MX_FREERTOS_Init();
 
   /* Start scheduler */
- // osKernelStart();
+  //osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  // MX_USB_DEVICE_Init();
+   MX_USB_DEVICE_Init();
 
   chassis_move_test();
   while (1)
