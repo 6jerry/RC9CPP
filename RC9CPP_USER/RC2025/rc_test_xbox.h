@@ -33,23 +33,17 @@ private:
   uint16_t yun_pin = 0;
 
   uint8_t if_motor_start = 0, trigger_start = 0, shooter_trigger = 0, yun_trigger = 0, shoot_yunball = 0;
-  ;
+
   uint8_t auto_mode = 0, auto_revert;
   // 拉伸状态 0静止状态
   uint8_t lifter_status = 0;
   // 俯仰状态 0静止状态 1标准俯仰
   uint8_t pithcer_status = 0;
 
-  // 初始俯仰
-  float initial_pitcher = -1.142f;
-
+  uint8_t auto_flag = 0;
   float lifter_speed = 0.0f, turn_speed = 0.0f, shooter_speed = 0.0f, pithcer_speed = 0.0f;
 
   float max_lifter_speed = 420.0f, max_turn_speed = 80.0f, max_shooter_speed = 600.0f, max_pithcer_speed = 430.0f, shoot_dis = 0.16f;
-
-  float shoot_disdance = 0.0f, shoot_pitch_angle = 0.0f;
-
-  imu *laser = nullptr;
 
 public:
   void process_data();
@@ -58,7 +52,6 @@ public:
   void btnconfig_init();
   void add_motor(power_motor *lifter_motor_, power_motor *turn_motor_);
   void add_trigger(uint16_t yun_pin_, GPIO_TypeDef *yun_port_);
-  void add_laser(imu *laser_);
   void add_serial_studio(serial_studio *serial_studio_);
   void add_auto_shooter(AutoShooter *auto_shooter_);
   void adjust_pitcher(float pitch_angle);

@@ -25,7 +25,7 @@ void AutoShooter::process_data()
     case shooter_hand:
         hand_adjust();
         break;
-    case shooter_auto:
+    case shooter_halfAuto:
         auto_adjust(shooter_info.shoot_dis);
         break;
     case shooter_allAuto:
@@ -68,75 +68,81 @@ void AutoShooter::process_data()
 void AutoShooter::pitcher_adjust(float pitch_angle)
 {
 
-//    if (shooter_info.shoot_pitch_angle > pitch_angle)
-//    {
-//        pitcher_motor->set_rpm(200.0f);
-//    }
-//    else
-//    {
-//        pitcher_motor->set_rpm(-200.0f);
-//    }
+    //    if (shooter_info.shoot_pitch_angle > pitch_angle)
+    //    {
+    //        pitcher_motor->set_rpm(200.0f);
+    //    }
+    //    else
+    //    {
+    //        pitcher_motor->set_rpm(-200.0f);
+    //    }
 
-//    if (shooter_info.shoot_pitch_angle > pitch_angle - 0.003f && shooter_info.shoot_pitch_angle < pitch_angle + 0.003f)
-//    {
-//        pitcher_mode = pitcher_stop;
-//        pitcher_motor->set_rpm(0.0f);
-//        shooter_info.pitcher_status = 1;
-//    }
+    //    if (shooter_info.shoot_pitch_angle > pitch_angle - 0.003f && shooter_info.shoot_pitch_angle < pitch_angle + 0.003f)
+    //    {
+    //        pitcher_mode = pitcher_stop;
+    //        pitcher_motor->set_rpm(0.0f);
+    //        shooter_info.pitcher_status = 1;
+    //    }
 }
 void AutoShooter::hand_adjust()
 {
-	
+
     // 棘轮锁住后，电机无法动
     if (trigger_flag == 0)
     {
         shooter_motor->set_rpm(shooter_info.hand_shooter_rpm);
     }
-		
-		    if (Read_GPIO_State() == GPIO_PIN_RESET )
-        {
-    			 plan_flag = 0;
-        }else{
-					 plan_flag = 1;
-				}
+
+    // 触发光电门
+    if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
+    {
+        shooter_motor->set_rpm(0.0f);
+    }
 }
 
 void AutoShooter::allAuto_adjust(float lifter_distance)
 {
 
-    if (shooter_info.shooter_status == auto_lift)
+    switch (shooter_info.shooter_status)
     {
-        if (auto_adjust(dis_data[0]))
+    case auto_lift:
+        if (auto_adjust(lifter_distance))
         {
 
             shooter_info.shooter_status = auto_shoot;
+            shooter_motor->set_rpm(0.0f);
         }
-    }
-    else if (shooter_info.shooter_status == auto_shoot)
-    {
+        break;
+    case auto_shoot:
+        shooter_motor->set_rpm(0.0f);
         timecnt++;
-        if (timecnt > 20)
+        trigger_flag = 1;
+        if (timecnt > 5)
         {
             shooter_flag = 1;
-            if (timecnt > 40)
+            if (timecnt > 20)
             {
                 timecnt = 0;
                 shooter_info.shooter_status = auto_revert;
+                trigger_flag = 0;
+                shooter_flag = 0;
             }
         }
-    }
-    else if (shooter_info.shooter_status == auto_revert)
-    {
 
+        break;
+    case auto_revert:
         if (auto_adjust(dis_data[0]))
         {
             shooter_info.auto_status = 1;
             shooter_info.shooter_status = auto_stop;
         }
-    }
-    else if (shooter_info.shooter_status == auto_stop)
-    {
+
+        break;
+    case auto_stop:
         shooter_motor->set_rpm(0.0f);
+        break;
+    default:
+        break;
     }
 }
 bool AutoShooter::auto_adjust(float lifter_distance)
@@ -155,7 +161,7 @@ bool AutoShooter::auto_adjust(float lifter_distance)
     // 使用梯形规划
     if (plan_flag == 0)
     {
-        timecnt = 0;
+
         planer.start_plan(plan_info.max_acc,
                           plan_info.max_dcc,
                           plan_info.max_speed,
@@ -168,6 +174,12 @@ bool AutoShooter::auto_adjust(float lifter_distance)
 
     shooter_motor->set_rpm(-planer.plan(shooter_info.shoot_disdance * 36000));
 
+    // 触发光电门
+    if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
+    {
+        shooter_motor->set_rpm(0.0f);
+    }
+
     // 到达终点锁住
     if (shooter_info.shoot_disdance > lifter_distance - 0.003f && shooter_info.shoot_disdance < lifter_distance + 0.003f)
     {
@@ -177,14 +189,6 @@ bool AutoShooter::auto_adjust(float lifter_distance)
     }
 
     return false;
-
-    // 触发微动后，
-    //    if (Read_GPIO_State() == GPIO_PIN_RESET &&  shooter_motor->get_rpm() > 0.0f )
-    //    {
-    //			shooter_motor->set_rpm(0.0f);
-    //        plan_flag = 0;
-    //        shooter_info.shooter_status = 1;
-    //    }
 }
 void AutoShooter::add_imu(Encoder *encoder_, wit_gyro *wit_imu_)
 {
@@ -237,7 +241,6 @@ void AutoShooter::check_shooter()
     if (shooter_flag == 0)
     {
         HAL_GPIO_WritePin(shooter_port, shooter_pin, GPIO_PIN_RESET);
-        /* code */
     }
     else if (shooter_flag == 1)
     {
@@ -249,17 +252,22 @@ void AutoShooter::check_shooter()
     }
 }
 
-void AutoShooter::set_shooter_mode(uint8_t mode)
-{
-    shooter_mode = static_cast<shooterMode>(mode);
-}
-void AutoShooter::set_auto(uint8_t index)
+void AutoShooter::set_allAuto(uint8_t index)
 {
     shooter_mode = shooter_allAuto;
     shooter_info.shoot_dis = lidar_data[index];
     shooter_info.shooter_status = auto_lift;
 }
 
+void AutoShooter::set_halfAuto(uint8_t index)
+{
+    shooter_mode = shooter_halfAuto;
+    shooter_info.shoot_dis = lidar_data[index];
+}
+void AutoShooter::set_shooter_mode(uint8_t mode)
+{
+    shooter_mode = static_cast<shooterMode>(mode);
+}
 void AutoShooter::set_pitcher_mode(uint8_t mode)
 {
     pitcher_mode = static_cast<pitcherMode>(mode);

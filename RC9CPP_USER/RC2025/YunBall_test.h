@@ -19,6 +19,7 @@ extern "C"
 #include "auto_yunball.h"
 #include "encoder.h"
 #include "wit_gyro.h"
+#include "serial_studio.h"
     void yunball_test_setup(void);
     void m3508_adjust(void);
     void shooter_adjust(void);

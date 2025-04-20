@@ -25,11 +25,11 @@ enum autoMode
 };
 enum shooterMode
 {
-    shooter_stop, // 停止
-    shooter_hand, // 手动模式
-    shooter_auto, // 自动拉伸模式
-    shooter_allAuto,
-    shooter_debug, // 调试模式
+    shooter_stop,     // 停止
+    shooter_hand,     // 手动模式
+    shooter_halfAuto, // 半自动模式
+    shooter_allAuto,  // 全自动模式
+    shooter_debug,    // 调试模式
 
 };
 
@@ -82,24 +82,22 @@ private:
 
     TrapezoidalPlanner1D planer;
     uint8_t plan_flag = 0;
-
+    //uint8_t plan_flag = 0;
     planInfo plan_info;
-    float dis_data[9] = {0.023f, 0.1968f, 0.1958f, 0.2190f, 0.2337f, 0.228f, 0.172f, 0.1800f, 0.2211f};
-    float lidar_data[9] = {0.023f, 0.1998f, 0.1948f, 0.1937f, 0.1937f, 0.1877f, 0.2420f, 0.2420f, 0.2211f};
+    float dis_data[9] = {0.01f, 0.1968f, 0.1958f, 0.2190f, 0.2337f, 0.228f, 0.172f, 0.1800f, 0.2211f};
+    float lidar_data[9] = {0.020f, 0.1998f, 0.1948f, 0.1937f, 0.1937f, 0.1877f, 0.2420f, 0.2420f, 0.2211f};
     // 标准俯仰                     篮下俯仰（待测量）
     float inital_angle = -0.0158f, inside_angle = 0.0f;
 
 public:
     shooterInfo shooter_info;
-
-    uint8_t trigger_flag = 0, shooter_flag = 0;
+    uint8_t trigger_flag = 0, shooter_flag = 0, reset_flag = 0;
 
     AutoShooter();
     void process_data();
     void add_imu(Encoder *encoder_, wit_gyro *wit_imu_);
     void add_trigger(GPIO_TypeDef *stop_port_, uint8_t stop_pin_, GPIO_TypeDef *trigger_port_, uint16_t trigger_pin_, GPIO_TypeDef *shooter_port_, uint16_t shooter_pin_);
     void add_motor(power_motor *shooter_motor_, power_motor *pithcer_motor_);
-
     void pitcher_adjust(float pitch_angle);
     bool auto_adjust(float lifter_distance);
     void allAuto_adjust(float lifter_distance);
@@ -109,7 +107,8 @@ public:
     void check_trigger();
     void check_shooter();
     void set_shooter_mode(uint8_t mode);
-    void set_auto(uint8_t index);
+    void set_halfAuto(uint8_t index);
+    void set_allAuto(uint8_t index);
     void set_pitcher_mode(uint8_t mode);
 
     uint32_t Read_GPIO_State(void);

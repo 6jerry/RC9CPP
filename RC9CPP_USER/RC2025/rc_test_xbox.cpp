@@ -66,13 +66,13 @@ void yun_ball_xbox::btnconfig_init()
         ButtonActionType::Increment,
         nullptr};
 
-    btnDirRightConfig = {
-        &xbox_msgs.btnDirRight,
-        &xbox_msgs.btnDirRight_last,
-        &lifter_status,
-        9,
-        ButtonActionType::Decrement,
-        nullptr};
+    // btnDirRightConfig = {
+    //     &xbox_msgs.btnDirRight,
+    //     &xbox_msgs.btnDirRight_last,
+    //     &lifter_status,
+    //     9,
+    //     ButtonActionType::Decrement,
+    //     nullptr};
     btnShareConfig = {
         &xbox_msgs.btnShare,
         &xbox_msgs.btnShare_last,
@@ -92,7 +92,7 @@ void yun_ball_xbox::btn_scan()
     handleButton(btnDirUpConfig);
     handleButton(btnDirDownConfig);
     handleButton(btnDirLeftConfig);
-    handleButton(btnDirRightConfig);
+    // handleButton(btnDirRightConfig);
     handleButton(btnShareConfig);
 }
 
@@ -113,10 +113,12 @@ void yun_ball_xbox::process_data()
 
             if (yun_trigger == 1)
             {
+
                 HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_SET);
             }
             else if (yun_trigger == 0)
             {
+
                 HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_RESET);
             }
             // 手动模式
@@ -127,8 +129,8 @@ void yun_ball_xbox::process_data()
 
                 lifter_motor->set_rpm(xbox_msgs.joyRVert_map * max_lifter_speed);
                 turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
-                auto_shooter->set_pitcher_mode(pitcher_hand);
-                auto_shooter->shooter_info.hand_pitcher_rpm = -(xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_pithcer_speed;
+                // auto_shooter->set_pitcher_mode(pitcher_hand);
+                // auto_shooter->shooter_info.hand_pitcher_rpm = -(xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_pithcer_speed;
                 auto_shooter->set_shooter_mode(shooter_hand);
                 auto_shooter->shooter_info.hand_shooter_rpm = xbox_msgs.joyLVert_map * max_shooter_speed;
                 // float send_data[1] = {encoder->get_absolute_distance()};
@@ -143,10 +145,17 @@ void yun_ball_xbox::process_data()
                 }
                 else
                 {
-                    auto_shooter->set_auto(2);
+                    if (auto_flag == 0)
+                    {
+                        auto_shooter->set_allAuto(lifter_status - 1);
+                        auto_flag = 1;
+                    }
+
                     if (auto_shooter->shooter_info.auto_status == 1)
                     {
+                        auto_shooter->shooter_info.auto_status = 0;
                         lifter_status = 0;
+                        auto_flag = 0;
                     }
                 }
 
@@ -206,11 +215,6 @@ void yun_ball_xbox::add_trigger(uint16_t yun_pin_, GPIO_TypeDef *yun_port_)
 
     yun_port = yun_port_;
     yun_pin = yun_pin_;
-}
-
-void yun_ball_xbox::add_laser(imu *laser_)
-{
-    laser = laser_;
 }
 
 void yun_ball_xbox::add_serial_studio(serial_studio *serial_studio_)
