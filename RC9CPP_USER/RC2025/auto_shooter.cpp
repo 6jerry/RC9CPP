@@ -89,12 +89,12 @@ void AutoShooter::hand_adjust()
     }
 
     // 触发光电门
-    // if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
-    // {
-    //     shooter_info.hand_shooter_rpm = 0.0f;
-    // }
-
-    shooter_motor->set_rpm(shooter_info.hand_shooter_rpm);
+    //    if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
+    //    {
+    //        shooter_motor->set_rpm(0.0f);
+    //    }
+    //	test_flag = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_4);
+    // test_flag = HAL_GPIO_ReadPin(stop_port, stop_pin);
 }
 
 void AutoShooter::allAuto_adjust(float lifter_distance)

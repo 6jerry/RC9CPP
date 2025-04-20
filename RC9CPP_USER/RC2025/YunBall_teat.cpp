@@ -9,7 +9,7 @@ AutoShooter autoshooter;
 Encoder encoder(&huart6);
 // 维特IMU
 wit_gyro wit_imu(&huart3);
-
+// m3508p shooter(2, &hcan1), m3508_left(4, &hcan1, true), m3508_front(3, &hcan1, true), m3508_right(1, &hcan1, true);
 serialStudio test_port;
 m3508p lifter(1, &hcan1, true), turnner(2, &hcan1, true, 49.1372f), pithcer(3, &hcan1);
 
