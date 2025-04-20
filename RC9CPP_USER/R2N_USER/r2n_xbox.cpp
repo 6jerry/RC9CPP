@@ -167,3 +167,12 @@ void xbox_r2n::state_machine_init()
     stateMachine.mapStateToIndices(3, purePursuitIndices, 2);
     stateMachine.mapStateToIndices(4, robotStopIndices, 8);
 }
+
+void xbox_r2n::btnRB_callback()
+{
+    // locking_heading = ACTION->pose_data.yaw_rad;
+}
+void xbox_r2n::btnXBOX_callback()
+{
+    // ACTION->restart();
+}

@@ -60,7 +60,7 @@ class m3508p : public CanDevice,
                public RC9subscriber
 {
 private:
-    float gear_ratio = 19.2032f, wheel_perimeter = 0.0f, wheel_R = 0.0f, v_2_rpm_k = 0.0f, rpm_2_v_k = 0.0f, speed_plan_end_dis = 10.0f, min_start_rpm = 60.0f, speed_plan_end_pos = 2.0f;
+    float gear_ratio = 19.2032f, wheel_perimeter = 0.0f, wheel_R = 0.0f, v_2_rpm_k = 0.0f, rpm_2_v_k = 0.0f, speed_plan_end_dis = 10.0f, min_start_rpm = 60.0f;
 
     uint8_t time_cnt = 0;
 
@@ -111,10 +111,8 @@ public:
     void set_dis(float dis) override;
     void set_F(float F_) override;
     bool set_dis_speedplan(float targetdis, float max_speed, float max_acc, float max_dec, float finalspeed) override;
-    bool set_pos_speedplan(float target_angle_, float max_speed, float max_acc, float max_dec, float finalspeed) override;
 
     void dis_speedplan_restart() override;
-    void pos_speedplan_restart() override;
 
     void T_TO_C(); // 力矩转换为电流
 
@@ -127,7 +125,6 @@ public:
     pid distance_pid_control, angle_pid_control;
 
     TrapezoidalPlanner1D dis_speed_plan;
-    TrapezoidalPlanner1D pos_speed_plan;
 
     void start_debug();
 };

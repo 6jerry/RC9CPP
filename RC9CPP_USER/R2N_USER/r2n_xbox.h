@@ -37,6 +37,8 @@ public:
     void state_machine_init();
     void chassis_btn_init();
     void chassisbutton_scan();
+    void btnRB_callback() override;
+    void btnXBOX_callback() override;
     servo *SERVO = nullptr, *servo_right = nullptr;
 };
 

@@ -29,11 +29,11 @@ void RoboChassis::process_data()
         break;
     case ppp_track:
 
-        //target.pppoint[0] = IMU->get_world_pos();
-        //target.pppoint[1] = target.target_point;
+        // target.pppoint[0] = IMU->get_world_pos();
+        // target.pppoint[1] = target.target_point;
 
-        //pp_tracker.pp_refresh_points();
-        //pp_tracker.pp_force_add_points(target.pppoint, 2);
+        // pp_tracker.pp_refresh_points();
+        // pp_tracker.pp_force_add_points(target.pppoint, 2);
 
         chassis_calc(worldv_2_robov(pp_tracker.pursuit(IMU->get_world_pos())), yawadjuster_process());
 
@@ -42,7 +42,32 @@ void RoboChassis::process_data()
     case ppc_track:
 
         break;
+
+    case swerve_stable:
+        swerve_stablize();
+        break;
     }
+}
+
+void RoboChassis::swerve_stablize()
+{
+    // dmotors[0]->set_pos(0.0f);
+    // dmotors[1]->set_pos(45.0f);
+    // dmotors[2]->set_pos(-45.0f);
+
+    motors[0]->set_rpm(0.0f);
+    motors[1]->set_rpm(0.0f);
+    motors[2]->set_rpm(0.0f);
+}
+
+void RoboChassis::C_stablize()
+{
+    mode = swerve_stable;
+}
+
+void chassis_user::stablize_swerve()
+{
+    robochassis_->C_stablize();
 }
 
 float RoboChassis::yawadjuster_process()
@@ -368,7 +393,7 @@ bool RoboChassis::priority_judge(uint8_t PriorityCode, chassis_user *user_, chas
     {
         if (PriorityCode < current_priority)
         {
-            return false;
+            return true;
         }
 
         else if (PriorityCode >= current_priority)
@@ -382,7 +407,7 @@ bool RoboChassis::priority_judge(uint8_t PriorityCode, chassis_user *user_, chas
     {
         if (PriorityCode <= current_priority)
         {
-            return false;
+            return true;
         }
         else
         {
@@ -425,6 +450,61 @@ uint8_t RoboChassis::set_CRobotW(float w, uint8_t PriorityCode, chassis_user *us
     return 1;
 }
 
+/**
+ * @brief 底盘控制函数
+ * 
+ * @param robot_vel 机器人速度
+ * @param accle 加速度
+ * @param PriorityCode 优先级
+ * @param user_ 调用者
+ * 
+ * @return uint8_t   1:成功 0:失败
+ */
+uint8_t RoboChassis::set_CRobotVel_ACCLE(Vector2D robovel, float accle, uint8_t PriorityCode, chassis_user *user_)
+{
+    if (mode != chassis_init)
+    {
+        mode = robotv;
+    }
+    dt = (HAL_GetTick() - last_tick)/1000.0 ;   // 计算时间间隔
+    last_tick = HAL_GetTick();
+
+    if(abs(target.target_robovel.x - robovel.x) < accle*dt)
+    {
+        target.target_robovel.x = robovel.x;
+    }
+    else
+    {
+        if(target.target_robovel.x > robovel.x)
+        {
+            target.target_robovel.x = target.target_robovel.x - accle*dt;
+        }
+        else if(target.target_robovel.x < robovel.x)
+        {
+            target.target_robovel.x = target.target_robovel.x + accle*dt;
+        }
+        else {}
+    }
+    
+    if(abs(target.target_robovel.y - robovel.y) < accle*dt)
+    {
+        target.target_robovel.y = robovel.y;
+    }
+    else
+    {
+        if(target.target_robovel.y > robovel.y)
+        {
+            target.target_robovel.y = target.target_robovel.y - accle*dt;
+        }
+        else if(target.target_robovel.y < robovel.y)
+        {
+            target.target_robovel.y = target.target_robovel.y + accle*dt;
+        }
+        else {}
+    }
+    return 1;
+}
+
 RoboChassis::RoboChassis(RoboChassisType type_) : type(type_)
 {
 }
@@ -461,6 +541,31 @@ void RoboChassis::chassis_rst_priorityC()
     user = nullptr;
 }
 
+void RoboChassis::C_pp_track_point(Vector2D target_p)
+{
+    if (mode != ppp_track)
+    {
+        pp_tracker.pp_start_plan(IMU->get_world_pos(), target_p);
+        mode = ppp_track;
+    }
+}
+
+void RoboChassis::C_rst_state()
+{
+    // mode = stop;
+    pp_tracker.pp_rst_plan();
+}
+
+void chassis_user::pp_track_point(Vector2D target_p)
+{
+    robochassis_->C_pp_track_point(target_p);
+}
+
+void chassis_user::rst_state()
+{
+    robochassis_->C_rst_state();
+}
+
 void chassis_user::add_chassis(RoboChassis *chassis_)
 {
     robochassis_ = chassis_;
@@ -468,7 +573,11 @@ void chassis_user::add_chassis(RoboChassis *chassis_)
 
 uint8_t chassis_user::set_RobotVel(Vector2D robovel, uint8_t PriorityCode)
 {
+    #ifdef USE_VEL_ACCEL
+    return robochassis_->set_CRobotVel_ACCLE(robovel,5.0f,PriorityCode, this);
+    #else
     return robochassis_->set_CRobotVel(robovel, PriorityCode, this);
+    #endif
 }
 
 uint8_t chassis_user::set_RobotW(float w, uint8_t PriorityCode)
@@ -518,6 +627,16 @@ float RoboChassis::C_calc_dis(Vector2D target)
     return (IMU->get_world_pos() - target).magnitude();
 }
 
+void RoboChassis::C_init_locate()
+{
+    IMU->imu_rst();
+}
+
+void chassis_user::init_locate()
+{
+    robochassis_->C_init_locate();
+}
+
 float chassis_user::calc_dis(Vector2D target)
 {
     return robochassis_->C_calc_dis(target);
@@ -545,4 +664,22 @@ float chassis_user::get_yaw()
 uint8_t chassis_user::move_to(Vector2D target_p, uint8_t PriorityCode)
 {
     return robochassis_->Cmove_to(target_p, PriorityCode, this);
+}
+
+float RoboChassis::get_cworld_x()
+{
+    return IMU->get_world_pos().x;
+}
+float RoboChassis::get_cworld_y()
+{
+    return IMU->get_world_pos().y;
+}
+
+float chassis_user::get_world_x()
+{
+    return robochassis_->get_cworld_x();
+}
+float chassis_user::get_world_y()
+{
+    return robochassis_->get_cworld_y();
 }

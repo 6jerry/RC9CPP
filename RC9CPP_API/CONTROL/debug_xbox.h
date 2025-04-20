@@ -70,12 +70,10 @@ public:
     moters_debug_xbox();
 };
 
-
-
 class xbox_debug_base : public xbox, public ITaskProcessor
 {
 public:
-    uint8_t mode_flag = 2, start_flag = 0, lb_flag = 0, rb_flag = 0;
+    uint8_t mode_flag = 2, start_flag = 0, lb_flag = 0, rb_flag = 0, cnt_flag = 0;
 
     virtual void not_start() {};
     virtual void mode_0() {};
@@ -89,19 +87,33 @@ public:
     virtual void lb_off() {};
     virtual void rb_off() {};
 
+    virtual void xbox_on() {};
+
     void process_data();
     void btn_scan();
     void btnconfig_init();
+
+    void btnXBOX_callback() override;
     xbox_debug_base();
 };
 
 class chassis_adjust_xbox : public xbox_debug_base, public chassis_user
 {
+private:
+Vector2D t_points[8] = {{0.0f, 0.0f}, {3.83f, 2.80f}, {4.92f, 2.97f},\
+{6.77f, 2.54f}, {3.39f, 1.69f}, {4.12f, 2.40f}, {2.90f, 3.32f}, {4.81f, 4.33f}};
+
+float t_heading[8] = {0.0f, -150.61f, -176.69f, 129.34f, -122.83f, -151.63f, -140.69f, -175.77f};
+
+    float test_dis = 0.0f, change_dis = 0.01f;
+
 public:
     void not_start() override;
     void mode_2() override;
     void mode_1() override;
     void mode_3() override;
+
+    void xbox_on() override;
 };
 
 #endif

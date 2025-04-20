@@ -17,7 +17,7 @@
  *             in the software.
  ******************************************************************************/
 #include "xbox.h"
-//更新按键值与摇杆值
+
 void xbox::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
 {
     if (byteCount == 28)
@@ -49,10 +49,9 @@ void xbox::DataReceivedCallback(const uint8_t *byteData, const float *floatData,
         xbox_msgs.trigRT = ((uint16_t)byteData[26] << 8) | byteData[27];
     }
 }
-// 计算摇杆映射值
 void xbox::joymap_compute()
 {
-    if (xbox_msgs.joyLHori > 31000 && xbox_msgs.joyLHori < 350000)
+    if (xbox_msgs.joyLHori > 31000 && xbox_msgs.joyLHori < 35000)
     {
         xbox_msgs.joyLHori_map = 0.0f;
     }
@@ -65,7 +64,7 @@ void xbox::joymap_compute()
         xbox_msgs.joyLHori_map = (35000.0f - (float)xbox_msgs.joyLHori) / 30535.0f;
     }
 
-    if (xbox_msgs.joyLVert > 31000 && xbox_msgs.joyLVert < 350000)
+    if (xbox_msgs.joyLVert > 31000 && xbox_msgs.joyLVert < 35000)
     {
         xbox_msgs.joyLVert_map = 0.0f;
     }
@@ -105,10 +104,10 @@ void xbox::joymap_compute()
     xbox_msgs.trigRT_map = (float)xbox_msgs.trigRT / 1023.0f;
     xbox_msgs.trigLT_map = (float)xbox_msgs.trigLT / 1023.0f;
 }
-//按键单击触发，单击一次执行一次结构体配置的操作
+
 void xbox::handleButton(ButtonConfig &config)
 {
-    if (*(config.currentState) && !(*(config.lastState))) //检测上升沿，按下按键触发
+    if (*(config.currentState) && !(*(config.lastState)))
     {
         switch (config.actionType)
         {
@@ -139,9 +138,4 @@ void xbox::handleButton(ButtonConfig &config)
         }
     }
     *config.lastState = *config.currentState;
-}
-//获取按键状态 1为按下，0为松开
-bool xbox::getButtonState(ButtonConfig &config)
-{
-    return *(config.currentState);
 }

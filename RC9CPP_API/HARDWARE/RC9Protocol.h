@@ -60,7 +60,6 @@ typedef struct serial_frame_mat
     uint8_t frame_end[2];
 } serial_frame_mat_t;
 
-
 class RC9Protocol : public SerialDevice, public ITaskProcessor
 {
 

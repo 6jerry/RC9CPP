@@ -14,6 +14,12 @@
  */
 Encoder::Encoder(UART_HandleTypeDef *huart_) : SerialDevice(huart_) {}
 
+	float Encoder::get_absolute_distance(void)
+{
+ 
+   
+    return   distance;
+}
 /**
  * @brief 获取当前距离
  * @return float 计算得到的距离值

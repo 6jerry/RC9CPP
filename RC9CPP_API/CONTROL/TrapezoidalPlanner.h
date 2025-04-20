@@ -7,7 +7,7 @@ extern "C"
 #endif
 #include "arm_math.h"
 #include "Vector2D.h"
-#include "pure_pursuit.h"
+//#include "pure_pursuit.h"
 
 #ifdef __cplusplus
 }
