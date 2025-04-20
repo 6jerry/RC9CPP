@@ -16,7 +16,6 @@ m3508p lifter(1, &hcan1, true), turnner(2, &hcan1, true, 49.1372f), pithcer(3, &
 vesc m8080(4, &hcan2, 7.0f, 1.0f);
 yun_ball_xbox xbox_test;
 auto_yunball yunball_core;
-
 extern "C"
 {
 

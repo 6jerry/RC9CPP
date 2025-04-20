@@ -66,13 +66,13 @@ void yun_ball_xbox::btnconfig_init()
         ButtonActionType::Increment,
         nullptr};
 
-    btnDirRightConfig = {
-        &xbox_msgs.btnDirRight,
-        &xbox_msgs.btnDirRight_last,
-        &lifter_status,
-        9,
-        ButtonActionType::Decrement,
-        nullptr};
+    // btnDirRightConfig = {
+    //     &xbox_msgs.btnDirRight,
+    //     &xbox_msgs.btnDirRight_last,
+    //     &lifter_status,
+    //     9,
+    //     ButtonActionType::Decrement,
+    //     nullptr};
     btnShareConfig = {
         &xbox_msgs.btnShare,
         &xbox_msgs.btnShare_last,
@@ -112,10 +112,12 @@ void yun_ball_xbox::process_data()
 
             if (yun_trigger == 1)
             {
+
                 HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_SET);
             }
             else if (yun_trigger == 0)
             {
+
                 HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_RESET);
             }
             // 手动模式
