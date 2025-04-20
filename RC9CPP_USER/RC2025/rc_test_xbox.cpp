@@ -158,30 +158,6 @@ void yun_ball_xbox::process_data()
                         auto_flag = 0;
                     }
                 }
-
-                //                if (lifter_status == 0)
-                //                {
-                //                    auto_shooter->set_shooter_mode(shooter_stop);
-                //                }
-                //                else
-                //                {
-                //                    auto_shooter->set_auto(lifter_status - 1);
-
-                //                    // 拉伸到指定位置时,结束拉伸状态
-                //                    if (auto_shooter->shooter_info.shooter_status == 1)
-                //                    {
-                //                        lifter_status = 0;
-                //                        trigger_start = 1;
-                //                        auto_shooter->shooter_info.shooter_status = 0;
-                //                    }
-                //                    else if (auto_shooter->shooter_info.shooter_status == 0)
-                //                    {
-                //                        trigger_start = 0;
-                //                        shooter_trigger = 0;
-                //                    }
-                //                }
-
-                //                // 拉伸状态
             }
         }
         else if (shoot_yunball == 1)
@@ -217,9 +193,9 @@ void yun_ball_xbox::add_trigger(uint16_t yun_pin_, GPIO_TypeDef *yun_port_)
     yun_pin = yun_pin_;
 }
 
-void yun_ball_xbox::add_serial_studio(serial_studio *serial_studio_)
+void yun_ball_xbox::add_serial_studio(serialStudio *serial_studio_)
 {
-    test_port = serial_studio_;
+    serial_studio = serial_studio_;
 }
 
 void yun_ball_xbox::add_auto_shooter(AutoShooter *auto_shooter_)

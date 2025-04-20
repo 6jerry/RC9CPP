@@ -94,10 +94,12 @@ void AutoShooter::hand_adjust()
     }
 
     // 触发光电门
-    if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
-    {
-        shooter_motor->set_rpm(0.0f);
-    }
+    //    if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
+    //    {
+    //        shooter_motor->set_rpm(0.0f);
+    //    }
+    //	test_flag = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_4);
+    // test_flag = HAL_GPIO_ReadPin(stop_port, stop_pin);
 }
 
 void AutoShooter::allAuto_adjust(float lifter_distance)
@@ -175,10 +177,10 @@ bool AutoShooter::auto_adjust(float lifter_distance)
     shooter_motor->set_rpm(-planer.plan(shooter_info.shoot_disdance * 36000));
 
     // 触发光电门
-    if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
-    {
-        shooter_motor->set_rpm(0.0f);
-    }
+    //		if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
+    //   {
+    //        shooter_motor->set_rpm(0.0f);
+    //    }
 
     // 到达终点锁住
     if (shooter_info.shoot_disdance > lifter_distance - 0.003f && shooter_info.shoot_disdance < lifter_distance + 0.003f)
@@ -244,7 +246,6 @@ void AutoShooter::check_shooter()
     }
     else if (shooter_flag == 1)
     {
-
         // 发射时记录当前数据
         // float send_data[2] = {shooter_info.shoot_disdance,shooter_info.shoot_pitch_angle};
         // sendFloatData(1,send_data,2);

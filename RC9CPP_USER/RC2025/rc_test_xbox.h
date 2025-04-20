@@ -26,7 +26,7 @@ private:
 
   power_motor *lifter_motor = nullptr, *turn_motor = nullptr;
 
-  serial_studio *test_port = nullptr;
+  serialStudio *serial_studio = nullptr;
   auto_yunball *yunball = nullptr;
 
   GPIO_TypeDef *yun_port = nullptr;
@@ -52,7 +52,7 @@ public:
   void btnconfig_init();
   void add_motor(power_motor *lifter_motor_, power_motor *turn_motor_);
   void add_trigger(uint16_t yun_pin_, GPIO_TypeDef *yun_port_);
-  void add_serial_studio(serial_studio *serial_studio_);
+  void add_serial_studio(serialStudio *serial_studio_);
   void add_auto_shooter(AutoShooter *auto_shooter_);
   void adjust_pitcher(float pitch_angle);
   void add_yunball(auto_yunball *yunball_);

@@ -8,7 +8,7 @@ AutoShooter autoshooter;
 Encoder encoder(&huart6);
 wit_gyro wit_imu(&huart3);
 // m3508p shooter(2, &hcan1), m3508_left(4, &hcan1, true), m3508_front(3, &hcan1, true), m3508_right(1, &hcan1, true);
-serial_studio test_port;
+serialStudio test_port;
 m3508p lifter(1, &hcan1, true), turnner(2, &hcan1, true, 49.1372f), pithcer(3, &hcan1);
 
 moters_debug_xbox m3508_debuger;
@@ -68,8 +68,8 @@ extern "C"
         can_core.init();
         lifter.config_mech_param(19.2032f, 35.0f);
         autoshooter.add_imu(&encoder, &wit_imu);
-			  //PD7 夹爪 PG10 射球 PG11气阀 PF2 棘轮
-        autoshooter.add_trigger(GPIOF, GPIO_PIN_5, GPIOE, GPIO_PIN_2, GPIOG, GPIO_PIN_10);
+        // PD7 夹爪 PG10 射球 PG11气阀 PF2 棘轮
+        autoshooter.add_trigger(GPIOF, GPIO_PIN_4, GPIOE, GPIO_PIN_2, GPIOG, GPIO_PIN_10);
         autoshooter.add_motor(&m8080, &pithcer);
         xbox_test.add_auto_shooter(&autoshooter);
         xbox_test.addport(&esp_port);

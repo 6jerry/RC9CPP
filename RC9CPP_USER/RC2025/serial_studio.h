@@ -39,7 +39,7 @@ typedef struct upperInfo
 typedef struct chassisInfo
 {
 };
-class serial_studio : public RC9subscriber, public ITaskProcessor
+class serialStudio : public RC9subscriber, public ITaskProcessor
 {
 public:
     serial_studio();

@@ -8,22 +8,17 @@ extern "C"
 
 #include <cmsis_os2.h>
 #include "RC9Protocol.h"
-#include "TaskManager.h"
 #include "robot_chassis.h"
 #include "M3508.h"
 #include "M6020.h"
 #include "VESC.h"
 #include "rc_test_xbox.h"
 #include "debug_xbox.h"
-#include "laser_processor.h"
 #include "auto_yunball.h"
 #include "encoder.h"
 #include "wit_gyro.h"
 #include "serial_studio.h"
     void yunball_test_setup(void);
-    void m3508_adjust(void);
-    void shooter_adjust(void);
-    void chassis_adjust(void);
     void auto_shooter_setup(void);
 
 #ifdef __cplusplus

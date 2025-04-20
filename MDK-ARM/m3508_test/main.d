@@ -73,5 +73,4 @@ m3508_test/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\RC9CPP_USER\RC2025\auto_shooter.h \
   ..\RC9CPP_USER\RC2025\auto_yunball.h \
   ..\RC9CPP_API\CONTROL\debug_xbox.h \
-  ..\RC9CPP_USER\structure_test\GCFSM.h ..\RC9CPP_API\HARDWARE\servo.h \
-  ..\RC9CPP_API\HARDWARE\laser_processor.h
+  ..\RC9CPP_USER\structure_test\GCFSM.h ..\RC9CPP_API\HARDWARE\servo.h
