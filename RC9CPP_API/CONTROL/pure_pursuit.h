@@ -8,6 +8,7 @@ extern "C"
 
 #include "Vector2D.h"
 #include "PID.h"
+#include "TrapezoidalPlanner.h"
 
 #ifdef __cplusplus
 }
@@ -106,6 +107,8 @@ public:
     pid normal_control, tangent_control; // 纯追踪的第一种控制方式，法向纠偏pid
 
     pid dir_control; // 纯追踪的第二种控制方式，速度矢量方向控制
+
+    TrapezoidalPlanner1D trapezoidal_planner; // 轨迹规划器
 
     bool pp_add_point(Vector2D new_point);
     void pp_force_add_point(Vector2D new_point);

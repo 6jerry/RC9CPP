@@ -32,8 +32,26 @@ void pure_pursuit::purepusit_normal_control()
 
     target_wspeed = normal_speed + tangent_speed; // 最终输出的期望速度合矢量
 }
+/** 
+ * @brief 梯形规划控制方式
+ * 
+*/
 void pure_pursuit::purepusit_dir_control()
 {
+    if (trapezoidal_planner.isFinished())
+    {
+        trapezoidal_planner.start_plan(0.8f,0.8f,2.0f,0.5f,0.0f,tangent_dis,0.0f);
+    }
+
+    float nor_speed = normal_control.PID_ComputeError(normal_dis); // 法向纠偏速度的大小
+
+    tan_speed = -trapezoidal_planner.plan(tangent_dis); // 梯形规划输出切向速度的大小
+
+    //tan_speed = 0.2f;
+    Vector2D normal_speed = nor_speed * normal_dir;   // 法向速度矢量
+    Vector2D tangent_speed = tan_speed * tangent_dir; // 切向速度矢量
+
+    target_wspeed = normal_speed + tangent_speed; // 最终输出的期望速度合矢量
 }
 Vector2D pure_pursuit::pursuit(Vector2D now_pos)
 {
@@ -44,7 +62,7 @@ Vector2D pure_pursuit::pursuit(Vector2D now_pos)
     case pp_standby: // 等待追踪，如果缓冲区中有超过两个以上的点则开始追踪
         target_wspeed.x = 0.0f;
         target_wspeed.y = 0.0f;
-
+        trapezoidal_planner.reset();  // 重置梯形规划
         /*
         if (points_buffer.queueSize() >= 2)
         {
@@ -65,8 +83,9 @@ Vector2D pure_pursuit::pursuit(Vector2D now_pos)
         {
             purepusit_normal_control();
         }
-        else
+        else// 使用轨迹规划控制方式
         {
+            purepusit_dir_control();
         }
 
         /*
@@ -150,6 +169,7 @@ void pure_pursuit::pp_start_plan(Vector2D start_point, Vector2D end_point)
         target_line_initpoint = tail;
         target_line = head - tail;
         state = pp_tracking;
+        nor_mode = dircontrol;  //选择轨迹规划控制方式
     }
 }
 

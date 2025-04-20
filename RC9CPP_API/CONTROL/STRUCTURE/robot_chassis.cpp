@@ -450,6 +450,61 @@ uint8_t RoboChassis::set_CRobotW(float w, uint8_t PriorityCode, chassis_user *us
     return 1;
 }
 
+/**
+ * @brief 底盘控制函数
+ * 
+ * @param robot_vel 机器人速度
+ * @param accle 加速度
+ * @param PriorityCode 优先级
+ * @param user_ 调用者
+ * 
+ * @return uint8_t   1:成功 0:失败
+ */
+uint8_t RoboChassis::set_CRobotVel_ACCLE(Vector2D robovel, float accle, uint8_t PriorityCode, chassis_user *user_)
+{
+    if (mode != chassis_init)
+    {
+        mode = robotv;
+    }
+    dt = (HAL_GetTick() - last_tick)/1000.0 ;   // 计算时间间隔
+    last_tick = HAL_GetTick();
+
+    if(abs(target.target_robovel.x - robovel.x) < accle*dt)
+    {
+        target.target_robovel.x = robovel.x;
+    }
+    else
+    {
+        if(target.target_robovel.x > robovel.x)
+        {
+            target.target_robovel.x = target.target_robovel.x - accle*dt;
+        }
+        else if(target.target_robovel.x < robovel.x)
+        {
+            target.target_robovel.x = target.target_robovel.x + accle*dt;
+        }
+        else {}
+    }
+    
+    if(abs(target.target_robovel.y - robovel.y) < accle*dt)
+    {
+        target.target_robovel.y = robovel.y;
+    }
+    else
+    {
+        if(target.target_robovel.y > robovel.y)
+        {
+            target.target_robovel.y = target.target_robovel.y - accle*dt;
+        }
+        else if(target.target_robovel.y < robovel.y)
+        {
+            target.target_robovel.y = target.target_robovel.y + accle*dt;
+        }
+        else {}
+    }
+    return 1;
+}
+
 RoboChassis::RoboChassis(RoboChassisType type_) : type(type_)
 {
 }
@@ -518,7 +573,11 @@ void chassis_user::add_chassis(RoboChassis *chassis_)
 
 uint8_t chassis_user::set_RobotVel(Vector2D robovel, uint8_t PriorityCode)
 {
+    #ifdef USE_VEL_ACCEL
+    return robochassis_->set_CRobotVel_ACCLE(robovel,5.0f,PriorityCode, this);
+    #else
     return robochassis_->set_CRobotVel(robovel, PriorityCode, this);
+    #endif
 }
 
 uint8_t chassis_user::set_RobotW(float w, uint8_t PriorityCode)
