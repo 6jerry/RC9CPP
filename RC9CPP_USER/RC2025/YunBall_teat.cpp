@@ -53,7 +53,7 @@ extern "C"
         yunball_xbox.addport(&esp_port);
 
         yunball_core.add_io(GPIOA, GPIO_PIN_7, GPIOF, GPIO_PIN_6, GPIOC, GPIO_PIN_13);
-        yunball_core.add_motor(&lifter);
+        yunball_core.add_motor(&lifter,&turnner);
 
         yunball_xbox.add_lifter(&lifter);
         yunball_xbox.add_yunball(&yunball_core);
@@ -80,12 +80,15 @@ extern "C"
         debug_port.initQueue();
 
         can_core.init();
-
+				lifter.config_mech_param(19.2032f, 35.0f);
         xbox_test.add_imu(&imu);
         xbox_test.addport(&esp_port);
         xbox_test.add_motor(&lifter, &turnner, &m8080, &pithcer);
         xbox_test.add_trigger(GPIOC, GPIO_PIN_14, GPIOC, GPIO_PIN_15, GPIO_PIN_13, GPIOC, GPIO_PIN_7, GPIOB);
         xbox_test.add_encoder(&encoder);
+				xbox_test.add_yunball(&yunball_core);
+			  yunball_core.add_io(GPIOA, GPIO_PIN_7, GPIOF, GPIO_PIN_6, GPIOC, GPIO_PIN_13);
+        yunball_core.add_motor(&lifter,&turnner);
         //  xbox_test.add_serial_studio(&test_port);
         // xbox_test.add_laser(&laser);
         task_core.registerTask(0, &can_core);
@@ -94,6 +97,7 @@ extern "C"
         // task_core.registerTask(2, &vesc2);
         // task_core.registerTask(2, &vesc3);
         task_core.registerTask(8, &debug_port);
+				task_core.registerTask(3, &yunball_core);
 
         m8080.rpm_control.config_all(230.0f, 2.2f, 486.0f, 0.0f, 50000.0f, 6.0f);
 

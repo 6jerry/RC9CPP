@@ -36,7 +36,7 @@ public:
 
 public:
     virtual void imu_rst() {};
-    virtual void imu_relocate(float x, float y) {};
+    virtual void imu_relocate(float x, float y, float angle) {};
 };
 
 #endif
