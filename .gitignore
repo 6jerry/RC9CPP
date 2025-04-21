@@ -36,6 +36,7 @@ obj/
 *.htm
 *.rpt
 *.hex
+*.lst
 
 # STM32CubeMX 生成的备份文件
 *.ioc.bak
