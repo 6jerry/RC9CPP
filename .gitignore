@@ -18,8 +18,8 @@ dist/
 out/
 bin/
 obj/
-/Core/Src/main.c
 
+/Core/Src/main.c
 # Keil MDK-ARM 生成的文件
 *.axf
 *.elf
