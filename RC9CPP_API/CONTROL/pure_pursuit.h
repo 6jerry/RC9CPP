@@ -8,6 +8,7 @@ extern "C"
 
 #include "Vector2D.h"
 #include "PID.h"
+#include "TrapezoidalPlanner.h"
 
 #ifdef __cplusplus
 }
@@ -76,6 +77,7 @@ private:
     Vector2D project_point;
     Vector2D normal_dir;
     Vector2D tangent_dir;
+    Vector2D now_vel;
 
     float tangent_dis = 0.0f;
     float target_dis = 0.0f;
@@ -107,13 +109,15 @@ public:
 
     pid dir_control; // 纯追踪的第二种控制方式，速度矢量方向控制
 
+    TrapezoidalPlanner1D trapezoidal_planner; // 轨迹规划器
+
     bool pp_add_point(Vector2D new_point);
     void pp_force_add_point(Vector2D new_point);
 
     bool pp_add_points(Vector2D new_points[], uint8_t length);
     void pp_force_add_points(Vector2D new_points[], uint8_t length);
 
-    void pp_start_plan(Vector2D start_point, Vector2D end_point);
+    void pp_start_plan(Vector2D start_point, Vector2D end_point,Vector2D now_robvel);
     void pp_rst_plan();
 
     void pp_refresh_points(); // 清空目标点缓冲队列

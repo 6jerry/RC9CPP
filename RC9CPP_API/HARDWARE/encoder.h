@@ -44,7 +44,7 @@ public:
      * @param huart_ UART句柄指针
      */
     Encoder(UART_HandleTypeDef *huart_);
-
+	  float get_absolute_distance(void);
 private:
     float length = 0;           ///< 当前计算长度
     float distance = 0;         ///< 当前编码器距离

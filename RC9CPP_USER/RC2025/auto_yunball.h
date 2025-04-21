@@ -28,7 +28,9 @@ enum yunball_mode
     yunball_standby,
     yunball_move_2_catch_point,
     yunball_move_2_throw_point,
-
+    yunball_move_2_turn_point,
+    yunball_turn_2_throw_point,
+    yunball_turn_back
 };
 
 class auto_yunball : public ITaskProcessor
@@ -38,14 +40,12 @@ private:
     uint16_t locate_sensor_pin = 0, ball_sensor_pin = 0, claw_pin = 0;
 
     power_motor *lift_motor = nullptr;
+    power_motor *turn_motor = nullptr;
     yunball_mode workmode = yunball_standby;
 
     void scan_sensor();
 
     uint8_t locate_flag = 1, ball_flag = 1;
-
-    void claw_open();
-    void claw_close();
 
     float catch_ball_dis = 360.0f, throw_ball_dis = 798.0f;
 
@@ -58,12 +58,20 @@ private:
 
     void move_2_throw_point();
 
-    uint32_t time_cnt = 0;
+    void move_2_turn_point();
+
+    void turn_2_throw_point();
+
+    void turn_back();
+
+    uint32_t time_cnt = 0, time_flag = 0;;
 
 public:
     void
     process_data();
-    void add_motor(power_motor *lift_motor_);
+    void claw_open();
+    void claw_close();
+    void add_motor(power_motor *lift_motor_, power_motor *turn_motor_);
     void add_io(GPIO_TypeDef *locate_sensor_port_, uint16_t locate_sensor_pin_, GPIO_TypeDef *ball_sensor_port_, uint16_t ball_sensor_pin_, GPIO_TypeDef *claw_port_, uint16_t claw_pin_);
 
     void start_multi_yun();

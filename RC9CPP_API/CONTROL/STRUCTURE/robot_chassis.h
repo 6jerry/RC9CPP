@@ -1,6 +1,9 @@
 #ifndef ROBOT_CHASSIS_H
 #define ROBOT_CHASSIS_H
 
+//舵轮底盘加速度开启
+#define USE_VEL_ACCEL 1
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -13,6 +16,7 @@ extern "C"
 #include <arm_math.h>
 #include "gpio.h"
 #include "RC9Protocol.h"
+#include "TrapezoidalPlanner.h"
 #ifdef __cplusplus
 }
 #endif
@@ -108,7 +112,8 @@ public:
     float get_world_y();
     float get_yaw(); // 获取当前的yaw
     float calc_dis(Vector2D target);
-
+    void init_locate();
+    
     void stablize_swerve(); // 舵轮稳定状态
 
 private:
@@ -186,12 +191,14 @@ private:
     bool if_init_ok = false;
     bool if_enable_debug = false;
     uint32_t time_cnt = 0;
+    float last_robovel = 0.0f; float dt = 0.0f; float last_tick = 0.0f;
 
 public: // user类接口
     uint8_t set_CRobotVel(Vector2D robovel, uint8_t PriorityCode, chassis_user *user_);
     uint8_t set_CWorldVel(Vector2D worldvel, uint8_t PriorityCode, chassis_user *user_);
     uint8_t set_CRobotW(float w, uint8_t PriorityCode, chassis_user *user_);
     uint8_t yaw_Clock(uint8_t PriorityCode, chassis_user *user_);
+    uint8_t set_CRobotVel_ACCLE(Vector2D robovel, float accle, uint8_t PriorityCode, chassis_user *user_);
 
     uint8_t yaw_CTurnTo(float yaw, uint8_t PriorityCode, chassis_user *user_);
     uint8_t yaw_CTurnTo_speedplan(float yaw, uint8_t PriorityCode, chassis_user *user_);
@@ -216,6 +223,7 @@ public: // user类接口
     void swerve_stablize();
 
     void C_stablize();
+    void C_init_locate();
 };
 
 #endif

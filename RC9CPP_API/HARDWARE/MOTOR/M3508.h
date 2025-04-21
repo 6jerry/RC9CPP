@@ -116,7 +116,10 @@ public:
     void set_dis(float dis) override;
     void set_F(float F_) override;
     bool set_dis_speedplan(float targetdis, float max_speed, float max_acc, float max_dec, float finalspeed) override;
+    bool set_pos_speedplan(float target_angle_, float max_speed, float max_acc, float max_dec, float finalspeed) override;
+
     void dis_speedplan_restart() override;
+    void pos_speedplan_restart() override;
 
     void T_TO_C(); // 力矩转换为电流
 
@@ -128,7 +131,8 @@ public:
 
     pid distance_pid_control, angle_pid_control; // 位置式PID
 
-    TrapezoidalPlanner1D dis_speed_plan; // T型速度规划器
+    TrapezoidalPlanner1D dis_speed_plan;
+    TrapezoidalPlanner1D pos_speed_plan;
 
     void start_debug();
 };

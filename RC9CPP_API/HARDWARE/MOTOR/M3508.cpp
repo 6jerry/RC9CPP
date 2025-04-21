@@ -146,7 +146,20 @@ int16_t m3508p::distance_speedplan()
     }
 }
 
-//位置式PID串联增量式PID，控制角度输出值，返回电流控制值
+/* int16_t m3508p::angle_speedplan()
+{
+    if (abs(target_angle - pos_sum) < speed_plan_end_pos && pos_speed_plan.m_finalSpeed == 0.0f)
+    {
+        pos_speed_plan.reset();
+        return angle_pid();
+    }
+    else
+    {
+        target_rpm = pos_speed_plan.plan(pos_sum);
+        return increPID_speed();
+    }
+} */
+
 int16_t m3508p::angle_pid()
 {
 
@@ -213,6 +226,35 @@ void m3508p::set_pos(float pos)
 void m3508p::relocate_pos(float angle)
 {
     pos_sum = angle;
+}
+
+bool m3508p::set_pos_speedplan(float target_angle_, float max_speed, float max_acc, float max_dec, float finalspeed)
+{
+    if(pos_speed_plan.isFinished())
+    {
+        target_angle = target_angle_;
+        work_mode = m3508_angle_speedplan;
+
+        if(abs((float)rpm) > min_start_rpm && (target_angle - pos_sum) * (float)rpm > 0.0f)
+        {
+            pos_speed_plan.start_plan(max_acc, max_dec, max_speed, rpm/gear_ratio, finalspeed, pos_sum, target_angle_);
+            return true;
+        }
+        else
+        {
+            pos_speed_plan.start_plan(max_acc, max_dec, max_speed, min_start_rpm/gear_ratio, finalspeed, pos_sum, target_angle_);
+            return true;
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void m3508p::pos_speedplan_restart()
+{
+    pos_speed_plan.reset();
 }
 
 int16_t m3508p::pid_speed()

@@ -40,9 +40,6 @@ extern "C"
 #include "TaskManager.h"
 #include "RC9Protocol.h"
 
-#include "Action.h"
-#include "EncodingStateMachine.h"
-
 #ifdef __cplusplus
 }
 #endif
@@ -78,7 +75,7 @@ typedef struct
     bool btnRS;
     bool btnRS_last;
     bool btnDirUp;
-    bool btnDirup_last;
+    bool btnDirUp_last;
     bool btnDirLeft;
     bool btnDirLeft_last;
     bool btnDirRight;
@@ -229,7 +226,7 @@ public:
 
     ButtonConfig btnDirUpConfig = {
         &xbox_msgs.btnDirUp,
-        &xbox_msgs.btnDirup_last,
+        &xbox_msgs.btnDirUp_last,
         nullptr,
         1,
         ButtonActionType::Onlyread,
@@ -263,6 +260,22 @@ public:
     void joymap_compute();
     bool getButtonState(ButtonConfig &config);
 
+    virtual void btnRB_callback() {}
+    virtual void btnXBOX_callback() {}
+    virtual void btnLB_callback() {}
+    virtual void btnStart_callback() {}
+    virtual void btnShare_callback() {}
+    virtual void btnSelect_callback() {}
+    virtual void btnDirUp_callback() {}
+    virtual void btnDirLeft_callback() {}
+    virtual void btnDirRight_callback() {}
+    virtual void btnDirDown_callback() {}
+    virtual void btnLS_callback() {}
+    virtual void btnRS_callback() {}
+    virtual void btnA_callback() {}
+    virtual void btnB_callback() {}
+    virtual void btnX_callback() {}
+    virtual void btnY_callback() {}
 public:
     void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
 };
