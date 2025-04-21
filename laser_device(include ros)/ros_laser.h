@@ -27,6 +27,8 @@ public:
         float yaw_angle = 0.0f;
     } ros_laser_loaction;
 
+    float center_offset = 0.35;
+    float angle_offset = 0.0f; // 360 degrees
     float previous_world_pos_x = 0.0f;
     float previous_world_pos_y = 0.0f;
     float previous_yaw_angle = 0.0f;

@@ -24,6 +24,12 @@ void ros_laser::DataReceivedCallback(const uint8_t *byteData, const float *float
 }
 
 Vector2D ros_laser::get_world_pos(void){
+    //自旋变换
+    float theta = (angle_offset + ros_laser_loaction.yaw_angle) * 0.01745329252f;
+    float x_offset = center_offset * (1 - cos(theta));
+    float y_offset = -center_offset * sin(theta);
+    ros_laser_loaction.world_pos.x += x_offset;
+    ros_laser_loaction.world_pos.y += y_offset;
     return ros_laser_loaction.world_pos;
 }
 
@@ -36,5 +42,5 @@ float ros_laser::get_heading(void){
 }
 
 float ros_laser::get_yaw_rad(){
-	return ros_laser_loaction.yaw_angle / 180.0f * 3.1415926535897f;
+	return ros_laser_loaction.yaw_angle * 0.01745329252f;
 }
