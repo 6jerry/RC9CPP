@@ -66,13 +66,6 @@ void yun_ball_xbox::btnconfig_init()
         ButtonActionType::Increment,
         nullptr};
 
-    // btnDirRightConfig = {
-    //     &xbox_msgs.btnDirRight,
-    //     &xbox_msgs.btnDirRight_last,
-    //     &lifter_status,
-    //     9,
-    //     ButtonActionType::Decrement,
-    //     nullptr};
     btnShareConfig = {
         &xbox_msgs.btnShare,
         &xbox_msgs.btnShare_last,
@@ -92,7 +85,6 @@ void yun_ball_xbox::btn_scan()
     handleButton(btnDirUpConfig);
     handleButton(btnDirDownConfig);
     handleButton(btnDirLeftConfig);
-    // handleButton(btnDirRightConfig);
     handleButton(btnShareConfig);
 }
 
@@ -133,8 +125,6 @@ void yun_ball_xbox::process_data()
                 // auto_shooter->shooter_info.hand_pitcher_rpm = -(xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_pithcer_speed;
                 auto_shooter->set_shooter_mode(shooter_hand);
                 auto_shooter->shooter_info.hand_shooter_rpm = xbox_msgs.joyLVert_map * max_shooter_speed;
-                // float send_data[1] = {encoder->get_absolute_distance()};
-                // test_port->sendFloatData(1, send_data, 1);
             }
             // 自动模式
             else if (auto_mode == 1)
@@ -151,9 +141,9 @@ void yun_ball_xbox::process_data()
                         auto_flag = 1;
                     }
 
-                    if (auto_shooter->shooter_info.auto_status == 1)
+                    if (auto_shooter->shooter_info.auto_status)
                     {
-                        auto_shooter->shooter_info.auto_status = 0;
+                        auto_shooter->shooter_info.auto_status = false;
                         lifter_status = 0;
                         auto_flag = 0;
                     }

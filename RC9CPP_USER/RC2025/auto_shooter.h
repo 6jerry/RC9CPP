@@ -60,7 +60,7 @@ typedef struct shooterInfo
     float shoot_disdance = 0.0f;         // 从编码器获取的拉伸距离
     float shoot_pitch_angle = 0.0f;      // 从imu获取的俯仰角度
     autoMode shooter_status = auto_stop; // 自动射球状态
-    uint8_t auto_status = 0;
+    bool auto_status = false;
 };
 class AutoShooter : public ITaskProcessor
 {
@@ -100,6 +100,7 @@ public:
     void add_imu(Encoder *encoder_, wit_gyro *wit_imu_);
     void add_trigger(GPIO_TypeDef *stop_port_, uint8_t stop_pin_, GPIO_TypeDef *trigger_port_, uint16_t trigger_pin_, GPIO_TypeDef *shooter_port_, uint16_t shooter_pin_);
     void add_motor(power_motor *shooter_motor_, power_motor *pithcer_motor_);
+    void add_plan_info(float max_acc_, float max_dcc_, float max_speed_, float inital_speed_, float final_speed_);
 
     void pitcher_adjust(float pitch_angle);
     bool auto_adjust(float lifter_distance);

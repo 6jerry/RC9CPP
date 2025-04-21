@@ -6,11 +6,6 @@
  */
 AutoShooter::AutoShooter()
 {
-    plan_info.max_acc = 400.0f;
-    plan_info.max_dcc = 400.0f;
-    plan_info.max_speed = 1200.0f;
-    plan_info.inital_speed = 200.0f;
-    plan_info.final_speed = 200.0f;
 }
 void AutoShooter::process_data()
 {
@@ -43,23 +38,23 @@ void AutoShooter::process_data()
         break;
     }
 
-    switch (pitcher_mode)
-    {
-    case pitcher_stop:
-        pitcher_motor->set_rpm(0.0f);
-        break;
-    case pitcher_inital:
-        pitcher_adjust(inital_angle);
-        break;
-    case pitcher_inside:
-        pitcher_adjust(inside_angle);
-        break;
-    case pitcher_hand:
-        pitcher_motor->set_rpm(shooter_info.hand_pitcher_rpm);
-        break;
-    default:
-        break;
-    }
+    // switch (pitcher_mode)
+    // {
+    // case pitcher_stop:
+    //     pitcher_motor->set_rpm(0.0f);
+    //     break;
+    // case pitcher_inital:
+    //     pitcher_adjust(inital_angle);
+    //     break;
+    // case pitcher_inside:
+    //     pitcher_adjust(inside_angle);
+    //     break;
+    // case pitcher_hand:
+    //     pitcher_motor->set_rpm(shooter_info.hand_pitcher_rpm);
+    //     break;
+    // default:
+    //     break;
+    // }
 
     // 检查扳机
     check_trigger();
@@ -88,18 +83,18 @@ void AutoShooter::hand_adjust()
 {
 
     // 棘轮锁住后，电机无法动
-    if (trigger_flag == 0)
+    if (trigger_flag == 1)
     {
-        shooter_motor->set_rpm(shooter_info.hand_shooter_rpm);
+        shooter_info.hand_shooter_rpm = 0.0f;
     }
 
     // 触发光电门
-    //    if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
-    //    {
-    //        shooter_motor->set_rpm(0.0f);
-    //    }
-    //	test_flag = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_4);
-    // test_flag = HAL_GPIO_ReadPin(stop_port, stop_pin);
+    // if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
+    // {
+    //     shooter_info.hand_shooter_rpm = 0.0f;
+    // }
+
+    shooter_motor->set_rpm(shooter_info.hand_shooter_rpm);
 }
 
 void AutoShooter::allAuto_adjust(float lifter_distance)
@@ -135,7 +130,7 @@ void AutoShooter::allAuto_adjust(float lifter_distance)
     case auto_revert:
         if (auto_adjust(dis_data[0]))
         {
-            shooter_info.auto_status = 1;
+            shooter_info.auto_status = true;
             shooter_info.shooter_status = auto_stop;
         }
 
@@ -185,7 +180,6 @@ bool AutoShooter::auto_adjust(float lifter_distance)
     // 到达终点锁住
     if (shooter_info.shoot_disdance > lifter_distance - 0.003f && shooter_info.shoot_disdance < lifter_distance + 0.003f)
     {
-
         plan_flag = 0;
         return true;
     }
@@ -212,6 +206,15 @@ void AutoShooter::add_motor(power_motor *shooter_motor_, power_motor *pithcer_mo
     pitcher_motor = pithcer_motor_;
 }
 
+void AutoShooter::add_plan_info(float max_acc_, float max_dcc_, float max_speed_, float inital_speed_, float final_speed_)
+{
+
+    plan_info.max_acc = max_acc_;
+    plan_info.max_dcc = max_dcc_;
+    plan_info.max_speed = max_speed_;
+    plan_info.inital_speed = inital_speed_;
+    plan_info.final_speed = final_speed_;
+}
 // 获取拉伸距离和俯仰角度
 void AutoShooter::get_data()
 {
