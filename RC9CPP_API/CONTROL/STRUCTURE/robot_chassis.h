@@ -25,7 +25,7 @@ enum RoboChassisType
     custom_chassis,
     omni4_chassis,
     swerve3_chassis,
-    swerve4_chassis, // 四舵轮
+    swerve4_chassis,//四舵轮，在scanphtogate使用了枚举的整型值判断，不得改变此处排序
     mecanum_chassis
 };
 
@@ -81,7 +81,7 @@ typedef struct chassis_target
     Vector2D pppoint[2];
 };
 
-class RoboChassis;
+class RoboChassis; // 前向声明
 class chassis_user
 {
 public:
@@ -97,26 +97,22 @@ public:
     uint8_t move_through(Vector2D new_points[], uint8_t length, uint8_t PriorityCode);
 
     void pp_track_point(Vector2D target_p);
-
     void rst_state();
-
     uint8_t get_track_dis(float *dis); // 看看追踪还剩多少
 
-    float get_yaw(); // 获取当前的yaw
-    float calc_dis(Vector2D target);
     void chassis_back_priority(); // 回退到上一个优先级
     void chassis_rst_priority();  // 重置优先级
 
     void add_chassis(RoboChassis *chassis_); // 加入底盘
     float get_world_x();
     float get_world_y();
+    float get_yaw(); // 获取当前的yaw
+    float calc_dis(Vector2D target);
 
-    void stablize_swerve(); // 稳定四舵轮
+    void stablize_swerve(); // 舵轮稳定状态
 
 private:
     RoboChassis *robochassis_ = nullptr;
-
-public:
 };
 
 class RoboChassis : public ITaskProcessor, public RC9subscriber
@@ -124,26 +120,49 @@ class RoboChassis : public ITaskProcessor, public RC9subscriber
 
 public:
     void process_data();
+    float yawadjuster_process();
+
     RoboChassis(RoboChassisType type_);
     void config(chassis_info info_);
     void add_imu(imu *imu_);
-    void add4_motors(power_motor *front_left_motor, power_motor *front_right_motor, power_motor *back_right_motor, power_motor *back_left_motor);
-    void add_3_motors(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor);
+    void enable_debug();
 
+    // 关于追踪
+    pure_pursuit pp_tracker;
+    pointrack pointtracker;
+    yaw_adjuster yawadjuster;
     void pointtrack_config(float kp, float ki, float kd, float integral_limit, float output_limit, float deadzone, float integral_separation_threshold);
-
     void yawadjuster_config(float kp, float ki, float kd, float integral_limit, float output_limit, float deadzone, float integral_separation_threshold);
-    
+
+    // 全向轮初始化
+    void add_4_motors(power_motor *front_left_motor, power_motor *front_right_motor, power_motor *back_right_motor, power_motor *back_left_motor);
+    void add_3_motors(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor);
+   
+    // 三舵轮初始化
     void add_3_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3);
     void add_3_correction_angle(int8_t front_angle, int8_t right_angle, int8_t left_angle);
     void add_6_motors(power_motor *front_d_motor, power_motor *front_motor, power_motor *right_d_motor, power_motor *right_motor, power_motor *left_d_motor, power_motor *left_motor);
-
+    
+    // 四舵轮初始化
     void add_4_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3, GPIO_TypeDef *port4, uint16_t pin4);
     void add_4_correction_angle(int8_t frontL_angle, int8_t frontR_angle, int8_t backL_angle, int8_t backR_angle);
     void add_8_motors(power_motor *frontL_d_motor, power_motor *frontL_motor, power_motor *frontR_d_motor, power_motor *frontR_motor, power_motor *backL_d_motor, power_motor *backL_motor, power_motor *backR_d_motor, power_motor *backR_motor);
     
-    void enable_debug();
+    // 扫描光电开关
+    void scan_photogate();
 
+    Vector2D worldv_2_robov(Vector2D worldvel);
+    float v_2_rpm(float v);
+
+    void chassis_calc(Vector2D robovel, float w);
+    void mecanum_calc(Vector2D robovel, float w);
+    // void swerve4_calc(Vector2D robovel, float w);
+    void swerve3_calc(Vector2D robovel, float w);
+
+    void chassis_initialize();
+    void swerve3_initialize();
+
+    bool priority_judge(uint8_t PriorityCode, chassis_user *user_, chassis_cmd_type cmd_type); // 优先级仲裁 暂未使用
 private:
     chassis_user *user = nullptr; // 当前是哪个类正在使用底盘
     RoboChassisType type = omni3_chassis;
@@ -157,49 +176,18 @@ private:
     power_motor *motors[4] = {nullptr};
     power_motor *dmotors[4] = {nullptr};
 
-    float dmotor_locate_angles[4] = {0.0f};
-
+    //舵轮校准所需变量
     GPIO_TypeDef *photogate_port[4] = {nullptr};
     uint16_t photogate_pin[4] = {0};
-    uint8_t photogate_state[4] = {0}; // 前轮，右轮，左轮
-    int8_t correction_angle[4] = {0};  
-
+    uint8_t photogate_state[4] = {0};
+    int8_t correction_angle[4] = {0};
     bool if_not_init[4] = {true, true, true, true};
 
     bool if_init_ok = false;
-
     bool if_enable_debug = false;
-
     uint32_t time_cnt = 0;
 
-public:
-    pointrack pointtracker;
-    // pure_pursuit purepursuiter;
-    yaw_adjuster yawadjuster;
-
-    pure_pursuit pp_tracker;
-
-    void scan_photogate();
-
-    float yawadjuster_process();
-
-    void chassis_calc(Vector2D robovel, float w);
-    Vector2D worldv_2_robov(Vector2D worldvel);
-
-    void mecanum_calc(Vector2D robovel, float w);
-    // void swerve4_calc(Vector2D robovel, float w);
-
-    void chassis_initialize();
-
-    void swerve3_initialize();
-
-    void swerve3_calc(Vector2D robovel, float w);
-
-    float v_2_rpm(float v);
-
-    bool priority_judge(uint8_t PriorityCode, chassis_user *user_, chassis_cmd_type cmd_type); // 优先级仲裁
-
-public:
+public: // user类接口
     uint8_t set_CRobotVel(Vector2D robovel, uint8_t PriorityCode, chassis_user *user_);
     uint8_t set_CWorldVel(Vector2D worldvel, uint8_t PriorityCode, chassis_user *user_);
     uint8_t set_CRobotW(float w, uint8_t PriorityCode, chassis_user *user_);
@@ -210,8 +198,7 @@ public:
     uint8_t Cmove_to(Vector2D target_p, uint8_t PriorityCode, chassis_user *user_);
     float C_calc_dis(Vector2D target);
     uint8_t Cmove_to_speedplan(Vector2D target, uint8_t PriorityCode, chassis_user *user_);
-
-    uint8_t get_track_disC(float *dis); // 看看追踪还剩多少
+    uint8_t Cget_track_dis(float *dis); // 看看追踪还剩多少
 
     void chassis_back_priorityC(); // 回退到上一个优先级
     void chassis_rst_priorityC();  // 重置优先级

@@ -51,13 +51,13 @@ void RoboChassis::process_data()
 
 void RoboChassis::swerve_stablize()
 {
-    if (type == 3)
+    if (type == swerve3_chassis)
     {
-        dmotors[0]->set_pos(0.0f);
+        dmotors[0]->set_pos(90.0f);
         dmotors[1]->set_pos(-45.0f);
         dmotors[2]->set_pos(45.0f);
     }
-    else if (type == 4)
+    else if (type == swerve4_chassis)
     {
         dmotors[0]->set_pos(45.0f);
         dmotors[1]->set_pos(-45.0f);
@@ -151,16 +151,23 @@ void RoboChassis::chassis_initialize()
     }
 }
 
-void RoboChassis::swerve3_initialize() {
+void RoboChassis::swerve3_initialize()
+{
     static bool initial_spin_done = false;
     static uint16_t initial_spin_counter = 0;
 
-    if (!initial_spin_done) {
-        if (++initial_spin_counter >= 100) {
+    if (!initial_spin_done)
+    {
+        if (++initial_spin_counter >= 100)
+        {
             initial_spin_done = true;
-        } else {
-            for (int i = 0; i < 3; i++) {
-                if (dmotors[i]) dmotors[i]->set_rpm(5.0f);
+        }
+        else
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (dmotors[i])
+                    dmotors[i]->set_rpm(5.0f);
             }
             return;
         }
@@ -169,25 +176,35 @@ void RoboChassis::swerve3_initialize() {
     scan_photogate();
     bool all_homed = true;
 
-    for (int i = 0; i < 3; i++) {
-        if (!dmotors[i]) continue;
-        
-        if (if_not_init[i]) {
+    for (int i = 0; i < 3; i++)
+    {
+        if (!dmotors[i])
+            continue;
+
+        if (if_not_init[i])
+        {
             all_homed = false;
-            if (photogate_state[i]) {
+            if (photogate_state[i])
+            {
                 dmotors[i]->relocate_pos(correction_angle[i]);
                 dmotors[i]->set_pos(0.0f);
                 if_not_init[i] = false;
-            } else {
+            }
+            else
+            {
                 dmotors[i]->set_rpm(5.0f);
             }
-        } else {
+        }
+        else
+        {
             dmotors[i]->set_pos(0.0f);
         }
     }
 
-    if (all_homed) {
-        if (++time_cnt > 150) {
+    if (all_homed)
+    {
+        if (++time_cnt > 150)
+        {
             mode = stop;
             if_init_ok = true;
             time_cnt = 0;
@@ -494,12 +511,18 @@ void RoboChassis::add_imu(imu *imu_)
 {
     IMU = imu_;
 }
-void RoboChassis::add4_motors(power_motor *front_left_motor, power_motor *front_right_motor, power_motor *back_right_motor, power_motor *back_left_motor)
+void RoboChassis::add_4_motors(power_motor *front_left_motor, power_motor *front_right_motor, power_motor *back_right_motor, power_motor *back_left_motor)
 {
     motors[0] = front_left_motor;
     motors[1] = front_right_motor;
     motors[2] = back_right_motor;
     motors[3] = back_left_motor;
+}
+void RoboChassis::add_3_motors(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor)
+{
+    motors[0] = front_motor;
+    motors[1] = right_motor;
+    motors[2] = left_motor;
 }
 
 void RoboChassis::chassis_back_priorityC()
