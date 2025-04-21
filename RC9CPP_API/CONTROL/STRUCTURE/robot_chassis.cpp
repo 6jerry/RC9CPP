@@ -545,7 +545,7 @@ void RoboChassis::C_pp_track_point(Vector2D target_p)
 {
     if (mode != ppp_track)
     {
-        pp_tracker.pp_start_plan(IMU->get_world_pos(), target_p);
+        pp_tracker.pp_start_plan(IMU->get_world_pos(), target_p, target.target_robovel);
         mode = ppp_track;
     }
 }

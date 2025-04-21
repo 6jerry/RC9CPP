@@ -40,7 +40,7 @@ void pure_pursuit::purepusit_dir_control()
 {
     if (trapezoidal_planner.isFinished())
     {
-        trapezoidal_planner.start_plan(0.8f,0.8f,2.0f,0.5f,0.0f,tangent_dis,0.0f);
+        trapezoidal_planner.start_plan(1.0f,1.0f,3.0f,now_vel.magnitude(),0.0f,tangent_dis,0.0f);
     }
 
     float nor_speed = normal_control.PID_ComputeError(normal_dis); // 法向纠偏速度的大小
@@ -159,7 +159,7 @@ void pure_pursuit::pp_refresh_points()
     state = pp_standby;
 }
 
-void pure_pursuit::pp_start_plan(Vector2D start_point, Vector2D end_point)
+void pure_pursuit::pp_start_plan(Vector2D start_point, Vector2D end_point, Vector2D now_robvel)
 {
 
     if (state == pp_standby)
@@ -168,14 +168,16 @@ void pure_pursuit::pp_start_plan(Vector2D start_point, Vector2D end_point)
         tail = end_point;
         target_line_initpoint = tail;
         target_line = head - tail;
+        now_vel = now_robvel;
         state = pp_tracking;
-        nor_mode = dircontrol;  //选择轨迹规划控制方式
+        nor_mode = dircontrol;  //选择轨迹规划控制方式   如果不用梯形规划就改成normalcontrol
     }
 }
 
 void pure_pursuit::pp_rst_plan()
 {
     state = pp_standby;
+    trapezoidal_planner.reset();  // 重置梯形规划
 }
 
 Vector2D pointrack::track(Vector2D now_pos_, Vector2D target_point_)
