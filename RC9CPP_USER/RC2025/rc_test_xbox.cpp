@@ -125,7 +125,7 @@ void yun_ball_xbox::process_data()
             {
                 auto_shooter->trigger_flag = trigger_start;
                 auto_shooter->shooter_flag = shooter_trigger;
-
+            if (yun_trigger == 1)
                 HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_SET);
             }
             else if (yun_trigger == 0)
@@ -160,7 +160,7 @@ void yun_ball_xbox::process_data()
                         auto_shooter->set_allAuto(lifter_status - 1);
                         auto_flag = 1;
                     }
-                }
+                
 
                     if (auto_shooter->shooter_info.auto_status)
                     {
