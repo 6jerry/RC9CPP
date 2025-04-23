@@ -263,14 +263,18 @@ void auto_yunball::test_init()
 {
             lift_motor->dis_speedplan_restart();
             workmode = yunball_test_throw;
+						last_tick_2 = HAL_GetTick();
 }
 
 void auto_yunball::test_throw()
 {
     claw_open();
-    push_close();
-    last_tick = HAL_GetTick();
-    workmode = yunball_test_catch;
+		if(HAL_GetTick() - last_tick_2 >= 50)
+		{
+			push_close();
+			last_tick = HAL_GetTick();
+			workmode = yunball_test_catch;
+		}
 }
 
 void auto_yunball::test_catch()
