@@ -42,7 +42,7 @@ typedef struct chassisInfo
 class serialStudio : public RC9subscriber, public ITaskProcessor
 {
 public:
-    serial_studio();
+    serialStudio();
     void add_upper_info(power_motor *shooter_motor_, power_motor *lifter_motor_, power_motor *turner_motor_,
                         Encoder *encoder_, wit_gyro *wit_imu_);
     void process_data();

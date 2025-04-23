@@ -99,7 +99,7 @@ void AutoShooter::hand_adjust()
     //        shooter_motor->set_rpm(0.0f);
     //    }
     //	test_flag = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_4);
-    // test_flag = HAL_GPIO_ReadPin(stop_port, stop_pin);
+     test_flag = HAL_GPIO_ReadPin(stop_port, stop_pin);
 }
 
 void AutoShooter::allAuto_adjust(float lifter_distance)
