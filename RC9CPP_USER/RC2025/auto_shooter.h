@@ -20,7 +20,7 @@ enum autoMode
     auto_lift,   // 拉伸状态
     auto_shoot,  // 发射状态
     auto_revert, // 复位状态
-    auto_stop,   // 停止状态
+    auto_finish, // 停止状态
 
 };
 enum shooterMode
@@ -60,7 +60,6 @@ typedef struct shooterInfo
     float shoot_disdance = 0.0f;         // 从编码器获取的拉伸距离
     float shoot_pitch_angle = 0.0f;      // 从imu获取的俯仰角度
     autoMode shooter_status = auto_stop; // 自动射球状态
-    bool auto_status = false;
 };
 class AutoShooter : public ITaskProcessor
 {
@@ -81,7 +80,6 @@ private:
     uint16_t trigger_pin = 0, shooter_pin = 0, stop_pin = 0;
 
     TrapezoidalPlanner1D planer;
-    uint8_t plan_flag = 0;
     planInfo plan_info;
     float dis_data[9] = {0.01f, 0.1968f, 0.1958f, 0.2190f, 0.2337f, 0.228f, 0.172f, 0.1800f, 0.2211f};
     float lidar_data[9] = {0.020f, 0.1998f, 0.1948f, 0.1937f, 0.1937f, 0.1877f, 0.2420f, 0.2420f, 0.2211f};
@@ -105,7 +103,7 @@ public:
     bool auto_adjust(float lifter_distance);
     void allAuto_adjust(float lifter_distance);
     void hand_adjust();
-
+    bool isfinish();
     void check_trigger();
     void check_shooter();
 
