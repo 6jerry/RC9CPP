@@ -173,13 +173,31 @@ void yun_ball_xbox::process_data()
         }
         else if (shoot_yunball == 1)
         {
-            if (yun_trigger == 1)
-            {
-                yunball->start_multi_yun();
+            if(auto_mode == 1){
+                if (yun_trigger == 1)
+                {
+                    yunball->start_test_yun();
+                    yun_trigger = 0;
+                }
+								turn_motor->set_rpm(0.0f);
             }
-            else if (yun_trigger == 0)
+            else
             {
-                yunball->stop();
+                if(trigger_start == 1)
+                {
+                    yunball->lift_reset();
+                    trigger_start = 0;
+                }
+                if (yun_trigger == 1)
+                {
+                    HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_SET);
+                }
+                else if (yun_trigger == 0)
+                {
+                    HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_RESET);
+                }
+                    lifter_motor->set_rpm(xbox_msgs.joyRVert_map * max_lifter_speed);
+                    turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);               
             }
         }
     }
