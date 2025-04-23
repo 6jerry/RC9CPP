@@ -54,7 +54,7 @@ private:
 
     uint8_t locate_flag = 1, ball_flag = 1;
 
-    uint32_t last_tick = 0;
+    uint32_t last_tick = 0, last_tick_2;
 		float delay_tick = 600.0;
 
     float catch_ball_dis = 360.0f, throw_ball_dis = 798.0f;
@@ -82,7 +82,7 @@ private:
 
     uint8_t turn_motor_reset();
 
-    uint32_t time_cnt = 0, time_flag = 0;;
+    uint32_t time_cnt = 0, time_flag = 0;
 
 public:
     void
