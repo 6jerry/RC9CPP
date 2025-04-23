@@ -59,7 +59,7 @@ typedef struct shooterInfo
     float debug_dis = 0.013f;            // 调试模式下调试距离
     float shoot_disdance = 0.0f;         // 从编码器获取的拉伸距离
     float shoot_pitch_angle = 0.0f;      // 从imu获取的俯仰角度
-    autoMode shooter_status = auto_stop; // 自动射球状态
+    autoMode shooter_status = auto_finish; // 自动射球状态
 };
 class AutoShooter : public ITaskProcessor
 {
