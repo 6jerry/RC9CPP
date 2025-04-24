@@ -172,10 +172,6 @@ bool AutoShooter::auto_adjust(float lifter_distance)
     // 到达终点锁住
     if (shooter_info.shoot_disdance > lifter_distance - 0.003f && shooter_info.shoot_disdance < lifter_distance + 0.003f)
     {
-<<<<<<< HEAD
-        == == == =
-                     plan_flag = 0;
->>>>>>> d8cf8accca17dd52d72f11861ef603731ba9d4d0
         return true;
     }
 
