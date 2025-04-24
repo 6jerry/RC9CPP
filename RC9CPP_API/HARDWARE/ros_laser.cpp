@@ -9,10 +9,19 @@ void ros_laser::DataReceivedCallback(const uint8_t *byteData, const float *float
     }
     static float max_change = 4.0f;
     if(fabs(ros_laser_loaction.world_pos.x - previous_world_pos_x) > max_change){
-        ros_laser_loaction.world_pos.x = previous_world_pos_x;
+			if((ros_laser_loaction.world_pos.x - previous_world_pos_x) > 0){
+				ros_laser_loaction.world_pos.x = previous_world_pos_x + max_change / 2;
+			}else{
+				ros_laser_loaction.world_pos.x = previous_world_pos_x - max_change / 2;
+			}
+        
     }
     else if(fabs(ros_laser_loaction.world_pos.y - previous_world_pos_y) > max_change){
-        ros_laser_loaction.world_pos.y = previous_world_pos_y;
+			if((ros_laser_loaction.world_pos.y - previous_world_pos_y) > 0){
+       	 ros_laser_loaction.world_pos.y = previous_world_pos_y + max_change / 2;		
+			}else{
+				 ros_laser_loaction.world_pos.y = previous_world_pos_y - max_change / 2;		
+			}
     }
     // 更新上次变量
     previous_world_pos_x = ros_laser_loaction.world_pos.x;
@@ -22,7 +31,9 @@ void ros_laser::DataReceivedCallback(const uint8_t *byteData, const float *float
 }
 
 Vector2D ros_laser::get_world_pos(void){
-    return ros_laser_loaction.world_pos;
+		to_action_world_pos.x = ros_laser_loaction.world_pos.x - (1-cos((ros_laser_loaction.yaw_angle+theta) / 180.0f * 3.1415926535897f)) * r;
+		to_action_world_pos.y = ros_laser_loaction.world_pos.y - sin((ros_laser_loaction.yaw_angle+theta) / 180.0f * 3.1415926535897f) * r;
+    return to_action_world_pos;
 }
 
 // float ros_laser::get_yaw_angle(void){

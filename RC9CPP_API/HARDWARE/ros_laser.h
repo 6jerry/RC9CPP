@@ -26,7 +26,10 @@ public:
         Vector2D world_pos;
         float yaw_angle = 0.0f;
     } ros_laser_loaction;
-
+		
+		float r = 0.35f;
+		float theta = 0.03f;
+		Vector2D to_action_world_pos;
     float previous_world_pos_x = 0.0f;
     float previous_world_pos_y = 0.0f;
     float previous_yaw_angle = 0.0f;
