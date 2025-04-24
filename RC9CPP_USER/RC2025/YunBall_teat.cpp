@@ -2,7 +2,7 @@
 
 TaskManager task_core;
 CanManager can_core;
-RC9Protocol esp_port(uart, &huart2), debug_port(uart, &huart5);
+RC9Protocol esp_port(uart, &huart3), debug_port(uart, &huart5);
 AutoShooter autoshooter;
 
 // 编码器
@@ -65,7 +65,7 @@ extern "C"
         can_core.init();
         lifter.config_mech_param(19.2032f, 35.0f);
         autoshooter.add_imu(&encoder, &wit_imu);
-        // PD7 夹爪 PG10 射球 PG11气阀 PF2 棘轮
+        // PD7 夹爪 PG10 射球 PG11气阀 PE2 棘轮
         autoshooter.add_trigger(GPIOF, GPIO_PIN_4, GPIOE, GPIO_PIN_2, GPIOG, GPIO_PIN_10);
         autoshooter.add_motor(&m8080, &pithcer);
         autoshooter.add_plan_info(400.0f, 400.0f, 1200.0f, 200.0f, 200.0f);
@@ -85,6 +85,23 @@ extern "C"
         task_core.registerTask(6, &yunball_core);
         task_core.registerTask(8, &test_port);
         task_core.registerTask(9, &debug_port);
+        m8080.rpm_control.config_all(230.0f, 2.2f, 486.0f, 0.0f, 50000.0f, 6.0f);
+
+        osKernelStart();
+    }
+		
+		   void test_setup(void)
+    {
+        esp_port.startUartReceiveIT();
+
+        debug_port.initQueue();    
+        can_core.init();
+
+        xbox_test.addport(&esp_port);
+
+        task_core.registerTask(0, &can_core);
+        task_core.registerTask(3, &xbox_test);
+
         m8080.rpm_control.config_all(230.0f, 2.2f, 486.0f, 0.0f, 50000.0f, 6.0f);
 
         osKernelStart();

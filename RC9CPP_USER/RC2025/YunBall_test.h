@@ -20,7 +20,7 @@ extern "C"
 #include "serial_studio.h"
     void yunball_test_setup(void);
     void auto_shooter_setup(void);
-
+    void test_setup(void);
 #ifdef __cplusplus
 }
 #endif

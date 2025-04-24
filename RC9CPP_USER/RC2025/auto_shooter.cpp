@@ -25,7 +25,7 @@ void AutoShooter::process_data()
         break;
     case shooter_allAuto:
 
-        allAuto_adjust(shooter_info.shoot_dis);
+        allAuto_adjust();
         break;
     case shooter_debug:
         // 隐藏模式：
@@ -97,13 +97,13 @@ void AutoShooter::hand_adjust()
     shooter_motor->set_rpm(shooter_info.hand_shooter_rpm);
 }
 
-void AutoShooter::allAuto_adjust(float lifter_distance)
+void AutoShooter::allAuto_adjust()
 {
 
     switch (shooter_info.shooter_status)
     {
     case auto_lift:
-        if (auto_adjust(lifter_distance))
+        if (auto_adjust(shooter_info.shoot_dis))
         {
 
             shooter_info.shooter_status = auto_shoot;
@@ -117,25 +117,24 @@ void AutoShooter::allAuto_adjust(float lifter_distance)
         if (timecnt > 5)
         {
             shooter_flag = 1;
-            if (timecnt > 20)
+            if (timecnt > 15)
             {
                 timecnt = 0;
                 shooter_info.shooter_status = auto_revert;
-                trigger_flag = 0;
-                shooter_flag = 0;
+                // trigger_flag = 0;
+                // shooter_flag = 0;
             }
         }
 
         break;
     case auto_revert:
-        if (auto_adjust(dis_data[0]))
+        if (auto_adjust(0.017f))
         {
-            shooter_info.auto_status = true;
-            shooter_info.shooter_status = auto_stop;
+            shooter_info.shooter_status = auto_finish;
         }
 
         break;
-    case auto_stop:
+    case auto_finish:
         shooter_motor->set_rpm(0.0f);
         break;
     default:
@@ -147,26 +146,19 @@ bool AutoShooter::auto_adjust(float lifter_distance)
 
     if (trigger_flag == 1)
     {
-        trigger_flag == 0;
+        trigger_flag = 0;
     }
 
     if (shooter_flag == 1)
     {
-
-        shooter_flag == 0;
+        shooter_flag = 0;
     }
     // 使用梯形规划
-    if (plan_flag == 0)
+    if (planer.isFinished())
     {
-
-        planer.start_plan(plan_info.max_acc,
-                          plan_info.max_dcc,
-                          plan_info.max_speed,
-                          plan_info.inital_speed,
-                          plan_info.final_speed,
-                          shooter_info.shoot_disdance * 36000,
-                          lifter_distance * 36000);
-        plan_flag = 1;
+        planer.start_plan(plan_info.max_acc, plan_info.max_dcc,
+                          plan_info.max_speed, plan_info.inital_speed, plan_info.final_speed,
+                          shooter_info.shoot_disdance * 36000, lifter_distance * 36000);
     }
 
     shooter_motor->set_rpm(-planer.plan(shooter_info.shoot_disdance * 36000));
@@ -180,7 +172,6 @@ bool AutoShooter::auto_adjust(float lifter_distance)
     // 到达终点锁住
     if (shooter_info.shoot_disdance > lifter_distance - 0.003f && shooter_info.shoot_disdance < lifter_distance + 0.003f)
     {
-        plan_flag = 0;
         return true;
     }
 
@@ -227,6 +218,11 @@ void AutoShooter::get_data()
 uint32_t AutoShooter::Read_GPIO_State(void)
 {
     return HAL_GPIO_ReadPin(stop_port, stop_pin);
+}
+
+bool AutoShooter::isfinish()
+{
+    return shooter_info.shooter_status == auto_finish;
 }
 
 void AutoShooter::check_trigger()

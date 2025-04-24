@@ -141,9 +141,8 @@ void yun_ball_xbox::process_data()
                         auto_flag = 1;
                     }
 
-                    if (auto_shooter->shooter_info.auto_status)
+                    if (auto_shooter->isfinish())
                     {
-                        auto_shooter->shooter_info.auto_status = false;
                         lifter_status = 0;
                         auto_flag = 0;
                     }

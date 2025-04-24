@@ -30,9 +30,7 @@ enum yunball_mode
     yunball_move_2_throw_point,
     yunball_move_2_turn_point,
     yunball_turn_2_throw_point,
-    yunball_turn_back,
-    yunball_lift_motor_reset,
-    yunball_turn_motor_reset
+    yunball_turn_back
 };
 
 class auto_yunball : public ITaskProcessor
@@ -66,10 +64,6 @@ private:
 
     void turn_back();
 
-    uint8_t lift_motor_reset();
-
-    uint8_t turn_motor_reset();
-
     uint32_t time_cnt = 0, time_flag = 0;;
 
 public:
@@ -81,9 +75,8 @@ public:
     void add_io(GPIO_TypeDef *locate_sensor_port_, uint16_t locate_sensor_pin_, GPIO_TypeDef *ball_sensor_port_, uint16_t ball_sensor_pin_, GPIO_TypeDef *claw_port_, uint16_t claw_pin_);
 
     void start_multi_yun();
+
     void stop();
-    void lift_reset();
-    void turn_reset();
 };
 
 class auto_yunball_xbox : public xbox_debug_base
