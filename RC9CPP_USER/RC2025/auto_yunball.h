@@ -30,14 +30,20 @@ enum yunball_mode
     yunball_move_2_throw_point,
     yunball_move_2_turn_point,
     yunball_turn_2_throw_point,
-    yunball_turn_back
+    yunball_turn_back,
+    yunball_lift_motor_reset,
+    yunball_turn_motor_reset,
+
+    yunball_test_init,
+    yunball_test_throw,
+    yunball_test_catch
 };
 
 class auto_yunball : public ITaskProcessor
 {
 private:
-    GPIO_TypeDef *locate_sensor_port = nullptr, *ball_sensor_port = nullptr, *claw_port = nullptr;
-    uint16_t locate_sensor_pin = 0, ball_sensor_pin = 0, claw_pin = 0;
+    GPIO_TypeDef *locate_sensor_port = nullptr, *ball_sensor_port = nullptr, *claw_port = nullptr, *push_port = nullptr;
+    uint16_t locate_sensor_pin = 0, ball_sensor_pin = 0, claw_pin = 0, push_pin = 0;
 
     power_motor *lift_motor = nullptr;
     power_motor *turn_motor = nullptr;
@@ -46,6 +52,9 @@ private:
     void scan_sensor();
 
     uint8_t locate_flag = 1, ball_flag = 1;
+
+    uint32_t last_tick = 0, last_tick_2;
+    float delay_tick = 600.0;
 
     float catch_ball_dis = 360.0f, throw_ball_dis = 798.0f;
 
@@ -64,35 +73,32 @@ private:
 
     void turn_back();
 
-    uint32_t time_cnt = 0, time_flag = 0;;
+    void test_init();
+    void test_throw();
+    void test_catch();
+
+    uint8_t lift_motor_reset();
+
+    uint8_t turn_motor_reset();
+
+    uint32_t time_cnt = 0, time_flag = 0;
 
 public:
     void
     process_data();
     void claw_open();
     void claw_close();
+    void push_open();
+    void push_close();
     void add_motor(power_motor *lift_motor_, power_motor *turn_motor_);
-    void add_io(GPIO_TypeDef *locate_sensor_port_, uint16_t locate_sensor_pin_, GPIO_TypeDef *ball_sensor_port_, uint16_t ball_sensor_pin_, GPIO_TypeDef *claw_port_, uint16_t claw_pin_);
+    void add_io(GPIO_TypeDef *locate_sensor_port_, uint16_t locate_sensor_pin_, GPIO_TypeDef *ball_sensor_port_, uint16_t ball_sensor_pin_, GPIO_TypeDef *claw_port_, uint16_t claw_pin_, GPIO_TypeDef *push_port_, uint16_t push_pin_);
 
     void start_multi_yun();
 
     void stop();
-};
-
-class auto_yunball_xbox : public xbox_debug_base
-{
-private:
-    auto_yunball *yunball = nullptr;
-    power_motor *lifter_motor = nullptr;
-
-public:
-    void not_start() override;
-
-    void mode_2() override;
-    void mode_3() override;
-
-    void add_yunball(auto_yunball *yunball_);
-    void add_lifter(power_motor *lifter_motor_);
+    void start_test_yun();
+    void lift_reset();
+    void turn_reset();
 };
 
 #endif

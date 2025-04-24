@@ -301,12 +301,12 @@ void chassis_adjust_xbox::not_start()
 
 void chassis_adjust_xbox::mode_2()
 {
-    Vector2D tvel_((1.0f * xbox_msgs.joyLHori_map), (1.0f * xbox_msgs.joyLVert_map));
+    Vector2D tvel_((3.0f * xbox_msgs.joyLHori_map), (3.0f * xbox_msgs.joyLVert_map));
 
     test_dis = calc_dis(Vector2D(0.0f, 0.0f));
 
     set_RobotVel(tvel_, 0);
-    set_RobotW(-(5.0f * xbox_msgs.joyRHori_map), 0);
+    set_RobotW(-(1.5f * xbox_msgs.joyRHori_map), 0);
     rst_state();
 }
 

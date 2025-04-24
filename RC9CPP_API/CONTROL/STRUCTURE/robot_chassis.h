@@ -1,6 +1,9 @@
 #ifndef ROBOT_CHASSIS_H
 #define ROBOT_CHASSIS_H
 
+//舵轮底盘加速度开启
+#define USE_VEL_ACCEL 1
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -13,6 +16,7 @@ extern "C"
 #include <arm_math.h>
 #include "gpio.h"
 #include "RC9Protocol.h"
+#include "TrapezoidalPlanner.h"
 #ifdef __cplusplus
 }
 #endif
@@ -169,6 +173,8 @@ private:
 
     uint32_t time_cnt = 0;
 
+    float last_robovel = 0.0f; float dt = 0.0f; float last_tick = 0.0f;
+
 public:
     pointrack pointtracker;
     // pure_pursuit purepursuiter;
@@ -201,6 +207,7 @@ public:
     uint8_t set_CWorldVel(Vector2D worldvel, uint8_t PriorityCode, chassis_user *user_);
     uint8_t set_CRobotW(float w, uint8_t PriorityCode, chassis_user *user_);
     uint8_t yaw_Clock(uint8_t PriorityCode, chassis_user *user_);
+    uint8_t set_CRobotVel_ACCLE(Vector2D robovel, float accle, uint8_t PriorityCode, chassis_user *user_);
 
     uint8_t yaw_CTurnTo(float yaw, uint8_t PriorityCode, chassis_user *user_);
     uint8_t yaw_CTurnTo_speedplan(float yaw, uint8_t PriorityCode, chassis_user *user_);

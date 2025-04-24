@@ -53,12 +53,12 @@ typedef struct planInfo
 };
 typedef struct shooterInfo
 {
-    float hand_shooter_rpm = 0.0f;       // 手动模式下射球电机转速
-    float hand_pitcher_rpm = 0.0f;       // 手动模式下俯仰电机转速
-    float shoot_dis = 0.013f;            // 自动模式下拉伸距离  单位 m
-    float debug_dis = 0.013f;            // 调试模式下调试距离
-    float shoot_disdance = 0.0f;         // 从编码器获取的拉伸距离
-    float shoot_pitch_angle = 0.0f;      // 从imu获取的俯仰角度
+    float hand_shooter_rpm = 0.0f;         // 手动模式下射球电机转速
+    float hand_pitcher_rpm = 0.0f;         // 手动模式下俯仰电机转速
+    float shoot_dis = 0.013f;              // 自动模式下拉伸距离  单位 m
+    float debug_dis = 0.013f;              // 调试模式下调试距离
+    float shoot_disdance = 0.0f;           // 从编码器获取的拉伸距离
+    float shoot_pitch_angle = 0.0f;        // 从imu获取的俯仰角度
     autoMode shooter_status = auto_finish; // 自动射球状态
 };
 class AutoShooter : public ITaskProcessor

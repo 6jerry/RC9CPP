@@ -57,8 +57,8 @@ extern "C"
         task_core.registerTask(1, &vesc_right);
 
         task_core.registerTask(0, &can_core);
-        task_core.registerTask(4, &s3_chassis);
-        task_core.registerTask(7, &s3_xbox);
+        task_core.registerTask(2, &s3_chassis);
+        task_core.registerTask(2, &s3_xbox);
         task_core.registerTask(8, &debug_port);
 
         osKernelStart();

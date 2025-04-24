@@ -100,9 +100,10 @@ public:
 class chassis_adjust_xbox : public xbox_debug_base, public chassis_user
 {
 private:
-    Vector2D t_points[8] = {{-4.355f, 3.936f}, {-5.628f, 2.25f}, {-2.773f, 2.217f}, {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}, {0.0f, 0.0f}};
+Vector2D t_points[8] = {{0.0f, 0.0f}, {3.83f, 2.80f}, {4.92f, 2.97f},\
+{6.77f, 2.54f}, {3.39f, 1.69f}, {4.12f, 2.40f}, {2.90f, 3.32f}, {4.81f, 4.33f}};
 
-    float t_heading[8] = {-178.47f, -137.93f, 138.93f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+float t_heading[8] = {0.0f, -150.61f, -176.69f, 129.34f, -122.83f, -151.63f, -140.69f, -175.77f};
 
     float test_dis = 0.0f, change_dis = 0.01f;
 
