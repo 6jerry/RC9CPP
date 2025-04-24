@@ -18,17 +18,23 @@ extern "C"
 
 
 // 
-class ros_laser : public RC9subscriber, public imu
+class ros_sensor : public RC9subscriber, public imu
 {
 public:
     //信息储存结构体
     struct{
         Vector2D world_pos;
         float yaw_angle = 0.0f;
-    } ros_laser_loaction;
+    } ros_radar_loaction;
+
+    struct{
+        Vector2D  vertial_plane_deviation; //竖直平面偏差(像素值)，x,y需要转换(x -> yaw, y -> pitch)
+    } camera_deviation;
 
     float center_offset = 0.35;
     float angle_offset = 0.0f; // 360 degrees
+    float previous_vertial_plane_deviation_x = 0.0f;
+    float previous_vertial_plane_deviation_y = 0.0f;    
     float previous_world_pos_x = 0.0f;
     float previous_world_pos_y = 0.0f;
     float previous_yaw_angle = 0.0f;
