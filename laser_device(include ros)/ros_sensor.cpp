@@ -5,20 +5,20 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
     
     if(id == 1){ // 处理相机数据
         if (byteCount == 8){
-            camera_deviation.vertial_plane_deviation.x = floatData[0];
-            camera_deviation.vertial_plane_deviation.y = floatData[1];            
+            camera_info.vertial_plane_deviation.x = floatData[0];
+            camera_info.vertial_plane_deviation.y = floatData[1];            
         }
         static float max_change = 120.0f;
-        if(fabsf(camera_deviation.vertial_plane_deviation.x - previous_vertial_plane_deviation_x) > max_change){
-            camera_deviation.vertial_plane_deviation.x = previous_vertial_plane_deviation_x + \
-                ((camera_deviation.vertial_plane_deviation.x - previous_vertial_plane_deviation_x) > 0 ? 1 : -1) * max_change / 2;;
+        if(fabsf(camera_info.vertial_plane_deviation.x - previous_vertial_plane_deviation_x) > max_change){
+            camera_info.vertial_plane_deviation.x = previous_vertial_plane_deviation_x + \
+                ((camera_info.vertial_plane_deviation.x - previous_vertial_plane_deviation_x) > 0 ? 1 : -1) * max_change / 2;;
         }
-        if(fabsf(camera_deviation.vertial_plane_deviation.y - previous_vertial_plane_deviation_y) > max_change){
-            camera_deviation.vertial_plane_deviation.y = previous_vertial_plane_deviation_y + \
-                ((camera_deviation.vertial_plane_deviation.y - previous_vertial_plane_deviation_y) > 0 ? 1 : -1) * max_change / 2;;
+        if(fabsf(camera_info.vertial_plane_deviation.y - previous_vertial_plane_deviation_y) > max_change){
+            camera_info.vertial_plane_deviation.y = previous_vertial_plane_deviation_y + \
+                ((camera_info.vertial_plane_deviation.y - previous_vertial_plane_deviation_y) > 0 ? 1 : -1) * max_change / 2;;
         }
-        previous_vertial_plane_deviation_x = camera_deviation.vertial_plane_deviation.x;
-        previous_vertial_plane_deviation_y = camera_deviation.vertial_plane_deviation.y;        
+        previous_vertial_plane_deviation_x = camera_info.vertial_plane_deviation.x;
+        previous_vertial_plane_deviation_y = camera_info.vertial_plane_deviation.y;        
     }else if (id == 2){ //处理雷达数据
         if (byteCount == 12){
             ros_radar_loaction.world_pos.x = floatData[0];

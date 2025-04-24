@@ -29,7 +29,7 @@ public:
 
     struct{
         Vector2D  vertial_plane_deviation; //竖直平面偏差(像素值)，x,y需要转换(x -> yaw, y -> pitch)
-    } camera_deviation;
+    } camera_info;
 
     float center_offset = 0.35;
     float angle_offset = 0.0f; // 360 degrees
