@@ -24,7 +24,6 @@ void AutoShooter::process_data()
         auto_adjust(shooter_info.shoot_dis);
         break;
     case shooter_allAuto:
-
         allAuto_adjust();
         break;
     case shooter_debug:
@@ -82,7 +81,7 @@ void AutoShooter::pitcher_adjust(float pitch_angle)
 void AutoShooter::hand_adjust()
 {
 
-    // 棘轮锁住后，电机无法动
+    // 棘轮锁住后，电机不能动
     if (trigger_flag == 1)
     {
         shooter_info.hand_shooter_rpm = 0.0f;
@@ -121,8 +120,6 @@ void AutoShooter::allAuto_adjust()
             {
                 timecnt = 0;
                 shooter_info.shooter_status = auto_revert;
-                // trigger_flag = 0;
-                // shooter_flag = 0;
             }
         }
 

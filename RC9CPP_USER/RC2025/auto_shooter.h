@@ -14,7 +14,7 @@ extern "C"
 #include "motor.h"
 #ifdef __cplusplus
 }
-
+// 全自动模式状态
 enum autoMode
 {
     auto_lift,   // 拉伸状态
@@ -23,6 +23,7 @@ enum autoMode
     auto_finish, // 停止状态
 
 };
+// 射球电机状态
 enum shooterMode
 {
     shooter_stop,     // 停止
