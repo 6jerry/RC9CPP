@@ -266,6 +266,74 @@ void TrapezoidalPlanner1D::reset()
     direction = 0;
 }
 
+/**************************************************************************/
+TrapezoidalPlanner1D_Time::TrapezoidalPlanner1D_Time()
+    : m_phase(FINISHED_PHASE), max_acc(0), direction(0), max_speed(0),
+    t_total(0), t_acc(0), t_dec(0),theta_start(0), theta_target(0)
+{
+}
+
+void TrapezoidalPlanner1D_Time::start_plan(float theta_start_, float theta_target_, float max_acc_, float max_speed_) 
+{
+    theta_start = theta_start_;
+    theta_target = theta_target_;
+    max_acc = max_acc_;
+    max_speed = max_speed_;
+    direction = (theta_target > theta_start) ? 1 : -1;
+
+    // 计算加速、减速时间及总时间
+    float theta_diff = fabs(theta_target - theta_start);
+    float t_acc_max = max_speed / max_acc;       // 加速到最大速度所需时间
+    float theta_acc = 0.5 * max_acc * t_acc_max * t_acc_max; // 加速段角度差
+
+    if (2 * theta_acc > theta_diff) {
+    // 三角形规划（无法达到最大速度）
+    t_acc = sqrt(theta_diff / max_acc);
+    t_total = 2 * t_acc;
+    } 
+    else {
+    // 梯形规划（包含匀速段）
+    t_acc = t_acc_max;
+    theta_acc = 0.5 * max_acc * t_acc * t_acc;
+    float theta_const = theta_diff - 2 * theta_acc;
+    t_total = t_acc * 2 + theta_const / max_speed;
+    }
+    t_dec = t_total - t_acc;
+}
+
+float TrapezoidalPlanner1D_Time::plan(float t)
+{
+    if (t >= t_total) return theta_target;
+
+    float theta;
+    if (t <= t_acc) {
+        // 加速段：θ = 0.5 * a * t²
+        theta = 0.5 * max_acc * t * t;
+    } else if (t <= t_total - t_acc) {
+        // 匀速段：θ = θ_acc + v_max * (t - t_acc)
+        theta = 0.5 * max_acc * t_acc * t_acc + 
+                max_speed * (t - t_acc);
+    } else {
+        // 减速段：θ = θ_total - 0.5 * a * (t_total - t)^2
+        float t_decel = t_total - t;
+        theta = theta_target - 0.5 * max_acc * t_decel * t_decel;
+    }
+    return theta_start + direction * theta;
+}
+
+void TrapezoidalPlanner1D_Time::reset()
+{
+    m_phase = FINISHED_PHASE;
+    t_total = 0;
+    t_acc = 0;
+    t_dec = 0;
+    theta_start = 0;
+    theta_target = 0;
+    direction = 0;
+}
+
+/**************************************************************************/
+
 VelocityPlanner::VelocityPlanner(float maxAcceleration)
 {
     this->maxAcceleration = maxAcceleration;

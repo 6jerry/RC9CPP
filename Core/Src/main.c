@@ -34,7 +34,7 @@
 
 // #include "m6020_adjust.h"
 
-#include "chassis_test.h"
+#include "omni4_test.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -130,9 +130,9 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-   MX_USB_DEVICE_Init();
+   //MX_USB_DEVICE_Init();
 
-  chassis_move_test();
+   omni4_test();
   while (1)
   {
     /* USER CODE END WHILE */

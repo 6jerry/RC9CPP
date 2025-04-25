@@ -147,6 +147,36 @@ public:
     float v_target = 0.0f;
 };
 
+/**************************************************************************/
+class TrapezoidalPlanner1D_Time 
+{
+public:
+    // 构造函数，初始状态为 FINISHED（无规划）
+    TrapezoidalPlanner1D_Time();
+
+        void start_plan(float theta_start_, float theta_target_, float max_acc_, float max_speed_);
+    
+        // 根据当前时间t（从0开始）计算目标角度
+        float plan(float t);
+
+        void reset();
+
+public:
+    // 内部状态
+    Phase m_phase;
+    // 规划参数
+        float t_total;      // 总运动时间
+        float t_acc;        // 加速段时间
+        float t_dec;        // 减速段时间
+        float theta_start;  // 起始角度
+        float theta_target; // 目标角度
+        float max_acc;      // 最大角加速度
+        float max_speed;    // 最大角速度
+        float direction;    // 转动方向（+1或-1）
+    
+};
+/**************************************************************************/
+
 class VelocityPlanner
 {
 public:

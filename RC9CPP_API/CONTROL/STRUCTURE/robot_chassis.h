@@ -149,7 +149,9 @@ public:
 private:
     chassis_user *user = nullptr; // 当前是哪个类正在使用底盘
     RoboChassisType type = omni3_chassis;
-    RoboChassis_mode mode = chassis_init;
+
+    RoboChassis_mode mode = robotv;
+
     chassis_yaw_mode yaw_mode = yaw_free;
     uint8_t current_priority = 0, last_priority = 0;
     imu *IMU = nullptr;
@@ -201,6 +203,13 @@ public:
     float v_2_rpm(float v);
 
     bool priority_judge(uint8_t PriorityCode, chassis_user *user_, chassis_cmd_type cmd_type); // 优先级仲裁
+
+
+/*********************************************************************************************/
+public:
+    void omni4_calc(Vector2D robovel, float w);
+    
+/*********************************************************************************************/
 
 public:
     uint8_t set_CRobotVel(Vector2D robovel, uint8_t PriorityCode, chassis_user *user_);

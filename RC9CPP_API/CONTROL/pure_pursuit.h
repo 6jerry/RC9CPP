@@ -9,6 +9,7 @@ extern "C"
 #include "Vector2D.h"
 #include "PID.h"
 #include "TrapezoidalPlanner.h"
+#include "stm32f4xx_hal.h"
 
 #ifdef __cplusplus
 }
@@ -34,6 +35,40 @@ public:
     pid track_pid;
 };
 
+/**************************************************************************/
+class YawController {
+    private:
+        TrapezoidalPlanner1D_Time planner;
+        pid pos_pid;        // 位置环PID
+        float start_time;   // 规划开始时间
+    
+    public:
+        void init_plan(float theta_start, float theta_target, 
+                       float max_acc, float max_speed) {
+            planner.start_plan(theta_start, theta_target, max_acc, max_speed);
+            start_time = get_current_time(); // 获取系统时间（单位：秒）
+        }
+    
+        float update(float theta_actual) {
+            float t = get_current_time() - start_time;
+            float theta_ref = planner.plan(t);     // 获取目标角度
+            float error = theta_ref - theta_actual; // 计算角度误差
+            return pos_pid.PID_ComputeError(error); // 位置环PID输出
+        }
+    
+        bool is_finished() {
+            float t = get_current_time() - start_time;
+            return t >= planner.t_total;
+        }
+
+        // 获取当前系统时间（单位：秒）
+        float get_current_time(void) {
+            uint32_t system_time_ms = HAL_GetTick();
+        return (float)system_time_ms / 1000.0f;  // 毫秒转秒
+        }
+    };
+/**************************************************************************/
+
 class yaw_adjuster
 {
 
@@ -43,6 +78,11 @@ private:
 
 public:
     pid yaw_pid;
+/**************************************************************************/
+
+    YawController yaw_ctrl;
+
+/**************************************************************************/
     float yaw_adjust(float now_angle, float target_angle_);
 
     yaw_adjuster() {};

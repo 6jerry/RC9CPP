@@ -103,7 +103,7 @@
         <bEvRecOn>1</bEvRecOn>
         <bSchkAxf>0</bSchkAxf>
         <bTchkAxf>0</bTchkAxf>
-        <nTsel>3</nTsel>
+        <nTsel>2</nTsel>
         <sDll></sDll>
         <sDllPa></sDllPa>
         <sDlgDll></sDlgDll>
@@ -264,6 +264,31 @@
           <count>20</count>
           <WinNumber>1</WinNumber>
           <ItemText>xbox_test</ItemText>
+        </Ww>
+        <Ww>
+          <count>21</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>s3_xbox</ItemText>
+        </Ww>
+        <Ww>
+          <count>22</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>t_total</ItemText>
+        </Ww>
+        <Ww>
+          <count>23</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>omni4_xbox</ItemText>
+        </Ww>
+        <Ww>
+          <count>24</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>esp_port</ItemText>
+        </Ww>
+        <Ww>
+          <count>25</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>front_left_motor</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
@@ -1022,6 +1047,31 @@
           <WinNumber>2</WinNumber>
           <ItemText>vesc_front</ItemText>
         </Ww>
+        <Ww>
+          <count>151</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>action_imu</ItemText>
+        </Ww>
+        <Ww>
+          <count>152</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>tvel_</ItemText>
+        </Ww>
+        <Ww>
+          <count>153</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>tvel_</ItemText>
+        </Ww>
+        <Ww>
+          <count>154</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>chassis_omni4_</ItemText>
+        </Ww>
+        <Ww>
+          <count>155</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>motors[0]</ItemText>
+        </Ww>
       </WatchWindow2>
       <MemoryWindow1>
         <Mm>
@@ -1037,7 +1087,7 @@
       <DebugFlag>
         <trace>0</trace>
         <periodic>1</periodic>
-        <aLwin>1</aLwin>
+        <aLwin>0</aLwin>
         <aCover>0</aCover>
         <aSer1>0</aSer1>
         <aSer2>0</aSer2>
@@ -2425,6 +2475,30 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+    <File>
+      <GroupNumber>6</GroupNumber>
+      <FileNumber>109</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_API\HARDWARE\lora.cpp</PathWithFileName>
+      <FilenameWithoutPath>lora.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>6</GroupNumber>
+      <FileNumber>110</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_API\HARDWARE\lora.h</PathWithFileName>
+      <FilenameWithoutPath>lora.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
   </Group>
 
   <Group>
@@ -2435,37 +2509,13 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>109</FileNumber>
-      <FileType>8</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\ball_shooter.cpp</PathWithFileName>
-      <FilenameWithoutPath>ball_shooter.cpp</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>7</GroupNumber>
-      <FileNumber>110</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\ball_shooter.h</PathWithFileName>
-      <FilenameWithoutPath>ball_shooter.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>7</GroupNumber>
       <FileNumber>111</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\auto_yunball.cpp</PathWithFileName>
-      <FilenameWithoutPath>auto_yunball.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\auto_lock.cpp</PathWithFileName>
+      <FilenameWithoutPath>auto_lock.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2476,8 +2526,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\auto_yunball.h</PathWithFileName>
-      <FilenameWithoutPath>auto_yunball.h</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\auto_lock.h</PathWithFileName>
+      <FilenameWithoutPath>auto_lock.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2488,8 +2538,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\chassis_test.cpp</PathWithFileName>
-      <FilenameWithoutPath>chassis_test.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\omni4_test.cpp</PathWithFileName>
+      <FilenameWithoutPath>omni4_test.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -2500,8 +2550,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\chassis_test.h</PathWithFileName>
-      <FilenameWithoutPath>chassis_test.h</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\omni4_test.h</PathWithFileName>
+      <FilenameWithoutPath>omni4_test.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

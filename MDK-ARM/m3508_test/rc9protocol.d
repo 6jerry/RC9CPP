@@ -1,12 +1,12 @@
 m3508_test/rc9protocol.o: ..\RC9CPP_API\HARDWARE\RC9Protocol.cpp \
   ..\RC9CPP_API\HARDWARE\RC9Protocol.h ..\RC9CPP_API\MATH_LIB\crc_util.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdint.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config \
-  G:\Keil_v5\ARM\ARMCLANG\include\stdint.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\libcxx\stdint.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\libcxx\__config \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\stdint.h \
   ..\RC9CPP_API\HARDWARE\TaskManager.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stddef.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\stddef.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\libcxx\stddef.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\stddef.h \
   ..\RC9CPP_API\HARDWARE\Serial_device.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
   ..\Core\Inc\FreeRTOSConfig.h \
@@ -23,10 +23,10 @@ m3508_test/rc9protocol.o: ..\RC9CPP_API\HARDWARE\RC9Protocol.cpp \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h \
   ..\Drivers\CMSIS\Include\core_cm4.h \
-  G:\STM32_PROJECT\R1_NEW\R1_No2\ -\ 改动\Drivers\CMSIS\Include\cmsis_version.h \
-  G:\STM32_PROJECT\R1_NEW\R1_No2\ -\ 改动\Drivers\CMSIS\Include\cmsis_compiler.h \
-  G:\STM32_PROJECT\R1_NEW\R1_No2\ -\ 改动\Drivers\CMSIS\Include\cmsis_armclang.h \
-  G:\STM32_PROJECT\R1_NEW\R1_No2\ -\ 改动\Drivers\CMSIS\Include\mpu_armv7.h \
+  ..\Drivers\CMSIS\Include\cmsis_version.h \
+  ..\Drivers\CMSIS\Include\cmsis_compiler.h \
+  ..\Drivers\CMSIS\Include\cmsis_armclang.h \
+  ..\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h \
@@ -52,19 +52,19 @@ m3508_test/rc9protocol.o: ..\RC9CPP_API\HARDWARE\RC9Protocol.cpp \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\libcxx\stdbool.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
   ..\USB_DEVICE\App\usbd_cdc_if.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h \
   ..\USB_DEVICE\Target\usbd_conf.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdio.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\stdio.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdlib.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\string.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\string.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\libcxx\stdio.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\stdio.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\libcxx\stdlib.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\libcxx\string.h \
+  D:\Keil5\ARM\ARMCLANG\Bin\..\include\string.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h \
   ..\RC9CPP_API\HARDWARE\NETWORK\netswitch.h \

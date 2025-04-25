@@ -233,8 +233,20 @@ void yaw_adjuster::calc_angle_error()
 
 float yaw_adjuster::yaw_adjust(float now_angle, float target_angle_)
 {
+    // real_angle = now_angle;
+    // target_angle = target_angle_;
+    // calc_angle_error();
+    // return yaw_pid.PID_ComputeError(angle_error);
+
+    /**************************************************************************/
     real_angle = now_angle;
     target_angle = target_angle_;
-    calc_angle_error();
-    return yaw_pid.PID_ComputeError(angle_error);
+    yaw_ctrl.init_plan(now_angle, target_angle_, 2.0f, 30.0f);
+
+    if (!yaw_ctrl.is_finished()) {
+        // 获取实际角度
+        float theta_actual = now_angle;
+        // 计算控制量
+        return yaw_ctrl.update(theta_actual);
+    }
 }
