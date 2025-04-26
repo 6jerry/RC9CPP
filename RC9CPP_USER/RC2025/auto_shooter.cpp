@@ -116,7 +116,7 @@ void AutoShooter::allAuto_adjust()
         if (timecnt > 5)
         {
             shooter_flag = 1;
-            if (timecnt > 15)
+            if (timecnt > 10)
             {
                 timecnt = 0;
                 shooter_info.shooter_status = auto_revert;
@@ -151,11 +151,12 @@ bool AutoShooter::auto_adjust(float lifter_distance)
         shooter_flag = 0;
     }
     // 使用梯形规划
-    if (planer.isFinished())
+    if (plan_flag == 0)
     {
         planer.start_plan(plan_info.max_acc, plan_info.max_dcc,
                           plan_info.max_speed, plan_info.inital_speed, plan_info.final_speed,
                           shooter_info.shoot_disdance * 36000, lifter_distance * 36000);
+			  plan_flag = 1;
     }
 
     shooter_motor->set_rpm(-planer.plan(shooter_info.shoot_disdance * 36000));
@@ -169,6 +170,7 @@ bool AutoShooter::auto_adjust(float lifter_distance)
     // 到达终点锁住
     if (shooter_info.shoot_disdance > lifter_distance - 0.003f && shooter_info.shoot_disdance < lifter_distance + 0.003f)
     {
+			  plan_flag = 0;
         return true;
     }
 

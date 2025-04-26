@@ -2,7 +2,7 @@
 
 TaskManager task_core;
 CanManager can_core;
-RC9Protocol esp_port(uart, &huart3), debug_port(uart, &huart5);
+RC9Protocol esp_port(uart, &huart2), debug_port(uart, &huart5);
 AutoShooter autoshooter;
 
 // 编码器
@@ -89,20 +89,5 @@ extern "C"
         osKernelStart();
     }
 
-    void test_setup(void)
-    {
-        esp_port.startUartReceiveIT();
-
-        debug_port.initQueue();
-        can_core.init();
-
-        xbox_test.addport(&esp_port);
-
-        task_core.registerTask(0, &can_core);
-        task_core.registerTask(3, &xbox_test);
-
-        m8080.rpm_control.config_all(230.0f, 2.2f, 486.0f, 0.0f, 50000.0f, 6.0f);
-
-        osKernelStart();
-    }
+   
 }
