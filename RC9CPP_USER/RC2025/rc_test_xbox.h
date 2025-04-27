@@ -13,7 +13,6 @@ extern "C"
 #include "serial_studio.h"
 #include "auto_shooter.h"
 #include "auto_yunball.h"
-
 #ifdef __cplusplus
 }
 #endif
