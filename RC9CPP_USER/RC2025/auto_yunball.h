@@ -34,7 +34,6 @@ enum yunball_mode
     yunball_lift_motor_reset,
     yunball_turn_motor_reset,
 
-
     yunball_test_init,
     yunball_test_throw,
     yunball_test_catch
@@ -55,7 +54,7 @@ private:
     uint8_t locate_flag = 1, ball_flag = 1;
 
     uint32_t last_tick = 0, last_tick_2;
-		float delay_tick = 600.0;
+    float delay_tick = 600.0;
 
     float catch_ball_dis = 360.0f, throw_ball_dis = 798.0f;
 
@@ -95,6 +94,7 @@ public:
     void add_io(GPIO_TypeDef *locate_sensor_port_, uint16_t locate_sensor_pin_, GPIO_TypeDef *ball_sensor_port_, uint16_t ball_sensor_pin_, GPIO_TypeDef *claw_port_, uint16_t claw_pin_, GPIO_TypeDef *push_port_, uint16_t push_pin_);
 
     void start_multi_yun();
+
     void stop();
     void start_test_yun();
     void lift_reset();

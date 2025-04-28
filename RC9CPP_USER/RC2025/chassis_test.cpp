@@ -6,7 +6,7 @@ RC9Protocol esp_port(uart, &huart2), debug_port(uart, &huart5);
 
 action action_imu(&huart4, 0.0f, 0.0f, false);
 
-m3508p shooter(2, &hcan1), m3508_left(4, &hcan1, true), m3508_front(3, &hcan1, true), m3508_right(1, &hcan1, true);
+m3508p m3508_left(4, &hcan1, true), m3508_front(3, &hcan1, true), m3508_right(1, &hcan1, true);
 
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
 

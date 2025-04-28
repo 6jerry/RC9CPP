@@ -6,11 +6,6 @@
  */
 AutoShooter::AutoShooter()
 {
-    plan_info.max_acc = 400.0f;
-    plan_info.max_dcc = 400.0f;
-    plan_info.max_speed = 1200.0f;
-    plan_info.inital_speed = 200.0f;
-    plan_info.final_speed = 200.0f;
 }
 void AutoShooter::process_data()
 {
@@ -29,8 +24,7 @@ void AutoShooter::process_data()
         auto_adjust(shooter_info.shoot_dis);
         break;
     case shooter_allAuto:
-
-        allAuto_adjust(shooter_info.shoot_dis);
+        allAuto_adjust();
         break;
     case shooter_debug:
         // 隐藏模式：
@@ -87,28 +81,28 @@ void AutoShooter::pitcher_adjust(float pitch_angle)
 void AutoShooter::hand_adjust()
 {
 
-    // 棘轮锁住后，电机无法动
-    if (trigger_flag == 0)
+    // 棘轮锁住后，电机不能动
+    if (trigger_flag == 1)
     {
-        shooter_motor->set_rpm(shooter_info.hand_shooter_rpm);
+        shooter_info.hand_shooter_rpm = 0.0f;
     }
 
     // 触发光电门
-    //    if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
-    //    {
-    //        shooter_motor->set_rpm(0.0f);
-    //    }
-    //	test_flag = HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_4);
-     test_flag = HAL_GPIO_ReadPin(stop_port, stop_pin);
+    // if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
+    // {
+    //     shooter_info.hand_shooter_rpm = 0.0f;
+    // }
+
+    shooter_motor->set_rpm(shooter_info.hand_shooter_rpm);
 }
 
-void AutoShooter::allAuto_adjust(float lifter_distance)
+void AutoShooter::allAuto_adjust()
 {
 
     switch (shooter_info.shooter_status)
     {
     case auto_lift:
-        if (auto_adjust(lifter_distance))
+        if (auto_adjust(shooter_info.shoot_dis))
         {
 
             shooter_info.shooter_status = auto_shoot;
@@ -122,25 +116,22 @@ void AutoShooter::allAuto_adjust(float lifter_distance)
         if (timecnt > 5)
         {
             shooter_flag = 1;
-            if (timecnt > 20)
+            if (timecnt > 10)
             {
                 timecnt = 0;
                 shooter_info.shooter_status = auto_revert;
-                trigger_flag = 0;
-                shooter_flag = 0;
             }
         }
 
         break;
     case auto_revert:
-        if (auto_adjust(dis_data[0]))
+        if (auto_adjust(0.017f))
         {
-            shooter_info.auto_status = 1;
-            shooter_info.shooter_status = auto_stop;
+            shooter_info.shooter_status = auto_finish;
         }
 
         break;
-    case auto_stop:
+    case auto_finish:
         shooter_motor->set_rpm(0.0f);
         break;
     default:
@@ -152,25 +143,20 @@ bool AutoShooter::auto_adjust(float lifter_distance)
 
     if (trigger_flag == 1)
     {
-        trigger_flag == 0;
+        trigger_flag = 0;
     }
 
     if (shooter_flag == 1)
     {
-
-        shooter_flag == 0;
+        shooter_flag = 0;
     }
     // 使用梯形规划
     if (plan_flag == 0)
     {
-        planer.start_plan(plan_info.max_acc,
-                          plan_info.max_dcc,
-                          plan_info.max_speed,
-                          plan_info.inital_speed,
-                          plan_info.final_speed,
-                          shooter_info.shoot_disdance * 36000,
-                          lifter_distance * 36000);
-        plan_flag = 1;
+        planer.start_plan(plan_info.max_acc, plan_info.max_dcc,
+                          plan_info.max_speed, plan_info.inital_speed, plan_info.final_speed,
+                          shooter_info.shoot_disdance * 36000, lifter_distance * 36000);
+			  plan_flag = 1;
     }
 
     shooter_motor->set_rpm(-planer.plan(shooter_info.shoot_disdance * 36000));
@@ -184,7 +170,7 @@ bool AutoShooter::auto_adjust(float lifter_distance)
     // 到达终点锁住
     if (shooter_info.shoot_disdance > lifter_distance - 0.003f && shooter_info.shoot_disdance < lifter_distance + 0.003f)
     {
-        plan_flag = 0;
+			  plan_flag = 0;
         return true;
     }
 
@@ -210,6 +196,15 @@ void AutoShooter::add_motor(power_motor *shooter_motor_, power_motor *pithcer_mo
     pitcher_motor = pithcer_motor_;
 }
 
+void AutoShooter::add_plan_info(float max_acc_, float max_dcc_, float max_speed_, float inital_speed_, float final_speed_)
+{
+
+    plan_info.max_acc = max_acc_;
+    plan_info.max_dcc = max_dcc_;
+    plan_info.max_speed = max_speed_;
+    plan_info.inital_speed = inital_speed_;
+    plan_info.final_speed = final_speed_;
+}
 // 获取拉伸距离和俯仰角度
 void AutoShooter::get_data()
 {
@@ -222,6 +217,11 @@ void AutoShooter::get_data()
 uint32_t AutoShooter::Read_GPIO_State(void)
 {
     return HAL_GPIO_ReadPin(stop_port, stop_pin);
+}
+
+bool AutoShooter::isfinish()
+{
+    return shooter_info.shooter_status == auto_finish;
 }
 
 void AutoShooter::check_trigger()
