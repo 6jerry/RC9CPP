@@ -1,2 +1,2 @@
---flash_mode dio --flash_freq 80m --flash_size 16MB
- ESP32C6_AP_Server.bin
+--flash_mode dio --flash_freq 80m --flash_size 8MB
+0x10000 ESP32C6_AP_Server.bin

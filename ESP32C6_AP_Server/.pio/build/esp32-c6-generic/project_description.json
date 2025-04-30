@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "ESP32C6_AP_Server",
-    "project_version":    "9b428bc3-dirty",
+    "project_version":    "3f95f39d-dirty",
     "project_path":       "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server",
     "idf_path":           "C:/Users/32806/.platformio/packages/framework-espidf",
     "build_dir":          "C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/.pio/build/esp32-c6-generic",

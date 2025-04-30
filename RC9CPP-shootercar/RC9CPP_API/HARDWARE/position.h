@@ -1,0 +1,37 @@
+#ifndef POSITION_H
+#define POSITION_H
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+#include "RC9Protocol.h"
+#include "imu.h"
+#ifdef __cplusplus
+}
+
+#endif
+#ifdef __cplusplus
+
+class position : public imu, public RC9subscriber
+{
+public:
+    void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
+
+    Vector2D get_world_pos() override;
+
+    float get_heading() override;
+
+    float get_yaw_rad() override;
+
+    float get_world_pos_x() override;
+
+    float get_world_pos_y() override;
+
+private:
+    Vector2D world_pos;     // 单位m
+    float world_yaw = 0.0f; // 单位度
+};
+
+#endif
+#endif
