@@ -83,9 +83,11 @@ private:
     TrapezoidalPlanner1D planer;
     uint8_t plan_flag = 0;
     planInfo plan_info;
+
+     uint8_t test_flag = 0;
     // 三分 0.2500
     float dis_data[9] = {0.016f, 0.1968f, 0.1958f, 0.2190f, 0.2337f, 0.228f, 0.172f, 0.1800f, 0.2211f};
-    float lidar_data[9] = {0.020f, 0.2450f, 0.2500f, 0.2550f, 0.1937f, 0.1877f, 0.2420f, 0.2420f, 0.2211f};
+    float lidar_data[9] = {0.020f, 0.1900f, 0.2000f, 0.2100f, 0.2200f, 0.2300f, 0.2150f, 0.2420f, 0.2211f};
     // 标准俯仰                     篮下俯仰（待测量）
     float inital_angle = -0.0158f, inside_angle = 0.0f;
 

@@ -217,8 +217,3 @@ void yun_ball_xbox::add_yunball(auto_yunball *yunball_)
 {
     yunball = yunball_;
 }
-void yun_ball_xbox::add_dt35(dt35 *dt_)
-{
-  dt = dt_;
- 
-}

@@ -5,11 +5,10 @@ CanManager can_core;
 RC9Protocol esp_port(uart, &huart2), debug_port(uart, &huart5);
 
 AutoShooter autoshooter;
-
 // 编码器
 Encoder encoder(&huart6);
 // 维特IMU
-wit_gyro wit_imu(&huart4);
+wit_gyro wit_imu(&huart3);
 
 serialStudio test_port;
 m3508p lifter(1, &hcan1, true), turnner(2, &hcan1, true, 49.1372f), pithcer(3, &hcan1);
