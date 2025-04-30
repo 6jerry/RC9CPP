@@ -137,7 +137,7 @@ void action::imu_rst()
 
 void action::imu_relocate(float x, float y, float angle)
 {
-    relocateAll(-angle, x * 1000.0f, -y * 1000.0f);
+    relocateAll(angle, x * 1000.0f, -y * 1000.0f);
 }
 
 void action::Update_ACTION(void)
