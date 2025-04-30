@@ -39,6 +39,7 @@ void auto_lock_test::mode_1()
 
 void auto_lock_test::mode_3()
 {
+    Fine_tune(xbox_msgs.btnDirUp, xbox_msgs.btnDirDown, xbox_msgs.btnDirLeft, xbox_msgs.btnDirRight);
     calc_error();
     nor_control.setpoint = radius[cnt_flag];
 
@@ -64,4 +65,16 @@ void auto_lock_test::xbox_on()
 auto_lock_test::auto_lock_test(imu *imu_ptr_)
 {
     imu_ptr = imu_ptr_;
+}
+
+void auto_lock_test::Fine_tune(bool up, bool down, bool left, bool right)
+{
+    if(HAL_GetTick() - last_tick > 100)
+    {
+        if (up)    center_point.y += 0.001f;
+        if (down)  center_point.y -= 0.001f;
+        if (left)  center_point.x -= 0.001f;
+        if (right) center_point.x += 0.001f;
+        last_tick = HAL_GetTick();
+    }
 }
