@@ -206,8 +206,7 @@ void xbox_debug_base::btnconfig_init()
         nullptr,
         0,
         ButtonActionType::Custom,
-        &xbox::btnXBOX_callback
-        };
+        &xbox::btnXBOX_callback};
 
     btnYConfig = {
         &xbox_msgs.btnY,

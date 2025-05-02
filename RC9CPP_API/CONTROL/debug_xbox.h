@@ -92,7 +92,7 @@ public:
     void btn_scan();
     void btnconfig_init();
 
-    void btnXBOX_callback();
+    void btnXBOX_callback() override;
     xbox_debug_base();
 };
 

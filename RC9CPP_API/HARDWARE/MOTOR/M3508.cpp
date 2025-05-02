@@ -257,6 +257,11 @@ void m3508p::pos_speedplan_restart()
     pos_speed_plan.reset();
 }
 
+void m3508p::pos_speedplan_restart()
+{
+    pos_speed_plan.reset();
+}
+
 int16_t m3508p::pid_speed()
 {
     return 0;

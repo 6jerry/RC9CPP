@@ -3,7 +3,8 @@
 TaskManager task_core;
 CanManager can_core;
 RC9Protocol esp_port(uart, &huart2), debug_port(uart, &huart5);
-
+RC9Protocol ros_port(cdc,&huart5);
+ros_sensor ros_imu;
 action action_imu(&huart4, 0.0f, 0.0f, false);
 
 m3508p shooter(2, &hcan1), m3508_left(4, &hcan1, true), m3508_front(3, &hcan1, true), m3508_right(1, &hcan1, true);
@@ -25,6 +26,12 @@ extern "C"
         esp_port.startUartReceiveIT();
         action_imu.startUartReceiveIT();
         debug_port.initQueue();
+/****************************************************/
+		ros_imu.tf_init(false, 0.39008645, 0.56820672);  // ��������ϵ��rΪ39cm, ��������ϵ��ʼ�ǶȦ�168��
+        ros_imu.add_action(&action_imu);
+        ros_imu.addport(&ros_port);
+        ros_port.startUartReceiveIT();
+/****************************************************/
         m3508_front.config_mech_param(48.26f, 0.0f);
         m3508_front.angle_pid_control.ConfigAll(3.1f, 0.4f, 1.4f, 0.0f, 160.0f, 0.2f, 3.0f);
 

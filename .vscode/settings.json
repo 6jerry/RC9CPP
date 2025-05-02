@@ -18,7 +18,16 @@
     "usb_device.h": "c",
     "random": "cpp",
     "memory": "cpp",
-    "optional": "cpp"
+    "optional": "cpp",
+    "stm32f4xx_it.h": "c",
+    "stm32f4xx_hal_rcc.h": "c",
+    "cstdlib": "c",
+    "bit": "c",
+    "cstddef": "c",
+    "string": "c",
+    "functional": "c",
+    "string.h": "c",
+    "cmsis_os.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
