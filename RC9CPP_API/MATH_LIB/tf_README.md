@@ -15,12 +15,12 @@
 
 - `float r`：存储从原点到目标坐标的半径距离（单位：米）。
 - `float theta`：存储相对于原点的角度偏移（单位：度）。
-- `bool inverse`：指示是否使用左手坐标系进行变换。
+- `bool inverse`：指示角度是否逆时针增大
 
 #### 方法
 
 - `tf_init(bool inverse_, float r_, float theta_)`：初始化坐标变换参数。
-  - `inverse_`：指定是否为逆变换（左手坐标系）。
+  - `inverse_`：指定角度是否逆时针增大
   - `r_`：从原点到目标坐标的半径距离。
   - `theta_`：相对于原点的角度偏移。
   
@@ -38,5 +38,5 @@
 ```cpp
 #include "transformation_of_coordinates.h"
 tf transformer;
-transformer.tf_init(false, 1.0f, 45.0f); // 初始化为右手坐标系，半径1米，初始角度45度
+transformer.tf_init(false, 1.0f, 45.0f); // 初始化角度为顺时针增大，半径1米，初始角度45度
 ```
