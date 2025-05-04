@@ -13,6 +13,7 @@ extern "C"
 #include "robot_chassis.h"
 #include "PID.h"
 #include "imu.h"
+#include "TrapezoidalPlanner.h"
 #ifdef __cplusplus
 }
 #endif
@@ -39,6 +40,8 @@ private:
     pid nor_control; // 半径控制
 
     imu *imu_ptr; // 指向imu类的指针
+
+    TrapezoidalPlanner1D planner;
 
 public:
     auto_lock_test(imu *imu_ptr_);
