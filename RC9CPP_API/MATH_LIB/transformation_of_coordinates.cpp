@@ -18,7 +18,7 @@ void tf::coordinate_map(Vector2D *original, Vector2D *target, float now_theta){
         float offset_y =  r * arm_sin_f32((now_theta + theta) * 0.0174532925);
         target -> x = -original -> x - offset_x ;
         target -> y = original -> y - offset_y ;
-	}else{ // 右手坐标系（ros），需要翻转为左手系再进行映射（ros读取时，y和angle进行了取反，注意三角函数符号）
+	}else{ // 右手坐标系（ros）（ros读取时，y和angle进行了取反，注意三角函数符号）
         float offset_x =  r * arm_cos_f32(((180 - (now_theta + theta)) * 0.0174532925)); 
         float offset_y =  r * arm_sin_f32(((180 - (now_theta + theta)) * 0.0174532925));
         target -> x = -original -> x - offset_x ;
