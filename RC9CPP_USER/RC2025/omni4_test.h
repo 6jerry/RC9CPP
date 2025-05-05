@@ -15,6 +15,7 @@ extern "C"
 #include <cmsis_os2.h>
 #include "RC9Protocol.h"
 #include "lora.h"
+#include "position.h"
 
 void omni4_test(void);
 

@@ -2,7 +2,7 @@
 #define ROBOT_CHASSIS_H
 
 //舵轮底盘加速度开启
-#define USE_VEL_ACCEL 1
+#define USE_VEL_ACCEL 0
 
 #ifdef __cplusplus
 extern "C"

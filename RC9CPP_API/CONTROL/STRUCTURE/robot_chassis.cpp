@@ -688,9 +688,9 @@ float chassis_user::get_world_y()
 /*********************************************************************************************/
 void RoboChassis::omni4_calc(Vector2D robovel, float w)
 {
-    robovel.x = -target.target_robovel.x;
+    /*robovel.x = -target.target_robovel.x;
     robovel.y = -target.target_robovel.y;
-    w = target.target_w;
+    w = target.target_w;*/
 
     motors[0]->set_rpm(v_2_rpm(-robovel.x * 0.70710678f - robovel.y * 0.70710678f + chassis_info_.R * w));
     motors[1]->set_rpm(v_2_rpm(w * chassis_info_.R + 0.70710678f * robovel.x - robovel.y * 0.70710678f));
