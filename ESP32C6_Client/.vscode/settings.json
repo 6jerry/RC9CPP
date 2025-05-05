@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "cstdlib": "c",
+        "esp_intr_alloc.h": "c",
+        "soc.h": "c",
+        "esp_uart.h": "c",
+        "string_view": "c",
+        "sstream": "c",
+        "sockets.h": "c",
+        "esp_wifi.h": "c"
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "uart.h": "c",
+        "freertos.h": "c",
+        "cstdint": "c"
+    }
+}
