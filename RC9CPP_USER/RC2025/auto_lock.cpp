@@ -63,8 +63,8 @@ void auto_lock_test::mode_3()
 
 void auto_lock_test::xbox_on()
 {
-    center_point.x = 5.841f;
-    center_point.y = 0.75f;
+    center_point.x = 5.541f;
+    center_point.y = 0.85f;
     nor_control.ConfigAll(1.0f, 0.0f, 0.02f, 0.0f, 1.0f, 0.005f, 0.0f);
    // imu_ptr->imu_relocate(0.5f, 0.5f, 30.0f);
     init_locate();

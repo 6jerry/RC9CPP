@@ -15,7 +15,7 @@ extern "C"
 #include "Action.h"
 #include <cmsis_os2.h>
 #include "RC9Protocol.h"
-
+#include "ros_sensor.h"
     void chassis_move_test(void);
     void u8_adjust(void);
 #ifdef __cplusplus
