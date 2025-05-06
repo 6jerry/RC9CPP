@@ -45,12 +45,12 @@ void auto_lock_test::mode_3()
     calc_error();
     if (planner.isFinished())
     {
-        planner.start_plan(1.0f,1.0f,3.0f,tvel.magnitude()*3,0.0f,dis_2_center,0.0f);
+        planner.start_plan(2.0f,2.0f,3.0f,tvel.magnitude()*3,0.0f,dis_2_center-radius[cnt_flag],0.0f);
     }
     nor_control.setpoint = radius[cnt_flag];
 
     //nor_speed = -nor_control.PID_Compute(dis_2_center);
-    nor_speed = -planner.plan(dis_2_center);
+    nor_speed = -planner.plan(dis_2_center-radius[cnt_flag]);
 
     Vector2D tvel_ = tan_dir * (3.0f * xbox_msgs.joyLHori_map);
 
