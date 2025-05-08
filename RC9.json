@@ -1,0 +1,60 @@
+{
+    "actions": [
+        {
+            "eol": "",
+            "icon": "Gears",
+            "title": "新操作",
+            "txData": ""
+        }
+    ],
+    "decoder": 1,
+    "frameDetection": 2,
+    "frameEnd": "FD FE ",
+    "frameParser": "\n/**\n * Splits a data frame into an array of elements using a comma separator.\n * Use this function to break a string (like \"value1,value2,value3\") into individual pieces,\n * which can then be displayed or processed in your project.\n * @param {string} frame - A string containing the data frame. Example: \"value1,value2,value3\"\n * @return {Array<string>} An array of strings with the split elements. Example: [\"value1\", \"value2\", \"value3\"]\n * @note You can declare global variables outside this function if needed for storing settings or keeping state between calls.\n */\n \n \n//\n \n  // 基于RC9通讯协议创作\n \n\n  \n  \n  // 发送数据包\n  // 1-2            0xFC 0xFB\n  // 3              dataId\n  // 4              dataLength\n  // 5 + dataLength data\n  //                0xFD 0xFE\nconst myMap = new Map([\n          [1,'0'], \n          [2,'3,4'],\n          [3,'0,1']\n          ]);\n\n  \nconst results = new Array(100).fill(0);\n \n\n\nfunction parse(frame) {\n     let array = [];\n    //  console.log(\"array=\", frame);\n    \n    for (let i = 0; i < frame.length; i += 2) {\n        let byte = parseInt(frame.substring(i, i + 2), 16);\n        array.push(byte);\n    }\n    \n    if(array[0] == 252 && array[1] == 251){\n\n   \n   //const array = bytes.slice(0,temp.length);\n   \n   console.log(\"array=\", array);\n \n   const dataId = array[2];\n   \n   const dataLength = array[3];\n \n   const data = array.slice(4, 4 + dataLength);\n  \n  // console.log(\"dataId=\", dataId);\n   \n  // console.log(\"data=\", data);\n   console.log(\"data=\",hex2float(164,80,11,62));\n\n   if(myMap.has(dataId)){ \n       const map =  myMap.get(dataId).split(\",\");\n      //console.log(\"map=\", map);\n       for(let i = 0; i < map.length;i++){\n           let float = hex2float(data[4*i+3],data[4*i+2],data[4*i+1],data[4*i]);\n           //console.log(\"float = \",float);\n           if(float < 0.001 && float > -0.001){\n              float = 0.0;\n           }\n           results[map[i]] = float*100;      \n       }  \n       \n   \n   }\n   \n   } \n  \n   return results;\n}\n\n\n\n // 字节数据转化为浮点数\nfunction hex2float(byte1,byte2,byte3,byte4) {\n     //拼接为number对象\n     var num = ((byte1 & 0xFF) << 24) | \n\t   ((byte2 & 0xFF) << 16) | \n\t   ((byte3 & 0xFF) << 8) | \n\t   (byte4 & 0xFF);\n\n  \t//符号位\n    var sign = (num & 0x80000000) ? -1 : 1;\n  \t//指数位\n    var exponent = ((num >> 23) & 0xff) - 127;\n  \t//尾数位\n    var mantissa = 1 + ((num & 0x7fffff) / 0x7fffff);\n    return sign * mantissa * Math.pow(2, exponent);\n    \n}\n\n",
+    "frameStart": "FC FB",
+    "groups": [
+        {
+            "datasets": [
+                {
+                    "alarm": 0,
+                    "fft": false,
+                    "fftSamples": 256,
+                    "fftSamplingRate": 100,
+                    "graph": true,
+                    "index": 1,
+                    "led": false,
+                    "ledHigh": 1,
+                    "log": false,
+                    "max": 100,
+                    "min": -1,
+                    "title": "dis",
+                    "units": "",
+                    "value": "--.--",
+                    "widget": ""
+                },
+                {
+                    "alarm": 0,
+                    "fft": false,
+                    "fftSamples": 256,
+                    "fftSamplingRate": 100,
+                    "graph": true,
+                    "index": 2,
+                    "led": false,
+                    "ledHigh": 1,
+                    "log": false,
+                    "max": 100,
+                    "min": -100,
+                    "title": "turner_rpm",
+                    "units": "",
+                    "value": "--.--",
+                    "widget": ""
+                }
+            ],
+            "title": "多个绘图",
+            "widget": "multiplot"
+        }
+    ],
+    "mapTilerApiKey": "",
+    "thunderforestApiKey": "",
+    "title": "RC9"
+}
