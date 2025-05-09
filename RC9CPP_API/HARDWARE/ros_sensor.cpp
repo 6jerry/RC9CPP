@@ -10,7 +10,6 @@ static void localize_with_diff(Vector2D* pos, Vector2D* origin){
     pos->y -= origin->y;
 }
 
-
 ros_sensor::ros_sensor(){
 	KalmanFilter_init(0.01f, 0.1f, 0.1f);
 }
@@ -68,7 +67,7 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 	previous_world_pos_y = ros_radar_loaction.world_pos.y;
 	previous_yaw_angle = ros_radar_loaction.yaw_angle;
 	// 自旋映射
-	coordinate_map(&ros_radar_loaction.world_pos, &real_radar_world_pos, ros_radar_loaction.yaw_angle);
+	tf_.coordinate_map(&ros_radar_loaction.world_pos, &real_radar_world_pos, 0.40f, imu_->get_yaw_rad());
 	// 差分原点标定
 	if(!map_origin_init_flag){
 		map_origin = real_radar_world_pos;
@@ -77,9 +76,12 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 	// 差分定位
 	localize_with_diff(&real_radar_world_pos, &map_origin);
 
-	if(count++ > 25){
-		// _action_->imu_relocate(-real_radar_world_pos.x, real_radar_world_pos.y, _action_->action_info.pos_z_sum);
+	if(relocate_flag){
+		// 检测标志位来判断是否校准action
+		imu_->imu_relocate(real_radar_world_pos.x, real_radar_world_pos.y, 0);
 		count = 0;
+		relocate_flag = false; //清空标志位
+		return;
 	}
 
 }
@@ -96,6 +98,12 @@ float ros_sensor::get_yaw_rad(){
 	return ros_radar_loaction.yaw_angle * 0.01745329252f;
 }
 
-void ros_sensor::add_action(action * action_){
-    _action_ = action_;
+//添加重定位imu
+void ros_sensor::add_recolate_imu(imu * _imu){
+	imu_ = _imu;
+}
+
+//设置重定位标志，用雷达校准一次action
+void ros_sensor::relocate_imu(void){
+	relocate_flag = true;
 }

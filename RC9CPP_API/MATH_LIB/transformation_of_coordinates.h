@@ -14,10 +14,9 @@ extern "C"
 class tf{
     public:
         float r = 0.0f;  // m
-        float theta = 0.0f; // degree
-        bool inverse = false;
-        void tf_init(bool inverse_, float r_, float theta_); //顺时针（false） m , degree
-        void coordinate_map(Vector2D *original, Vector2D *target, float now_theta);
+        float rad = 0.0f; // radium
+        inline void coordinate_map(Vector2D *original, Vector2D *target, float r, float now_rad); //源坐标，目标坐标，极坐标半径，弧度
+        inline void coordinate_map_inverse(Vector2D *original, Vector2D *target, float r, float now_rad); //源坐标，目标坐标，极坐标半径，弧度(逆变换)
 };
 
 
