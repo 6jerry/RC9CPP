@@ -78,7 +78,7 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 	localize_with_diff(&real_radar_world_pos, &map_origin);
 
 	if(count++ > 25){
-		// _action_->imu_relocate(-real_radar_world_pos.x, real_radar_world_pos.y, _action_->action_info.pos_z_sum);
+		 _action_->imu_relocate(-real_radar_world_pos.x, real_radar_world_pos.y, _action_->action_info.pos_z_sum);
 		count = 0;
 	}
 

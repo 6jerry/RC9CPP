@@ -31,3 +31,10 @@ float position::get_world_pos_y()
 {
     return world_pos.y;
 }
+
+void position::imu_relocate(float x, float y, float angle)
+{
+    float send_datas[2] = {x, y};
+
+    sendFloatData(1, send_datas, 2);
+}

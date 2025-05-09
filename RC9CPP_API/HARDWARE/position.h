@@ -28,6 +28,8 @@ public:
 
     float get_world_pos_y() override;
 
+    void imu_relocate(float x, float y, float angle) override;
+
 private:
     Vector2D world_pos;     // 单位m
     float world_yaw = 0.0f; // 单位度
