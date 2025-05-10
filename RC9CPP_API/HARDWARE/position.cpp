@@ -11,7 +11,7 @@ void position::DataReceivedCallback(const uint8_t *byteData, const float *floatD
 	world_pos_.y = -world_pos_.y;
 	tf_.coordinate_map(&world_pos_, &real_world_pos, 0.204f,  -get_yaw_rad()); //映射到圆心
 	// 映射后变换回原坐标系
-	// real_world_pos.y = -real_world_pos.y;
+	real_world_pos.y = -real_world_pos.y;
 }
 
 Vector2D position::get_world_pos()
