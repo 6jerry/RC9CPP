@@ -2,10 +2,10 @@
 
 TaskManager task_core;
 CanManager can_core;
-RC9Protocol esp_port(uart, &huart2), debug_port(uart, &huart5);
-RC9Protocol ros_port(cdc,&huart5);
+RC9Protocol esp_port(uart, &huart2), position_port(uart, &huart5);
+RC9Protocol ros_port(cdc, &huart5);
 ros_sensor ros_imu;
-action action_imu(&huart4, 0.0f, 0.0f, false);
+position position_sensor;
 
 m3508p shooter(2, &hcan1), m3508_left(4, &hcan1, true), m3508_front(3, &hcan1, true), m3508_right(1, &hcan1, true);
 
@@ -16,7 +16,7 @@ vesc vesc_front(1, &hcan2, 21.0f, 3.0f),
 
 RoboChassis s3_chassis(swerve3_chassis);
 
-auto_lock_test s3_xbox(&action_imu);
+auto_lock_test s3_xbox(&position_sensor);
 
 extern "C"
 {
@@ -24,14 +24,14 @@ extern "C"
     {
         can_core.init();
         esp_port.startUartReceiveIT();
-        action_imu.startUartReceiveIT();
-        debug_port.initQueue();
-/****************************************************/
-		ros_imu.tf_init(false, 0.39008645, 0.56820672);  // 右手坐标系，r为39cm, 世界坐标系初始角度θ168°
-        ros_imu.add_action(&action_imu);
+        // position_sensor.startUartReceiveIT();
+        position_port.initQueue();
+        position_port.startUartReceiveIT();
+        /****************************************************/
+        ros_imu.add_recolate_imu(&position_sensor);
         ros_imu.addport(&ros_port);
         ros_port.startUartReceiveIT();
-/****************************************************/
+        /****************************************************/
         m3508_front.config_mech_param(48.26f, 0.0f);
         m3508_front.angle_pid_control.ConfigAll(3.1f, 0.4f, 1.4f, 0.0f, 160.0f, 0.2f, 3.0f);
 
@@ -48,8 +48,8 @@ extern "C"
 
         s3_chassis.enable_debug();
 
-        s3_chassis.add_imu(&action_imu);
-        s3_chassis.addport(&debug_port);
+        s3_chassis.add_imu(&position_sensor);
+        // s3_chassis.addport(&debug_port);
         s3_chassis.yawadjuster_config(0.039f, 0.0f, 0.002f, 0.0f, 5.0f, 0.2f, 0.0f);
         s3_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
         s3_chassis.pp_tracker.normal_control.ConfigAll(2.8f, 0.0f, 0.2f, 0.0f, 5.0f, 0.002f, 0.0f);
@@ -58,6 +58,7 @@ extern "C"
         task_core.customize(4, osPriorityRealtime, 10, 20 * 128);
         s3_xbox.addport(&esp_port);
         s3_xbox.add_chassis(&s3_chassis);
+        position_sensor.addport(&position_port);
         task_core.registerTask(1, &vesc_front);
         task_core.registerTask(1, &vesc_left);
         task_core.registerTask(1, &vesc_right);
@@ -65,7 +66,7 @@ extern "C"
         task_core.registerTask(0, &can_core);
         task_core.registerTask(2, &s3_chassis);
         task_core.registerTask(2, &s3_xbox);
-        task_core.registerTask(8, &debug_port);
+        task_core.registerTask(8, &position_port);
 
         osKernelStart();
     }

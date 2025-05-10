@@ -1,5 +1,7 @@
 #include "ros_sensor.h"
+#include "Vector2D.h"
 
+#define PI 3.141592653589793f
 //0值去除(传过来的float一定不为0)
 static void zero_removal(float * input, const float last_input){
     *input = (*input == 0) ? last_input : *input;
@@ -27,8 +29,8 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 	if (byteCount == 20){
 		camera_info.vertial_plane_deviation.x = floatData[0];
 		camera_info.vertial_plane_deviation.y = floatData[1];  
-		ros_radar_loaction.world_pos.x = filter(floatData[2]);
-		ros_radar_loaction.world_pos.y = -filter(floatData[3]); //把上位机坐标与追踪坐标方向对齐
+		ros_radar_loaction.world_pos.x = -filter(floatData[2]);
+		ros_radar_loaction.world_pos.y = filter(floatData[3]); //把上位机坐标与追踪坐标方向对齐
 		ros_radar_loaction.yaw_angle = -filter(floatData[4]);
 //		if(fabsf(floatData[2]) < 0.02f && fabsf(floatData[3]) < 0.05f){
 //			map_origin_init_flag = false; //重置映射原点
@@ -67,7 +69,7 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 	previous_world_pos_y = ros_radar_loaction.world_pos.y;
 	previous_yaw_angle = ros_radar_loaction.yaw_angle;
 	// 自旋映射
-	tf_.coordinate_map(&ros_radar_loaction.world_pos, &real_radar_world_pos, 0.40f, imu_->get_yaw_rad());
+	tf_.coordinate_map(&ros_radar_loaction.world_pos, &real_radar_world_pos, 0.40f, 3.1415926535f+get_yaw_rad());
 	// 差分原点标定
 	if(!map_origin_init_flag){
 		map_origin = real_radar_world_pos;
@@ -75,10 +77,11 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 	}
 	// 差分定位
 	localize_with_diff(&real_radar_world_pos, &map_origin);
-
-	if(relocate_flag){
-		// 检测标志位来判断是否校准action
-		imu_->imu_relocate(real_radar_world_pos.x, real_radar_world_pos.y, 0);
+	// 坐标逆变换
+	tf_.coordinate_map_inverse(&real_radar_world_pos, &map_inverse_relocate_pos, 0.210f, 3.1415926535f+get_yaw_rad());
+	
+	if(relocate_flag){ // 检测标志位来判断是否校准action
+		imu_->imu_relocate(map_inverse_relocate_pos.x, map_inverse_relocate_pos.y, 0);
 		count = 0;
 		relocate_flag = false; //清空标志位
 		return;

@@ -6,21 +6,22 @@
  * 确定安装位置距机械中心半径
  */
 
+// 变换到旋转中心
+void tf::coordinate_map(Vector2D *original, Vector2D *target, float r,float now_rad){
 
-inline void tf::coordinate_map(Vector2D *original, Vector2D *target, float r,float now_rad){
-
-        float offset_x =  r * arm_cos_f32(now_rad); 
-        float offset_y =  r * arm_sin_f32(now_rad);
-        target -> x = original -> x + offset_x ;
+        offset_x =  r * arm_cos_f32(now_rad); 
+        offset_y =  r * arm_sin_f32(now_rad);
+        target -> x = original -> x - offset_x ;
         target -> y = original -> y - offset_y ;
 
 }
 
-inline void tf::coordinate_map_inverse(Vector2D *original, Vector2D *target, float r,float now_rad){
+// 逆变换回imu位置
+void tf::coordinate_map_inverse(Vector2D *original, Vector2D *target, float r,float now_rad){
 
-        float offset_x =  r * arm_cos_f32(now_rad); 
-        float offset_y =  r * arm_sin_f32(now_rad);
-        target -> x = original -> x - offset_x ;
+        offset_x =  r * arm_cos_f32(now_rad); 
+        offset_y =  r * arm_sin_f32(now_rad);
+        target -> x = original -> x + offset_x ;
         target -> y = original -> y + offset_y ;
 
 }

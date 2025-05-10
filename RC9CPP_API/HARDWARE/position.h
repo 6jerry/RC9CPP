@@ -7,6 +7,7 @@ extern "C"
 #endif
 #include "RC9Protocol.h"
 #include "imu.h"
+#include "transformation_of_coordinates.h"
 #ifdef __cplusplus
 }
 
@@ -16,8 +17,9 @@ extern "C"
 class position : public imu, public RC9subscriber
 {
 public:
+	tf tf_;
     void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
-
+	Vector2D real_world_pos; //映射后坐标
     Vector2D get_world_pos() override;
 
     float get_heading() override;
@@ -27,6 +29,8 @@ public:
     float get_world_pos_x() override;
 
     float get_world_pos_y() override;
+
+    void imu_relocate(float x, float y, float angle) override;
 
 private:
     Vector2D world_pos;     // 单位m

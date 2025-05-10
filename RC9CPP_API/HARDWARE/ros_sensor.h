@@ -9,7 +9,7 @@ extern "C"
 #include "RC9Protocol.h"
 #include "Serial_device.h"
 #include <math.h>
-
+#include "imu.h"
 #include "transformation_of_coordinates.h"
 #include "filter.h"
 #ifdef __cplusplus
@@ -36,6 +36,7 @@ public:
 
     Vector2D real_radar_world_pos;
     Vector2D map_origin; //映射后原点
+	Vector2D map_inverse_relocate_pos; // 逆映射坐標
     bool map_origin_init_flag = false; //原点映射标志位
     bool relocate_flag = false; //是否开启重定位标志
 	

@@ -22,7 +22,8 @@ void auto_lock_test::mode_2()
     Vector2D tvel_((3.0f * xbox_msgs.joyLHori_map), (3.0f * xbox_msgs.joyLVert_map));
 
     set_RobotVel(tvel_, 0);
-    set_RobotW(-(1.0f * xbox_msgs.joyRHori_map), 0);
+    set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+    planner.reset();
     rst_state();
 }
 
@@ -39,11 +40,17 @@ void auto_lock_test::mode_1()
 
 void auto_lock_test::mode_3()
 {
+    Vector2D tvel((1.0f * xbox_msgs.joyLHori_map), (1.0f * xbox_msgs.joyLVert_map));
     Fine_tune(xbox_msgs.btnDirUp, xbox_msgs.btnDirDown, xbox_msgs.btnDirLeft, xbox_msgs.btnDirRight);
     calc_error();
+    if (planner.isFinished())
+    {
+        planner.start_plan(2.0f,2.0f,3.0f,tvel.magnitude()*3,0.0f,dis_2_center-radius[cnt_flag],0.0f);
+    }
     nor_control.setpoint = radius[cnt_flag];
 
-    nor_speed = -nor_control.PID_Compute(dis_2_center);
+    //nor_speed = -nor_control.PID_Compute(dis_2_center);
+    nor_speed = -planner.plan(dis_2_center-radius[cnt_flag]);
 
     Vector2D tvel_ = tan_dir * (3.0f * xbox_msgs.joyLHori_map);
 
@@ -71,10 +78,10 @@ void auto_lock_test::Fine_tune(bool up, bool down, bool left, bool right)
 {
     if(HAL_GetTick() - last_tick > 100)
     {
-        if (up)    center_point.y += 0.001f;
-        if (down)  center_point.y -= 0.001f;
-        if (left)  center_point.x -= 0.001f;
-        if (right) center_point.x += 0.001f;
+        if (up)    center_point.y += 0.01f;
+        if (down)  center_point.y -= 0.01f;
+        if (left)  center_point.x -= 0.01f;
+        if (right) center_point.x += 0.01f;
         last_tick = HAL_GetTick();
     }
 }
