@@ -27,19 +27,18 @@ public:
     imu * imu_ = nullptr;
     //信息储存结构体
     struct{
+        Vector2D  vertial_plane_deviation; //竖直平面偏差(像素值)，x,y需要转换(x -> yaw, y -> pitch)
+    } camera_info;
+    struct{
         Vector2D world_pos;
         float yaw_angle = 0.0f;
     } ros_radar_loaction;
-    struct{
-        Vector2D  vertial_plane_deviation; //竖直平面偏差(像素值)，x,y需要转换(x -> yaw, y -> pitch)
-    } camera_info;
-
-    Vector2D real_radar_world_pos;
-    Vector2D map_origin; //映射后原点
+    Vector2D real_radar_world_pos; // 映射后坐标
 	Vector2D map_inverse_relocate_pos; // 逆映射坐標
-    bool map_origin_init_flag = false; //原点映射标志位
+	Vector2D map_plot; // 偏移点坐标
     bool relocate_flag = false; //是否开启重定位标志
-	
+	bool get_zero_flag = false; //雷达有时会发送同时0的值，需要过滤
+
     ros_sensor();
     // 信息获取接口
     Vector2D get_world_pos() override;

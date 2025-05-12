@@ -4,12 +4,7 @@
 #define PI 3.141592653589793f
 //0值去除(传过来的float一定不为0)
 static void zero_removal(float * input, const float last_input){
-    *input = (*input == 0) ? last_input : *input;
-}
-//差分定位
-static void localize_with_diff(Vector2D* pos, Vector2D* origin){
-    pos->x -= origin->x;
-    pos->y -= origin->y;
+    *input = (fabsf(*input) <= 1e-4) ? last_input : *input;
 }
 
 ros_sensor::ros_sensor(){
@@ -68,15 +63,23 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 	previous_world_pos_x = ros_radar_loaction.world_pos.x;
 	previous_world_pos_y = ros_radar_loaction.world_pos.y;
 	previous_yaw_angle = ros_radar_loaction.yaw_angle;
+	// 异常值0标志位判断
+	if(fabsf(ros_radar_loaction.world_pos.x) < 1e-6 && fabsf(ros_radar_loaction.world_pos.y) < 1e-6 && fabsf(ros_radar_loaction.yaw_angle) < 1e-5){
+		get_zero_flag = true;
+	}
 	// 自旋映射
-	tf_.coordinate_map(&ros_radar_loaction.world_pos, &real_radar_world_pos, 0.40f, 3.1415926535f+get_yaw_rad());
+	if(!get_zero_flag){ //对于异常值不进行映射
+		tf_.coordinate_map(&ros_radar_loaction.world_pos, &real_radar_world_pos, 0.407f, 3.1415926f+get_yaw_rad(), map_plot);
+	}else{ //重置0值标志位
+		get_zero_flag = false;
+	}
 	// 差分原点标定
-	if(!map_origin_init_flag){
-		map_origin = real_radar_world_pos;
-		map_origin_init_flag = true;
+	if(!tf_.map_origin_init_flag){
+		tf_.map_origin = real_radar_world_pos;
+		tf_.map_origin_init_flag = true;
 	}
 	// 差分定位
-	localize_with_diff(&real_radar_world_pos, &map_origin);
+	tf_.localize_with_diff(&real_radar_world_pos);
 	// 坐标逆变换
 	tf_.coordinate_map_inverse(&real_radar_world_pos, &map_inverse_relocate_pos, 0.210f, 3.1415926535f+get_yaw_rad());
 	

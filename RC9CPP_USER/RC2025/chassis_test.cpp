@@ -1,10 +1,12 @@
 #include "chassis_test.h"
+#include "ros_sensor.h"
 
 TaskManager task_core;
 CanManager can_core;
 RC9Protocol esp_port(uart, &huart2), position_port(uart, &huart5);
 RC9Protocol ros_port(cdc, &huart5);
-ros_sensor ros_imu;
+RC9Protocol send_port(uart, &huart1);
+ros_sensor ros_sensor_;
 position position_sensor;
 
 m3508p shooter(2, &hcan1), m3508_left(4, &hcan1, true), m3508_front(3, &hcan1, true), m3508_right(1, &hcan1, true);
@@ -18,6 +20,8 @@ RoboChassis s3_chassis(swerve3_chassis);
 
 auto_lock_test s3_xbox(&position_sensor);
 
+demo plot;
+
 extern "C"
 {
     void chassis_move_test(void)
@@ -27,9 +31,13 @@ extern "C"
         // position_sensor.startUartReceiveIT();
         position_port.initQueue();
         position_port.startUartReceiveIT();
+        /**************debug*************/
+        send_port.initQueue();
+        plot.addport(&send_port);
+        /********************************/
         /****************************************************/
-        ros_imu.add_recolate_imu(&position_sensor);
-        ros_imu.addport(&ros_port);
+        ros_sensor_.add_recolate_imu(&position_sensor);
+        ros_sensor_.addport(&ros_port);
         ros_port.startUartReceiveIT();
         /****************************************************/
         m3508_front.config_mech_param(48.26f, 0.0f);
@@ -67,7 +75,14 @@ extern "C"
         task_core.registerTask(2, &s3_chassis);
         task_core.registerTask(2, &s3_xbox);
         task_core.registerTask(8, &position_port);
-
+        task_core.registerTask(8, &send_port);
+        task_core.registerTask(9, &plot);
         osKernelStart();
     }
+}
+
+void demo::process_data(){
+    float arr[6] = { ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y, position_sensor.real_world_pos.x, position_sensor.real_world_pos.y, \
+            position_sensor.get_world_pos().x, position_sensor.get_world_pos().y };
+    sendFloatData(1, arr, 6);
 }

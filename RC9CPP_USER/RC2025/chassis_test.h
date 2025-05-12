@@ -1,6 +1,7 @@
 #ifndef CHASSIS_TEST_H
 #define CHASSIS_TEST_H
 
+#include "TaskManager.h"
 #ifdef __cplusplus
 extern "C"
 {
@@ -22,6 +23,8 @@ extern "C"
 }
 #endif
 #ifdef __cplusplus
-
+class demo: public ITaskProcessor, public RC9subscriber{
+    void process_data();
+};
 #endif
 #endif
