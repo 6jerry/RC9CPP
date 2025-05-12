@@ -10,6 +10,11 @@ static void localize_with_diff(Vector2D* pos, Vector2D* origin){
     pos->y -= origin->y;
 }
 
+
+ros_sensor::ros_sensor(){
+	KalmanFilter_init(0.01f, 0.1f, 0.1f);
+}
+
 void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount){
 	static uint8_t count = 0; // 计数用于隔段时间校准action
 	// 上一次变量存储
@@ -23,12 +28,12 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 	if (byteCount == 20){
 		camera_info.vertial_plane_deviation.x = floatData[0];
 		camera_info.vertial_plane_deviation.y = floatData[1];  
-		ros_radar_loaction.world_pos.x = floatData[2];
-		ros_radar_loaction.world_pos.y = -floatData[3]; //把上位机坐标与追踪坐标方向对齐
-		ros_radar_loaction.yaw_angle = -floatData[4];
-		if(fabsf(floatData[2]) < 0.02f && fabsf(floatData[3]) < 0.05f){
-			map_origin_init_flag = false; //重置映射原点
-		}			
+		ros_radar_loaction.world_pos.x = filter(floatData[2]);
+		ros_radar_loaction.world_pos.y = -filter(floatData[3]); //把上位机坐标与追踪坐标方向对齐
+		ros_radar_loaction.yaw_angle = -filter(floatData[4]);
+//		if(fabsf(floatData[2]) < 0.02f && fabsf(floatData[3]) < 0.05f){
+//			map_origin_init_flag = false; //重置映射原点
+//		}			
 	}
 	// 去除雷达异常值
 	zero_removal(&ros_radar_loaction.world_pos.x, previous_world_pos_x); 

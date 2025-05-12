@@ -11,6 +11,7 @@ extern "C"
 #include <math.h>
 #include "Action.h"
 #include "transformation_of_coordinates.h"
+#include "filter.h"
 #ifdef __cplusplus
 }
 #endif
@@ -19,7 +20,7 @@ extern "C"
 
 
 // 
-class ros_sensor : public RC9subscriber, public imu, public tf
+class ros_sensor : public RC9subscriber, public imu, public tf, public KalmanFilter
 {
 public:
     action * _action_ = nullptr;
@@ -35,7 +36,8 @@ public:
     Vector2D real_radar_world_pos;
     Vector2D map_origin; //映射后原点
     bool map_origin_init_flag; //原点映射标志位
-		
+	
+    ros_sensor();
     // 信息获取接口
     Vector2D get_world_pos() override;
     //float get_yaw_angle() override;
