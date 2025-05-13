@@ -7,10 +7,10 @@ void position::DataReceivedCallback(const uint8_t *byteData, const float *floatD
     world_yaw = floatData[2];
     // global->x = x_offset + local->x * cos_y + local->y * sin_y;
     // global->y = y_offset - local->x * sin_y + local->y * cos_y;
-    float deltaxx = map_plot.x * arm_cos_f32(get_yaw_rad()) - map_plot.y * arm_sin_f32(get_yaw_rad()); // 逆变换回imu位置
+    float deltaxx = map_plot.x * arm_cos_f32(get_yaw_rad()) - map_plot.y * arm_sin_f32(get_yaw_rad()); // ��任��imuλ��
     float deltayy = map_plot.x * arm_sin_f32(get_yaw_rad()) + map_plot.y * arm_cos_f32(get_yaw_rad());
 
-    real_world_pos.x = world_pos.x - deltaxx; // 逆变换回imu位置
+    real_world_pos.x = world_pos.x - deltaxx; // ��任��imuλ��
     real_world_pos.y = world_pos.y - deltayy;
 
     /*
@@ -20,8 +20,8 @@ void position::DataReceivedCallback(const uint8_t *byteData, const float *floatD
     // ʹ����ʱ����ϵ�任
     Vector2D world_pos_ = world_pos;
     world_pos_.y = -world_pos_.y;
-    tf_.coordinate_map(&world_pos, &real_world_pos, 0.225f, -get_yaw_rad(), map_plot); //ӳ�䵽Բ��
-    // ���ԭ��궨
+    tf_.coordinate_map(&world_pos, &real_world_pos, 0.225f, -get_yaw_rad(), map_plot); //??????
+    // ???????
     if(!tf_.map_origin_init_flag){
         tf_.map_origin = real_world_pos;
         tf_.map_origin_init_flag = true;
@@ -67,5 +67,6 @@ void position::imu_relocate(float x, float y, float angle)
 
     float send_datas[2] = {x, y};
 
-    sendFloatData(1, send_datas, 2);
+    x = x + deltaxx; // 逆变换回imu位置
+    y = y + deltayy;
 }

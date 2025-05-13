@@ -82,7 +82,9 @@ extern "C"
 }
 
 void demo::process_data(){
-    float arr[6] = { ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y, position_sensor.world_pos.x, position_sensor.world_pos.y, \
-            position_sensor.get_world_pos().x, position_sensor.get_world_pos().y };
-    sendFloatData(1, arr, 6);
+    float arr[7] = { ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y,
+	ros_sensor_.ros_radar_loaction.world_pos.x, ros_sensor_.ros_radar_loaction.world_pos.y, 
+    position_sensor.get_world_pos().x, position_sensor.get_world_pos().y
+	};
+    sendFloatData(1, arr, 7);
 }
