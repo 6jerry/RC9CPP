@@ -59,6 +59,12 @@ float position::get_world_pos_y()
 
 void position::imu_relocate(float x, float y, float angle)
 {
+    float deltaxx = map_plot.x * arm_cos_f32(get_yaw_rad()) - map_plot.y * arm_sin_f32(get_yaw_rad()); // 逆变换回imu位置
+    float deltayy = map_plot.x * arm_sin_f32(get_yaw_rad()) + map_plot.y * arm_cos_f32(get_yaw_rad());
+
+    x = x + deltaxx; // 逆变换回imu位置
+    y = y + deltayy;
+
     float send_datas[2] = {x, y};
 
     sendFloatData(1, send_datas, 2);

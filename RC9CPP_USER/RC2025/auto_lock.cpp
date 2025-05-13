@@ -45,12 +45,12 @@ void auto_lock_test::mode_3()
     calc_error();
     if (planner.isFinished())
     {
-        planner.start_plan(2.0f,2.0f,3.0f,tvel.magnitude()*3,0.0f,dis_2_center-radius[cnt_flag],0.0f);
+        planner.start_plan(2.0f, 2.0f, 3.0f, tvel.magnitude() * 3, 0.0f, dis_2_center - radius[cnt_flag], 0.0f);
     }
     nor_control.setpoint = radius[cnt_flag];
 
-    //nor_speed = -nor_control.PID_Compute(dis_2_center);
-    nor_speed = -planner.plan(dis_2_center-radius[cnt_flag]);
+    // nor_speed = -nor_control.PID_Compute(dis_2_center);
+    nor_speed = -planner.plan(dis_2_center - radius[cnt_flag]);
 
     Vector2D tvel_ = tan_dir * (3.0f * xbox_msgs.joyLHori_map);
 
@@ -66,7 +66,7 @@ void auto_lock_test::xbox_on()
     center_point.x = 5.541f;
     center_point.y = 0.85f;
     nor_control.ConfigAll(1.0f, 0.0f, 0.02f, 0.0f, 1.0f, 0.005f, 0.0f);
-    imu_ptr->imu_relocate(0.20035f, -0.06079f, 0.0f);
+    imu_ptr->imu_relocate(0.0f, 0.0f, 0.0f);
     init_locate();
 }
 auto_lock_test::auto_lock_test(imu *imu_ptr_)
@@ -76,12 +76,16 @@ auto_lock_test::auto_lock_test(imu *imu_ptr_)
 
 void auto_lock_test::Fine_tune(bool up, bool down, bool left, bool right)
 {
-    if(HAL_GetTick() - last_tick > 100)
+    if (HAL_GetTick() - last_tick > 100)
     {
-        if (up)    center_point.y += 0.01f;
-        if (down)  center_point.y -= 0.01f;
-        if (left)  center_point.x -= 0.01f;
-        if (right) center_point.x += 0.01f;
+        if (up)
+            center_point.y += 0.01f;
+        if (down)
+            center_point.y -= 0.01f;
+        if (left)
+            center_point.x -= 0.01f;
+        if (right)
+            center_point.x += 0.01f;
         last_tick = HAL_GetTick();
     }
 }
