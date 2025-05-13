@@ -33,7 +33,7 @@ public:
     void imu_relocate(float x, float y, float angle) override;
 public:
     Vector2D real_world_pos; //映射后坐标
-	Vector2D map_plot = Vector2D(-0.2f,-0.07f); //原始数据中心偏移点
+	
 private:
     Vector2D world_pos;     // 单位m
     float world_yaw = 0.0f; // 单位度

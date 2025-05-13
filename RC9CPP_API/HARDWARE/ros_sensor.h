@@ -35,7 +35,6 @@ public:
     } ros_radar_loaction;
     Vector2D real_radar_world_pos; // 映射后坐标
 	Vector2D map_inverse_relocate_pos; // 逆映射坐標
-	Vector2D map_plot; // 偏移点坐标
     bool relocate_flag = false; //是否开启重定位标志
 	bool get_zero_flag = false; //雷达有时会发送同时0的值，需要过滤
 

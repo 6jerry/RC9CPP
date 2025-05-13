@@ -20,7 +20,8 @@ class tf{
 		Vector2D map_origin; // different point
 		bool map_origin_init_flag = false; //different mark flag 
 		void localize_with_diff(Vector2D* pos); //差分定位
-		void coordinate_map(Vector2D *original, Vector2D *target, float r_,float now_rad, Vector2D map_plot); //源坐标，目标坐标，极坐标半径，弧度，映射点变量 
+		void localize_with_diff_inverse(Vector2D* pos); //差分定位逆映射
+		void coordinate_map(Vector2D *original, Vector2D *target, float r_,float now_rad); //源坐标，目标坐标，极坐标半径，弧度
 		void coordinate_map_inverse(Vector2D *original, Vector2D *target, float r_, float now_rad); //源坐标，目标坐标，极坐标半径，弧度(逆变换)
 };
 

@@ -1,4 +1,5 @@
 #include "position.h"
+#include "Vector2D.h"
 
 
 
@@ -11,7 +12,7 @@ void position::DataReceivedCallback(const uint8_t *byteData, const float *floatD
 	// 使用临时坐标系变换
 	Vector2D world_pos_ = world_pos;
 	world_pos_.y = -world_pos_.y;
-	tf_.coordinate_map(&world_pos, &real_world_pos, 0.225f, -get_yaw_rad(), map_plot); //映射到圆心
+	tf_.coordinate_map(&world_pos, &real_world_pos, 0.205f, 0.017453f * 11.3f-get_yaw_rad()); //映射到圆心
     // 差分原点标定
 	if(!tf_.map_origin_init_flag){
 		tf_.map_origin = real_world_pos;
@@ -48,7 +49,15 @@ float position::get_world_pos_y()
 }
 
 void position::imu_relocate(float x, float y, float angle)
-{
+{   
+    Vector2D map_pos = Vector2D(x, y);
+    static Vector2D map_pos_diff_inverse;
+    tf_.coordinate_map_inverse(&map_pos, &map_pos_diff_inverse, 0.215f, 0.017453f * 18.1f-get_yaw_rad()); //映射到圆心
+    tf_.localize_with_diff_inverse(&map_pos_diff_inverse);
+    float send_arr[2] = {map_pos_diff_inverse.x, map_pos_diff_inverse.y};
+
+
+    
     float send_datas[2] = {x, y};
 
     sendFloatData(1, send_datas, 2);
