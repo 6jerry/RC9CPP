@@ -12,6 +12,8 @@ void position::DataReceivedCallback(const uint8_t *byteData, const float *floatD
 
     real_world_pos.x = world_pos.x - deltaxx; // ��任��imuλ��
     real_world_pos.y = world_pos.y - deltayy;
+    real_world_pos.y = -real_world_pos.y; // ��ת��y����
+    real_world_pos.x = -real_world_pos.x; // ��ת��x
 
     /*
 
@@ -67,6 +69,5 @@ void position::imu_relocate(float x, float y, float angle)
 
     float send_datas[2] = {x, y};
 
-    x = x + deltaxx; // 逆变换回imu位置
-    y = y + deltayy;
+    sendFloatData(1, send_datas, 2);
 }
