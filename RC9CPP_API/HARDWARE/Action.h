@@ -112,9 +112,7 @@ public:                              // 面向用户的友好接口函数
     Vector2D get_world_pos() override;
 
     void imu_rst() override;
-    void imu_relocate(float x, float y, float angle) override;
     void Update_ACTION(void);
-    void relocateAll(float angle, float pos_x, float pos_y);
 
 public:
     // 内部状态机的状态

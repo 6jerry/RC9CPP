@@ -12,6 +12,7 @@ extern "C"
 #include "RC9Protocol.h"
 #include "TrapezoidalPlanner.h"
 #include "motor.h"
+#include "math.h"
 #ifdef __cplusplus
 }
 // 全自动模式状态
@@ -84,10 +85,10 @@ private:
     uint8_t plan_flag = 0;
     planInfo plan_info;
 
-     uint8_t test_flag = 0;
     // 三分 0.2500
     float dis_data[9] = {0.016f, 0.1968f, 0.1958f, 0.2190f, 0.2337f, 0.228f, 0.172f, 0.1800f, 0.2211f};
     float lidar_data[9] = {0.020f, 0.1900f, 0.2000f, 0.2100f, 0.2200f, 0.2300f, 0.2150f, 0.2420f, 0.2211f};
+    float circle_data[5] = {0.020f, 0.1580f, 0.1760f, 0.1900f, 0.2100f};
     // 标准俯仰                     篮下俯仰（待测量）
     float inital_angle = -0.0158f, inside_angle = 0.0f;
 
@@ -108,13 +109,13 @@ public:
     bool auto_adjust(float lifter_distance);
     void allAuto_adjust();
     void hand_adjust();
+    bool debug_adjust();
     bool isfinish();
     void check_trigger();
     void check_shooter();
 
     void set_shooter_mode(uint8_t mode);
-    void set_halfAuto(uint8_t index);
-    void set_allAuto(uint8_t index);
+    void set_Auto(uint8_t index, uint8_t mode);
     void set_pitcher_mode(uint8_t mode);
 
     uint32_t Read_GPIO_State(void);

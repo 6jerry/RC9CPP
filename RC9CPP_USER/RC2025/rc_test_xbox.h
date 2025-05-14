@@ -40,9 +40,8 @@ private:
   uint8_t pithcer_status = 0;
 
   uint8_t auto_flag = 0;
-  float lifter_speed = 0.0f, turn_speed = 0.0f, shooter_speed = 0.0f, pithcer_speed = 0.0f;
 
-  float max_lifter_speed = 420.0f, max_turn_speed = 80.0f, max_shooter_speed = 600.0f, max_pithcer_speed = 430.0f, shoot_dis = 0.16f;
+  float max_lifter_speed = 420.0f, max_turn_speed = 80.0f, max_shooter_speed = 800.0f, max_pithcer_speed = 430.0f;
 
 public:
   void process_data();

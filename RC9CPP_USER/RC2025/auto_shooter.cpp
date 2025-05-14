@@ -39,9 +39,7 @@ void AutoShooter::process_data()
         allAuto_adjust();
         break;
     case shooter_debug:
-        // 隐藏模式：
-        // 开启debug后，手动改变worknode为4，即可进入调试模式，
-        // 修改debug_dis,即可调整拉伸距离
+
         auto_adjust(shooter_info.debug_dis);
         break;
 
@@ -91,11 +89,13 @@ void AutoShooter::pitcher_adjust(float pitch_angle)
     //        shooter_info.pitcher_status = 1;
     //    }
 }
-
+bool AutoShooter::debug_adjust()
+{
+}
 // 手动模式
 void AutoShooter::hand_adjust()
 {
-    test_flag = Read_GPIO_State();
+    //    test_flag = Read_GPIO_State();
     // 棘轮锁住后，电机不能动
     if (trigger_flag == 1)
     {
@@ -103,10 +103,10 @@ void AutoShooter::hand_adjust()
     }
 
     // 触发光电门
-    // if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
-    // {
-    //     shooter_info.hand_shooter_rpm = 0.0f;
-    // }
+    if (HAL_GPIO_ReadPin(stop_port, stop_pin) && shooter_motor->get_rpm() >= 0.0f)
+    {
+        shooter_info.hand_shooter_rpm = 0.0f;
+    }
 
     shooter_motor->set_rpm(shooter_info.hand_shooter_rpm);
 }
@@ -128,10 +128,10 @@ void AutoShooter::allAuto_adjust()
         shooter_motor->set_rpm(0.0f);
         timecnt++;
         trigger_flag = 1;
-        if (timecnt > 5)
+        if (timecnt > 3)
         {
             shooter_flag = 1;
-            if (timecnt > 10)
+            if (timecnt > 6)
             {
                 timecnt = 0;
                 shooter_info.shooter_status = auto_revert;
@@ -178,13 +178,13 @@ bool AutoShooter::auto_adjust(float lifter_distance)
     shooter_motor->set_rpm(-planer.plan(shooter_info.shoot_disdance * 36000));
 
     // 触发光电门
-    //		if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
-    //   {
-    //        shooter_motor->set_rpm(0.0f);
-    //    }
+    if (HAL_GPIO_ReadPin(stop_port, stop_pin) && shooter_motor->get_rpm() >= 0.0f)
+    {
+        shooter_motor->set_rpm(0.0f);
+    }
 
     // 到达终点锁住
-    if (shooter_info.shoot_disdance > lifter_distance - 0.003f && shooter_info.shoot_disdance < lifter_distance + 0.003f)
+    if (abs(shooter_info.shoot_disdance - lifter_distance) < 0.003f)
     {
         plan_flag = 0;
         return true;
@@ -242,14 +242,16 @@ bool AutoShooter::isfinish()
 
 void AutoShooter::check_trigger()
 {
-    if (trigger_flag == 0)
-    {
-        HAL_GPIO_WritePin(trigger_port, trigger_pin, GPIO_PIN_RESET);
-    }
-    else if (trigger_flag == 1)
-    {
-        HAL_GPIO_WritePin(trigger_port, trigger_pin, GPIO_PIN_SET);
-    }
+
+    HAL_GPIO_WritePin(trigger_port, trigger_pin, (trigger_flag == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);
+    // if (trigger_flag == 0)
+    // {
+    //     HAL_GPIO_WritePin(trigger_port, trigger_pin, GPIO_PIN_RESET);
+    // }
+    // else if (trigger_flag == 1)
+    // {
+    //     HAL_GPIO_WritePin(trigger_port, trigger_pin, GPIO_PIN_SET);
+    // }
 }
 void AutoShooter::check_shooter()
 {
@@ -267,19 +269,17 @@ void AutoShooter::check_shooter()
     }
 }
 
-void AutoShooter::set_allAuto(uint8_t index)
+void AutoShooter::set_Auto(uint8_t index, uint8_t mode)
 {
-    shooter_mode = shooter_allAuto;
-    shooter_info.shoot_dis = lidar_data[index];
-    shooter_info.shooter_status = auto_lift;
-}
+    shooterMode temp_mode = static_cast<shooterMode>(mode);
+    shooter_mode = temp_mode;
+    shooter_info.shoot_dis = circle_data[index];
 
-void AutoShooter::set_halfAuto(uint8_t index)
-{
-    shooter_mode = shooter_halfAuto;
-    shooter_info.shoot_dis = lidar_data[index];
+    if (temp_mode = shooter_allAuto)
+    {
+        shooter_info.shooter_status = auto_lift;
+    }
 }
-
 void AutoShooter::set_shooter_mode(uint8_t mode)
 {
     shooter_mode = static_cast<shooterMode>(mode);
