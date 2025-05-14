@@ -43,14 +43,14 @@ void auto_lock_test::mode_3()
     Vector2D tvel((1.0f * xbox_msgs.joyLHori_map), (1.0f * xbox_msgs.joyLVert_map));
     Fine_tune(xbox_msgs.btnDirUp, xbox_msgs.btnDirDown, xbox_msgs.btnDirLeft, xbox_msgs.btnDirRight);
     calc_error();
-    if (planner.isFinished())
+    /*if (planner.isFinished())
     {
         planner.start_plan(2.0f, 2.0f, 3.0f, tvel.magnitude() * 3, 0.0f, dis_2_center - radius[cnt_flag], 0.0f);
-    }
+    }*/
     nor_control.setpoint = radius[cnt_flag];
 
-    // nor_speed = -nor_control.PID_Compute(dis_2_center);
-    nor_speed = -planner.plan(dis_2_center - radius[cnt_flag]);
+    nor_speed = -nor_control.PID_Compute(dis_2_center);
+    //nor_speed = -planner.plan(dis_2_center - radius[cnt_flag]);
 
     Vector2D tvel_ = tan_dir * (3.0f * xbox_msgs.joyLHori_map);
 
@@ -63,9 +63,9 @@ void auto_lock_test::mode_3()
 
 void auto_lock_test::xbox_on()
 {
-    center_point.x = 5.541f;
-    center_point.y = 0.85f;
-    nor_control.ConfigAll(1.0f, 0.0f, 0.02f, 0.0f, 1.0f, 0.005f, 0.0f);
+    center_point.x = 5.835f;
+    center_point.y = 0.774f;
+    nor_control.ConfigAll(1.0f, 0.0f, 0.02f, 0.0f, 1.0f, 0.015f, 0.0f);
     imu_ptr->imu_relocate(0.0f, 0.0f, 0.0f);
     init_locate();
 }

@@ -26,7 +26,7 @@ private:
     float dis_2_center = 0.0f, center_heading = 0.0f, nor_speed = 0.0f; // 半径
     float last_tick = 0.0f;                                            
 
-    float radius[4] = {2.25f, 2.5f, 2.75f, 3.0f}; // 半径
+    float radius[4] = {1.5f,2.0f,2.5f,3.0f}; // 半径
 
     void calc_error(); // 计算误差
     void Fine_tune(bool up, bool down, bool left, bool right); // 微调
