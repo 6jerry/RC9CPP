@@ -13,6 +13,9 @@ extern "C"
 #include "TrapezoidalPlanner.h"
 #include "motor.h"
 #include "math.h"
+
+#define revert_dis 0.017f
+
 #ifdef __cplusplus
 }
 // 全自动模式状态
@@ -57,8 +60,8 @@ typedef struct shooterInfo
 {
     float hand_shooter_rpm = 0.0f;         // 手动模式下射球电机转速
     float hand_pitcher_rpm = 0.0f;         // 手动模式下俯仰电机转速
-    float shoot_dis = 0.013f;              // 自动模式下拉伸距离  单位 m
-    float debug_dis = 0.013f;              // 调试模式下调试距离
+    float shoot_dis = 0.017f;              // 自动模式下拉伸距离  单位 m
+    float debug_dis = 0.017f;              // 调试模式下调试距离
     float shoot_disdance = 0.0f;           // 从编码器获取的拉伸距离
     float shoot_pitch_angle = 0.0f;        // 从imu获取的俯仰角度
     autoMode shooter_status = auto_finish; // 自动射球状态
@@ -85,12 +88,7 @@ private:
     uint8_t plan_flag = 0;
     planInfo plan_info;
 
-    // 三分 0.2500
-    float dis_data[9] = {0.016f, 0.1968f, 0.1958f, 0.2190f, 0.2337f, 0.228f, 0.172f, 0.1800f, 0.2211f};
-    float lidar_data[9] = {0.020f, 0.1900f, 0.2000f, 0.2100f, 0.2200f, 0.2300f, 0.2150f, 0.2420f, 0.2211f};
     float circle_data[5] = {0.020f, 0.1580f, 0.1760f, 0.1900f, 0.2100f};
-    // 标准俯仰                     篮下俯仰（待测量）
-    float inital_angle = -0.0158f, inside_angle = 0.0f;
 
 public:
     shooterInfo shooter_info;
@@ -105,6 +103,7 @@ public:
     void add_motor(power_motor *shooter_motor_, power_motor *pithcer_motor_);
     void add_plan_info(float max_acc_, float max_dcc_, float max_speed_, float inital_speed_, float final_speed_);
 
+    void pulldata_adjust();
     void pitcher_adjust(float pitch_angle);
     bool auto_adjust(float lifter_distance);
     void allAuto_adjust();

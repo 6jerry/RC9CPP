@@ -139,7 +139,7 @@ void yun_ball_xbox::process_data()
                 {
                     if (auto_flag == 0)
                     {
-                        auto_shooter->set_allAuto(lifter_status - 1);
+                        auto_shooter->setAuto(lifter_status - 1, shooter_allAuto);
                         auto_flag = 1;
                     }
 

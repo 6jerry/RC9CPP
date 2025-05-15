@@ -1,8 +1,8 @@
 #include "auto_shooter.h"
 /**
- * auto_shooter
- * author: yanqy
- * intro：自动射球
+ * @file auto_shooter
+ * @author: yanqy
+ * @brief：自动射球
  * 手动模式（shooter_hand）：
  * - 用户通过外部输入直接控制射球电机的转速。
  * - 在该模式下，系统会检测触发信号并执行相应的动作。
@@ -38,8 +38,10 @@ void AutoShooter::process_data()
     case shooter_allAuto:
         allAuto_adjust();
         break;
+    case shooter_pulldata:
+        pulldata_adjust();
+        break;
     case shooter_debug:
-
         auto_adjust(shooter_info.debug_dis);
         break;
 
@@ -95,7 +97,6 @@ bool AutoShooter::debug_adjust()
 // 手动模式
 void AutoShooter::hand_adjust()
 {
-    //    test_flag = Read_GPIO_State();
     // 棘轮锁住后，电机不能动
     if (trigger_flag == 1)
     {
@@ -103,7 +104,7 @@ void AutoShooter::hand_adjust()
     }
 
     // 触发光电门
-    if (HAL_GPIO_ReadPin(stop_port, stop_pin) && shooter_motor->get_rpm() >= 0.0f)
+    if (HAL_GPIO_ReadPin(stop_port, stop_pin) && shooter_motor->get_rpm() > 0.0f)
     {
         shooter_info.hand_shooter_rpm = 0.0f;
     }
@@ -128,10 +129,10 @@ void AutoShooter::allAuto_adjust()
         shooter_motor->set_rpm(0.0f);
         timecnt++;
         trigger_flag = 1;
-        if (timecnt > 3)
+        if (timecnt > 2)
         {
             shooter_flag = 1;
-            if (timecnt > 6)
+            if (timecnt > 5)
             {
                 timecnt = 0;
                 shooter_info.shooter_status = auto_revert;
@@ -140,7 +141,7 @@ void AutoShooter::allAuto_adjust()
 
         break;
     case auto_revert:
-        if (auto_adjust(0.017f))
+        if (auto_adjust(revert_dis))
         {
             shooter_info.shooter_status = auto_finish;
         }
@@ -192,6 +193,7 @@ bool AutoShooter::auto_adjust(float lifter_distance)
 
     return false;
 }
+
 void AutoShooter::add_imu(Encoder *encoder_, wit_gyro *wit_imu_)
 {
     encoder = encoder_;
@@ -225,8 +227,8 @@ void AutoShooter::add_plan_info(float max_acc_, float max_dcc_, float max_speed_
 void AutoShooter::get_data()
 {
     shooter_info.shoot_disdance = encoder->get_absolute_distance();
-    wit_imu->Get_Data();
-    shooter_info.shoot_pitch_angle = wit_imu->Pitch_angle;
+    // wit_imu->Get_Data();
+    // shooter_info.shoot_pitch_angle = wit_imu->Pitch_angle;
 }
 
 // 读取GPIO状态
@@ -242,30 +244,17 @@ bool AutoShooter::isfinish()
 
 void AutoShooter::check_trigger()
 {
-
     HAL_GPIO_WritePin(trigger_port, trigger_pin, (trigger_flag == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);
-    // if (trigger_flag == 0)
-    // {
-    //     HAL_GPIO_WritePin(trigger_port, trigger_pin, GPIO_PIN_RESET);
-    // }
-    // else if (trigger_flag == 1)
-    // {
-    //     HAL_GPIO_WritePin(trigger_port, trigger_pin, GPIO_PIN_SET);
-    // }
 }
 void AutoShooter::check_shooter()
 {
+    HAL_GPIO_WritePin(shooter_port, shooter_pin, (shooter_flag == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);
 
-    if (shooter_flag == 0)
-    {
-        HAL_GPIO_WritePin(shooter_port, shooter_pin, GPIO_PIN_RESET);
-    }
-    else if (shooter_flag == 1)
+    if (shooter_flag == 1)
     {
         // 发射时记录当前数据
         // float send_data[2] = {shooter_info.shoot_disdance,shooter_info.shoot_pitch_angle};
         // sendFloatData(1,send_data,2);
-        HAL_GPIO_WritePin(shooter_port, shooter_pin, GPIO_PIN_SET);
     }
 }
 
