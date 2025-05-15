@@ -90,7 +90,7 @@ public:
     float targrt_T = 0.0f;        // 期望转矩
     float Tff = 0.0f, Cff = 0.0f; // 前馈力矩和换算成的前馈电流
 
-    float last_pos = 0.0f, delta_pos = 0.0f, pos_sum = 0.0f, now_pos = 0.0f, temp_delta = 0.0f, dis_sum = 0.0f;
+    float last_pos = 0.0f, delta_pos = 0.0f, pos_sum = 0.0f, now_pos = 0.0f, temp_delta = 0.0f, dis_sum = 0.0f, pos_all = 0.0f;
     uint8_t init_cnt = 0;
     bool if_init = true;
 
@@ -107,6 +107,7 @@ public:
 
     void set_pos(float pos) override;
     float get_pos() override;
+    float get_pos_all() override;
     void relocate_pos(float angle) override;
     void set_dis(float dis) override;
     void set_F(float F_) override;

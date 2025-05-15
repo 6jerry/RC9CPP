@@ -141,13 +141,15 @@ void yun_ball_xbox::process_data()
                         auto_shooter->set_allAuto(lifter_status - 1);
                         auto_flag = 1;
                     }
-                
+								}
 
                 if (auto_shooter->isfinish())
                 {
                     lifter_status = 0;
                     auto_flag = 0;
                 }
+
+             
             }
         
     }
@@ -158,10 +160,10 @@ void yun_ball_xbox::process_data()
         {
             if (yun_trigger == 1)
             {
-                yunball->start_test_yun();
+                if(yunball->put_ball())
                 yun_trigger = 0;
             }
-            turn_motor->set_rpm(0.0f);
+            //turn_motor->set_rpm(0.0f);
         }
         else
         {
@@ -217,8 +219,8 @@ void yun_ball_xbox::add_yunball(auto_yunball *yunball_)
 {
     yunball = yunball_;
 }
-void yun_ball_xbox::add_dt35(dt35 *dt_)
-{
-  dt = dt_;
- 
-}
+//void yun_ball_xbox::add_dt35(dt35 *dt_)
+//{
+//  dt = dt_;
+// 
+//}

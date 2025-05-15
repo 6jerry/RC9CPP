@@ -31,7 +31,6 @@ enum shooterMode
     shooter_halfAuto, // 半自动模式
     shooter_allAuto,  // 全自动模式
     shooter_debug,    // 调试模式
-
 };
 
 enum pitcherMode

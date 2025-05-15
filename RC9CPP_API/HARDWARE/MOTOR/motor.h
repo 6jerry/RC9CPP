@@ -35,6 +35,7 @@ public:
     virtual void set_ff_current(float target_c_) {};
 
     virtual float get_pos() {};
+    virtual float get_pos_all() {};
     virtual void set_pos(float pos) {}; // 获取当前位置和设置目标位置的通用接口
 
     virtual void set_current(float target_c_) {};
