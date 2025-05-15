@@ -2,7 +2,19 @@
 /**
  * auto_shooter
  * author: yanqy
- * 2025/4/10
+ * intro：自动射球
+ * 手动模式（shooter_hand）：
+ * - 用户通过外部输入直接控制射球电机的转速。
+ * - 在该模式下，系统会检测触发信号并执行相应的动作。
+ *
+ * 全自动模式（shooter_allAuto）：
+ * - 系统根据预设数据自动完成拉伸、发射、复位等操作。
+ * - 修改lidar_data中的预设数据，即可修改拉伸距离。单位为米。
+ * - 包含四个状态：auto_lift（拉伸）、auto_shoot（发射）、auto_revert（复位）、auto_finish（停止）。
+ * - 可通过 set_allAuto() 接口设置目标拉伸距离，并启动全自动流程。
+ *
+ * 俯仰目前已废弃，关于pitcher的代码都不用看
+ * 2025/4/30
  */
 AutoShooter::AutoShooter()
 {
@@ -27,9 +39,7 @@ void AutoShooter::process_data()
         allAuto_adjust();
         break;
     case shooter_debug:
-        // 隐藏模式：
-        // 开启debug后，手动改变worknode为4，即可进入调试模式，
-        // 修改debug_dis,即可调整拉伸距离
+
         auto_adjust(shooter_info.debug_dis);
         break;
 
@@ -59,6 +69,7 @@ void AutoShooter::process_data()
     check_trigger();
     check_shooter();
 }
+
 void AutoShooter::pitcher_adjust(float pitch_angle)
 {
 
@@ -78,9 +89,13 @@ void AutoShooter::pitcher_adjust(float pitch_angle)
     //        shooter_info.pitcher_status = 1;
     //    }
 }
+bool AutoShooter::debug_adjust()
+{
+}
+// 手动模式
 void AutoShooter::hand_adjust()
 {
-
+    //    test_flag = Read_GPIO_State();
     // 棘轮锁住后，电机不能动
     if (trigger_flag == 1)
     {
@@ -88,14 +103,14 @@ void AutoShooter::hand_adjust()
     }
 
     // 触发光电门
-    // if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
-    // {
-    //     shooter_info.hand_shooter_rpm = 0.0f;
-    // }
+    if (HAL_GPIO_ReadPin(stop_port, stop_pin) && shooter_motor->get_rpm() >= 0.0f)
+    {
+        shooter_info.hand_shooter_rpm = 0.0f;
+    }
 
     shooter_motor->set_rpm(shooter_info.hand_shooter_rpm);
 }
-
+// 全自动模式
 void AutoShooter::allAuto_adjust()
 {
 
@@ -113,10 +128,10 @@ void AutoShooter::allAuto_adjust()
         shooter_motor->set_rpm(0.0f);
         timecnt++;
         trigger_flag = 1;
-        if (timecnt > 5)
+        if (timecnt > 3)
         {
             shooter_flag = 1;
-            if (timecnt > 10)
+            if (timecnt > 6)
             {
                 timecnt = 0;
                 shooter_info.shooter_status = auto_revert;
@@ -138,6 +153,7 @@ void AutoShooter::allAuto_adjust()
         break;
     }
 }
+// 自动拉伸
 bool AutoShooter::auto_adjust(float lifter_distance)
 {
 
@@ -156,21 +172,21 @@ bool AutoShooter::auto_adjust(float lifter_distance)
         planer.start_plan(plan_info.max_acc, plan_info.max_dcc,
                           plan_info.max_speed, plan_info.inital_speed, plan_info.final_speed,
                           shooter_info.shoot_disdance * 36000, lifter_distance * 36000);
-			  plan_flag = 1;
+        plan_flag = 1;
     }
 
     shooter_motor->set_rpm(-planer.plan(shooter_info.shoot_disdance * 36000));
 
     // 触发光电门
-    //		if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
-    //   {
-    //        shooter_motor->set_rpm(0.0f);
-    //    }
+    if (HAL_GPIO_ReadPin(stop_port, stop_pin) && shooter_motor->get_rpm() >= 0.0f)
+    {
+        shooter_motor->set_rpm(0.0f);
+    }
 
     // 到达终点锁住
-    if (shooter_info.shoot_disdance > lifter_distance - 0.003f && shooter_info.shoot_disdance < lifter_distance + 0.003f)
+    if (abs(shooter_info.shoot_disdance - lifter_distance) < 0.003f)
     {
-			  plan_flag = 0;
+        plan_flag = 0;
         return true;
     }
 
@@ -195,7 +211,7 @@ void AutoShooter::add_motor(power_motor *shooter_motor_, power_motor *pithcer_mo
     shooter_motor = shooter_motor_;
     pitcher_motor = pithcer_motor_;
 }
-
+// 添加梯形规划信息
 void AutoShooter::add_plan_info(float max_acc_, float max_dcc_, float max_speed_, float inital_speed_, float final_speed_)
 {
 
@@ -226,14 +242,16 @@ bool AutoShooter::isfinish()
 
 void AutoShooter::check_trigger()
 {
-    if (trigger_flag == 0)
-    {
-        HAL_GPIO_WritePin(trigger_port, trigger_pin, GPIO_PIN_RESET);
-    }
-    else if (trigger_flag == 1)
-    {
-        HAL_GPIO_WritePin(trigger_port, trigger_pin, GPIO_PIN_SET);
-    }
+
+    HAL_GPIO_WritePin(trigger_port, trigger_pin, (trigger_flag == 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);
+    // if (trigger_flag == 0)
+    // {
+    //     HAL_GPIO_WritePin(trigger_port, trigger_pin, GPIO_PIN_RESET);
+    // }
+    // else if (trigger_flag == 1)
+    // {
+    //     HAL_GPIO_WritePin(trigger_port, trigger_pin, GPIO_PIN_SET);
+    // }
 }
 void AutoShooter::check_shooter()
 {
@@ -251,17 +269,16 @@ void AutoShooter::check_shooter()
     }
 }
 
-void AutoShooter::set_allAuto(uint8_t index)
+void AutoShooter::set_Auto(uint8_t index, uint8_t mode)
 {
-    shooter_mode = shooter_allAuto;
-    shooter_info.shoot_dis = lidar_data[index];
-    shooter_info.shooter_status = auto_lift;
-}
+    shooterMode temp_mode = static_cast<shooterMode>(mode);
+    shooter_mode = temp_mode;
+    shooter_info.shoot_dis = circle_data[index];
 
-void AutoShooter::set_halfAuto(uint8_t index)
-{
-    shooter_mode = shooter_halfAuto;
-    shooter_info.shoot_dis = lidar_data[index];
+    if (temp_mode = shooter_allAuto)
+    {
+        shooter_info.shooter_status = auto_lift;
+    }
 }
 void AutoShooter::set_shooter_mode(uint8_t mode)
 {

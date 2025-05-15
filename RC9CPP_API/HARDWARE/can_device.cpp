@@ -277,7 +277,7 @@ void CanManager::process_data()
     {
         for (int i = 0; i < MAX_INSTANCES; ++i)
         {
-            if (CanDevice::m3508_instances_can2[i] == nullptr)
+            if (CanDevice::m3508_instances_can2[i] != nullptr)
             {
                 int16_t temp_vcurrent2 = CanDevice::m3508_instances_can2[i]->motor_process();
                 send_buf2[2 * i] = (uint8_t)(temp_vcurrent2 >> 8);
@@ -296,7 +296,7 @@ void CanManager::process_data()
     {
         for (int i = 0; i < MAX_INSTANCES; ++i)
         {
-            if (CanDevice::m6020_instances_can2[i] == nullptr)
+            if (CanDevice::m6020_instances_can2[i] != nullptr)
             {
                 int16_t temp_vcurrent2 = CanDevice::m6020_instances_can2[i]->motor_process();
                 send_buf2[2 * 3] = (uint8_t)(temp_vcurrent2 >> 8);

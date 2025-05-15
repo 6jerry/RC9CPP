@@ -27,6 +27,8 @@ void serialStudio::add_upper_info(power_motor *shooter_motor_, power_motor *lift
     upper_info.turner_motor = turner_motor_;
     upper_info.encoder = encoder_;
     upper_info.wit_imu = wit_imu_;
+   	upper_info.id = 1;
+	  upper_info.length = 5;
 }
 
 void serialStudio::send_float_debuginfo(uint8_t id, float *data, uint8_t length)

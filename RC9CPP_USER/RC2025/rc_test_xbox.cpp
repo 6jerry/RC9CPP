@@ -100,6 +100,7 @@ void yun_ball_xbox::process_data()
 
     if (if_motor_start == 1)
     {
+
         if (shoot_yunball == 0) // 射球模式
         {
 
@@ -113,7 +114,7 @@ void yun_ball_xbox::process_data()
 
                 HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_RESET);
             }
-        
+
             // 手动模式
             if (auto_mode == 0)
             {
@@ -141,57 +142,48 @@ void yun_ball_xbox::process_data()
                         auto_shooter->set_allAuto(lifter_status - 1);
                         auto_flag = 1;
                     }
-								}
 
-                if (auto_shooter->isfinish())
-                {
-                    lifter_status = 0;
-                    auto_flag = 0;
+                    if (auto_shooter->isfinish())
+                    {
+                        lifter_status = 0;
+                        auto_flag = 0;
+                    }
                 }
-
-             
             }
-        
-    }
-    else if (shoot_yunball == 1)
-    {
-
-        if (auto_mode == 1)
-        {
-            if (yun_trigger == 1)
-            {
-                if(yunball->put_ball())
-                yun_trigger = 0;
-            }
-            //turn_motor->set_rpm(0.0f);
         }
-        else
+
+        else if (shoot_yunball == 1)
         {
-            if (trigger_start == 1)
+
+            if (auto_mode == 1)
             {
-                yunball->lift_reset();
-                trigger_start = 0;
+                if (yun_trigger == 1)
+                {
+                    yunball->start_test_yun();
+                    yun_trigger = 0;
+                }
+                turn_motor->set_rpm(0.0f);
             }
-            if (yun_trigger == 1)
+            else
             {
-                HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_SET);
+                if (trigger_start == 1)
+                {
+                    yunball->lift_reset();
+                    trigger_start = 0;
+                }
+                if (yun_trigger == 1)
+                {
+                    HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_SET);
+                }
+                else if (yun_trigger == 0)
+                {
+                    HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_RESET);
+                }
+                lifter_motor->set_rpm(xbox_msgs.joyRVert_map * max_lifter_speed);
+                turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
             }
-            else if (yun_trigger == 0)
-            {
-                HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_RESET);
-            }
-            lifter_motor->set_rpm(xbox_msgs.joyRVert_map * max_lifter_speed);
-            turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
         }
     }
-	}
-	else if (if_motor_start == 0)
-	{
-    lifter_motor->set_rpm(0.0f);
-    turn_motor->set_rpm(0.0f);
-    auto_shooter->set_pitcher_mode(pitcher_stop);
-    auto_shooter->set_shooter_mode(shooter_stop);
-	}
 }
 void yun_ball_xbox::add_motor(power_motor *lfter_motor_, power_motor *turn_motor_)
 {
@@ -219,8 +211,3 @@ void yun_ball_xbox::add_yunball(auto_yunball *yunball_)
 {
     yunball = yunball_;
 }
-//void yun_ball_xbox::add_dt35(dt35 *dt_)
-//{
-//  dt = dt_;
-// 
-//}
