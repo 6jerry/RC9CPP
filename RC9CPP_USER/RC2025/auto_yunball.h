@@ -23,16 +23,11 @@ extern "C"
 
 enum yunball_mode
 {
-    yunball_init_locate,
-    yunball_remote_control,
     yunball_standby,
-    yunball_move_2_catch_point,
-    yunball_move_2_throw_point,
-    yunball_move_2_turn_point,
-    yunball_turn_2_throw_point,
-    yunball_turn_back,
-    yunball_lift_motor_reset,
-    yunball_turn_motor_reset,
+    yunball_up,
+    yunball_turn,
+    yunball_back,
+    yunball_down,
 
     yunball_test_init,
     yunball_test_throw,
@@ -61,7 +56,7 @@ private:
     float max_catch_speed = 1500.0f, max_catch_acc = 2500.0f, max_catch_dec = 2500.0f, final_catch_speed = 0.0f;
     float max_throw_speed = 1000.0f, max_throw_acc = 1400.0f, max_throw_dec = 1400.0f, final_throw_speed = 600.0f;
 
-    void system_init();
+    /*void system_init();
 
     void move_2_catch_point();
 
@@ -71,7 +66,7 @@ private:
 
     void turn_2_throw_point();
 
-    void turn_back();
+    void turn_back();*/
 
     void test_init();
     void test_throw();
@@ -93,7 +88,10 @@ public:
     void add_motor(power_motor *lift_motor_, power_motor *turn_motor_);
     void add_io(GPIO_TypeDef *locate_sensor_port_, uint16_t locate_sensor_pin_, GPIO_TypeDef *ball_sensor_port_, uint16_t ball_sensor_pin_, GPIO_TypeDef *claw_port_, uint16_t claw_pin_, GPIO_TypeDef *push_port_, uint16_t push_pin_);
 
-    void start_multi_yun();
+    void start_put_ball();
+    bool put_ball();
+
+    bool isFinished() const { return workmode == yunball_standby; }
 
     void stop();
     void start_test_yun();
