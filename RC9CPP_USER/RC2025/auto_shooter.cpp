@@ -38,7 +38,7 @@ void AutoShooter::process_data()
     case shooter_allAuto:
         allAuto_adjust();
         break;
-    case shooter_pulldata:
+     case shooter_pulldata:
         pulldata_adjust();
         break;
     case shooter_debug:
@@ -96,8 +96,17 @@ void AutoShooter::pitcher_adjust(float pitch_angle)
     //        shooter_info.pitcher_status = 1;
     //    }
 }
-bool AutoShooter::debug_adjust()
+bool AutoShooter::pulldata_adjust()
 {
+     
+     if(auto_adjust(shooter_info.shoot_dis ))
+     {
+         shooter_mode = shooter_stop;
+         trigger_flag = 1;
+         return true;
+     }
+     return false;
+
 }
 // 手动模式
 void AutoShooter::hand_adjust()
@@ -263,16 +272,29 @@ void AutoShooter::check_shooter()
     }
 }
 
-void AutoShooter::set_Auto(uint8_t index, uint8_t mode)
+void AutoShooter::set_Auto(uint8_t index, uint8_t mode, uint8_t type)
 {
     shooterMode temp_mode = static_cast<shooterMode>(mode);
     shooter_mode = temp_mode;
-    shooter_info.shoot_dis = circle_data[index];
+    
+    if( type == 0)
+    {
+         shooter_info.shoot_dis = circle_data[index];
+    }
+    else if( type == 1)
+    {
+        shooter_info.shoot_dis =  data[index];
+
+    }
+    
+    
 
     if (temp_mode = shooter_allAuto)
     {
         shooter_info.shooter_status = auto_lift;
     }
+
+    
 }
 void AutoShooter::set_shooter_mode(uint8_t mode)
 {

@@ -127,6 +127,9 @@ void yun_ball_xbox::process_data()
                 // auto_shooter->shooter_info.hand_pitcher_rpm = -(xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_pithcer_speed;
                 auto_shooter->set_shooter_mode(shooter_hand);
                 auto_shooter->shooter_info.hand_shooter_rpm = xbox_msgs.joyLVert_map * max_shooter_speed;
+
+
+
             }
             // 自动模式
             else if (auto_mode == 1)
@@ -139,7 +142,7 @@ void yun_ball_xbox::process_data()
                 {
                     if (auto_flag == 0)
                     {
-                        auto_shooter->set_auto(lifter_status - 1, shooter_allAuto);
+                        auto_shooter->set_Auto(lifter_status - 1, shooter_allAuto,0);
                         auto_flag = 1;
                     }
 
@@ -153,16 +156,14 @@ void yun_ball_xbox::process_data()
         }
 
         else if (shoot_yunball == 1)
-        {
-
+        {       
             if (auto_mode == 1)
             {
                 if (yun_trigger == 1)
                 {
-                    yunball->start_test_yun();
-                    yun_trigger = 0;
+                    if(put_ball())
+                    yun_trigger = 0;}
                 }
-                turn_motor->set_rpm(0.0f);
             }
             else
             {
@@ -183,7 +184,16 @@ void yun_ball_xbox::process_data()
                 turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
             }
         }
-    }
+    
+	else if (if_motor_start == 0)
+	{
+        lifter_motor->set_rpm(0.0f);
+        turn_motor->set_rpm(0.0f);
+        auto_shooter->set_pitcher_mode(pitcher_stop);
+        auto_shooter->set_shooter_mode(shooter_stop);
+	}
+
+
 }
 void yun_ball_xbox::add_motor(power_motor *lfter_motor_, power_motor *turn_motor_)
 {
@@ -210,4 +220,31 @@ void yun_ball_xbox::add_auto_shooter(AutoShooter *auto_shooter_)
 void yun_ball_xbox::add_yunball(auto_yunball *yunball_)
 {
     yunball = yunball_;
+}
+
+bool yun_ball_xbox::put_ball()
+{
+    static uint8_t step = 0;
+    switch (step)
+    {
+    case 0:
+        if(yunball->start_test_yun())
+        {
+            auto_shooter->set_Auto(1, shooter_pulldata,1);
+            step++;
+        }
+    break;
+    case 1:
+        
+        if(yunball->start_put_ball())
+        {
+        auto_shooter->set_Auto(0, shooter_pulldata,1);
+        step = 0;
+        return true;
+        }
+    break;
+    default:
+    break;
+    }
+    return false;
 }

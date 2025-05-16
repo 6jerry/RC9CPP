@@ -35,7 +35,11 @@ enum shooterMode
     shooter_halfAuto, // 半自动模式
     shooter_allAuto,  // 全自动模式
     shooter_debug,    // 调试模式
+<<<<<<< HEAD
     shooter_pulldata,
+=======
+    shooter_pulldata
+>>>>>>> ef2d6c2e94787529181984c3a66024597643ab35
 };
 
 enum pitcherMode
@@ -89,6 +93,7 @@ private:
     planInfo plan_info;
 
     float circle_data[5] = {0.020f, 0.1580f, 0.1760f, 0.1900f, 0.2100f};
+    float data[5] = {0.020f, 0.1080f, 0.1060f, 0.1000f, 0.100f};
 
     float circle_R = 0.0f;
     void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
@@ -111,13 +116,13 @@ public:
     bool auto_adjust(float lifter_distance);
     void allAuto_adjust();
     void hand_adjust();
-    bool debug_adjust();
+    bool pulldata_adjust();
     bool isfinish();
     void check_trigger();
     void check_shooter();
 
     void set_shooter_mode(uint8_t mode);
-    void set_auto(uint8_t index, uint8_t mode);
+    void set_Auto(uint8_t index, uint8_t mode, uint8_t type);
     void set_pitcher_mode(uint8_t mode);
 
     uint32_t Read_GPIO_State(void);
