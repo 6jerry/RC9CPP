@@ -54,7 +54,9 @@ public:
   void add_auto_shooter(AutoShooter *auto_shooter_);
   void adjust_pitcher(float pitch_angle);
   void add_yunball(auto_yunball *yunball_);
+  bool put_ball();
 };
+
 
 #endif
 #endif

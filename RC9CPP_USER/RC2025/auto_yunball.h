@@ -88,13 +88,13 @@ public:
     void add_motor(power_motor *lift_motor_, power_motor *turn_motor_);
     void add_io(GPIO_TypeDef *locate_sensor_port_, uint16_t locate_sensor_pin_, GPIO_TypeDef *ball_sensor_port_, uint16_t ball_sensor_pin_, GPIO_TypeDef *claw_port_, uint16_t claw_pin_, GPIO_TypeDef *push_port_, uint16_t push_pin_);
 
-    void start_put_ball();
+    bool start_put_ball();
     bool put_ball();
 
     bool isFinished() const { return workmode == yunball_standby; }
 
     void stop();
-    void start_test_yun();
+    bool start_test_yun();
     void lift_reset();
     void turn_reset();
 };

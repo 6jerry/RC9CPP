@@ -30,7 +30,7 @@ void auto_yunball::process_data()
         turn_back();
         break;*/
     case yunball_up:
-        lift_motor->set_dis_speedplan(380, 200, 50, 50, 0);
+        lift_motor->set_dis_speedplan(380, 300, 200, 200, 0);
         if (abs(380 - lift_motor->get_dis()) <= 10.0f)
         {   
             lift_motor->dis_speedplan_restart();
@@ -38,7 +38,7 @@ void auto_yunball::process_data()
         }
 				break;
     case yunball_turn:
-        turn_motor->set_pos_speedplan(-270.0f, 10.0f, 5.0f, 5.0f, 0.0f);
+        turn_motor->set_pos_speedplan(-270.0f, 20.0f, 10.0f, 10.0f, 0.0f);
         if (abs(-270.0f - turn_motor->get_pos_all()) <= 3.0f)
         {
             turn_motor->set_rpm(0.0f);
@@ -50,7 +50,7 @@ void auto_yunball::process_data()
         }
 				break;
     case yunball_back:
-        turn_motor->set_pos_speedplan(0.0f, 10.0f, 5.0f, 5.0f, 0.0f);
+        turn_motor->set_pos_speedplan(0.0f, 20.0f, 10.0f, 10.0f, 0.0f);
         if (abs(-90.0f - turn_motor->get_pos_all()) <= 3.0f)
         {
             turn_motor->set_rpm(0.0f);
@@ -60,7 +60,7 @@ void auto_yunball::process_data()
         }
 				break;
     case yunball_down:
-        lift_motor->set_dis_speedplan(0, 200, 50, 50, 0);
+        lift_motor->set_dis_speedplan(0, 300, 200, 200, 0);
         if (abs(0 - lift_motor->get_dis()) <= 10.0f)
         {
             lift_motor->set_rpm(0.0f);
@@ -292,7 +292,7 @@ uint8_t auto_yunball::turn_motor_reset()
 
 void auto_yunball::test_init()
 {
-    turn_motor->set_pos_speedplan(-90.0f, 10.0f, 5.0f, 5.0f, 0.0f);
+    turn_motor->set_pos_speedplan(-90.0f, 20.0f, 10.0f, 10.0f, 0.0f);
     if(abs(-90.0f - turn_motor->get_pos_all()) <= 3.0f)
     {
         lift_motor->dis_speedplan_restart();
@@ -338,12 +338,23 @@ void auto_yunball::test_catch()
     }
 }
 
-void auto_yunball::start_put_ball()
+bool auto_yunball::start_put_ball()
 {
+    static uint8_t flag = 0;
     if (workmode == yunball_standby)
     {
-        workmode = yunball_up;
+        if(flag == 0)
+        {
+            workmode = yunball_up;
+            flag++;
+        }
+        else if(flag == 1)
+        {
+            flag = 0;
+            return true;
+        }
     }
+    return false;
 }
 
 bool auto_yunball::put_ball()
@@ -378,12 +389,23 @@ void auto_yunball::stop()
     workmode = yunball_standby;
 }
 
-void auto_yunball::start_test_yun()
+bool auto_yunball::start_test_yun()
 {
+    static uint8_t flag = 0;
     if (workmode == yunball_standby)
     {
-        workmode = yunball_test_init;
+        if(flag == 0)
+        {
+            workmode = yunball_test_init;
+            flag++;
+        }
+        else if(flag == 1)
+        {
+            flag=0;
+            return true;
+        }
     }
+    return false;
 }
 
 void auto_yunball::lift_reset()

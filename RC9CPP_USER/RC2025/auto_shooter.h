@@ -35,6 +35,7 @@ enum shooterMode
     shooter_halfAuto, // 半自动模式
     shooter_allAuto,  // 全自动模式
     shooter_debug,    // 调试模式
+    shooter_pulldata
 };
 
 enum pitcherMode
@@ -88,6 +89,7 @@ private:
     planInfo plan_info;
 
     float circle_data[5] = {0.020f, 0.1580f, 0.1760f, 0.1900f, 0.2100f};
+    float data[5] = {0.020f, 0.1080f, 0.1060f, 0.1000f, 0.100f};
 
 public:
     shooterInfo shooter_info;
@@ -102,18 +104,18 @@ public:
     void add_motor(power_motor *shooter_motor_, power_motor *pithcer_motor_);
     void add_plan_info(float max_acc_, float max_dcc_, float max_speed_, float inital_speed_, float final_speed_);
 
-    void pulldata_adjust();
+    
     void pitcher_adjust(float pitch_angle);
     bool auto_adjust(float lifter_distance);
     void allAuto_adjust();
     void hand_adjust();
-    bool debug_adjust();
+    bool pulldata_adjust();
     bool isfinish();
     void check_trigger();
     void check_shooter();
 
     void set_shooter_mode(uint8_t mode);
-    void set_Auto(uint8_t index, uint8_t mode);
+    void set_Auto(uint8_t index, uint8_t mode, uint8_t type);
     void set_pitcher_mode(uint8_t mode);
 
     uint32_t Read_GPIO_State(void);
