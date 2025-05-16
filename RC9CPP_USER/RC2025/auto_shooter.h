@@ -35,6 +35,7 @@ enum shooterMode
     shooter_halfAuto, // 半自动模式
     shooter_allAuto,  // 全自动模式
     shooter_debug,    // 调试模式
+    shooter_pulldata,
 };
 
 enum pitcherMode
@@ -65,7 +66,7 @@ typedef struct shooterInfo
     float shoot_pitch_angle = 0.0f;        // 从imu获取的俯仰角度
     autoMode shooter_status = auto_finish; // 自动射球状态
 };
-class AutoShooter : public ITaskProcessor
+class AutoShooter : public ITaskProcessor, public RC9subscriber
 {
 
 private:
@@ -89,6 +90,9 @@ private:
 
     float circle_data[5] = {0.020f, 0.1580f, 0.1760f, 0.1900f, 0.2100f};
 
+    float circle_R = 0.0f;
+    void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
+
 public:
     shooterInfo shooter_info;
     uint8_t trigger_flag = 0, shooter_flag = 0;
@@ -102,7 +106,7 @@ public:
     void add_motor(power_motor *shooter_motor_, power_motor *pithcer_motor_);
     void add_plan_info(float max_acc_, float max_dcc_, float max_speed_, float inital_speed_, float final_speed_);
 
-    void pulldata_adjust();
+    bool pulldata_adjust();
     void pitcher_adjust(float pitch_angle);
     bool auto_adjust(float lifter_distance);
     void allAuto_adjust();
@@ -113,7 +117,7 @@ public:
     void check_shooter();
 
     void set_shooter_mode(uint8_t mode);
-    void set_Auto(uint8_t index, uint8_t mode);
+    void set_auto(uint8_t index, uint8_t mode);
     void set_pitcher_mode(uint8_t mode);
 
     uint32_t Read_GPIO_State(void);

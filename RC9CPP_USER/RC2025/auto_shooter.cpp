@@ -72,6 +72,11 @@ void AutoShooter::process_data()
     check_shooter();
 }
 
+bool AutoShooter::pulldata_adjust()
+{
+
+    return false;
+}
 void AutoShooter::pitcher_adjust(float pitch_angle)
 {
 
@@ -276,4 +281,8 @@ void AutoShooter::set_shooter_mode(uint8_t mode)
 void AutoShooter::set_pitcher_mode(uint8_t mode)
 {
     pitcher_mode = static_cast<pitcherMode>(mode);
+}
+void AutoShooter::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
+{
+    circle_R = floatData
 }
