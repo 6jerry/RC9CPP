@@ -14,7 +14,7 @@
  * - 可通过 set_allAuto() 接口设置目标拉伸距离，并启动全自动流程。
  *
  * 俯仰目前已废弃，关于pitcher的代码都不用看
- * 2025/4/30
+ * 2025/5/16
  */
 AutoShooter::AutoShooter()
 {
@@ -38,7 +38,7 @@ void AutoShooter::process_data()
     case shooter_allAuto:
         allAuto_adjust();
         break;
-     case shooter_pulldata:
+    case shooter_pulldata:
         pulldata_adjust();
         break;
     case shooter_debug:
@@ -72,11 +72,6 @@ void AutoShooter::process_data()
     check_shooter();
 }
 
-bool AutoShooter::pulldata_adjust()
-{
-
-    return false;
-}
 void AutoShooter::pitcher_adjust(float pitch_angle)
 {
 
@@ -98,15 +93,14 @@ void AutoShooter::pitcher_adjust(float pitch_angle)
 }
 bool AutoShooter::pulldata_adjust()
 {
-     
-     if(auto_adjust(shooter_info.shoot_dis ))
-     {
-         shooter_mode = shooter_stop;
-         trigger_flag = 1;
-         return true;
-     }
-     return false;
 
+    if (auto_adjust(shooter_info.shoot_dis))
+    {
+        shooter_mode = shooter_stop;
+        trigger_flag = 1;
+        return true;
+    }
+    return false;
 }
 // 手动模式
 void AutoShooter::hand_adjust()
@@ -276,25 +270,20 @@ void AutoShooter::set_Auto(uint8_t index, uint8_t mode, uint8_t type)
 {
     shooterMode temp_mode = static_cast<shooterMode>(mode);
     shooter_mode = temp_mode;
-    
-    if( type == 0)
-    {
-         shooter_info.shoot_dis = circle_data[index];
-    }
-    else if( type == 1)
-    {
-        shooter_info.shoot_dis =  data[index];
 
+    if (type == 0)
+    {
+        shooter_info.shoot_dis = circle_data[index];
     }
-    
-    
+    else if (type == 1)
+    {
+        shooter_info.shoot_dis = data[index];
+    }
 
     if (temp_mode = shooter_allAuto)
     {
         shooter_info.shooter_status = auto_lift;
     }
-
-    
 }
 void AutoShooter::set_shooter_mode(uint8_t mode)
 {
@@ -306,5 +295,5 @@ void AutoShooter::set_pitcher_mode(uint8_t mode)
 }
 void AutoShooter::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
 {
-    circle_R = floatData
+    circle_R = floatData[0];
 }

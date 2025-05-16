@@ -35,11 +35,8 @@ enum shooterMode
     shooter_halfAuto, // 半自动模式
     shooter_allAuto,  // 全自动模式
     shooter_debug,    // 调试模式
-<<<<<<< HEAD
     shooter_pulldata,
-=======
-    shooter_pulldata
->>>>>>> ef2d6c2e94787529181984c3a66024597643ab35
+
 };
 
 enum pitcherMode
@@ -116,7 +113,6 @@ public:
     bool auto_adjust(float lifter_distance);
     void allAuto_adjust();
     void hand_adjust();
-    bool pulldata_adjust();
     bool isfinish();
     void check_trigger();
     void check_shooter();
