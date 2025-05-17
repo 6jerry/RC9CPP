@@ -73,7 +73,7 @@ void yun_ball_xbox::btnconfig_init()
         1,
         ButtonActionType::Toggle,
         nullptr};
-		btnBConfig = {
+    btnBConfig = {
         &xbox_msgs.btnB,
         &xbox_msgs.btnB_last,
         &test_flag,
@@ -93,7 +93,7 @@ void yun_ball_xbox::btn_scan()
     handleButton(btnDirDownConfig);
     handleButton(btnDirLeftConfig);
     handleButton(btnShareConfig);
-	  handleButton(btnBConfig);
+    handleButton(btnBConfig);
 }
 
 yun_ball_xbox::yun_ball_xbox()
@@ -108,28 +108,24 @@ void yun_ball_xbox::process_data()
 
     if (if_motor_start == 1)
     {
-			
-		
 
         if (shoot_yunball == 0) // 射球模式
         {
 
-           
-
             // 手动模式
             if (auto_mode == 0)
             {
-							
-							 if (yun_trigger == 1)
-							{
 
-                HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_SET);
-							}
-							else if (yun_trigger == 0)
-							{
+                if (yun_trigger == 1)
+                {
 
-                HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_RESET);
-							}
+                    HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_SET);
+                }
+                else if (yun_trigger == 0)
+                {
+
+                    HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_RESET);
+                }
                 auto_shooter->trigger_flag = trigger_start;
                 auto_shooter->shooter_flag = shooter_trigger;
 
@@ -147,26 +143,25 @@ void yun_ball_xbox::process_data()
                 {
                     auto_shooter->set_shooter_mode(shooter_stop);
                 }
-                else if(lifter_status == 1)
+                else if (lifter_status == 1)
                 {
-								      if (put_ball())
-                      {
-												lifter_status = 0;
-											}
-                     
-									
-								
-								}else{	
+                    if (put_ball())
+                    {
+                        lifter_status = 0;
+                    }
+                }
+                else
+                {
                     if (auto_flag == 0)
                     {
                         auto_shooter->set_Auto(lifter_status - 1, shooter_allAuto, 0);
-										  	
+
                         auto_flag = 1;
                     }
 
                     if (auto_shooter->isfinish())
                     {
-                        lifter_status = 0; 
+                        lifter_status = 0;
                         auto_flag = 0;
                     }
                 }
@@ -255,7 +250,7 @@ bool yun_ball_xbox::put_ball()
 
         if (yunball->start_put_ball())
         {
-            //auto_shooter->set_Auto(0, shooter_pulldata, 1);
+            // auto_shooter->set_Auto(0, shooter_pulldata, 1);
             step = 0;
             return true;
         }

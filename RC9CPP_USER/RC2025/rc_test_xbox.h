@@ -57,6 +57,5 @@ public:
   bool put_ball();
 };
 
-
 #endif
 #endif

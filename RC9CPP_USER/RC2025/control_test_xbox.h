@@ -40,7 +40,6 @@ private:
   uint8_t pithcer_status = 0;
 
   uint8_t auto_flag = 0;
-  uint8_t test_flag = 0;
   float max_lifter_speed = 420.0f, max_turn_speed = 80.0f, max_shooter_speed = 800.0f, max_pithcer_speed = 430.0f;
 
 public:
@@ -56,7 +55,6 @@ public:
   void add_yunball(auto_yunball *yunball_);
   bool put_ball();
 };
-
 
 #endif
 #endif
