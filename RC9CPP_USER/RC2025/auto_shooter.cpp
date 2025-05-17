@@ -42,7 +42,7 @@ void AutoShooter::process_data()
         pulldata_adjust();
         break;
     case shooter_debug:
-        auto_adjust(shooter_info.debug_dis);
+    
         break;
 
     default:

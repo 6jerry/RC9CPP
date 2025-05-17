@@ -42,13 +42,12 @@ typedef struct chassisInfo
 class serialStudio : public RC9subscriber, public ITaskProcessor
 {
 public:
+    uint8_t command = 0;
     serialStudio();
     void add_upper_info(power_motor *shooter_motor_, power_motor *lifter_motor_, power_motor *turner_motor_,
                         Encoder *encoder_, wit_gyro *wit_imu_);
     void process_data();
-    void send_float_debuginfo(uint8_t id, float *data, uint8_t length);
     void add_IO(RC9Protocol *port_);
-
     float temp_param[6] = {0.0f}; // 暂存上位机传过来的参数
     void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
 

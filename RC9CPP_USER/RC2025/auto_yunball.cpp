@@ -31,7 +31,7 @@ void auto_yunball::process_data()
         break;*/
     case yunball_up:
         lift_motor->set_dis_speedplan(380, 300, 200, 200, 0);
-        if (abs(380 - lift_motor->get_dis()) <= 10.0f)
+        if (abs(380 - lift_motor->get_dis()) <= 15.0f)
         {   
             lift_motor->dis_speedplan_restart();
             workmode = yunball_turn;
@@ -61,7 +61,7 @@ void auto_yunball::process_data()
 				break;
     case yunball_down:
         lift_motor->set_dis_speedplan(0, 300, 200, 200, 0);
-        if (abs(0 - lift_motor->get_dis()) <= 10.0f)
+        if (abs(0 - lift_motor->get_dis()) <= 15.0f)
         {
             lift_motor->set_rpm(0.0f);
             lift_motor->dis_speedplan_restart();
@@ -292,11 +292,12 @@ uint8_t auto_yunball::turn_motor_reset()
 
 void auto_yunball::test_init()
 {
-    turn_motor->set_pos_speedplan(-90.0f, 20.0f, 10.0f, 10.0f, 0.0f);
-    if(abs(-90.0f - turn_motor->get_pos_all()) <= 3.0f)
+    turn_motor->set_pos_speedplan(-120.0f, 20.0f, 10.0f, 10.0f, 0.0f);
+    if(abs(-120.0f - turn_motor->get_pos_all()) <= 3.0f)
     {
         lift_motor->dis_speedplan_restart();
         turn_motor->pos_speedplan_restart();
+				osDelay(500);
         workmode = yunball_test_throw;
         last_tick_2 = HAL_GetTick();
     }

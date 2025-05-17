@@ -203,8 +203,8 @@ void IncrePID::calc()
 
 float IncrePID::increPID_Compute(float input)
 {
-    // TD();
-    // setpoint = V1; // 跟踪微分器输出平滑的期望
+    //TD();
+    //setpoint = V1; // 跟踪微分器输出平滑的期望
 
     error = setpoint - input;
     calc();

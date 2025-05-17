@@ -13,8 +13,9 @@ extern "C"
 #include "TrapezoidalPlanner.h"
 #include "motor.h"
 #include "math.h"
+#include "SuperPID.h"
 
-#define revert_dis 0.017f
+#define revert_dis 0.012f
 
 #ifdef __cplusplus
 }
@@ -89,16 +90,16 @@ private:
     uint8_t plan_flag = 0;
     planInfo plan_info;
 
-    float circle_data[5] = {0.020f, 0.1580f, 0.1760f, 0.1900f, 0.2100f};
-    float data[5] = {0.020f, 0.1080f, 0.1060f, 0.1000f, 0.100f};
+    float circle_data[5] = {0.015f, 0.1580f, 0.1760f, 0.1900f, 0.2100f};
+    float data[5] = {0.015f, 0.1080f, 0.1060f, 0.1000f, 0.100f};
 
-    float circle_R = 0.0f;
+  
     void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
 
 public:
     shooterInfo shooter_info;
     uint8_t trigger_flag = 0, shooter_flag = 0;
-
+  float circle_R = 0.0f;
     AutoShooter();
     void process_data();
     void get_data();
@@ -108,6 +109,7 @@ public:
     void add_motor(power_motor *shooter_motor_, power_motor *pithcer_motor_);
     void add_plan_info(float max_acc_, float max_dcc_, float max_speed_, float inital_speed_, float final_speed_);
 
+   
     bool pulldata_adjust();
     void pitcher_adjust(float pitch_angle);
     bool auto_adjust(float lifter_distance);
@@ -116,7 +118,8 @@ public:
     bool isfinish();
     void check_trigger();
     void check_shooter();
-
+    
+		
     void set_shooter_mode(uint8_t mode);
     void set_Auto(uint8_t index, uint8_t mode, uint8_t type);
     void set_pitcher_mode(uint8_t mode);
