@@ -45,6 +45,7 @@ private:
 
 public:
     auto_lock_test(imu *imu_ptr_);
+    float get_dis_2_center();
 };
 
 #endif

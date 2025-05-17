@@ -20,7 +20,7 @@ void auto_lock_test::calc_error()
 void auto_lock_test::mode_2()
 {
     Vector2D tvel_((3.0f * xbox_msgs.joyLHori_map), (3.0f * xbox_msgs.joyLVert_map));
-
+    calc_error();
     set_RobotVel(tvel_, 0);
     set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
     planner.reset();
@@ -88,4 +88,9 @@ void auto_lock_test::Fine_tune(bool up, bool down, bool left, bool right)
             center_point.x += 0.01f;
         last_tick = HAL_GetTick();
     }
+}
+
+float auto_lock_test::get_dis_2_center()
+{
+    return dis_2_center;
 }

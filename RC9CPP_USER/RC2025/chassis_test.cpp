@@ -82,12 +82,11 @@ extern "C"
 }
 
 void demo::process_data(){
-    float arr[7] = {0.0f, 0.0f,
-                    ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y,
-                    position_sensor.get_world_pos().x, position_sensor.get_world_pos().y};
+		float dis = s3_xbox.get_dis_2_center();
+    float arr[1] = {dis};
 
     /*float arr[7] = {0.0f, 0.0f,
                     position_sensor.world_pos.x, position_sensor.world_pos.y,
                     position_sensor.get_world_pos().x, position_sensor.get_world_pos().y};*/
-    sendFloatData(1, arr, 7);
+    sendFloatData(1, arr, 1);
 }
