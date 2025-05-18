@@ -215,6 +215,29 @@ void xbox_debug_base::btnconfig_init()
         3,
         ButtonActionType::Toggle,
         nullptr};
+
+    btnDirUpConfig = {
+        &xbox_msgs.btnDirUp,
+        &xbox_msgs.btnDirUp_last,
+        &shoot_title,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
+    btnDirDownConfig = {
+        &xbox_msgs.btnDirDown,
+        &xbox_msgs.btnDirDown_last,
+        &yunball_title,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
+
+    btnDirLeftConfig = {
+        &xbox_msgs.btnDirLeft,
+        &xbox_msgs.btnDirLeft_last,
+        &just_yun_title,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
 }
 
 void xbox_debug_base::btn_scan()
@@ -224,7 +247,9 @@ void xbox_debug_base::btn_scan()
     handleButton(btnBConfig);
     handleButton(btnLBConfig);
     handleButton(btnRBConfig);
-
+    handleButton(btnDirUpConfig);
+    handleButton(btnDirDownConfig);
+    handleButton(btnDirLeftConfig);
     handleButton(btnXboxConfig);
     handleButton(btnYConfig);
 }

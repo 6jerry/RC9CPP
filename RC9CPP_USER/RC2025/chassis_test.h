@@ -24,7 +24,10 @@ extern "C"
 #endif
 #ifdef __cplusplus
 class demo: public ITaskProcessor, public RC9subscriber{
-    void process_data();
+	public:
+		void process_data();
+    void add_xbox(xbox_debug_base *xbox_ptr_);
+    xbox_debug_base *xbox_ptr = NULL;
 };
 #endif
 #endif

@@ -43,9 +43,12 @@ private:
 
     TrapezoidalPlanner1D planner;
 
+    RC9Protocol *communication;
+
 public:
     auto_lock_test(imu *imu_ptr_);
     float get_dis_2_center();
+    void add_sending(RC9Protocol *communication_);
 };
 
 #endif

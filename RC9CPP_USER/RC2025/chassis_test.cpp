@@ -33,7 +33,9 @@ extern "C"
         position_port.startUartReceiveIT();
         /**************debug*************/
         send_port.initQueue();
-        plot.addport(&send_port);
+        s3_xbox.add_sending(&send_port);
+        //plot.addport(&send_port);
+		//plot.add_xbox(&s3_xbox);
         /********************************/
         /****************************************************/
         ros_sensor_.add_recolate_imu(&position_sensor);
@@ -82,11 +84,37 @@ extern "C"
 }
 
 void demo::process_data(){
-		float dis = s3_xbox.get_dis_2_center();
+	/*float dis = s3_xbox.get_dis_2_center();
     float arr[1] = {dis};
+	uint8_t instruction[1] = {0};
+    if(xbox_ptr->shoot_title == 1)
+    {
+        instruction[0] = 1;
+				xbox_ptr->shoot_title = 0;
+				sendByteData(1, instruction, 1);
+    }
+    else if(xbox_ptr->yunball_title == 1)
+    {
+        instruction[0] = 2;
+				xbox_ptr->yunball_title = 0;
+				sendByteData(1, instruction, 1);
+    }
+    else if(xbox_ptr->just_yun_title == 1)
+    {
+				instruction[0] = 3;
+				xbox_ptr->just_yun_title = 0;
+				sendByteData(1, instruction, 1);
+    }
+    else
+    {
+        instruction[0] = 0;
+    }
+    
+    sendFloatData(2, arr, 1);*/
+    
+}
 
-    /*float arr[7] = {0.0f, 0.0f,
-                    position_sensor.world_pos.x, position_sensor.world_pos.y,
-                    position_sensor.get_world_pos().x, position_sensor.get_world_pos().y};*/
-    sendFloatData(1, arr, 1);
+void demo::add_xbox(xbox_debug_base *xbox_ptr_)
+{
+    xbox_ptr = xbox_ptr_;
 }
