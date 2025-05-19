@@ -31,6 +31,8 @@ private:
   GPIO_TypeDef *yun_port = nullptr;
   uint16_t yun_pin = 0;
 
+  uint8_t status =0;
+
   uint8_t if_motor_start = 0, trigger_start = 0, shooter_trigger = 0, yun_trigger = 0, shoot_yunball = 0;
 
   uint8_t auto_mode = 0, auto_revert;

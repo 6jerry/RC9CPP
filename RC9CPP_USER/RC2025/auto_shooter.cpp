@@ -42,7 +42,7 @@ void AutoShooter::process_data()
         pulldata_adjust();
         break;
     case shooter_debug:
-    
+
         break;
 
     default:
@@ -265,7 +265,22 @@ void AutoShooter::check_shooter()
         // sendFloatData(1,send_data,2);
     }
 }
+void AutoShooter::set_Auto_byR(float R)
+{
+    shooter_mode = shooter_allAuto;
+    shooter_info.shooter_status = auto_lift;
+    float dis = (R + 18.8525) / 115;
+    if (dis > 0.23f)
+    {
+        dis = 0.23f;
+    }
+    if (dis < 0.05f)
+    {
 
+        dis = 0.05f;
+    }
+    shooter_info.shoot_dis = dis;
+}
 void AutoShooter::set_Auto(uint8_t index, uint8_t mode, uint8_t type)
 {
     shooterMode temp_mode = static_cast<shooterMode>(mode);

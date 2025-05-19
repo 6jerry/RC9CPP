@@ -3,45 +3,45 @@
 void yun_ball_xbox::btnconfig_init()
 {
 
-    btnAConfig = {
-        &xbox_msgs.btnA,
-        &xbox_msgs.btnA_last,
-        &if_motor_start,
-        1,
-        ButtonActionType::Toggle,
-        nullptr};
+    // btnAConfig = {
+    //     &xbox_msgs.btnA,
+    //     &xbox_msgs.btnA_last,
+    //     &if_motor_start,
+    //     1,
+    //     ButtonActionType::Toggle,
+    //     nullptr};
 
-    btnRBConfig = {
-        &xbox_msgs.btnRB,
-        &xbox_msgs.btnRB_last,
-        &trigger_start,
-        1,
-        ButtonActionType::Toggle,
-        nullptr};
+    // btnRBConfig = {
+    //     &xbox_msgs.btnRB,
+    //     &xbox_msgs.btnRB_last,
+    //     &trigger_start,
+    //     1,
+    //     ButtonActionType::Toggle,
+    //     nullptr};
 
-    btnYConfig = {
-        &xbox_msgs.btnY,
-        &xbox_msgs.btnY_last,
-        &auto_mode,
-        1,
-        ButtonActionType::Toggle,
-        nullptr};
+    // btnYConfig = {
+    //     &xbox_msgs.btnY,
+    //     &xbox_msgs.btnY_last,
+    //     &auto_mode,
+    //     1,
+    //     ButtonActionType::Toggle,
+    //     nullptr};
 
-    btnXConfig = {
-        &xbox_msgs.btnX,
-        &xbox_msgs.btnX_last,
-        &auto_revert,
-        1,
-        ButtonActionType::Toggle,
-        nullptr};
+    // btnXConfig = {
+    //     &xbox_msgs.btnX,
+    //     &xbox_msgs.btnX_last,
+    //     &auto_revert,
+    //     1,
+    //     ButtonActionType::Toggle,
+    //     nullptr};
 
-    btnLBConfig = {
-        &xbox_msgs.btnLB,
-        &xbox_msgs.btnLB_last,
-        &shooter_trigger,
-        1,
-        ButtonActionType::Toggle,
-        nullptr};
+    // btnLBConfig = {
+    //     &xbox_msgs.btnLB,
+    //     &xbox_msgs.btnLB_last,
+    //     &shooter_trigger,
+    //     1,
+    //     ButtonActionType::Toggle,
+    //     nullptr};
 
     btnDirUpConfig = {
         &xbox_msgs.btnDirUp,
@@ -50,41 +50,41 @@ void yun_ball_xbox::btnconfig_init()
         1,
         ButtonActionType::Toggle,
         nullptr};
-    btnDirDownConfig = {
-        &xbox_msgs.btnDirDown,
-        &xbox_msgs.btnDirDown_last,
-        &pithcer_status,
-        1,
-        ButtonActionType::Increment,
-        nullptr};
+    // btnDirDownConfig = {
+    //     &xbox_msgs.btnDirDown,
+    //     &xbox_msgs.btnDirDown_last,
+    //     &pithcer_status,
+    //     1,
+    //     ButtonActionType::Increment,
+    //     nullptr};
 
-    btnDirLeftConfig = {
-        &xbox_msgs.btnDirLeft,
-        &xbox_msgs.btnDirLeft_last,
-        &lifter_status,
-        5,
-        ButtonActionType::Increment,
-        nullptr};
+    // btnDirLeftConfig = {
+    //     &xbox_msgs.btnDirLeft,
+    //     &xbox_msgs.btnDirLeft_last,
+    //     &lifter_status,
+    //     5,
+    //     ButtonActionType::Increment,
+    //     nullptr};
 
-    btnShareConfig = {
-        &xbox_msgs.btnShare,
-        &xbox_msgs.btnShare_last,
-        &shoot_yunball,
-        1,
+    // btnShareConfig = {
+    //     &xbox_msgs.btnShare,
+    //     &xbox_msgs.btnShare_last,
+    //     &shoot_yunball,
+    //     1,
 
-    }
+    // };
 }
-void un_ball_xbox::btn_scan()
+void yun_ball_xbox::btn_scan()
 {
-    handleButton(btnAConfig);
-    handleButton(btnRBConfig);
-    handleButton(btnYConfig);
-    handleButton(btnXConfig);
-    handleButton(btnLBConfig);
+    // handleButton(btnAConfig);
+    // handleButton(btnRBConfig);
+    // handleButton(btnYConfig);
+    // handleButton(btnXConfig);
+    // handleButton(btnLBConfig);
     handleButton(btnDirUpConfig);
-    handleButton(btnDirDownConfig);
-    handleButton(btnDirLeftConfig);
-    handleButton(btnShareConfig);
+    // handleButton(btnDirDownConfig);
+    // handleButton(btnDirLeftConfig);
+    // handleButton(btnShareConfig);
 }
 
 yun_ball_xbox::yun_ball_xbox()
@@ -97,117 +97,151 @@ void yun_ball_xbox::process_data()
     btn_scan();
     joymap_compute();
 
-    if (if_motor_start == 1)
+    switch (serial_studio->command)
     {
-        switch (serial_studio->command)
-        {
-        case 0:
-            /* code */
-            break;
-        case 1:
-            /* code */
-            break;
-        case 2:
-            /* code */
-            break;
-        case 3:
-            /* code */
-            break;
-        default:
-            break;
-        }
+    case 0:
+        /* 待机 */
 
-        if (shoot_yunball == 0) // 射球模式
+        if (yun_trigger == 1)
         {
 
-            if (yun_trigger == 1)
-            {
-
-                HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_SET);
-            }
-            else if (yun_trigger == 0)
-            {
-
-                HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_RESET);
-            }
-
-            // 手动模式
-            if (auto_mode == 0)
-            {
-                auto_shooter->trigger_flag = trigger_start;
-                auto_shooter->shooter_flag = shooter_trigger;
-
-                lifter_motor->set_rpm(xbox_msgs.joyRVert_map * max_lifter_speed);
-                turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
-                // auto_shooter->set_pitcher_mode(pitcher_hand);
-                // auto_shooter->shooter_info.hand_pitcher_rpm = -(xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_pithcer_speed;
-                auto_shooter->set_shooter_mode(shooter_hand);
-                auto_shooter->shooter_info.hand_shooter_rpm = xbox_msgs.joyLVert_map * max_shooter_speed;
-            }
-            // 自动模式
-            else if (auto_mode == 1)
-            {
-                if (lifter_status == 0)
-                {
-                    auto_shooter->set_shooter_mode(shooter_stop);
-                }
-                else
-                {
-
-                    if (auto_flag == 0)
-                    {
-                        auto_shooter->set_Auto(lifter_status - 1, shooter_allAuto, 0);
-
-                        auto_flag = 1;
-                    }
-
-                    if (auto_shooter->isfinish())
-                    {
-                        lifter_status = 0;
-                        auto_flag = 0;
-                    }
-                }
-            }
+            HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_SET);
         }
-
-        else if (shoot_yunball == 1)
+        else if (yun_trigger == 0)
         {
-            if (auto_mode == 1)
-            {
-                if (yun_trigger == 1)
-                {
-                    if (put_ball())
-                        yun_trigger = 0;
-                }
-            }
-        }
-        else
-        {
-            if (trigger_start == 1)
-            {
-                yunball->lift_reset();
-                trigger_start = 0;
-            }
-            if (yun_trigger == 1)
-            {
-                HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_SET);
-            }
-            else if (yun_trigger == 0)
-            {
-                HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_RESET);
-            }
-            lifter_motor->set_rpm(xbox_msgs.joyRVert_map * max_lifter_speed);
-            turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
-        }
-    }
 
-    else if (if_motor_start == 0)
-    {
+            HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_RESET);
+        }
+
         lifter_motor->set_rpm(0.0f);
         turn_motor->set_rpm(0.0f);
         auto_shooter->set_pitcher_mode(pitcher_stop);
         auto_shooter->set_shooter_mode(shooter_stop);
+        break;
+    case 1:
+        /* 射球  根据发送过来的半径自动射球*/
+        if (auto_flag == 0)
+        {
+            //  y = 115x - 18.8525
+            //  dis = (R + 18.8525) / 115;
+            auto_shooter->set_Auto_byR(serial_studio->cricle_R);
+            // auto_shooter->set_Auto(5, shooter_allAuto, 0);
+            auto_flag = 1;
+        }
+
+        if (auto_shooter->isfinish())
+        {
+            auto_flag = 0;
+            serial_studio->command = 0;
+        }
+
+        break;
+    case 2:
+        /* 只运球 */
+        serial_studio->command = 0;
+        break;
+    case 3:
+        /* 运完球就放*/
+        if (put_ball())
+        {
+            serial_studio->command = 0;
+        }
+        break;
+    default:
+        break;
     }
+
+    //        if (shoot_yunball == 0) // 射球模式
+    //        {
+
+    //            if (yun_trigger == 1)
+    //            {
+
+    //                HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_SET);
+    //            }
+    //            else if (yun_trigger == 0)
+    //            {
+
+    //                HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_RESET);
+    //            }
+
+    //            // 手动模式
+    //            if (auto_mode == 0)
+    //            {
+    //                auto_shooter->trigger_flag = trigger_start;
+    //                auto_shooter->shooter_flag = shooter_trigger;
+
+    //                lifter_motor->set_rpm(xbox_msgs.joyRVert_map * max_lifter_speed);
+    //                turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
+    //                // auto_shooter->set_pitcher_mode(pitcher_hand);
+    //                // auto_shooter->shooter_info.hand_pitcher_rpm = -(xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * max_pithcer_speed;
+    //                auto_shooter->set_shooter_mode(shooter_hand);
+    //                auto_shooter->shooter_info.hand_shooter_rpm = xbox_msgs.joyLVert_map * max_shooter_speed;
+    //            }
+    //            // 自动模式
+    //            else if (auto_mode == 1)
+    //            {
+    //                if (lifter_status == 0)
+    //                {
+    //                    auto_shooter->set_shooter_mode(shooter_stop);
+    //                }
+    //                else
+    //                {
+
+    //                    if (auto_flag == 0)
+    //                    {
+    //                        auto_shooter->set_Auto(lifter_status - 1, shooter_allAuto, 0);
+
+    //                        auto_flag = 1;
+    //                    }
+
+    //                    if (auto_shooter->isfinish())
+    //                    {
+    //                        lifter_status = 0;
+    //                        auto_flag = 0;
+    //                    }
+    //                }
+    //            }
+    //        }
+
+    //        else if (shoot_yunball == 1)
+    //        {
+    //            if (auto_mode == 1)
+    //            {
+    //                if (yun_trigger == 1)
+    //                {
+    //                    if (put_ball())
+    //                        yun_trigger = 0;
+    //                }
+    //            }
+    //        }
+    //        else
+    //        {
+    //            if (trigger_start == 1)
+    //            {
+    //                yunball->lift_reset();
+    //                trigger_start = 0;
+    //            }
+    //            if (yun_trigger == 1)
+    //            {
+    //                HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_SET);
+    //            }
+    //            else if (yun_trigger == 0)
+    //            {
+    //                HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_RESET);
+    //            }
+    //            lifter_motor->set_rpm(xbox_msgs.joyRVert_map * max_lifter_speed);
+    //            turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
+    //        }
+    //    }
+
+    //    else if (if_motor_start == 0)
+    //    {
+    //        lifter_motor->set_rpm(0.0f);
+    //        turn_motor->set_rpm(0.0f);
+    //        auto_shooter->set_pitcher_mode(pitcher_stop);
+    //        auto_shooter->set_shooter_mode(shooter_stop);
+    //    }
 }
 void yun_ball_xbox::add_motor(power_motor *lfter_motor_, power_motor *turn_motor_)
 {
@@ -252,7 +286,7 @@ bool yun_ball_xbox::put_ball()
 
         if (yunball->start_put_ball())
         {
-            auto_shooter->set_Auto(0, shooter_pulldata, 1);
+            //auto_shooter->set_Auto(0, shooter_pulldata, 1);
             step = 0;
             return true;
         }

@@ -248,7 +248,7 @@ bool yun_ball_xbox::put_ball()
         break;
     case 1:
 
-        if (yunball->start_put_ball())
+        if (yunball->start_put_baxxll())
         {
             // auto_shooter->set_Auto(0, shooter_pulldata, 1);
             step = 0;

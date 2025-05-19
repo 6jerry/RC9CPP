@@ -39,20 +39,18 @@ typedef struct upperInfo
 typedef struct chassisInfo
 {
 };
-class serialStudio : public RC9subscriber, public ITaskProcessor
+class serialStudio : public RC9subscriber
 {
 public:
     uint8_t command = 0;
+    float cricle_R = 0;
     serialStudio();
-    void add_upper_info(power_motor *shooter_motor_, power_motor *lifter_motor_, power_motor *turner_motor_,
-                        Encoder *encoder_, wit_gyro *wit_imu_);
-    void process_data();
-    void add_IO(RC9Protocol *port_);
+ 
     float temp_param[6] = {0.0f}; // 暂存上位机传过来的参数
     void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
 
 private:
-    upperInfo upper_info;
+    
 };
 
 #endif
