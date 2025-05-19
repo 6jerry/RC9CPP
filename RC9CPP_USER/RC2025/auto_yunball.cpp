@@ -5,76 +5,41 @@ void auto_yunball::process_data()
     scan_sensor();
     switch (workmode)
     {
-    /*case yunball_init_locate:
-        system_init();
-        break;
-    case yunball_move_2_throw_point:
-        move_2_throw_point();
-        break;
-    case yunball_move_2_catch_point:
-        move_2_catch_point();
-        break;*/
     case yunball_standby:
         lift_motor->dis_speedplan_restart();
         turn_motor->pos_speedplan_restart();
         time_cnt = 0;
         time_flag = 0;
         break;
-    /*case yunball_move_2_turn_point:
-        move_2_turn_point();
-        break;
-    case yunball_turn_2_throw_point:
-        turn_2_throw_point();
-        break;
-    case yunball_turn_back:
-        turn_back();
-        break;*/
-    case yunball_up:
-        lift_motor->set_dis_speedplan(380, 300, 200, 200, 0);
-        if (abs(380 - lift_motor->get_dis()) <= 15.0f)
-        {   
-            lift_motor->dis_speedplan_restart();
-            workmode = yunball_turn;
-        }
-				break;
     case yunball_turn:
+        lift_motor->set_dis_speedplan(380, 500, 350, 350, 0);
         turn_motor->set_pos_speedplan(-270.0f, 20.0f, 10.0f, 10.0f, 0.0f);
-        if (abs(-270.0f - turn_motor->get_pos_all()) <= 3.0f)
+        if ((abs(-270.0f - turn_motor->get_pos_all()) <= 3.0f) && (abs(380 - lift_motor->get_dis()) <= 15.0f))
         {
             turn_motor->set_rpm(0.0f);
+            lift_motor->set_rpm(0.0f);
+            lift_motor->dis_speedplan_restart();
             turn_motor->pos_speedplan_restart();
-            osDelay(500);
+            osDelay(300);
             claw_open();
-            osDelay(500);
+            osDelay(300);
             workmode = yunball_back;
         }
-				break;
+        break;
     case yunball_back:
-        turn_motor->set_pos_speedplan(0.0f, 20.0f, 10.0f, 10.0f, 0.0f);
-        if (abs(-90.0f - turn_motor->get_pos_all()) <= 3.0f)
+        turn_motor->set_pos_speedplan(-120.0f, 20.0f, 10.0f, 10.0f, 0.0f);
+        osDelay(300);
+        lift_motor->set_dis_speedplan(0, 300, 200, 200, 0);
+        if ((abs(-120.0f - turn_motor->get_pos_all()) <= 3.0f) && (abs(0 - lift_motor->get_dis()) <= 15.0f))
         {
             turn_motor->set_rpm(0.0f);
             turn_motor->pos_speedplan_restart();
-            workmode = yunball_down;
-            claw_close();
-        }
-				break;
-    case yunball_down:
-        lift_motor->set_dis_speedplan(0, 300, 200, 200, 0);
-        if (abs(0 - lift_motor->get_dis()) <= 15.0f)
-        {
             lift_motor->set_rpm(0.0f);
             lift_motor->dis_speedplan_restart();
             workmode = yunball_standby;
+            claw_close();
         }
-				break;
-    
-//    case yunball_lift_motor_reset:
-//        lift_motor_reset();
-//        break;
-//    case yunball_turn_motor_reset:
-//        turn_motor_reset();
-//        break;
+        break;
     case yunball_test_init:
         test_init();
         break;
@@ -133,97 +98,6 @@ void auto_yunball::add_motor(power_motor *lift_motor_, power_motor *turn_motor_)
     turn_motor = turn_motor_;
 }
 
-
-
-
-/*void auto_yunball::system_init()
-{
-    lift_motor->set_dis_speedplan(500, 1500, 400, 500, 0);
-    if (abs(500 - lift_motor->get_dis()) <= 10.0f)
-    {
-        lift_motor->dis_speedplan_restart();
-        workmode = yunball_move_2_throw_point;
-    }
-}
-
-void auto_yunball::move_2_throw_point()
-{
-    claw_close();
-    lift_motor->set_dis_speedplan(850, 2000, 1500, 1500, 0);
-    if (abs(750 - lift_motor->get_dis()) <= 50.0f)
-    {
-        claw_open();
-        workmode = yunball_move_2_catch_point;
-        lift_motor->dis_speedplan_restart();
-    }
-}
-
-void auto_yunball::move_2_catch_point()
-{
-    lift_motor->set_dis_speedplan(300, 2000, 2000, 2000, 500);
-    if (abs(300 - lift_motor->get_dis()) <= 20.0f)
-    {
-        lift_motor->set_rpm(0.0f);
-        time_cnt++;
-        if (time_cnt >= 1)
-        {
-            if (time_flag++ == 0)
-                workmode = yunball_move_2_throw_point;
-            else
-            {
-                lift_motor->set_rpm(0.0f);
-                workmode = yunball_standby;
-                time_flag = 0;
-            }
-            lift_motor->dis_speedplan_restart();
-            claw_close();
-            time_cnt = 0;
-        }
-    }
-}
-
-void auto_yunball::move_2_turn_point()
-{
-    lift_motor->set_dis_speedplan(750, 1500, 1000, 1000, 0);
-    if (abs(750 - lift_motor->get_dis()) <= 10.0f)
-    {
-        workmode = yunball_turn_2_throw_point;
-        lift_motor->dis_speedplan_restart();
-    }
-}
-
-void auto_yunball::turn_2_throw_point()
-{
-    turn_motor->set_pos_speedplan(-90.0f, 30.0f, 10.0f, 10.0f, 0.0f);
-    if (abs(-90.0f - turn_motor->get_pos()) <= 5.0f)
-    {
-        turn_motor->set_rpm(0.0f);
-        turn_motor->pos_speedplan_restart();
-        time_cnt++;
-        if (time_cnt >= 50)
-        {
-            turn_motor->dis_speedplan_restart();
-            claw_open();
-        }
-        if (time_cnt >= 100)
-        {
-            workmode = yunball_turn_back;
-            time_cnt = 0;
-        }
-    }
-}
-
-void auto_yunball::turn_back()
-{
-    turn_motor->set_pos_speedplan(90.0f, 30.0f, 10.0f, 10.0f, 0.0f);
-    if (abs(90.0f - turn_motor->get_pos()) <= 5.0f)
-    {
-        turn_motor->set_rpm(0.0f);
-        turn_motor->pos_speedplan_restart();
-        workmode = yunball_standby;
-        claw_close();
-    }
-}*/
 
 uint8_t auto_yunball::lift_motor_reset()
 {
@@ -331,7 +205,7 @@ void auto_yunball::test_catch()
         }
         else
         {
-            osDelay(1000);
+            osDelay(500);
             cnt++;
             workmode = yunball_test_init;
         }
@@ -346,7 +220,7 @@ bool auto_yunball::start_put_ball()
     {
         if(flag == 0)
         {
-            workmode = yunball_up;
+            workmode = yunball_turn;
             flag++;
         }
         else if(flag == 1)
@@ -373,7 +247,7 @@ bool auto_yunball::put_ball()
         case 1:
             if(workmode == yunball_standby)
             {
-                workmode = yunball_up;
+                workmode = yunball_turn;
                 step = 2;
                 return true;
             }
