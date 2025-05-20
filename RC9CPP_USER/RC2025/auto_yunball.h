@@ -99,5 +99,7 @@ public:
     void turn_reset();
 };
 
+bool timeout(uint32_t &tick);
+
 #endif
 #endif

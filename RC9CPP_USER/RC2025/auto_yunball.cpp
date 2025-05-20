@@ -1,5 +1,8 @@
 #include "auto_yunball.h"
 
+uint32_t yunball_turn_tick = 0;
+uint32_t yunball_back_tick = 0;
+
 void auto_yunball::process_data()
 {
     scan_sensor();
@@ -14,7 +17,7 @@ void auto_yunball::process_data()
     case yunball_turn:
         lift_motor->set_dis_speedplan(380, 500, 350, 350, 0);
         turn_motor->set_pos_speedplan(-270.0f, 20.0f, 10.0f, 10.0f, 0.0f);
-        if ((abs(-270.0f - turn_motor->get_pos_all()) <= 3.0f) && (abs(380 - lift_motor->get_dis()) <= 15.0f))
+        if (((abs(-270.0f - turn_motor->get_pos_all()) <= 3.0f) && (abs(380 - lift_motor->get_dis())) <= 15.0f) || (timeout(yunball_turn_tick)))
         {
             turn_motor->set_rpm(0.0f);
             lift_motor->set_rpm(0.0f);
@@ -23,6 +26,7 @@ void auto_yunball::process_data()
             osDelay(300);
             claw_open();
             osDelay(300);
+            yunball_turn_tick = 0;
             workmode = yunball_back;
         }
         break;
@@ -30,12 +34,13 @@ void auto_yunball::process_data()
         turn_motor->set_pos_speedplan(-120.0f, 20.0f, 10.0f, 10.0f, 0.0f);
         osDelay(300);
         lift_motor->set_dis_speedplan(0, 300, 200, 200, 0);
-        if ((abs(-120.0f - turn_motor->get_pos_all()) <= 3.0f) && (abs(0 - lift_motor->get_dis()) <= 15.0f))
+        if (((abs(-120.0f - turn_motor->get_pos_all()) <= 3.0f) && (abs(0 - lift_motor->get_dis()) <= 15.0f)) || (timeout(yunball_back_tick)))
         {
             turn_motor->set_rpm(0.0f);
             turn_motor->pos_speedplan_restart();
             lift_motor->set_rpm(0.0f);
             lift_motor->dis_speedplan_restart();
+            yunball_back_tick = 0;
             workmode = yunball_standby;
             claw_close();
         }
@@ -288,11 +293,9 @@ void auto_yunball::lift_reset()
     lift_motor->relocate_dis(0.0f);
 }
 
-//void auto_yunball::turn_reset()
-//{
-//    if (workmode == yunball_standby)
-//    {
-//        workmode = yunball_turn_motor_reset;
-//    }
-//}
 
+bool timeout(uint32_t &tick)
+{
+    if(tick == 0)    tick = HAL_GetTick();
+    return (HAL_GetTick() - tick) > 3000;
+}
