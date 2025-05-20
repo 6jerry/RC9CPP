@@ -111,11 +111,13 @@ void yun_ball_xbox::process_data()
 
         if (shoot_yunball == 0) // 射球模式
         {
-
+               
+              
             // 手动模式
             if (auto_mode == 0)
             {
-
+							  auto_shooter->shooter_flag = shooter_trigger;
+                auto_shooter->trigger_flag = trigger_start;
                 if (yun_trigger == 1)
                 {
 
@@ -126,8 +128,7 @@ void yun_ball_xbox::process_data()
 
                     HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_RESET);
                 }
-                auto_shooter->trigger_flag = trigger_start;
-                auto_shooter->shooter_flag = shooter_trigger;
+               
 
                 lifter_motor->set_rpm(xbox_msgs.joyRVert_map * max_lifter_speed);
                 turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
@@ -161,6 +162,7 @@ void yun_ball_xbox::process_data()
 
                     if (auto_shooter->isfinish())
                     {
+										   	auto_shooter->trigger_flag =1;
                         lifter_status = 0;
                         auto_flag = 0;
                     }
@@ -248,7 +250,7 @@ bool yun_ball_xbox::put_ball()
         break;
     case 1:
 
-        if (yunball->start_put_baxxll())
+        if (yunball->start_put_ball())
         {
             // auto_shooter->set_Auto(0, shooter_pulldata, 1);
             step = 0;

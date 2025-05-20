@@ -33,7 +33,10 @@ void AutoShooter::process_data()
         hand_adjust();
         break;
     case shooter_halfAuto:
-        auto_adjust(shooter_info.shoot_dis);
+        if (auto_adjust(shooter_info.shoot_dis))
+        {
+            shooter_mode = shooter_stop;
+        };
         break;
     case shooter_allAuto:
         allAuto_adjust();
@@ -176,13 +179,10 @@ bool AutoShooter::auto_adjust(float lifter_distance)
         shooter_flag = 0;
     }
     // 使用梯形规划
-    if (plan_flag == 0)
-    {
-        planer.start_plan(plan_info.max_acc, plan_info.max_dcc,
-                          plan_info.max_speed, plan_info.inital_speed, plan_info.final_speed,
-                          shooter_info.shoot_disdance * 36000, lifter_distance * 36000);
-        plan_flag = 1;
-    }
+    planer.reset();
+    planer.start_plan(plan_info.max_acc, plan_info.max_dcc,
+                      plan_info.max_speed, plan_info.inital_speed, plan_info.final_speed,
+                      shooter_info.start_dis * 36000, shooter_info.shoot_dis * 36000);
 
     shooter_motor->set_rpm(-planer.plan(shooter_info.shoot_disdance * 36000));
 
@@ -192,8 +192,9 @@ bool AutoShooter::auto_adjust(float lifter_distance)
         shooter_motor->set_rpm(0.0f);
     }
 
+    planer.reset();
     // 到达终点锁住
-    if (abs(shooter_info.shoot_disdance - lifter_distance) < 0.003f)
+    if (abs(shooter_info.shoot_disdance - target_dis) < 0.003f)
     {
         plan_flag = 0;
         return true;
@@ -286,6 +287,7 @@ void AutoShooter::set_Auto(uint8_t index, uint8_t mode, uint8_t type)
     shooterMode temp_mode = static_cast<shooterMode>(mode);
     shooter_mode = temp_mode;
 
+    shooter_info.start_dis = shooter_info.shoot_disdance;
     if (type == 0)
     {
         shooter_info.shoot_dis = circle_data[index];
@@ -307,8 +309,4 @@ void AutoShooter::set_shooter_mode(uint8_t mode)
 void AutoShooter::set_pitcher_mode(uint8_t mode)
 {
     pitcher_mode = static_cast<pitcherMode>(mode);
-}
-void AutoShooter::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
-{
-    circle_R = floatData[0];
 }

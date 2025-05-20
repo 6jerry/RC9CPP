@@ -25,7 +25,7 @@ enum autoMode
     auto_lift,   // 拉伸状态
     auto_shoot,  // 发射状态
     auto_revert, // 复位状态
-    auto_finish, // 停止状态
+    auto_finish, // 完成状态
 
 };
 // 射球电机状态
@@ -67,6 +67,7 @@ typedef struct shooterInfo
     float shoot_disdance = 0.0f;           // 从编码器获取的拉伸距离
     float shoot_pitch_angle = 0.0f;        // 从imu获取的俯仰角度
     autoMode shooter_status = auto_finish; // 自动射球状态
+    float start_dis;                       // 自动过程起始位置
 };
 class AutoShooter : public ITaskProcessor
 {
@@ -87,7 +88,7 @@ private:
     uint16_t trigger_pin = 0, shooter_pin = 0, stop_pin = 0;
 
     TrapezoidalPlanner1D planer;
-    uint8_t plan_flag = 0;
+
     planInfo plan_info;
 
     float circle_data[5] = {0.015f, 0.1580f, 0.1760f, 0.1900f, 0.2230f};
@@ -98,7 +99,6 @@ private:
 public:
     shooterInfo shooter_info;
     uint8_t trigger_flag = 0, shooter_flag = 0;
-    // float circle_R = 0.0f;
     AutoShooter();
     void process_data();
     void get_data();

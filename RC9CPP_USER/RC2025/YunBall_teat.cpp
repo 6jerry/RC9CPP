@@ -58,7 +58,6 @@ extern "C"
         encoder.startUartReceiveIT();
         wit_imu.startUartReceiveIT();
         esp_port.startUartReceiveIT();
-        receive_port.startUartReceiveIT();
         test_port.addport(&debug_port);
         can_core.init();
         lifter.config_mech_param(19.2032f, 35.0f);
