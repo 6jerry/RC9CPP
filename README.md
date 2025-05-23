@@ -1,7 +1,7 @@
 # Project Directory Structure
 
 ## Project Overview
-This project is designed to demonstrate the directory structure and organization of a typical software project.
+This branch is used to record the code of some components.
 
 ## Directory Tree
 ```plaintext
