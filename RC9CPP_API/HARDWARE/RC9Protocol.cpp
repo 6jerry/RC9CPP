@@ -164,7 +164,7 @@ void RC9Protocol::process_data()
         }
         else if (type == cdc)
         {
-            // CDC_Transmit_FS(sendBuffer_, data_to_send.data_length + 8);
+            CDC_Transmit_FS(sendBuffer_, data_to_send.data_length + 8);
         }
     }
     // 如果队列为空，返回并等待下次处理

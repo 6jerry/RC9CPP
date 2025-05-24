@@ -29,11 +29,11 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 	// 处理相机,雷达数据
 	if (byteCount == 20)
 	{
-		camera_info.vertial_plane_deviation.x = floatData[0];
-		camera_info.vertial_plane_deviation.y = floatData[1];
-		ros_radar_loaction.world_pos.x = -filter(floatData[2]);
-		ros_radar_loaction.world_pos.y = -filter(floatData[3]); // 把上位机坐标与追踪坐标方向对齐
-		ros_radar_loaction.yaw_angle = -filter(floatData[4]);
+		camera_info.vertial_plane_deviation.x = floatData[3];
+		camera_info.vertial_plane_deviation.y = floatData[4];
+		ros_radar_loaction.world_pos.x = filter(floatData[0]);
+		ros_radar_loaction.world_pos.y = filter(floatData[1]); // 把上位机坐标与追踪坐标方向对齐
+		ros_radar_loaction.yaw_angle = -filter(floatData[2]);
 		//		if(fabsf(floatData[2]) < 0.02f && fabsf(floatData[3]) < 0.05f){
 		//			map_origin_init_flag = false; //重置映射原点
 		//		}
@@ -86,21 +86,25 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 		get_zero_flag = true;
 	}
 
+
 	// 差分原点标定
 	if (!tf_.map_origin_init_flag)
 	{
-		tf_.coordinate_map(&ros_radar_loaction.world_pos, &real_radar_world_pos, 0.382f, 0.017453f * 174.5f);
+		tf_.coordinate_map(&ros_radar_loaction.world_pos, &real_radar_world_pos,my_r, my_rad);
 		tf_.map_origin = real_radar_world_pos;
 		tf_.map_origin_init_flag = true;
+		// 差分定位
+		tf_.localize_with_diff(&real_radar_world_pos);
 	}
 
 	// 自旋映射
 	if (!get_zero_flag)
 	{ // 对于异常值不进行映射
-		tf_.coordinate_map(&ros_radar_loaction.world_pos, &real_radar_world_pos, my_r, 0.017453f * 174.5f - imu_->get_yaw_rad());
+
+		tf_.coordinate_map(&ros_radar_loaction.world_pos, &real_radar_world_pos, my_r, my_rad - imu_->get_yaw_rad());
 		// 差分定位
 		tf_.localize_with_diff(&real_radar_world_pos);
-
+		// 发送校准信息
 		imu_->imu_relocate(real_radar_world_pos.x, -real_radar_world_pos.y, 0);
 	}
 	else
@@ -111,7 +115,9 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 	previous_world_pos_x = ros_radar_loaction.world_pos.x;
 	previous_world_pos_y = ros_radar_loaction.world_pos.y;
 	previous_yaw_angle = ros_radar_loaction.yaw_angle;
-
+	/*****************发给雷达的占位数据**************/
+	sendFloatData(2, &previous_world_pos_x, 1);
+	/***********************************************/
 	if (relocate_flag)
 	{ // 检测标志位来判断是否校准action
 		//imu_->imu_relocate(real_radar_world_pos.x, -real_radar_world_pos.y, 0);
@@ -150,5 +156,8 @@ void ros_sensor::relocate_imu(void)
 
 void ros_sensor::imu_rst()
 {
+	//重置雷达同时开始定位
+	float arr[3] = {0.0f, 0.0f, 0.0f}; // x, y ,angle
+	sendFloatData(1, arr, 3);
 	tf_.map_origin_init_flag = false;
 }
