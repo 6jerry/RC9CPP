@@ -105,7 +105,7 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 		// 差分定位
 		tf_.localize_with_diff(&real_radar_world_pos);
 		// 发送校准信息
-		imu_->imu_relocate(real_radar_world_pos.x, -real_radar_world_pos.y, 0);
+		// imu_->imu_relocate(real_radar_world_pos.x, -real_radar_world_pos.y, 0);
 	}
 	else
 	{ // 重置0值标志位
@@ -118,11 +118,10 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 	/*****************发给雷达的占位数据**************/
 	sendFloatData(2, &previous_world_pos_x, 1);
 	/***********************************************/
-	if (relocate_flag)
+	if (relocate_flag && imu_->get_world_vel_x()  < 0.5f && imu_->get_world_vel_y() < 0.5f)
 	{ // 检测标志位来判断是否校准action
-		//imu_->imu_relocate(real_radar_world_pos.x, -real_radar_world_pos.y, 0);
+		imu_->imu_relocate(real_radar_world_pos.x, -real_radar_world_pos.y, 0);
 		count = 0;
-		relocate_flag = false; // 清空标志位
 		return;
 	}
 }
@@ -148,10 +147,16 @@ void ros_sensor::add_recolate_imu(imu *_imu)
 	imu_ = _imu;
 }
 
-// 设置重定位标志，用雷达校准一次action
+// 设置重定位标志，用雷达校准
 void ros_sensor::relocate_imu(void)
 {
 	relocate_flag = true;
+}
+
+// 设置重定位标志，停止用雷达校准
+void ros_sensor::stop_relocate(void)
+{
+	relocate_flag = false;
 }
 
 void ros_sensor::imu_rst()

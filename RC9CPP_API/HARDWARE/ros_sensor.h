@@ -34,11 +34,11 @@ public:
         float yaw_angle = 0.0f;
     } ros_radar_loaction;
     Vector2D real_radar_world_pos; // 映射后坐标
-	float my_r = 0.327;
-	float my_rad = 130.6454f * 0.017453f;
+	float my_r = 0.327; //  雷达半径
+	float my_rad = 130.6454f * 0.017453f; //  雷达初始弧度
 	Vector2D map_inverse_relocate_pos; // 逆映射坐標
-    bool relocate_flag = false; //是否开启重定位标志
-	bool get_zero_flag = false; //雷达有时会发送同时0的值，需要过滤
+    bool relocate_flag = false; //  是否开启重定位标志
+	bool get_zero_flag = false; //  雷达有时会发送同时0的值，需要过滤
 
     ros_sensor();
     // 信息获取接口
@@ -47,6 +47,7 @@ public:
     float get_heading() override;
     float get_yaw_rad() override;
     void relocate_imu();
+    void stop_relocate();
     void add_recolate_imu(imu *imu_);
 
     void imu_rst() override;
