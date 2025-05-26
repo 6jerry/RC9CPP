@@ -15,7 +15,7 @@ ros_sensor::ros_sensor()
 
 void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
 {
-	static uint8_t count = 0; // 计数用于隔段时间校准action
+
 	// 上一次变量存储
 	static float previous_vertial_plane_deviation_x = 0.0f;
 	static float previous_vertial_plane_deviation_y = 0.0f;
@@ -26,17 +26,23 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 	static float pe_previous_world_pos_y = 0.0f;
 	static float pe_previous_yaw_angle = 0.0f;
 
-	// 处理相机,雷达数据
-	if (byteCount == 20)
-	{
-		camera_info.vertial_plane_deviation.x = floatData[3];
-		camera_info.vertial_plane_deviation.y = floatData[4];
+	//处理相机数据
+	if(id == 1 && byteCount == 8){
+		camera_info.vertial_plane_deviation.x = floatData[0];
+		camera_info.vertial_plane_deviation.y = floatData[1];
+	}
+	//处理雷达数据
+	else if (id == 2 && byteCount == 12)
+	{	
 		ros_radar_loaction.world_pos.x = filter(floatData[0]);
 		ros_radar_loaction.world_pos.y = filter(floatData[1]); // 把上位机坐标与追踪坐标方向对齐
 		ros_radar_loaction.yaw_angle = -filter(floatData[2]);
 		//		if(fabsf(floatData[2]) < 0.02f && fabsf(floatData[3]) < 0.05f){
 		//			map_origin_init_flag = false; //重置映射原点
 		//		}
+	}
+	else{
+		return;
 	}
 	// 记录上上次数据
 	pe_previous_world_pos_x = previous_world_pos_x;
@@ -121,7 +127,6 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 	if (relocate_flag && imu_->get_world_vel_x()  < 0.5f && imu_->get_world_vel_y() < 0.5f)
 	{ // 检测标志位来判断是否校准action
 		imu_->imu_relocate(real_radar_world_pos.x, -real_radar_world_pos.y, 0);
-		count = 0;
 		return;
 	}
 }

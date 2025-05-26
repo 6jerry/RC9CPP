@@ -18,11 +18,26 @@ void auto_lock_test::calc_error()
 }
 
 void auto_lock_test::mode_2()
-{
+{   
+    lock_basket.ConfigAll(0.7f, 0.01f, 0.02f, 0.5f, 2.5f, 4.0f, 10.0f);
     Vector2D tvel_((3.0f * xbox_msgs.joyLHori_map), (3.0f * xbox_msgs.joyLVert_map));
     calc_error();
     set_RobotVel(tvel_, 0);
-    set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+    // 防止舵轮偏移
+    if(xbox_msgs.joyRHori_map == 0.0f){
+        static float last_w_speed = 0.0f;
+        static float lock_yaw = 0.0f;
+        if((xbox_msgs.joyRHori_map - last_w_speed) < 0.001f)
+        {
+            lock_yaw = imu_ptr->get_yaw_rad();
+            yaw_TurnTo(lock_yaw, 0);
+            last_w_speed = xbox_msgs.joyRHori_map;
+        }else{
+            last_w_speed = xbox_msgs.joyRHori_map;
+        }
+    }else{
+        set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+    }
     planner.reset();
     rst_state();
 

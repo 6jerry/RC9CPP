@@ -39,6 +39,7 @@ private:
 
     pid nor_control; // 半径控制
 
+    pid lock_basket; // 锁框
     imu *imu_ptr; // 指向imu类的指针
 
     TrapezoidalPlanner1D planner;
