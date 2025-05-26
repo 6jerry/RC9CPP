@@ -118,16 +118,8 @@ void yun_ball_xbox::process_data()
             {
 							  auto_shooter->shooter_flag = shooter_trigger;
                 auto_shooter->trigger_flag = trigger_start;
-                if (yun_trigger == 1)
-                {
-
-                    HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_SET);
-                }
-                else if (yun_trigger == 0)
-                {
-
-                    HAL_GPIO_WritePin(yun_port, yun_pin, GPIO_PIN_RESET);
-                }
+								HAL_GPIO_WritePin(yun_port, yun_pin, (yun_trigger == 1)?GPIO_PIN_SET:GPIO_PIN_RESET);
+               
                
 
                 lifter_motor->set_rpm(xbox_msgs.joyRVert_map * max_lifter_speed);
@@ -155,8 +147,8 @@ void yun_ball_xbox::process_data()
                 {
                     if (auto_flag == 0)
                     {
-                        auto_shooter->set_Auto(lifter_status - 1, shooter_allAuto, 0);
-
+                        //auto_shooter->set_Auto(lifter_status - 1, shooter_allAuto, 0);
+                        auto_shooter->set_Auto(4, shooter_allAuto, 0);
                         auto_flag = 1;
                     }
 
@@ -244,7 +236,7 @@ bool yun_ball_xbox::put_ball()
     case 0:
         if (yunball->start_test_yun())
         {
-            auto_shooter->set_Auto(1, shooter_pulldata, 1);
+           // auto_shooter->set_Auto(1, shooter_pulldata, 1);
             step++;
         }
         break;

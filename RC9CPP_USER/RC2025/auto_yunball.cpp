@@ -32,7 +32,7 @@ void auto_yunball::process_data()
         break;
     case yunball_back:
         turn_motor->set_pos_speedplan(-120.0f, 20.0f, 10.0f, 10.0f, 0.0f);
-        osDelay(300);
+        osDelay(700);
         lift_motor->set_dis_speedplan(0, 300, 200, 200, 0);
         if (((abs(-120.0f - turn_motor->get_pos_all()) <= 3.0f) && (abs(0 - lift_motor->get_dis()) <= 15.0f)) || (timeout(yunball_back_tick)))
         {

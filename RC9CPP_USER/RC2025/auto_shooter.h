@@ -15,7 +15,7 @@ extern "C"
 #include "math.h"
 #include "SuperPID.h"
 
-#define revert_dis 0.02f
+#define revert_dis 0.022f
 
 #ifdef __cplusplus
 }
@@ -91,8 +91,8 @@ private:
 
     planInfo plan_info;
 
-    float circle_data[5] = {0.015f, 0.1580f, 0.1760f, 0.1900f, 0.2230f};
-    float data[5] = {0.015f, 0.1080f, 0.1060f, 0.1000f, 0.100f};
+    float circle_data[5] = {0.015f, 0.1730f, 0.1900f, 0.2100f, 0.2290f};
+    float data[5] = {0.015f, 0.1380f, 0.1360f, 0.1000f, 0.100f};
 
     // void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
 
