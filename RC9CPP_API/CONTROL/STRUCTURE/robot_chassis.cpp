@@ -147,57 +147,119 @@ void RoboChassis::chassis_initialize()
 
 void RoboChassis::swerve3_initialize()
 {
-    scan_photogate();
-    // dmotors[0]->set_rpm(20.0f);
-    //  dmotors[1]->set_rpm(20.0f);
-    //  dmotors[2]->set_rpm(20.0f);
+    // 用于控制初始旋转阶段
+    static bool initial_spin_done = false;
+    static uint16_t initial_spin_counter = 0;
 
-    if (photogate_state[0] == 1 && if_not_init[0])
+    // 1. 初始旋转阶段
+    if (!initial_spin_done)
     {
-        dmotors[1]->relocate_pos(90.0f);
-        if_not_init[0] = false;
-        dmotors[1]->set_pos(0.0f);
-    }
-    else if (if_not_init[0] && photogate_state[0] == 0)
-    {
-        dmotors[1]->set_rpm(5.0f);
-    }
-
-    if (photogate_state[1] == 1 && if_not_init[1])
-    {
-        dmotors[2]->relocate_pos(-90.0f);
-        if_not_init[1] = false;
-        dmotors[2]->set_pos(0.0f);
-        // mode = stop;
-    }
-    else if (if_not_init[1] && photogate_state[1] == 0)
-    {
-        dmotors[2]->set_rpm(5.0f);
-    }
-
-    if (photogate_state[2] == 1 && if_not_init[2])
-    {
-        dmotors[0]->relocate_pos(-45.0f);
-        if_not_init[2] = false;
-        dmotors[0]->set_pos(0.0f);
-    }
-    else if (if_not_init[2] && photogate_state[2] == 0)
-    {
-        dmotors[0]->set_rpm(5.0f);
-    }
-
-    if (if_not_init[0] == false && if_not_init[1] == false && if_not_init[2] == false)
-    {
-        // mode = stop;
-        time_cnt++;
-        if (time_cnt > 400)
+        if (++initial_spin_counter >= 100)
         {
-            mode = stop;
-            time_cnt = 0;
+            initial_spin_done = true;
+        }
+        else
+        {
+            // 让所有舵轮电机以一个较小的速度旋转，确保脱离可能已触发的光电门
+            if (dmotors[0]) dmotors[0]->set_rpm(5.0f); // 对应光电门2
+            if (dmotors[1]) dmotors[1]->set_rpm(5.0f); // 对应光电门0
+            if (dmotors[2]) dmotors[2]->set_rpm(5.0f); // 对应光电门1
+            return; // 在初始旋转阶段，直接返回，不做后续处理
         }
     }
 
-    // mode = stop;
+    // 扫描所有相关的光电门状态
+    scan_photogate(); // 假设 scan_photogate 会正确更新 photogate_state[0], [1], [2]
+
+    bool all_homed = true; // 标记是否所有舵轮都已归位
+
+    // --- 处理 photogate_state[0] 对应的 dmotors[1] ---
+    if (dmotors[1]) // 确保电机指针有效
+    {
+        if (if_not_init[0]) // 使用 if_not_init[0] 跟踪 dmotors[1] 的初始化状态
+        {
+            all_homed = false; // 只要有一个未初始化，就不是全部归位
+            if (photogate_state[0] == 1) // 光电门0触发
+            {
+                dmotors[1]->relocate_pos(90.0f); // 使用你指定的校准角度
+                if_not_init[0] = false;          // 标记为已初始化
+                dmotors[1]->set_pos(0.0f);       // 命令到零位
+            }
+            else // 光电门0未触发
+            {
+                dmotors[1]->set_rpm(7.0f); // 以稍快速度继续寻找 (V2的转速)
+            }
+        }
+        else // 如果已初始化
+        {
+            dmotors[1]->set_pos(0.0f); // 持续命令到零位，保持位置
+        }
+    }
+
+
+    // --- 处理 photogate_state[1] 对应的 dmotors[2] ---
+    if (dmotors[2]) // 确保电机指针有效
+    {
+        if (if_not_init[1]) // 使用 if_not_init[1] 跟踪 dmotors[2] 的初始化状态
+        {
+            all_homed = false;
+            if (photogate_state[1] == 1) // 光电门1触发
+            {
+                dmotors[2]->relocate_pos(-90.0f); // 使用你指定的校准角度
+                if_not_init[1] = false;
+                dmotors[2]->set_pos(0.0f);
+            }
+            else // 光电门1未触发
+            {
+                dmotors[2]->set_rpm(7.0f);
+            }
+        }
+        else
+        {
+            dmotors[2]->set_pos(0.0f);
+        }
+    }
+
+    // --- 处理 photogate_state[2] 对应的 dmotors[0] ---
+    if (dmotors[0]) // 确保电机指针有效
+    {
+        if (if_not_init[2]) // 使用 if_not_init[2] 跟踪 dmotors[0] 的初始化状态
+        {
+            all_homed = false;
+            if (photogate_state[2] == 1) // 光电门2触发
+            {
+                dmotors[0]->relocate_pos(-45.0f); // 使用你指定的校准角度
+                if_not_init[2] = false;
+                dmotors[0]->set_pos(0.0f);
+            }
+            else // 光电门2未触发
+            {
+                dmotors[0]->set_rpm(7.0f);
+            }
+        }
+        else
+        {
+            dmotors[0]->set_pos(0.0f);
+        }
+    }
+
+    // 检查是否所有舵轮都已归位
+    if (all_homed)
+    {
+        time_cnt++;
+        if (time_cnt > 150) // V2的延时计数，可以根据实际任务周期调整
+        {
+            mode = stop;         // 切换到底盘停止模式
+            if_init_ok = true;   // (可选) 标记底盘初始化完成
+            time_cnt = 0;        // 重置计数器
+            // initial_spin_done = false; // 如果希望每次进入chassis_init都重新执行初始旋转
+            // initial_spin_counter = 0;
+        }
+    }
+    else
+    {
+        time_cnt = 0; // 如果有任何一个舵轮还在归位，重置退出计数器
+    }
 }
 
 void RoboChassis::scan_photogate()
