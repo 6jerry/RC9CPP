@@ -19,7 +19,6 @@ void auto_lock_test::calc_error()
 
 void auto_lock_test::mode_2()
 {   
-    lock_basket.ConfigAll(0.7f, 0.01f, 0.02f, 0.5f, 2.5f, 4.0f, 10.0f);
     Vector2D tvel_((3.0f * xbox_msgs.joyLHori_map), (3.0f * xbox_msgs.joyLVert_map));
     calc_error();
     set_RobotVel(tvel_, 0);
@@ -29,7 +28,7 @@ void auto_lock_test::mode_2()
         static float lock_yaw = 0.0f;
         if((xbox_msgs.joyRHori_map - last_w_speed) < 0.001f)
         {
-            lock_yaw = imu_ptr->get_yaw_rad();
+            lock_yaw = imu_ptr->get_yaw_rad() * 57.296f;
             yaw_TurnTo(lock_yaw, 0);
             last_w_speed = xbox_msgs.joyRHori_map;
         }else{
@@ -73,11 +72,19 @@ void auto_lock_test::mode_1()
 {
     // calc_error();
 
-    Vector2D tvel_(0.0f, 0.15f);
+    // Vector2D tvel_(0.0f, 0.15f);
 
-    set_WorldVel(tvel_, 0);
+    // set_WorldVel(tvel_, 0);
 
-    yaw_TurnTo(0.0f, 0);
+    // yaw_TurnTo(0.0f, 0);
+
+    Vector2D tvel_((3.0f * xbox_msgs.joyLHori_map), (3.0f * xbox_msgs.joyLVert_map));
+    calc_error();
+    set_RobotVel(tvel_, 0);
+
+     lock_vol = lock_basket.PID_ComputeError(ros_ptr->camera_info.vertial_plane_deviation.x);
+    
+    set_RobotW(lock_vol, 0);
 }
 
 void auto_lock_test::mode_3()
@@ -112,12 +119,15 @@ void auto_lock_test::xbox_on()
     center_point.x = 5.835f;
     center_point.y = 0.774f;
     nor_control.ConfigAll(1.0f, 0.0f, 0.02f, 0.0f, 1.0f, 0.015f, 0.0f);
+	lock_basket.ConfigAll(0.070998f, 0.0f, 0.05f, 0.02998f, 0.24f, 6.0f, 20.0f);
     imu_ptr->imu_relocate(0.0f, 0.0f, 0.0f);
     init_locate();
+    ros_ptr->imu_rst();
 }
-auto_lock_test::auto_lock_test(imu *imu_ptr_)
+auto_lock_test::auto_lock_test(imu *imu_ptr_, ros_sensor *ros_ptr_)
 {
     imu_ptr = imu_ptr_;
+    ros_ptr = ros_ptr_;
 }
 
 void auto_lock_test::Fine_tune(bool up, bool down, bool left, bool right)
@@ -144,4 +154,14 @@ float auto_lock_test::get_dis_2_center()
 void auto_lock_test::add_sending(RC9Protocol *communication_)
 {
     communication = communication_;
+}
+
+void auto_lock_test::lb_on()
+{
+    ros_ptr->relocate_imu();
+}
+
+void auto_lock_test::lb_off()
+{
+    ros_ptr->stop_relocate();
 }

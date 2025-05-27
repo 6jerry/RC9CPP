@@ -19,7 +19,7 @@ vesc vesc_front(1, &hcan2, 21.0f, 3.0f),
 
 RoboChassis s3_chassis(swerve3_chassis);
 
-auto_lock_test s3_xbox(&position_sensor);
+auto_lock_test s3_xbox(&position_sensor, &ros_sensor_);
 
 demo plot;
 
@@ -76,7 +76,7 @@ extern "C"
 
         task_core.registerTask(0, &can_core);
         task_core.registerTask(2, &s3_chassis);
-        task_core.registerTask(2, &s3_xbox);
+        task_core.registerTask(9, &s3_xbox);
         task_core.registerTask(8, &position_port);
         task_core.registerTask(8, &send_port);
         task_core.registerTask(9, &plot);

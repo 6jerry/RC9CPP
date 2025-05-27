@@ -14,6 +14,8 @@ extern "C"
 #include "PID.h"
 #include "imu.h"
 #include "TrapezoidalPlanner.h"
+#include "ros_sensor.h"
+
 #ifdef __cplusplus
 }
 #endif
@@ -24,7 +26,7 @@ class auto_lock_test : public xbox_debug_base, public chassis_user
 private:
     Vector2D center_point, tan_dir, nor_dir;                            // 圆心坐标
     float dis_2_center = 0.0f, center_heading = 0.0f, nor_speed = 0.0f; // 半径
-    float last_tick = 0.0f;                                            
+    float last_tick = 0.0f;         
 
     float radius[4] = {1.5f,2.0f,2.5f,3.0f}; // 半径
 
@@ -37,19 +39,26 @@ private:
     void mode_1() override;
     void xbox_on() override;
 
+    void lb_on() override;
+    void lb_off() override;
+
     pid nor_control; // 半径控制
 
-    pid lock_basket; // 锁框
     imu *imu_ptr; // 指向imu类的指针
+    ros_sensor *ros_ptr; // 导入雷达的指针
 
     TrapezoidalPlanner1D planner;
 
     RC9Protocol *communication;
 
 public:
-    auto_lock_test(imu *imu_ptr_);
+    auto_lock_test(imu *imu_ptr_, ros_sensor *ros_ptr_);
     float get_dis_2_center();
     void add_sending(RC9Protocol *communication_);
+
+    float lock_vol;
+    pid lock_basket; // 锁框
+
 };
 
 #endif
