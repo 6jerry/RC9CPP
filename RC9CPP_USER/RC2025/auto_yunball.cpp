@@ -171,7 +171,7 @@ uint8_t auto_yunball::turn_motor_reset()
 
 void auto_yunball::test_init()
 {
-    turn_motor->set_pos_speedplan(-120.0f, 20.0f, 10.0f, 10.0f, 0.0f);
+    /*turn_motor->set_pos_speedplan(-120.0f, 20.0f, 10.0f, 10.0f, 0.0f);
     if(abs(-120.0f - turn_motor->get_pos_all()) <= 3.0f)
     {
         lift_motor->dis_speedplan_restart();
@@ -179,7 +179,9 @@ void auto_yunball::test_init()
 				osDelay(500);
         workmode = yunball_test_throw;
         last_tick_2 = HAL_GetTick();
-    }
+    }*/
+    workmode = yunball_test_throw;
+    last_tick_2 = HAL_GetTick();
 }
 
 void auto_yunball::test_throw()
