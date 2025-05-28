@@ -16,6 +16,7 @@ void auto_yunball::process_data()
         break;
     case yunball_turn:
         lift_motor->set_dis_speedplan(380, 500, 350, 350, 0);
+        osDelay(300);
         turn_motor->set_pos_speedplan(-270.0f, 20.0f, 10.0f, 10.0f, 0.0f);
         if (((abs(-270.0f - turn_motor->get_pos_all()) <= 3.0f) && (abs(380 - lift_motor->get_dis())) <= 15.0f) || (timeout(yunball_turn_tick)))
         {
@@ -205,7 +206,8 @@ void auto_yunball::test_catch()
     if (HAL_GetTick() - last_tick >= delay_tick)
     {
         claw_close();
-        if(cnt > 0)
+        workmode = yunball_standby;
+        /*if(cnt > 0)
         {
             cnt = 0;
             workmode = yunball_standby;
@@ -215,7 +217,7 @@ void auto_yunball::test_catch()
             osDelay(500);
             cnt++;
             workmode = yunball_test_init;
-        }
+        }*/
 
     }
 }
@@ -299,5 +301,5 @@ void auto_yunball::lift_reset()
 bool timeout(uint32_t &tick)
 {
     if(tick == 0)    tick = HAL_GetTick();
-    return (HAL_GetTick() - tick) > 3000;
+    return (HAL_GetTick() - tick) > 2000;
 }

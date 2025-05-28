@@ -39,6 +39,8 @@ private:
   // 俯仰状态 0静止状态 1标准俯仰
   uint8_t pithcer_status = 0;
 
+  uint8_t la_flag = 0;
+
   uint8_t auto_flag = 0;
   uint8_t test_flag = 0;
   uint8_t yunball_flag = 0;
