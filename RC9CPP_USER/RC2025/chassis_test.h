@@ -26,8 +26,20 @@ extern "C"
 class demo: public ITaskProcessor, public RC9subscriber{
 	public:
 		void process_data();
-    void add_xbox(xbox_debug_base *xbox_ptr_);
-    xbox_debug_base *xbox_ptr = NULL;
+        void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override; // 数据回调函数
+    float recive_data[4] = {0};
+
+    Vector2D robot_pos;
+    Vector2D robot_v;
 };
+
+/*class Robot_communication: public ITaskProcessor, public RC9subscriber{
+    public:
+        void process_data();
+        void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override; // 数据回调函数
+
+    Vector2D data_pos;
+    Vector2D data_v;
+}*/
 #endif
 #endif

@@ -574,7 +574,7 @@ void chassis_user::add_chassis(RoboChassis *chassis_)
 uint8_t chassis_user::set_RobotVel(Vector2D robovel, uint8_t PriorityCode)
 {
     #ifdef USE_VEL_ACCEL
-    return robochassis_->set_CRobotVel_ACCLE(robovel,5.0f,PriorityCode, this);
+    return robochassis_->set_CRobotVel_ACCLE(robovel,3.0f,PriorityCode, this);
     #else
     return robochassis_->set_CRobotVel(robovel, PriorityCode, this);
     #endif

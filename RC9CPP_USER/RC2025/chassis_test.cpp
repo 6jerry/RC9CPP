@@ -6,6 +6,7 @@ TaskManager task_core;
 CanManager can_core;
 RC9Protocol esp_port(uart, &huart2), position_port(uart, &huart5);
 RC9Protocol ros_port(cdc, &huart5);
+RC9Protocol Lora_port(uart, &huart4);
 RC9Protocol send_port(uart, &huart1);
 ros_sensor ros_sensor_;
 position position_sensor;
@@ -34,8 +35,9 @@ extern "C"
         position_port.startUartReceiveIT();
         /**************debug*************/
         send_port.initQueue();
-        s3_xbox.add_sending(&send_port);
-        //plot.addport(&send_port);
+        send_port.startUartReceiveIT();
+        //s3_xbox.add_sending(&send_port);
+        plot.addport(&send_port);
 		//plot.add_xbox(&s3_xbox);
         /********************************/
         /****************************************************/
@@ -86,9 +88,9 @@ extern "C"
 
 void demo::process_data(){
 
-    static Vector2D last_pos = position_sensor.world_pos;
-    float speed_xx  = (position_sensor.world_pos.x - last_pos.x) / 0.04f;
-    float speed_yy  = (position_sensor.world_pos.y - last_pos.y) / 0.04f;
+    //static Vector2D last_pos = position_sensor.world_pos;
+    //float speed_xx  = (position_sensor.world_pos.x - last_pos.x) / 0.04f;
+    //float speed_yy  = (position_sensor.world_pos.y - last_pos.y) / 0.04f;
     // float dis = s3_xbox.get_dis_2_center();
     // float arr[1] = {dis};
 	// uint8_t instruction[1] = {0};
@@ -115,17 +117,23 @@ void demo::process_data(){
     //     instruction[0] = 0;
     // }
     /* 三组数据：1 手柄速度 2 加速度控制的速度 3 position的速度（姑且认为是真实速度）*/
-    float arr[6] = {s3_xbox.xbox_msgs.joyLHori_map, s3_xbox.xbox_msgs.joyLVert_map, \
+    /*float arr[6] = {s3_xbox.xbox_msgs.joyLHori_map, s3_xbox.xbox_msgs.joyLVert_map, \
         s3_chassis.target.target_robovel.x, s3_chassis.target.target_robovel.y, \
         speed_xx, speed_yy};
     // 更新上一次速度
     last_pos = position_sensor.world_pos;
-    sendFloatData(1, arr, 6);
+    sendFloatData(1, arr, 6);*/
 
     
 }
 
-void demo::add_xbox(xbox_debug_base *xbox_ptr_)
+void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
 {
-    xbox_ptr = xbox_ptr_;
+    for(int i = 0; i < 4; i++)
+        {recive_data[i] = floatData[i];}
+
+    robot_pos.x = floatData[0];
+    robot_pos.y = floatData[1];
+    robot_v.x = floatData[2];
+    robot_v.y = floatData[3];
 }

@@ -22,7 +22,8 @@ void auto_lock_test::mode_2()
     Vector2D tvel_((3.0f * xbox_msgs.joyLHori_map), (3.0f * xbox_msgs.joyLVert_map));
     calc_error();
     set_RobotVel(tvel_, 0);
-    // 防止舵轮偏移
+    set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+   /* // 防止舵轮偏移
     if(xbox_msgs.joyRHori_map == 0.0f){
         static float last_w_speed = 0.0f;
         static float lock_yaw = 0.0f;
@@ -36,7 +37,7 @@ void auto_lock_test::mode_2()
         }
     }else{
         set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
-    }
+    }*/
     planner.reset();
     rst_state();
 
@@ -116,10 +117,6 @@ void auto_lock_test::mode_3()
 
 void auto_lock_test::xbox_on()
 {
-    center_point.x = 5.835f;
-    center_point.y = 0.774f;
-    nor_control.ConfigAll(1.0f, 0.0f, 0.02f, 0.0f, 1.0f, 0.015f, 0.0f);
-	lock_basket.ConfigAll(0.070998f, 0.0f, 0.05f, 0.02998f, 0.24f, 6.0f, 20.0f);
     imu_ptr->imu_relocate(0.0f, 0.0f, 0.0f);
     init_locate();
     ros_ptr->imu_rst();
@@ -128,6 +125,10 @@ auto_lock_test::auto_lock_test(imu *imu_ptr_, ros_sensor *ros_ptr_)
 {
     imu_ptr = imu_ptr_;
     ros_ptr = ros_ptr_;
+    nor_control.ConfigAll(1.0f, 0.0f, 0.02f, 0.0f, 1.0f, 0.015f, 0.0f);
+	lock_basket.ConfigAll(0.070998f, 0.0f, 0.05f, 0.02998f, 0.24f, 6.0f, 20.0f);
+    center_point.x = 5.835f;
+    center_point.y = 0.774f;
 }
 
 void auto_lock_test::Fine_tune(bool up, bool down, bool left, bool right)
