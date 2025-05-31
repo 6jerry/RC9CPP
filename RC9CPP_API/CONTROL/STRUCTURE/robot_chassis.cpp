@@ -250,7 +250,7 @@ void RoboChassis::mecanum_calc(Vector2D robovel, float w)
 
 void RoboChassis::swerve3_calc(Vector2D robovel, float w)
 {
-    scan_photogate();
+    //scan_photogate();
     float angle_diff;
     float target_angle;
     float speed_magnitude;
@@ -295,8 +295,8 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
     dmotors[0]->set_pos(target.swerve_motor_angle[0]);
 
     // 第二个舵轮
-    target.swerve_motor_target[1].x = robovel.x + w * 0.150155f; // 0.150155=0.2451*cos(52.22°)
-    target.swerve_motor_target[1].y = robovel.y - w * 0.193719f; // 0.193719=0.2451*sin(52.22°)
+    target.swerve_motor_target[1].x = robovel.x + w * 0.144516f; // 0.144516=0.2451*cos(53.87°)
+    target.swerve_motor_target[1].y = robovel.y - w * 0.197963f; // 0.197963=0.2451*sin(53.87°)
 
     if (target.swerve_motor_target[1].x != 0.0f || target.swerve_motor_target[1].y != 0.0f)
     {
@@ -319,13 +319,13 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
             target.swerve_motor_angle[1] = target_angle + 180.0f;
             if (target.swerve_motor_angle[1] > 180.0f)
                 target.swerve_motor_angle[1] -= 360.0f;
-            speed_magnitude = target.swerve_motor_target[1].magnitude(); // 注意这里原本是负的，反转后变正，改的是轮向
+            speed_magnitude = -target.swerve_motor_target[1].magnitude(); // 注意这里原本是负的，反转后变正，改的是轮向
         }
         else
         {
             // 角度差小于90度，保持原方向
             target.swerve_motor_angle[1] = target_angle;
-            speed_magnitude = -target.swerve_motor_target[1].magnitude(); // 原本就是负的
+            speed_magnitude = target.swerve_motor_target[1].magnitude(); // 原本就是负的
         }
     }
 
@@ -334,8 +334,8 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
     dmotors[1]->set_pos(target.swerve_motor_angle[1]);
 
     // 第三个舵轮
-    target.swerve_motor_target[2].x = robovel.x + w * 0.150151f; // 0.150151=0.2451*cos(52.22°)
-    target.swerve_motor_target[2].y = robovel.y + w * 0.193719f; // 0.193719=0.2451*sin(52.22°)
+    target.swerve_motor_target[2].x = robovel.x + w * 0.144516f; // 0.144516=0.2451*cos(53.87°)
+    target.swerve_motor_target[2].y = robovel.y + w * 0.197963f; // 0.197963=0.2451*sin(53.87°)
 
     if (target.swerve_motor_target[2].x != 0.0f || target.swerve_motor_target[2].y != 0.0f)
     {
@@ -358,13 +358,13 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
             target.swerve_motor_angle[2] = target_angle + 180.0f;
             if (target.swerve_motor_angle[2] > 180.0f)
                 target.swerve_motor_angle[2] -= 360.0f;
-            speed_magnitude = target.swerve_motor_target[2].magnitude();
+            speed_magnitude = -target.swerve_motor_target[2].magnitude();
         }
         else
         {
             // 角度差小于90度，保持原方向
             target.swerve_motor_angle[2] = target_angle;
-            speed_magnitude = -target.swerve_motor_target[2].magnitude();
+            speed_magnitude = target.swerve_motor_target[2].magnitude();
         }
     }
 
@@ -497,12 +497,12 @@ uint8_t RoboChassis::set_CRobotW(float w, uint8_t PriorityCode, chassis_user *us
 
 /**
  * @brief 底盘控制函数
- * 
+ *
  * @param robot_vel 机器人速度
  * @param accle 加速度
  * @param PriorityCode 优先级
  * @param user_ 调用者
- * 
+ *
  * @return uint8_t   1:成功 0:失败
  */
 uint8_t RoboChassis::set_CRobotVel_ACCLE(Vector2D robovel, float accle, uint8_t PriorityCode, chassis_user *user_)
@@ -511,41 +511,45 @@ uint8_t RoboChassis::set_CRobotVel_ACCLE(Vector2D robovel, float accle, uint8_t 
     {
         mode = robotv;
     }
-    dt = (HAL_GetTick() - last_tick)/1000.0 ;   // 计算时间间隔
+    dt = (HAL_GetTick() - last_tick) / 1000.0; // 计算时间间隔
     last_tick = HAL_GetTick();
 
-    if(abs(target.target_robovel.x - robovel.x) < accle*dt)
+    if (abs(target.target_robovel.x - robovel.x) < accle * dt)
     {
         target.target_robovel.x = robovel.x;
     }
     else
     {
-        if(target.target_robovel.x > robovel.x)
+        if (target.target_robovel.x > robovel.x)
         {
-            target.target_robovel.x = target.target_robovel.x - accle*dt;
+            target.target_robovel.x = target.target_robovel.x - accle * dt;
         }
-        else if(target.target_robovel.x < robovel.x)
+        else if (target.target_robovel.x < robovel.x)
         {
-            target.target_robovel.x = target.target_robovel.x + accle*dt;
+            target.target_robovel.x = target.target_robovel.x + accle * dt;
         }
-        else {}
+        else
+        {
+        }
     }
-    
-    if(abs(target.target_robovel.y - robovel.y) < accle*dt)
+
+    if (abs(target.target_robovel.y - robovel.y) < accle * dt)
     {
         target.target_robovel.y = robovel.y;
     }
     else
     {
-        if(target.target_robovel.y > robovel.y)
+        if (target.target_robovel.y > robovel.y)
         {
-            target.target_robovel.y = target.target_robovel.y - accle*dt;
+            target.target_robovel.y = target.target_robovel.y - accle * dt;
         }
-        else if(target.target_robovel.y < robovel.y)
+        else if (target.target_robovel.y < robovel.y)
         {
-            target.target_robovel.y = target.target_robovel.y + accle*dt;
+            target.target_robovel.y = target.target_robovel.y + accle * dt;
         }
-        else {}
+        else
+        {
+        }
     }
     return 1;
 }
@@ -624,11 +628,12 @@ void chassis_user::add_chassis(RoboChassis *chassis_)
 
 uint8_t chassis_user::set_RobotVel(Vector2D robovel, uint8_t PriorityCode)
 {
-    #ifdef USE_VEL_ACCEL
-    return robochassis_->set_CRobotVel_ACCLE(robovel,5.0f,PriorityCode, this);
-    #else
     return robochassis_->set_CRobotVel(robovel, PriorityCode, this);
-    #endif
+}
+
+uint8_t chassis_user::set_RobotVel_ACCLE(Vector2D robovel, float accle, uint8_t PriorityCode)
+{
+    return robochassis_->set_CRobotVel_ACCLE(robovel, accle, PriorityCode, this);
 }
 
 uint8_t chassis_user::set_RobotW(float w, uint8_t PriorityCode)

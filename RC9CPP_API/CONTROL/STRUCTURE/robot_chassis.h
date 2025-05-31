@@ -1,9 +1,6 @@
 #ifndef ROBOT_CHASSIS_H
 #define ROBOT_CHASSIS_H
 
-//舵轮底盘加速度开启
-#define USE_VEL_ACCEL 1
-
 #ifdef __cplusplus
 extern "C"
 {
@@ -29,7 +26,7 @@ enum RoboChassisType
     custom_chassis,
     omni4_chassis,
     swerve3_chassis,
-    swerve4_chassis,//四舵轮，在scanphtogate使用了枚举的整型值判断，不得改变此处排序
+    swerve4_chassis, // 四舵轮，在scanphtogate使用了枚举的整型值判断，不得改变此处排序
     mecanum_chassis
 };
 
@@ -90,6 +87,7 @@ class chassis_user
 {
 public:
     uint8_t set_RobotVel(Vector2D robovel, uint8_t PriorityCode);
+    uint8_t set_RobotVel_ACCLE(Vector2D robovel, float accle, uint8_t PriorityCode);
     uint8_t set_WorldVel(Vector2D worldvel, uint8_t PriorityCode);
     uint8_t set_RobotW(float w, uint8_t PriorityCode);
     uint8_t yaw_lock(uint8_t PriorityCode);
@@ -113,7 +111,7 @@ public:
     float get_yaw(); // 获取当前的yaw
     float calc_dis(Vector2D target);
     void init_locate();
-    
+
     void stablize_swerve(); // 舵轮稳定状态
 private:
     RoboChassis *robochassis_ = nullptr;
@@ -141,17 +139,17 @@ public:
     // 全向轮初始化
     void add_4_motors(power_motor *front_left_motor, power_motor *front_right_motor, power_motor *back_right_motor, power_motor *back_left_motor);
     void add_3_motors(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor);
-   
+
     // 三舵轮初始化
     void add_3_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3);
     void add_3_correction_angle(int8_t front_angle, int8_t right_angle, int8_t left_angle);
     void add_6_motors(power_motor *front_d_motor, power_motor *front_motor, power_motor *right_d_motor, power_motor *right_motor, power_motor *left_d_motor, power_motor *left_motor);
-    
+
     // 四舵轮初始化
     void add_4_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3, GPIO_TypeDef *port4, uint16_t pin4);
     void add_4_correction_angle(int8_t frontL_angle, int8_t frontR_angle, int8_t backL_angle, int8_t backR_angle);
     void add_8_motors(power_motor *frontL_d_motor, power_motor *frontL_motor, power_motor *frontR_d_motor, power_motor *frontR_motor, power_motor *backL_d_motor, power_motor *backL_motor, power_motor *backR_d_motor, power_motor *backR_motor);
-    
+
     // 扫描光电开关
     void scan_photogate();
 
@@ -180,7 +178,7 @@ private:
     power_motor *motors[4] = {nullptr};
     power_motor *dmotors[4] = {nullptr};
 
-    //舵轮校准所需变量
+    // 舵轮校准所需变量
     GPIO_TypeDef *photogate_port[4] = {nullptr};
     uint16_t photogate_pin[4] = {0};
     uint8_t photogate_state[4] = {0};
@@ -190,7 +188,9 @@ private:
     bool if_init_ok = false;
     bool if_enable_debug = false;
     uint32_t time_cnt = 0;
-    float last_robovel = 0.0f; float dt = 0.0f; float last_tick = 0.0f;
+    float last_robovel = 0.0f;
+    float dt = 0.0f;
+    float last_tick = 0.0f;
 
 public: // user类接口
     uint8_t set_CRobotVel(Vector2D robovel, uint8_t PriorityCode, chassis_user *user_);
