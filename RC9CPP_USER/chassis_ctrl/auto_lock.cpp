@@ -8,13 +8,13 @@ void auto_lock_test::calc_error()
 
     Vector2D dis = center_point - now_point;
 
-    nor_dir = dis.normalize();
-    tan_dir = Vector2D(nor_dir.y, -nor_dir.x).normalize();
+    nor_dir = dis.normalize();//法向
+    tan_dir = Vector2D(nor_dir.y, -nor_dir.x).normalize();//切向 （x，y）-> (-y，x) 顺时针90度旋转
 
+    // 计算距离以及目标角度
     dis_2_center = dis.magnitude();
+    center_heading = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;// 180/PI=57.296  
 
-    center_heading = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
-    ; // 角度对准圆心
 }
 
 void auto_lock_test::mode_2()
@@ -41,16 +41,13 @@ void auto_lock_test::mode_3()
 {
     Fine_tune(xbox_msgs.btnDirUp, xbox_msgs.btnDirDown, xbox_msgs.btnDirLeft, xbox_msgs.btnDirRight);
     calc_error();
-    nor_control.setpoint = radius[cnt_flag];
 
-    nor_speed = -nor_control.PID_Compute(dis_2_center);
-
-    Vector2D tvel_ = tan_dir * (3.0f * xbox_msgs.joyLHori_map);
-
-    Vector2D nor_vel_ = nor_dir * nor_speed;
+    nor_control.setpoint = radius[cnt_flag];//距离圆心的目标值
+    nor_speed = -nor_control.PID_Compute(dis_2_center);//pid计算法向速度大小  
+    Vector2D nor_vel_ = nor_dir * nor_speed;//法向速度
+    Vector2D tvel_ = tan_dir * (3.0f * xbox_msgs.joyLHori_map);//切向速度
 
     set_WorldVel(tvel_ + nor_vel_, 0);
-
     yaw_TurnTo(center_heading, 0);
 }
 

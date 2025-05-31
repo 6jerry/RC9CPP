@@ -192,7 +192,7 @@ void RoboChassis::swerve3_initialize()
             }
             else
             {
-                dmotors[i]->set_rpm(5.0f);
+                dmotors[i]->set_rpm(7.0f);
             }
         }
         else
@@ -256,7 +256,7 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
     float speed_magnitude;
 
     // 第一个舵轮
-    target.swerve_motor_target[0].x = robovel.x - w * 0.44f;
+    target.swerve_motor_target[0].x = robovel.x - w * 0.2451f;
     target.swerve_motor_target[0].y = robovel.y;
 
     if (target.swerve_motor_target[0].x != 0.0f || target.swerve_motor_target[0].y != 0.0f)
@@ -295,8 +295,8 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
     dmotors[0]->set_pos(target.swerve_motor_angle[0]);
 
     // 第二个舵轮
-    target.swerve_motor_target[1].x = robovel.x + w * 0.38735f; // 0.38735=0.44*sin(45)
-    target.swerve_motor_target[1].y = robovel.y - w * 0.38735f;
+    target.swerve_motor_target[1].x = robovel.x + w * 0.150155f; // 0.150155=0.2451*cos(52.22°)
+    target.swerve_motor_target[1].y = robovel.y - w * 0.193719f; // 0.193719=0.2451*sin(52.22°)
 
     if (target.swerve_motor_target[1].x != 0.0f || target.swerve_motor_target[1].y != 0.0f)
     {
@@ -325,7 +325,7 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
         {
             // 角度差小于90度，保持原方向
             target.swerve_motor_angle[1] = target_angle;
-            speed_magnitude = -target.swerve_motor_target[1].magnitude(); // 原本是负的
+            speed_magnitude = -target.swerve_motor_target[1].magnitude(); // 原本就是负的
         }
     }
 
@@ -334,8 +334,8 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
     dmotors[1]->set_pos(target.swerve_motor_angle[1]);
 
     // 第三个舵轮
-    target.swerve_motor_target[2].x = robovel.x + w * 0.38735f;
-    target.swerve_motor_target[2].y = robovel.y + w * 0.38735f;
+    target.swerve_motor_target[2].x = robovel.x + w * 0.150151f; // 0.150151=0.2451*cos(52.22°)
+    target.swerve_motor_target[2].y = robovel.y + w * 0.193719f; // 0.193719=0.2451*sin(52.22°)
 
     if (target.swerve_motor_target[2].x != 0.0f || target.swerve_motor_target[2].y != 0.0f)
     {

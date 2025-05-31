@@ -27,10 +27,10 @@ extern "C"
         action_imu.startUartReceiveIT();
         debug_port.initQueue();
 /****************************************************/
-		ros_imu.tf_init(false, 0.39008645, 0.56820672);  // ��������ϵ��rΪ39cm, ��������ϵ��ʼ�ǶȦ�168��
-        ros_imu.add_action(&action_imu);
-        ros_imu.addport(&ros_port);
-        ros_port.startUartReceiveIT();
+//		ros_imu.tf_init(false, 0.39008645, 0.56820672);
+//        ros_imu.add_action(&action_imu);
+//        ros_imu.addport(&ros_port);
+//        ros_port.startUartReceiveIT();
 /****************************************************/
         m3508_front.config_mech_param(48.26f, 0.0f);
         m3508_front.angle_pid_control.ConfigAll(3.1f, 0.4f, 1.4f, 0.0f, 160.0f, 0.2f, 3.0f);

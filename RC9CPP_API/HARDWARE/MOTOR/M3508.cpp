@@ -146,20 +146,6 @@ int16_t m3508p::distance_speedplan()
     }
 }
 
-/* int16_t m3508p::angle_speedplan()
-{
-    if (abs(target_angle - pos_sum) < speed_plan_end_pos && pos_speed_plan.m_finalSpeed == 0.0f)
-    {
-        pos_speed_plan.reset();
-        return angle_pid();
-    }
-    else
-    {
-        target_rpm = pos_speed_plan.plan(pos_sum);
-        return increPID_speed();
-    }
-} */
-
 int16_t m3508p::angle_pid()
 {
 
@@ -250,11 +236,6 @@ bool m3508p::set_pos_speedplan(float target_angle_, float max_speed, float max_a
     {
         return false;
     }
-}
-
-void m3508p::pos_speedplan_restart()
-{
-    pos_speed_plan.reset();
 }
 
 void m3508p::pos_speedplan_restart()
