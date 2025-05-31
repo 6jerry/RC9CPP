@@ -338,9 +338,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>USE_PWR_LDO_SUPPLY,USE_HAL_DRIVER,STM32H723xx,ARM_MATH_DSP,ARM_MATH_MATRIX_CHECK,ARM_MATH_ROUNDING,ARM_MATH_CM7</Define>
+              <Define>USE_PWR_LDO_SUPPLY,USE_HAL_DRIVER,STM32H723xx,__FPU_PRESENT=1,__FPU_USED=1,ARM_MATH_CM7,</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../USB_DEVICE/App;../USB_DEVICE/Target;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../Middlewares/ST/ARM/DSP/Inc;../RC9CPP_USER/H7_test;../RC9CPP_API/HARDWARE;../RC9CPP_API/MATH_LIB;../RC9CPP_API/HARDWARE/MOTOR;../RC9CPP_API/CONTROL</IncludePath>
+              <IncludePath>../Core/Inc;../USB_DEVICE/App;../USB_DEVICE/Target;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../Middlewares/ST/ARM/DSP/Inc;../RC9CPP_USER/H7_test;../RC9CPP_API/HARDWARE;../RC9CPP_API/MATH_LIB;../RC9CPP_API/HARDWARE/MOTOR;../RC9CPP_API/CONTROL;..\Drivers\CMSIS\DSP\Include;..\RC9CPP_API\CONTROL\STRUCTURE;..\RC9CPP_USER\RC2025\fast_debug;..\RC9CPP_API\DECISION</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -695,14 +695,24 @@
           <GroupName>RC9CPP_USER</GroupName>
           <Files>
             <File>
-              <FileName>test_demo.cpp</FileName>
+              <FileName>m3508_debug.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\RC9CPP_USER\H7_test\test_demo.cpp</FilePath>
+              <FilePath>..\RC9CPP_USER\RC2025\fast_debug\m3508_debug.cpp</FilePath>
             </File>
             <File>
-              <FileName>test_demo.h</FileName>
+              <FileName>m3508_debug.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\RC9CPP_USER\H7_test\test_demo.h</FilePath>
+              <FilePath>..\RC9CPP_USER\RC2025\fast_debug\m3508_debug.h</FilePath>
+            </File>
+            <File>
+              <FileName>m3508_debug_setup.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\RC9CPP_USER\RC2025\fast_debug\m3508_debug_setup.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>m3508_debug_setup.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RC9CPP_USER\RC2025\fast_debug\m3508_debug_setup.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -927,6 +937,46 @@
               <FileName>position.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\RC9CPP_API\HARDWARE\position.h</FilePath>
+            </File>
+            <File>
+              <FileName>debug_xbox.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\RC9CPP_API\CONTROL\debug_xbox.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>debug_xbox.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RC9CPP_API\CONTROL\debug_xbox.h</FilePath>
+            </File>
+            <File>
+              <FileName>xbox.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\RC9CPP_API\CONTROL\xbox.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>xbox.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RC9CPP_API\CONTROL\xbox.h</FilePath>
+            </File>
+            <File>
+              <FileName>EncodingStateMachine.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\RC9CPP_API\DECISION\EncodingStateMachine.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>EncodingStateMachine.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RC9CPP_API\DECISION\EncodingStateMachine.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>DSP</GroupName>
+          <Files>
+            <File>
+              <FileName>arm_cortexM7l_math.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\Drivers\CMSIS\DSP\Lib\ARM\arm_cortexM7l_math.lib</FilePath>
             </File>
           </Files>
         </Group>

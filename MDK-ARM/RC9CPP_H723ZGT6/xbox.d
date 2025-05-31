@@ -1,16 +1,28 @@
-./rc9cpp_h723zgt6/m3508.o: ..\RC9CPP_API\HARDWARE\MOTOR\M3508.cpp \
-  ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h \
-  ..\RC9CPP_API\HARDWARE\fdcan_device.h ..\Core\Inc\fdcan.h \
-  ..\Core\Inc\main.h ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal.h \
+./rc9cpp_h723zgt6/xbox.o: ..\RC9CPP_API\CONTROL\xbox.cpp \
+  ..\RC9CPP_API\CONTROL\xbox.h ..\RC9CPP_API\HARDWARE\TaskManager.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdint.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config \
+  G:\Keil_v5\ARM\ARMCLANG\include\stdint.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stddef.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\stddef.h \
+  ..\RC9CPP_API\HARDWARE\RC9Protocol.h ..\RC9CPP_API\MATH_LIB\crc_util.h \
+  ..\RC9CPP_API\HARDWARE\Serial_device.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
+  ..\Core\Inc\FreeRTOSConfig.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F\portmacro.h \
+  ..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h \
+  ..\Core\Inc\usart.h ..\Core\Inc\main.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal.h \
   ..\Core\Inc\stm32h7xx_hal_conf.h \
   ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_rcc.h \
   ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_def.h \
   ..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h7xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\stm32h723xx.h \
   ..\Drivers\CMSIS\Include\core_cm7.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdint.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config \
-  G:\Keil_v5\ARM\ARMCLANG\include\stdint.h \
   G:\stm32_project_cpp\RC9CPP_H723ZGT6\Drivers\CMSIS\Include\cmsis_version.h \
   G:\stm32_project_cpp\RC9CPP_H723ZGT6\Drivers\CMSIS\Include\cmsis_compiler.h \
   G:\stm32_project_cpp\RC9CPP_H723ZGT6\Drivers\CMSIS\Include\cmsis_armclang.h \
@@ -19,8 +31,6 @@
   G:\stm32_project_cpp\RC9CPP_H723ZGT6\Drivers\CMSIS\Include\mpu_armv7.h \
   ..\Drivers\CMSIS\Device\ST\STM32H7xx\Include\system_stm32h7xx.h \
   ..\Drivers\STM32H7xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stddef.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\stddef.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\math.h \
   G:\Keil_v5\ARM\ARMCLANG\include\math.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\__math\abs.h \
@@ -204,26 +214,13 @@
   ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_pcd.h \
   ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_ll_usb.h \
   ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_pcd_ex.h \
-  ..\RC9CPP_API\MATH_LIB\sort_search.h ..\Core\Inc\gpio.h \
-  ..\RC9CPP_API\CONTROL\SuperPID.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h \
-  ..\RC9CPP_API\HARDWARE\TaskManager.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os2.h \
-  ..\RC9CPP_API\HARDWARE\Serial_device.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \
-  ..\Core\Inc\FreeRTOSConfig.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM4F\portmacro.h \
-  ..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h \
-  ..\Core\Inc\usart.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS_V2\cmsis_os.h \
-  ..\RC9CPP_API\MATH_LIB\crc_util.h ..\USB_DEVICE\App\usbd_cdc_if.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h \
+  ..\USB_DEVICE\App\usbd_cdc_if.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h \
@@ -234,13 +231,12 @@
   G:\Keil_v5\ARM\ARMCLANG\include\string.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h \
-  ..\RC9CPP_API\HARDWARE\MOTOR\motor.h ..\RC9CPP_API\CONTROL\PID.h \
-  ..\RC9CPP_API\CONTROL\filters.h \
-  ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h \
+  ..\RC9CPP_API\HARDWARE\Action.h ..\RC9CPP_API\HARDWARE\imu.h \
+  ..\RC9CPP_API\MATH_LIB\Vector2D.h \
   ..\Middlewares\ST\ARM\DSP\Inc\arm_math.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\float.h \
   G:\Keil_v5\ARM\ARMCLANG\include\float.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\limits.h \
   G:\Keil_v5\ARM\ARMCLANG\include\limits.h \
-  ..\RC9CPP_API\MATH_LIB\Vector2D.h
+  ..\RC9CPP_API\DECISION\EncodingStateMachine.h

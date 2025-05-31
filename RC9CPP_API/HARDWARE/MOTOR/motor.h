@@ -60,14 +60,10 @@ class power_motor
 {
 
 public:
-    motor_mode mode = speed;
     virtual float get_rpm() = 0;
     virtual void set_rpm(float power_motor_rpm) = 0; // 获取当前转速和设置目标转速的通用接口
-    void switch_mode(motor_mode target_mode);
 
     virtual void send_rpm(float power_motor_rpm) {};
-
-    virtual void set_ff_current(float target_c_) {};
 
     virtual float get_pos() {};
     virtual void set_pos(float pos) {}; // 获取当前位置和设置目标位置的通用接口
@@ -75,7 +71,8 @@ public:
     virtual void set_current(float target_c_) {};
     virtual void set_dis(float dis) {}; // 设置距离
 
-    virtual void relocate_dis(float dis) {}; // 重新定位距离
+    virtual void relocate_dis(float dis) {};   // 重新定位距离
+    virtual void relocate_pos(float angle) {}; // 重新定位角度
 
     virtual float get_dis() {}; // 获取距离
 
@@ -85,17 +82,11 @@ public:
     virtual void dis_speedplan_restart() {}; // 重新开始距离速度规划
     virtual void pos_speedplan_restart() {};
 
-    virtual void set_angle(float angle) {}; // 设置角度
+    virtual float get_target_rpm() {}; // 获取目标转速
 
-    virtual void relocate_pos(float angle) {}; // 重新定位角度
+    virtual float get_target_pos() {}; // 获取目标位置
 
-    virtual float get_odom() {}; // 获取里程
-
-    virtual void set_F(float F_) {}; // 设置力矩
-
-    virtual float get_F() {}; // 获取力矩
-
-    virtual void set_rpm_ff(float power_motor_rpm, float ff) {}; // 设置速度和前馈值
+    virtual float get_target_dis() {}; // 获取目标距离
 };
 
 class dji_motor

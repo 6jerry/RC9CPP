@@ -1,4 +1,6 @@
-./rc9cpp_h723zgt6/m3508.o: ..\RC9CPP_API\HARDWARE\MOTOR\M3508.cpp \
+./rc9cpp_h723zgt6/m3508_debug_setup.o: \
+  ..\RC9CPP_USER\RC2025\fast_debug\m3508_debug_setup.cpp \
+  ..\RC9CPP_USER\RC2025\fast_debug\m3508_debug_setup.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h \
   ..\RC9CPP_API\HARDWARE\fdcan_device.h ..\Core\Inc\fdcan.h \
   ..\Core\Inc\main.h ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal.h \
@@ -243,4 +245,8 @@
   G:\Keil_v5\ARM\ARMCLANG\include\float.h \
   G:\Keil_v5\ARM\ARMCLANG\include\libcxx\limits.h \
   G:\Keil_v5\ARM\ARMCLANG\include\limits.h \
-  ..\RC9CPP_API\MATH_LIB\Vector2D.h
+  ..\RC9CPP_API\MATH_LIB\Vector2D.h ..\RC9CPP_API\HARDWARE\RC9Protocol.h \
+  ..\RC9CPP_USER\RC2025\fast_debug\m3508_debug.h \
+  ..\RC9CPP_API\CONTROL\debug_xbox.h ..\RC9CPP_API\CONTROL\xbox.h \
+  ..\RC9CPP_API\HARDWARE\Action.h ..\RC9CPP_API\HARDWARE\imu.h \
+  ..\RC9CPP_API\DECISION\EncodingStateMachine.h

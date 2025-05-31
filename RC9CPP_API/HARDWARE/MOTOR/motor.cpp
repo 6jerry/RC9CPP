@@ -92,10 +92,6 @@ dji_motor::dji_motor(float max_rcurrent_, int16_t max_vcurrent_, uint16_t max_va
     }
 }
 
-void power_motor::switch_mode(motor_mode target_mode)
-{
-    mode = target_mode;
-}
 
 void dji_motor_handle::process_data()
 {

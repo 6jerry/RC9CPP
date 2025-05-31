@@ -58,26 +58,28 @@
   G:\Keil_v5\ARM\ARMCLANG\include\stdio.h \
   G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h \
   G:\Keil_v5\ARM\ARMCLANG\include\string.h ..\Core\Inc\gpio.h \
-  ..\RC9CPP_USER\H7_test\test_demo.h \
+  ..\RC9CPP_USER\RC2025\fast_debug\m3508_debug_setup.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h \
+  ..\RC9CPP_API\HARDWARE\fdcan_device.h \
+  ..\RC9CPP_API\MATH_LIB\sort_search.h ..\RC9CPP_API\CONTROL\SuperPID.h \
+  G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h \
   ..\RC9CPP_API\HARDWARE\TaskManager.h \
-  ..\RC9CPP_API\HARDWARE\RC9Protocol.h ..\RC9CPP_API\MATH_LIB\crc_util.h \
   ..\RC9CPP_API\HARDWARE\Serial_device.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h \
-  G:\Keil_v5\ARM\ARMCLANG\include\stdbool.h \
-  ..\USB_DEVICE\App\usbd_cdc_if.h \
+  ..\RC9CPP_API\MATH_LIB\crc_util.h ..\USB_DEVICE\App\usbd_cdc_if.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc\usbd_cdc.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ioreq.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_core.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h \
-  ..\RC9CPP_API\HARDWARE\fdcan_device.h \
-  ..\RC9CPP_API\MATH_LIB\sort_search.h \
-  ..\RC9CPP_API\HARDWARE\MOTOR\vesc.h \
-  ..\RC9CPP_API\HARDWARE\MOTOR\motor.h ..\RC9CPP_API\CONTROL\SuperPID.h \
-  ..\RC9CPP_API\CONTROL\filters.h ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h \
-  ..\RC9CPP_API\CONTROL\PID.h ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\motor.h ..\RC9CPP_API\CONTROL\PID.h \
+  ..\RC9CPP_API\CONTROL\filters.h \
+  ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h \
   ..\Middlewares\ST\ARM\DSP\Inc\arm_math.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   G:\Keil_v5\ARM\ARMCLANG\include\float.h \
   G:\Keil_v5\ARM\ARMCLANG\include\limits.h \
-  ..\RC9CPP_API\MATH_LIB\Vector2D.h ..\RC9CPP_API\HARDWARE\position.h \
-  ..\RC9CPP_API\HARDWARE\imu.h
+  ..\RC9CPP_API\MATH_LIB\Vector2D.h ..\RC9CPP_API\HARDWARE\RC9Protocol.h \
+  ..\RC9CPP_USER\RC2025\fast_debug\m3508_debug.h \
+  ..\RC9CPP_API\CONTROL\debug_xbox.h ..\RC9CPP_API\CONTROL\xbox.h \
+  ..\RC9CPP_API\HARDWARE\Action.h ..\RC9CPP_API\HARDWARE\imu.h \
+  ..\RC9CPP_API\DECISION\EncodingStateMachine.h

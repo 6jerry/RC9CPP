@@ -35,7 +35,7 @@ float32_t Vector2D::operator*(const Vector2D &other) const
     float32_t dotProduct;
     float32_t vecA[2] = {this->x, this->y};
     float32_t vecB[2] = {other.x, other.y};
-    //arm_dot_prod_f32(vecA, vecB, 2, &dotProduct);
+    arm_dot_prod_f32(vecA, vecB, 2, &dotProduct);
     return dotProduct;
 }
 

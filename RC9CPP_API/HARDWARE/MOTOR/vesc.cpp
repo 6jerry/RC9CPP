@@ -133,7 +133,3 @@ void vesc::start_debug()
     debug_mode = true;
 }
 
-void vesc::set_ff_current(float target_c_)
-{
-    target_ff_current = target_c_;
-}

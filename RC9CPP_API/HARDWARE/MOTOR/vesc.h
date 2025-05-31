@@ -52,7 +52,7 @@ public:
 
     void set_current(float target_c_) override;
     void send_rpm(float power_motor_rpm) override;
-    void set_ff_current(float target_c_) override;
+   
     void can_update(uint8_t can_RxData[8]);
     void process_data();
 

@@ -51,13 +51,19 @@ void RoboChassis::process_data()
 
 void RoboChassis::swerve_stablize()
 {
-    // dmotors[0]->set_pos(0.0f);
-    // dmotors[1]->set_pos(45.0f);
-    // dmotors[2]->set_pos(-45.0f);
-
-    motors[0]->set_rpm(0.0f);
-    motors[1]->set_rpm(0.0f);
-    motors[2]->set_rpm(0.0f);
+    if (type == 3)
+    {
+        dmotors[0]->set_pos(0.0f);
+        dmotors[1]->set_pos(-45.0f);
+        dmotors[2]->set_pos(45.0f);
+    }
+    else if (type == 4)
+    {
+        dmotors[0]->set_pos(45.0f);
+        dmotors[1]->set_pos(-45.0f);
+        dmotors[2]->set_pos(-45.0f);
+        dmotors[3]->set_pos(45.0f);
+    }
 }
 
 void RoboChassis::C_stablize()
@@ -147,62 +153,65 @@ void RoboChassis::chassis_initialize()
 
 void RoboChassis::swerve3_initialize()
 {
-    scan_photogate();
-    // dmotors[0]->set_rpm(20.0f);
-    //  dmotors[1]->set_rpm(20.0f);
-    //  dmotors[2]->set_rpm(20.0f);
+    scan_photogate(); // 1. 读取所有光电门状态
 
-    if (photogate_state[0] == 1 && if_not_init[0])
-    {
-        dmotors[1]->relocate_pos(90.0f);
-        if_not_init[0] = false;
-        dmotors[1]->set_pos(0.0f);
-    }
-    else if (if_not_init[0] && photogate_state[0] == 0)
-    {
-        dmotors[1]->set_rpm(5.0f);
-    }
+    bool all_motors_are_holding_zero = true; // 假设所有电机都在0位或正在前往0位
 
-    if (photogate_state[1] == 1 && if_not_init[1])
+    for (int i = 0; i < 3; ++i) // 2. 循环处理每个电机
     {
-        dmotors[2]->relocate_pos(-90.0f);
-        if_not_init[1] = false;
-        dmotors[2]->set_pos(0.0f);
-        // mode = stop;
-    }
-    else if (if_not_init[1] && photogate_state[1] == 0)
-    {
-        dmotors[2]->set_rpm(5.0f);
-    }
-
-    if (photogate_state[2] == 1 && if_not_init[2])
-    {
-        dmotors[0]->relocate_pos(-45.0f);
-        if_not_init[2] = false;
-        dmotors[0]->set_pos(0.0f);
-    }
-    else if (if_not_init[2] && photogate_state[2] == 0)
-    {
-        dmotors[0]->set_rpm(5.0f);
-    }
-
-    if (if_not_init[0] == false && if_not_init[1] == false && if_not_init[2] == false)
-    {
-        // mode = stop;
-        time_cnt++;
-        if (time_cnt > 400)
+        if (if_not_init[i]) // 检查电机 i 是否尚未完成标定
         {
-            mode = stop;
-            time_cnt = 0;
+            // --- 电机尚未初始化 ---
+            all_motors_are_holding_zero = false; // 只要有一个还在初始化，就不能认为都已稳定
+
+            if (photogate_state[i] == 1) // 当前是否在触发点？
+            {
+                // 是：执行标定，标记完成，并命令去0度
+                dmotors[i]->relocate_pos(correction_angle[i]);
+                if_not_init[i] = false; // 标记完成！
+                dmotors[i]->set_pos(0.0f);
+            }
+            else
+            {
+                // 否：命令旋转寻找触发点
+                dmotors[i]->set_rpm(10.0f);
+            }
+        }
+        else
+        {
+            // --- 电机已经初始化过 ---
+            // 持续命令它保持在 0 度位置
+            dmotors[i]->set_pos(0.0f);
+            // (可选，但有助于判断是否真的稳定) 检查电机是否已接近0度
+            // if (fabsf(dmotors[i]->get_pos()) > SOME_SMALL_THRESHOLD) {
+            //     all_motors_are_holding_zero = false; // 如果还没到0位，也不能算稳定
+            // }
         }
     }
 
-    // mode = stop;
+    // 3. 检查退出条件
+    if (all_motors_are_holding_zero)
+    {
+        // 如果循环结束后，没有电机处于“寻找”状态（并且可选地，都已接近0度）
+        // 说明所有电机都已完成标定且正在被命令去0度或保持在0度
+        time_cnt++;         // 开始或继续稳定计时
+        if (time_cnt > 150) // 等待足够长的时间以确保物理稳定
+        {
+            mode = stop;       // 切换到底盘停止模式
+            if_init_ok = true; // (可选) 标记初始化成功
+            time_cnt = 0;      // 重置计时器
+        }
+    }
+    else
+    {
+        // 如果还有电机在寻找触发点（或者还没稳定在0度）
+        time_cnt = 0; // 重置稳定计时器，必须等所有电机都完成后才能开始计时
+    }
 }
 
 void RoboChassis::scan_photogate()
 {
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < type; i++)
     {
         photogate_state[i] = HAL_GPIO_ReadPin(photogate_port[i], photogate_pin[i]);
     }
@@ -239,9 +248,6 @@ void RoboChassis::mecanum_calc(Vector2D robovel, float w)
 void RoboChassis::swerve3_calc(Vector2D robovel, float w)
 {
     // scan_photogate();
-
-    scan_photogate();
-
     float angle_diff;
     float target_angle;
     float speed_magnitude;
@@ -252,12 +258,12 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
 
     if (target.swerve_motor_target[0].x != 0.0f || target.swerve_motor_target[0].y != 0.0f)
     {
-        target_angle = atan2f(target.swerve_motor_target[0].x, target.swerve_motor_target[0].y) * 57.296f;
+        target_angle = atan2f(target.swerve_motor_target[0].x, target.swerve_motor_target[0].y) * 57.296f; // 180/PI=57.296
 
         // 获取当前角度
         float current_angle = dmotors[0]->get_pos();
 
-      
+        // 计算角度差（假设角度已经在合适范围内）
         angle_diff = target_angle - current_angle;
         if (angle_diff > 180.0f)
             angle_diff -= 360.0f;
@@ -286,7 +292,7 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
     dmotors[0]->set_pos(target.swerve_motor_angle[0]);
 
     // 第二个舵轮
-    target.swerve_motor_target[1].x = robovel.x + w * 0.38735f;
+    target.swerve_motor_target[1].x = robovel.x + w * 0.38735f; // 0.38735=0.44*sin(45)
     target.swerve_motor_target[1].y = robovel.y - w * 0.38735f;
 
     if (target.swerve_motor_target[1].x != 0.0f || target.swerve_motor_target[1].y != 0.0f)
@@ -310,7 +316,7 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
             target.swerve_motor_angle[1] = target_angle + 180.0f;
             if (target.swerve_motor_angle[1] > 180.0f)
                 target.swerve_motor_angle[1] -= 360.0f;
-            speed_magnitude = target.swerve_motor_target[1].magnitude(); // 注意这里原本是负的，反转后变正
+            speed_magnitude = target.swerve_motor_target[1].magnitude(); // 注意这里原本是负的，反转后变正，改的是轮向
         }
         else
         {
@@ -364,9 +370,8 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
     dmotors[2]->set_pos(target.swerve_motor_angle[2]);
 }
 
-void RoboChassis::add_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3, GPIO_TypeDef *port4, uint16_t pin4)
+void RoboChassis::add_4_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3, GPIO_TypeDef *port4, uint16_t pin4)
 {
-
     photogate_port[0] = port1;
     photogate_pin[0] = pin1;
     photogate_port[1] = port2;
@@ -375,6 +380,43 @@ void RoboChassis::add_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef
     photogate_pin[2] = pin3;
     photogate_port[3] = port4;
     photogate_pin[3] = pin4;
+}
+
+void RoboChassis::add_4_correction_angle(int8_t frontL, int8_t frontR, int8_t backL, int8_t backR)
+{
+    correction_angle[0] = frontL;
+    correction_angle[1] = frontR;
+    correction_angle[2] = backL;
+    correction_angle[3] = backR;
+}
+
+void RoboChassis::add_8_motors(power_motor *frontL_d_motor, power_motor *frontL_motor, power_motor *frontR_d_motor, power_motor *frontR_motor, power_motor *backL_d_motor, power_motor *backL_motor, power_motor *backR_d_motor, power_motor *backR_motor)
+{
+    dmotors[0] = frontL_d_motor;
+    motors[0] = frontL_motor;
+    dmotors[1] = frontR_d_motor;
+    motors[1] = frontR_motor;
+    dmotors[2] = backL_d_motor;
+    motors[2] = backL_motor;
+    dmotors[3] = backR_d_motor;
+    motors[3] = backR_motor;
+}
+
+void RoboChassis::add_3_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3)
+{
+    photogate_port[0] = port1;
+    photogate_pin[0] = pin1;
+    photogate_port[1] = port2;
+    photogate_pin[1] = pin2;
+    photogate_port[2] = port3;
+    photogate_pin[2] = pin3;
+}
+
+void RoboChassis::add_3_correction_angle(int8_t front, int8_t right, int8_t left)
+{
+    correction_angle[0] = front;
+    correction_angle[1] = right;
+    correction_angle[2] = left;
 }
 
 void RoboChassis::add_6_motors(power_motor *front_d_motor, power_motor *front_motor, power_motor *right_d_motor, power_motor *right_motor, power_motor *left_d_motor, power_motor *left_motor)
@@ -450,61 +492,6 @@ uint8_t RoboChassis::set_CRobotW(float w, uint8_t PriorityCode, chassis_user *us
     return 1;
 }
 
-/**
- * @brief 底盘控制函数
- * 
- * @param robot_vel 机器人速度
- * @param accle 加速度
- * @param PriorityCode 优先级
- * @param user_ 调用者
- * 
- * @return uint8_t   1:成功 0:失败
- */
-uint8_t RoboChassis::set_CRobotVel_ACCLE(Vector2D robovel, float accle, uint8_t PriorityCode, chassis_user *user_)
-{
-    if (mode != chassis_init)
-    {
-        mode = robotv;
-    }
-    dt = (HAL_GetTick() - last_tick)/1000.0 ;   // 计算时间间隔
-    last_tick = HAL_GetTick();
-
-    if(abs(target.target_robovel.x - robovel.x) < accle*dt)
-    {
-        target.target_robovel.x = robovel.x;
-    }
-    else
-    {
-        if(target.target_robovel.x > robovel.x)
-        {
-            target.target_robovel.x = target.target_robovel.x - accle*dt;
-        }
-        else if(target.target_robovel.x < robovel.x)
-        {
-            target.target_robovel.x = target.target_robovel.x + accle*dt;
-        }
-        else {}
-    }
-    
-    if(abs(target.target_robovel.y - robovel.y) < accle*dt)
-    {
-        target.target_robovel.y = robovel.y;
-    }
-    else
-    {
-        if(target.target_robovel.y > robovel.y)
-        {
-            target.target_robovel.y = target.target_robovel.y - accle*dt;
-        }
-        else if(target.target_robovel.y < robovel.y)
-        {
-            target.target_robovel.y = target.target_robovel.y + accle*dt;
-        }
-        else {}
-    }
-    return 1;
-}
-
 RoboChassis::RoboChassis(RoboChassisType type_) : type(type_)
 {
 }
@@ -545,7 +532,7 @@ void RoboChassis::C_pp_track_point(Vector2D target_p)
 {
     if (mode != ppp_track)
     {
-        pp_tracker.pp_start_plan(IMU->get_world_pos(), target_p, target.target_robovel);
+        pp_tracker.pp_start_plan(IMU->get_world_pos(), target_p);
         mode = ppp_track;
     }
 }
@@ -573,11 +560,7 @@ void chassis_user::add_chassis(RoboChassis *chassis_)
 
 uint8_t chassis_user::set_RobotVel(Vector2D robovel, uint8_t PriorityCode)
 {
-    #ifdef USE_VEL_ACCEL
-    return robochassis_->set_CRobotVel_ACCLE(robovel,5.0f,PriorityCode, this);
-    #else
     return robochassis_->set_CRobotVel(robovel, PriorityCode, this);
-    #endif
 }
 
 uint8_t chassis_user::set_RobotW(float w, uint8_t PriorityCode)
@@ -625,16 +608,6 @@ uint8_t RoboChassis::Cmove_to(Vector2D target_p, uint8_t PriorityCode, chassis_u
 float RoboChassis::C_calc_dis(Vector2D target)
 {
     return (IMU->get_world_pos() - target).magnitude();
-}
-
-void RoboChassis::C_init_locate()
-{
-    IMU->imu_rst();
-}
-
-void chassis_user::init_locate()
-{
-    robochassis_->C_init_locate();
 }
 
 float chassis_user::calc_dis(Vector2D target)
