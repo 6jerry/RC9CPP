@@ -67,6 +67,8 @@
 ".\rc9cpp_h723zgt6\trapezoidalplanner.o"
 ".\rc9cpp_h723zgt6\filters.o"
 ".\rc9cpp_h723zgt6\vector2d.o"
+".\rc9cpp_h723zgt6\vesc.o"
+".\rc9cpp_h723zgt6\position.o"
 --strict --scatter "RC9CPP_H723ZGT6\RC9CPP_H723ZGT6.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

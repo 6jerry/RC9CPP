@@ -60,7 +60,7 @@ void vesc::process_data()
 
 void vesc::current_mode()
 {
-    extid = (CAN_CMD_SET_CURRENT << 8) | can_id;
+    extid = (CAN_CMD_SET_CURRENT << 8) | (can_id_ & 0xFF);
     uint8_t vesc_tx_buf[8] = {0};
 
     send_current = (int32_t)(target_current);
@@ -69,7 +69,7 @@ void vesc::current_mode()
     vesc_tx_buf[1] = (send_current >> 16) & 0xFF;
     vesc_tx_buf[2] = (send_current >> 8) & 0xFF;
     vesc_tx_buf[3] = send_current & 0xFF;
-    CAN_Send(extid, true, vesc_tx_buf);
+    CAN_Send(extid, true, vesc_tx_buf, hcan_);
 }
 
 void vesc::erpm_mode()
@@ -78,7 +78,8 @@ void vesc::erpm_mode()
     {
         senderpm = target_erpm;
 
-        extid = (CAN_CMD_SET_ERPM << 8) | can_id;
+        extid = (CAN_CMD_SET_ERPM << 8) | (can_id_ & 0xFF);
+        ;
 
         uint8_t vesc_tx_buf[8] = {0};
 
@@ -87,11 +88,11 @@ void vesc::erpm_mode()
         vesc_tx_buf[2] = (senderpm >> 8) & 0xFF;
         vesc_tx_buf[3] = senderpm & 0xFF;
 
-        CAN_Send(extid, true, vesc_tx_buf);
+        CAN_Send(extid, true, vesc_tx_buf, hcan_);
     }
     else
     {
-        extid = (CAN_CMD_SET_BRAKE << 8) | can_id;
+        extid = (CAN_CMD_SET_BRAKE << 8) | (can_id_ & 0xFF);
 
         uint8_t vesc_tx_buf[8] = {0};
         brake = 6000;
@@ -100,7 +101,7 @@ void vesc::erpm_mode()
         vesc_tx_buf[2] = (brake >> 8) & 0xFF;
         vesc_tx_buf[3] = brake & 0xFF;
 
-        CAN_Send(extid, true, vesc_tx_buf);
+        CAN_Send(extid, true, vesc_tx_buf, hcan_);
     }
 }
 
@@ -120,7 +121,7 @@ void vesc::rpm_increpid_mode()
     current_mode();
 }
 
-vesc::vesc(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, uint8_t motor_polse_, float gear_ratio_, float kp_, float ki_, float kd_, float r_) : CanDevice(hcan_, CAN_FRAME_EXT, can_id), motor_polse(motor_polse_), gear_ratio(gear_ratio_)
+vesc::vesc(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, uint8_t motor_polse_, float gear_ratio_, float kp_, float ki_, float kd_, float r_) : CanDevice(hcan_, CAN_FRAME_EXT, can_id_), motor_polse(motor_polse_), gear_ratio(gear_ratio_)
 {
     // extid = (CAN_CMD_SET_ERPM << 8) | can_id;
 

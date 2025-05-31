@@ -35,7 +35,7 @@ private:
     float gear_ratio = 3.0f;
     float motor_polse = 7.0f;
 
-    vesc_mode vesc_mode = vesc_current;
+    vesc_mode vesc_mode =  vesc_erpm;
 
     void erpm_mode();
     void current_mode();

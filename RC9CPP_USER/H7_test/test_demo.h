@@ -9,8 +9,9 @@ extern "C"
 #include "usart.h"
 #include "RC9Protocol.h"
 #include "fdcan_device.h"
-
+#include "vesc.h"
 #include "M3508.h"
+#include "position.h"
     void test_demo(void);
 #ifdef __cplusplus
 }
@@ -19,6 +20,7 @@ extern "C"
 class demo : public ITaskProcessor, public RC9subscriber
 {
 private:
+    uint8_t ff = 0;
     /* data */
 public:
     void process_data();

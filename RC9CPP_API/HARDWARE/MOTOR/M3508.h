@@ -37,8 +37,16 @@ extern "C"
 
 #ifdef __cplusplus
 
-#define M3508_KT 0.01562f   // 3508的内圈转矩常数 单位：N.M/A
-#define M3508_G 19.2032f    // 最常见的3508减速比，还是建议不要直接取整，0.2也不算小了
+#define M3508_KT 0.01562f // 3508的内圈转矩常数 单位：N.M/A
+#define M3508_G 19.2032f  // 最常见的3508减速比，还是建议不要直接取整，0.2也不算小了
+
+#define M3508_MAX_CURRENT 20000.0f // mA
+#define M3508_CURRENT_MAP 16384    // 电流映射值
+
+#define M2006_MAX_CURRENT 10000.0f // mA
+#define M2006_CURRENT_MAP 10000
+
+#define M2006_G 36.0f
 #define M3508_MAXT 0.15622f // 内圈最大转矩
 #define PI 3.14159265f
 
@@ -65,7 +73,7 @@ private:
 
     uint8_t time_cnt = 0;
 
-    m3508_mode work_mode = m3508_increPID_speed;
+    m3508_mode work_mode = m3508_F;
 
     bool enable_locate = false, enable_debug = false;
 
@@ -81,7 +89,7 @@ private:
     float rpm_2_v(float rpm_);
 
 public:
-    m3508p(uint32_t can_id, FDCAN_HandleTypeDef *hcan_, bool enable_locate_ = false, float gear_ratio = M3508_G);
+    m3508p(uint32_t can_id, FDCAN_HandleTypeDef *hcan_, bool enable_locate_ = false, float gear_ratio = M3508_G, float max_c = M3508_MAX_CURRENT, int16_t max_c_m = M3508_CURRENT_MAP);
 
     int16_t motor_process() override;
     void can_update(uint8_t can_RxData[8]);

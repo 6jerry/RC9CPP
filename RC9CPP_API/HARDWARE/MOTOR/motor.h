@@ -37,6 +37,16 @@ enum motor_mode
 #define dji_id_10 0x20A
 #define dji_id_11 0x20B
 
+#define vesc_id_0 0x900
+#define vesc_id_1 0x901
+#define vesc_id_2 0x902
+#define vesc_id_3 0x903
+#define vesc_id_4 0x904
+#define vesc_id_5 0x905
+#define vesc_id_6 0x906
+#define vesc_id_7 0x907
+#define vesc_id_8 0x908
+
 enum DjiMotorType
 {
     M3508_M2006,
@@ -92,7 +102,7 @@ class dji_motor
 {
 private:
 public:
-    dji_motor(float max_rcurrent_, int16_t max_vcurrent_, uint16_t max_vangle_, DjiMotorType type_,uint32_t can_id_, FDCAN_HandleTypeDef *hcan_);
+    dji_motor(float max_rcurrent_, int16_t max_vcurrent_, uint16_t max_vangle_, DjiMotorType type_, uint32_t can_id_, FDCAN_HandleTypeDef *hcan_);
 
     float rangle = 0;
     int16_t rpm = 0.0f;
@@ -130,7 +140,7 @@ public:
 class dji_motor_handle : public ITaskProcessor
 {
 public:
-    void process_data() ;
+    void process_data();
 };
 
 #endif

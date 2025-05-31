@@ -71,12 +71,13 @@
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_ctlreq.h \
   ..\RC9CPP_API\HARDWARE\fdcan_device.h \
   ..\RC9CPP_API\MATH_LIB\sort_search.h \
-  ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h ..\RC9CPP_API\CONTROL\SuperPID.h \
-  ..\RC9CPP_API\HARDWARE\MOTOR\motor.h ..\RC9CPP_API\CONTROL\PID.h \
-  ..\RC9CPP_API\CONTROL\filters.h \
-  ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\vesc.h \
+  ..\RC9CPP_API\HARDWARE\MOTOR\motor.h ..\RC9CPP_API\CONTROL\SuperPID.h \
+  ..\RC9CPP_API\CONTROL\filters.h ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h \
+  ..\RC9CPP_API\CONTROL\PID.h ..\RC9CPP_API\CONTROL\TrapezoidalPlanner.h \
   ..\Middlewares\ST\ARM\DSP\Inc\arm_math.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   G:\Keil_v5\ARM\ARMCLANG\include\float.h \
   G:\Keil_v5\ARM\ARMCLANG\include\limits.h \
-  ..\RC9CPP_API\MATH_LIB\Vector2D.h
+  ..\RC9CPP_API\MATH_LIB\Vector2D.h ..\RC9CPP_API\HARDWARE\position.h \
+  ..\RC9CPP_API\HARDWARE\imu.h

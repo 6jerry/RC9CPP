@@ -257,7 +257,7 @@ void RoboChassis::swerve3_calc(Vector2D robovel, float w)
         // 获取当前角度
         float current_angle = dmotors[0]->get_pos();
 
-        // 计算角度差（假设角度已经在合适范围内）
+      
         angle_diff = target_angle - current_angle;
         if (angle_diff > 180.0f)
             angle_diff -= 360.0f;

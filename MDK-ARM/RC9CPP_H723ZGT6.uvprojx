@@ -908,6 +908,26 @@
               <FileType>5</FileType>
               <FilePath>..\RC9CPP_API\MATH_LIB\Vector2D.h</FilePath>
             </File>
+            <File>
+              <FileName>vesc.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\RC9CPP_API\HARDWARE\MOTOR\vesc.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>vesc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RC9CPP_API\HARDWARE\MOTOR\vesc.h</FilePath>
+            </File>
+            <File>
+              <FileName>position.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\RC9CPP_API\HARDWARE\position.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>position.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RC9CPP_API\HARDWARE\position.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

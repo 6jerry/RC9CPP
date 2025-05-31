@@ -17,7 +17,7 @@
  *             in the software.
  ******************************************************************************/
 #include "M3508.h"
-m3508p::m3508p(uint32_t can_id, FDCAN_HandleTypeDef *hcan_, bool enable_locate_, float gear_ratio) : CanDevice(hcan_, CAN_FRAME_STD, can_id), gear_ratio(gear_ratio), dji_motor(20000.0f, 16384, 8191, M3508_M2006, can_id, hcan_), rpm_control(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f), enable_locate(enable_locate_) // 选择使用积分分离的话积分限幅就是无意义的，随便给个爆大的值就行
+m3508p::m3508p(uint32_t can_id, FDCAN_HandleTypeDef *hcan_, bool enable_locate_, float gear_ratio, float max_c, int16_t max_c_m) : CanDevice(hcan_, CAN_FRAME_STD, can_id), gear_ratio(gear_ratio), dji_motor(max_c, max_c_m, 8191, M3508_M2006, can_id, hcan_), rpm_control(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f), enable_locate(enable_locate_) // 选择使用积分分离的话积分限幅就是无意义的，随便给个爆大的值就行
 {
 }
 
