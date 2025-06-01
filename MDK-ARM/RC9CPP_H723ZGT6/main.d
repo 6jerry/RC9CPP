@@ -58,7 +58,7 @@
   G:\Keil_v5\ARM\ARMCLANG\include\stdio.h \
   G:\Keil_v5\ARM\ARMCLANG\include\stdlib.h \
   G:\Keil_v5\ARM\ARMCLANG\include\string.h ..\Core\Inc\gpio.h \
-  ..\RC9CPP_USER\RC2025\fast_debug\m3508_debug_setup.h \
+  ..\RC9CPP_USER\RC2025\fast_debug\chassis_debug_setup.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h \
   ..\RC9CPP_API\HARDWARE\fdcan_device.h \
   ..\RC9CPP_API\MATH_LIB\sort_search.h ..\RC9CPP_API\CONTROL\SuperPID.h \
@@ -78,8 +78,11 @@
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   G:\Keil_v5\ARM\ARMCLANG\include\float.h \
   G:\Keil_v5\ARM\ARMCLANG\include\limits.h \
-  ..\RC9CPP_API\MATH_LIB\Vector2D.h ..\RC9CPP_API\HARDWARE\RC9Protocol.h \
-  ..\RC9CPP_USER\RC2025\fast_debug\m3508_debug.h \
+  ..\RC9CPP_API\MATH_LIB\Vector2D.h ..\RC9CPP_API\HARDWARE\MOTOR\vesc.h \
+  ..\RC9CPP_API\HARDWARE\RC9Protocol.h \
+  ..\RC9CPP_USER\RC2025\fast_debug\chassis_debug.h \
   ..\RC9CPP_API\CONTROL\debug_xbox.h ..\RC9CPP_API\CONTROL\xbox.h \
   ..\RC9CPP_API\HARDWARE\Action.h ..\RC9CPP_API\HARDWARE\imu.h \
-  ..\RC9CPP_API\DECISION\EncodingStateMachine.h
+  ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
+  ..\RC9CPP_API\CONTROL\STRUCTURE\robot_chassis.h \
+  ..\RC9CPP_API\CONTROL\pure_pursuit.h

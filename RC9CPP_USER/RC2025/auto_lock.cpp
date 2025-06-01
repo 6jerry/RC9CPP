@@ -18,31 +18,89 @@ void auto_lock_test::calc_error()
 }
 
 void auto_lock_test::mode_2()
-{
-    Vector2D tvel_((1.0f * xbox_msgs.joyLHori_map), (1.0f * xbox_msgs.joyLVert_map));
-
+{   
+    Vector2D tvel_((3.0f * xbox_msgs.joyLHori_map), (3.0f * xbox_msgs.joyLVert_map));
+    calc_error();
     set_RobotVel(tvel_, 0);
     set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+   /* // 防止舵轮偏移
+    if(xbox_msgs.joyRHori_map == 0.0f){
+        static float last_w_speed = 0.0f;
+        static float lock_yaw = 0.0f;
+        if((xbox_msgs.joyRHori_map - last_w_speed) < 0.001f)
+        {
+            lock_yaw = imu_ptr->get_yaw_rad() * 57.296f;
+            yaw_TurnTo(lock_yaw, 0);
+            last_w_speed = xbox_msgs.joyRHori_map;
+        }else{
+            last_w_speed = xbox_msgs.joyRHori_map;
+        }
+    }else{
+        set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+    }*/
+    planner.reset();
     rst_state();
+
+    float arr[1] = {dis_2_center};
+    uint8_t instruction[1] = {0};
+    if (shoot_title == 1)
+    {
+        instruction[0] = 1;
+        shoot_title = 0;
+        communication->load_Txbyte(1, instruction, 1);
+    }
+    else if (yunball_title == 1)
+    {
+        instruction[0] = 2;
+        yunball_title = 0;
+        communication->load_Txbyte(1, instruction, 1);
+    }
+    else if (just_yun_title == 1)
+    {
+        instruction[0] = 3;
+        just_yun_title = 0;
+        communication->load_Txbyte(1, instruction, 1);
+    }
+    else
+    {
+        instruction[0] = 0;
+    }
+
+    communication->load_Txfloat(2, arr, 1);
 }
 
 void auto_lock_test::mode_1()
 {
     // calc_error();
 
-    Vector2D tvel_(0.0f, 0.15f);
+    // Vector2D tvel_(0.0f, 0.15f);
 
-    set_WorldVel(tvel_, 0);
+    // set_WorldVel(tvel_, 0);
 
-    yaw_TurnTo(0.0f, 0);
+    // yaw_TurnTo(0.0f, 0);
+
+    Vector2D tvel_((3.0f * xbox_msgs.joyLHori_map), (3.0f * xbox_msgs.joyLVert_map));
+    calc_error();
+    set_RobotVel(tvel_, 0);
+
+     lock_vol = lock_basket.PID_ComputeError(ros_ptr->camera_info.vertial_plane_deviation.x);
+    
+    set_RobotW(lock_vol, 0);
 }
 
 void auto_lock_test::mode_3()
 {
+    Vector2D tvel((1.0f * xbox_msgs.joyLHori_map), (1.0f * xbox_msgs.joyLVert_map));
+    // Fine_tune(xbox_msgs.btnDirUp, xbox_msgs.btnDirDown, xbox_msgs.btnDirLeft, xbox_msgs.btnDirRight);
     calc_error();
+    /*if (planner.isFinished())
+    {
+        planner.start_plan(2.0f, 2.0f, 3.0f, tvel.magnitude() * 3, 0.0f, dis_2_center - radius[cnt_flag], 0.0f);
+    }*/
     nor_control.setpoint = radius[cnt_flag];
 
     nor_speed = -nor_control.PID_Compute(dis_2_center);
+    // nor_speed = -planner.plan(dis_2_center - radius[cnt_flag]);
 
     Vector2D tvel_ = tan_dir * (3.0f * xbox_msgs.joyLHori_map);
 
@@ -51,16 +109,60 @@ void auto_lock_test::mode_3()
     set_WorldVel(tvel_ + nor_vel_, 0);
 
     yaw_TurnTo(center_heading, 0);
+    /*if(((dis_2_center - radius[cnt_flag]) < 0.02f) && (abs(center_heading - get_yaw()) < 0.3f))
+    {
+        mode_flag = 2;
+    }*/
 }
 
 void auto_lock_test::xbox_on()
 {
-    center_point.x = 5.841f;
-    center_point.y = 0.75f;
-    nor_control.ConfigAll(1.0f, 0.0f, 0.02f, 0.0f, 1.0f, 0.005f, 0.0f);
-    imu_ptr->imu_relocate(0.5f, 0.5f, 30.0f);
+    imu_ptr->imu_relocate(0.0f, 0.0f, 0.0f);
+    init_locate();
+    ros_ptr->imu_rst();
 }
-auto_lock_test::auto_lock_test(imu *imu_ptr_)
+auto_lock_test::auto_lock_test(imu *imu_ptr_, ros_sensor *ros_ptr_)
 {
     imu_ptr = imu_ptr_;
+    ros_ptr = ros_ptr_;
+    nor_control.ConfigAll(1.0f, 0.0f, 0.02f, 0.0f, 1.0f, 0.015f, 0.0f);
+	lock_basket.ConfigAll(0.070998f, 0.0f, 0.05f, 0.02998f, 0.24f, 6.0f, 20.0f);
+    center_point.x = 5.835f;
+    center_point.y = 0.774f;
+}
+
+void auto_lock_test::Fine_tune(bool up, bool down, bool left, bool right)
+{
+    if (HAL_GetTick() - last_tick > 100)
+    {
+        if (up)
+            center_point.y += 0.01f;
+        if (down)
+            center_point.y -= 0.01f;
+        if (left)
+            center_point.x -= 0.01f;
+        if (right)
+            center_point.x += 0.01f;
+        last_tick = HAL_GetTick();
+    }
+}
+
+float auto_lock_test::get_dis_2_center()
+{
+    return dis_2_center;
+}
+
+void auto_lock_test::add_sending(RC9Protocol *communication_)
+{
+    communication = communication_;
+}
+
+void auto_lock_test::lb_on()
+{
+    ros_ptr->relocate_imu();
+}
+
+void auto_lock_test::lb_off()
+{
+    ros_ptr->stop_relocate();
 }

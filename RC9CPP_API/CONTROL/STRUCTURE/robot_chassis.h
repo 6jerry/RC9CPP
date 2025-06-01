@@ -1,6 +1,9 @@
 #ifndef ROBOT_CHASSIS_H
 #define ROBOT_CHASSIS_H
 
+// 舵轮底盘加速度开启
+#define USE_VEL_ACCEL 1
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -13,6 +16,7 @@ extern "C"
 #include <arm_math.h>
 #include "gpio.h"
 #include "RC9Protocol.h"
+#include "TrapezoidalPlanner.h"
 #ifdef __cplusplus
 }
 #endif
@@ -24,9 +28,9 @@ enum RoboChassisType
     omni3_chassis,
     custom_chassis,
     omni4_chassis,
-    swerve3_chassis,
+    mecanum_chassis,
     swerve4_chassis, // 四舵轮
-    mecanum_chassis
+    swerve3_chassis
 };
 
 enum RoboChassis_mode
@@ -113,6 +117,8 @@ public:
 
     void stablize_swerve(); // 稳定四舵轮
 
+    void init_locate(); // 初始化定位
+
 private:
     RoboChassis *robochassis_ = nullptr;
 
@@ -128,21 +134,19 @@ public:
     void config(chassis_info info_);
     void add_imu(imu *imu_);
     void add4_motors(power_motor *front_left_motor, power_motor *front_right_motor, power_motor *back_right_motor, power_motor *back_left_motor);
-    void add_3_motors(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor);
-
+    void add3_motors(power_motor *front_motor, power_motor *right_motor, power_motor *left_motor);
+    void add8_motors(power_motor *front_right_motor, power_motor *front_left_motor, power_motor *back_right_motor, power_motor *back_left_motor, power_motor *front_right_dmotor, power_motor *front_left_dmotor, power_motor *back_right_dmotor, power_motor *back_left_dmotor);
     void pointtrack_config(float kp, float ki, float kd, float integral_limit, float output_limit, float deadzone, float integral_separation_threshold);
 
     void yawadjuster_config(float kp, float ki, float kd, float integral_limit, float output_limit, float deadzone, float integral_separation_threshold);
 
-    void add_3_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3);
-    void add_3_correction_angle(int8_t front_angle, int8_t right_angle, int8_t left_angle);
     void add_6_motors(power_motor *front_d_motor, power_motor *front_motor, power_motor *right_d_motor, power_motor *right_motor, power_motor *left_d_motor, power_motor *left_motor);
 
-    void add_4_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3, GPIO_TypeDef *port4, uint16_t pin4);
-    void add_4_correction_angle(int8_t frontL_angle, int8_t frontR_angle, int8_t backL_angle, int8_t backR_angle);
-    void add_8_motors(power_motor *frontL_d_motor, power_motor *frontL_motor, power_motor *frontR_d_motor, power_motor *frontR_motor, power_motor *backL_d_motor, power_motor *backL_motor, power_motor *backR_d_motor, power_motor *backR_motor);
+    void add_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef *port2, uint16_t pin2, GPIO_TypeDef *port3, uint16_t pin3, GPIO_TypeDef *port4, uint16_t pin4);
 
     void enable_debug();
+
+    chassis_target target;
 
 private:
     chassis_user *user = nullptr; // 当前是哪个类正在使用底盘
@@ -152,7 +156,10 @@ private:
     uint8_t current_priority = 0, last_priority = 0;
     imu *IMU = nullptr;
     chassis_info chassis_info_;
-    chassis_target target;
+    /*
+     查看暂时转public
+     chassis_target target;
+    */
 
     power_motor *motors[4] = {nullptr};
     power_motor *dmotors[4] = {nullptr};
@@ -162,7 +169,6 @@ private:
     GPIO_TypeDef *photogate_port[4] = {nullptr};
     uint16_t photogate_pin[4] = {0};
     uint8_t photogate_state[4] = {0}; // 前轮，右轮，左轮
-    int8_t correction_angle[4] = {0};
 
     bool if_not_init[4] = {true, true, true, true};
 
@@ -171,6 +177,10 @@ private:
     bool if_enable_debug = false;
 
     uint32_t time_cnt = 0;
+
+    float last_robovel = 0.0f;
+    float dt = 0.0f;
+    float last_tick = 0.0f;
 
 public:
     pointrack pointtracker;
@@ -204,6 +214,7 @@ public:
     uint8_t set_CWorldVel(Vector2D worldvel, uint8_t PriorityCode, chassis_user *user_);
     uint8_t set_CRobotW(float w, uint8_t PriorityCode, chassis_user *user_);
     uint8_t yaw_Clock(uint8_t PriorityCode, chassis_user *user_);
+    uint8_t set_CRobotVel_ACCLE(Vector2D robovel, float accle, uint8_t PriorityCode, chassis_user *user_);
 
     uint8_t yaw_CTurnTo(float yaw, uint8_t PriorityCode, chassis_user *user_);
     uint8_t yaw_CTurnTo_speedplan(float yaw, uint8_t PriorityCode, chassis_user *user_);
@@ -229,6 +240,8 @@ public:
     void swerve_stablize();
 
     void C_stablize();
+
+    void C_init_locate();
 };
 
 #endif

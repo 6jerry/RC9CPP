@@ -283,9 +283,9 @@ void m3508p::many_pos_locate() // 差分定位计算3508多圈位置
 
     temp_delta = now_pos - last_pos;
 
-    if (now_pos > 300.0f)
+    if (now_pos > 260.0f)
     {
-        if (last_pos < 60.0f)
+        if (last_pos < 100.0f)
         {
             delta_pos = -(360.0f - now_pos + last_pos);
         }
@@ -294,9 +294,9 @@ void m3508p::many_pos_locate() // 差分定位计算3508多圈位置
             delta_pos = temp_delta;
         }
     }
-    else if (now_pos < 60.0f)
+    else if (now_pos < 100.0f)
     {
-        if (last_pos > 300.0f)
+        if (last_pos > 260.0f)
         {
             delta_pos = now_pos + (360.0f - last_pos);
         }

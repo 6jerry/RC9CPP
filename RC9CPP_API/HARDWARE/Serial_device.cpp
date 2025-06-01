@@ -60,7 +60,7 @@ extern "C" void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
             SerialDevice::instances_[i]->handleReceiveData(rxByte);
 
             HAL_UART_Receive_IT(huart, SerialDevice::instances_[i]->rxBuffer_, RX_BUFFER_SIZE);
-            return;
+           return;
         }
     }
     for (int i = 0; i < SerialDevice::instanceCount_; i++)
