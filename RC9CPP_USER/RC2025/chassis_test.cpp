@@ -1,6 +1,7 @@
 #include "chassis_test.h"
 #include "Vector2D.h"
 #include "ros_sensor.h"
+#include "test_laser.h"
 
 TaskManager task_core;
 CanManager can_core;
@@ -8,6 +9,7 @@ RC9Protocol esp_port(uart, &huart2), position_port(uart, &huart5);
 RC9Protocol ros_port(cdc, &huart5);
 RC9Protocol Lora_port(uart, &huart4);
 RC9Protocol send_port(uart, &huart1);
+Laser laser(&huart3);
 ros_sensor ros_sensor_;
 position position_sensor;
 
@@ -28,11 +30,13 @@ extern "C"
 {
     void chassis_move_test(void)
     {
-        can_core.init();
+//        can_core.init();
         esp_port.startUartReceiveIT();
         // position_sensor.startUartReceiveIT();
         position_port.initQueue();
         position_port.startUartReceiveIT();
+		laser.init();
+		laser.startUartReceiveIT();
         /**************debug*************/
         send_port.initQueue();
         send_port.startUartReceiveIT();
@@ -76,7 +80,7 @@ extern "C"
         task_core.registerTask(1, &vesc_left);
         task_core.registerTask(1, &vesc_right);
 
-        task_core.registerTask(0, &can_core);
+//        task_core.registerTask(0, &can_core);
         task_core.registerTask(2, &s3_chassis);
         task_core.registerTask(9, &s3_xbox);
         task_core.registerTask(8, &position_port);
