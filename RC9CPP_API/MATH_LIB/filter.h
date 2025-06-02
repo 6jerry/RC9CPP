@@ -107,6 +107,7 @@ typedef struct {
 
 class KalmanFilter {
 public:
+	KalmanFilter();
     // 初始化卡尔曼滤波器
     void KalmanFilter_init(float Q, float R, float P);
     //滤波器输入输出接口

@@ -40,6 +40,7 @@ extern "C"
 #include "Serial_device.h"
 #include "imu.h"
 #include "math.h"
+#include "filter.h"
 #ifdef __cplusplus
 }
 #endif
@@ -65,6 +66,7 @@ public:
         qua,
         crc
     };
+	KalmanFilter filter;
     volatile parse_status status = head0;
     float distance = 0.0f;
     Laser(UART_HandleTypeDef *huart);

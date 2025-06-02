@@ -73,7 +73,7 @@ void Laser::handleReceiveData(uint8_t byte){
         case data:
             if(cnt == 9){
                 tmp_dis = tmp[6] << 24 | tmp[7] << 16 | tmp[8] << 8 | tmp[9];
-				distance = (float)tmp_dis / 1000.0f;
+				distance = filter.filter((float)tmp_dis / 1000.0f);
                 status = qua;
             }else{
 
