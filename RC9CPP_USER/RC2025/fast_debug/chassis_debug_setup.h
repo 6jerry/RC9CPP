@@ -12,6 +12,7 @@ extern "C"
 #include "RC9Protocol.h"
 #include "chassis_debug.h"
 #include "fdcan_device.h"
+#include "gpio.h"
 #include "robot_chassis.h"
     void chassis_debug_setup();
 #ifdef __cplusplus

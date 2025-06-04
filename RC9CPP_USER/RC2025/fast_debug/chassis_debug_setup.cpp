@@ -2,7 +2,7 @@
 
 TaskManager task_core;
 dji_motor_handle dji_core;
-m3508p m2006_left(dji_id_4, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_1, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
+m3508p m2006_left(dji_id_4, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_1, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan3, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
 
 vesc u8_front(vesc_id_1, &hfdcan2), u8_left(vesc_id_2, &hfdcan2), u8_right(vesc_id_3, &hfdcan2);
 
@@ -28,6 +28,8 @@ extern "C"
         s3_chassis.add_6_motors(&m2006_front, &u8_front, &m2006_right, &u8_right, &m2006_left, &u8_left);
         s3_chassis.config(s3_chassis_info);
 
+        s3_chassis.add_photogate(GPIOF, GPIO_PIN_8, GPIOF, GPIO_PIN_9, GPIOD, GPIO_PIN_15, nullptr, 0);
+
         // pid config
         m2006_left.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
         m2006_left.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 80.0f, 0.2f, 3.0f);
@@ -36,7 +38,7 @@ extern "C"
         m2006_right.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
         m2006_right.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 80.0f, 0.2f, 3.0f);
 
-        //task_core.registerTask(0, &dji_core);
+        task_core.registerTask(0, &dji_core);
         task_core.registerTask(1, &u8_front);
         task_core.registerTask(1, &u8_left);
         task_core.registerTask(1, &u8_right);

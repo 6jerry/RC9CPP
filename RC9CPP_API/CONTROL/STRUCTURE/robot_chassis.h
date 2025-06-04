@@ -94,7 +94,10 @@ public:
     uint8_t set_RobotW(float w, uint8_t PriorityCode);
     uint8_t yaw_lock(uint8_t PriorityCode);
 
-    uint8_t yaw_TurnTo(float yaw, uint8_t PriorityCode);
+    uint8_t set_RobotVel_ACCLE(Vector2D robovel, float accle);
+
+    uint8_t
+    yaw_TurnTo(float yaw, uint8_t PriorityCode);
     uint8_t yaw_TurnTo_speedplan(float yaw, uint8_t PriorityCode);
     uint8_t move_to(Vector2D target_p, uint8_t PriorityCode);
     uint8_t move_to_speedplan(Vector2D target, uint8_t PriorityCode);
@@ -214,7 +217,7 @@ public:
     uint8_t set_CWorldVel(Vector2D worldvel, uint8_t PriorityCode, chassis_user *user_);
     uint8_t set_CRobotW(float w, uint8_t PriorityCode, chassis_user *user_);
     uint8_t yaw_Clock(uint8_t PriorityCode, chassis_user *user_);
-    uint8_t set_CRobotVel_ACCLE(Vector2D robovel, float accle, uint8_t PriorityCode, chassis_user *user_);
+    uint8_t set_CRobotVel_ACCLE(Vector2D robovel, float accle);
 
     uint8_t yaw_CTurnTo(float yaw, uint8_t PriorityCode, chassis_user *user_);
     uint8_t yaw_CTurnTo_speedplan(float yaw, uint8_t PriorityCode, chassis_user *user_);

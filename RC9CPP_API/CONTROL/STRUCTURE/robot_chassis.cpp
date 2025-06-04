@@ -147,7 +147,7 @@ void RoboChassis::chassis_initialize()
 
 void RoboChassis::swerve3_initialize()
 {
-    /*
+
     // 用于控制初始旋转阶段
     static bool initial_spin_done = false;
     static uint16_t initial_spin_counter = 0;
@@ -183,7 +183,7 @@ void RoboChassis::swerve3_initialize()
         if (if_not_init[0]) // 使用 if_not_init[0] 跟踪 dmotors[1] 的初始化状态
         {
             all_homed = false;           // 只要有一个未初始化，就不是全部归位
-            if (photogate_state[0] == 1) // 光电门0触发
+            if (photogate_state[0] == 0) // 光电门0触发
             {
                 dmotors[1]->relocate_pos(90.0f); // 使用你指定的校准角度
                 if_not_init[0] = false;          // 标记为已初始化
@@ -206,7 +206,7 @@ void RoboChassis::swerve3_initialize()
         if (if_not_init[1]) // 使用 if_not_init[1] 跟踪 dmotors[2] 的初始化状态
         {
             all_homed = false;
-            if (photogate_state[1] == 1) // 光电门1触发
+            if (photogate_state[1] == 0) // 光电门1触发
             {
                 dmotors[2]->relocate_pos(-90.0f); // 使用你指定的校准角度
                 if_not_init[1] = false;
@@ -229,9 +229,9 @@ void RoboChassis::swerve3_initialize()
         if (if_not_init[2]) // 使用 if_not_init[2] 跟踪 dmotors[0] 的初始化状态
         {
             all_homed = false;
-            if (photogate_state[2] == 1) // 光电门2触发
+            if (photogate_state[2] == 0) // 光电门2触发
             {
-                dmotors[0]->relocate_pos(-45.0f); // 使用你指定的校准角度
+                dmotors[0]->relocate_pos(-90.0f); // 使用你指定的校准角度
                 if_not_init[2] = false;
                 dmotors[0]->set_pos(0.0f);
             }
@@ -263,10 +263,6 @@ void RoboChassis::swerve3_initialize()
     {
         time_cnt = 0; // 如果有任何一个舵轮还在归位，重置退出计数器
     }
-
-    */
-
-    mode = stop;
 }
 
 void RoboChassis::scan_photogate()
@@ -529,7 +525,7 @@ uint8_t RoboChassis::set_CRobotW(float w, uint8_t PriorityCode, chassis_user *us
  *
  * @return uint8_t   1:成功 0:失败
  */
-uint8_t RoboChassis::set_CRobotVel_ACCLE(Vector2D robovel, float accle, uint8_t PriorityCode, chassis_user *user_)
+uint8_t RoboChassis::set_CRobotVel_ACCLE(Vector2D robovel, float accle)
 {
     if (mode != chassis_init)
     {
@@ -576,6 +572,12 @@ uint8_t RoboChassis::set_CRobotVel_ACCLE(Vector2D robovel, float accle, uint8_t 
         }
     }
     return 1;
+}
+
+uint8_t chassis_user::set_RobotVel_ACCLE(Vector2D robovel, float accle)
+{
+    robochassis_->set_CRobotVel_ACCLE(robovel, accle);
+    return 0;
 }
 
 RoboChassis::RoboChassis(RoboChassisType type_) : type(type_)
@@ -647,7 +649,7 @@ void chassis_user::add_chassis(RoboChassis *chassis_)
 uint8_t chassis_user::set_RobotVel(Vector2D robovel, uint8_t PriorityCode)
 {
 #ifdef USE_VEL_ACCEL
-    return robochassis_->set_CRobotVel_ACCLE(robovel, 3.0f, PriorityCode, this);
+    return robochassis_->set_CRobotVel_ACCLE(robovel, 3.0f);
 #else
     return robochassis_->set_CRobotVel(robovel, PriorityCode, this);
 #endif

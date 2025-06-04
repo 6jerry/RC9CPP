@@ -12,6 +12,6 @@ void chassis_adjust_xbox::not_start()
 void chassis_adjust_xbox::mode_2()
 {
     Vector2D tvel_((max_target_robot_vel.x * xbox_msgs.joyLHori_map), (max_target_robot_vel.y * xbox_msgs.joyLVert_map));
-    set_RobotVel(tvel_, 0);
+    set_RobotVel(tvel_, 3.0);
     set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
 }

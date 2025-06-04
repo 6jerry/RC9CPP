@@ -117,17 +117,16 @@ HAL_StatusTypeDef CanDevice::InitAllFiltersNoMask()
         return HAL_ERROR;
     if (FDCAN_ConfigAllStdAndExt(&hfdcan3) != HAL_OK)
         return HAL_ERROR;
-    HAL_FDCAN_Start(&hfdcan2);
+   
     HAL_FDCAN_Start(&hfdcan1); // 开启FDCAN
+    HAL_FDCAN_Start(&hfdcan2);
     HAL_FDCAN_Start(&hfdcan3);
-    HAL_FDCAN_ActivateNotification(&hfdcan2, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0);
+   
     HAL_FDCAN_ActivateNotification(&hfdcan1, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0);
-
+    HAL_FDCAN_ActivateNotification(&hfdcan2, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0);
     HAL_FDCAN_ActivateNotification(&hfdcan3, FDCAN_IT_RX_FIFO0_NEW_MESSAGE, 0);
 
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET); // 使能FDCAN
-    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_3, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_11, GPIO_PIN_RESET);
+    
 
     return HAL_OK;
 }
