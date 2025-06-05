@@ -25,6 +25,7 @@ void yunball_test_xbox::process_data()
 yunball_test_xbox::yunball_test_xbox()
 {
     btnconfig_init();
+	mode_flag = 0;
 }
 
 void yunball_test_xbox::btnconfig_init()
@@ -136,15 +137,29 @@ void yunball_test_xbox::btn_scan()
 
 void yunball_test_xbox::not_start()  //初始状态
 {
-    turn_motor->set_rpm(0.0f);
+    /*turn_motor->set_rpm(0.0f);
     set_claw(false);
     set_lift(false);
-    set_push(false);
+    set_push(false);*/
 }
 
 void yunball_test_xbox::mode_0()
 {
-    turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
+    if(down_flag){auto_yunball_ptr->control_lift(true);}
+    else{auto_yunball_ptr->control_lift(false);}
+
+    if(up_flag){auto_yunball_ptr->control_claw(true);}
+    else{auto_yunball_ptr->control_claw(false);}
+
+    if(left_flag){
+        auto_yunball_ptr->start_yunball();
+        left_flag = 0; up_flag = 0; down_flag = 0; right_flag = 0;
+    }
+    if(right_flag){
+        auto_yunball_ptr->start_putball();
+        left_flag = 0; up_flag = 0; down_flag = 0; right_flag = 0;
+    }
+    /*turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
     set_claw(up_flag);
     set_lift(down_flag);
     if(left_flag == 1) 
@@ -152,30 +167,34 @@ void yunball_test_xbox::mode_0()
         turn_motor->set_rpm(0.0f);
         yunball(); 
         left_flag = 0;
-    }
+    }*/
 }
 
 void yunball_test_xbox::mode_1()
 {
-    if(left_flag == 1)
+    /*if(right_flag == 1)
     {
         putball();
-        left_flag = 0;
+        right_flag = 0;
     }
     if(left_flag == 1) 
     {
         turn_motor->set_rpm(0.0f);
         yunball(); 
         left_flag = 0;
-    }
+    }*/
+   auto_yunball_ptr->control_motor(xbox_msgs.joyRHori_map);
+}
+
+void yunball_test_xbox::add_autoyunball(auto_yunball *auto_yunball_)
+{
+    auto_yunball_ptr = auto_yunball_;
 }
 
 
 
 
-
-
-void yunball_test_xbox::add_io(GPIO_TypeDef *lift_port_, uint16_t lift_pin_,  GPIO_TypeDef *claw_port_, uint16_t claw_pin_, GPIO_TypeDef *push_port_, uint16_t push_pin_)
+/*void yunball_test_xbox::add_io(GPIO_TypeDef *lift_port_, uint16_t lift_pin_,  GPIO_TypeDef *claw_port_, uint16_t claw_pin_, GPIO_TypeDef *push_port_, uint16_t push_pin_)
 {
     lift_port = lift_port_;
     lift_pin = lift_pin_;
@@ -202,15 +221,15 @@ void yunball_test_xbox::yunball()
 void yunball_test_xbox::putball()
 {
     set_lift(true);
-    turn_motor->set_pos_speedplan(-270.0f, 20.0f, 10.0f, 10.0f, 0.0f);
+    turn_motor->set_pos_speedplan(-180.0f, 20.0f, 10.0f, 10.0f, 0.0f);
     osDelay(1700);
-    set_claw(false);
+    set_claw(true);
     osDelay(200);
-    turn_motor->set_pos_speedplan(-120.0f, 20.0f, 10.0f, 10.0f, 0.0f);
+    turn_motor->set_pos_speedplan(-30.0f, 20.0f, 10.0f, 10.0f, 0.0f);
     osDelay(1500);
     set_lift(false);
 }
 
-void yunball_test_xbox::set_claw(bool if_open) {HAL_GPIO_WritePin(claw_port, claw_pin, if_open ? GPIO_PIN_SET : GPIO_PIN_RESET);}
+void yunball_test_xbox::set_claw(bool if_open) {HAL_GPIO_WritePin(claw_port, claw_pin, if_open ? GPIO_PIN_RESET : GPIO_PIN_SET);}
 void yunball_test_xbox::set_lift(bool if_up) {HAL_GPIO_WritePin(lift_port, lift_pin, if_up ? GPIO_PIN_SET : GPIO_PIN_RESET);}
-void yunball_test_xbox::set_push(bool if_push) {HAL_GPIO_WritePin(push_port, push_pin, if_push ? GPIO_PIN_SET : GPIO_PIN_RESET);}
+void yunball_test_xbox::set_push(bool if_push) {HAL_GPIO_WritePin(push_port, push_pin, if_push ? GPIO_PIN_SET : GPIO_PIN_RESET);}*/
