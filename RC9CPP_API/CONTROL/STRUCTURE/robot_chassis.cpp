@@ -185,7 +185,7 @@ void RoboChassis::swerve3_initialize()
             all_homed = false;           // 只要有一个未初始化，就不是全部归位
             if (photogate_state[0] == 0) // 光电门0触发
             {
-                dmotors[1]->relocate_pos(90.0f); // 使用你指定的校准角度
+                dmotors[1]->relocate_pos(0.0f); // 使用你指定的校准角度
                 if_not_init[0] = false;          // 标记为已初始化
                 dmotors[1]->set_pos(0.0f);       // 命令到零位
             }
