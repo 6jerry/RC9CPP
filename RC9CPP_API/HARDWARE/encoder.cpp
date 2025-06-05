@@ -14,11 +14,10 @@
  */
 Encoder::Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_) : CanDevice(hcan_, CAN_FRAME_STD, can_id_) {}
 
-	float Encoder::get_absolute_distance(void)
+float Encoder::get_absolute_distance(void)
 {
- 
-   
-    return   distance;
+
+    return distance;
 }
 /**
  * @brief 获取当前距离
@@ -27,12 +26,12 @@ Encoder::Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_) : CanDevice(hcan_
  */
 float Encoder::get_distance(void)
 {
-    length = distance - init_distance;
-    if ((length) < 0)
-    {
-        length = 0;
-    }
-    return length;
+    // length = distance - init_distance;
+    // if ((length) < 0)
+    //{
+    // length = 0;
+    //}
+    return distance;
 }
 
 /**
@@ -43,20 +42,19 @@ float Encoder::get_distance(void)
  */
 void Encoder::can_update(uint8_t can_RxData[8])
 {
-   
 
     // 数据头校验
-//    if (ucRxBuffer1[0] != 0xAB || (ucRxBuffer1[1] != 0xCD && ucRxCnt1 > 1))
-//    {
-//        ucRxCnt1 = 0;
-//        return;
-//    }
+    //    if (ucRxBuffer1[0] != 0xAB || (ucRxBuffer1[1] != 0xCD && ucRxCnt1 > 1))
+    //    {
+    //        ucRxCnt1 = 0;
+    //        return;
+    //    }
 
-//    // 数据长度校验
-//    if (ucRxCnt1 < 10)
-//    {
-//        return;
-//    }
+    //    // 数据长度校验
+    //    if (ucRxCnt1 < 10)
+    //    {
+    //        return;
+    //    }
 
     // 解析编码器计数值
     Encoder_conut = can_RxData[6];
@@ -67,16 +65,15 @@ void Encoder::can_update(uint8_t can_RxData[8])
     Encoder_conut = Encoder_conut << 8;
     Encoder_conut |= can_RxData[3];
 
-//    // 计算圈数换算距离
-//    if (!init_flag)
-//    {
-//        init_distance = (float)Encoder_conut / 4096 * delta_length;
-//        init_flag = true;
-//    }
-//    else
-//    {
-        distance = (float)Encoder_conut / 1024* delta_length;
-//    }
-
-   
+    //    // 计算圈数换算距离
+    //    if (!init_flag)
+    //    {
+    //        init_distance = (float)Encoder_conut / 4096 * delta_length;
+    //        init_flag = true;
+    //    }
+    //    else
+    //    {
+    distance = (((float)Encoder_conut / (float)1024) * delta_length) / 2.0f;
+    // test_count = (float)Encoder_conut;
+    //     }
 }

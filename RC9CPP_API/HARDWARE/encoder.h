@@ -33,20 +33,21 @@ public:
      * @brief 获取当前距离
      * @return float 计算得到的距离值
      */
-    float get_distance(void);
-
+    float get_distance(void) override;
 
     void can_update(uint8_t can_RxData[8]) override;
 
     Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_);
-	  float get_absolute_distance(void);
+    float get_absolute_distance(void);
+
 private:
-    float length = 0;           ///< 当前计算长度
-    float distance = 0;         ///< 当前编码器距离
-    float init_distance = 0;    ///< 初始距离
-    uint32_t Encoder_conut = 0; ///< 编码器计数值
-    float delta_length = 0.01;  ///< 单圈对应长度
-    bool init_flag = false;     ///< 初始化标志
+    float length = 0;                  ///< 当前计算长度
+    float distance = 0;                ///< 当前编码器距离
+    float init_distance = 5.99964809f; ///< 初始距离
+    uint32_t Encoder_conut = 0;        ///< 编码器计数值
+    float delta_length = 0.01;         ///< 单圈对应长度
+    bool init_flag = false;            ///< 初始化标志
+    float test_count = 0.0f;
 };
 
 #endif
