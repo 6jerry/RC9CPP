@@ -11,7 +11,7 @@
 extern "C"
 {
 #endif
-#include "Serial_device.h"
+#include "fdcan_device.h"
 #include "math.h"
 #include "imu.h"
 #ifdef __cplusplus
@@ -23,10 +23,10 @@ extern "C"
 /**
  * @class Encoder
  * @brief 编码器处理类
- * @details 继承自SerialDevice和imu类，实现编码器数据的接收和处理
+ * @details 继承自CanDevice和imu类，实现编码器数据的接收和处理
   @串口波特率默认 ： 19200
  */
-class Encoder : public SerialDevice, public imu
+class Encoder : public CanDevice, public imu
 {
 public:
     /**
@@ -35,17 +35,10 @@ public:
      */
     float get_distance(void);
 
-    /**
-     * @brief 数据接收处理函数
-     * @param byte 接收到的单字节数据
-     */
-    void handleReceiveData(uint8_t byte);
 
-    /**
-     * @brief 构造函数
-     * @param huart_ UART句柄指针
-     */
-    Encoder(UART_HandleTypeDef *huart_);
+    void can_update(uint8_t can_RxData[8]) override;
+
+    Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_);
 	  float get_absolute_distance(void);
 private:
     float length = 0;           ///< 当前计算长度
