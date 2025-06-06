@@ -76,7 +76,9 @@ float RoboChassis::yawadjuster_process()
     float to_send_datas[2] = {0.0f};
     switch (yaw_mode)
     {
+    float w,limit_w;
     case yaw_lock:
+        return yawadjuster.yaw_adjust(IMU->get_heading(), to_lock_yaw);
         break;
     case yaw_TurnTo:
         if (if_enable_debug)
@@ -94,10 +96,33 @@ float RoboChassis::yawadjuster_process()
     case yaw_free:
         return target.target_w;
         break;
+    case correct_yaw:
+        w = yawadjuster.yaw_adjust(IMU->get_heading(), target.target_yaw);
+        limit_w = target.target_robovel.magnitude()*0.1763f/0.2451f;
+        if(target.target_robovel.magnitude() > 0.05f)
+        {            
+            if(w > limit_w)  return limit_w;
+            else  return w;
+        }
+        else return 0.0f;
+        break;
 
     default:
         break;
     }
+}
+
+void RoboChassis::yaw_Clock()
+{
+    if (yaw_mode == yaw_free)
+    {
+        to_lock_yaw = IMU->get_heading();
+        yaw_mode = yaw_lock;
+    }
+}
+void RoboChassis::yaw_Cunlock()
+{
+    yaw_mode = yaw_free;
 }
 
 void RoboChassis::enable_debug()
@@ -186,8 +211,8 @@ void RoboChassis::swerve3_initialize()
             if (photogate_state[0] == 0) // 光电门0触发
             {
                 dmotors[1]->relocate_pos(90.0f); // 使用你指定的校准角度
-                if_not_init[0] = false;          // 标记为已初始化
-                dmotors[1]->set_pos(0.0f);       // 命令到零位
+                if_not_init[0] = false;         // 标记为已初始化
+                dmotors[1]->set_pos(0.0f);      // 命令到零位
             }
             else // 光电门0未触发
             {
@@ -283,8 +308,8 @@ Vector2D RoboChassis::worldv_2_robov(Vector2D worldvel)
 {
     Vector2D robov;
 
-    robov.x = worldvel.x * arm_cos_f32(IMU->get_yaw_rad()) + worldvel.y * arm_sin_f32(IMU->get_yaw_rad());
-    robov.y = worldvel.y * arm_cos_f32(IMU->get_yaw_rad()) - worldvel.x * arm_sin_f32(IMU->get_yaw_rad());
+    robov.x = worldvel.x * cos(IMU->get_yaw_rad()) + worldvel.y * sin(IMU->get_yaw_rad());
+    robov.y = worldvel.y * cos(IMU->get_yaw_rad()) - worldvel.x * sin(IMU->get_yaw_rad());
 
     return robov;
 }
@@ -520,8 +545,6 @@ uint8_t RoboChassis::set_CRobotW(float w, uint8_t PriorityCode, chassis_user *us
  *
  * @param robot_vel 机器人速度
  * @param accle 加速度
- * @param PriorityCode 优先级
- * @param user_ 调用者
  *
  * @return uint8_t   1:成功 0:失败
  */
@@ -649,7 +672,7 @@ void chassis_user::add_chassis(RoboChassis *chassis_)
 uint8_t chassis_user::set_RobotVel(Vector2D robovel, uint8_t PriorityCode)
 {
 #ifdef USE_VEL_ACCEL
-    return robochassis_->set_CRobotVel_ACCLE(robovel, 3.0f);
+    return robochassis_->set_CRobotVel_ACCLE(robovel, 2.5f);
 #else
     return robochassis_->set_CRobotVel(robovel, PriorityCode, this);
 #endif
@@ -681,6 +704,14 @@ uint8_t RoboChassis::yaw_CTurnTo(float yaw, uint8_t PriorityCode, chassis_user *
     target.target_yaw = yaw;
     return 1;
 }
+
+uint8_t RoboChassis::set_correct_yaw(float yaw)
+{
+    yaw_mode = correct_yaw;
+    target.target_yaw = yaw;
+    return 1;
+}
+
 void RoboChassis::pointtrack_config(float kp, float ki, float kd, float integral_limit, float output_limit, float deadzone, float integral_separation_threshold)
 {
     pointtracker.track_pid.ConfigAll(kp, ki, kd, integral_limit, output_limit, deadzone, integral_separation_threshold);
@@ -727,6 +758,11 @@ uint8_t chassis_user::yaw_TurnTo(float yaw, uint8_t PriorityCode)
     return robochassis_->yaw_CTurnTo(yaw, PriorityCode, this);
 }
 
+uint8_t chassis_user::Correct_yaw(float yaw)
+{
+    return robochassis_->set_correct_yaw(yaw);
+}
+
 float RoboChassis::get_cyaw()
 {
     return IMU->get_heading();
@@ -757,4 +793,19 @@ float chassis_user::get_world_x()
 float chassis_user::get_world_y()
 {
     return robochassis_->get_cworld_y();
+}
+
+Vector2D chassis_user::get_target_v()
+{
+    return robochassis_->target.target_robovel;
+}
+
+void chassis_user::yaw_lock()
+{
+    robochassis_->yaw_Clock();
+}
+
+void chassis_user::yaw_unlock()
+{
+    robochassis_->yaw_Cunlock();
 }

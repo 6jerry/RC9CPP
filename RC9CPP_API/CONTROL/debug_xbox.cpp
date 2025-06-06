@@ -82,6 +82,14 @@ void xbox_debug_base::btnconfig_init()
         1,
         ButtonActionType::Toggle,
         nullptr};
+
+    btnStartConfig = {
+        &xbox_msgs.btnStart,
+        &xbox_msgs.btnStart_last,
+        &btn_start_flag,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
 }
 
 void xbox_debug_base::btn_scan()
@@ -96,6 +104,7 @@ void xbox_debug_base::btn_scan()
     handleButton(btnDirLeftConfig);
     handleButton(btnXboxConfig);
     handleButton(btnYConfig);
+    handleButton(btnStartConfig);
 }
 
 void xbox_debug_base::btnXBOX_callback()
@@ -157,6 +166,11 @@ void xbox_debug_base::process_data()
     else if (rb_flag == 0)
     {
         rb_off();
+    }
+
+    if(btn_start_flag == 1)
+    {
+        HAL_NVIC_SystemReset();
     }
 }
 

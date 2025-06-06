@@ -12,6 +12,7 @@ extern "C" {
 #include "chassis_debug.h"
 #include "fdcan_device.h"
 #include "yunball_test_xbox.h"
+#include "auto_yunball.h"
 //#include "robot_chassis.h"
 void yunball_test_setup(void);
 

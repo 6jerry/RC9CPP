@@ -34,9 +34,9 @@ void vesc::can_update(uint8_t can_RxData[8])
     int32_t erpm = (int32_t)((can_RxData[0] << 24) | (can_RxData[1] << 16) | (can_RxData[2] << 8) | can_RxData[3]);
 
     rcurrent = (float)current * 0.1f; // A
-    now_rpm = (float)erpm / (float)motor_polse;
+    now_rpm = ((float)erpm / (float)motor_polse) / gear_ratio;
 
-    filted_rpm = rpm_filter.update(now_rpm);
+    //filted_rpm = rpm_filter.update(now_rpm);
 }
 
 void vesc::process_data()
@@ -132,4 +132,3 @@ void vesc::start_debug()
 {
     debug_mode = true;
 }
-

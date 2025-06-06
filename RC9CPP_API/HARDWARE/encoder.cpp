@@ -12,13 +12,12 @@
  * @brief 构造函数
  * @param huart_ UART句柄指针
  */
-Encoder::Encoder(UART_HandleTypeDef *huart_) : SerialDevice(huart_) {}
+Encoder::Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_) : CanDevice(hcan_, CAN_FRAME_STD, can_id_) {}
 
-	float Encoder::get_absolute_distance(void)
+float Encoder::get_absolute_distance(void)
 {
- 
-   
-    return   distance;
+
+    return distance;
 }
 /**
  * @brief 获取当前距离
@@ -27,12 +26,12 @@ Encoder::Encoder(UART_HandleTypeDef *huart_) : SerialDevice(huart_) {}
  */
 float Encoder::get_distance(void)
 {
-    length = distance - init_distance;
-    if ((length) < 0)
-    {
-        length = 0;
-    }
-    return length;
+    // length = distance - init_distance;
+    // if ((length) < 0)
+    //{
+    // length = 0;
+    //}
+    return distance;
 }
 
 /**
@@ -41,45 +40,40 @@ float Encoder::get_distance(void)
  * @details 处理编码器数据帧，解析计数值并计算距离
  * @note 数据帧格式：0xAB 0xCD [数据] ... [校验]
  */
-void Encoder::handleReceiveData(uint8_t byte)
+void Encoder::can_update(uint8_t can_RxData[8])
 {
-    static uint8_t ucRxBuffer1[20]; ///< 接收数据缓冲区
-    static uint8_t ucRxCnt1 = 0;    ///< 接收数据计数器
-
-    ucRxBuffer1[ucRxCnt1++] = byte; // 将收到的数据存入缓冲区中
 
     // 数据头校验
-    if (ucRxBuffer1[0] != 0xAB || (ucRxBuffer1[1] != 0xCD && ucRxCnt1 > 1))
-    {
-        ucRxCnt1 = 0;
-        return;
-    }
+    //    if (ucRxBuffer1[0] != 0xAB || (ucRxBuffer1[1] != 0xCD && ucRxCnt1 > 1))
+    //    {
+    //        ucRxCnt1 = 0;
+    //        return;
+    //    }
 
-    // 数据长度校验
-    if (ucRxCnt1 < 10)
-    {
-        return;
-    }
+    //    // 数据长度校验
+    //    if (ucRxCnt1 < 10)
+    //    {
+    //        return;
+    //    }
 
     // 解析编码器计数值
-    Encoder_conut = ucRxBuffer1[5];
+    Encoder_conut = can_RxData[6];
     Encoder_conut = Encoder_conut << 8;
-    Encoder_conut |= ucRxBuffer1[6];
+    Encoder_conut |= can_RxData[5];
     Encoder_conut = Encoder_conut << 8;
-    Encoder_conut |= ucRxBuffer1[3];
+    Encoder_conut |= can_RxData[4];
     Encoder_conut = Encoder_conut << 8;
-    Encoder_conut |= ucRxBuffer1[4];
+    Encoder_conut |= can_RxData[3];
 
-    // 计算圈数换算距离
-    if (!init_flag)
-    {
-        init_distance = (float)Encoder_conut / 4096 * delta_length;
-        init_flag = true;
-    }
-    else
-    {
-        distance = (float)Encoder_conut / 4096 * delta_length;
-    }
-
-    ucRxCnt1 = 0; // 清空缓存区
+    //    // 计算圈数换算距离
+    //    if (!init_flag)
+    //    {
+    //        init_distance = (float)Encoder_conut / 4096 * delta_length;
+    //        init_flag = true;
+    //    }
+    //    else
+    //    {
+    distance = (((float)Encoder_conut / (float)1024) * delta_length) / 2.0f;
+    // test_count = (float)Encoder_conut;
+    //     }
 }

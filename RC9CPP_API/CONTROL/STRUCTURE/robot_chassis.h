@@ -54,6 +54,7 @@ enum chassis_yaw_mode
     yaw_TurnTo,
     yaw_TurnTo_speedplan,
     yaw_free,
+    correct_yaw
 };
 
 enum chassis_cmd_type
@@ -92,12 +93,14 @@ public:
     uint8_t set_RobotVel(Vector2D robovel, uint8_t PriorityCode);
     uint8_t set_WorldVel(Vector2D worldvel, uint8_t PriorityCode);
     uint8_t set_RobotW(float w, uint8_t PriorityCode);
-    uint8_t yaw_lock(uint8_t PriorityCode);
+    void yaw_lock();
+    void yaw_unlock();
 
     uint8_t set_RobotVel_ACCLE(Vector2D robovel, float accle);
 
     uint8_t
     yaw_TurnTo(float yaw, uint8_t PriorityCode);
+    uint8_t Correct_yaw(float yaw);
     uint8_t yaw_TurnTo_speedplan(float yaw, uint8_t PriorityCode);
     uint8_t move_to(Vector2D target_p, uint8_t PriorityCode);
     uint8_t move_to_speedplan(Vector2D target, uint8_t PriorityCode);
@@ -121,6 +124,8 @@ public:
     void stablize_swerve(); // 稳定四舵轮
 
     void init_locate(); // 初始化定位
+
+    Vector2D get_target_v();
 
 private:
     RoboChassis *robochassis_ = nullptr;
@@ -220,6 +225,7 @@ public:
     uint8_t set_CRobotVel_ACCLE(Vector2D robovel, float accle);
 
     uint8_t yaw_CTurnTo(float yaw, uint8_t PriorityCode, chassis_user *user_);
+    uint8_t set_correct_yaw(float yaw);
     uint8_t yaw_CTurnTo_speedplan(float yaw, uint8_t PriorityCode, chassis_user *user_);
     uint8_t Cmove_to(Vector2D target_p, uint8_t PriorityCode, chassis_user *user_);
     float C_calc_dis(Vector2D target);
@@ -236,6 +242,10 @@ public:
     void C_pp_track_point(Vector2D target_p);
 
     void C_rst_state();
+
+    void yaw_Clock();
+    void yaw_Cunlock();
+    float to_lock_yaw = 0.0f; // 要锁定的角度
 
     float get_cworld_x();
     float get_cworld_y();
