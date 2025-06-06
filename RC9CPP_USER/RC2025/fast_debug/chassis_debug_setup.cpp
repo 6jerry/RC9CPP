@@ -16,6 +16,8 @@ chassis_adjust_xbox chassis_debug(&position_sensor);
 RoboChassis s3_chassis(swerve3_chassis);
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
 
+position position_imu;
+
 extern "C"
 {
 
@@ -40,14 +42,16 @@ extern "C"
         s3_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
         s3_chassis.add_imu(&position_sensor);
         s3_chassis.add_photogate(GPIOF, GPIO_PIN_8, GPIOF, GPIO_PIN_9, GPIOD, GPIO_PIN_15, nullptr, 0);
+        s3_chassis.yawadjuster_config(0.1f, 0.0f, 0.03f, 0.0f, 7.0f, 0.2f, 0.0f);
+        s3_chassis.add_imu(&position_imu);
 
         // pid config
         m2006_left.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
-        m2006_left.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 80.0f, 0.2f, 3.0f);
+        m2006_left.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 120.0f, 0.2f, 3.0f);
         m2006_front.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
-        m2006_front.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 80.0f, 0.2f, 3.0f);
+        m2006_front.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 120.0f, 0.2f, 3.0f);
         m2006_right.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
-        m2006_right.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 80.0f, 0.2f, 3.0f);
+        m2006_right.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 120.0f, 0.2f, 3.0f);
 
         // task register
         task_core.registerTask(0, &dji_core);
@@ -56,7 +60,7 @@ extern "C"
         task_core.registerTask(1, &u8_right);
         task_core.registerTask(4, &s3_chassis);
         task_core.registerTask(6, &chassis_debug);
-        task_core.registerTask(8, &position_port);
+        task_core.registerTask(7, &position_port);
 
         osKernelStart();
     }

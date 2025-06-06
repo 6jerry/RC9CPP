@@ -93,7 +93,8 @@ public:
     uint8_t set_RobotVel(Vector2D robovel, uint8_t PriorityCode);
     uint8_t set_WorldVel(Vector2D worldvel, uint8_t PriorityCode);
     uint8_t set_RobotW(float w, uint8_t PriorityCode);
-    uint8_t yaw_lock(uint8_t PriorityCode);
+    void yaw_lock();
+    void yaw_unlock();
 
     uint8_t set_RobotVel_ACCLE(Vector2D robovel, float accle);
 
@@ -241,6 +242,10 @@ public:
     void C_pp_track_point(Vector2D target_p);
 
     void C_rst_state();
+
+    void yaw_Clock();
+    void yaw_Cunlock();
+    float to_lock_yaw = 0.0f; // 要锁定的角度
 
     float get_cworld_x();
     float get_cworld_y();

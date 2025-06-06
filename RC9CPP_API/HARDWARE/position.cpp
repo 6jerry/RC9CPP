@@ -5,8 +5,8 @@ void position::DataReceivedCallback(const uint8_t *byteData, const float *floatD
     world_pos.x = floatData[0] / 1000.0f;
     world_pos.y = floatData[1] / 1000.0f;
     world_yaw = floatData[2];
-    // global->x = x_offset + local->x * cos_y + local->y * sin_y;
-    // global->y = y_offset - local->x * sin_y + local->y * cos_y;
+    // global->x = x_offset + local->x * arm_cos_f32_y + local->y * sin_y;
+    // global->y = y_offset - local->x * sin_y + local->y * arm_cos_f32_y;
     float deltaxx = map_plot.x * cos(get_yaw_rad()) - map_plot.y * sin(get_yaw_rad()); // ��任��imuλ��
     float deltayy = map_plot.x * sin(get_yaw_rad()) + map_plot.y * cos(get_yaw_rad());
 

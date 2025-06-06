@@ -25,6 +25,9 @@ public:
     void not_start() override;
     void mode_2() override;
     void mode_1() override;
+    void mode_3() override;
+    void mode_4() override;
+    void xbox_on() override;
 };
 
 #endif
