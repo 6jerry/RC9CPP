@@ -7,8 +7,8 @@ void position::DataReceivedCallback(const uint8_t *byteData, const float *floatD
     world_yaw = floatData[2];
     // global->x = x_offset + local->x * arm_cos_f32_y + local->y * sin_y;
     // global->y = y_offset - local->x * sin_y + local->y * arm_cos_f32_y;
-    float deltaxx = map_plot.x * arm_cos_f32(get_yaw_rad()) - map_plot.y * arm_sin_f32(get_yaw_rad()); // ��任��imuλ��
-    float deltayy = map_plot.x * arm_sin_f32(get_yaw_rad()) + map_plot.y * arm_cos_f32(get_yaw_rad());
+    float deltaxx = map_plot.x * cos(get_yaw_rad()) - map_plot.y * sin(get_yaw_rad()); // ��任��imuλ��
+    float deltayy = map_plot.x * sin(get_yaw_rad()) + map_plot.y * cos(get_yaw_rad());
 
     real_world_pos.x = world_pos.x - deltaxx; // ��任��imuλ��
     real_world_pos.y = world_pos.y - deltayy;
@@ -61,8 +61,8 @@ float position::get_world_pos_y()
 
 void position::imu_relocate(float x, float y, float angle)
 {
-    float deltaxx = map_plot.x * arm_cos_f32(get_yaw_rad()) - map_plot.y * arm_sin_f32(get_yaw_rad()); // 逆变换回imu位置
-    float deltayy = map_plot.x * arm_sin_f32(get_yaw_rad()) + map_plot.y * arm_cos_f32(get_yaw_rad());
+    float deltaxx = map_plot.x * cos(get_yaw_rad()) - map_plot.y * sin(get_yaw_rad()); // 逆变换回imu位置
+    float deltayy = map_plot.x * sin(get_yaw_rad()) + map_plot.y * cos(get_yaw_rad());
 
     x = x + deltaxx; // 逆变换回imu位置
     y = y + deltayy;

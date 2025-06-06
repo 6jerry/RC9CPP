@@ -14,6 +14,7 @@ extern "C"
 #include "fdcan_device.h"
 #include "gpio.h"
 #include "robot_chassis.h"
+#include "position.h"
     void chassis_debug_setup();
 #ifdef __cplusplus
 }

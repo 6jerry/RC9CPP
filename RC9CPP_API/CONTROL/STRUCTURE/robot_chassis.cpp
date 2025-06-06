@@ -77,6 +77,7 @@ float RoboChassis::yawadjuster_process()
     switch (yaw_mode)
     {
     case yaw_lock:
+        return yawadjuster.yaw_adjust(IMU->get_heading(), to_lock_yaw);
         break;
     case yaw_TurnTo:
         if (if_enable_debug)
@@ -98,6 +99,19 @@ float RoboChassis::yawadjuster_process()
     default:
         break;
     }
+}
+
+void RoboChassis::yaw_Clock()
+{
+    if (yaw_mode == yaw_free)
+    {
+        to_lock_yaw = IMU->get_heading();
+        yaw_mode = yaw_lock;
+    }
+}
+void RoboChassis::yaw_Cunlock()
+{
+    yaw_mode = yaw_free;
 }
 
 void RoboChassis::enable_debug()
@@ -185,9 +199,9 @@ void RoboChassis::swerve3_initialize()
             all_homed = false;           // 只要有一个未初始化，就不是全部归位
             if (photogate_state[0] == 0) // 光电门0触发
             {
-                dmotors[1]->relocate_pos(0.0f); // 使用你指定的校准角度
-                if_not_init[0] = false;          // 标记为已初始化
-                dmotors[1]->set_pos(0.0f);       // 命令到零位
+                dmotors[1]->relocate_pos(90.0f); // 使用你指定的校准角度
+                if_not_init[0] = false;         // 标记为已初始化
+                dmotors[1]->set_pos(0.0f);      // 命令到零位
             }
             else // 光电门0未触发
             {
@@ -283,8 +297,8 @@ Vector2D RoboChassis::worldv_2_robov(Vector2D worldvel)
 {
     Vector2D robov;
 
-    robov.x = worldvel.x * arm_cos_f32(IMU->get_yaw_rad()) + worldvel.y * arm_sin_f32(IMU->get_yaw_rad());
-    robov.y = worldvel.y * arm_cos_f32(IMU->get_yaw_rad()) - worldvel.x * arm_sin_f32(IMU->get_yaw_rad());
+    robov.x = worldvel.x * cos(IMU->get_yaw_rad()) + worldvel.y * sin(IMU->get_yaw_rad());
+    robov.y = worldvel.y * cos(IMU->get_yaw_rad()) - worldvel.x * sin(IMU->get_yaw_rad());
 
     return robov;
 }
@@ -757,4 +771,14 @@ float chassis_user::get_world_x()
 float chassis_user::get_world_y()
 {
     return robochassis_->get_cworld_y();
+}
+
+void chassis_user::yaw_lock()
+{
+    robochassis_->yaw_Clock();
+}
+
+void chassis_user::yaw_unlock()
+{
+    robochassis_->yaw_Cunlock();
 }
