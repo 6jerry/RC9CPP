@@ -20,7 +20,7 @@ test_demo(void)
     usb_port.initQueue();
     usb_port.startUartReceiveIT();
     position_imu.addport(&usb_port);
-  task_core.registerTask(0, &dji_core);
+    task_core.registerTask(0, &dji_core);
     task_core.registerTask(5, &test3);
     task_core.registerTask(5, &usb_port);
     task_core.registerTask(1, &u8_test);

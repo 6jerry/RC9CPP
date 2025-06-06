@@ -10,13 +10,13 @@
       <TargetName>RC9CPP_H723ZGT6</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>6210000::V6.21::ARMCLANG</pCCUsed>
+      <pCCUsed>6230000::V6.23::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32H723ZGTx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32H7xx_DFP.4.0.0</PackID>
+          <PackID>Keil.STM32H7xx_DFP.3.1.1</PackID>
           <PackURL>https://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000-0x2001FFFF) IRAM2(0x24000000-0x2401FFFF) IROM(0x8000000-0x80FFFFF) CLOCK(12000000) FPU3(DFPU) CPUTYPE("Cortex-M7") ELITTLE TZ</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -1405,6 +1405,46 @@
               <FileName>pure_pursuit.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\RC9CPP_API\CONTROL\pure_pursuit.h</FilePath>
+            </File>
+            <File>
+              <FileName>transformation_of_coordinates.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\RC9CPP_API\MATH_LIB\transformation_of_coordinates.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>transformation_of_coordinates.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RC9CPP_API\MATH_LIB\transformation_of_coordinates.h</FilePath>
+            </File>
+            <File>
+              <FileName>ros_sensor.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\RC9CPP_API\HARDWARE\ros_sensor.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ros_sensor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RC9CPP_API\HARDWARE\ros_sensor.h</FilePath>
+            </File>
+            <File>
+              <FileName>test_laser.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\RC9CPP_API\HARDWARE\test_laser.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>test_laser.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RC9CPP_API\HARDWARE\test_laser.h</FilePath>
+            </File>
+            <File>
+              <FileName>filter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\RC9CPP_API\MATH_LIB\filter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>filter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\RC9CPP_API\MATH_LIB\filter.h</FilePath>
             </File>
           </Files>
         </Group>

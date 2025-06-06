@@ -70,4 +70,8 @@
   ..\RC9CPP_API\HARDWARE\Action.h ..\RC9CPP_API\HARDWARE\imu.h \
   ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
   ..\RC9CPP_API\CONTROL\STRUCTURE\robot_chassis.h \
-  ..\RC9CPP_API\CONTROL\pure_pursuit.h
+  ..\RC9CPP_API\CONTROL\pure_pursuit.h \
+  ..\RC9CPP_API\HARDWARE\ros_sensor.h \
+  ..\RC9CPP_API\MATH_LIB\transformation_of_coordinates.h \
+  ..\RC9CPP_API\MATH_LIB\filter.h ..\RC9CPP_API\HARDWARE\position.h \
+  ..\RC9CPP_API\HARDWARE\test_laser.h
