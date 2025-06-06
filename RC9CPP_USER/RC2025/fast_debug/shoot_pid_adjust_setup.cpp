@@ -23,7 +23,7 @@ extern "C"
         ad_xbox.shoot_motor = &shoot_m;
         ad_xbox.encoder = &can_encoder;
 
-        ad_xbox.shoot_control.ConfigAll(10000.0f, 3.3f,64.0f, 0.0f, 1800.0f, 0.001f, 0.02f);
+        ad_xbox.shoot_control.ConfigAll(10000.0f, 3.3f, 64.0f, 0.0f, 1800.0f, 0.001f, 0.02f);
         task_core.registerTask(1, &shoot_m);
         task_core.registerTask(2, &ad_xbox);
         task_core.registerTask(8, &debug_port);
