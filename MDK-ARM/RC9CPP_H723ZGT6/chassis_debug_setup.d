@@ -1,6 +1,6 @@
 ./rc9cpp_h723zgt6/chassis_debug_setup.o: \
-  ..\RC9CPP_USER\RC2025\fast_debug\chassis_debug_setup.cpp \
-  ..\RC9CPP_USER\RC2025\fast_debug\chassis_debug_setup.h \
+  ..\RC9CPP_USER\RC2025\coordinate_debug\chassis_debug_setup.cpp \
+  ..\RC9CPP_USER\RC2025\coordinate_debug\chassis_debug_setup.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h \
   ..\RC9CPP_API\HARDWARE\fdcan_device.h ..\Core\Inc\fdcan.h \
   ..\Core\Inc\main.h ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal.h \
@@ -65,7 +65,7 @@
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   ..\RC9CPP_API\MATH_LIB\Vector2D.h ..\RC9CPP_API\HARDWARE\MOTOR\vesc.h \
   ..\RC9CPP_API\HARDWARE\RC9Protocol.h \
-  ..\RC9CPP_USER\RC2025\fast_debug\chassis_debug.h \
+  ..\RC9CPP_USER\RC2025\coordinate_debug\chassis_debug.h \
   ..\RC9CPP_API\CONTROL\debug_xbox.h ..\RC9CPP_API\CONTROL\xbox.h \
   ..\RC9CPP_API\HARDWARE\Action.h ..\RC9CPP_API\HARDWARE\imu.h \
   ..\RC9CPP_API\DECISION\EncodingStateMachine.h \

@@ -190,6 +190,26 @@
           <WinNumber>1</WinNumber>
           <ItemText>m2006_left</ItemText>
         </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>can_encoder</ItemText>
+        </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>shoot_m</ItemText>
+        </Ww>
+        <Ww>
+          <count>8</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>ad_xbox</ItemText>
+        </Ww>
+        <Ww>
+          <count>9</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>position_imu</ItemText>
+        </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>
@@ -975,7 +995,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\fast_debug\chassis_debug.cpp</PathWithFileName>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\coordinate_debug\chassis_debug.cpp</PathWithFileName>
       <FilenameWithoutPath>chassis_debug.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -987,7 +1007,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\fast_debug\chassis_debug.h</PathWithFileName>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\coordinate_debug\chassis_debug.h</PathWithFileName>
       <FilenameWithoutPath>chassis_debug.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -999,7 +1019,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\fast_debug\chassis_debug_setup.cpp</PathWithFileName>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\coordinate_debug\chassis_debug_setup.cpp</PathWithFileName>
       <FilenameWithoutPath>chassis_debug_setup.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1011,7 +1031,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_USER\RC2025\fast_debug\chassis_debug_setup.h</PathWithFileName>
+      <PathWithFileName>..\RC9CPP_USER\RC2025\coordinate_debug\chassis_debug_setup.h</PathWithFileName>
       <FilenameWithoutPath>chassis_debug_setup.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1535,8 +1555,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_API\MATH_LIB\transformation_of_coordinates.cpp</PathWithFileName>
-      <FilenameWithoutPath>transformation_of_coordinates.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_API\HARDWARE\encoder.cpp</PathWithFileName>
+      <FilenameWithoutPath>encoder.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1547,62 +1567,14 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_API\MATH_LIB\transformation_of_coordinates.h</PathWithFileName>
-      <FilenameWithoutPath>transformation_of_coordinates.h</FilenameWithoutPath>
+      <PathWithFileName>..\RC9CPP_API\HARDWARE\encoder.h</PathWithFileName>
+      <FilenameWithoutPath>encoder.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
       <GroupNumber>10</GroupNumber>
       <FileNumber>103</FileNumber>
-      <FileType>8</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_API\HARDWARE\ros_sensor.cpp</PathWithFileName>
-      <FilenameWithoutPath>ros_sensor.cpp</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>104</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_API\HARDWARE\ros_sensor.h</PathWithFileName>
-      <FilenameWithoutPath>ros_sensor.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>105</FileNumber>
-      <FileType>8</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_API\HARDWARE\test_laser.cpp</PathWithFileName>
-      <FilenameWithoutPath>test_laser.cpp</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>106</FileNumber>
-      <FileType>5</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\RC9CPP_API\HARDWARE\test_laser.h</PathWithFileName>
-      <FilenameWithoutPath>test_laser.h</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>107</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1614,13 +1586,85 @@
     </File>
     <File>
       <GroupNumber>10</GroupNumber>
-      <FileNumber>108</FileNumber>
+      <FileNumber>104</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\RC9CPP_API\MATH_LIB\filter.h</PathWithFileName>
       <FilenameWithoutPath>filter.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>105</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_API\MATH_LIB\transformation_of_coordinates.cpp</PathWithFileName>
+      <FilenameWithoutPath>transformation_of_coordinates.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>106</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_API\MATH_LIB\transformation_of_coordinates.h</PathWithFileName>
+      <FilenameWithoutPath>transformation_of_coordinates.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>107</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_API\HARDWARE\ros_sensor.cpp</PathWithFileName>
+      <FilenameWithoutPath>ros_sensor.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>108</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_API\HARDWARE\ros_sensor.h</PathWithFileName>
+      <FilenameWithoutPath>ros_sensor.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>109</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_API\HARDWARE\test_laser.cpp</PathWithFileName>
+      <FilenameWithoutPath>test_laser.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>110</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\RC9CPP_API\HARDWARE\test_laser.h</PathWithFileName>
+      <FilenameWithoutPath>test_laser.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1634,7 +1678,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>11</GroupNumber>
-      <FileNumber>109</FileNumber>
+      <FileNumber>111</FileNumber>
       <FileType>4</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

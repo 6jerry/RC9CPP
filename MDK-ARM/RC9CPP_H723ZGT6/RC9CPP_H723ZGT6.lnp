@@ -76,10 +76,11 @@
 ".\rc9cpp_h723zgt6\robot_chassis.o"
 ".\rc9cpp_h723zgt6\imu.o"
 ".\rc9cpp_h723zgt6\pure_pursuit.o"
+".\rc9cpp_h723zgt6\encoder.o"
+".\rc9cpp_h723zgt6\filter.o"
 ".\rc9cpp_h723zgt6\transformation_of_coordinates.o"
 ".\rc9cpp_h723zgt6\ros_sensor.o"
 ".\rc9cpp_h723zgt6\test_laser.o"
-".\rc9cpp_h723zgt6\filter.o"
 "..\Drivers\CMSIS\DSP\Lib\ARM\arm_cortexM7l_math.lib"
 --strict --scatter "RC9CPP_H723ZGT6\RC9CPP_H723ZGT6.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols

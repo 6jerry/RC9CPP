@@ -46,7 +46,7 @@
   ..\Core\Inc\usart.h ..\USB_DEVICE\App\usb_device.h \
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h \
   ..\USB_DEVICE\Target\usbd_conf.h ..\Core\Inc\gpio.h \
-  ..\RC9CPP_USER\RC2025\fast_debug\chassis_debug_setup.h \
+  ..\RC9CPP_USER\RC2025\coordinate_debug\chassis_debug_setup.h \
   ..\RC9CPP_API\HARDWARE\MOTOR\M3508.h \
   ..\RC9CPP_API\HARDWARE\fdcan_device.h \
   ..\RC9CPP_API\MATH_LIB\sort_search.h ..\RC9CPP_API\CONTROL\SuperPID.h \
@@ -65,7 +65,7 @@
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   ..\RC9CPP_API\MATH_LIB\Vector2D.h ..\RC9CPP_API\HARDWARE\MOTOR\vesc.h \
   ..\RC9CPP_API\HARDWARE\RC9Protocol.h \
-  ..\RC9CPP_USER\RC2025\fast_debug\chassis_debug.h \
+  ..\RC9CPP_USER\RC2025\coordinate_debug\chassis_debug.h \
   ..\RC9CPP_API\CONTROL\debug_xbox.h ..\RC9CPP_API\CONTROL\xbox.h \
   ..\RC9CPP_API\HARDWARE\Action.h ..\RC9CPP_API\HARDWARE\imu.h \
   ..\RC9CPP_API\DECISION\EncodingStateMachine.h \
