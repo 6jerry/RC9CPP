@@ -173,6 +173,6 @@ void ros_sensor::imu_rst()
 {
 	//重置雷达同时开始定位
 	float arr[3] = {0.0f, 0.0f, 0.0f}; // x, y ,angle
-	sendFloatData(1, arr, 3);
+	//sendFloatData(1, arr, 3);
 	tf_.map_origin_init_flag = false;
 }

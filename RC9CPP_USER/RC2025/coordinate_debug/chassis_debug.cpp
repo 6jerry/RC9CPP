@@ -50,10 +50,10 @@ void chassis_adjust_xbox::mode_4()
 {
     Vector2D tvel_((max_target_robot_vel.x * xbox_msgs.joyLHori_map), (max_target_robot_vel.y * xbox_msgs.joyLVert_map));
     set_RobotVel(tvel_, 3.0f);
-    //set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+    // set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
 
     // 防止舵轮偏移
-    if(xbox_msgs.joyRHori_map == 0.0f)
+    if (xbox_msgs.joyRHori_map == 0.0f)
     {
         Correct_yaw(lock_yaw);
     }
@@ -66,6 +66,7 @@ void chassis_adjust_xbox::mode_4()
 
 void chassis_adjust_xbox::xbox_on()
 {
-    //post->imu_rst();
+    // post->imu_rst();
     imu_ptr->imu_relocate(0.0f, 0.0f, 0.0f);
+    ros_imu->imu_rst();
 }
