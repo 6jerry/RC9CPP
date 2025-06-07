@@ -32,10 +32,10 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 		camera_info.vertial_plane_deviation.y = floatData[1];
 	}
 	//处理雷达数据
-	else if (id == 2 && byteCount == 12)
+	else if (id == 2 && byteCount == 20)
 	{	
-		ros_radar_loaction.world_pos.x = filter(floatData[0]);
-		ros_radar_loaction.world_pos.y = filter(floatData[1]); // 把上位机坐标与追踪坐标方向对齐
+		ros_radar_loaction.world_pos.x = -(floatData[1]);
+		ros_radar_loaction.world_pos.y = (floatData[0]); // 把上位机坐标与追踪坐标方向对齐
 		ros_radar_loaction.yaw_angle = -filter(floatData[2]);
 		//		if(fabsf(floatData[2]) < 0.02f && fabsf(floatData[3]) < 0.05f){
 		//			map_origin_init_flag = false; //重置映射原点
