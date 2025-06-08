@@ -32,11 +32,7 @@ Vector2D Vector2D::operator-(const Vector2D &other) const
 // 向量点乘，使用DSP库
 float32_t Vector2D::operator*(const Vector2D &other) const
 {
-    float32_t dotProduct;
-    float32_t vecA[2] = {this->x, this->y};
-    float32_t vecB[2] = {other.x, other.y};
-    arm_dot_prod_f32(vecA, vecB, 2, &dotProduct);
-    return dotProduct;
+    return this->x * other.x + this->y * other.y;
 }
 
 // 向量乘以标量
@@ -54,9 +50,7 @@ Vector2D operator*(float32_t scalar, const Vector2D &vec)
 // 向量的模
 float32_t Vector2D::magnitude() const
 {
-    float32_t result;
-    arm_sqrt_f32((this->x * this->x) + (this->y * this->y), &result);
-    return result;
+    return sqrt(this->x * this->x + this->y * this->y);
 }
 
 // 单位化向量
