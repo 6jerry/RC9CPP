@@ -42,6 +42,8 @@ extern "C" {
         s3_chassis.config(s3_chassis_info);
         s3_chassis.yawadjuster_config(0.1f, 0.0f, 0.03f, 0.0f, 7.0f, 0.2f, 0.0f);
         s3_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
+        s3_chassis.pp_tracker.normal_control.ConfigAll(2.8f, 0.0f, 0.2f, 0.0f, 5.0f, 0.002f, 0.0f);
+        s3_chassis.pp_tracker.tangent_control.ConfigAll(1.2f, 0.0f, 3.8f, 0.0f, 1.5f, 0.002f, 0.0f);
         s3_chassis.add_imu(&position_sensor);
         s3_chassis.add_photogate(GPIOF, GPIO_PIN_8, GPIOF, GPIO_PIN_9, GPIOD, GPIO_PIN_15, nullptr, 0);
 

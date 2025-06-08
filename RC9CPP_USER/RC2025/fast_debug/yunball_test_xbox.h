@@ -26,7 +26,7 @@ private:
     uint16_t lift_pin, claw_pin, push_pin;
 
     Vector2D max_target_robot_vel; // 最大目标速度
-    //Vector2D track_point[7] = {};
+    Vector2D track_point[7] = {Vector2D(0.0f, 0.0f),Vector2D(-1.0f, 1.0f),Vector2D(-1.0f, 2.5f),Vector2D(1.5f, 2.5f),Vector2D(4.0f, 2.5f),Vector2D(4.0f, 1.0f),Vector2D(3.0f, 0.0f)};
     float lock_yaw = 0.0f;
     imu *imu_ptr; // 指向imu类的指针
 
@@ -47,6 +47,7 @@ public:
     void mode_0();
     void mode_1();
     void mode_2();
+    void xbox_on();
 
     void yunball();
     void putball();

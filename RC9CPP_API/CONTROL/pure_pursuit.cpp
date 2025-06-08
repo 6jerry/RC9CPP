@@ -170,7 +170,7 @@ void pure_pursuit::pp_start_plan(Vector2D start_point, Vector2D end_point, Vecto
         target_line = head - tail;
         now_vel = now_robvel;
         state = pp_tracking;
-        nor_mode = dircontrol;  //选择轨迹规划控制方式
+        nor_mode = normalcontrol;  //选择轨迹规划控制方式
     }
 }
 

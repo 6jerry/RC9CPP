@@ -3,8 +3,8 @@
 chassis_adjust_xbox::chassis_adjust_xbox(imu *imu_ptr_)
 {
     imu_ptr = imu_ptr_;
-	  center_point.x = 5.775f;
-    center_point.y = 0.745f;
+	  center_point.x = 3.15475f;
+    center_point.y = 14.21500f;
 }
 
 void chassis_adjust_xbox::calc_error()
@@ -42,9 +42,18 @@ void chassis_adjust_xbox::mode_2()
 	 
 	  if(shoot_title == 1)
     {
-		  auto_shooter->set_auto(PID);
+		  auto_shooter->set_auto(PID,dis_2_center);
 			shoot_title = 0;
 		}
+    if(lb_flag){
+        auto_yunball_ptr->start_yunball();
+        lb_flag = 0;
+    }
+    if(rb_flag)
+    {auto_yunball_ptr->control_claw(true);}
+    else
+    {auto_yunball_ptr->control_claw(false);}
+    auto_yunball_ptr->control_motor(0.0f);
 		//auto_shooter->set_shooter_mode(shooter_hand);
    // auto_shooter->shooter_info.hand_shooter_rpm = (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * 200.f;
 //		if(test_flag == 1)
@@ -114,3 +123,8 @@ void chassis_adjust_xbox::xbox_on()
    auto_shooter = auto_shooter_;
  
  }
+
+ void chassis_adjust_xbox::add_autoyunball(auto_yunball *auto_yunball_)
+{
+    auto_yunball_ptr = auto_yunball_;
+}

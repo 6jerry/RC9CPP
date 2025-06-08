@@ -81,8 +81,9 @@ private:
     float dis_data[9] = {0.01f, 0.1968f, 0.1958f, 0.2190f, 0.2337f, 0.228f, 0.172f, 0.1800f, 0.2211f};
     float lidar_data[9] = {0.020f, 0.1998f, 0.1948f, 0.2050f, 0.1937f, 0.1877f, 0.2420f, 0.2420f, 0.2211f};
     
-		float r[50],d[50];
-		uint8_t n = 0;
+		float r[6] = {1.833,1.955,2.324,2.688,3.553,3.667};
+		float	d[6] = {0.152,0.157,0.168,0.183,0.208,0.215};
+		uint8_t n = 6;
 public:
 	
     // 编码器
@@ -111,7 +112,7 @@ public:
     void check_shooter();
     void calc_fitter();
     void set_shooter_mode(uint8_t mode);
-    void set_auto(uint8_t mode);
+    void set_auto(uint8_t mode,float r);
 
     uint32_t Read_GPIO_State(void);
 };
