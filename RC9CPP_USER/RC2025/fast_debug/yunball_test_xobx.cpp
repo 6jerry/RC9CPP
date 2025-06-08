@@ -152,7 +152,11 @@ void yunball_test_xbox::btn_scan()
     handleButton(btnStartConfig);
 }
 
-
+void yunball_test_xbox::xbox_on()
+{
+    //post->imu_rst();
+    imu_ptr->imu_relocate(0.0f, 0.0f, 0.0f);
+}
 
 void yunball_test_xbox::not_start()  //初始状态
 {
@@ -194,6 +198,7 @@ void yunball_test_xbox::mode_1()
         auto_yunball_ptr->start_putball();
         left_flag = 0; up_flag = 0; down_flag = 0; right_flag = 0;
     }
+    point_cnt = 0;
 }
 
 void yunball_test_xbox::mode_2()
@@ -226,7 +231,15 @@ void yunball_test_xbox::mode_2()
 
 void yunball_test_xbox::mode_0()
 {
-    
+    if(down_flag && point_cnt > 0){point_cnt--; down_flag = 0;}
+    if(up_flag && point_cnt < 6){point_cnt++; up_flag = 0;}
+
+    pp_track_point(track_point[point_cnt]);
+
+    if(left_flag){
+        auto_yunball_ptr->start_yunball();
+        left_flag = 0; up_flag = 0; down_flag = 0; right_flag = 0;
+    }
 }
 
 void yunball_test_xbox::add_autoyunball(auto_yunball *auto_yunball_)

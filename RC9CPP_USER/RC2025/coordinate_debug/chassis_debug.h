@@ -10,6 +10,7 @@ extern "C"
 #include "RC9Protocol.h"
 #include "imu.h"
 #include "auto_shooter.h"
+#include "auto_yunball.h"
 #ifdef __cplusplus
 }
 #endif
@@ -19,6 +20,7 @@ class chassis_adjust_xbox : public xbox_debug_base, public chassis_user
 {
 public:
   Vector2D max_target_robot_vel; // 最大目标速度
+  auto_yunball *auto_yunball_ptr;
   float lock_yaw = 0.0f;
   imu *imu_ptr, *ros_imu; // 指向imu类的指针
 
@@ -30,6 +32,7 @@ public:
 public:
 	
   void add_AutoShooter( AutoShooter *auto_shooter_);
+  void add_autoyunball(auto_yunball *auto_yunball_);
 	void calc_error();
   chassis_adjust_xbox(imu *imu_ptr_);
   void not_start() override;

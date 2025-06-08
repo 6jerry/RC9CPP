@@ -19,6 +19,7 @@ extern "C"
 #include "test_laser.h"
 	#include "auto_shooter.h"
 	#include "encoder.h"
+    #include "auto_yunball.h"
     void chassis_debug_setup();
 #ifdef __cplusplus
 }

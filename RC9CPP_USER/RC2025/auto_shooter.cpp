@@ -6,12 +6,16 @@
  */
 AutoShooter::AutoShooter()
 {
+	
+	
 }
 void AutoShooter::process_data()
 {
     // 获取拉伸距离和俯仰角度
     get_data();
 
+	  fitter->fitAll(r,d,n);
+	
     switch (shooter_mode)
     {
     case shooter_stop:
@@ -73,7 +77,7 @@ void AutoShooter::allAuto_adjust(float lifter_dis)
         timecnt++;
         shooter_flag = 1;
 
-        if (timecnt > 15)
+        if (timecnt > 5)
         {
             timecnt = 0;
             shooter_info.shooter_status = auto_revert;
@@ -83,7 +87,7 @@ void AutoShooter::allAuto_adjust(float lifter_dis)
 
         break;
     case auto_revert:
-        if (auto_adjust(0.020f))
+        if (auto_adjust(0.017f))
         {
             shooter_info.shooter_status = auto_finish;
         }
@@ -179,8 +183,8 @@ bool AutoShooter::
 
 void AutoShooter::calc_fitter()
 {
-
-    //  fitter.fitAll(r[],d[],n);
+    
+    fitter->fitAll(r,d,n);
 }
 
 void AutoShooter::add_fitter(PolynomialFitter *fitter_)
@@ -236,13 +240,18 @@ void AutoShooter::check_shooter()
     HAL_GPIO_WritePin(shooter_port, shooter_pin, shooter_flag == 0 ? GPIO_PIN_RESET : GPIO_PIN_SET);
 }
 
-void AutoShooter::set_auto(uint8_t mode)
+void AutoShooter::set_auto(uint8_t mode,float r)
 {
 	
 	  if(shooter_info.shooter_status == auto_finish){
     shooter_mode = shooter_auto;
     shooter_info.lift_mode = static_cast<liftMode>(mode);
-    shooter_info.shoot_dis = lidar_data[3];
+			
+			
+		float d = fitter->evalLinear(r);
+		if(d > 0.23f){d = 0.23f;}
+		if(d < 0.05f){d = 0.05f;}
+    shooter_info.shoot_dis = d;
     shooter_info.start_dis = shooter_info.shoot_disdance;
     shooter_info.shooter_status = auto_lift;
 		}
