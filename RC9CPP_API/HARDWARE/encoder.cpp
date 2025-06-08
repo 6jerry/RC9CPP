@@ -77,3 +77,14 @@ void Encoder::can_update(uint8_t can_RxData[8])
     // test_count = (float)Encoder_conut;
     //     }
 }
+
+void Encoder::send_reset()
+{
+     uint8_t data[8];
+	   data[0] = 0x04;
+     data[1] = 0x01;
+	   data[2] = 0x06;
+	   data[3] = 0x00;
+	
+	  CAN_Send(0x01,false,data,&hfdcan3);
+}

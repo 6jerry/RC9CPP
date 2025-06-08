@@ -3,7 +3,27 @@
 chassis_adjust_xbox::chassis_adjust_xbox(imu *imu_ptr_)
 {
     imu_ptr = imu_ptr_;
+	  center_point.x = 5.775f;
+    center_point.y = 0.745f;
 }
+
+void chassis_adjust_xbox::calc_error()
+{
+    Vector2D now_point;
+    now_point.x = get_world_x();
+    now_point.y = get_world_y();
+
+    Vector2D dis = center_point - now_point;
+
+    nor_dir = dis.normalize();
+    tan_dir = Vector2D(nor_dir.y, -nor_dir.x).normalize();
+
+    dis_2_center = dis.magnitude();
+
+    center_heading = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
+    ; // 角度对准圆心
+}
+
 
 void chassis_adjust_xbox::not_start()
 {
@@ -19,14 +39,31 @@ void chassis_adjust_xbox::mode_2()
     Vector2D tvel_((max_target_robot_vel.x * xbox_msgs.joyLHori_map), (max_target_robot_vel.y * xbox_msgs.joyLVert_map));
     set_WorldVel(tvel_, 2.5f);
     set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+	 
+	  if(shoot_title == 1)
+    {
+		  auto_shooter->set_auto(PID);
+			shoot_title = 0;
+		}
+		//auto_shooter->set_shooter_mode(shooter_hand);
+   // auto_shooter->shooter_info.hand_shooter_rpm = (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * 200.f;
+//		if(test_flag == 1)
+//    {
+//			auto_shooter->encoder->send_reset();
+//		  test_flag = 0;
+//		}
 }
 
 void chassis_adjust_xbox::mode_1()
-{
-    Vector2D tvel_((max_target_robot_vel.x * xbox_msgs.joyLHori_map), (max_target_robot_vel.y * xbox_msgs.joyLVert_map));
-
-    set_WorldVel(tvel_, 0);
-    yaw_TurnTo(90.0f * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map), 0);
+{	  
+	
+	  calc_error();
+	  
+	 
+		
+		
+  
+    yaw_TurnTo(center_heading, 0);
 }
 
 void chassis_adjust_xbox::mode_3()
@@ -70,3 +107,10 @@ void chassis_adjust_xbox::xbox_on()
     imu_ptr->imu_relocate(0.0f, 0.0f, 0.0f);
     ros_imu->imu_rst();
 }
+
+
+ void  chassis_adjust_xbox::add_AutoShooter( AutoShooter *auto_shooter_)
+ {
+   auto_shooter = auto_shooter_;
+ 
+ }

@@ -126,7 +126,7 @@ auto_lock_test::auto_lock_test(imu *imu_ptr_, ros_sensor *ros_ptr_)
     imu_ptr = imu_ptr_;
     ros_ptr = ros_ptr_;
     nor_control.ConfigAll(1.0f, 0.0f, 0.02f, 0.0f, 1.0f, 0.015f, 0.0f);
-	lock_basket.ConfigAll(0.070998f, 0.0f, 0.05f, 0.02998f, 0.24f, 6.0f, 20.0f);
+	  lock_basket.ConfigAll(0.070998f, 0.0f, 0.05f, 0.02998f, 0.24f, 6.0f, 20.0f);
     center_point.x = 5.835f;
     center_point.y = 0.774f;
 }

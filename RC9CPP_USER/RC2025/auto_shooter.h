@@ -6,14 +6,21 @@ extern "C"
 {
 #endif
 #include "encoder.h"
-#include "serial_studio.h"
-#include "wit_gyro.h"
 #include "TaskManager.h"
 #include "RC9Protocol.h"
 #include "TrapezoidalPlanner.h"
 #include "motor.h"
+#include "PID.h"
+#include "fitter.h"
 #ifdef __cplusplus
 }
+
+enum liftMode
+{
+    PID,    // PID
+    TP,     // 梯形规划
+    TP_PID, // 梯形规划+PID
+};
 
 enum autoMode
 {
@@ -25,22 +32,13 @@ enum autoMode
 };
 enum shooterMode
 {
-    shooter_stop,     // 停止
-    shooter_hand,     // 手动模式
-    shooter_halfAuto, // 半自动模式
-    shooter_allAuto,  // 全自动模式
-    shooter_debug,    // 调试模式
+    shooter_stop, // 停止
+    shooter_hand, // 手动模式
+    shooter_auto, // 全自动模式
+    shooter_lift, // 单步模式
 
 };
 
-enum pitcherMode
-{
-    pitcher_stop,   // 停止
-    pitcher_inital, // 初始俯仰模式
-    pitcher_inside, // 篮下俯仰模式
-    pitcher_hand,   // 手动模式
-
-};
 // 梯形规划参数
 typedef struct planInfo
 {
@@ -53,64 +51,67 @@ typedef struct planInfo
 };
 typedef struct shooterInfo
 {
-    float hand_shooter_rpm = 0.0f;       // 手动模式下射球电机转速
-    float hand_pitcher_rpm = 0.0f;       // 手动模式下俯仰电机转速
-    float shoot_dis = 0.013f;            // 自动模式下拉伸距离  单位 m
-    float debug_dis = 0.013f;            // 调试模式下调试距离
-    float shoot_disdance = 0.0f;         // 从编码器获取的拉伸距离
-    float shoot_pitch_angle = 0.0f;      // 从imu获取的俯仰角度
+    float hand_shooter_rpm = 0.0f;         // 手动模式下射球电机转速
+    float auto_shooter_rpm = 0.0f;         // 手动模式下射球电机转速
+    float shoot_dis = 0.013f;              // 自动模式下拉伸距离  单位 m
+    float debug_dis = 0.013f;              // 调试模式下调试距离
+    float start_dis = 0.013f;              // 开始位置
+    float shoot_disdance = 0.0f;           // 从编码器获取的拉伸距离
     autoMode shooter_status = auto_finish; // 自动射球状态
+    liftMode lift_mode = TP_PID;           // 拉伸规划方式
 };
 class AutoShooter : public ITaskProcessor
 {
 
 private:
-    power_motor *shooter_motor = nullptr, *pitcher_motor = nullptr;
+    power_motor *shooter_motor = nullptr;
     shooterMode shooter_mode = shooter_stop;
-    pitcherMode pitcher_mode = pitcher_stop;
 
     uint8_t timecnt = 0;
+    uint8_t count = 0;
 
-    // 编码器
-    Encoder *encoder = nullptr;
-    // 维特imu
-    wit_gyro *wit_imu = nullptr;
+    float test_dis;
+    
 
-    GPIO_TypeDef *trigger_port = nullptr, *shooter_port = nullptr, *stop_port = nullptr;
-    uint16_t trigger_pin = 0, shooter_pin = 0, stop_pin = 0;
+    GPIO_TypeDef *shooter_port = nullptr, *stop_port = nullptr;
+    uint16_t shooter_pin = 0, stop_pin = 0;
 
     TrapezoidalPlanner1D planer;
     planInfo plan_info;
     float dis_data[9] = {0.01f, 0.1968f, 0.1958f, 0.2190f, 0.2337f, 0.228f, 0.172f, 0.1800f, 0.2211f};
-    float lidar_data[9] = {0.020f, 0.1998f, 0.1948f, 0.1937f, 0.1937f, 0.1877f, 0.2420f, 0.2420f, 0.2211f};
-    // 标准俯仰                     篮下俯仰（待测量）
-    float inital_angle = -0.0158f, inside_angle = 0.0f;
-
+    float lidar_data[9] = {0.020f, 0.1998f, 0.1948f, 0.2050f, 0.1937f, 0.1877f, 0.2420f, 0.2420f, 0.2211f};
+    
+		float r[50],d[50];
+		uint8_t n = 0;
 public:
+	
+    // 编码器
+    Encoder *encoder = nullptr;
     shooterInfo shooter_info;
-    uint8_t trigger_flag = 0, shooter_flag = 0;
-
+    uint8_t shooter_flag = 0;
+    pid dis_control;
+    PolynomialFitter *fitter;
     AutoShooter();
     void process_data();
     void get_data();
 
-    void add_imu(Encoder *encoder_, wit_gyro *wit_imu_);
-    void add_trigger(GPIO_TypeDef *stop_port_, uint8_t stop_pin_, GPIO_TypeDef *trigger_port_, uint16_t trigger_pin_, GPIO_TypeDef *shooter_port_, uint16_t shooter_pin_);
-    void add_motor(power_motor *shooter_motor_, power_motor *pithcer_motor_);
+    void add_fitter(PolynomialFitter *fitter_);
+    void add_encoder(Encoder *encoder_);
+    void add_trigger(GPIO_TypeDef *stop_port_, uint8_t stop_pin_, GPIO_TypeDef *shooter_port_, uint16_t shooter_pin_);
+    void add_motor(power_motor *shooter_motor_);
     void add_plan_info(float max_acc_, float max_dcc_, float max_speed_, float inital_speed_, float final_speed_);
 
-    void pitcher_adjust(float pitch_angle);
-    bool auto_adjust(float lifter_distance);
-    void allAuto_adjust(float lifter_distance);
+    void lift_adjust(float shoot_dis);
+    bool auto_adjust(float lifter_dis);
+    bool TP_adjust(float lifter_dis);
+    void allAuto_adjust(float lifter_dis);
     void hand_adjust();
     bool isfinish();
-    void check_trigger();
-    void check_shooter();
 
+    void check_shooter();
+    void calc_fitter();
     void set_shooter_mode(uint8_t mode);
-    void set_halfAuto(uint8_t index);
-    void set_allAuto(uint8_t index);
-    void set_pitcher_mode(uint8_t mode);
+    void set_auto(uint8_t mode);
 
     uint32_t Read_GPIO_State(void);
 };

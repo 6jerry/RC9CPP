@@ -6,7 +6,7 @@ RC9Protocol esp_port(uart, &huart3), position_port(uart, &huart6);
 RC9Protocol ros_port(cdc, &huart5);
 RC9Protocol Lora_port(uart, &huart4);
 RC9Protocol send_port(uart, &huart1);
-Laser laser(&huart3);
+//Laser laser(&huart3);
 ros_sensor ros_sensor_;
 position position_sensor;
 
@@ -31,13 +31,13 @@ extern "C"
 		 // position_sensor.startUartReceiveIT();
         position_port.initQueue();
         position_port.startUartReceiveIT();
-		laser.init();
-		laser.startUartReceiveIT();
+		//laser.init();
+		//laser.startUartReceiveIT();
         /**************debug*************/
         send_port.initQueue();
         send_port.startUartReceiveIT();
         //s3_xbox.add_sending(&send_port);
-        plot.addport(&send_port);
+        //plot.addport(&send_port);
 		//plot.add_xbox(&s3_xbox);
         /********************************/
         /****************************************************/
@@ -79,7 +79,7 @@ extern "C"
         task_core.registerTask(6, &chassis_debug);
 		task_core.registerTask(8, &position_port);
         task_core.registerTask(8, &send_port);
-        task_core.registerTask(9, &plot);
+        ///task_core.registerTask(9, &plot);
         osKernelStart();
     }
 }

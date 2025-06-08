@@ -39,7 +39,7 @@ public:
 
     Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_);
     float get_absolute_distance(void);
-
+    void send_reset();
 private:
     float length = 0;                  ///< 当前计算长度
     float distance = 0;                ///< 当前编码器距离

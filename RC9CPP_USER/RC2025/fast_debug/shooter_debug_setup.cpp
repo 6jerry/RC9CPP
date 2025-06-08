@@ -22,8 +22,8 @@ extern "C"
 
         esp_port.startUartReceiveIT();
 
-			  auto_shooter.add_imu(&encoder);
-			  auto_shooter.add_motor(&m6374,&left);
+			  auto_shooter.add_encoder(&encoder);
+			  auto_shooter.add_motor(&m6374);
 			
         xbox.addport(&esp_port);
         xbox.add_auto_shooter(&auto_shooter);

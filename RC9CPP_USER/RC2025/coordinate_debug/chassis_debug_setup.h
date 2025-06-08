@@ -17,6 +17,8 @@ extern "C"
 #include "ros_sensor.h"
 #include "position.h"
 #include "test_laser.h"
+	#include "auto_shooter.h"
+	#include "encoder.h"
     void chassis_debug_setup();
 #ifdef __cplusplus
 }
