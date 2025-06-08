@@ -122,7 +122,9 @@ bool AutoShooter::TP_adjust(float lifter_dis)
 
     return false;
 }
-bool AutoShooter::auto_adjust(float lifter_dis)
+bool AutoShooter::
+#endif
+#endifauto_adjust(float lifter_dis)
 {
     if (shooter_flag == 1)
     {
