@@ -16,8 +16,6 @@ chassis_adjust_xbox chassis_debug(&position_sensor);
 RoboChassis s3_chassis(swerve3_chassis);
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
 
-position position_imu;
-
 extern "C"
 {
 
@@ -38,12 +36,10 @@ extern "C"
         //底盘
         s3_chassis.add_6_motors(&m2006_front, &u8_front, &m2006_right, &u8_right, &m2006_left, &u8_left);
         s3_chassis.config(s3_chassis_info);
-        s3_chassis.yawadjuster_config(0.039f, 0.0f, 0.002f, 0.0f, 5.0f, 0.2f, 0.0f);
+        s3_chassis.yawadjuster_config(0.1f, 0.0f, 0.03f, 0.0f, 7.0f, 0.2f, 0.0f);
         s3_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
         s3_chassis.add_imu(&position_sensor);
         s3_chassis.add_photogate(GPIOF, GPIO_PIN_8, GPIOF, GPIO_PIN_9, GPIOD, GPIO_PIN_15, nullptr, 0);
-        s3_chassis.yawadjuster_config(0.1f, 0.0f, 0.03f, 0.0f, 7.0f, 0.2f, 0.0f);
-        s3_chassis.add_imu(&position_imu);
 
         // pid config
         m2006_left.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);

@@ -13,6 +13,7 @@ extern "C" {
 #include "fdcan_device.h"
 #include "yunball_test_xbox.h"
 #include "auto_yunball.h"
+#include "position.h"
 //#include "robot_chassis.h"
 void yunball_test_setup(void);
 

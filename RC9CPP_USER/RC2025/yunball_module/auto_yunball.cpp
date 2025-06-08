@@ -53,7 +53,7 @@ void auto_yunball::yunball()
     set_push(true);
     osDelay(200); 
     set_push(false);
-    osDelay(400);
+    osDelay(300);
     set_claw(false);
     flag = static_flag;
 }

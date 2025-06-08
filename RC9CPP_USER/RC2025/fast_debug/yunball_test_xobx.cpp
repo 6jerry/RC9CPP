@@ -4,16 +4,23 @@ void yunball_test_xbox::process_data()
 {
     btn_scan();
     joymap_compute();
+    if(btn_start_flag == 1)
+    {
+        HAL_NVIC_SystemReset();
+    }
 
     if (start_flag == 1)
     {
         switch (mode_flag)
         {
         case 0:
-            mode_0();       //手动控制
+            mode_0();       
             break;
         case 1:
-            mode_1();       //按键控制
+            mode_1();       
+            break;
+        case 2:
+            mode_2();       
             break;
         default:
             break;
@@ -22,10 +29,13 @@ void yunball_test_xbox::process_data()
     else if (start_flag == 0) not_start();
 }
 
-yunball_test_xbox::yunball_test_xbox()
+yunball_test_xbox::yunball_test_xbox(imu *imu_ptr_)
 {
     btnconfig_init();
-	mode_flag = 0;
+    imu_ptr = imu_ptr_;
+    max_target_robot_vel.x = 5.0f;
+    max_target_robot_vel.y = 5.0f;
+	mode_flag = 1;
 }
 
 void yunball_test_xbox::btnconfig_init()
@@ -116,6 +126,14 @@ void yunball_test_xbox::btnconfig_init()
         1,
         ButtonActionType::Toggle,
         nullptr};
+		
+		btnStartConfig = {
+        &xbox_msgs.btnStart,
+        &xbox_msgs.btnStart_last,
+        &btn_start_flag,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
 }
 
 void yunball_test_xbox::btn_scan()
@@ -131,6 +149,7 @@ void yunball_test_xbox::btn_scan()
     handleButton(btnDirDownConfig);
     handleButton(btnDirLeftConfig);
     handleButton(btnDirRightConfig);
+    handleButton(btnStartConfig);
 }
 
 
@@ -143,8 +162,24 @@ void yunball_test_xbox::not_start()  //初始状态
     set_push(false);*/
 }
 
-void yunball_test_xbox::mode_0()
+void yunball_test_xbox::mode_1()
 {
+    // 底盘速度控制
+    Vector2D tvel_((max_target_robot_vel.x * xbox_msgs.joyLHori_map), (max_target_robot_vel.y * xbox_msgs.joyLVert_map));
+    set_RobotVel(tvel_, 4.0f);
+
+    if(xbox_msgs.joyRHori_map == 0.0f)
+    {
+        Correct_yaw(lock_yaw);
+    }
+    else
+    {
+        set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+        lock_yaw = imu_ptr->get_yaw_rad() * 57.296f;
+    }
+
+
+    //上层
     if(down_flag){auto_yunball_ptr->control_lift(true);}
     else{auto_yunball_ptr->control_lift(false);}
 
@@ -159,77 +194,42 @@ void yunball_test_xbox::mode_0()
         auto_yunball_ptr->start_putball();
         left_flag = 0; up_flag = 0; down_flag = 0; right_flag = 0;
     }
-    /*turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
-    set_claw(up_flag);
-    set_lift(down_flag);
-    if(left_flag == 1) 
-    {
-        turn_motor->set_rpm(0.0f);
-        yunball(); 
-        left_flag = 0;
-    }*/
 }
 
-void yunball_test_xbox::mode_1()
+void yunball_test_xbox::mode_2()
 {
-    /*if(right_flag == 1)
-    {
-        putball();
-        right_flag = 0;
-    }
-    if(left_flag == 1) 
-    {
-        turn_motor->set_rpm(0.0f);
-        yunball(); 
-        left_flag = 0;
-    }*/
    auto_yunball_ptr->control_motor(xbox_msgs.joyRHori_map);
+}
+
+/*void yunball_test_xbox::mode_0()
+{
+    // 底盘速度控制
+    Vector2D tvel_(0, (max_target_robot_vel.y * 0.1f));
+    set_RobotVel(tvel_, 4.0f);
+
+    if(xbox_msgs.joyRHori_map == 0.0f)
+    {
+        Correct_yaw(lock_yaw);
+    }
+    else
+    {
+        set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+        lock_yaw = imu_ptr->get_yaw_rad() * 57.296f;
+    }
+
+    //上层
+    if(left_flag){
+        auto_yunball_ptr->start_yunball();
+        left_flag = 0; up_flag = 0; down_flag = 0; right_flag = 0;
+    }
+}*/
+
+void yunball_test_xbox::mode_0()
+{
+    
 }
 
 void yunball_test_xbox::add_autoyunball(auto_yunball *auto_yunball_)
 {
     auto_yunball_ptr = auto_yunball_;
 }
-
-
-
-
-/*void yunball_test_xbox::add_io(GPIO_TypeDef *lift_port_, uint16_t lift_pin_,  GPIO_TypeDef *claw_port_, uint16_t claw_pin_, GPIO_TypeDef *push_port_, uint16_t push_pin_)
-{
-    lift_port = lift_port_;
-    lift_pin = lift_pin_;
-    claw_port = claw_port_;
-    claw_pin = claw_pin_;
-    push_port = push_port_;
-    push_pin = push_pin_;
-}
-
-void yunball_test_xbox::add_motor(power_motor *turn_motor_)
-{
-    turn_motor = turn_motor_;
-}
-
-void yunball_test_xbox::yunball()
-{
-    set_claw(true);
-    set_push(true);
-    osDelay(200); 
-    set_push(false);
-    osDelay(400);
-    set_claw(false);
-}
-void yunball_test_xbox::putball()
-{
-    set_lift(true);
-    turn_motor->set_pos_speedplan(-180.0f, 20.0f, 10.0f, 10.0f, 0.0f);
-    osDelay(1700);
-    set_claw(true);
-    osDelay(200);
-    turn_motor->set_pos_speedplan(-30.0f, 20.0f, 10.0f, 10.0f, 0.0f);
-    osDelay(1500);
-    set_lift(false);
-}
-
-void yunball_test_xbox::set_claw(bool if_open) {HAL_GPIO_WritePin(claw_port, claw_pin, if_open ? GPIO_PIN_RESET : GPIO_PIN_SET);}
-void yunball_test_xbox::set_lift(bool if_up) {HAL_GPIO_WritePin(lift_port, lift_pin, if_up ? GPIO_PIN_SET : GPIO_PIN_RESET);}
-void yunball_test_xbox::set_push(bool if_push) {HAL_GPIO_WritePin(push_port, push_pin, if_push ? GPIO_PIN_SET : GPIO_PIN_RESET);}*/
