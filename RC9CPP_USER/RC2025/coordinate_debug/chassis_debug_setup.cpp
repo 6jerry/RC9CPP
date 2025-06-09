@@ -91,7 +91,7 @@ extern "C"
     // auto_shooter
     auto_shooter.add_encoder(&encoder);
     auto_shooter.add_motor(&m6374);
-    auto_shooter.dis_control.ConfigAll(10000.0f, 3.3f, 64.0f, 0.0f, 1800.0f, 0.0005f, 0.015f);
+    auto_shooter.dis_control.ConfigAll(16000.0f, 3.3f, 64.0f, 0.0f, 1800.0f, 0.001f, 0.015f);
     auto_shooter.add_plan_info(400, 400, 1200, 400, 400);
     auto_shooter.add_trigger(GPIOF, GPIO_PIN_5, GPIOG, GPIO_PIN_7);
     auto_shooter.add_fitter(&fitter);

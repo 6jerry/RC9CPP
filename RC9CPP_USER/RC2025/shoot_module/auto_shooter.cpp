@@ -158,8 +158,9 @@ bool AutoShooter::auto_adjust(float lifter_dis)
         break;
     }
 
-    if (fabs(error) < 0.0005f && fabs(shooter_motor->get_rpm()) < 60.0f)
+    if (fabs(error)< target_error && fabs(shooter_motor->get_rpm()) < target_rpm)
     {
+
         test_dis = shoot_info.real_dis;
 
         return true;
@@ -244,7 +245,7 @@ void AutoShooter::set_auto_byFitter(uint8_t mode, float r)
         shoot_mode = shooter_auto;
         shoot_info.lift_mode = static_cast<liftMode>(mode);
 
-        float d = fitter->evalLinear(r);
+        float d = fitter->evalCubic(r);
         if (d > 0.23f)
         {
             d = 0.23f;

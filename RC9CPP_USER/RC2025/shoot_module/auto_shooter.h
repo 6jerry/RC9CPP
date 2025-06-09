@@ -69,7 +69,8 @@ private:
 
     uint8_t timecnt = 0;
     uint8_t count = 0;
-
+    float target_error = 0.003f;
+    float target_rpm = 600.0f;
     float test_dis;
 
     GPIO_TypeDef *shooter_port = nullptr, *stop_port = nullptr;
@@ -80,8 +81,8 @@ private:
     float dis_data[9] = {0.01f, 0.1968f, 0.1958f, 0.2190f, 0.2337f, 0.228f, 0.172f, 0.1800f, 0.2211f};
     float lidar_data[9] = {0.020f, 0.1998f, 0.1948f, 0.2050f, 0.1937f, 0.1877f, 0.2420f, 0.2420f, 0.2211f};
 
-    float r[6] = {1.833, 1.955, 2.324, 2.688, 3.553, 3.667};
-    float d[6] = {0.152, 0.157, 0.168, 0.183, 0.208, 0.215};
+    float r[8] = {1.79f, 2.318f, 2.84f, 2.50f, 3.53f, 3.21f, 3.00f, 2.78f};
+    float d[8] = {0.160f, 0.1799f, 0.1999f, 0.1882f, 0.2294, 0.2174, 0.2094f, 0.2024};
     uint8_t n = 6;
 
 public:
@@ -114,6 +115,11 @@ public:
     void set_auto_byFitter(uint8_t mode, float r);
     void set_auto_byDis(uint8_t mode, float shoot_dis);
     void set_hand(float rpm);
+
+    // 往下拉一定距离
+    //  set_shooter_mode(shooter_lift);
+    // 进入停止模式
+    //  set_shooter_mode(shooter_stop);
 
     uint32_t Read_GPIO_State(void);
 };
