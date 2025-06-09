@@ -9,6 +9,7 @@ RC9Protocol send_port(uart, &huart5);
 // Laser laser(&huart3);
 ros_sensor ros_sensor_;
 position position_sensor;
+
 Encoder encoder(0x01, &hfdcan3);
 PolynomialFitter fitter(0.05f, 0.23f, false);
 
@@ -22,6 +23,7 @@ chassis_adjust_xbox chassis_debug(&position_sensor);
 RoboChassis s3_chassis(swerve3_chassis);
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
 AutoShooter auto_shooter;
+
 auto_yunball yunball_port;
 demo plot;
 
