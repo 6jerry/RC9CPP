@@ -37,6 +37,8 @@ enum shooterMode
     shooter_auto, // 全自动模式
     shooter_lift, // 单步模式
 
+    shooter_move // 手动移动指定距离
+
 };
 
 // 梯形规划参数
@@ -71,7 +73,6 @@ private:
     uint8_t count = 0;
 
     float test_dis;
-    
 
     GPIO_TypeDef *shooter_port = nullptr, *stop_port = nullptr;
     uint16_t shooter_pin = 0, stop_pin = 0;
@@ -80,12 +81,12 @@ private:
     planInfo plan_info;
     float dis_data[9] = {0.01f, 0.1968f, 0.1958f, 0.2190f, 0.2337f, 0.228f, 0.172f, 0.1800f, 0.2211f};
     float lidar_data[9] = {0.020f, 0.1998f, 0.1948f, 0.2050f, 0.1937f, 0.1877f, 0.2420f, 0.2420f, 0.2211f};
-    
-		float r[6] = {1.833,1.955,2.324,2.688,3.553,3.667};
-		float	d[6] = {0.152,0.157,0.168,0.183,0.208,0.215};
-		uint8_t n = 6;
+
+    float r[6] = {1.833, 1.955, 2.324, 2.688, 3.553, 3.667};
+    float d[6] = {0.152, 0.157, 0.168, 0.183, 0.208, 0.215};
+    uint8_t n = 6;
+
 public:
-	
     // 编码器
     Encoder *encoder = nullptr;
     shooterInfo shooter_info;
@@ -109,10 +110,21 @@ public:
     void hand_adjust();
     bool isfinish();
 
-    void check_shooter();
+    void shooter_hand_move();
+    float hand_move_dis = 0.17f;
+
+    void
+    check_shooter();
     void calc_fitter();
     void set_shooter_mode(uint8_t mode);
-    void set_auto(uint8_t mode,float r);
+    void set_auto(uint8_t mode, float r);
+    void set_shooter_rpm(float rpm);
+    void set_shooter_dis(float dis);
+
+    // 调试用
+    float get_t_dis();
+    float get_shooter_rpm();
+    float get_shooter_dis();
 
     uint32_t Read_GPIO_State(void);
 };

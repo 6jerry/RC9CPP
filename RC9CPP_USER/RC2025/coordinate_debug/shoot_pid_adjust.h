@@ -6,11 +6,10 @@ extern "C"
 {
 #endif
 #include "debug_xbox.h"
-#include "PID.h"
+
 #include "RC9Protocol.h"
-#include "imu.h"
-#include "motor.h"
-#include "fdcan_device.h"
+
+#include "auto_shooter.h"
 #ifdef __cplusplus
 }
 #endif
@@ -19,12 +18,15 @@ extern "C"
 class shoot_pid_xbox : public xbox_debug_base
 {
 public:
-    power_motor *shoot_motor = nullptr;
-    pid shoot_control;
+    // power_motor *shoot_motor = nullptr;
+    // pid shoot_control;
     RC9subscriber *msg_send = nullptr;
-    imu *encoder = nullptr;
+    // imu *encoder = nullptr;
 
-    float now_dis = 0.0f, target_dis = 0.05f, max_rpm = 120.0f,max_dis=36.0f;
+    AutoShooter *shooter = nullptr;
+
+    float now_dis = 0.0f,
+          target_dis = 0.05f, max_rpm = 120.0f, max_dis = 36.0f;
 
 public:
     void not_start() override;

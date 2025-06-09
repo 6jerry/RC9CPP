@@ -6,16 +6,14 @@
  */
 AutoShooter::AutoShooter()
 {
-	
-	
 }
 void AutoShooter::process_data()
 {
     // 获取拉伸距离和俯仰角度
     get_data();
 
-	  fitter->fitAll(r,d,n);
-	
+    fitter->fitAll(r, d, n);
+
     switch (shooter_mode)
     {
     case shooter_stop:
@@ -30,6 +28,12 @@ void AutoShooter::process_data()
         break;
     case shooter_lift:
         lift_adjust(0.17f);
+        break;
+
+    case shooter_move:
+
+        shooter_hand_move();
+
         break;
 
     default:
@@ -49,14 +53,33 @@ void AutoShooter::hand_adjust()
     //     shooter_info.hand_shooter_rpm = 0.0f;
     // }
 
-    shooter_motor->set_rpm(shooter_info.hand_shooter_rpm);
+    shooter_motor->send_rpm(shooter_info.hand_shooter_rpm);
+}
+
+void AutoShooter::shooter_hand_move()
+{
+    lift_adjust(hand_move_dis);
+}
+
+void AutoShooter::set_shooter_rpm(float rpm)
+{
+    shooter_info.hand_shooter_rpm = rpm;
+    shooter_mode = shooter_hand;
+}
+
+void AutoShooter::set_shooter_dis(float dis)
+{
+    hand_move_dis = dis;
+    shooter_mode = shooter_move;
 }
 
 void AutoShooter::lift_adjust(float shoot_dis)
 {
-    float error = (shoot_dis - shooter_info.shoot_disdance);
-    shooter_info.auto_shooter_rpm = -dis_control.PID_ComputeError(error);
-    shooter_motor->set_rpm(shooter_info.auto_shooter_rpm);
+
+    dis_control.setpoint = shoot_dis;
+    // float error = (shoot_dis - shooter_info.shoot_disdance);
+    shooter_info.auto_shooter_rpm = dis_control.PID_Compute(shooter_info.shoot_disdance);
+    shooter_motor->set_rpm(-shooter_info.auto_shooter_rpm);
 }
 
 void AutoShooter::allAuto_adjust(float lifter_dis)
@@ -127,8 +150,8 @@ bool AutoShooter::TP_adjust(float lifter_dis)
     return false;
 }
 bool AutoShooter::
-#endif
-#endifauto_adjust(float lifter_dis)
+
+    auto_adjust(float lifter_dis)
 {
     if (shooter_flag == 1)
     {
@@ -162,7 +185,7 @@ bool AutoShooter::
         break;
     }
 
-    if (fabs(error) < 0.0005f  && fabs(shooter_motor->get_rpm()) < 60.0f )
+    if (fabs(error) < 0.0015f && fabs(shooter_motor->get_rpm()) < 10.0f)
     {
         test_dis = shooter_info.shoot_disdance;
 
@@ -183,8 +206,8 @@ bool AutoShooter::
 
 void AutoShooter::calc_fitter()
 {
-    
-    fitter->fitAll(r,d,n);
+
+    fitter->fitAll(r, d, n);
 }
 
 void AutoShooter::add_fitter(PolynomialFitter *fitter_)
@@ -240,25 +263,46 @@ void AutoShooter::check_shooter()
     HAL_GPIO_WritePin(shooter_port, shooter_pin, shooter_flag == 0 ? GPIO_PIN_RESET : GPIO_PIN_SET);
 }
 
-void AutoShooter::set_auto(uint8_t mode,float r)
+void AutoShooter::set_auto(uint8_t mode, float r)
 {
-	
-	  if(shooter_info.shooter_status == auto_finish){
-    shooter_mode = shooter_auto;
-    shooter_info.lift_mode = static_cast<liftMode>(mode);
-			
-			
-		float d = fitter->evalLinear(r);
-		if(d > 0.23f){d = 0.23f;}
-		if(d < 0.05f){d = 0.05f;}
-    shooter_info.shoot_dis = d;
-    shooter_info.start_dis = shooter_info.shoot_disdance;
-    shooter_info.shooter_status = auto_lift;
-		}
+
+    if (shooter_info.shooter_status == auto_finish)
+    {
+        shooter_mode = shooter_auto;
+        shooter_info.lift_mode = static_cast<liftMode>(mode);
+
+        float d = fitter->evalLinear(r);
+        if (d > 0.23f)
+        {
+            d = 0.23f;
+        }
+        if (d < 0.05f)
+        {
+            d = 0.05f;
+        }
+        shooter_info.shoot_dis = d;
+        shooter_info.start_dis = shooter_info.shoot_disdance;
+        shooter_info.shooter_status = auto_lift;
+    }
 }
 
 void AutoShooter::set_shooter_mode(uint8_t mode)
 {
 
     shooter_mode = static_cast<shooterMode>(mode);
+}
+
+float AutoShooter::get_t_dis()
+{
+    return hand_move_dis;
+}
+
+float AutoShooter::get_shooter_rpm()
+{
+    return shooter_motor->get_rpm();
+}
+
+float AutoShooter::get_shooter_dis()
+{
+    return encoder->get_absolute_distance();
 }
