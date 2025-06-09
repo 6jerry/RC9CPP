@@ -13,6 +13,7 @@ extern "C"
 #include "fdcan_device.h"
 #include "gpio.h"
 #include "encoder.h"
+#include "auto_shooter.h"
     void shoot_pid_adjust_setup(void);
 #ifdef __cplusplus
 }
