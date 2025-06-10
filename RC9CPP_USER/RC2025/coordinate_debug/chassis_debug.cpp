@@ -42,7 +42,7 @@ void chassis_adjust_xbox::mode_2()
 	 
 	  if(shoot_title == 1)
     {
-		//  auto_shooter->set_auto_byDis(PID,debug_dis);
+		 //auto_shooter->set_auto_byDis(PID,debug_dis);
 			auto_shooter->set_auto_byFitter(PID,dis_2_center);
 			shoot_title = 0;
 		}

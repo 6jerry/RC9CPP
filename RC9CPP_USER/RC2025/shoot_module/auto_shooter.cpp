@@ -244,8 +244,8 @@ void AutoShooter::set_auto_byFitter(uint8_t mode, float r)
     {
         shoot_mode = shooter_auto;
         shoot_info.lift_mode = static_cast<liftMode>(mode);
-
-        float d = fitter->evalCubic(r);
+        float d =  fitter->evalLinear(r);
+       // float d = fitter->evalCubic(r);
         if (d > 0.23f)
         {
             d = 0.23f;
