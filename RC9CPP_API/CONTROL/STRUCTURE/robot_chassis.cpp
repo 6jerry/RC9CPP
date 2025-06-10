@@ -541,7 +541,7 @@ uint8_t RoboChassis::set_CRobotW(float w, uint8_t PriorityCode, chassis_user *us
 }
 
 /**
- * @brief 底盘控制函数
+ * @brief 机器人坐标系控制函数
  *
  * @param robot_vel 机器人速度
  * @param accle 加速度
@@ -589,6 +589,63 @@ uint8_t RoboChassis::set_CRobotVel_ACCLE(Vector2D robovel, float accle)
         else if (target.target_robovel.y < robovel.y)
         {
             target.target_robovel.y = target.target_robovel.y + accle * dt;
+        }
+        else
+        {
+        }
+    }
+    return 1;
+}
+
+/**
+ * @brief 世界坐标系控制函数
+ *
+ * @param worldvel 世界坐标系速度
+ * @param accle 加速度
+ *
+ * @return uint8_t   1:成功 0:失败
+ */
+uint8_t RoboChassis::set_CWorldVel_ACCLE(Vector2D worldvel, float accle)
+{
+    if (mode != chassis_init)
+    {
+        mode = worldv;
+    }
+    dt = (HAL_GetTick() - last_tick) / 1000.0; // 计算时间间隔
+    last_tick = HAL_GetTick();
+
+    if (abs(target.target_worldvel.x - worldvel.x) < accle * dt)
+    {
+        target.target_worldvel.x = worldvel.x;
+    }
+    else
+    {
+        if (target.target_worldvel.x > worldvel.x)
+        {
+            target.target_worldvel.x = target.target_worldvel.x - accle * dt;
+        }
+        else if (target.target_worldvel.x < worldvel.x)
+        {
+            target.target_worldvel.x = target.target_worldvel.x + accle * dt;
+        }
+        else
+        {
+        }
+    }
+
+    if (abs(target.target_worldvel.y - worldvel.y) < accle * dt)
+    {
+        target.target_worldvel.y = worldvel.y;
+    }
+    else
+    {
+        if (target.target_worldvel.y > worldvel.y)
+        {
+            target.target_worldvel.y = target.target_worldvel.y - accle * dt;
+        }
+        else if (target.target_worldvel.y < worldvel.y)
+        {
+            target.target_worldvel.y = target.target_worldvel.y + accle * dt;
         }
         else
         {
@@ -750,7 +807,12 @@ float chassis_user::calc_dis(Vector2D target)
 
 uint8_t chassis_user::set_WorldVel(Vector2D worldvel, uint8_t PriorityCode)
 {
+#ifdef USE_VEL_ACCEL
+
+    return robochassis_->set_CWorldVel_ACCLE(robovel, 2.5f);
+#else
     return robochassis_->set_CWorldVel(worldvel, PriorityCode, this);
+#endif
 }
 
 uint8_t chassis_user::yaw_TurnTo(float yaw, uint8_t PriorityCode)

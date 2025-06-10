@@ -223,6 +223,7 @@ public:
     uint8_t set_CRobotW(float w, uint8_t PriorityCode, chassis_user *user_);
     uint8_t yaw_Clock(uint8_t PriorityCode, chassis_user *user_);
     uint8_t set_CRobotVel_ACCLE(Vector2D robovel, float accle);
+    uint8_t set_CWorldVel_ACCLE(Vector2D worldvel, float accle);
 
     uint8_t yaw_CTurnTo(float yaw, uint8_t PriorityCode, chassis_user *user_);
     uint8_t set_correct_yaw(float yaw);
