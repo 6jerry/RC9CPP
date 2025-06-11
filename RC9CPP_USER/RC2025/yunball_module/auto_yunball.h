@@ -53,8 +53,8 @@ public:
     void control_lift(bool if_up);
     void control_push(bool if_push);
 
-    void start_yunball();
-    void start_putball();
+    bool start_yunball();
+    bool start_putball();
     void stop();
 };
 
