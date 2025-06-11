@@ -29,7 +29,7 @@ public:
    float dis_2_center = 0.0f, center_heading = 0.0f, nor_speed = 0.0f; // 半径
    AutoShooter *auto_shooter;
    
-   uint8_t test_flag = 0;
+   uint8_t test_flag = 0, putball = 0;
 public:
 	
   void add_AutoShooter( AutoShooter *auto_shooter_);

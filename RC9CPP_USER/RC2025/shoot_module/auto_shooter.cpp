@@ -75,7 +75,7 @@ void AutoShooter::allAuto_adjust(float lifter_dis)
         timecnt++;
         shooter_flag = 1;
 
-        if (timecnt > 5)
+        if (timecnt > 15)
         {
             timecnt = 0;
             shoot_info.shoot_status = auto_revert;
@@ -299,7 +299,7 @@ void AutoShooter::set_shooter_mode(uint8_t mode)
 float  AutoShooter::calc(float r)
 {
 
-    const float coeffs[] = {
+/*     const float coeffs[] = {
         -0.04805321f,
         0.5507170f,
         -2.340642f,
@@ -317,5 +317,8 @@ float  AutoShooter::calc(float r)
     s_result = s_result * r + coeffs[3];
     s_result = s_result * r + coeffs[4];
 
-    return s_result;
+    return s_result; */
+
+    float s = 0.0114f * pow(r,1.6601f) + 0.1350f;
+    return s;
 }

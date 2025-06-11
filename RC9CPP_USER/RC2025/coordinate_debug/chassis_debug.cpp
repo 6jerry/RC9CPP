@@ -37,7 +37,7 @@ void chassis_adjust_xbox::not_start()
 void chassis_adjust_xbox::mode_2()
 {
     Vector2D tvel_((max_target_robot_vel.x * xbox_msgs.joyLHori_map), (max_target_robot_vel.y * xbox_msgs.joyLVert_map));
-    set_WorldVel(tvel_, 2.5f);
+    set_WorldVel(tvel_, 2.5f); //以后再改
     set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
 	 
 	  if(shoot_title == 1)
@@ -45,16 +45,7 @@ void chassis_adjust_xbox::mode_2()
 		 //auto_shooter->set_auto_byDis(PID,debug_dis);
 			auto_shooter->set_auto_byFitter(PID,dis_2_center);
 			shoot_title = 0;
-		}
-//    if(lb_flag){
-//        auto_yunball_ptr->start_yunball();
-//        lb_flag = 0;
-//    }
-//    if(rb_flag)
-//    {auto_yunball_ptr->control_claw(true);}
-//    else
-//    {auto_yunball_ptr->control_claw(false);}
-//    auto_yunball_ptr->control_motor(0.0f);
+	}
 		//auto_shooter->set_shooter_mode(shooter_hand);
    // auto_shooter->shooter_info.hand_shooter_rpm = (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * 200.f;
 //		if(test_flag == 1)
@@ -62,6 +53,15 @@ void chassis_adjust_xbox::mode_2()
 //			auto_shooter->encoder->send_reset();
 //		  test_flag = 0;
 //		}
+    if(lb_flag){
+        auto_yunball_ptr->start_yunball();
+        lb_flag = 0;
+    }
+    if(rb_flag)
+    {auto_yunball_ptr->control_claw(true);
+    auto_yunball_ptr->control_motor(xbox_msgs.joyRVert_map);}
+    else
+    {auto_yunball_ptr->control_claw(false);}
 }
 
 void chassis_adjust_xbox::mode_1()
@@ -75,19 +75,23 @@ void chassis_adjust_xbox::mode_1()
 
 void chassis_adjust_xbox::mode_3()
 {
-    if ((xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) == 0.0f)
-    {
-        yaw_lock();
+    set_WorldVel(Vector2D(0.0f, 0.4f), 0);
+    if(lb_flag){
+        auto_yunball_ptr->start_yunball();
+        putball = 1;
+        lb_flag = 0;
     }
-    else
+    if(rb_flag && putball == 1)
     {
-
-        set_RobotW(-3.0f * (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map), 0);
+        auto_shooter->set_shooter_mode(shooter_lift);
+        if(auto_yunball_ptr->start_putball())
+        {
+            auto_shooter->set_shooter_mode(shooter_stop);
+            putball = 0;
+            rb_flag = 0;
+            mode_flag = 2;
+        }
     }
-    Vector2D tvel_((max_target_robot_vel.x * xbox_msgs.joyLHori_map), (max_target_robot_vel.y * xbox_msgs.joyLVert_map));
-
-    set_WorldVel(tvel_, 0);
-    lock_yaw = imu_ptr->get_yaw_rad() * 57.296f;
 }
 
 void chassis_adjust_xbox::mode_4()

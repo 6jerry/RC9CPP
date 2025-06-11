@@ -72,6 +72,7 @@ void auto_yunball::yunball()
 void auto_yunball::putball()
 {
     set_lift(true);
+    osDelay(700);
     turn_motor->set_pos_speedplan(-180.0f, 20.0f, 10.0f, 10.0f, 0.0f);
     osDelay(1700);
     set_claw(true);
