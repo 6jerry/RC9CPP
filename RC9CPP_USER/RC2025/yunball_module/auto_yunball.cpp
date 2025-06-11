@@ -14,6 +14,8 @@ void auto_yunball::process_data()
             putball();
             break;
         case stop_flag:
+            osDelay(200);
+            flag = static_flag;
             break;
         default:
             break;
@@ -36,8 +38,18 @@ void auto_yunball::add_motor(power_motor *turn_motor_)
 }
 
 //外部接口函数
-void auto_yunball::start_yunball(){if(flag == static_flag) flag = yunball_flag;}
-void auto_yunball::start_putball(){if(flag == static_flag) flag = putball_flag;}
+bool auto_yunball::start_yunball()
+{
+    if(flag == static_flag) {flag = yunball_flag;}
+    if(flag == stop_flag) {return true;}
+    return false;
+}
+bool auto_yunball::start_putball()
+{
+    if(flag == static_flag) {flag = putball_flag;}
+    if(flag == stop_flag) {return true;}
+    return false;
+}
 
 void auto_yunball::control_motor(float speed_){get_speed = speed_;}
 void auto_yunball::control_claw(bool if_open){if(flag == static_flag)set_claw(if_open);}
@@ -55,7 +67,7 @@ void auto_yunball::yunball()
     set_push(false);
     osDelay(300);
     set_claw(false);
-    flag = static_flag;
+    flag = stop_flag;
 }
 void auto_yunball::putball()
 {
@@ -64,10 +76,10 @@ void auto_yunball::putball()
     osDelay(1700);
     set_claw(true);
     osDelay(200);
-    turn_motor->set_pos_speedplan(-30.0f, 20.0f, 10.0f, 10.0f, 0.0f);
-    osDelay(1500);
+    turn_motor->set_pos_speedplan(-90.0f, 20.0f, 10.0f, 10.0f, 0.0f);
+    osDelay(800);
     set_lift(false);
-    flag = static_flag;
+    flag = stop_flag;
 }
 
 
