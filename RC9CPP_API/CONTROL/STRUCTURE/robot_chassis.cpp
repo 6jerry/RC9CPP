@@ -809,7 +809,7 @@ uint8_t chassis_user::set_WorldVel(Vector2D worldvel, uint8_t PriorityCode)
 {
 #ifdef USE_VEL_ACCEL
 
-    return robochassis_->set_CWorldVel_ACCLE(robovel, 2.5f);
+    return robochassis_->set_CWorldVel_ACCLE(worldvel, 2.5f);
 #else
     return robochassis_->set_CWorldVel(worldvel, PriorityCode, this);
 #endif
