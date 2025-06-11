@@ -296,7 +296,7 @@ void AutoShooter::set_shooter_mode(uint8_t mode)
 
     shoot_mode = static_cast<shooterMode>(mode);
 }
-float calc(float r)
+float  AutoShooter::calc(float r)
 {
 
     const float coeffs[] = {
