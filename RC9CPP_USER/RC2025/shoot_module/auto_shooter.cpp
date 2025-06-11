@@ -158,7 +158,7 @@ bool AutoShooter::auto_adjust(float lifter_dis)
         break;
     }
 
-    if (fabs(error)< target_error && fabs(shooter_motor->get_rpm()) < target_rpm)
+    if (fabs(error) < target_error && fabs(shooter_motor->get_rpm()) < target_rpm)
     {
 
         test_dis = shoot_info.real_dis;
@@ -244,8 +244,9 @@ void AutoShooter::set_auto_byFitter(uint8_t mode, float r)
     {
         shoot_mode = shooter_auto;
         shoot_info.lift_mode = static_cast<liftMode>(mode);
-        float d =  fitter->evalLinear(r);
-       // float d = fitter->evalCubic(r);
+        // float d = fitter->evalLinear(r);
+        //  float d = fitter->evalCubic(r);
+        float d = calc(r);
         if (d > 0.23f)
         {
             d = 0.23f;
@@ -294,4 +295,27 @@ void AutoShooter::set_shooter_mode(uint8_t mode)
 {
 
     shoot_mode = static_cast<shooterMode>(mode);
+}
+float calc(float r)
+{
+
+    const float coeffs[] = {
+        -0.04805321f,
+        0.5507170f,
+        -2.340642f,
+        4.409213f,
+        -2.934048f};
+
+    // 使用霍纳法则进行高效计算
+    // s = (((coeffs[0]*r + coeffs[1])*r + coeffs[2])*r + coeffs[3])*r + coeffs[4]
+
+    float s_result = coeffs[0]; // 从最高次系数开始
+
+    // 循环展开，效率最高
+    s_result = s_result * r + coeffs[1];
+    s_result = s_result * r + coeffs[2];
+    s_result = s_result * r + coeffs[3];
+    s_result = s_result * r + coeffs[4];
+
+    return s_result;
 }
