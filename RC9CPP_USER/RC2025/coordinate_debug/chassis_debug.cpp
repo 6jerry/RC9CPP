@@ -3,8 +3,11 @@
 chassis_adjust_xbox::chassis_adjust_xbox(imu *imu_ptr_)
 {
     imu_ptr = imu_ptr_;
-	  center_point.x = 5.788f;
-    center_point.y = 0.7505f;
+	//   center_point.x = 5.788f;
+    // center_point.y = 0.7505f;
+
+    center_point.x = 3.000f;
+    center_point.y = 14.215f;
 }
 
 void chassis_adjust_xbox::calc_error()
@@ -75,21 +78,18 @@ void chassis_adjust_xbox::mode_1()
 
 void chassis_adjust_xbox::mode_3()
 {
-    set_WorldVel(Vector2D(0.0f, 0.4f), 0);
+    //set_WorldVel(Vector2D(0.0f, 0.4f), 0);
     if(lb_flag){
         auto_yunball_ptr->start_yunball();
         putball = 1;
         lb_flag = 0;
     }
-    if(rb_flag && putball == 1)
+    if(rb_flag)
     {
-        auto_shooter->set_shooter_mode(shooter_lift);
         if(auto_yunball_ptr->start_putball())
         {
-            auto_shooter->set_shooter_mode(shooter_stop);
-            putball = 0;
             rb_flag = 0;
-            mode_flag = 2;
+            //mode_flag = 2;
         }
     }
 }

@@ -76,11 +76,20 @@ void auto_yunball::putball()
     turn_motor->set_pos_speedplan(-180.0f, 20.0f, 10.0f, 10.0f, 0.0f);
     osDelay(1700);
     set_claw(true);
-    osDelay(200);
+    osDelay(1000);
+    shooter->set_shooter_mode(shooter_lift);
+    osDelay(800);
     turn_motor->set_pos_speedplan(-90.0f, 20.0f, 10.0f, 10.0f, 0.0f);
     osDelay(800);
     set_lift(false);
+    osDelay(500);
+    shooter->set_shooter_mode(shooter_stop);
     flag = stop_flag;
+}
+
+void auto_yunball::add_shooter(AutoShooter *shooter_)
+{
+    shooter = shooter_;
 }
 
 

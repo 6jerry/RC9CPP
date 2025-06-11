@@ -11,6 +11,7 @@ extern "C"
 #include "PID.h"
 #include "SuperPID.h"
 #include "gpio.h"
+#include "auto_shooter.h"
 #ifdef __cplusplus
 }
 #endif
@@ -40,6 +41,7 @@ private:
     void putball();
     power_motor *turn_motor;
     state_flag flag = static_flag;
+    AutoShooter *shooter;
 
 public:
     uint8_t mode_flag = 2, start_flag = 0, lb_flag = 0, rb_flag = 0, cnt_flag = 0, up_flag = 0, down_flag = 0, left_flag = 0, right_flag = 0;
@@ -47,6 +49,7 @@ public:
     void process_data();
     void add_motor(power_motor *turn_motor_);
     void add_io(GPIO_TypeDef *lift_port_, uint16_t lift_pin_,  GPIO_TypeDef *claw_port_, uint16_t claw_pin_, GPIO_TypeDef *push_port_, uint16_t push_pin_);
+    void add_shooter(AutoShooter *shooter_);
 
     void control_motor(float speed_);       //外部控制接口
     void control_claw(bool if_open);
