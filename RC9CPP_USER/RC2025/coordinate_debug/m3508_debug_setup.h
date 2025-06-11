@@ -11,6 +11,7 @@ extern "C"
 #include "RC9Protocol.h"
 #include "m3508_debug.h"
 #include "fdcan_device.h"
+#include "CrsfReceiver.h"
     void m3508_debug_setup();
 #ifdef __cplusplus
 }

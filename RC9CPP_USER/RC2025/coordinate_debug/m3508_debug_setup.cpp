@@ -5,6 +5,8 @@ m3508p m2006(dji_id_4, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MA
 
 RC9Protocol debug_port(uart, &huart5), esp_port(uart, &huart3);
 
+CrsfReceiver crsf_receiver(&huart7);
+
 m3508_m2006_debug debug_xbox;
 
 extern "C"
@@ -19,6 +21,8 @@ extern "C"
         esp_port.initQueue();
 
         esp_port.startUartReceiveIT();
+
+        crsf_receiver.startUartReceiveIT();
 
         debug_xbox.addport(&esp_port);
         debug_xbox.msg_send->addport(&debug_port);
