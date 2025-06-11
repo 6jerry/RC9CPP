@@ -156,9 +156,10 @@ void demo::process_data()
 
   //	float arr[6] = {position_sensor.real_world_pos.x, position_sensor.real_world_pos.y, position_sensor.world_pos.x, position_sensor.world_pos.y};
 
-  // float arr[6] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
-  //                 -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y};
-                float arr[2] = {auto_shooter.shoot_info.target_dis,auto_shooter.shoot_info.real_dis };  
+//  float arr[6] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
+//                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y};
+
+float arr[2] = {auto_shooter.shoot_info.target_dis,auto_shooter.shoot_info.real_dis};
   sendFloatData(1, arr, 2);
 }
 
