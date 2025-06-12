@@ -3,11 +3,11 @@
 chassis_adjust_xbox::chassis_adjust_xbox(imu *imu_ptr_)
 {
     imu_ptr = imu_ptr_;
-	//   center_point.x = 5.788f;
-    // center_point.y = 0.7505f;
+	   center_point.x = 5.788f;
+     center_point.y = 0.7505f;
 
-    center_point.x = 3.000f;
-    center_point.y = 14.215f;
+//    center_point.x = 3.000f;
+//    center_point.y = 14.215f;
 }
 
 void chassis_adjust_xbox::calc_error()
@@ -45,8 +45,8 @@ void chassis_adjust_xbox::mode_2()
 	 
 	  if(shoot_title == 1)
     {
-		 //auto_shooter->set_auto_byDis(PID,debug_dis);
-			auto_shooter->set_auto_byFitter(PID,dis_2_center);
+		 auto_shooter->set_auto_byDis(PID,debug_dis);
+			//auto_shooter->set_auto_byFitter(PID,dis_2_center);
 			shoot_title = 0;
 	}
 		//auto_shooter->set_shooter_mode(shooter_hand);

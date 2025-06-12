@@ -169,11 +169,11 @@ float MedianFilter::output() {
 /**************************卡尔曼滤波器********************************/
 // 卡尔曼滤波器构造函数
 KalmanFilter::KalmanFilter(){
-    kf->Q = 0.01;
-    kf->R = 0.1;
-    kf->P = 0.5;
-    kf->x = 0;
-    kf->K = 0;
+    kf.Q = 0.01;
+    kf.R = 0.2;
+    kf.P = 0.01;
+    kf.x = 0;
+    kf.K = 0;
 }
 /*
  * Q：表示系统模型的不确定性,通常设置为一个较小的值（如 0.01），表示系统模型的不确定性较低。
@@ -181,23 +181,23 @@ KalmanFilter::KalmanFilter(){
  * P：表示状态估计的不确定性，初始值可以设置为一个较大的值，后续会动态更新。初始时可以设置为 1.0，表示初始估计的不确定性较高。
  */
 void KalmanFilter::KalmanFilter_init(float Q, float R, float P) {
-    kf->Q = Q;
-    kf->R = R;
-    kf->P = P;
-    kf->x = 0;
-    kf->K = 0;
+    kf.Q = Q;
+    kf.R = R;
+    kf.P = P;
+    kf.x = 0;
+    kf.K = 0;
 }
 
 // 更新卡尔曼滤波器状态,传入需要滤波的数据
 float KalmanFilter::filter(const float &measurement) {
     // 预测步骤
-    kf->P = kf->P + kf->Q;
+    kf.P = kf.P + kf.Q;
 
     // 更新步骤
-    kf->K = kf->P / (kf->P + kf->R);  // 计算卡尔曼增益
-    kf->x = kf->x + kf->K * (measurement - kf->x);  // 更新状态估计值
-    kf->P = (1 - kf->K) * kf->P;  // 更新估计误差协方差
+    kf.K = kf.P / (kf.P + kf.R);  // 计算卡尔曼增益
+    kf.x = kf.x + kf.K * (measurement - kf.x);  // 更新状态估计值
+    kf.P = (1 - kf.K) * kf.P;  // 更新估计误差协方差
 
-    return kf->x;  // 返回滤波后的状态值
+    return kf.x;  // 返回滤波后的状态值
 }
 /********************************************************************/

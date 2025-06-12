@@ -68,7 +68,7 @@ extern "C"
 
     // 运球
     yunball_port.add_motor(&turn_motor);
-    yunball_port.add_io(GPIOG, GPIO_PIN_6, GPIOG, GPIO_PIN_8, GPIOG, GPIO_PIN_5); // 7发射， 8夹爪，6抬升， 5推射
+    yunball_port.add_io(GPIOG, GPIO_PIN_6, GPIOG, GPIO_PIN_8, GPIOG, GPIO_PIN_5, GPIOD, GPIO_PIN_14); // 7发射， 8夹爪，6抬升， 5推射
     yunball_port.add_shooter(&auto_shooter);
 
     //??
@@ -109,6 +109,7 @@ extern "C"
     task_core.registerTask(6, &chassis_debug);
     task_core.registerTask(8, &position_port);
     task_core.registerTask(3, &send_port);
+		task_core.registerTask(5, &ros_port);
     task_core.registerTask(2, &plot);
     task_core.registerTask(5, &yunball_port);
     osKernelStart();

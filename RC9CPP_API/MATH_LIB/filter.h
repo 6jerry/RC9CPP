@@ -112,8 +112,9 @@ public:
     void KalmanFilter_init(float Q, float R, float P);
     //滤波器输入输出接口
     float filter(const float &measurement); //kalman filter更新
+    Kalman_Filter kf; //成员卡尔曼结构体变量
 private:
-    Kalman_Filter *kf; //成员卡尔曼结构体变量
+
 };
 /*****************************************************/
 
