@@ -14,6 +14,7 @@ extern "C"
 #include "gpio.h"
 #include "encoder.h"
 #include "auto_shooter.h"
+#include "CrsfReceiver.h"
     void shoot_pid_adjust_setup(void);
 #ifdef __cplusplus
 }

@@ -8,6 +8,9 @@ Encoder can_encoder(1, &hfdcan3);
 shoot_pid_xbox ad_xbox;
 PolynomialFitter fitter(0.05f, 0.23f, false);
 AutoShooter shoot_core;
+
+CrsfReceiver crsf_receiver(&huart7);
+
 extern "C"
 {
 
@@ -20,6 +23,8 @@ extern "C"
         esp_port.initQueue();
 
         esp_port.startUartReceiveIT();
+
+        crsf_receiver.startUartReceiveIT();
 
         shoot_core.add_encoder(&can_encoder);
         shoot_core.add_motor(&shoot_m);
