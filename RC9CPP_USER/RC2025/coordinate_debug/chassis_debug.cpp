@@ -49,42 +49,10 @@ void chassis_adjust_xbox::mode_2()
 			auto_shooter->set_auto_byFitter(PID,dis_2_center);
 			shoot_title = 0;
 	}
-		//auto_shooter->set_shooter_mode(shooter_hand);
-   // auto_shooter->shooter_info.hand_shooter_rpm = (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * 200.f;
-//		if(test_flag == 1)
-//    {
-//			auto_shooter->encoder->send_reset();
-//		  test_flag = 0;
-//		}
+
+
     if(lb_flag){
         auto_yunball_ptr->start_yunball();
-        lb_flag = 0;
-    }
-    if(rb_flag)
-    {auto_yunball_ptr->control_claw(true);
-    auto_yunball_ptr->control_motor(xbox_msgs.joyRVert_map);}
-    else
-    {auto_yunball_ptr->control_claw(false);}
-}
-
-void chassis_adjust_xbox::mode_1()
-{	  
-	
-	  calc_error();
-	  
-  
-    yaw_TurnTo(center_heading, 0);
-}
-
-void chassis_adjust_xbox::mode_3()
-{
-    //set_WorldVel(Vector2D(0.0f, 0.4f), 0);
-	   Vector2D tvel_((max_target_robot_vel.x * xbox_msgs.joyLHori_map), (max_target_robot_vel.y * xbox_msgs.joyLVert_map));
-    set_WorldVel(tvel_, 2.5f); //以后再改
-    set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
-    if(lb_flag){
-        auto_yunball_ptr->start_yunball();
-        putball = 1;
         lb_flag = 0;
     }
     if(rb_flag)
@@ -92,9 +60,28 @@ void chassis_adjust_xbox::mode_3()
         if(auto_yunball_ptr->start_putball())
         {
             rb_flag = 0;
-            //mode_flag = 2;
         }
     }
+}
+
+void chassis_adjust_xbox::mode_1()
+{	  
+	calc_error();
+    yaw_TurnTo(center_heading, 0);
+}
+
+void chassis_adjust_xbox::mode_3()
+{
+    auto_yunball_ptr->control_motor(xbox_msgs.joyRHori_map);
+    if(lb_flag)
+    {auto_yunball_ptr->control_lift(true);}
+    else
+    {auto_yunball_ptr->control_lift(false);}
+
+    if(rb_flag)
+    {auto_yunball_ptr->control_claw(true);}
+    else
+    {auto_yunball_ptr->control_claw(false);}
 }
 
 void chassis_adjust_xbox::mode_4()
