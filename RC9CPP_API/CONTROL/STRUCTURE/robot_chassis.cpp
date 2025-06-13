@@ -76,7 +76,7 @@ float RoboChassis::yawadjuster_process()
     float to_send_datas[2] = {0.0f};
     switch (yaw_mode)
     {
-    float w,limit_w;
+        float w, limit_w;
     case yaw_lock:
         return yawadjuster.yaw_adjust(IMU->get_heading(), to_lock_yaw);
         break;
@@ -98,13 +98,16 @@ float RoboChassis::yawadjuster_process()
         break;
     case correct_yaw:
         w = yawadjuster.yaw_adjust(IMU->get_heading(), target.target_yaw);
-        limit_w = target.target_robovel.magnitude()*0.1763f/0.2451f;
-        if(target.target_robovel.magnitude() > 0.05f)
-        {            
-            if(w > limit_w)  return limit_w;
-            else  return w;
+        limit_w = target.target_robovel.magnitude() * 0.1763f / 0.2451f;
+        if (target.target_robovel.magnitude() > 0.05f)
+        {
+            if (w > limit_w)
+                return limit_w;
+            else
+                return w;
         }
-        else return 0.0f;
+        else
+            return 0.0f;
         break;
 
     default:
@@ -211,8 +214,8 @@ void RoboChassis::swerve3_initialize()
             if (photogate_state[0] == 0) // 光电门0触发
             {
                 dmotors[1]->relocate_pos(90.0f); // 使用你指定的校准角度
-                if_not_init[0] = false;         // 标记为已初始化
-                dmotors[1]->set_pos(0.0f);      // 命令到零位
+                if_not_init[0] = false;          // 标记为已初始化
+                dmotors[1]->set_pos(0.0f);       // 命令到零位
             }
             else // 光电门0未触发
             {
@@ -308,8 +311,8 @@ Vector2D RoboChassis::worldv_2_robov(Vector2D worldvel)
 {
     Vector2D robov;
 
-    robov.x = worldvel.x * cos(IMU->get_yaw_rad()) + worldvel.y * sin(IMU->get_yaw_rad());
-    robov.y = worldvel.y * cos(IMU->get_yaw_rad()) - worldvel.x * sin(IMU->get_yaw_rad());
+    robov.x = worldvel.x * arm_cos_f32(IMU->get_yaw_rad()) + worldvel.y * arm_sin_f32(IMU->get_yaw_rad());
+    robov.y = worldvel.y * arm_cos_f32(IMU->get_yaw_rad()) - worldvel.x * arm_sin_f32(IMU->get_yaw_rad());
 
     return robov;
 }
@@ -846,6 +849,16 @@ float RoboChassis::get_cworld_x()
 float RoboChassis::get_cworld_y()
 {
     return IMU->get_world_pos().y;
+}
+
+float RoboChassis::get_Cchassis_yaw_speed()
+{
+    return IMU->get_yaw_speed();
+}
+
+float chassis_user::get_chassis_yaw_speed()
+{
+    return robochassis_->get_Cchassis_yaw_speed();
 }
 
 float chassis_user::get_world_x()

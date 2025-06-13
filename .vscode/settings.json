@@ -62,6 +62,7 @@
     "array": "cpp",
     "tuple": "cpp",
     "utility": "cpp",
-    "numbers": "cpp"
+    "numbers": "cpp",
+    "random": "cpp"
   }
 }

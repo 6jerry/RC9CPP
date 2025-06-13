@@ -42,7 +42,7 @@ void chassis_adjust_xbox::mode_2()
     set_WorldVel(tvel_, 2.5f); // 以后再改
     set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
 
-       // auto_shooter->set_shooter_mode(shooter_hand);
+    // auto_shooter->set_shooter_mode(shooter_hand);
     // auto_shooter->shooter_info.hand_shooter_rpm = (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * 200.f;
     //		if(test_flag == 1)
     //    {
@@ -73,7 +73,7 @@ void chassis_adjust_xbox::mode_1()
     Vector2D target(0.0f, 0.0f);
     set_RobotVel(target, 0);
 
-    if (abs(center_heading - get_yaw()) < 0.4f)
+    if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
     {
         set_RobotW(0.0f, 0);
         auto_shooter->set_auto_byFitter(PID, dis_2_center);

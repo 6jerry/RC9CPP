@@ -34,6 +34,8 @@ public:
     virtual float get_acc_y() {};
     virtual float get_distance(void) {};
 
+    virtual float get_yaw_speed() {};
+
 public:
     virtual void imu_rst() {};
     virtual void imu_relocate(float x, float y, float angle) {};

@@ -113,6 +113,7 @@ public:
     uint8_t get_track_dis(float *dis); // 看看追踪还剩多少
 
     float get_yaw(); // 获取当前的yaw
+    float get_chassis_yaw_speed();
     float calc_dis(Vector2D target);
     void chassis_back_priority(); // 回退到上一个优先级
     void chassis_rst_priority();  // 重置优先级
@@ -240,6 +241,7 @@ public:
     void C_pp_move_2_point(Vector2D target_p, chassis_user *user_);
 
     float get_cyaw();
+    float get_Cchassis_yaw_speed();
     void C_pp_track_point(Vector2D target_p);
 
     void C_rst_state();

@@ -23,8 +23,8 @@ void tf::coordinate_map(Vector2D *original, Vector2D *target, float r_,float now
 		r = r_;
 //        offset_x =   r * arm_cos_f32(now_rad); 
 //        offset_y =   r * arm_sin_f32(now_rad);
-	      offset_x =   r * cos(now_rad); 
-        offset_y =   r * sin(now_rad);
+        offset_x = r * arm_cos_f32(now_rad);
+        offset_y = r * arm_sin_f32(now_rad);
         target -> x = original -> x - offset_x ;
         target -> y = original -> y - offset_y ;
 
