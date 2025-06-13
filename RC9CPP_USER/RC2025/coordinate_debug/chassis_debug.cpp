@@ -42,13 +42,7 @@ void chassis_adjust_xbox::mode_2()
     set_WorldVel(tvel_, 2.5f); // 以后再改
     set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
 
-       // auto_shooter->set_shooter_mode(shooter_hand);
-    // auto_shooter->shooter_info.hand_shooter_rpm = (xbox_msgs.trigLT_map - xbox_msgs.trigRT_map) * 200.f;
-    //		if(test_flag == 1)
-    //    {
-    //			auto_shooter->encoder->send_reset();
-    //		  test_flag = 0;
-    //		}
+
     if (lb_flag)
     {
         auto_yunball_ptr->start_yunball();
@@ -56,60 +50,32 @@ void chassis_adjust_xbox::mode_2()
     }
     if (rb_flag)
     {
-        auto_yunball_ptr->control_claw(true);
-        auto_yunball_ptr->control_motor(xbox_msgs.joyRVert_map);
-    }
-    else
-    {
-        auto_yunball_ptr->control_claw(false);
-    }
-}
-
-void chassis_adjust_xbox::mode_1()
-{
-
-    calc_error();
-
-    Vector2D target(0.0f, 0.0f);
-    set_RobotVel(target, 0);
-
-    if (abs(center_heading - get_yaw()) < 0.4f)
-    {
-        set_RobotW(0.0f, 0);
-        auto_shooter->set_auto_byFitter(PID, dis_2_center);
-    }
-    else
-    {
-        yaw_TurnTo(center_heading, 0);
-    }
-}
-
-void chassis_adjust_xbox::mode_3()
-{
-    // set_WorldVel(Vector2D(0.0f, 0.4f), 0);
-    Vector2D tvel_((max_target_robot_vel.x * xbox_msgs.joyLHori_map), (max_target_robot_vel.y * xbox_msgs.joyLVert_map));
-    set_WorldVel(tvel_, 2.5f); // 以后再改
-    set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
-    if (lb_flag)
-    {
-        auto_yunball_ptr->start_yunball();
-        putball = 1;
-        lb_flag = 0;
-    }
-    if (rb_flag)
-    {
-        if (auto_yunball_ptr->start_putball())
+        if(auto_yunball_ptr->start_putball())
         {
             rb_flag = 0;
-            // mode_flag = 2;
         }
     }
 }
 
 void chassis_adjust_xbox::mode_1()
-{	  
-	calc_error();
-    yaw_TurnTo(center_heading, 0);
+{
+    calc_error();
+
+    Vector2D target(0.0f, 0.0f);
+    set_RobotVel(target, 0);
+
+    if (abs(center_heading - get_yaw()) < 0.1f)
+    {
+        set_RobotW(0.0f, 0);
+        auto_shooter->set_auto_byFitter(PID, dis_2_center);
+        mode_flag = 2;
+    }
+    else
+    {
+        yaw_TurnTo(center_heading, 0);
+    }
+
+    //yaw_TurnTo(center_heading, 0);
 }
 
 void chassis_adjust_xbox::mode_3()
