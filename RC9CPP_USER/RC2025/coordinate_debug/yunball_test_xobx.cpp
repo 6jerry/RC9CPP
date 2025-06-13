@@ -1,9 +1,23 @@
 #include "yunball_test_xbox.h"
 
+//static uint8_t tile[4] = {0x00,0x00,0x80,0x7F};
+
 void yunball_test_xbox::process_data()
 {
     btn_scan();
     joymap_compute();
+
+    /*float_data.value = turn_motor->rcurrent;
+    HAL_UART_Transmit(&huart5, float_data.bytes, (uint16_t)sizeof(float), 100);
+    HAL_UART_Transmit(&huart5, tile, sizeof(tile), 100);*/
+    /*if(HAL_GPIO_ReadPin(turn_port, turn_pin))
+    {
+        HAL_UART_Transmit(&huart5, (uint8_t*)"ok", 2, 100);
+    }
+    else
+    {
+        HAL_UART_Transmit(&huart5, (uint8_t*)"no", 2, 100);
+    }*/
 
     if (start_flag == 1)
     {
@@ -194,21 +208,17 @@ void yunball_test_xbox::add_autoyunball(auto_yunball *auto_yunball_)
 
 
 
-/*void yunball_test_xbox::add_io(GPIO_TypeDef *lift_port_, uint16_t lift_pin_,  GPIO_TypeDef *claw_port_, uint16_t claw_pin_, GPIO_TypeDef *push_port_, uint16_t push_pin_)
+void yunball_test_xbox::add_io(GPIO_TypeDef *turn_port_, uint16_t turn_pin_)
 {
-    lift_port = lift_port_;
-    lift_pin = lift_pin_;
-    claw_port = claw_port_;
-    claw_pin = claw_pin_;
-    push_port = push_port_;
-    push_pin = push_pin_;
+    turn_port = turn_port_;
+    turn_pin = turn_pin_;
 }
 
-void yunball_test_xbox::add_motor(power_motor *turn_motor_)
+void yunball_test_xbox::add_motor(m3508p *turn_motor_)
 {
     turn_motor = turn_motor_;
 }
-
+/*
 void yunball_test_xbox::yunball()
 {
     set_claw(true);

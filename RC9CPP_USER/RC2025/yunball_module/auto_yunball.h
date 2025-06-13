@@ -7,7 +7,7 @@ extern "C"
 #endif
 #include "TaskManager.h"
 #include "SuperPID.h"
-#include "motor.h"
+#include "M3508.h"
 #include "PID.h"
 #include "SuperPID.h"
 #include "gpio.h"
@@ -26,11 +26,17 @@ enum state_flag
     stop_flag
 };
 
+typedef union {
+    float value;
+    uint8_t bytes[sizeof(float)];
+} FloatUnion;
+
 class auto_yunball : public ITaskProcessor
 {
 private:
-    GPIO_TypeDef *lift_port, *claw_port, *push_port;
-    uint16_t lift_pin, claw_pin, push_pin;
+    GPIO_TypeDef *lift_port, *claw_port, *push_port, *turn_port;
+    uint16_t lift_pin, claw_pin, push_pin, turn_pin;
+		FloatUnion float_data;
     float get_speed = 0.0f;
     float max_turn_speed = 70.0f;
 
@@ -39,7 +45,7 @@ private:
     void set_push(bool if_push);
     void yunball();
     void putball();
-    power_motor *turn_motor;
+    m3508p *turn_motor;
     state_flag flag = static_flag;
     AutoShooter *shooter;
 
@@ -47,8 +53,8 @@ public:
     uint8_t mode_flag = 2, start_flag = 0, lb_flag = 0, rb_flag = 0, cnt_flag = 0, up_flag = 0, down_flag = 0, left_flag = 0, right_flag = 0;
 
     void process_data();
-    void add_motor(power_motor *turn_motor_);
-    void add_io(GPIO_TypeDef *lift_port_, uint16_t lift_pin_,  GPIO_TypeDef *claw_port_, uint16_t claw_pin_, GPIO_TypeDef *push_port_, uint16_t push_pin_);
+    void add_motor(m3508p *turn_motor_);
+    void add_io(GPIO_TypeDef *lift_port_, uint16_t lift_pin_,  GPIO_TypeDef *claw_port_, uint16_t claw_pin_, GPIO_TypeDef *push_port_, uint16_t push_pin_, GPIO_TypeDef *turn_port_, uint16_t turn_pin_);
     void add_shooter(AutoShooter *shooter_);
 
     void control_motor(float speed_);       //外部控制接口

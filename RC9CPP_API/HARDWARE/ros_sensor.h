@@ -18,11 +18,13 @@ extern "C"
 #ifdef __cplusplus
 
 //
-class ros_sensor : public RC9subscriber, public imu, public KalmanFilter
+class ros_sensor : public RC9subscriber, public imu
 {
 public:
     tf tf_;
     imu *imu_ = nullptr;
+		static const uint8_t msg_num = 9;
+		KalmanFilter kalman[msg_num];
     // 信息储存结构体
     struct
     {

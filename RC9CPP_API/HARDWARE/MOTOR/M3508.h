@@ -98,7 +98,7 @@ public:
 
     float targrt_T = 0.0f; // 期望转矩
 
-    float last_pos = 0.0f, delta_pos = 0.0f, pos_sum = 0.0f, now_pos = 0.0f, temp_delta = 0.0f, dis_sum = 0.0f;
+    float last_pos = 0.0f, delta_pos = 0.0f, pos_sum = 0.0f, all_pos = 0.0f, now_pos = 0.0f, temp_delta = 0.0f, dis_sum = 0.0f;
     uint8_t init_cnt = 0;
     bool if_init = true;
 

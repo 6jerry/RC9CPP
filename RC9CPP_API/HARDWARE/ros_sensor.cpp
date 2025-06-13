@@ -10,7 +10,10 @@ static void zero_removal(float *input, const float last_input, const float la_la
 
 ros_sensor::ros_sensor()
 {
-	KalmanFilter_init(0.01f, 0.1f, 0.1f);
+//	for(int i = 0; i < msg_num; i++){
+//		kalman[i].KalmanFilter_init(0.01f, 0.1f, 0.1f);
+//	}
+	
 }
 
 void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
@@ -34,9 +37,9 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 	//处理雷达数据
 	else if (id == 2 && byteCount == 20)
 	{	
-		ros_radar_loaction.world_pos.x = -(floatData[1]);
-		ros_radar_loaction.world_pos.y = (floatData[0]); // 把上位机坐标与追踪坐标方向对齐
-		ros_radar_loaction.yaw_angle = -filter(floatData[2]);
+		ros_radar_loaction.world_pos.x = - kalman[0].filter(floatData[1]);
+		ros_radar_loaction.world_pos.y = kalman[1].filter(floatData[0]); // 把上位机坐标与追踪坐标方向对齐
+		ros_radar_loaction.yaw_angle = -kalman[2].filter(floatData[2]);
 		//		if(fabsf(floatData[2]) < 0.02f && fabsf(floatData[3]) < 0.05f){
 		//			map_origin_init_flag = false; //重置映射原点
 		//		}
@@ -173,6 +176,6 @@ void ros_sensor::imu_rst()
 {
 	//重置雷达同时开始定位
 	float arr[3] = {0.0f, 0.0f, 0.0f}; // x, y ,angle
-	//sendFloatData(1, arr, 3);
+	sendFloatData(1, arr, 3);
 	tf_.map_origin_init_flag = false;
 }

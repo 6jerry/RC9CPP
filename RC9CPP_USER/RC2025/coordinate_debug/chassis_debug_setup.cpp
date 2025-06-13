@@ -68,7 +68,7 @@ extern "C"
 
     // 运球
     yunball_port.add_motor(&turn_motor);
-    yunball_port.add_io(GPIOG, GPIO_PIN_6, GPIOG, GPIO_PIN_8, GPIOG, GPIO_PIN_5); // 7发射， 8夹爪，6抬升， 5推射
+    yunball_port.add_io(GPIOG, GPIO_PIN_6, GPIOG, GPIO_PIN_8, GPIOG, GPIO_PIN_5, GPIOD, GPIO_PIN_14); // 7发射， 8夹爪，6抬升， 5推射
     yunball_port.add_shooter(&auto_shooter);
 
     //??
@@ -109,6 +109,7 @@ extern "C"
     task_core.registerTask(6, &chassis_debug);
     task_core.registerTask(8, &position_port);
     task_core.registerTask(3, &send_port);
+		task_core.registerTask(5, &ros_port);
     task_core.registerTask(2, &plot);
     task_core.registerTask(5, &yunball_port);
     osKernelStart();
@@ -159,8 +160,8 @@ void demo::process_data()
 //  float arr[6] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
 //                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y};
 
-float arr[2] = {auto_shooter.shoot_info.target_dis,auto_shooter.shoot_info.real_dis};
-  sendFloatData(1, arr, 2);
+float arr[4] = {auto_shooter.shoot_info.target_dis,auto_shooter.shoot_info.real_dis,chassis_debug.center_heading,position_sensor.get_yaw_rad()};
+  sendFloatData(1, arr, 4);
 }
 
 void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)

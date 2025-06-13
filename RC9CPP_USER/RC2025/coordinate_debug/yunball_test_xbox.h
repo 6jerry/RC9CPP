@@ -8,7 +8,7 @@ extern "C" {
 #include "robot_chassis.h"
 #include "RC9Protocol.h"
 #include "xbox.h"
-#include "motor.h"
+#include "M3508.h"
 #include "auto_yunball.h"
 #include "TaskManager.h"
 
@@ -16,14 +16,20 @@ extern "C" {
 }
 #endif
 
+/*typedef union {
+    float value;
+    uint8_t bytes[sizeof(float)];
+} FloatUnion;*/
+
 #ifdef __cplusplus
 class yunball_test_xbox : public xbox, public ITaskProcessor
 {
 private:
-    power_motor *turn_motor;
+    m3508p *turn_motor;
     auto_yunball *auto_yunball_ptr;
-    GPIO_TypeDef *lift_port, *claw_port, *push_port;
-    uint16_t lift_pin, claw_pin, push_pin;
+    //FloatUnion float_data;
+    GPIO_TypeDef *turn_port;
+    uint16_t turn_pin;
 
     float max_turn_speed = 70.0f;
 public:
@@ -34,8 +40,8 @@ public:
     void btn_scan();
     void btnconfig_init();
 
-    void add_io(GPIO_TypeDef *lift_port_, uint16_t lift_pin_,  GPIO_TypeDef *claw_port_, uint16_t claw_pin_, GPIO_TypeDef *push_port_, uint16_t push_pin_);
-    void add_motor(power_motor *turn_motor_);
+    void add_io(GPIO_TypeDef *turn_port_, uint16_t turn_pin_);
+    void add_motor(m3508p *turn_motor_);
     void add_autoyunball(auto_yunball *auto_yunball_);
     void not_start();
     void mode_0();

@@ -3,11 +3,11 @@
 chassis_adjust_xbox::chassis_adjust_xbox(imu *imu_ptr_)
 {
     imu_ptr = imu_ptr_;
-	//   center_point.x = 5.788f;
-    // center_point.y = 0.7505f;
+	   center_point.x = 5.788f;
+     center_point.y = 0.7505f;
 
-    center_point.x = 3.000f;
-    center_point.y = 14.215f;
+//    center_point.x = 3.000f;
+//    center_point.y = 14.215f;
 }
 
 void chassis_adjust_xbox::calc_error()
@@ -79,6 +79,9 @@ void chassis_adjust_xbox::mode_1()
 void chassis_adjust_xbox::mode_3()
 {
     //set_WorldVel(Vector2D(0.0f, 0.4f), 0);
+	   Vector2D tvel_((max_target_robot_vel.x * xbox_msgs.joyLHori_map), (max_target_robot_vel.y * xbox_msgs.joyLVert_map));
+    set_WorldVel(tvel_, 2.5f); //以后再改
+    set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
     if(lb_flag){
         auto_yunball_ptr->start_yunball();
         putball = 1;
