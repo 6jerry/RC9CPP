@@ -239,7 +239,7 @@ public:
 
     void C_pp_move_2_point(Vector2D target_p, chassis_user *user_);
 
-    float get_cyaw();
+    float get_correct_yaw();
     void C_pp_track_point(Vector2D target_p);
 
     void C_rst_state();
