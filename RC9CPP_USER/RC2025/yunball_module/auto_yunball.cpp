@@ -1,5 +1,7 @@
 #include "auto_yunball.h"
 
+static uint8_t tile[4] = {0x00,0x00,0x80,0x7F};
+
 void auto_yunball::process_data()
 {
     switch(flag)
@@ -22,7 +24,7 @@ void auto_yunball::process_data()
     }
 }
 
-void auto_yunball::add_io(GPIO_TypeDef *lift_port_, uint16_t lift_pin_,  GPIO_TypeDef *claw_port_, uint16_t claw_pin_, GPIO_TypeDef *push_port_, uint16_t push_pin_)
+void auto_yunball::add_io(GPIO_TypeDef *lift_port_, uint16_t lift_pin_,  GPIO_TypeDef *claw_port_, uint16_t claw_pin_, GPIO_TypeDef *push_port_, uint16_t push_pin_, GPIO_TypeDef *turn_port_, uint16_t turn_pin_)
 {
     lift_port = lift_port_;
     lift_pin = lift_pin_;
@@ -30,9 +32,11 @@ void auto_yunball::add_io(GPIO_TypeDef *lift_port_, uint16_t lift_pin_,  GPIO_Ty
     claw_pin = claw_pin_;
     push_port = push_port_;
     push_pin = push_pin_;
+    turn_port = turn_port_;
+    turn_pin = turn_pin_;
 }
 
-void auto_yunball::add_motor(power_motor *turn_motor_)
+void auto_yunball::add_motor(m3508p *turn_motor_)
 {
     turn_motor = turn_motor_;
 }
@@ -71,19 +75,24 @@ void auto_yunball::yunball()
 }
 void auto_yunball::putball()
 {
-    set_lift(true);
+    set_lift(true);  //上升
     osDelay(700);
-    turn_motor->set_pos_speedplan(-180.0f, 20.0f, 10.0f, 10.0f, 0.0f);
-    osDelay(1700);
-    set_claw(true);
+    turn_motor->set_pos_speedplan(-180.0f, 20.0f, 10.0f, 10.0f, 1.0f);            //旋转到-180度
+    while((HAL_GPIO_ReadPin(turn_port, turn_pin) != GPIO_PIN_RESET) && (abs(turn_motor->rcurrent) < 15000.0f)) {    //等待转动完成
+        osDelay(1);
+    }
+    turn_motor->pos_speedplan_restart();                                    //复位
+    turn_motor->set_rpm(0.0f);
+    turn_motor->all_pos = -180.0f;
+    set_claw(true);                                                         //放球
     osDelay(1000);
-    shooter->set_shooter_mode(shooter_lift);
+    shooter->set_shooter_mode(shooter_lift);                                //拉皮筋
     osDelay(800);
-    turn_motor->set_pos_speedplan(-90.0f, 20.0f, 10.0f, 10.0f, 0.0f);
+    turn_motor->set_pos_speedplan(-90.0f, 20.0f, 10.0f, 10.0f, 0.0f);       //旋转到-90度
     osDelay(800);
-    set_lift(false);
+    set_lift(false);                                                        //下降  
     osDelay(500);
-    shooter->set_shooter_mode(shooter_stop);
+    shooter->set_shooter_mode(shooter_stop);                                //放皮筋
     flag = stop_flag;
 }
 

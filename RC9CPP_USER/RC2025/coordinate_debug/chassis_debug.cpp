@@ -45,8 +45,8 @@ void chassis_adjust_xbox::mode_2()
 	 
 	  if(shoot_title == 1)
     {
-		 auto_shooter->set_auto_byDis(PID,debug_dis);
-			//auto_shooter->set_auto_byFitter(PID,dis_2_center);
+		 //auto_shooter->set_auto_byDis(PID,debug_dis);
+			auto_shooter->set_auto_byFitter(PID,dis_2_center);
 			shoot_title = 0;
 	}
 		//auto_shooter->set_shooter_mode(shooter_hand);
@@ -79,6 +79,9 @@ void chassis_adjust_xbox::mode_1()
 void chassis_adjust_xbox::mode_3()
 {
     //set_WorldVel(Vector2D(0.0f, 0.4f), 0);
+	   Vector2D tvel_((max_target_robot_vel.x * xbox_msgs.joyLHori_map), (max_target_robot_vel.y * xbox_msgs.joyLVert_map));
+    set_WorldVel(tvel_, 2.5f); //以后再改
+    set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
     if(lb_flag){
         auto_yunball_ptr->start_yunball();
         putball = 1;

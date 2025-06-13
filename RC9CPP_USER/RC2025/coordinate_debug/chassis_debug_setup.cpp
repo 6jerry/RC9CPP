@@ -160,8 +160,8 @@ void demo::process_data()
 //  float arr[6] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
 //                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y};
 
-float arr[2] = {auto_shooter.shoot_info.target_dis,auto_shooter.shoot_info.real_dis};
-  sendFloatData(1, arr, 2);
+float arr[4] = {auto_shooter.shoot_info.target_dis,auto_shooter.shoot_info.real_dis,chassis_debug.center_heading,position_sensor.get_yaw_rad()};
+  sendFloatData(1, arr, 4);
 }
 
 void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)

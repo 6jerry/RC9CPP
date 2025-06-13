@@ -318,7 +318,10 @@ float  AutoShooter::calc(float r)
     s_result = s_result * r + coeffs[4];
 
     return s_result; */
+	  static float a= 0.064f;
+		static float b=0.7337f;
+		static float c=0.0676f;
 
-    float s = 0.0114f * pow(r,1.6601f) + 0.1350f +test_data;
+    s = a * pow(r,b) + c;
     return s;
 }

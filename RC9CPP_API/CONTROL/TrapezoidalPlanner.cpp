@@ -218,7 +218,7 @@ float TrapezoidalPlanner1D::plan(float now_dis)
     if (traveled >= m_totalDistance)
     {
         traveled = m_totalDistance;
-        // m_phase = FINISHED_PHASE;
+         m_phase = FINISHED_PHASE;
         return m_finalSpeed * direction;
     }
 
