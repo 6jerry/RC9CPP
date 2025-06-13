@@ -252,7 +252,7 @@ public:
 
     float get_cworld_x();
     float get_cworld_y();
-    float get_cyaw();
+   
 
     void swerve_stablize();
 

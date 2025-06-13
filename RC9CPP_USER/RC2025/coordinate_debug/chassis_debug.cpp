@@ -42,7 +42,6 @@ void chassis_adjust_xbox::mode_2()
     set_WorldVel(tvel_, 2.5f); // 以后再改
     set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
 
-
     if (lb_flag)
     {
         auto_yunball_ptr->start_yunball();
@@ -50,7 +49,7 @@ void chassis_adjust_xbox::mode_2()
     }
     if (rb_flag)
     {
-        if(auto_yunball_ptr->start_putball())
+        if (auto_yunball_ptr->start_putball())
         {
             rb_flag = 0;
         }
@@ -64,7 +63,7 @@ void chassis_adjust_xbox::mode_1()
     Vector2D target(0.0f, 0.0f);
     set_RobotVel(target, 0);
 
-    if (abs(center_heading - get_yaw()) < 0.1f)
+    if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
     {
         set_RobotW(0.0f, 0);
         auto_shooter->set_auto_byFitter(PID, dis_2_center);
@@ -75,21 +74,29 @@ void chassis_adjust_xbox::mode_1()
         yaw_TurnTo(center_heading, 0);
     }
 
-    //yaw_TurnTo(center_heading, 0);
+    // yaw_TurnTo(center_heading, 0);
 }
 
 void chassis_adjust_xbox::mode_3()
 {
     auto_yunball_ptr->control_motor(xbox_msgs.joyRHori_map);
-    if(lb_flag)
-    {auto_yunball_ptr->control_lift(true);}
+    if (lb_flag)
+    {
+        auto_yunball_ptr->control_lift(true);
+    }
     else
-    {auto_yunball_ptr->control_lift(false);}
+    {
+        auto_yunball_ptr->control_lift(false);
+    }
 
-    if(rb_flag)
-    {auto_yunball_ptr->control_claw(true);}
+    if (rb_flag)
+    {
+        auto_yunball_ptr->control_claw(true);
+    }
     else
-    {auto_yunball_ptr->control_claw(false);}
+    {
+        auto_yunball_ptr->control_claw(false);
+    }
 }
 
 void chassis_adjust_xbox::mode_4()
