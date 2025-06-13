@@ -74,7 +74,7 @@ extern "C"
     //??
     s3_chassis.add_6_motors(&m2006_front, &u8_front, &m2006_right, &u8_right, &m2006_left, &u8_left);
     s3_chassis.config(s3_chassis_info);
-    //s3_chassis.yawadjuster_config(0.039f, 0.0f, 0.002f, 0.0f, 5.0f, 0.2f, 0.0f);
+    // s3_chassis.yawadjuster_config(0.039f, 0.0f, 0.002f, 0.0f, 5.0f, 0.2f, 0.0f);
     s3_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
     s3_chassis.add_imu(&position_sensor);
     s3_chassis.add_photogate(GPIOF, GPIO_PIN_8, GPIOF, GPIO_PIN_9, GPIOD, GPIO_PIN_15, nullptr, 0);
@@ -108,8 +108,8 @@ extern "C"
     task_core.registerTask(4, &s3_chassis);
     task_core.registerTask(6, &chassis_debug);
     task_core.registerTask(8, &position_port);
-    task_core.registerTask(3, &send_port);
-		task_core.registerTask(5, &ros_port);
+    task_core.registerTask(8, &send_port);
+    task_core.registerTask(5, &ros_port);
     task_core.registerTask(2, &plot);
     task_core.registerTask(5, &yunball_port);
     osKernelStart();
@@ -157,10 +157,10 @@ void demo::process_data()
 
   //	float arr[6] = {position_sensor.real_world_pos.x, position_sensor.real_world_pos.y, position_sensor.world_pos.x, position_sensor.world_pos.y};
 
-//  float arr[6] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
-//                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y};
+  //  float arr[6] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
+  //                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y};
 
-float arr[4] = {auto_shooter.shoot_info.target_dis,auto_shooter.shoot_info.real_dis,chassis_debug.center_heading,position_sensor.get_yaw_rad()};
+  float arr[4] = {auto_shooter.shoot_info.target_dis, auto_shooter.shoot_info.real_dis, chassis_debug.center_heading, position_sensor.get_heading()};
   sendFloatData(1, arr, 4);
 }
 
