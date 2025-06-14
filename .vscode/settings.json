@@ -63,6 +63,8 @@
     "tuple": "cpp",
     "utility": "cpp",
     "numbers": "cpp",
-    "random": "cpp"
+    "random": "cpp",
+    "cstdint": "cpp",
+    "compare": "cpp"
   }
 }

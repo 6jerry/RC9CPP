@@ -78,7 +78,7 @@ extern "C"
     s3_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
     s3_chassis.add_imu(&position_sensor);
     s3_chassis.add_photogate(GPIOF, GPIO_PIN_8, GPIOF, GPIO_PIN_9, GPIOD, GPIO_PIN_15, nullptr, 0);
-    s3_chassis.yawadjuster_config(0.12f, 0.0f, 0.004f, 0.0f, 5.0f, 0.1f, 0.5f);
+    s3_chassis.yawadjuster_config(0.1f, 0.000f, 0.03f, 0.0f, 7.0f, 0.04f, 2.0f);
     turn_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
 
     // pid config

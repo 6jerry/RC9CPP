@@ -4,7 +4,7 @@ chassis_adjust_xbox::chassis_adjust_xbox(imu *imu_ptr_)
 {
     imu_ptr = imu_ptr_;
     center_point.x = 5.788f;
-    center_point.y = 0.7505f;
+    center_point.y = 0.6905f;
 
     //    center_point.x = 3.000f;
     //    center_point.y = 14.215f;
@@ -66,7 +66,8 @@ void chassis_adjust_xbox::mode_1()
     if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
     {
         set_RobotW(0.0f, 0);
-        auto_shooter->set_auto_byFitter(PID, dis_2_center);
+        //auto_shooter->set_auto_byFitter(PID, dis_2_center);
+        auto_shooter->set_auto_byDis(PID, debug_dis);
         mode_flag = 2;
     }
     else
@@ -101,20 +102,9 @@ void chassis_adjust_xbox::mode_3()
 
 void chassis_adjust_xbox::mode_4()
 {
-    Vector2D tvel_((max_target_robot_vel.x * xbox_msgs.joyLHori_map), (max_target_robot_vel.y * xbox_msgs.joyLVert_map));
-    set_RobotVel(tvel_, 3.0f);
-    // set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
-
-    // 防止舵轮偏移
-    if (xbox_msgs.joyRHori_map == 0.0f)
-    {
-        Correct_yaw(lock_yaw);
-    }
-    else
-    {
-        set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
-        lock_yaw = imu_ptr->get_yaw_rad() * 57.296f;
-    }
+    Vector2D target(0.0f, 0.0f);
+    set_RobotVel(target, 0);
+    set_RobotW(0.0f, 0);
 }
 
 void chassis_adjust_xbox::xbox_on()
