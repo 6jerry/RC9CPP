@@ -85,7 +85,7 @@ void AutoShooter::allAuto_adjust(float lifter_dis)
 
         break;
     case auto_revert:
-        if (auto_adjust(0.015f))
+        if (auto_adjust(0.014f))
         {
             shoot_info.shoot_status = auto_finish;
         }
@@ -318,10 +318,7 @@ float  AutoShooter::calc(float r)
     s_result = s_result * r + coeffs[4];
 
     return s_result; */
-	  static float a= 0.064f;
-		static float b=0.7337f;
-		static float c=0.0676f;
 
-    s = a * pow(r,b) + c;
+    s = a * pow(r,b) + c*logf(r+1) + offest;
     return s;
 }

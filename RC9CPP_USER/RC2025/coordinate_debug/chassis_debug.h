@@ -25,7 +25,7 @@ public:
   imu *imu_ptr, *ros_imu; // 指向imu类的指针
 
   float debug_dis = 0.12f;
-  Vector2D center_point, tan_dir, nor_dir;                            // 圆心坐标
+  Vector2D center_point, tan_dir, nor_dir, robot_point;                            // 圆心坐标
   float dis_2_center = 0.0f, center_heading = 0.0f, nor_speed = 0.0f; // 半径
   AutoShooter *auto_shooter;
 

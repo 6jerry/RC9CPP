@@ -88,7 +88,7 @@ void auto_yunball::putball()
     osDelay(1000);
     shooter->set_shooter_mode(shooter_lift);                                //拉皮筋
     osDelay(800);
-    turn_motor->set_pos_speedplan(-90.0f, 20.0f, 10.0f, 10.0f, 0.0f);       //旋转到-90度
+    turn_motor->set_pos_speedplan(0.0f, 20.0f, 10.0f, 10.0f, 0.0f);       //旋转到-90度
     osDelay(800);
     set_lift(false);                                                        //下降  
     osDelay(500);

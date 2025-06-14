@@ -46,6 +46,7 @@ extern "C"
     send_port.startUartReceiveIT();
     // s3_xbox.add_sending(&send_port);
     plot.addport(&send_port);
+    plot.add_xbox(&chassis_debug);
     // plot.add_xbox(&s3_xbox);
     /********************************/
     /****************************************************/
@@ -78,7 +79,7 @@ extern "C"
     s3_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
     s3_chassis.add_imu(&position_sensor);
     s3_chassis.add_photogate(GPIOF, GPIO_PIN_8, GPIOF, GPIO_PIN_9, GPIOD, GPIO_PIN_15, nullptr, 0);
-    s3_chassis.yawadjuster_config(0.1f, 0.000f, 0.03f, 0.0f, 7.0f, 0.04f, 2.0f);
+    s3_chassis.yawadjuster_config(0.12f, 0.0f, 0.004f, 0.0f, 5.0f, 0.1f, 0.5f);
     turn_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
 
     // pid config
@@ -159,18 +160,23 @@ void demo::process_data()
 
   //  float arr[6] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
   //                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y};
-
-  float arr[5] = {auto_shooter.shoot_info.target_dis * 1000.0f, auto_shooter.shoot_info.real_dis * 1000.0f, chassis_debug.center_heading, position_sensor.get_heading(), position_sensor.get_yaw_speed()};
-  sendFloatData(1, arr, 5);
+  //float arr[5] = {auto_shooter.shoot_info.target_dis * 1000.0f, auto_shooter.shoot_info.real_dis * 1000.0f, chassis_debug.center_heading, position_sensor.get_heading(), position_sensor.get_yaw_speed()};
+  //sendFloatData(1, arr, 5);
 }
 
 void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
 {
-  //    for(int i = 0; i < 4; i++)
-  //        {recive_data[i] = floatData[i];}
+      for(int i = 0; i < 4; i++)
+          {recive_data[i] = floatData[i];}
 
-  //    robot_pos.x = floatData[0];
-  //    robot_pos.y = floatData[1];
-  //    robot_v.x = floatData[2];
-  //    robot_v.y = floatData[3];
+      robot_pos.x = floatData[0] + pian_x;
+      robot_pos.y = floatData[1] + pian_y;
+      robot_v.x = floatData[2];
+      robot_v.y = floatData[3];
+      xbox->robot_point = robot_pos;
 }
+
+void demo::add_xbox(chassis_adjust_xbox *xbox_)
+{
+    xbox = xbox_;
+} 
