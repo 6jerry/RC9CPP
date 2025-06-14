@@ -4,6 +4,28 @@ lock_xbox::lock_xbox(imu *imu_ptr_, ros_sensor *ros_ptr_)
 {
     imu_ptr = imu_ptr_;
     ros_ptr = ros_ptr_;
+    lock_basket.ConfigAll(0.080f, 0.045f, 0.040f, 0.03f, 0.25f, 18.0f, 20.0f);
+
+    center_point.x = 5.788f;
+    center_point.y = 0.6905f;
+
+}
+
+void lock_xbox::calc_error()
+{
+    Vector2D now_point;
+    now_point.x = get_world_x();
+    now_point.y = get_world_y();
+
+    Vector2D dis = center_point - now_point;
+
+    nor_dir = dis.normalize();
+    tan_dir = Vector2D(nor_dir.y, -nor_dir.x).normalize();
+
+    dis_2_center = dis.magnitude();
+
+    center_heading = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;// 角度对准圆心
+
 }
 
 void lock_xbox::mode_2()
@@ -13,7 +35,7 @@ void lock_xbox::mode_2()
 
     lock_vol = lock_basket.PID_ComputeError(ros_ptr->camera_info.vertial_plane_deviation.x);
     
-    if(camera_info.vertial_plane_deviation.x < 5.0f){
+    if(ros_ptr->camera_info.vertial_plane_deviation.x < 5.0f){
         set_RobotW(0, 0);
     }
     else{
@@ -24,7 +46,8 @@ void lock_xbox::mode_2()
     
     shoot_dis = dis;
     auto_shooter_ptr->set_auto_byDis(PID, shoot_dis);
-    
+    //auto_shooter->set_auto_byFitter(PID, dis_2_center);
+
     rb_flag = 0;
     }
     
@@ -39,7 +62,6 @@ void lock_xbox::mode_1()
 
 void lock_xbox::xbox_on()
 {
-	lock_basket.ConfigAll(0.080f, 0.045f, 0.040f, 0.03f, 0.25f, 18.0f, 20.0f);
     imu_ptr->imu_relocate(0.0f, 0.0f, 0.0f);
     ros_ptr->imu_rst();
 }

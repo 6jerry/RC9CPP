@@ -33,11 +33,15 @@ private:
     ros_sensor *ros_ptr; // 导入雷达的指针
     AutoShooter* auto_shooter_ptr;//导入射球实例
 
+    Vector2D center_point, tan_dir, nor_dir;    //圆心坐标
+    float dis_2_center = 0.0f, center_heading = 0.0f, nor_speed = 0.0f; // 半径
+
     float shoot_dis;
 
 public:
     lock_xbox(imu *imu_ptr_, ros_sensor *ros_ptr_);
     void add_AutoShooter(AutoShooter *auto_shooter_);
+    void calc_error();
 
     float lock_vol;
     pid lock_basket; // 锁框
