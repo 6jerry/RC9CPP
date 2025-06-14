@@ -70,7 +70,7 @@ private:
     uint8_t timecnt = 0;
     uint8_t count = 0;
     float target_error = 0.002f;
-    float target_rpm = 400.0f;
+    float target_rpm = 60.0f;
     float test_dis;
 
     GPIO_TypeDef *shooter_port = nullptr, *stop_port = nullptr;
