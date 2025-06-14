@@ -21,6 +21,12 @@ lock_xbox chassis_debug(&position_sensor, &ros_sensor_);
 
 demo plot;
 
+//auto_shooter
+Encoder encoder(0x01, &hfdcan3);
+PolynomialFitter fitter(0.05f, 0.23f, false);
+vesc m6374(vesc_id_4, &hfdcan2, 7.0f, 2.0f);
+AutoShooter auto_shooter;
+
 extern "C"
 {
 
@@ -66,6 +72,14 @@ extern "C"
         s3_chassis.add_photogate(GPIOF, GPIO_PIN_8, GPIOF, GPIO_PIN_9, GPIOD, GPIO_PIN_15, nullptr, 0);
         s3_chassis.yawadjuster_config(0.1f, 0.0f, 0.03f, 0.0f, 7.0f, 0.2f, 0.0f);
 
+        //auto_shooter
+        auto_shooter.add_encoder(&encoder);
+        auto_shooter.add_motor(&m6374);
+        auto_shooter.dis_control.ConfigAll(16000.0f, 3.3f, 64.0f, 0.0f, 1800.0f, 0.001f, 0.015f);
+        auto_shooter.add_plan_info(400, 400, 1200, 400, 400);
+        auto_shooter.add_trigger(GPIOF, GPIO_PIN_5, GPIOG, GPIO_PIN_7);
+        auto_shooter.add_fitter(&fitter);
+        chassis_debug.add_AutoShooter(&auto_shooter);
 
         // pid config
         m2006_left.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
@@ -80,6 +94,8 @@ extern "C"
         task_core.registerTask(1, &u8_front);
         task_core.registerTask(1, &u8_left);
         task_core.registerTask(1, &u8_right);
+		task_core.registerTask(2, &m6374);
+        task_core.registerTask(3, &auto_shooter);
         task_core.registerTask(4, &s3_chassis);
         task_core.registerTask(6, &chassis_debug);
 		task_core.registerTask(8, &position_port);

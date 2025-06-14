@@ -15,6 +15,8 @@ extern "C"
 #include "robot_chassis.h"
 #include "ros_sensor.h"
 #include "position.h"
+#include "encoder.h"
+#include "auto_shooter.h"
 
 #include "lock_xbox.h"
 
