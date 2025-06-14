@@ -31,7 +31,7 @@ public:
 
   uint8_t test_flag = 0, putball = 0;
 
-  float limit_yaw_error = 0.2f, limit_yaw_speed = 0.5f;
+  float limit_yaw_error = 0.4f, limit_yaw_speed = 1.0f;
 
 public:
   void add_AutoShooter(AutoShooter *auto_shooter_);
