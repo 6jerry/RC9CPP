@@ -31,7 +31,13 @@ class demo: public ITaskProcessor, public RC9subscriber{
 	public:
 		void process_data();
         void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override; // 数据回调函数
+        chassis_adjust_xbox *xbox;
     float recive_data[4] = {0};
+
+    void add_xbox(chassis_adjust_xbox *xbox_);
+
+    float pian_x = 2.95;
+    float pian_y = 14.406;
 
     Vector2D robot_pos;
     Vector2D robot_v;

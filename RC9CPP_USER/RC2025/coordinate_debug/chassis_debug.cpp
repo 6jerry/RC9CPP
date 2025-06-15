@@ -3,11 +3,11 @@
 chassis_adjust_xbox::chassis_adjust_xbox(imu *imu_ptr_)
 {
     imu_ptr = imu_ptr_;
-    center_point.x = 5.788f;
-    center_point.y = 0.6905f;
+    //center_point.x = 5.788f;
+    //center_point.y = 0.7105f;
 
-    //    center_point.x = 3.000f;
-    //    center_point.y = 14.215f;
+    center_point.x = 3.0200f;
+    center_point.y = 14.215f;
 }
 
 void chassis_adjust_xbox::calc_error()
@@ -15,13 +15,18 @@ void chassis_adjust_xbox::calc_error()
     Vector2D now_point;
     now_point.x = get_world_x();
     now_point.y = get_world_y();
+		Vector2D dis = {0,0};
 
-    Vector2D dis = center_point - now_point;
+    if(cnt_flag==0)
+    {
+        dis = center_point - now_point;
+        dis_2_center = dis.magnitude();
+    }else{
+        dis = robot_point - now_point;
+        dis_2_center = dis.magnitude()- pass_correct_distance;
+    }
 
     nor_dir = dis.normalize();
-    tan_dir = Vector2D(nor_dir.y, -nor_dir.x).normalize();
-
-    dis_2_center = dis.magnitude();
 
     center_heading = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
     ; // 角度对准圆心
@@ -38,6 +43,7 @@ void chassis_adjust_xbox::not_start()
 
 void chassis_adjust_xbox::mode_2()
 {
+    calc_error();
     Vector2D tvel_((max_target_robot_vel.x * xbox_msgs.joyLHori_map), (max_target_robot_vel.y * xbox_msgs.joyLVert_map));
     set_WorldVel(tvel_, 2.5f); // 以后再改
     set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
@@ -59,15 +65,16 @@ void chassis_adjust_xbox::mode_2()
 void chassis_adjust_xbox::mode_1()
 {
     calc_error();
-
+   
     Vector2D target(0.0f, 0.0f);
     set_RobotVel(target, 0);
 
     if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
     {
         set_RobotW(0.0f, 0);
-        //auto_shooter->set_auto_byFitter(PID, dis_2_center);
-        auto_shooter->set_auto_byDis(PID, debug_dis);
+        auto_shooter->set_auto_byFitter(PID, dis_2_center);
+       // auto_shooter->set_auto_byDis(PID, debug_dis);
+				cnt_flag = 0;
         mode_flag = 2;
     }
     else

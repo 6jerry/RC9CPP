@@ -77,6 +77,7 @@ void auto_yunball::putball()
 {
     set_lift(true);  //上升
     osDelay(700);
+    turn_motor->pos_speedplan_restart();
     turn_motor->set_pos_speedplan(-180.0f, 20.0f, 10.0f, 10.0f, 1.0f);            //旋转到-180度
     while((HAL_GPIO_ReadPin(turn_port, turn_pin) != GPIO_PIN_RESET) && (abs(turn_motor->rcurrent) < 15000.0f)) {    //等待转动完成
         osDelay(1);
@@ -86,13 +87,14 @@ void auto_yunball::putball()
     turn_motor->all_pos = -180.0f;
     set_claw(true);                                                         //放球
     osDelay(1000);
-    shooter->set_shooter_mode(shooter_lift);                                //拉皮筋
+       shooter->set_lift(0.17f);                                 //拉皮筋
     osDelay(800);
-    turn_motor->set_pos_speedplan(-90.0f, 20.0f, 10.0f, 10.0f, 0.0f);       //旋转到-90度
+    turn_motor->set_pos_speedplan(0.0f, 20.0f, 10.0f, 10.0f, 0.0f);       //旋转到-90度
     osDelay(800);
     set_lift(false);                                                        //下降  
-    osDelay(500);
-    shooter->set_shooter_mode(shooter_stop);                                //放皮筋
+    osDelay(800);
+    shooter->set_lift(0.015f);                                //放皮筋
+		set_claw(false);
     flag = stop_flag;
 }
 

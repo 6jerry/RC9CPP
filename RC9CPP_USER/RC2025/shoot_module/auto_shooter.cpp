@@ -27,7 +27,7 @@ void AutoShooter::process_data()
         allAuto_adjust(shoot_info.target_dis);
         break;
     case shooter_lift:
-        lift_adjust(0.17f);
+        lift_adjust(shoot_info.target_dis);
         break;
 
     default:
@@ -85,7 +85,7 @@ void AutoShooter::allAuto_adjust(float lifter_dis)
 
         break;
     case auto_revert:
-        if (auto_adjust(0.015f))
+        if (auto_adjust(0.013f))
         {
             shoot_info.shoot_status = auto_finish;
         }
@@ -284,6 +284,14 @@ void AutoShooter::set_auto_byDis(uint8_t mode, float shoot_dis)
         shoot_info.shoot_status = auto_lift;
     }
 }
+
+ void AutoShooter::set_lift(float dis)
+ {
+
+  shoot_mode = shooter_lift;
+  shoot_info.target_dis = dis;
+
+ }
 void AutoShooter::set_hand(float rpm)
 {
 
@@ -318,10 +326,7 @@ float  AutoShooter::calc(float r)
     s_result = s_result * r + coeffs[4];
 
     return s_result; */
-	  static float a= 0.064f;
-		static float b=0.7337f;
-		static float c=0.0676f;
 
-    s = a * pow(r,b) + c;
+    s = a * pow(r,b) + c*logf(r+1) + offest;
     return s;
 }

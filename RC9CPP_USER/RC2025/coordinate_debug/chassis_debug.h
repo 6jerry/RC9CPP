@@ -25,13 +25,15 @@ public:
   imu *imu_ptr, *ros_imu; // 指向imu类的指针
 
   float debug_dis = 0.12f;
-  Vector2D center_point, tan_dir, nor_dir;                            // 圆心坐标
+  Vector2D center_point, tan_dir, nor_dir, robot_point;                            // 圆心坐标
   float dis_2_center = 0.0f, center_heading = 0.0f, nor_speed = 0.0f; // 半径
   AutoShooter *auto_shooter;
 
   uint8_t test_flag = 0, putball = 0;
 
   float limit_yaw_error = 0.4f, limit_yaw_speed = 1.0f;
+
+  float pass_correct_distance = 0.4f; // 修正距离
 
 public:
   void add_AutoShooter(AutoShooter *auto_shooter_);

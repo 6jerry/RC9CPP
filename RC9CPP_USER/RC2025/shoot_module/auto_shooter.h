@@ -72,6 +72,10 @@ private:
     float target_error = 0.002f;
     float target_rpm = 60.0f;
     float test_dis;
+    float offest = -0.005f;
+	  float a= 0.5566f;
+		float b=0.5756f;
+		float c=-0.5951f;
 
     GPIO_TypeDef *shooter_port = nullptr, *stop_port = nullptr;
     uint16_t shooter_pin = 0, stop_pin = 0;
@@ -120,7 +124,7 @@ public:
     void set_auto_byFitter(uint8_t mode, float r);
     void set_auto_byDis(uint8_t mode, float shoot_dis);
     void set_hand(float rpm);
-
+    void set_lift(float dis);
     // 往下拉一定距离
     //  set_shooter_mode(shooter_lift);
     // 进入停止模式

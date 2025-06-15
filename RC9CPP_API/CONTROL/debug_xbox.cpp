@@ -78,7 +78,15 @@ void xbox_debug_base::btnconfig_init()
     btnDirLeftConfig = {
         &xbox_msgs.btnDirLeft,
         &xbox_msgs.btnDirLeft_last,
-        &just_yun_title,
+        &DirLeft_flag,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
+
+    btnDirRightConfig = {
+        &xbox_msgs.btnDirRight,
+        &xbox_msgs.btnDirRight_last,
+        &DirRight_flag,
         1,
         ButtonActionType::Toggle,
         nullptr};
@@ -102,6 +110,7 @@ void xbox_debug_base::btn_scan()
     handleButton(btnDirUpConfig);
     handleButton(btnDirDownConfig);
     handleButton(btnDirLeftConfig);
+    handleButton(btnDirRightConfig);
     handleButton(btnXboxConfig);
     handleButton(btnYConfig);
     handleButton(btnStartConfig);
