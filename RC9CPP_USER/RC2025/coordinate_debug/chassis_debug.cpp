@@ -3,11 +3,11 @@
 chassis_adjust_xbox::chassis_adjust_xbox(imu *imu_ptr_)
 {
     imu_ptr = imu_ptr_;
-    center_point.x = 5.788f;
-    center_point.y = 0.7105f;
+    //center_point.x = 5.788f;
+    //center_point.y = 0.7105f;
 
-    //    center_point.x = 3.000f;
-    //    center_point.y = 14.215f;
+    center_point.x = 3.000f;
+    center_point.y = 14.215f;
 }
 
 void chassis_adjust_xbox::calc_error()
@@ -17,19 +17,16 @@ void chassis_adjust_xbox::calc_error()
     now_point.y = get_world_y();
 		Vector2D dis = {0,0};
 
-    /*if(DirLeft_flag == 1 && DirRight_flag == 0)
-    {dis = center_point - now_point;}
-    else if(DirLeft_flag == 0 && DirRight_flag == 1)
-    {dis = robot_point - now_point;}
-    else if(DirLeft_flag == 1 && DirRight_flag == 1)
-    {DirLeft_flag = 0; DirRight_flag = 0;}*/
-    dis = center_point - now_point;
-    //dis = robot_point - now_point;
+    if(cnt_flag==0)
+    {
+        dis = center_point - now_point;
+        dis_2_center = dis.magnitude();
+    }else{
+        dis = robot_point - now_point;
+        dis_2_center = dis.magnitude()- pass_correct_distance;
+    }
 
     nor_dir = dis.normalize();
-    tan_dir = Vector2D(nor_dir.y, -nor_dir.x).normalize();
-
-    dis_2_center = dis.magnitude();
 
     center_heading = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
     ; // 角度对准圆心
@@ -68,6 +65,7 @@ void chassis_adjust_xbox::mode_2()
 void chassis_adjust_xbox::mode_1()
 {
     calc_error();
+    cnt_flag = 0;
 
     Vector2D target(0.0f, 0.0f);
     set_RobotVel(target, 0);
