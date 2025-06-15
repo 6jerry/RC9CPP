@@ -25,8 +25,8 @@ public:
   imu *imu_ptr, *ros_imu; // 指向imu类的指针
 
   float debug_dis = 0.12f;
-  Vector2D center_point, tan_dir, nor_dir, robot_point;                            // 圆心坐标
-  float dis_2_center = 0.0f, center_heading = 0.0f, nor_speed = 0.0f; // 半径
+  Vector2D center_point, tan_dir, nor_dir, robot_point, nor_dir_robot; // 圆心坐标
+  float dis_2_center = 0.0f, center_heading = 0.0f, nor_speed = 0.0f;  // 半径
   AutoShooter *auto_shooter;
 
   uint8_t test_flag = 0, putball = 0;
@@ -44,6 +44,8 @@ public:
   void mode_3() override;
   void mode_4() override;
   void xbox_on() override;
+  void calc_robopoint();
+  float dis_2_robot = 0.0f, robot_heading = 0.0f;
 };
 
 #endif

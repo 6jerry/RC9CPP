@@ -65,6 +65,7 @@
     "numbers": "cpp",
     "random": "cpp",
     "cstdint": "cpp",
-    "compare": "cpp"
+    "compare": "cpp",
+    "queue": "cpp"
   }
 }

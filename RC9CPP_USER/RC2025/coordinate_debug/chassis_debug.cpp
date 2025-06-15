@@ -15,7 +15,7 @@ void chassis_adjust_xbox::calc_error()
     Vector2D now_point;
     now_point.x = get_world_x();
     now_point.y = get_world_y();
-		Vector2D dis = {0,0};
+    Vector2D dis = {0, 0};
 
     /*if(DirLeft_flag == 1 && DirRight_flag == 0)
     {dis = center_point - now_point;}
@@ -24,7 +24,7 @@ void chassis_adjust_xbox::calc_error()
     else if(DirLeft_flag == 1 && DirRight_flag == 1)
     {DirLeft_flag = 0; DirRight_flag = 0;}*/
     dis = center_point - now_point;
-    //dis = robot_point - now_point;
+    // dis = robot_point - now_point;
 
     nor_dir = dis.normalize();
     tan_dir = Vector2D(nor_dir.y, -nor_dir.x).normalize();
@@ -33,6 +33,19 @@ void chassis_adjust_xbox::calc_error()
 
     center_heading = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
     ; // 角度对准圆心
+}
+
+void chassis_adjust_xbox::calc_robopoint()
+{
+    Vector2D now_point;
+    now_point.x = get_world_x();
+    now_point.y = get_world_y();
+    Vector2D dis = {0, 0};
+    dis = robot_point - now_point;
+
+    dis_2_robot = dis.magnitude();
+    nor_dir_robot = dis.normalize();
+    robot_heading = -atan2f(nor_dir_robot.x, nor_dir_robot.y) * 57.296f;
 }
 
 void chassis_adjust_xbox::not_start()
@@ -76,7 +89,7 @@ void chassis_adjust_xbox::mode_1()
     {
         set_RobotW(0.0f, 0);
         auto_shooter->set_auto_byFitter(PID, dis_2_center);
-       // auto_shooter->set_auto_byDis(PID, debug_dis);
+        // auto_shooter->set_auto_byDis(PID, debug_dis);
         mode_flag = 2;
     }
     else
@@ -113,7 +126,20 @@ void chassis_adjust_xbox::mode_4()
 {
     Vector2D target(0.0f, 0.0f);
     set_RobotVel(target, 0);
-    set_RobotW(0.0f, 0);
+
+    calc_robopoint();
+
+    if (abs(robot_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
+    {
+        set_RobotW(0.0f, 0);
+        auto_shooter->set_auto_byFitter(PID, dis_2_robot);
+        // auto_shooter->set_auto_byDis(PID, debug_dis);
+        mode_flag = 2;
+    }
+    else
+    {
+        yaw_TurnTo(robot_heading, 0);
+    }
 }
 
 void chassis_adjust_xbox::xbox_on()
