@@ -36,7 +36,7 @@ class demo: public ITaskProcessor, public RC9subscriber{
 
     void add_xbox(chassis_adjust_xbox *xbox_);
 
-    float pian_x = 3.1176;
+    float pian_x = 2.95;
     float pian_y = 14.406;
 
     Vector2D robot_pos;
