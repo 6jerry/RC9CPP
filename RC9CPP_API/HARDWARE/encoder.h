@@ -24,7 +24,6 @@ extern "C"
  * @class Encoder
  * @brief 编码器处理类
  * @details 继承自CanDevice和imu类，实现编码器数据的接收和处理
-  @串口波特率默认 ： 19200
  */
 class Encoder : public CanDevice, public imu
 {
@@ -40,6 +39,7 @@ public:
     Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_);
     float get_absolute_distance(void);
     void send_reset();
+
 private:
     float length = 0;                  ///< 当前计算长度
     float distance = 0;                ///< 当前编码器距离
