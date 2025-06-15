@@ -33,6 +33,8 @@ public:
 
   float limit_yaw_error = 0.4f, limit_yaw_speed = 1.0f;
 
+  float pass_correct_distance = 0.0f; // 修正距离
+
 public:
   void add_AutoShooter(AutoShooter *auto_shooter_);
   void add_autoyunball(auto_yunball *auto_yunball_);
