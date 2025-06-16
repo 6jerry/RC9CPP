@@ -73,9 +73,9 @@ private:
     float target_rpm = 60.0f;
     float test_dis;
     float offest = 0.0f;
-	  float a= 0.0491;
-		float b=0.9509;
-		float c=0.0772;
+    float a = 0.0491;
+    float b = 0.9509;
+    float c = 0.0772;
 
     GPIO_TypeDef *shooter_port = nullptr, *stop_port = nullptr;
     uint16_t shooter_pin = 0, stop_pin = 0;
@@ -92,7 +92,8 @@ private:
                    0.225f, 0.215f, 0.208f, 0.204f, 0.197f, 0.196f, 0.194f, 0.191f, 0.186f, 0.212f,
                    0.219f, 0.225f, 0.227f, 0.226f};
     uint8_t n = 24;
-    float s ;
+    float s;
+
 public:
     // 编码器
     Encoder *encoder = nullptr;
