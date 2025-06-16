@@ -3,8 +3,8 @@
 chassis_adjust_xbox::chassis_adjust_xbox(imu *imu_ptr_)
 {
     imu_ptr = imu_ptr_;
-    //center_point.x = 5.788f;
-    //center_point.y = 0.7105f;
+    // center_point.x = 5.788f;
+    // center_point.y = 0.7105f;
 
     center_point.x = 3.000f;
     center_point.y = 14.215f;
@@ -17,13 +17,15 @@ void chassis_adjust_xbox::calc_error()
     now_point.y = get_world_y();
     Vector2D dis = {0, 0};
 
-    if(cnt_flag==0)
+    if (cnt_flag == 0)
     {
         dis = center_point - now_point;
         dis_2_center = dis.magnitude();
-    }else{
+    }
+    else
+    {
         dis = robot_point - now_point;
-        dis_2_center = dis.magnitude()- pass_correct_distance;
+        dis_2_center = dis.magnitude() - pass_correct_distance;
     }
 
     nor_dir = dis.normalize();
@@ -125,6 +127,8 @@ void chassis_adjust_xbox::mode_4()
     Vector2D target(0.0f, 0.0f);
     set_RobotVel(target, 0);
 
+    /*
+
     calc_robopoint();
 
     if (abs(robot_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
@@ -138,6 +142,7 @@ void chassis_adjust_xbox::mode_4()
     {
         yaw_TurnTo(robot_heading, 0);
     }
+        */
 }
 
 void chassis_adjust_xbox::xbox_on()
