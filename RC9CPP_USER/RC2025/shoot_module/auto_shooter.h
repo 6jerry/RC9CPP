@@ -70,7 +70,7 @@ private:
     uint8_t timecnt = 0;
     uint8_t count = 0;
     float target_error = 0.002f;
-    float target_rpm = 60.0f;
+    float target_rpm = 10.0f;
     float test_dis;
     float offest = 0.0f;
     float a = 0.0491;
