@@ -124,7 +124,7 @@ public:
     void set_auto_byFitter(uint8_t mode, float r);
     void set_auto_byDis(uint8_t mode, float shoot_dis);
     void set_hand(float rpm);
-
+    void set_lift(float dis);
     // 往下拉一定距离
     //  set_shooter_mode(shooter_lift);
     // 进入停止模式

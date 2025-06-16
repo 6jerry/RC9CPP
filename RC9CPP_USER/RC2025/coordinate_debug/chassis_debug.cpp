@@ -80,8 +80,7 @@ void chassis_adjust_xbox::mode_2()
 void chassis_adjust_xbox::mode_1()
 {
     calc_error();
-    cnt_flag = 0;
-
+   
     Vector2D target(0.0f, 0.0f);
     set_RobotVel(target, 0);
 
