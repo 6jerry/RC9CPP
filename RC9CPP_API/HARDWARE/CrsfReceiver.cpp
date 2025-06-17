@@ -131,11 +131,112 @@ void CrsfReceiver::processRcChannelsPacket()
     channel_test[1] = channels_[1];
     channel_test[2] = channels_[2];
     channel_test[3] = channels_[3];
+    channel_test[4] = channels_[4];
+    channel_test[5] = channels_[5];
+    channel_test[6] = channels_[6];
+    channel_test[7] = channels_[7];
+    channel_test[8] = channels_[8];
+    channel_test[9] = channels_[9];
 
-    // 调试输出 (可选)
-    // printf("RC Channels Received: CH1:%d, CH2:%d, CH3:%d, CH4:%d\n",
-    //        channels_[0], channels_[1], channels_[2], channels_[3]);
+    map_value_compute();
+    flag_set();
+
+    if (last_btn_r_flag == 0 && btn_r_flag == 1)
+    {
+        BTN_L_CALLBACK();
+    }
+
+    last_btn_r_flag = btn_r_flag;
+
+    switch (r_flag)
+    {
+    case 1:
+        R_1();
+        break;
+
+    case 2:
+        R_2();
+        break;
+    case 3:
+        R_3();
+        break;
+
+    default:
+        break;
+    }
+
+    switch (l_flag)
+    {
+    case 1:
+        L_1();
+        break;
+
+    case 2:
+        L_2();
+        break;
+    case 3:
+        L_3();
+        break;
+
+    default:
+        break;
+    }
+
+    if (sar_flag == 1)
+    {
+        SAR_ON();
+    }
+
+    else if (sar_flag == 2)
+    {
+        SAR_OFF();
+    }
+
+    if (sal_flag == 1)
+    {
+        SAL_ON();
+    }
+
+    else if (sal_flag == 2)
+    {
+        SAL_OFF();
+    }
 }
 
-// 链路统计信息处理函数现在不会被调用
-// void CrsfReceiver::packetLinkStatistics() {}
+void CrsfReceiver::map_value_compute()
+{
+    if (channels_[0] >= 944 && channels_[0] <= 954)
+    {
+        right_H_map = 0.0f;
+    }
+    if (channels_[0] > 954 && channels_[0] <= 1769)
+    {
+        right_H_map = -((float)(channels_[0] - 954) / 815.0f);
+    }
+    if (channels_[0] < 944 && channels_[0] >= 174)
+    {
+        right_H_map = (float)(944 - channels_[0]) / 770.0f;
+    }
+    if (channels_[0]<174)
+    {
+        right_H_map = 1.0f;
+    }
+    if (channels_[0]>1769)
+    {
+        right_H_map = -1.0f;
+    }
+
+
+
+
+
+    if (channels_[1] >= 1034 && channels_[1]<=1044)
+    {
+        right_V_map = 0.0f;
+    }
+    if()
+}
+
+void CrsfReceiver::flag_set()
+{
+}

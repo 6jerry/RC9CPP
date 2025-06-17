@@ -6,6 +6,9 @@ RC9Protocol esp_port(uart, &huart3), position_port(uart, &huart6);
 RC9Protocol ros_port(cdc, nullptr);
 RC9Protocol Lora_port(uart, &huart4);
 RC9Protocol send_port(uart, &huart5);
+
+CrsfReceiver pocket_controller(&huart7);
+
 // Laser laser(&huart3);
 ros_sensor ros_sensor_;
 position position_sensor;
@@ -39,6 +42,9 @@ extern "C"
     // position_sensor.startUartReceiveIT();
     position_port.initQueue();
     position_port.startUartReceiveIT();
+
+    pocket_controller.startUartReceiveIT();
+
     // laser.init();
     // laser.startUartReceiveIT();
     /**************debug*************/
@@ -160,23 +166,25 @@ void demo::process_data()
 
   //  float arr[6] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
   //                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y};
-  //float arr[5] = {auto_shooter.shoot_info.target_dis * 1000.0f, auto_shooter.shoot_info.real_dis * 1000.0f, chassis_debug.center_heading, position_sensor.get_heading(), position_sensor.get_yaw_speed()};
-  //sendFloatData(1, arr, 5);
+  // float arr[5] = {auto_shooter.shoot_info.target_dis * 1000.0f, auto_shooter.shoot_info.real_dis * 1000.0f, chassis_debug.center_heading, position_sensor.get_heading(), position_sensor.get_yaw_speed()};
+  // sendFloatData(1, arr, 5);
 }
 
 void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
 {
-      for(int i = 0; i < 4; i++)
-          {recive_data[i] = floatData[i];}
+  for (int i = 0; i < 4; i++)
+  {
+    recive_data[i] = floatData[i];
+  }
 
-      robot_pos.x = floatData[0] + pian_x;
-      robot_pos.y = floatData[1] + pian_y;
-      robot_v.x = floatData[2];
-      robot_v.y = floatData[3];
-      xbox->robot_point = robot_pos;
+  robot_pos.x = floatData[0] + pian_x;
+  robot_pos.y = floatData[1] + pian_y;
+  robot_v.x = floatData[2];
+  robot_v.y = floatData[3];
+  xbox->robot_point = robot_pos;
 }
 
 void demo::add_xbox(chassis_adjust_xbox *xbox_)
 {
-    xbox = xbox_;
-} 
+  xbox = xbox_;
+}

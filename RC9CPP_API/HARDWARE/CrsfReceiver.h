@@ -15,8 +15,13 @@ extern "C"
 
 #ifdef __cplusplus
 
-// 为 RC Channels Packed 帧定义一个完整结构体
-// 包括地址、长度、类型、Payload 和 CRC（尽管不校验，仍接收）
+#define BTN_OFF 191
+#define BTN_ON 1792
+
+#define BTN_1 191
+#define BTN_2 997
+#define BTN_3 1792
+
 typedef struct
 {
     uint8_t device_addr;
@@ -70,7 +75,29 @@ private:
     // 内部函数：处理接收到的完整 RC Channels 数据包
     void processRcChannelsPacket();
 
-    float channel_test[4] = {0.0f};
+    
+
+    void map_value_compute();
+    void flag_set();
+
+public:
+    virtual void SAR_ON() {}; // 右侧自锁开关.ch8
+    virtual void SAR_OFF() {};
+    virtual void SAL_ON() {}; // 左侧自锁开关ch4
+    virtual void SAL_OFF() {};
+
+    virtual void BTN_L_CALLBACK() {}; // 左侧按键ch6
+    virtual void R_1() {};
+    virtual void R_2() {}; // ch7
+    virtual void R_3() {};
+
+    virtual void L_1() {}; // 左侧档位ch5
+    virtual void L_2() {};
+    virtual void L_3() {};
+
+    float left_H_map = 0.0f, left_V_map = 0.0f, right_H_map = 0.0f, right_V_map = 0.0f, roll_map = 0.0f; // 映射值
+
+    uint8_t sar_flag = 0, sal_flag = 0, r_flag = 0, l_flag = 0, btn_r_flag = 0, last_btn_r_flag = 0;
 };
 
 #endif // __cplusplus

@@ -20,6 +20,7 @@ extern "C"
 	#include "auto_shooter.h"
 	#include "encoder.h"
     #include "auto_yunball.h"
+#include "CrsfReceiver.h"
     void chassis_debug_setup();
 #ifdef __cplusplus
 }
