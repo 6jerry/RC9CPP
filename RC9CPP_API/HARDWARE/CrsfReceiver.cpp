@@ -109,7 +109,7 @@ void CrsfReceiver::handleReceiveData(uint8_t byte)
 
 void CrsfReceiver::processRcChannelsPacket()
 {
-    // 直接将 current_rc_frame_.channels 中的值复制到 channels_ 数组
+
     channels_[0] = current_rc_frame_.channels.ch0;
     channels_[1] = current_rc_frame_.channels.ch1;
     channels_[2] = current_rc_frame_.channels.ch2;
@@ -126,17 +126,6 @@ void CrsfReceiver::processRcChannelsPacket()
     channels_[13] = current_rc_frame_.channels.ch13;
     channels_[14] = current_rc_frame_.channels.ch14;
     channels_[15] = current_rc_frame_.channels.ch15;
-
-    channel_test[0] = channels_[0];
-    channel_test[1] = channels_[1];
-    channel_test[2] = channels_[2];
-    channel_test[3] = channels_[3];
-    channel_test[4] = channels_[4];
-    channel_test[5] = channels_[5];
-    channel_test[6] = channels_[6];
-    channel_test[7] = channels_[7];
-    channel_test[8] = channels_[8];
-    channel_test[9] = channels_[9];
 
     map_value_compute();
     flag_set();
@@ -217,26 +206,137 @@ void CrsfReceiver::map_value_compute()
     {
         right_H_map = (float)(944 - channels_[0]) / 770.0f;
     }
-    if (channels_[0]<174)
+    if (channels_[0] < 174)
     {
         right_H_map = 1.0f;
     }
-    if (channels_[0]>1769)
+    if (channels_[0] > 1769)
     {
         right_H_map = -1.0f;
     }
 
-
-
-
-
-    if (channels_[1] >= 1034 && channels_[1]<=1044)
+    if (channels_[1] >= 1034 && channels_[1] <= 1044)
     {
         right_V_map = 0.0f;
     }
-    if()
+    if (channels_[1] > 1044 && channels_[1] <= 1811)
+    {
+        right_V_map = (float)(channels_[1] - 1044) / 767.0f;
+    }
+    if (channels_[1] < 1034 && channels_[1] >= 222)
+    {
+        right_V_map = -((float)(1034 - channels_[1]) / 812.0f);
+    }
+    if (channels_[1] < 222)
+    {
+        right_V_map = -1.0f;
+    }
+    if (channels_[1] > 1811)
+    {
+        right_V_map = 1.0f;
+    }
+
+    if (channels_[2] < 183)
+    {
+        left_V_map = 0.0f;
+    }
+    if (channels_[2] > 1750)
+    {
+        left_V_map = 1.0f;
+    }
+    if (channels_[2] >= 183 && channels_[2] <= 1750)
+    {
+        left_V_map = (float)(channels_[2] - 183) / 1567.0f;
+    }
+
+    if (channels_[3] >= 939 && channels_[3] <= 949)
+    {
+        left_H_map = 0.0f;
+    }
+    if (channels_[3] > 949 && channels_[3] <= 1763)
+    {
+        left_H_map = (float)(channels_[3] - 949) / 814.0f;
+    }
+    if (channels_[3] < 939 && channels_[3] >= 174)
+    {
+        left_H_map = -((float)(939 - channels_[3]) / 765.0f);
+    }
+    if (channels_[3] < 174)
+    {
+        left_H_map = -1.0f;
+    }
+    if (channels_[3] > 1763)
+    {
+        left_H_map = 1.0f;
+    }
+
+    if (channels_[9] < 191)
+    {
+        roll_map = 0.0f;
+    }
+    if (channels_[9] > 1792)
+    {
+        roll_map = 1.0f;
+    }
+    if (channels_[9] >= 191 && channels_[9] <= 1792)
+    {
+        roll_map = (float)(channels_[9] - 191) / 1601.0f;
+    }
 }
 
 void CrsfReceiver::flag_set()
 {
+
+    if (channels_[4] == BTN_ON)
+    {
+        sal_flag = 1;
+    }
+    if (channels_[4] == BTN_OFF)
+    {
+        sal_flag = 2;
+    }
+
+    if (channels_[8] == BTN_ON)
+    {
+        sar_flag = 1;
+    }
+    if (channels_[8] == BTN_OFF)
+    {
+        sar_flag = 2;
+    }
+
+    if (channels_[6] == BTN_ON)
+    {
+        btn_r_flag = 1;
+    }
+    if (channels_[6] == BTN_OFF)
+    {
+        btn_r_flag = 0;
+    }
+
+    if (channels_[5] == BTN_1)
+    {
+        l_flag = 1;
+    }
+    if (channels_[5] == BTN_2)
+    {
+        l_flag = 2;
+    }
+    if (channels_[5] == BTN_3)
+    {
+        l_flag = 3;
+    }
+
+    if (channels_[7] == BTN_1)
+    {
+        r_flag = 1;
+    }
+    if (channels_[7] == BTN_2)
+    {
+        r_flag = 2;
+    }
+    if (channels_[7] == BTN_3)
+    {
+        r_flag = 3;
+    }
 }
