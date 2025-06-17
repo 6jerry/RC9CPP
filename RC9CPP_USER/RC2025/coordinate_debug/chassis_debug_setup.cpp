@@ -7,7 +7,7 @@ RC9Protocol ros_port(cdc, nullptr);
 RC9Protocol Lora_port(uart, &huart4);
 RC9Protocol send_port(uart, &huart5);
 
-CrsfReceiver pocket_controller(&huart7);
+//CrsfReceiver pocket_controller(&huart7);
 
 // Laser laser(&huart3);
 ros_sensor ros_sensor_;
@@ -43,7 +43,7 @@ extern "C"
     position_port.initQueue();
     position_port.startUartReceiveIT();
 
-    pocket_controller.startUartReceiveIT();
+    //pocket_controller.startUartReceiveIT();
 
     // laser.init();
     // laser.startUartReceiveIT();
@@ -125,7 +125,11 @@ extern "C"
 
 void demo::process_data()
 {
-
+  /*if(cnt == 0)
+  {
+		encoder.send_reset();
+		cnt = 1;
+	}*/
   // static Vector2D last_pos = position_sensor.world_pos;
   // float speed_xx  = (position_sensor.world_pos.x - last_pos.x) / 0.04f;
   // float speed_yy  = (position_sensor.world_pos.y - last_pos.y) / 0.04f;
