@@ -20,6 +20,13 @@
  */
 
 /***************************一阶带通滤波器*****************************/
+
+// 构造函数,使用默认参数
+First_Order_BPF::First_Order_BPF(){
+	fc_ =  50.0f;
+	bw_ = 100.0f;
+	fs_ = 10.0f;
+}
 // 构造函数，初始化滤波器参数并计算系数
 First_Order_BPF::First_Order_BPF(double fc, double bw, double fs) : fc_(fc), bw_(bw), fs_(fs) {
     calculateCoefficients();
@@ -170,8 +177,8 @@ float MedianFilter::output() {
 // 卡尔曼滤波器构造函数
 KalmanFilter::KalmanFilter(){
     kf.Q = 0.01;
-    kf.R = 0.2;
-    kf.P = 0.01;
+    kf.R = 0.1;
+    kf.P = 0.1;
     kf.x = 0;
     kf.K = 0;
 }

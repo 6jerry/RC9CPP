@@ -34,6 +34,7 @@ extern "C"
 
 class First_Order_BPF {
 public:
+	First_Order_BPF();
     First_Order_BPF(double fc, double bw, double fs);
     float filter(const float& input);
 

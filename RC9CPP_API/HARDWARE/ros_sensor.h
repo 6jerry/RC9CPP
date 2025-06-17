@@ -23,8 +23,9 @@ class ros_sensor : public RC9subscriber, public imu
 public:
     tf tf_;
     imu *imu_ = nullptr;
-		static const uint8_t msg_num = 9;
-		KalmanFilter kalman[msg_num];
+	static const uint8_t msg_num = 6;
+	First_Order_BPF f_BFP[msg_num];
+	KalmanFilter kalman[msg_num];
     // 信息储存结构体
     struct
     {
@@ -36,8 +37,8 @@ public:
         float yaw_angle = 0.0f;
     } ros_radar_loaction;
     Vector2D real_radar_world_pos; // 映射后坐标
-	float my_r = 0.21899f; //  雷达半径
-	float my_rad = 47.07156f * 0.017453f; //  雷达初始弧度
+	float my_r = 0.22038f; //  雷达半径
+	float my_rad = 54.24686f * 0.017453f; //  雷达初始弧度
 	Vector2D map_inverse_relocate_pos; // 逆映射坐標
     bool relocate_flag = false; //  是否开启重定位标志
 	bool get_zero_flag = false; //  雷达有时会发送同时0的值，需要过滤
