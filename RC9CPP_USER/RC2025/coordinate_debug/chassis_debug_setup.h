@@ -37,7 +37,7 @@ class demo: public ITaskProcessor, public RC9subscriber{
 
     void add_xbox(chassis_adjust_xbox *xbox_);
 
-    float pian_x = 2.95;
+    float pian_x = 2.65;
     float pian_y = 14.406;
 		
 		uint8_t cnt = 0;

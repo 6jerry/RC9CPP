@@ -3,11 +3,11 @@
 chassis_adjust_xbox::chassis_adjust_xbox(imu *imu_ptr_)
 {
     imu_ptr = imu_ptr_;
-    center_point.x = 5.8031f;
-    center_point.y = 0.8451f;
+//    center_point.x = 5.8031f;
+//    center_point.y = 0.8451f;
 
-    //    center_point.x = 3.000f;
-    //    center_point.y = 14.215f;
+        center_point.x = 3.000f;
+        center_point.y = 14.355f;
 }
 
 void chassis_adjust_xbox::calc_error()
@@ -75,6 +75,12 @@ void chassis_adjust_xbox::mode_2()
             rb_flag = 0;
         }
     }
+
+    if(btn_start_flag)
+    {
+        reset_swerve();
+        btn_start_flag = 0;
+    }
 }
 
 void chassis_adjust_xbox::mode_1()
@@ -88,8 +94,9 @@ void chassis_adjust_xbox::mode_1()
     if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
     {
         set_RobotW(0.0f, 0);
-        //auto_shooter->set_auto_byFitter(PID, dis_2_center);
-        auto_shooter->set_auto_byDis(PID, debug_dis);
+        auto_shooter->set_auto_byFitter(PID, dis_2_center);
+        //auto_shooter->set_auto_byDis(PID, debug_dis);
+        cnt_flag = 0;
         mode_flag = 2;
     }
     else

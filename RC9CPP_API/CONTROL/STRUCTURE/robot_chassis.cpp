@@ -70,6 +70,21 @@ void chassis_user::stablize_swerve()
     robochassis_->C_stablize();
 }
 
+void RoboChassis::C_reset()
+{
+    
+    for(int i = 0; i < 3; i++)
+    {
+        if_not_init[i] = true;
+    }
+    mode = chassis_init;
+}
+
+void chassis_user::reset_swerve()
+{
+    robochassis_->C_reset();
+}
+
 float RoboChassis::yawadjuster_process()
 {
 

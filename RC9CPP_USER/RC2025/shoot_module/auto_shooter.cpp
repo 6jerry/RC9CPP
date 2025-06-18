@@ -85,7 +85,7 @@ void AutoShooter::allAuto_adjust(float lifter_dis)
 
         break;
     case auto_revert:
-        if (auto_adjust(0.013f))
+        if (auto_adjust(0.0145f))
         {
             shoot_info.shoot_status = auto_finish;
         }
@@ -307,24 +307,25 @@ void AutoShooter::set_shooter_mode(uint8_t mode)
 float AutoShooter::calc(float r)
 {
 
-    const float coeffs[] = {
-        0.0183f, // r³ 系数
-        -0.1171f,  // r² 系数
-        0.2796f, // r 系数
-        -0.0659f   // 常数项
-    };
+//    const float coeffs[] = {
+//        0.0183f, // r³ 系数
+//        -0.1171f,  // r² 系数
+//        0.2796f, // r 系数
+//        -0.0659f   // 常数项
+//    };
 
     // 使用霍纳法则进行高效计算
     // s = ((-0.0116*r + 0.0804)*r + (-0.1364))*r + 0.2153
 
-    float s = coeffs[0]; // 从最高次系数开始
+   // float s = coeffs[0]; // 从最高次系数开始
 
     // 循环展开，效率最高
-    s = s * r + coeffs[1];
-    s = s * r + coeffs[2];
-    s = s * r + coeffs[3];
+   // s = s * r + coeffs[1];
+   // s = s * r + coeffs[2];
+    //s = s * r + coeffs[3];
 
-    // s = a * pow(r,b) + c*logf(r+1) + offest;
+     s = a * pow(r,b) + c*logf(r+1) ;
+		// offest;
     return s;
 }
 

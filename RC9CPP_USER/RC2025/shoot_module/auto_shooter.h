@@ -73,9 +73,9 @@ private:
     float target_rpm = 10.0f;
     float test_dis;
     float offest = 0.0f;
-    float a = 0.0491;
-    float b = 0.9509;
-    float c = 0.0772;
+    float a = 0.2961;
+    float b = 0.5103;
+    float c = -0.2302;
 
     GPIO_TypeDef *shooter_port = nullptr, *stop_port = nullptr;
     uint16_t shooter_pin = 0, stop_pin = 0;

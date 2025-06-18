@@ -57,7 +57,7 @@ void xbox_debug_base::btnconfig_init()
         &xbox_msgs.btnY_last,
         &cnt_flag,
         3,
-        ButtonActionType::Toggle,
+        ButtonActionType::Increment,
         nullptr};
 
     btnDirUpConfig = {
@@ -179,7 +179,8 @@ void xbox_debug_base::process_data()
 
     if(btn_start_flag == 1)
     {
-        HAL_NVIC_SystemReset();
+        //HAL_NVIC_SystemReset();
+        
     }
 }
 
