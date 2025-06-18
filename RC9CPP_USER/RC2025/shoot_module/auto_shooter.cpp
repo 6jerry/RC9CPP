@@ -304,13 +304,14 @@ void AutoShooter::set_shooter_mode(uint8_t mode)
 
     shoot_mode = static_cast<shooterMode>(mode);
 }
-float  AutoShooter::calc(float r)
+float AutoShooter::calc(float r)
 {
+
     const float coeffs[] = {
-        0.0133f, // r³ 系数
-        0.0898f,  // r² 系数
-        0.2396f, // r 系数
-        -0.0551f   // 常数项
+        0.0183f, // r³ 系数
+        -0.1171f,  // r² 系数
+        0.2796f, // r 系数
+        -0.0659f   // 常数项
     };
 
     // 使用霍纳法则进行高效计算
@@ -323,8 +324,7 @@ float  AutoShooter::calc(float r)
     s = s * r + coeffs[2];
     s = s * r + coeffs[3];
 
-
-    //s = a * pow(r,b) + c*logf(r+1) + offest;
-		//s=a*pow(r,b)+c;
+    // s = a * pow(r,b) + c*logf(r+1) + offest;
     return s;
 }
+
