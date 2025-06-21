@@ -39,9 +39,6 @@ extern "C"
     CanDevice::InitAllFiltersNoMask();
     esp_port.initQueue();
     esp_port.startUartReceiveIT();
-    // position_sensor.startUartReceiveIT();
-    position_port.initQueue();
-    position_port.startUartReceiveIT();
 
     //pocket_controller.startUartReceiveIT();
 
@@ -64,7 +61,7 @@ extern "C"
 
     chassis_debug.addport(&esp_port);
     chassis_debug.add_chassis(&s3_chassis);
-
+    chassis_debug.add_AutoShooter(&auto_shooter);
     chassis_debug.ros_imu = &ros_sensor_;
     chassis_debug.add_autoyunball(&yunball_port);
 
@@ -81,7 +78,6 @@ extern "C"
     //??
     s3_chassis.add_6_motors(&m2006_front, &u8_front, &m2006_right, &u8_right, &m2006_left, &u8_left);
     s3_chassis.config(s3_chassis_info);
-    // s3_chassis.yawadjuster_config(0.039f, 0.0f, 0.002f, 0.0f, 5.0f, 0.2f, 0.0f);
     s3_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
     s3_chassis.add_imu(&position_sensor);
     s3_chassis.add_photogate(GPIOF, GPIO_PIN_8, GPIOF, GPIO_PIN_9, GPIOD, GPIO_PIN_15, nullptr, 0);
@@ -103,7 +99,6 @@ extern "C"
     auto_shooter.add_plan_info(400, 400, 1200, 400, 400);
     auto_shooter.add_trigger(GPIOF, GPIO_PIN_5, GPIOG, GPIO_PIN_7);
     auto_shooter.add_fitter(&fitter);
-    chassis_debug.add_AutoShooter(&auto_shooter);
 
     // task register
     task_core.registerTask(0, &dji_core);
