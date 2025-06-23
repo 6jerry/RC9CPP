@@ -66,6 +66,7 @@
     "random": "cpp",
     "cstdint": "cpp",
     "compare": "cpp",
-    "queue": "cpp"
+    "queue": "cpp",
+    "gpio.h": "c"
   }
 }
