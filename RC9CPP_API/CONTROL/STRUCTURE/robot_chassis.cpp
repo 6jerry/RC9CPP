@@ -825,12 +825,8 @@ float chassis_user::calc_dis(Vector2D target)
 
 uint8_t chassis_user::set_WorldVel(Vector2D worldvel, uint8_t PriorityCode)
 {
-#ifdef USE_VEL_ACCEL
 
     return robochassis_->set_CWorldVel_ACCLE(worldvel, 4.0f);
-#else
-    return robochassis_->set_CWorldVel(worldvel, PriorityCode, this);
-#endif
 }
 
 uint8_t chassis_user::yaw_TurnTo(float yaw, uint8_t PriorityCode)

@@ -108,7 +108,7 @@ extern "C"
     task_core.registerTask(1, &m6374);
     task_core.registerTask(2, &auto_shooter);
     task_core.registerTask(4, &s3_chassis);
-    task_core.registerTask(6, &chassis_debug);
+    task_core.registerTask(5, &pocket_controller);
     task_core.registerTask(8, &position_port);
     task_core.registerTask(8, &send_port);
     task_core.registerTask(5, &ros_port);
