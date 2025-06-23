@@ -70,6 +70,21 @@ void chassis_user::stablize_swerve()
     robochassis_->C_stablize();
 }
 
+void RoboChassis::C_reset()
+{
+    
+    for(int i = 0; i < 3; i++)
+    {
+        if_not_init[i] = true;
+    }
+    mode = chassis_init;
+}
+
+void chassis_user::reset_swerve()
+{
+    robochassis_->C_reset();
+}
+
 float RoboChassis::yawadjuster_process()
 {
 
@@ -701,11 +716,11 @@ void RoboChassis::chassis_rst_priorityC()
 
 void RoboChassis::C_pp_track_point(Vector2D target_p)
 {
-    if (mode != ppp_track)
-    {
+    //if (mode != ppp_track)
+    //{
         pp_tracker.pp_start_plan(IMU->get_world_pos(), target_p, target.target_robovel);
         mode = ppp_track;
-    }
+    //}
 }
 
 void RoboChassis::C_rst_state()
