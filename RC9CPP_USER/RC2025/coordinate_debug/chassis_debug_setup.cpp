@@ -7,7 +7,7 @@ RC9Protocol ros_port(cdc, nullptr);
 RC9Protocol Lora_port(uart, &huart4);
 RC9Protocol send_port(uart, &huart5);
 
-CrsfReceiver pocket_controller(&huart7);
+AllController pocket_controller(&huart7);
 
 // Laser laser(&huart3);
 ros_sensor ros_sensor_;
@@ -63,7 +63,7 @@ extern "C"
     /****************************************************/
 
     chassis_debug.addport(&esp_port);
-    chassis_debug.add_chassis(&s3_chassis);
+    pocket_controller.add_chassis(&s3_chassis);
 
     chassis_debug.ros_imu = &ros_sensor_;
     chassis_debug.add_autoyunball(&yunball_port);
@@ -113,7 +113,7 @@ extern "C"
     task_core.registerTask(1, &m6374);
     task_core.registerTask(2, &auto_shooter);
     task_core.registerTask(4, &s3_chassis);
-    task_core.registerTask(6, &chassis_debug);
+    task_core.registerTask(5, &pocket_controller);
     task_core.registerTask(8, &position_port);
     task_core.registerTask(8, &send_port);
     task_core.registerTask(5, &ros_port);

@@ -11,6 +11,7 @@
 #define CRSF_CHANNEL_VALUE_MAX 1811                     // 通道最大值限制
 #define CRSF_MAX_PACKET_SIZE 64                         // 最大数据包大小
 #define CRSF_MAX_PAYLOAD_LEN (CRSF_MAX_PACKET_SIZE - 4) // Max size of payload in [dest] [len] [type] [payload] [crc8]
+#define CRSF_CRC_POLY 0xD5
 
 enum
 {
