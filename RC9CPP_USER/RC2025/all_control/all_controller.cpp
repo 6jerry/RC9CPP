@@ -1,21 +1,27 @@
 #include "all_controller.h"
 
+AllController::AllController() : flagConfigs{{&crsf_port->trigger_on, 1}, {&crsf_port->sal_flag, 1}, {&crsf_port->sar_flag, 1}, {&crsf_port->l_flag, 2}, {&crsf_port->r_flag, 2}}, mode_selector(flagConfigs, 5)
+{
+}
 
+void AllController::efsm_init()
+{
+}
 
 void AllController::process_data()
 {
     calc_data();
     remote_move();
-    //sendAttitude(233.0f, 233.3f, 233.0f);
+    // sendAttitude(233.0f, 233.3f, 233.0f);
 
-    //sendBattery(1212.0f, 20.0f, 12.0f, 233);
+    // sendBattery(1212.0f, 20.0f, 12.0f, 233);
 }
 
 void AllController::remote_move()
 {
-    //Vector2D tvel_(right_H_map * max_x_speed, right_V_map * max_y_speed);
-    //set_WorldVel(tvel_, 0);
-    //set_RobotW(left_H_map * max_yaw_speed, 0);
+    // Vector2D tvel_(right_H_map * max_x_speed, right_V_map * max_y_speed);
+    // set_WorldVel(tvel_, 0);
+    // set_RobotW(left_H_map * max_yaw_speed, 0);
 }
 
 void AllController::calc_data()

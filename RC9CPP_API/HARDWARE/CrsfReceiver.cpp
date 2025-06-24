@@ -115,10 +115,17 @@ void CrsfReceiver::processRcChannelsPacket()
     map_value_compute();
     flag_set();
 
- 
-    last_btn_r_flag = btn_r_flag;
+    if (last_btn_r_flag == 0 && btn_r_flag == 1)
+    {
+        trigger_on = 1;
+    }
 
-   
+    last_btn_r_flag = btn_r_flag;
+}
+
+void CrsfReceiver::reset_trigger_flag()
+{
+    trigger_on = 0;
 }
 
 // 实现获取待发送的数据
@@ -293,38 +300,38 @@ void CrsfReceiver::map_value_compute()
         right_H_map = -1.0f;
     }
 
-    if (channels_[1] >= 1034 && channels_[1] <= 1044)
+    if (channels_[2] >= 1051 && channels_[2] <= 1061)
     {
-        right_V_map = 0.0f;
+        left_V_map = 0.0f;
     }
-    if (channels_[1] > 1044 && channels_[1] <= 1811)
+    if (channels_[2] > 1061 && channels_[2] <= 1811)
     {
-        right_V_map = (float)(channels_[1] - 1044) / 767.0f;
+        left_V_map = (float)(channels_[2] - 1061) / 750.0f;
     }
-    if (channels_[1] < 1034 && channels_[1] >= 222)
+    if (channels_[2] < 1051 && channels_[2] >= 183)
     {
-        right_V_map = -((float)(1034 - channels_[1]) / 812.0f);
+        left_V_map = -((float)(1051 - channels_[2]) / 868.0f);
     }
+    if (channels_[2] < 183)
+    {
+        left_V_map = -1.0f;
+    }
+    if (channels_[2] > 1811)
+    {
+        left_V_map = 1.0f;
+    }
+
     if (channels_[1] < 222)
     {
-        right_V_map = -1.0f;
+        right_V_map = 0.0f;
     }
     if (channels_[1] > 1811)
     {
         right_V_map = 1.0f;
     }
-
-    if (channels_[2] < 183)
+    if (channels_[1] >= 222 && channels_[1] <= 1811)
     {
-        left_V_map = 0.0f;
-    }
-    if (channels_[2] > 1750)
-    {
-        left_V_map = 1.0f;
-    }
-    if (channels_[2] >= 183 && channels_[2] <= 1750)
-    {
-        left_V_map = (float)(channels_[2] - 183) / 1567.0f;
+        right_V_map = (float)(channels_[1] - 222) / 1589.0f;
     }
 
     if (channels_[3] >= 939 && channels_[3] <= 949)
@@ -370,7 +377,7 @@ void CrsfReceiver::flag_set()
     }
     if (channels_[4] == BTN_OFF)
     {
-        sal_flag = 2;
+        sal_flag = 0;
     }
 
     if (channels_[8] == BTN_ON)
@@ -379,7 +386,7 @@ void CrsfReceiver::flag_set()
     }
     if (channels_[8] == BTN_OFF)
     {
-        sar_flag = 2;
+        sar_flag = 0;
     }
 
     if (channels_[6] == BTN_ON)
@@ -393,27 +400,27 @@ void CrsfReceiver::flag_set()
 
     if (channels_[5] == BTN_1)
     {
-        l_flag = 1;
+        l_flag = 0;
     }
     if (channels_[5] == BTN_2)
     {
-        l_flag = 2;
+        l_flag = 1;
     }
     if (channels_[5] == BTN_3)
     {
-        l_flag = 3;
+        l_flag = 2;
     }
 
     if (channels_[7] == BTN_1)
     {
-        r_flag = 1;
+        r_flag = 0;
     }
     if (channels_[7] == BTN_2)
     {
-        r_flag = 2;
+        r_flag = 1;
     }
     if (channels_[7] == BTN_3)
     {
-        r_flag = 3;
+        r_flag = 2;
     }
 }
