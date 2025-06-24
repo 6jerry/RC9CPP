@@ -11,6 +11,8 @@ extern "C"
 #include "TaskManager.h"
 #include "robot_chassis.h"
 #include "EncodingStateMachine.h"
+#include "auto_shooter.h"
+#include "auto_yunball.h"
 #ifdef __cplusplus
 }
 #endif
@@ -27,18 +29,30 @@ public:
     CrsfReceiver *crsf_port = nullptr;
 
 public:
-    AllController(UART_HandleTypeDef *huart);
     void process_data();
     void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override; // 接收友军坐标
 
-public:
-    void remote_move(); // 世界坐标系遥控
-    void calc_data();   // 计算两个目标距离和两个朝向
+    EncodingStateMachine mode_selector, callback_selector;
 
-    void all_auto_mdoe();
+public:
+    void
+    remote_move();    // 世界坐标系遥控
+    void calc_data(); // 计算两个目标距离和两个朝向
+
+    // 三种全自动模式
     void all_auto_yunball();
     void all_auto_shootball();
     void all_auto_giveball();
+
+    // 三种纯手动模式
+    void all_hand_yunball();
+    void all_hand_shootball();
+    void all_hand_giveball();
+
+    // 准备模式，在开场或者攻防互换的情况下使用
+    void prepare_mode();
+    void yun_ball_race(); // 挑战赛模式
+    void shoot_ball_race();
 };
 
 #endif

@@ -1,8 +1,6 @@
 #include "all_controller.h"
 
-AllController::AllController(UART_HandleTypeDef *huart) : CrsfReceiver(huart)
-{
-}
+
 
 void AllController::process_data()
 {
@@ -15,9 +13,9 @@ void AllController::process_data()
 
 void AllController::remote_move()
 {
-    Vector2D tvel_(right_H_map * max_x_speed, right_V_map * max_y_speed);
-    set_WorldVel(tvel_, 0);
-    set_RobotW(left_H_map * max_yaw_speed, 0);
+    //Vector2D tvel_(right_H_map * max_x_speed, right_V_map * max_y_speed);
+    //set_WorldVel(tvel_, 0);
+    //set_RobotW(left_H_map * max_yaw_speed, 0);
 }
 
 void AllController::calc_data()
