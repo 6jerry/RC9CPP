@@ -41,7 +41,7 @@ class demo: public ITaskProcessor, public RC9subscriber{
     float pian_x = 2.65;
     float pian_y = 14.406;
 		
-		uint8_t cnt = 0;
+		uint8_t cnt = 1;
 
     Vector2D robot_pos;
     Vector2D robot_v;

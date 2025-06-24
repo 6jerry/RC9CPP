@@ -108,7 +108,8 @@ extern "C"
     task_core.registerTask(1, &m6374);
     task_core.registerTask(2, &auto_shooter);
     task_core.registerTask(4, &s3_chassis);
-    task_core.registerTask(5, &pocket_controller);
+    //task_core.registerTask(5, &pocket_controller);
+		task_core.registerTask(5, &chassis_debug);
     task_core.registerTask(8, &position_port);
     task_core.registerTask(8, &send_port);
     task_core.registerTask(5, &ros_port);
@@ -120,11 +121,11 @@ extern "C"
 
 void demo::process_data()
 {
-  /*if(cnt == 0)
+  if(cnt == 0)
   {
 		encoder.send_reset();
 		cnt = 1;
-	}*/
+	}
   // static Vector2D last_pos = position_sensor.world_pos;
   // float speed_xx  = (position_sensor.world_pos.x - last_pos.x) / 0.04f;
   // float speed_yy  = (position_sensor.world_pos.y - last_pos.y) / 0.04f;
