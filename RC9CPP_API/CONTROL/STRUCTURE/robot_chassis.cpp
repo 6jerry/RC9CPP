@@ -716,11 +716,11 @@ void RoboChassis::chassis_rst_priorityC()
 
 void RoboChassis::C_pp_track_point(Vector2D target_p)
 {
-    if (mode != ppp_track)
-    {
+    //if (mode != ppp_track)
+    //{
         pp_tracker.pp_start_plan(IMU->get_world_pos(), target_p, target.target_robovel);
         mode = ppp_track;
-    }
+    //}
 }
 
 void RoboChassis::C_rst_state()
@@ -825,12 +825,8 @@ float chassis_user::calc_dis(Vector2D target)
 
 uint8_t chassis_user::set_WorldVel(Vector2D worldvel, uint8_t PriorityCode)
 {
-#ifdef USE_VEL_ACCEL
 
     return robochassis_->set_CWorldVel_ACCLE(worldvel, 4.0f);
-#else
-    return robochassis_->set_CWorldVel(worldvel, PriorityCode, this);
-#endif
 }
 
 uint8_t chassis_user::yaw_TurnTo(float yaw, uint8_t PriorityCode)

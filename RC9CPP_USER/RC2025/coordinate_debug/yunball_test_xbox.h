@@ -22,7 +22,7 @@ extern "C" {
 } FloatUnion;*/
 
 #ifdef __cplusplus
-class yunball_test_xbox : public xbox, public ITaskProcessor
+class yunball_test_xbox : public xbox, public ITaskProcessor, public chassis_user
 {
 private:
     m3508p *turn_motor;
@@ -31,11 +31,17 @@ private:
     GPIO_TypeDef *turn_port;
     uint16_t turn_pin;
 
+    imu *imu_ptr;
+
     float max_turn_speed = 70.0f;
+
+    Vector2D t_points[7] = {{4.52f, 2.18f}, {3.62f, 2.97f}, {3.61f, 4.81f},\
+    {5.69f, 4.85f}, {7.75f, 4.90f}, {7.81f, 3.06f}, {6.96f, 2.27f}};
+    float change_dis = 0.01f;
 public:
     uint8_t mode_flag = 2, start_flag = 0, lb_flag = 0, rb_flag = 0, cnt_flag = 0, up_flag = 0, down_flag = 0, left_flag = 0, right_flag = 0;
 
-    yunball_test_xbox();
+    yunball_test_xbox(imu *imu_ptr_);
     void process_data();
     void btn_scan();
     void btnconfig_init();
@@ -46,6 +52,10 @@ public:
     void not_start();
     void mode_0();
     void mode_1();
+    void mode_2();
+    void mode_3();
+    void xbox_on();
+    void btnXBOX_callback();
 
     void yunball();
     void putball();

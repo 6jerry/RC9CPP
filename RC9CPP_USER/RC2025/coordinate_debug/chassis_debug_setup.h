@@ -21,6 +21,7 @@ extern "C"
 	#include "encoder.h"
     #include "auto_yunball.h"
 #include "CrsfReceiver.h"
+#include "all_controller.h"
     void chassis_debug_setup();
 #ifdef __cplusplus
 }
@@ -40,7 +41,7 @@ class demo: public ITaskProcessor, public RC9subscriber{
     float pian_x = 2.65;
     float pian_y = 14.406;
 		
-		uint8_t cnt = 0;
+		uint8_t cnt = 1;
 
     Vector2D robot_pos;
     Vector2D robot_v;

@@ -6,9 +6,6 @@ RC9Protocol esp_port(uart, &huart3), position_port(uart, &huart6);
 RC9Protocol ros_port(cdc, nullptr);
 RC9Protocol Lora_port(uart, &huart4);
 RC9Protocol send_port(uart, &huart5);
-
-//CrsfReceiver pocket_controller(&huart7);
-
 // Laser laser(&huart3);
 ros_sensor ros_sensor_;
 position position_sensor;
@@ -42,9 +39,6 @@ extern "C"
     // position_sensor.startUartReceiveIT();
     position_port.initQueue();
     position_port.startUartReceiveIT();
-
-    //pocket_controller.startUartReceiveIT();
-
     // laser.init();
     // laser.startUartReceiveIT();
     /**************debug*************/
@@ -52,7 +46,6 @@ extern "C"
     send_port.startUartReceiveIT();
     // s3_xbox.add_sending(&send_port);
     plot.addport(&send_port);
-    plot.add_xbox(&chassis_debug);
     // plot.add_xbox(&s3_xbox);
     /********************************/
     /****************************************************/
@@ -75,17 +68,16 @@ extern "C"
 
     // 运球
     yunball_port.add_motor(&turn_motor);
-    yunball_port.add_io(GPIOG, GPIO_PIN_6, GPIOG, GPIO_PIN_8, GPIOG, GPIO_PIN_5, GPIOD, GPIO_PIN_14); // 7发射， 8夹爪，6抬升， 5推射
-    yunball_port.add_shooter(&auto_shooter);
+    yunball_port.add_io(GPIOG, GPIO_PIN_6, GPIOG, GPIO_PIN_8, GPIOG, GPIO_PIN_5); // 7发射， 8夹爪，6抬升， 5推射
 
     //??
     s3_chassis.add_6_motors(&m2006_front, &u8_front, &m2006_right, &u8_right, &m2006_left, &u8_left);
     s3_chassis.config(s3_chassis_info);
-    // s3_chassis.yawadjuster_config(0.039f, 0.0f, 0.002f, 0.0f, 5.0f, 0.2f, 0.0f);
+    s3_chassis.yawadjuster_config(0.039f, 0.0f, 0.002f, 0.0f, 5.0f, 0.2f, 0.0f);
     s3_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
     s3_chassis.add_imu(&position_sensor);
     s3_chassis.add_photogate(GPIOF, GPIO_PIN_8, GPIOF, GPIO_PIN_9, GPIOD, GPIO_PIN_15, nullptr, 0);
-    s3_chassis.yawadjuster_config(0.12f, 0.0f, 0.004f, 0.0f, 5.0f, 0.1f, 0.5f);
+    s3_chassis.yawadjuster_config(0.1f, 0.0f, 0.03f, 0.0f, 7.0f, 0.2f, 0.0f);
     turn_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
 
     // pid config
@@ -115,9 +107,8 @@ extern "C"
     task_core.registerTask(4, &s3_chassis);
     task_core.registerTask(6, &chassis_debug);
     task_core.registerTask(8, &position_port);
-    task_core.registerTask(8, &send_port);
-    task_core.registerTask(5, &ros_port);
-    task_core.registerTask(2, &plot);
+    task_core.registerTask(1, &send_port);
+    task_core.registerTask(9, &plot);
     task_core.registerTask(5, &yunball_port);
     osKernelStart();
   }
@@ -125,11 +116,7 @@ extern "C"
 
 void demo::process_data()
 {
-  /*if(cnt == 0)
-  {
-		encoder.send_reset();
-		cnt = 1;
-	}*/
+
   // static Vector2D last_pos = position_sensor.world_pos;
   // float speed_xx  = (position_sensor.world_pos.x - last_pos.x) / 0.04f;
   // float speed_yy  = (position_sensor.world_pos.y - last_pos.y) / 0.04f;
@@ -170,25 +157,18 @@ void demo::process_data()
 
   //  float arr[6] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
   //                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y};
-  // float arr[5] = {auto_shooter.shoot_info.target_dis * 1000.0f, auto_shooter.shoot_info.real_dis * 1000.0f, chassis_debug.center_heading, position_sensor.get_heading(), position_sensor.get_yaw_speed()};
-  // sendFloatData(1, arr, 5);
+
+  float arr[2] = {auto_shooter.shoot_info.target_dis, auto_shooter.shoot_info.real_dis};
+  sendFloatData(1, arr, 2);
 }
 
 void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
 {
-  for (int i = 0; i < 4; i++)
-  {
-    recive_data[i] = floatData[i];
-  }
+  //    for(int i = 0; i < 4; i++)
+  //        {recive_data[i] = floatData[i];}
 
-  robot_pos.x = floatData[0] + pian_x;
-  robot_pos.y = floatData[1] + pian_y;
-  robot_v.x = floatData[2];
-  robot_v.y = floatData[3];
-  xbox->robot_point = robot_pos;
-}
-
-void demo::add_xbox(chassis_adjust_xbox *xbox_)
-{
-  xbox = xbox_;
+  //    robot_pos.x = floatData[0];
+  //    robot_pos.y = floatData[1];
+  //    robot_v.x = floatData[2];
+  //    robot_v.y = floatData[3];
 }
