@@ -10,13 +10,16 @@ extern "C"
 #include "vesc.h"
 #include "TaskManager.h"
 #include "RC9Protocol.h"
-
+#include "encoder.h"
 #include "fdcan_device.h"
 #include "gpio.h"
 #include "robot_chassis.h"
 #include "ros_sensor.h"
 #include "position.h"
 #include "CrsfReceiver.h"
+#include "all_controller.h"
+#include "auto_shooter.h"
+#include "auto_yunball.h"
     void all_setup();
 #ifdef __cplusplus
 }

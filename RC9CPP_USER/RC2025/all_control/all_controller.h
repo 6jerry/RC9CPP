@@ -29,18 +29,30 @@ public:
     CrsfReceiver *crsf_port = nullptr;
     AllController();
 
+    uint8_t sal_flag_ = 0, trigger_on_ = 0, sar_flag_ = 0, l_flag_ = 0, r_flag_ = 0;
+
+    void update_flag();
+
+    AutoShooter *auto_shooter = nullptr;
+    auto_yunball *auto_yunball_ptr = nullptr;
+
+    void add_yunball_and_shooter(AutoShooter *auto_shooter_ptr_, auto_yunball *auto_yunball_ptr_);
+
 public:
     void
     process_data();
     void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override; // 接收友军坐标
 
     EncodingStateMachine mode_selector;
-    FlagConfig flagConfigs[5]; // 标志位配置数组
-    void efsm_init();//初始化编码状态机
+    static const uint8_t bitWidths[5]; // 位宽数组
+    void efsm_init();                  // 初始化编码状态机
+    uint8_t currentStateflag = 255;
 
 public:
     void
-    remote_move();    // 世界坐标系遥控
+    remote_move();             // 世界坐标系遥控
+    void remote_move_revert(); // 头反过来
+    void remote_move_robot();
     void calc_data(); // 计算两个目标距离和两个朝向
 
     // 将机器人的行为详细拆分为超多个比较细节的小函数，方便后面修改，遥控器总共有两个3档按键和两个2档按键，所以最多可有3*3*2*2=36个小行为函数，这些对应关系用编码状态机来控制
@@ -62,6 +74,13 @@ public:
 
     void attack_move_mode(); // 常规进攻模式，在该模式下可以自由遥控底盘并进行速度档位和加速度档位控制
     void defend_move_mode(); // 常规防守模式，与进攻模式不同的是机器人的朝向反过来了
+
+    // 准备模式，该模式可以刷新坐标，校准舵轮
+    void wait_mode_move(); // 准备模式下的普通遥控是机器人坐标系的
+    void reset_sw_motor();
+    void reset_imu();
+
+    void add_elrs(CrsfReceiver *crsf_port_);
 };
 
 #endif
