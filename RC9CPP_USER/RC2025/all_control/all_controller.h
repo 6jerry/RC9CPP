@@ -87,6 +87,14 @@ public:
     void reset_sw_motor();
     void reset_all_imu();
 
+    // 手动模式，一般在调试或者车辆受损的情况下使用
+
+    void hand_shoot(); // 拉伸固定量然后发射
+
+    void hand_set_clawpos(); // 手动调整夹爪位置
+
+    float debug_dis = 0.12f, max_debug_dis = 0.3f;
+
     void add_elrs(CrsfReceiver *crsf_port_);
 };
 

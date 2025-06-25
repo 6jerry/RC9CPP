@@ -35,7 +35,7 @@ void AllController::add_position_and_ros(imu *position_imu_ptr, imu *ros_imu_ptr
     ros_imu = ros_imu_ptr;
 }
 
-    void AllController::efsm_init()
+void AllController::efsm_init()
 {
     uint16_t attack_move_modeflag[] = {0, 4, 2, 6, 8, 12};
 
@@ -43,30 +43,36 @@ void AllController::add_position_and_ros(imu *position_imu_ptr, imu *ros_imu_ptr
 
     uint16_t all_auto_yunballmodeflag[] = {1, 3};
 
-    uint16_t lock_on_center_pointmodeflag[] = {10};
+    uint16_t lock_on_center_pointmodeflag[] = {10, 74, 78};
     uint16_t lock_on_r2modeflag[] = {14};
-    uint16_t shoot_2_center_pointmodeflag[] = {9};
-    uint16_t shoot_2_r2modeflag[] = {13};
+    uint16_t shoot_2_center_pointmodeflag[] = {9, 11};
+    uint16_t shoot_2_r2modeflag[] = {13, 15};
 
     uint16_t defend_move_modeflag[] = {16, 20, 18, 22, 17, 21, 19, 23};
 
-    uint16_t wait_mode_movemodeflag[] = {32, 36, 34, 38};
+    uint16_t wait_mode_movemodeflag[] = {32, 36, 34, 38,  72,   76,};
 
     uint16_t reset_imumodeflag[] = {33, 35};
 
     uint16_t reset_sw_motormodeflag[] = {37, 39};
 
+    uint16_t hand_shootmodeflag[] = {73, 77, 75, 79};
+
+    uint16_t hand_set_clawposmodeflag[] = {64,68,66,70};
+
     mode_selector.mapStateToIndices(0, attack_move_modeflag, 6);
     mode_selector.mapStateToIndices(1, auto_reload_ballmodeflag, 2);
     mode_selector.mapStateToIndices(2, all_auto_yunballmodeflag, 2);
-    mode_selector.mapStateToIndices(3, lock_on_center_pointmodeflag, 1);
+    mode_selector.mapStateToIndices(3, lock_on_center_pointmodeflag, 3);
     mode_selector.mapStateToIndices(4, lock_on_r2modeflag, 1);
-    mode_selector.mapStateToIndices(5, shoot_2_center_pointmodeflag, 1);
-    mode_selector.mapStateToIndices(6, shoot_2_r2modeflag, 1);
+    mode_selector.mapStateToIndices(5, shoot_2_center_pointmodeflag, 2);
+    mode_selector.mapStateToIndices(6, shoot_2_r2modeflag, 2);
     mode_selector.mapStateToIndices(7, defend_move_modeflag, 8);
-    mode_selector.mapStateToIndices(8, wait_mode_movemodeflag, 4);
+    mode_selector.mapStateToIndices(8, wait_mode_movemodeflag, 6);
     mode_selector.mapStateToIndices(9, reset_imumodeflag, 2);
     mode_selector.mapStateToIndices(10, reset_sw_motormodeflag, 2);
+    mode_selector.mapStateToIndices(11, hand_shootmodeflag, 4);
+    mode_selector.mapStateToIndices(12, hand_set_clawposmodeflag, 4);
 }
 
 void AllController::process_data()
@@ -113,6 +119,13 @@ void AllController::process_data()
     case 10:
         reset_sw_motor();
         break;
+    case 11:
+        hand_shoot();
+        break;
+    case 12:
+        hand_set_clawpos();
+        break;
+
 
     default:
         break;
@@ -252,4 +265,20 @@ void AllController::reset_all_imu()
     position_imu_->imu_rst();
     ros_imu->imu_relocate(0.0f, 0.0f, 0.0f);
     crsf_port->reset_trigger_flag();
+}
+
+void AllController::hand_shoot()
+{
+    debug_dis = crsf_port->right_V_map * max_debug_dis;
+    all_stop();
+    if (auto_shooter->set_auto_byDis(PID, debug_dis) == auto_shoot)
+    {
+        crsf_port->reset_trigger_flag();
+    }
+}
+
+void AllController::hand_set_clawpos()
+{
+    auto_yunball_ptr->control_motor(crsf_port->right_H_map);
+    remote_move_robot();
 }
