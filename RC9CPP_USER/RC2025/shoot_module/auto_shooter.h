@@ -11,7 +11,6 @@ extern "C"
 #include "TrapezoidalPlanner.h"
 #include "motor.h"
 #include "PID.h"
-#include "fitter.h"
 #ifdef __cplusplus
 }
 
@@ -73,25 +72,16 @@ private:
     float target_rpm = 10.0f;
     float test_dis;
     float offest = 0.0f;
-    float a = 0.2961;
-    float b = 0.5103;
-    float c = -0.2302;
+    float a = 0.0064f;
+    float b = 2.1904;
+    float c = 0.1221;
 
     GPIO_TypeDef *shooter_port = nullptr, *stop_port = nullptr;
     uint16_t shooter_pin = 0, stop_pin = 0;
 
     TrapezoidalPlanner1D planer;
     planInfo plan_info;
-    float dis_data[9] = {0.01f, 0.1968f, 0.1958f, 0.2190f, 0.2337f, 0.228f, 0.172f, 0.1800f, 0.2211f};
-    float lidar_data[9] = {0.020f, 0.1998f, 0.1948f, 0.2050f, 0.1937f, 0.1877f, 0.2420f, 0.2420f, 0.2211f};
 
-    float r[24] = {2.980f, 3.290f, 3.530f, 3.180f, 2.870f, 2.300f, 2.810f, 3.120f, 3.460f, 3.600f,
-                   3.500f, 3.220f, 3.100f, 3.000f, 2.900f, 2.800f, 2.700f, 2.600f, 2.430f, 3.170f,
-                   3.280f, 3.430f, 3.536f, 3.530f};
-    float d[24] = {0.206f, 0.218f, 0.228f, 0.215f, 0.202f, 0.181f, 0.198f, 0.211f, 0.226f, 0.228f,
-                   0.225f, 0.215f, 0.208f, 0.204f, 0.197f, 0.196f, 0.194f, 0.191f, 0.186f, 0.212f,
-                   0.219f, 0.225f, 0.227f, 0.226f};
-    uint8_t n = 24;
     float s;
 
 public:
@@ -100,12 +90,11 @@ public:
     shootInfo shoot_info;
     uint8_t shooter_flag = 0;
     pid dis_control;
-    PolynomialFitter *fitter;
+
     AutoShooter();
     void process_data();
     void get_data();
 
-    void add_fitter(PolynomialFitter *fitter_);
     void add_encoder(Encoder *encoder_);
     void add_trigger(GPIO_TypeDef *stop_port_, uint8_t stop_pin_, GPIO_TypeDef *shooter_port_, uint16_t shooter_pin_);
     void add_motor(power_motor *shooter_motor_);
@@ -120,18 +109,11 @@ public:
 
     float calc(float x);
     void check_shooter();
-    void calc_fitter();
     void set_shooter_mode(uint8_t mode);
-    void set_auto_byFitter(uint8_t mode, float r);
-    void set_auto_byDis(uint8_t mode, float shoot_dis);
+    int set_auto_byFitter(uint8_t mode, float r);
+    int set_auto_byDis(uint8_t mode, float shoot_dis);
     void set_hand(float rpm);
     void set_lift(float dis);
-    // 往下拉一定距离
-    //  set_shooter_mode(shooter_lift);
-    // 进入停止模式
-    //  set_shooter_mode(shooter_stop);
-
-    uint32_t Read_GPIO_State(void);
 };
 #endif
 #ifdef __cplusplus

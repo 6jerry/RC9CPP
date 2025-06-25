@@ -12,8 +12,6 @@ void AutoShooter::process_data()
     // 获取拉伸距离和俯仰角度
     get_data();
 
-    fitter->fitAll(r, d, n);
-
     switch (shoot_mode)
     {
     case shooter_stop:
@@ -85,7 +83,7 @@ void AutoShooter::allAuto_adjust(float lifter_dis)
 
         break;
     case auto_revert:
-        if (auto_adjust(0.0145f))
+        if (auto_adjust(0.012f))
         {
             shoot_info.shoot_status = auto_finish;
         }
@@ -166,29 +164,9 @@ bool AutoShooter::auto_adjust(float lifter_dis)
         return true;
     }
 
-    //	 if(count > 10)
-    //   {
-    //
-    //	   count = 0;
-    //
-    //		 return true;
-    //
-    //	 }
-
     return false;
 }
 
-void AutoShooter::calc_fitter()
-{
-
-    fitter->fitAll(r, d, n);
-}
-
-void AutoShooter::add_fitter(PolynomialFitter *fitter_)
-{
-
-    fitter = fitter_;
-}
 void AutoShooter::add_encoder(Encoder *encoder_)
 {
     encoder = encoder_;
@@ -221,12 +199,6 @@ void AutoShooter::get_data()
     shoot_info.real_dis = encoder->get_absolute_distance();
 }
 
-// 读取GPIO状态
-uint32_t AutoShooter::Read_GPIO_State(void)
-{
-    return HAL_GPIO_ReadPin(stop_port, stop_pin);
-}
-
 bool AutoShooter::isfinish()
 {
     return shoot_info.shoot_status == auto_finish;
@@ -236,16 +208,14 @@ void AutoShooter::check_shooter()
 {
     HAL_GPIO_WritePin(shooter_port, shooter_pin, shooter_flag == 0 ? GPIO_PIN_RESET : GPIO_PIN_SET);
 }
-
-void AutoShooter::set_auto_byFitter(uint8_t mode, float r)
+int AutoShooter::set_auto_byFitter(uint8_t mode, float r)
 {
 
     if (shoot_info.shoot_status == auto_finish)
     {
         shoot_mode = shooter_auto;
         shoot_info.lift_mode = static_cast<liftMode>(mode);
-        // float d = fitter->evalLinear(r);
-        //  float d = fitter->evalCubic(r);
+
         float d = calc(r);
         if (d > 0.23f)
         {
@@ -259,9 +229,11 @@ void AutoShooter::set_auto_byFitter(uint8_t mode, float r)
         shoot_info.start_dis = shoot_info.real_dis;
         shoot_info.shoot_status = auto_lift;
     }
+
+    return shoot_info.shoot_status;
 }
 
-void AutoShooter::set_auto_byDis(uint8_t mode, float shoot_dis)
+int AutoShooter::set_auto_byDis(uint8_t mode, float shoot_dis)
 {
 
     if (shoot_info.shoot_status == auto_finish)
@@ -283,15 +255,16 @@ void AutoShooter::set_auto_byDis(uint8_t mode, float shoot_dis)
         shoot_info.start_dis = shoot_info.real_dis;
         shoot_info.shoot_status = auto_lift;
     }
+
+    return shoot_info.shoot_status;
 }
 
- void AutoShooter::set_lift(float dis)
- {
+void AutoShooter::set_lift(float dis)
+{
 
-  shoot_mode = shooter_lift;
-  shoot_info.target_dis = dis;
-
- }
+    shoot_mode = shooter_lift;
+    shoot_info.target_dis = dis;
+}
 void AutoShooter::set_hand(float rpm)
 {
 
@@ -307,25 +280,24 @@ void AutoShooter::set_shooter_mode(uint8_t mode)
 float AutoShooter::calc(float r)
 {
 
-//    const float coeffs[] = {
-//        0.0183f, // r³ 系数
-//        -0.1171f,  // r² 系数
-//        0.2796f, // r 系数
-//        -0.0659f   // 常数项
-//    };
+    //    const float coeffs[] = {
+    //        0.0183f, // r³ 系数
+    //        -0.1171f,  // r² 系数
+    //        0.2796f, // r 系数
+    //        -0.0659f   // 常数项
+    //    };
 
     // 使用霍纳法则进行高效计算
     // s = ((-0.0116*r + 0.0804)*r + (-0.1364))*r + 0.2153
 
-   // float s = coeffs[0]; // 从最高次系数开始
+    // float s = coeffs[0]; // 从最高次系数开始
 
     // 循环展开，效率最高
-   // s = s * r + coeffs[1];
-   // s = s * r + coeffs[2];
-    //s = s * r + coeffs[3];
+    // s = s * r + coeffs[1];
+    // s = s * r + coeffs[2];
+    // s = s * r + coeffs[3];
 
-     s = a * pow(r,b) + c*logf(r+1) ;
-		// offest;
+    s = a * pow(r, b) + c * logf(r + 1);
+    // offest;
     return s;
 }
-
