@@ -247,10 +247,10 @@ void AutoShooter::set_auto_byFitter(uint8_t mode, float r)
         // float d = fitter->evalLinear(r);
         //  float d = fitter->evalCubic(r);
         float d = calc(r);
-        if (d > 0.23f)
-        {
-            d = 0.23f;
-        }
+        //        if (d > 0.23f)
+        //        {
+        //            d = 0.23f;
+        //        }
         if (d < 0.05f)
         {
             d = 0.05f;
@@ -267,10 +267,10 @@ void AutoShooter::set_auto_byDis(uint8_t mode, float shoot_dis)
     if (shoot_info.shoot_status == auto_finish)
     {
 
-        if (shoot_dis > 0.23f)
-        {
-            shoot_dis = 0.23f;
-        }
+        //        if (shoot_dis > 0.23f)
+        //        {
+        //            shoot_dis = 0.23f;
+        //        }
         if (shoot_dis < 0.05f)
         {
             shoot_dis = 0.05f;
@@ -285,13 +285,12 @@ void AutoShooter::set_auto_byDis(uint8_t mode, float shoot_dis)
     }
 }
 
- void AutoShooter::set_lift(float dis)
- {
+void AutoShooter::set_lift(float dis)
+{
 
-  shoot_mode = shooter_lift;
-  shoot_info.target_dis = dis;
-
- }
+    shoot_mode = shooter_lift;
+    shoot_info.target_dis = dis;
+}
 void AutoShooter::set_hand(float rpm)
 {
 
@@ -307,25 +306,24 @@ void AutoShooter::set_shooter_mode(uint8_t mode)
 float AutoShooter::calc(float r)
 {
 
-//    const float coeffs[] = {
-//        0.0183f, // r³ 系数
-//        -0.1171f,  // r² 系数
-//        0.2796f, // r 系数
-//        -0.0659f   // 常数项
-//    };
+    //    const float coeffs[] = {
+    //        0.0183f, // r³ 系数
+    //        -0.1171f,  // r² 系数
+    //        0.2796f, // r 系数
+    //        -0.0659f   // 常数项
+    //    };
 
     // 使用霍纳法则进行高效计算
     // s = ((-0.0116*r + 0.0804)*r + (-0.1364))*r + 0.2153
 
-   // float s = coeffs[0]; // 从最高次系数开始
+    // float s = coeffs[0]; // 从最高次系数开始
 
     // 循环展开，效率最高
-   // s = s * r + coeffs[1];
-   // s = s * r + coeffs[2];
-    //s = s * r + coeffs[3];
+    // s = s * r + coeffs[1];
+    // s = s * r + coeffs[2];
+    // s = s * r + coeffs[3];
 
-     s = a * pow(r,b) + c*logf(r+1) ;
-		// offest;
+    s = a * pow(r, b) + c * logf(r + 1);
+    // offest;
     return s;
 }
-
