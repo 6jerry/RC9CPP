@@ -3,11 +3,11 @@
 chassis_adjust_xbox::chassis_adjust_xbox(imu *imu_ptr_)
 {
     imu_ptr = imu_ptr_;
-//    center_point.x = 5.8031f;
-//    center_point.y = 0.8451f;
+    //center_point.x = 5.8031f;
+    //center_point.y = 0.7022f;
 
-        center_point.x = 3.000f;
-        center_point.y = 14.355f;
+    center_point.x = 3.000f;
+    center_point.y = 14.355f;
 }
 
 void chassis_adjust_xbox::calc_error()

@@ -325,7 +325,8 @@ float AutoShooter::calc(float r)
     //s = s * r + coeffs[3];
 
      //s = a * pow(r,b) + c*logf(r+1) ;
-	   s = a * pow(r,b) + c ;
+	   //s = a * pow(r,b) + c ;
+	   s = a*exp(b*r) + c ;
 		// offest;
     return s;
 }
