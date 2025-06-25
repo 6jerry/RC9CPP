@@ -26,6 +26,9 @@ public:
 
     float dis_2_center = 0.0f, dis_2_robot = 0.0f, heading_2_center = 0.0f, heading_2_robot = 0.0f;
 
+    float pian_x = 2.65;
+    float pian_y = 14.406;
+
     CrsfReceiver *crsf_port = nullptr;
     AllController();
 
@@ -36,7 +39,10 @@ public:
     AutoShooter *auto_shooter = nullptr;
     auto_yunball *auto_yunball_ptr = nullptr;
 
+    imu *position_imu_ = nullptr, *ros_imu = nullptr;
+
     void add_yunball_and_shooter(AutoShooter *auto_shooter_ptr_, auto_yunball *auto_yunball_ptr_);
+    void add_position_and_ros(imu *position_imu_ptr, imu *ros_imu_ptr);
 
 public:
     void
@@ -53,6 +59,7 @@ public:
     remote_move();             // 世界坐标系遥控
     void remote_move_revert(); // 头反过来
     void remote_move_robot();
+    void all_stop();
     void calc_data(); // 计算两个目标距离和两个朝向
 
     // 将机器人的行为详细拆分为超多个比较细节的小函数，方便后面修改，遥控器总共有两个3档按键和两个2档按键，所以最多可有3*3*2*2=36个小行为函数，这些对应关系用编码状态机来控制
@@ -78,7 +85,7 @@ public:
     // 准备模式，该模式可以刷新坐标，校准舵轮
     void wait_mode_move(); // 准备模式下的普通遥控是机器人坐标系的
     void reset_sw_motor();
-    void reset_imu();
+    void reset_all_imu();
 
     void add_elrs(CrsfReceiver *crsf_port_);
 };

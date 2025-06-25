@@ -72,12 +72,29 @@ void chassis_user::stablize_swerve()
 
 void RoboChassis::C_reset()
 {
-    
-    for(int i = 0; i < 3; i++)
+
+    for (int i = 0; i < 3; i++)
     {
         if_not_init[i] = true;
     }
     mode = chassis_init;
+}
+
+bool RoboChassis::C_check_if_ready()
+{
+    if (mode == chassis_init)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+bool chassis_user::check_if_ready()
+{
+    return robochassis_->C_check_if_ready();
 }
 
 void chassis_user::reset_swerve()
@@ -716,10 +733,10 @@ void RoboChassis::chassis_rst_priorityC()
 
 void RoboChassis::C_pp_track_point(Vector2D target_p)
 {
-    //if (mode != ppp_track)
+    // if (mode != ppp_track)
     //{
-        pp_tracker.pp_start_plan(IMU->get_world_pos(), target_p, target.target_robovel);
-        mode = ppp_track;
+    pp_tracker.pp_start_plan(IMU->get_world_pos(), target_p, target.target_robovel);
+    mode = ppp_track;
     //}
 }
 

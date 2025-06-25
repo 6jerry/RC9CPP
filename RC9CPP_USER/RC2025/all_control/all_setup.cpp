@@ -10,12 +10,12 @@ RoboChassis s3_chassis(swerve3_chassis);
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
 
 CrsfReceiver remote_controller(&huart7);
-PolynomialFitter fitter(0.05f, 0.23f, false);
+
 AllController control_center;
 
 Encoder encoder(0x01, &hfdcan3);
 
-RC9Protocol position_port(uart, &huart4), Lora_port(uart, &huart4), ros_port(cdc, nullptr);
+RC9Protocol position_port(uart, &huart3), Lora_port(uart, &huart4), ros_port(cdc, nullptr);
 position position_sensor;
 ros_sensor ros_sensor_;
 
@@ -47,6 +47,10 @@ extern "C"
         // remote_controller.add_chassis(&s3_chassis);
         control_center.add_elrs(&remote_controller);
         control_center.add_chassis(&s3_chassis);
+        control_center.addport(&Lora_port);
+        control_center.add_yunball_and_shooter(&auto_shooter, &yunball_port);
+
+        control_center.add_position_and_ros(&position_sensor, &ros_sensor_);
 
         yunball_port.add_motor(&turn_motor);
         yunball_port.add_io(GPIOG, GPIO_PIN_4, GPIOG, GPIO_PIN_6, GPIOG, GPIO_PIN_3, GPIOD, GPIO_PIN_14); // 8发射， 6夹爪，4抬升， 3推射
@@ -68,7 +72,7 @@ extern "C"
         auto_shooter.dis_control.ConfigAll(16000.0f, 3.3f, 64.0f, 0.0f, 1800.0f, 0.001f, 0.015f);
         auto_shooter.add_plan_info(400, 400, 1200, 400, 400);
         auto_shooter.add_trigger(GPIOF, GPIO_PIN_5, GPIOG, GPIO_PIN_8);
-        auto_shooter.add_fitter(&fitter);
+      
 
         task_core.registerTask(0, &dji_core);
         task_core.registerTask(2, &u8_front);
@@ -82,7 +86,7 @@ extern "C"
         task_core.registerTask(2, &auto_shooter);
         task_core.registerTask(8, &position_port);
         task_core.registerTask(8, &Lora_port);
-        //task_core.registerTask(8, &plot);
+        // task_core.registerTask(8, &plot);
         osKernelStart();
     }
 }

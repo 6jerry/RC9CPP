@@ -123,7 +123,8 @@ public:
     float get_world_y();
 
     void stablize_swerve(); // 稳定四舵轮
-    void reset_swerve(); // 重置舵轮
+    void reset_swerve();    // 重置舵轮
+    bool check_if_ready();
 
     void init_locate(); // 初始化定位
 
@@ -253,12 +254,12 @@ public:
 
     float get_cworld_x();
     float get_cworld_y();
-   
 
     void swerve_stablize();
 
     void C_stablize();
     void C_reset();
+    bool C_check_if_ready();
 
     void C_init_locate();
 };
