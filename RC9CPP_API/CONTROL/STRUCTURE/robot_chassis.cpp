@@ -251,7 +251,7 @@ void RoboChassis::swerve3_initialize()
             }
             else // 光电门0未触发
             {
-                dmotors[1]->set_rpm(7.0f); // 以稍快速度继续寻找 (V2的转速)
+                dmotors[1]->set_rpm(30.0f); // 以稍快速度继续寻找 (V2的转速)
             }
         }
         else // 如果已初始化
@@ -274,7 +274,7 @@ void RoboChassis::swerve3_initialize()
             }
             else // 光电门1未触发
             {
-                dmotors[2]->set_rpm(7.0f);
+                dmotors[2]->set_rpm(30.0f);
             }
         }
         else
@@ -297,7 +297,7 @@ void RoboChassis::swerve3_initialize()
             }
             else // 光电门2未触发
             {
-                dmotors[0]->set_rpm(7.0f);
+                dmotors[0]->set_rpm(30.0f);
             }
         }
         else

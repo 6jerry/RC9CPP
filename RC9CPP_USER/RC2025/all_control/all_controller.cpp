@@ -5,8 +5,8 @@ AllController::AllController() : mode_selector(bitWidths, 5)
 {
     efsm_init();
 
-    center_point.x = 5.8031f;
-    center_point.y = 0.8451f;
+    center_point.x = 3.000f;
+    center_point.y = 14.355f;
 }
 
 void AllController::update_flag()
@@ -50,7 +50,14 @@ void AllController::efsm_init()
 
     uint16_t defend_move_modeflag[] = {16, 20, 18, 22, 17, 21, 19, 23};
 
-    uint16_t wait_mode_movemodeflag[] = {32, 36, 34, 38,  72,   76,};
+    uint16_t wait_mode_movemodeflag[] = {
+        32,
+        36,
+        34,
+        38,
+        72,
+        76,
+    };
 
     uint16_t reset_imumodeflag[] = {33, 35};
 
@@ -58,7 +65,7 @@ void AllController::efsm_init()
 
     uint16_t hand_shootmodeflag[] = {73, 77, 75, 79};
 
-    uint16_t hand_set_clawposmodeflag[] = {64,68,66,70};
+    uint16_t hand_set_clawposmodeflag[] = {64, 68, 66, 70};
 
     mode_selector.mapStateToIndices(0, attack_move_modeflag, 6);
     mode_selector.mapStateToIndices(1, auto_reload_ballmodeflag, 2);
@@ -126,7 +133,6 @@ void AllController::process_data()
         hand_set_clawpos();
         break;
 
-
     default:
         break;
     }
@@ -134,23 +140,23 @@ void AllController::process_data()
 
 void AllController::remote_move()
 {
-    Vector2D tvel_(crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
+    Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
     set_WorldVel(tvel_, 0);
-    set_RobotW(crsf_port->right_H_map * max_yaw_speed, 0);
+    set_RobotW(-crsf_port->right_H_map * max_yaw_speed, 0);
 }
 
 void AllController::remote_move_revert()
 {
-    Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, -crsf_port->left_V_map * max_y_speed);
+    Vector2D tvel_(crsf_port->left_H_map * max_x_speed, -crsf_port->left_V_map * max_y_speed);
     set_WorldVel(tvel_, 0);
     set_RobotW(-crsf_port->right_H_map * max_yaw_speed, 0);
 }
 
 void AllController::remote_move_robot()
 {
-    Vector2D tvel_(crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
+    Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
     set_RobotVel(tvel_, 0);
-    set_RobotW(crsf_port->right_H_map * max_yaw_speed, 0);
+    set_RobotW(-crsf_port->right_H_map * max_yaw_speed, 0);
 }
 
 void AllController::all_stop()
@@ -210,13 +216,13 @@ void AllController::auto_reload_ball()
 void AllController::lock_on_center_point()
 {
     yaw_TurnTo(heading_2_center, 0);
-    Vector2D tvel_(crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
+    Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
     set_WorldVel(tvel_, 0);
 }
 void AllController::lock_on_r2()
 {
     yaw_TurnTo(heading_2_robot, 0);
-    Vector2D tvel_(crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
+    Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
     set_WorldVel(tvel_, 0);
 }
 
@@ -262,8 +268,8 @@ void AllController::reset_sw_motor()
 
 void AllController::reset_all_imu()
 {
-    position_imu_->imu_rst();
-    ros_imu->imu_relocate(0.0f, 0.0f, 0.0f);
+    ros_imu->imu_rst();
+    position_imu_->imu_relocate(0.0f, 0.0f, 0.0f);
     crsf_port->reset_trigger_flag();
 }
 
@@ -280,5 +286,15 @@ void AllController::hand_shoot()
 void AllController::hand_set_clawpos()
 {
     auto_yunball_ptr->control_motor(crsf_port->right_H_map);
-    remote_move_robot();
+    Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
+    set_RobotVel(tvel_, 0);
+
+    if (sar_flag_ == 0)
+    {
+        auto_yunball_ptr->control_claw(true);
+    }
+    else if (sar_flag_ == 1)
+    {
+        auto_yunball_ptr->control_claw(false);
+    }
 }

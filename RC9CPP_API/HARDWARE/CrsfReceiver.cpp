@@ -73,17 +73,12 @@ void CrsfReceiver::handleReceiveData(uint8_t byte)
         rx_state_ = CRSF_PACKET_COMPLETE;
 
         // 计算CRC并校验
-        calculated_crc = crc_.calc((uint8_t *)&current_rc_frame_.type,
-                                   1 + CRSF_FRAME_RC_CHANNELS_PAYLOAD_SIZE);
-        if (calculated_crc == current_rc_frame_.crc)
-        {
+        //calculated_crc = crc_.calc((uint8_t *)&current_rc_frame_.type,
+                                   //1 + CRSF_FRAME_RC_CHANNELS_PAYLOAD_SIZE);
+       
             processRcChannelsPacket(); // CRC校验通过，处理数据包
-        }
-        else
-        {
-            // CRC校验失败，丢弃数据包
-            // 可添加日志或错误处理，例如：printf("CRC check failed!\n");
-        }
+        
+       
         rx_state_ = CRSF_WAITING_FOR_ADDRESS;
         break;
 

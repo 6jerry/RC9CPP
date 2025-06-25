@@ -15,7 +15,7 @@ AllController control_center;
 
 Encoder encoder(0x01, &hfdcan3);
 
-RC9Protocol position_port(uart, &huart3), Lora_port(uart, &huart4), ros_port(cdc, nullptr);
+RC9Protocol position_port(uart, &huart6), Lora_port(uart, &huart4), ros_port(cdc, nullptr);
 position position_sensor;
 ros_sensor ros_sensor_;
 
@@ -81,7 +81,7 @@ extern "C"
         task_core.registerTask(4, &s3_chassis);
         task_core.registerTask(5, &control_center);
         task_core.registerTask(1, &m6374);
-        task_core.registerTask(5, &yunball_port);
+        task_core.registerTask(6, &yunball_port);
         task_core.registerTask(9, &ros_port);
         task_core.registerTask(2, &auto_shooter);
         task_core.registerTask(8, &position_port);
