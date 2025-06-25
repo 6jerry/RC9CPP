@@ -14,7 +14,7 @@ ros_sensor ros_sensor_;
 position position_sensor;
 
 Encoder encoder(0x01, &hfdcan3);
-PolynomialFitter fitter(0.05f, 0.23f, false);
+//PolynomialFitter fitter(0.05f, 0.23f, false);
 
 //??
 m3508p m2006_left(dji_id_4, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_1, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
@@ -99,7 +99,7 @@ extern "C"
     auto_shooter.dis_control.ConfigAll(16000.0f, 3.3f, 64.0f, 0.0f, 1800.0f, 0.001f, 0.015f);
     auto_shooter.add_plan_info(400, 400, 1200, 400, 400);
     auto_shooter.add_trigger(GPIOF, GPIO_PIN_5, GPIOG, GPIO_PIN_7);
-    auto_shooter.add_fitter(&fitter);
+    //auto_shooter.add_fitter(&fitter);
     chassis_debug.add_AutoShooter(&auto_shooter);
 
     // task register
