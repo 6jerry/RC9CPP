@@ -138,12 +138,25 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 		imu_->imu_relocate(real_radar_world_pos.x, -real_radar_world_pos.y, 0);
 		return;
 	}
-	
+
 	if(rst_radar){
 		rst_radar = false;
 		imu_rst();
 	}
+	
 }
+
+
+// void ros_sensor::process_data(){
+// 	// 重启雷达,重置映射原点
+// 	if(rst_radar){
+// 		rst_radar = false;
+// 		imu_rst();
+// 	}
+
+// }
+
+
 
 Vector2D ros_sensor::get_world_pos(void)
 {
@@ -181,7 +194,9 @@ void ros_sensor::stop_relocate(void)
 void ros_sensor::imu_rst()
 {
 	//重置雷达同时开始定位
-	//float arr[3] = {0.0f, 0.0f, 0.0f}; // x, y ,angle
-	//sendFloatData(1, arr, 3);
+	float arr[3] = {0.0f, 0.0f, 0.0f}; // x, y ,angle
+	static uint8_t id_count = 1;
+//	id_count++;
+	sendFloatData(id_count, arr, 3);
 	tf_.map_origin_init_flag = false;
 }

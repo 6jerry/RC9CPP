@@ -12,12 +12,14 @@ extern "C"
 #include "imu.h"
 #include "transformation_of_coordinates.h"
 #include "filter.h"
+#include "TaskManager.h"
 #ifdef __cplusplus
 }
 #endif
 #ifdef __cplusplus
 
 //
+// class ros_sensor : public RC9subscriber, public imu, public ITaskProcessor
 class ros_sensor : public RC9subscriber, public imu
 {
 public:
@@ -43,18 +45,19 @@ public:
     bool relocate_flag = false; //  是否开启重定位标志
 	bool get_zero_flag = false; //  雷达有时会发送同时0的值，需要过滤
 	bool rst_radar = false; // 雷达重启标志位（debug专用）
+    bool if_active = true; //  雷达是否活跃
     ros_sensor();
     // 信息获取接口
     Vector2D get_world_pos() override;
     // float get_yaw_angle() override;
     float get_heading() override;
     float get_yaw_rad() override;
+    void imu_rst() override;
     void relocate_imu();
     void stop_relocate();
     void add_recolate_imu(imu *imu_);
 
-    void imu_rst() override;
-
+    // void process_data() override;
 public:
     void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
 
