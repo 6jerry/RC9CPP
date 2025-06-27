@@ -72,29 +72,10 @@ void chassis_user::stablize_swerve()
 
 void RoboChassis::C_reset()
 {
-
-    for (int i = 0; i < 3; i++)
-    {
-        if_not_init[i] = true;
-    }
+    front_photogate.init = false;
+    right_photogate.init = false;
+    left_photogate.init = false;
     mode = chassis_init;
-}
-
-bool RoboChassis::C_check_if_ready()
-{
-    if (mode == chassis_init)
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
-}
-
-bool chassis_user::check_if_ready()
-{
-    return robochassis_->C_check_if_ready();
 }
 
 void chassis_user::reset_swerve()
@@ -205,7 +186,7 @@ void RoboChassis::chassis_initialize()
     }
 }
 
-void RoboChassis::swerve3_initialize()
+/*void RoboChassis::swerve3_initialize()
 {
 
     // 用于控制初始旋转阶段
@@ -251,7 +232,7 @@ void RoboChassis::swerve3_initialize()
             }
             else // 光电门0未触发
             {
-                dmotors[1]->set_rpm(30.0f); // 以稍快速度继续寻找 (V2的转速)
+                dmotors[1]->set_rpm(7.0f); // 以稍快速度继续寻找 (V2的转速)
             }
         }
         else // 如果已初始化
@@ -274,7 +255,7 @@ void RoboChassis::swerve3_initialize()
             }
             else // 光电门1未触发
             {
-                dmotors[2]->set_rpm(30.0f);
+                dmotors[2]->set_rpm(7.0f);
             }
         }
         else
@@ -297,8 +278,131 @@ void RoboChassis::swerve3_initialize()
             }
             else // 光电门2未触发
             {
-                dmotors[0]->set_rpm(30.0f);
+                dmotors[0]->set_rpm(7.0f);
             }
+        }
+        else
+        {
+            dmotors[0]->set_pos(0.0f);
+        }
+    }
+
+    // 检查是否所有舵轮都已归位
+    if (all_homed)
+    {
+        time_cnt++;
+        if (time_cnt > 150) // V2的延时计数，可以根据实际任务周期调整
+        {
+            mode = stop;       // 切换到底盘停止模式
+            if_init_ok = true; // (可选) 标记底盘初始化完成
+            time_cnt = 0;      // 重置计数器
+            // initial_spin_done = false; // 如果希望每次进入chassis_init都重新执行初始旋转
+            // initial_spin_counter = 0;
+        }
+    }
+    else
+    {
+        time_cnt = 0; // 如果有任何一个舵轮还在归位，重置退出计数器
+    }
+}*/
+
+void RoboChassis::swerve3_initialize()
+{
+
+    // 用于控制初始旋转阶段
+    static bool initial_spin_done = false;
+    static uint16_t initial_spin_counter = 0;
+
+    // 1. 初始旋转阶段
+    /*if (!initial_spin_done)
+    {
+        if (++initial_spin_counter >= 100)
+        {
+            initial_spin_done = true;
+        }
+        else
+        {
+            // 让所有舵轮电机以一个较小的速度旋转，确保脱离可能已触发的光电门
+            if (dmotors[0])
+                dmotors[0]->set_rpm(5.0f); // 对应光电门2
+            if (dmotors[1])
+                dmotors[1]->set_rpm(5.0f); // 对应光电门0
+            if (dmotors[2])
+                dmotors[2]->set_rpm(5.0f); // 对应光电门1
+            return;                        // 在初始旋转阶段，直接返回，不做后续处理
+        }
+    }*/
+
+    // 扫描所有相关的光电门状态
+    //scan_photogate(); // 假设 scan_photogate 会正确更新 photogate_state[0], [1], [2]
+
+    bool all_homed = true; // 标记是否所有舵轮都已归位
+
+    // --- 处理 photogate_state[0] 对应的 dmotors[1] ---
+    if (dmotors[1]) // 确保电机指针有效
+    {
+        if (right_photogate.if_init() == false) // 使用 if_not_init[0] 跟踪 dmotors[1] 的初始化状态
+        {
+            all_homed = false;           // 只要有一个未初始化，就不是全部归位
+            dmotors[1]->set_rpm(20.0f);
+            /*if (photogate_state[0] == 0) // 光电门0触发
+            {
+                dmotors[1]->relocate_pos(90.0f); // 使用你指定的校准角度
+                if_not_init[0] = false;          // 标记为已初始化
+                dmotors[1]->set_pos(0.0f);       // 命令到零位
+            }
+            else // 光电门0未触发
+            {
+                dmotors[1]->set_rpm(7.0f); // 以稍快速度继续寻找 (V2的转速)
+            }*/
+        }
+        else // 如果已初始化
+        {
+            dmotors[1]->set_pos(0.0f); // 持续命令到零位，保持位置
+        }
+    }
+
+    // --- 处理 photogate_state[1] 对应的 dmotors[2] ---
+    if (dmotors[2]) // 确保电机指针有效
+    {
+        if (left_photogate.if_init() == false) // 使用 if_not_init[1] 跟踪 dmotors[2] 的初始化状态
+        {
+            all_homed = false;
+            dmotors[2]->set_rpm(20.0f);
+            /*if (photogate_state[1] == 0) // 光电门1触发
+            {
+                dmotors[2]->relocate_pos(-90.0f); // 使用你指定的校准角度
+                if_not_init[1] = false;
+                dmotors[2]->set_pos(0.0f);
+            }
+            else // 光电门1未触发
+            {
+                dmotors[2]->set_rpm(7.0f);
+            }*/
+        }
+        else
+        {
+            dmotors[2]->set_pos(0.0f);
+        }
+    }
+
+    // --- 处理 photogate_state[2] 对应的 dmotors[0] ---
+    if (dmotors[0]) // 确保电机指针有效
+    {
+        if (front_photogate.if_init() == false) // 使用 if_not_init[2] 跟踪 dmotors[0] 的初始化状态
+        {
+            all_homed = false;
+            dmotors[0]->set_rpm(20.0f);
+            /*if (photogate_state[2] == 0) // 光电门2触发
+            {
+                dmotors[0]->relocate_pos(-90.0f); // 使用你指定的校准角度
+                if_not_init[2] = false;
+                dmotors[0]->set_pos(0.0f);
+            }
+            else // 光电门2未触发
+            {
+                dmotors[0]->set_rpm(7.0f);
+            }*/
         }
         else
         {
@@ -500,6 +604,9 @@ void RoboChassis::add_photogate(GPIO_TypeDef *port1, uint16_t pin1, GPIO_TypeDef
     photogate_pin[2] = pin3;
     photogate_port[3] = port4;
     photogate_pin[3] = pin4;
+    front_photogate.add_io_interrupt(port3, pin3);
+    right_photogate.add_io_interrupt(port1, pin1);
+    left_photogate.add_io_interrupt(port2, pin2);
 }
 
 void RoboChassis::add_6_motors(power_motor *front_d_motor, power_motor *front_motor, power_motor *right_d_motor, power_motor *right_motor, power_motor *left_d_motor, power_motor *left_motor)
@@ -510,6 +617,9 @@ void RoboChassis::add_6_motors(power_motor *front_d_motor, power_motor *front_mo
     motors[1] = right_motor;
     dmotors[2] = left_d_motor;
     motors[2] = left_motor;
+    right_photogate.setMotor(right_d_motor);
+    left_photogate.setMotor(left_d_motor);
+    front_photogate.setMotor(front_d_motor);
 }
 
 bool RoboChassis::priority_judge(uint8_t PriorityCode, chassis_user *user_, chassis_cmd_type cmd_type)
@@ -733,10 +843,10 @@ void RoboChassis::chassis_rst_priorityC()
 
 void RoboChassis::C_pp_track_point(Vector2D target_p)
 {
-    // if (mode != ppp_track)
+    //if (mode != ppp_track)
     //{
-    pp_tracker.pp_start_plan(IMU->get_world_pos(), target_p, target.target_robovel);
-    mode = ppp_track;
+        pp_tracker.pp_start_plan(IMU->get_world_pos(), target_p, target.target_robovel);
+        mode = ppp_track;
     //}
 }
 
@@ -911,4 +1021,21 @@ void chassis_user::yaw_lock()
 void chassis_user::yaw_unlock()
 {
     robochassis_->yaw_Cunlock();
+}
+
+photogate::photogate(float reset_angle_) : GPIODevice()
+{
+    reset_angle = reset_angle_;
+}
+
+void photogate::handleInterrupt()
+{
+	init = true;
+    motor->relocate_pos(reset_angle); 
+}
+
+void photogate::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)
+{
+    port_ = port;
+    pin_ = pin;
 }

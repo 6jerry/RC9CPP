@@ -17,6 +17,7 @@ extern "C"
 #include "gpio.h"
 #include "RC9Protocol.h"
 #include "TrapezoidalPlanner.h"
+#include "IO_Interrupt.h"
 #ifdef __cplusplus
 }
 #endif
@@ -86,6 +87,23 @@ typedef struct chassis_target
     Vector2D pppoint[2];
 };
 
+class photogate : public GPIODevice
+{
+    private:
+    power_motor *motor = nullptr;
+    float reset_angle = 0.0f;
+
+    public:
+    photogate(float reset_angle_);
+    bool if_init()  { return init; }
+    void setMotor(power_motor* motor_) { motor = motor_; }
+
+    bool init = false;
+    
+    void handleInterrupt() override;
+    void add_io_interrupt(GPIO_TypeDef *port, uint16_t pin) override;
+};
+
 class RoboChassis;
 class chassis_user
 {
@@ -123,8 +141,7 @@ public:
     float get_world_y();
 
     void stablize_swerve(); // 稳定四舵轮
-    void reset_swerve();    // 重置舵轮
-    bool check_if_ready();
+    void reset_swerve(); // 重置舵轮
 
     void init_locate(); // 初始化定位
 
@@ -174,6 +191,9 @@ private:
 
     power_motor *motors[4] = {nullptr};
     power_motor *dmotors[4] = {nullptr};
+    photogate front_photogate{-90.0f};
+    photogate right_photogate{90.0f};
+    photogate left_photogate{-90.0f};
 
     float dmotor_locate_angles[4] = {0.0f};
 
@@ -254,12 +274,12 @@ public:
 
     float get_cworld_x();
     float get_cworld_y();
+   
 
     void swerve_stablize();
 
     void C_stablize();
     void C_reset();
-    bool C_check_if_ready();
 
     void C_init_locate();
 };

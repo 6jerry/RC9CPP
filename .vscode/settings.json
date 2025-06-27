@@ -67,6 +67,8 @@
     "cstdint": "cpp",
     "compare": "cpp",
     "queue": "cpp",
-    "gpio.h": "c"
+    "gpio.h": "c",
+    "type_traits": "cpp",
+    "stm32h7xx_it.h": "c"
   }
 }

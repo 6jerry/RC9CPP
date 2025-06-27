@@ -21,7 +21,7 @@ extern "C"
 	#include "encoder.h"
     #include "auto_yunball.h"
 #include "CrsfReceiver.h"
-#include "all_controller.h"
+//#include "all_controller.h"
     void chassis_debug_setup();
 #ifdef __cplusplus
 }
