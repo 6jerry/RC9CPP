@@ -34,6 +34,9 @@ public:
 
     uint8_t sal_flag_ = 0, trigger_on_ = 0, sar_flag_ = 0, l_flag_ = 0, r_flag_ = 0;
 
+    uint8_t send_cnt = 0;
+    void send_crsf_datas();
+
     void update_flag();
 
     AutoShooter *auto_shooter = nullptr;

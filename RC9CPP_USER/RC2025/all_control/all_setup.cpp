@@ -72,7 +72,6 @@ extern "C"
         auto_shooter.dis_control.ConfigAll(16000.0f, 3.3f, 64.0f, 0.0f, 1800.0f, 0.001f, 0.015f);
         auto_shooter.add_plan_info(400, 400, 1200, 400, 400);
         auto_shooter.add_trigger(GPIOF, GPIO_PIN_5, GPIOG, GPIO_PIN_8);
-      
 
         task_core.registerTask(0, &dji_core);
         task_core.registerTask(2, &u8_front);
@@ -86,15 +85,16 @@ extern "C"
         task_core.registerTask(2, &auto_shooter);
         task_core.registerTask(8, &position_port);
         task_core.registerTask(8, &Lora_port);
-        // task_core.registerTask(8, &plot);
+        //task_core.registerTask(8, &plot);
         osKernelStart();
     }
 }
 
 void demo::process_data()
 {
-    // remote_controller.sendAttitude(1.0f, 1.0f, 1.0f);
-    //  remote_controller.sendBattery(test_v, test_c, 1.0f, 1);
+    //remote_controller.sendAttitude(test_v, test_v, test_v);
+    //remote_controller.sendBattery(test_v, test_v, test_v, test_v);
 
-    remote_controller.sendGps(1.0, 1.0, 3, 3, 7, 12);
+    //remote_controller.sendGps(test_x, test_y, test_heading, test_heading, test_heading, test_heading);
+    
 }

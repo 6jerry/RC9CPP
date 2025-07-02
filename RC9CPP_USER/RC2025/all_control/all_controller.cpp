@@ -89,6 +89,8 @@ void AllController::process_data()
 
     calc_data();
 
+    send_crsf_datas();
+
     uint8_t flagValues[5] = {trigger_on_, sal_flag_, sar_flag_, l_flag_, r_flag_};
     currentStateflag = mode_selector.getState(flagValues);
     switch (currentStateflag)
@@ -135,6 +137,30 @@ void AllController::process_data()
 
     default:
         break;
+    }
+}
+
+void AllController::send_crsf_datas()
+{
+    if (send_cnt == 0)
+    {
+        crsf_port->sendAttitude(0.0f, 0.0f, 0.0f);
+    }
+
+    else if (send_cnt == 1)
+    {
+        crsf_port->sendBattery(0.0f, 0.0f, 0, 0);
+    }
+
+    else if (send_cnt == 2)
+    {
+        crsf_port->sendGps(0.0, 0.0, 0, 0, 0, 0);
+    }
+    send_cnt++;
+
+    if (send_cnt >= 3)
+    {
+        send_cnt = 0;
     }
 }
 

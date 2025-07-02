@@ -31,6 +31,7 @@ public:
     void process_data();
 
     float test_v = 0.0f, test_c = 0.0f;
+    float test_x = 0.0f, test_y = 0.0f, test_heading = 0.0f;
 };
 #endif
 #endif

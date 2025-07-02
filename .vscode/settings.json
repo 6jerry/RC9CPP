@@ -69,6 +69,20 @@
     "queue": "cpp",
     "gpio.h": "c",
     "type_traits": "cpp",
-    "stm32h7xx_it.h": "c"
+    "stm32h7xx_it.h": "c",
+    "cmath": "cpp",
+    "deque": "cpp",
+    "string": "cpp",
+    "vector": "cpp",
+    "memory_resource": "cpp",
+    "optional": "cpp",
+    "ostream": "cpp",
+    "string_view": "cpp",
+    "typeinfo": "cpp",
+    "algorithm": "cpp",
+    "atomic": "cpp",
+    "new": "cpp",
+    "numeric": "cpp",
+    "system_error": "cpp"
   }
 }
