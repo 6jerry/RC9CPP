@@ -69,7 +69,7 @@ class m3508p : public CanDevice,
                
 {
 private:
-    float gear_ratio = 19.2032f, wheel_perimeter = 0.0f, wheel_R = 0.0f, v_2_rpm_k = 0.0f, rpm_2_v_k = 0.0f, speed_plan_end_dis = 10.0f, min_start_rpm = 60.0f, speed_plan_end_pos = 2.0f;
+    float gear_ratio = 19.2032f, wheel_perimeter = 0.0f, wheel_R = 0.0f, v_2_rpm_k = 0.0f, rpm_2_v_k = 0.0f, speed_plan_end_dis = 0.2f, min_start_rpm = 60.0f, speed_plan_end_pos = 2.0f;
 
     uint8_t time_cnt = 0;
 

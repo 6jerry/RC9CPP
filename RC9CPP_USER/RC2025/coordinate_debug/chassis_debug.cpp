@@ -54,6 +54,7 @@ void chassis_adjust_xbox::not_start()
     set_RobotW(0.0f, 0);
     max_target_robot_vel.x = 5.0f;
     max_target_robot_vel.y = 5.0f;
+    auto_yunball_ptr->stop();
 }
 
 void chassis_adjust_xbox::mode_2()
@@ -111,15 +112,8 @@ void chassis_adjust_xbox::mode_1()
 
 void chassis_adjust_xbox::mode_3()
 {
-    auto_yunball_ptr->control_motor(xbox_msgs.joyRHori_map);
-    if (lb_flag)
-    {
-        auto_yunball_ptr->control_lift(true);
-    }
-    else
-    {
-        auto_yunball_ptr->control_lift(false);
-    }
+    auto_yunball_ptr->control_turn_motor(xbox_msgs.joyRHori_map);
+		auto_yunball_ptr->control_lift_motor(xbox_msgs.joyLVert_map);
 
     if (rb_flag)
     {
