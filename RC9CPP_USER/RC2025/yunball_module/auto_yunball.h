@@ -23,7 +23,8 @@ enum state_flag
     static_flag,
     yunball_flag,
     putball_flag,
-    stop_flag
+    stop_flag,
+    emergency_stop
 };
 
 typedef union {
@@ -34,32 +35,34 @@ typedef union {
 class auto_yunball : public ITaskProcessor
 {
 private:
-    GPIO_TypeDef *lift_port, *claw_port, *push_port, *turn_port;
-    uint16_t lift_pin, claw_pin, push_pin, turn_pin;
+    GPIO_TypeDef *claw_port, *push_port, *turn_port;
+    uint16_t claw_pin, push_pin, turn_pin;
 		FloatUnion float_data;
-    float get_speed = 0.0f;
+    float get_speed_turn = 0.0f;
+    float get_speed_lift = 0.0f;
     float max_turn_speed = 70.0f;
+    float max_lift_speed = 30.0f;
 
     void set_claw(bool if_open);
-    void set_lift(bool if_up);
     void set_push(bool if_push);
     void yunball();
     void putball();
-    m3508p *turn_motor;
+    m3508p *turn_motor,*lift_motor;
     state_flag flag = static_flag;
     AutoShooter *shooter;
 
 public:
-    uint8_t mode_flag = 2, start_flag = 0, lb_flag = 0, rb_flag = 0, cnt_flag = 0, up_flag = 0, down_flag = 0, left_flag = 0, right_flag = 0;
-
+    uint8_t mode_flag = 2, start_flag = 0, lb_flag = 0, rb_flag = 0, cnt_flag = 0, up_flag = 0, down_flag = 0, left_flag = 0, right_flag = 0, emergency_stop_flag = 0;
+    volatile int32_t emergency_semaphore = 0;  // 新增信号量计数器
+    
     void process_data();
-    void add_motor(m3508p *turn_motor_);
-    void add_io(GPIO_TypeDef *lift_port_, uint16_t lift_pin_,  GPIO_TypeDef *claw_port_, uint16_t claw_pin_, GPIO_TypeDef *push_port_, uint16_t push_pin_, GPIO_TypeDef *turn_port_, uint16_t turn_pin_);
+    void add_motor(m3508p *turn_motor_, m3508p *lift_motor_);
+    void add_io(GPIO_TypeDef *claw_port_, uint16_t claw_pin_, GPIO_TypeDef *push_port_, uint16_t push_pin_, GPIO_TypeDef *turn_port_, uint16_t turn_pin_);
     void add_shooter(AutoShooter *shooter_);
 
-    void control_motor(float speed_);       //外部控制接口
+    void control_turn_motor(float speed_);       //外部控制接口
+    void control_lift_motor(float speed_);       
     void control_claw(bool if_open);
-    void control_lift(bool if_up);
     void control_push(bool if_push);
 
     bool start_yunball();

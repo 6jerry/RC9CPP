@@ -18,7 +18,7 @@ Encoder encoder(0x01, &hfdcan3);
 
 //??
 m3508p m2006_left(dji_id_4, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_1, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
-m3508p turn_motor(dji_id_2, &hfdcan1, 49.1372f);
+m3508p turn_motor(dji_id_2, &hfdcan1, 49.1372f), lift_motor(dji_id_5, &hfdcan1);
 vesc u8_front(vesc_id_1, &hfdcan2), u8_left(vesc_id_2, &hfdcan2), u8_right(vesc_id_3, &hfdcan2);
 vesc m6374(vesc_id_4, &hfdcan2, 7.0f, 2.0f);
 chassis_adjust_xbox chassis_debug(&position_sensor);
@@ -71,19 +71,20 @@ extern "C"
     position_sensor.addport(&position_port);
 
     // 运球
-    yunball_port.add_motor(&turn_motor);
-    yunball_port.add_io(GPIOG, GPIO_PIN_6, GPIOG, GPIO_PIN_8, GPIOG, GPIO_PIN_5, GPIOD, GPIO_PIN_14); // 7发射， 8夹爪，6抬升， 5推射
+    lift_motor.config_mech_param(19.2032f, 1.0f);
+    yunball_port.add_motor(&turn_motor, &lift_motor);
+    yunball_port.add_io(GPIOG, GPIO_PIN_6, GPIOG, GPIO_PIN_3, GPIOD, GPIO_PIN_14); // 8发射， 6夹爪， 3推射
     yunball_port.add_shooter(&auto_shooter);
 
     //??
     s3_chassis.add_6_motors(&m2006_front, &u8_front, &m2006_right, &u8_right, &m2006_left, &u8_left);
     s3_chassis.config(s3_chassis_info);
-    // s3_chassis.yawadjuster_config(0.039f, 0.0f, 0.002f, 0.0f, 5.0f, 0.2f, 0.0f);
     s3_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
     s3_chassis.add_imu(&position_sensor);
     s3_chassis.add_photogate(GPIOF, GPIO_PIN_8, GPIOF, GPIO_PIN_9, GPIOD, GPIO_PIN_15, nullptr, 0);
     s3_chassis.yawadjuster_config(0.12f, 0.0f, 0.004f, 0.0f, 5.0f, 0.1f, 0.5f);
     turn_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
+    lift_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
 
     // pid config
     m2006_left.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
@@ -98,7 +99,7 @@ extern "C"
     auto_shooter.add_motor(&m6374);
     auto_shooter.dis_control.ConfigAll(16000.0f, 3.3f, 64.0f, 0.0f, 1800.0f, 0.001f, 0.015f);
     auto_shooter.add_plan_info(400, 400, 1200, 400, 400);
-    auto_shooter.add_trigger(GPIOF, GPIO_PIN_5, GPIOG, GPIO_PIN_7);
+    auto_shooter.add_trigger(GPIOF, GPIO_PIN_5, GPIOG, GPIO_PIN_8);
     //auto_shooter.add_fitter(&fitter);
     chassis_debug.add_AutoShooter(&auto_shooter);
 

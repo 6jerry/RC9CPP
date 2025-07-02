@@ -3,11 +3,11 @@
 chassis_adjust_xbox::chassis_adjust_xbox(imu *imu_ptr_)
 {
     imu_ptr = imu_ptr_;
-    //center_point.x = 5.8031f;
-    //center_point.y = 0.7022f;
+    center_point.x = 5.8f;
+    center_point.y = 0.73f;
 
-    center_point.x = 3.000f;
-    center_point.y = 14.355f;
+//    center_point.x = 3.000f;
+//    center_point.y = 14.355f;
 }
 
 void chassis_adjust_xbox::calc_error()
@@ -54,6 +54,7 @@ void chassis_adjust_xbox::not_start()
     set_RobotW(0.0f, 0);
     max_target_robot_vel.x = 5.0f;
     max_target_robot_vel.y = 5.0f;
+    auto_yunball_ptr->stop();
 }
 
 void chassis_adjust_xbox::mode_2()
@@ -90,36 +91,29 @@ void chassis_adjust_xbox::mode_1()
     Vector2D target(0.0f, 0.0f);
     set_RobotVel(target, 0);
 
-    //    if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
-    //    {
-    //        set_RobotW(0.0f, 0);
-    //        //auto_shooter->set_auto_byFitter(PID, dis_2_center);
-    //        auto_shooter->set_auto_byDis(PID, debug_dis);
-    //        cnt_flag = 0;
-    //        mode_flag = 2;
-    //    }
-    //    else
-    //    {
-    //        yaw_TurnTo(center_heading, 0);
-    //    }
+        if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
+       {
+           set_RobotW(0.0f, 0);
+           auto_shooter->set_auto_byFitter(PID, dis_2_center);
+            //auto_shooter->set_auto_byDis(PID, debug_dis);
+            cnt_flag = 0;
+           mode_flag = 2;
+       }
+       else
+       {
+           yaw_TurnTo(center_heading, 0);
+       }
 
-    // yaw_TurnTo(center_heading, 0);
+    //yaw_TurnTo(center_heading, 0);
     // auto_shooter->set_auto_byFitter(PID, dis_2_center);
-    auto_shooter->set_auto_byDis(PID, debug_dis);
-    mode_flag = 2;
+//    auto_shooter->set_auto_byDis(PID, debug_dis);
+//    mode_flag = 2;
 }
 
 void chassis_adjust_xbox::mode_3()
 {
-    auto_yunball_ptr->control_motor(xbox_msgs.joyRHori_map);
-    if (lb_flag)
-    {
-        auto_yunball_ptr->control_lift(true);
-    }
-    else
-    {
-        auto_yunball_ptr->control_lift(false);
-    }
+    auto_yunball_ptr->control_turn_motor(xbox_msgs.joyRHori_map);
+		auto_yunball_ptr->control_lift_motor(xbox_msgs.joyLVert_map);
 
     if (rb_flag)
     {
