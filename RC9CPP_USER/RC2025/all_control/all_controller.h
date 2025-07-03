@@ -18,6 +18,18 @@ extern "C"
 #endif
 #ifdef __cplusplus
 
+typedef struct crsf_send
+{
+
+    /* data */
+
+    float position_x = 0.0f, position_y = 0.0f, position_yaw_rad = 0.0f, mid360_yaw_rad = 0.0f; // 显示位姿数据
+
+    uint8_t status_flag = 0, error_flag = 0; // 状态码和错误码
+
+    float debug_dis = 0.0f, dis_2_target = 0.0f;
+};
+
 class AllController : public RC9subscriber, public ITaskProcessor, public chassis_user
 {
 public:
@@ -36,8 +48,10 @@ public:
 
     uint8_t send_cnt = 0;
     void send_crsf_datas();
+    crsf_send send_datas;
 
-    void update_flag();
+    void
+    update_flag();
 
     AutoShooter *auto_shooter = nullptr;
     auto_yunball *auto_yunball_ptr = nullptr;

@@ -89,10 +89,11 @@ void AllController::process_data()
 
     calc_data();
 
-    send_crsf_datas();
-
     uint8_t flagValues[5] = {trigger_on_, sal_flag_, sar_flag_, l_flag_, r_flag_};
     currentStateflag = mode_selector.getState(flagValues);
+
+    // send_datas.status_flag = currentStateflag;
+    send_crsf_datas();
     switch (currentStateflag)
     {
     case 0:
@@ -142,19 +143,26 @@ void AllController::process_data()
 
 void AllController::send_crsf_datas()
 {
+    send_datas.position_yaw_rad = position_imu_->get_yaw_rad();
+    send_datas.mid360_yaw_rad = ros_imu->get_yaw_rad();
+    send_datas.position_x = position_imu_->get_world_pos_x();
+    send_datas.position_y = position_imu_->get_world_pos_y();
+
     if (send_cnt == 0)
     {
-        crsf_port->sendAttitude(0.0f, 0.0f, 0.0f);
+        crsf_port->sendAttitude(send_datas.position_yaw_rad, send_datas.mid360_yaw_rad, 0.0f);
     }
 
     else if (send_cnt == 1)
     {
-        crsf_port->sendBattery(0.0f, 0.0f, 0, 0);
+        crsf_port->sendBattery(0.0f, 0.0f, 0, send_datas.error_flag);
     }
-
     else if (send_cnt == 2)
     {
-        crsf_port->sendGps(0.0, 0.0, 0, 0, 0, 0);
+
+        int integer_part = (int)send_datas.dis_2_target;
+        float fractional_part = send_datas.dis_2_target - integer_part;
+        crsf_port->sendGps(send_datas.position_x, send_datas.position_y, fractional_part * 10000.0f, integer_part * 100, send_datas.debug_dis * 1000.0f, send_datas.status_flag);
     }
     send_cnt++;
 
@@ -219,6 +227,7 @@ void AllController::DataReceivedCallback(const uint8_t *byteData, const float *f
 
 void AllController::all_auto_yunball()
 {
+    send_datas.status_flag = 2;
     if (auto_yunball_ptr->start_yunball())
     {
         crsf_port->reset_trigger_flag(); // 动作执行完后重置扳机flag
@@ -230,6 +239,7 @@ void AllController::all_auto_yunball()
 
 void AllController::auto_reload_ball()
 {
+    send_datas.status_flag = 1;
     if (auto_yunball_ptr->start_putball())
     {
         crsf_port->reset_trigger_flag(); // 动作执行完后重置扳机flag
@@ -241,19 +251,24 @@ void AllController::auto_reload_ball()
 
 void AllController::lock_on_center_point()
 {
+    send_datas.status_flag = 3;
     yaw_TurnTo(heading_2_center, 0);
     Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
     set_WorldVel(tvel_, 0);
+    send_datas.dis_2_target = dis_2_center;
 }
 void AllController::lock_on_r2()
 {
+    send_datas.status_flag = 4;
     yaw_TurnTo(heading_2_robot, 0);
     Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
     set_WorldVel(tvel_, 0);
+    send_datas.dis_2_target = dis_2_robot;
 }
 
 void AllController::shoot_2_center_point()
 {
+    send_datas.status_flag = 5;
     all_stop();
     if (auto_shooter->set_auto_byFitter(PID, dis_2_center) == auto_shoot)
     {
@@ -263,6 +278,7 @@ void AllController::shoot_2_center_point()
 
 void AllController::shoot_2_r2()
 {
+    send_datas.status_flag = 6;
     all_stop();
     if (auto_shooter->set_auto_byFitter(PID, dis_2_robot) == auto_shoot)
     {
@@ -272,28 +288,32 @@ void AllController::shoot_2_r2()
 
 void AllController::attack_move_mode()
 {
-
+    send_datas.status_flag = 0;
     remote_move();
 }
 
 void AllController::defend_move_mode()
 {
+    send_datas.status_flag = 7;
     remote_move_revert();
 }
 
 void AllController::wait_mode_move()
 {
+    send_datas.status_flag = 8;
     remote_move_robot();
 }
 
 void AllController::reset_sw_motor()
 {
+    send_datas.status_flag = 10;
     reset_swerve();
     crsf_port->reset_trigger_flag();
 }
 
 void AllController::reset_all_imu()
 {
+    send_datas.status_flag = 9;
     ros_imu->imu_rst();
     position_imu_->imu_relocate(0.0f, 0.0f, 0.0f);
     crsf_port->reset_trigger_flag();
@@ -301,7 +321,9 @@ void AllController::reset_all_imu()
 
 void AllController::hand_shoot()
 {
+    send_datas.status_flag = 11;
     debug_dis = crsf_port->right_V_map * max_debug_dis;
+    send_datas.debug_dis = debug_dis;
     all_stop();
     if (auto_shooter->set_auto_byDis(PID, debug_dis) == auto_shoot)
     {
@@ -311,7 +333,9 @@ void AllController::hand_shoot()
 
 void AllController::hand_set_clawpos()
 {
-    auto_yunball_ptr->control_motor(crsf_port->right_H_map);
+    send_datas.status_flag = 12;
+
+    auto_yunball_ptr->control_turn_motor(crsf_port->right_H_map);
     Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
     set_RobotVel(tvel_, 0);
 

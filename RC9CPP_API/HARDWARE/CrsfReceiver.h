@@ -20,7 +20,7 @@ extern "C"
 #define BTN_ON 1792
 
 #define BTN_1 191
-#define BTN_2 997
+#define BTN_2 1004
 #define BTN_3 1792
 
 typedef struct

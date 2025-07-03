@@ -34,7 +34,12 @@ local function my_run(event)
     local altitude = getValue("Alt")  -- 海拔，单位：米
     local speed = getValue("GSpd")     -- 地面速度，单位：km/h
     local sats = getValue("Sats")    -- 卫星数量
-    local heading =getValue("Hdg")
+    local heading = getValue("Hdg")
+    
+
+    local packed_data = heading + speed / 1000
+    
+    local packed_data_str= packed_data and string.format("%.3f",packed_data) or "N/A" 
 
 
 -- 格式化数据，如果数据不可用则显示 "N/A"
@@ -62,7 +67,7 @@ local function my_run(event)
     lcd.drawText(0, 0, "bat", SMLSIZE)
 
     -- 显示电压
-    lcd.drawText(0, 10, "position: " .. ptch_str .. " " .. roll_str .. " " ..  yaw_str ,SMLSIZE)
+    lcd.drawText(0, 10, "position: " .. packed_data_str .. " " .. roll_str .. " " ..  yaw_str ,SMLSIZE)
 
     -- 显示电流
     --lcd.drawText(10, 70, "电流: " .. string.format("%.2f A", current), SMLSIZE)
