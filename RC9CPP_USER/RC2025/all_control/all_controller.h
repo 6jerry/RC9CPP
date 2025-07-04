@@ -40,7 +40,7 @@ public:
 
     float dis_2_center = 0.0f, dis_2_robot = 0.0f, heading_2_center = 0.0f, heading_2_robot = 0.0f;
 
-    float pian_x = 2.65;
+    float pian_x = 3;
     float pian_y = 14.406;
 
     CrsfReceiver *crsf_port = nullptr;

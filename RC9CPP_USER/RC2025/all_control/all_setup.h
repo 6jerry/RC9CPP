@@ -19,6 +19,7 @@ extern "C"
 #include "CrsfReceiver.h"
 #include "all_controller.h"
 #include "auto_shooter.h"
+
 #include "auto_yunball.h"
     void all_setup();
 #ifdef __cplusplus

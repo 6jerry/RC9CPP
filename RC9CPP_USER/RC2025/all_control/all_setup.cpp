@@ -87,16 +87,22 @@ extern "C"
         task_core.registerTask(2, &auto_shooter);
         task_core.registerTask(8, &position_port);
         task_core.registerTask(8, &Lora_port);
-        //task_core.registerTask(8, &plot);
+       task_core.registerTask(9, &plot);
         osKernelStart();
     }
 }
 
 void demo::process_data()
 {
-    //remote_controller.sendAttitude(test_v, test_v, test_v);
-    //remote_controller.sendBattery(test_v, test_v, test_v, test_v);
+	  MX_FDCAN2_Init();
+	  CanDevice::InitAllFiltersNoMask();
+      
+//      MX_FDCAN1_Init();
+//      MX_FDCAN2_Init();
+//      MX_FDCAN3_Init();
+      // remote_controller.sendAttitude(test_v, test_v, test_v);
+      // remote_controller.sendBattery(test_v, test_v, test_v, test_v);
 
-    //remote_controller.sendGps(test_x, test_y, test_heading, test_heading, test_heading, test_heading);
+      // remote_controller.sendGps(test_x, test_y, test_heading, test_heading, test_heading, test_heading);
     
 }

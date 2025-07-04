@@ -83,7 +83,7 @@ void AutoShooter::allAuto_adjust(float lifter_dis)
 
         break;
     case auto_revert:
-        if (auto_adjust(0.012f))
+        if (auto_adjust(0.010f))
         {
             shoot_info.shoot_status = auto_finish;
         }

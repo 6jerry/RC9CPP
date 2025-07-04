@@ -92,6 +92,7 @@
     "iterator": "cpp",
     "stdexcept": "cpp",
     "cstdlib": "cpp",
-    "exception": "cpp"
+    "exception": "cpp",
+    "fdcan.h": "c"
   }
 }
