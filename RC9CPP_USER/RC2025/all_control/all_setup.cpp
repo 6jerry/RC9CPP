@@ -9,13 +9,13 @@ vesc u8_front(vesc_id_1, &hfdcan2), u8_left(vesc_id_2, &hfdcan2), u8_right(vesc_
 RoboChassis s3_chassis(swerve3_chassis);
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
 
-CrsfReceiver remote_controller(&huart7);
+CrsfReceiver remote_controller(&huart2);
 
 AllController control_center;
 
 Encoder encoder(0x01, &hfdcan3);
 
-RC9Protocol position_port(uart, &huart6), Lora_port(uart, &huart4), ros_port(cdc, nullptr);
+RC9Protocol position_port(uart, &huart6), Lora_port(uart, &huart5), ros_port(cdc, nullptr);
 position position_sensor;
 ros_sensor ros_sensor_;
 

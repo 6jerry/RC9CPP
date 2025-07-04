@@ -334,7 +334,7 @@ void RoboChassis::swerve3_initialize()
     }*/
 
     // 扫描所有相关的光电门状态
-    //scan_photogate(); // 假设 scan_photogate 会正确更新 photogate_state[0], [1], [2]
+    // scan_photogate(); // 假设 scan_photogate 会正确更新 photogate_state[0], [1], [2]
 
     bool all_homed = true; // 标记是否所有舵轮都已归位
 
@@ -343,7 +343,7 @@ void RoboChassis::swerve3_initialize()
     {
         if (right_photogate.if_init() == false) // 使用 if_not_init[0] 跟踪 dmotors[1] 的初始化状态
         {
-            all_homed = false;           // 只要有一个未初始化，就不是全部归位
+            all_homed = false; // 只要有一个未初始化，就不是全部归位
             dmotors[1]->set_rpm(20.0f);
             /*if (photogate_state[0] == 0) // 光电门0触发
             {
@@ -843,10 +843,10 @@ void RoboChassis::chassis_rst_priorityC()
 
 void RoboChassis::C_pp_track_point(Vector2D target_p)
 {
-    //if (mode != ppp_track)
+    // if (mode != ppp_track)
     //{
-        pp_tracker.pp_start_plan(IMU->get_world_pos(), target_p, target.target_robovel);
-        mode = ppp_track;
+    pp_tracker.pp_start_plan(IMU->get_world_pos(), target_p, target.target_robovel);
+    mode = ppp_track;
     //}
 }
 
@@ -956,6 +956,11 @@ uint8_t chassis_user::set_WorldVel(Vector2D worldvel, uint8_t PriorityCode)
     return robochassis_->set_CWorldVel_ACCLE(worldvel, 4.0f);
 }
 
+uint8_t chassis_user::set_worldVel_accle(Vector2D worldvel, float acc)
+{
+    return robochassis_->set_CWorldVel_ACCLE(worldvel, acc);
+}
+
 uint8_t chassis_user::yaw_TurnTo(float yaw, uint8_t PriorityCode)
 {
     return robochassis_->yaw_CTurnTo(yaw, PriorityCode, this);
@@ -1030,8 +1035,8 @@ photogate::photogate(float reset_angle_) : GPIODevice()
 
 void photogate::handleInterrupt()
 {
-	init = true;
-    motor->relocate_pos(reset_angle); 
+    init = true;
+    motor->relocate_pos(reset_angle);
 }
 
 void photogate::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)

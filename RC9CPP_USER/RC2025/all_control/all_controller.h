@@ -33,8 +33,10 @@ typedef struct crsf_send
 class AllController : public RC9subscriber, public ITaskProcessor, public chassis_user
 {
 public:
-    float max_x_speed = 4.0f, max_y_speed = 4.0f, max_yaw_speed = 4.0f;
+    float max_x_speed = 6.0f, max_y_speed = 6.0f, max_yaw_speed = 6.0f, max_delta_acc = 6.0f, target_accle = 0.0f;
     Vector2D center_point, robot_point, nor_dir; // 篮筐坐标和友军坐标
+
+    void set_accle();
 
     float dis_2_center = 0.0f, dis_2_robot = 0.0f, heading_2_center = 0.0f, heading_2_robot = 0.0f;
 

@@ -84,14 +84,17 @@ void AllController::efsm_init()
 
 void AllController::process_data()
 {
+   
 
+    HAL_UART_Receive_IT(crsf_port->huart_, crsf_port->rxBuffer_, RX_BUFFER_SIZE);
     update_flag();
 
     calc_data();
-
+    set_accle();
     uint8_t flagValues[5] = {trigger_on_, sal_flag_, sar_flag_, l_flag_, r_flag_};
     currentStateflag = mode_selector.getState(flagValues);
-
+    debug_dis = crsf_port->right_V_map * max_debug_dis;
+    send_datas.debug_dis = debug_dis;
     // send_datas.status_flag = currentStateflag;
     send_crsf_datas();
     switch (currentStateflag)
@@ -150,7 +153,7 @@ void AllController::send_crsf_datas()
 
     if (send_cnt == 0)
     {
-        crsf_port->sendAttitude(send_datas.position_yaw_rad, send_datas.mid360_yaw_rad, 0.0f);
+        crsf_port->sendAttitude(send_datas.position_yaw_rad, send_datas.mid360_yaw_rad, target_accle * 0.5f);
     }
 
     else if (send_cnt == 1)
@@ -172,17 +175,22 @@ void AllController::send_crsf_datas()
     }
 }
 
+void AllController::set_accle()
+{
+    target_accle = 2.0f + max_delta_acc * crsf_port->roll_map;
+}
+
 void AllController::remote_move()
 {
     Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
-    set_WorldVel(tvel_, 0);
+    set_worldVel_accle(tvel_, target_accle);
     set_RobotW(-crsf_port->right_H_map * max_yaw_speed, 0);
 }
 
 void AllController::remote_move_revert()
 {
     Vector2D tvel_(crsf_port->left_H_map * max_x_speed, -crsf_port->left_V_map * max_y_speed);
-    set_WorldVel(tvel_, 0);
+    set_worldVel_accle(tvel_, target_accle);
     set_RobotW(-crsf_port->right_H_map * max_yaw_speed, 0);
 }
 
@@ -254,7 +262,7 @@ void AllController::lock_on_center_point()
     send_datas.status_flag = 3;
     yaw_TurnTo(heading_2_center, 0);
     Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
-    set_WorldVel(tvel_, 0);
+    set_worldVel_accle(tvel_, target_accle);
     send_datas.dis_2_target = dis_2_center;
 }
 void AllController::lock_on_r2()
@@ -262,7 +270,7 @@ void AllController::lock_on_r2()
     send_datas.status_flag = 4;
     yaw_TurnTo(heading_2_robot, 0);
     Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
-    set_WorldVel(tvel_, 0);
+    set_worldVel_accle(tvel_, target_accle);
     send_datas.dis_2_target = dis_2_robot;
 }
 
@@ -322,8 +330,7 @@ void AllController::reset_all_imu()
 void AllController::hand_shoot()
 {
     send_datas.status_flag = 11;
-    debug_dis = crsf_port->right_V_map * max_debug_dis;
-    send_datas.debug_dis = debug_dis;
+   
     all_stop();
     if (auto_shooter->set_auto_byDis(PID, debug_dis) == auto_shoot)
     {

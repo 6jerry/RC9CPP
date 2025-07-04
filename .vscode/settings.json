@@ -83,6 +83,15 @@
     "atomic": "cpp",
     "new": "cpp",
     "numeric": "cpp",
-    "system_error": "cpp"
+    "system_error": "cpp",
+    "bit": "cpp",
+    "limits": "cpp",
+    "streambuf": "cpp",
+    "ios": "cpp",
+    "iosfwd": "cpp",
+    "iterator": "cpp",
+    "stdexcept": "cpp",
+    "cstdlib": "cpp",
+    "exception": "cpp"
   }
 }
