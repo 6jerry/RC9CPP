@@ -11,12 +11,12 @@ void yunball_test_xbox::process_data()
     {
         switch (mode_flag)
         {
-        case 0:
-            mode_0();       //手动控制
-            break;
-        case 1:
-            mode_1();       //按键控制
-            break;
+//        case 0:
+//            mode_0();       //手动控制
+//            break;
+//        case 1:
+//            mode_1();       //按键控制
+//            break;
         case 2:
             mode_2();
             break;
@@ -158,37 +158,37 @@ void yunball_test_xbox::not_start()  //初始状态
     set_RobotW(0, 0);
 }
 
-void yunball_test_xbox::mode_0()
-{
-    if(down_flag){auto_yunball_ptr->control_lift(true);}
-    else{auto_yunball_ptr->control_lift(false);}
+//void yunball_test_xbox::mode_0()
+//{
+//    if(down_flag){auto_yunball_ptr->control_lift(true);}
+//    else{auto_yunball_ptr->control_lift(false);}
 
-    if(up_flag){auto_yunball_ptr->control_claw(true);}
-    else{auto_yunball_ptr->control_claw(false);}
+//    if(up_flag){auto_yunball_ptr->control_claw(true);}
+//    else{auto_yunball_ptr->control_claw(false);}
 
-    if(left_flag){
-        auto_yunball_ptr->start_yunball();
-        left_flag = 0; up_flag = 0; down_flag = 0; right_flag = 0;
-    }
-    /*if(right_flag){
-        auto_yunball_ptr->start_putball();
-        left_flag = 0; up_flag = 0; down_flag = 0; right_flag = 0;
-    }*/
-    /*turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
-    set_claw(up_flag);
-    set_lift(down_flag);
-    if(left_flag == 1) 
-    {
-        turn_motor->set_rpm(0.0f);
-        yunball(); 
-        left_flag = 0;
-    }*/
-}
+//    if(left_flag){
+//        auto_yunball_ptr->start_yunball();
+//        left_flag = 0; up_flag = 0; down_flag = 0; right_flag = 0;
+//    }
+//    /*if(right_flag){
+//        auto_yunball_ptr->start_putball();
+//        left_flag = 0; up_flag = 0; down_flag = 0; right_flag = 0;
+//    }*/
+//    /*turn_motor->set_rpm(-xbox_msgs.joyRHori_map * max_turn_speed);
+//    set_claw(up_flag);
+//    set_lift(down_flag);
+//    if(left_flag == 1) 
+//    {
+//        turn_motor->set_rpm(0.0f);
+//        yunball(); 
+//        left_flag = 0;
+//    }*/
+//}
 
-void yunball_test_xbox::mode_1()
-{
-   auto_yunball_ptr->control_motor(xbox_msgs.joyRHori_map);
-}
+//void yunball_test_xbox::mode_1()
+//{
+//   auto_yunball_ptr->control_motor(xbox_msgs.joyRHori_map);
+//}
 
 void yunball_test_xbox::mode_2()
 {

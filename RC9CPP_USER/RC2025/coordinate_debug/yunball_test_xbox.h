@@ -50,8 +50,8 @@ public:
     void add_motor(m3508p *turn_motor_);
     void add_autoyunball(auto_yunball *auto_yunball_);
     void not_start();
-    void mode_0();
-    void mode_1();
+    //void mode_0();
+    //void mode_1();
     void mode_2();
     void mode_3();
     void xbox_on();

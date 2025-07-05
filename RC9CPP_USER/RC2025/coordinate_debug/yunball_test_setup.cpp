@@ -3,7 +3,7 @@
 TaskManager task_core;
 
 dji_motor_handle dji_core;
-m3508p turn_motor(dji_id_2, &hfdcan1, 49.1372f);
+m3508p turn_motor(dji_id_2, &hfdcan1, 49.1372f), lift_motor(dji_id_5, &hfdcan1);
 m3508p m2006_left(dji_id_4, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_1, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
 vesc u8_front(vesc_id_1, &hfdcan2), u8_left(vesc_id_2, &hfdcan2), u8_right(vesc_id_3, &hfdcan2);
 //vesc m6374(vesc_id_4, &hfdcan2, 7.0f, 2.0f);
@@ -35,10 +35,10 @@ extern "C" {
         position_port.startUartReceiveIT();
         position_sensor.addport(&position_port);
 
-
-				yunball_port.add_motor(&turn_motor);
+        lift_motor.config_mech_param(19.2032f, 1.0f);
+				yunball_port.add_motor(&turn_motor, &lift_motor);
         yunball_port.add_shooter(&auto_shooter);
-				yunball_port.add_io(GPIOG, GPIO_PIN_6, GPIOG, GPIO_PIN_8, GPIOG, GPIO_PIN_5, GPIOD, GPIO_PIN_14);   //7发射， 8夹爪，6抬升， 5推射
+				yunball_port.add_io(GPIOG, GPIO_PIN_6, GPIOG, GPIO_PIN_3, GPIOD, GPIO_PIN_14);   // 8发射， 6夹爪， 3推射
         
         xbox_port.addport(&esp_port);
         xbox_port.add_autoyunball(&yunball_port);
