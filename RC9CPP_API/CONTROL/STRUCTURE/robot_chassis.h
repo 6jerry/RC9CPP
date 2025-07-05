@@ -89,17 +89,17 @@ typedef struct chassis_target
 
 class photogate : public GPIODevice
 {
-    private:
+private:
     power_motor *motor = nullptr;
     float reset_angle = 0.0f;
 
-    public:
+public:
     photogate(float reset_angle_);
-    bool if_init()  { return init; }
-    void setMotor(power_motor* motor_) { motor = motor_; }
+    bool if_init() { return init; }
+    void setMotor(power_motor *motor_) { motor = motor_; }
 
     bool init = false;
-    
+
     void handleInterrupt() override;
     void add_io_interrupt(GPIO_TypeDef *port, uint16_t pin) override;
 };
@@ -110,6 +110,7 @@ class chassis_user
 public:
     uint8_t set_RobotVel(Vector2D robovel, uint8_t PriorityCode);
     uint8_t set_WorldVel(Vector2D worldvel, uint8_t PriorityCode);
+    uint8_t set_worldVel_accle(Vector2D worldvel, float acc);
     uint8_t set_RobotW(float w, uint8_t PriorityCode);
     void yaw_lock();
     void yaw_unlock();
@@ -141,7 +142,7 @@ public:
     float get_world_y();
 
     void stablize_swerve(); // 稳定四舵轮
-    void reset_swerve(); // 重置舵轮
+    void reset_swerve();    // 重置舵轮
 
     void init_locate(); // 初始化定位
 
@@ -274,7 +275,6 @@ public:
 
     float get_cworld_x();
     float get_cworld_y();
-   
 
     void swerve_stablize();
 

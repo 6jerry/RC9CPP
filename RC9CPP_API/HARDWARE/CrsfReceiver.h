@@ -20,7 +20,7 @@ extern "C"
 #define BTN_ON 1792
 
 #define BTN_1 191
-#define BTN_2 997
+#define BTN_2 1004
 #define BTN_3 1792
 
 typedef struct
@@ -47,6 +47,9 @@ typedef struct
     CrsfAttitudePayload_t payload;
     uint8_t crc;
 } PACKED CrsfAttitudeFrame_t;
+
+
+
 
 // 定义电池状态数据结构
 typedef struct
@@ -81,8 +84,10 @@ public:
     void sendGps(double latitude, double longitude, uint16_t groundspeed,
                  uint16_t heading, uint16_t altitude, uint8_t satellites);
 
+    
+
 private:
-    int channels_[CRSF_NUM_CHANNELS];
+    int channels_[CRSF_NUM_CHANNELS]; 
     CrsfLinkStatistics_t link_statistics_;
     CrsfRcChannelsFrame_t current_rc_frame_;
     uint8_t packet_byte_index_;

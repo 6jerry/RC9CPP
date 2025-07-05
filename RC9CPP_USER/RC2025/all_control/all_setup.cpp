@@ -2,20 +2,20 @@
 TaskManager task_core;
 dji_motor_handle dji_core;
 
-m3508p m2006_left(dji_id_4, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_1, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), turn_motor(dji_id_2, &hfdcan1, 49.1372f);
+m3508p m2006_left(dji_id_4, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_1, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), turn_motor(dji_id_2, &hfdcan1, 49.1372f), lift_motor(dji_id_5, &hfdcan1);
 
 vesc u8_front(vesc_id_1, &hfdcan2), u8_left(vesc_id_2, &hfdcan2), u8_right(vesc_id_3, &hfdcan2), m6374(vesc_id_4, &hfdcan2, 7.0f, 2.0f);
 
 RoboChassis s3_chassis(swerve3_chassis);
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
 
-CrsfReceiver remote_controller(&huart7);
+CrsfReceiver remote_controller(&huart2);
 
 AllController control_center;
 
 Encoder encoder(0x01, &hfdcan3);
 
-RC9Protocol position_port(uart, &huart6), Lora_port(uart, &huart4), ros_port(cdc, nullptr);
+RC9Protocol position_port(uart, &huart6), Lora_port(uart, &huart5), ros_port(cdc, nullptr);
 position position_sensor;
 ros_sensor ros_sensor_;
 
@@ -51,9 +51,9 @@ extern "C"
         control_center.add_yunball_and_shooter(&auto_shooter, &yunball_port);
 
         control_center.add_position_and_ros(&position_sensor, &ros_sensor_);
-
-        yunball_port.add_motor(&turn_motor);
-        yunball_port.add_io(GPIOG, GPIO_PIN_4, GPIOG, GPIO_PIN_6, GPIOG, GPIO_PIN_3, GPIOD, GPIO_PIN_14); // 8发射， 6夹爪，4抬升， 3推射
+        lift_motor.config_mech_param(19.2032f, 1.0f);
+        yunball_port.add_motor(&turn_motor, &lift_motor);
+        yunball_port.add_io(GPIOG, GPIO_PIN_6, GPIOG, GPIO_PIN_3, GPIOD, GPIO_PIN_14); // 8发射， 6夹爪， 3推射
         yunball_port.add_shooter(&auto_shooter);
 
         // pid config
@@ -66,13 +66,14 @@ extern "C"
 
         turn_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
 
+        lift_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
+
         // auto_shooter
         auto_shooter.add_encoder(&encoder);
         auto_shooter.add_motor(&m6374);
         auto_shooter.dis_control.ConfigAll(16000.0f, 3.3f, 64.0f, 0.0f, 1800.0f, 0.001f, 0.015f);
         auto_shooter.add_plan_info(400, 400, 1200, 400, 400);
         auto_shooter.add_trigger(GPIOF, GPIO_PIN_5, GPIOG, GPIO_PIN_8);
-      
 
         task_core.registerTask(0, &dji_core);
         task_core.registerTask(2, &u8_front);
@@ -86,15 +87,22 @@ extern "C"
         task_core.registerTask(2, &auto_shooter);
         task_core.registerTask(8, &position_port);
         task_core.registerTask(8, &Lora_port);
-        // task_core.registerTask(8, &plot);
+       task_core.registerTask(9, &plot);
         osKernelStart();
     }
 }
 
 void demo::process_data()
 {
-    // remote_controller.sendAttitude(1.0f, 1.0f, 1.0f);
-    //  remote_controller.sendBattery(test_v, test_c, 1.0f, 1);
+	  MX_FDCAN2_Init();
+	  CanDevice::InitAllFiltersNoMask();
+      
+//      MX_FDCAN1_Init();
+//      MX_FDCAN2_Init();
+//      MX_FDCAN3_Init();
+      // remote_controller.sendAttitude(test_v, test_v, test_v);
+      // remote_controller.sendBattery(test_v, test_v, test_v, test_v);
 
-    remote_controller.sendGps(1.0, 1.0, 3, 3, 7, 12);
+      // remote_controller.sendGps(test_x, test_y, test_heading, test_heading, test_heading, test_heading);
+    
 }

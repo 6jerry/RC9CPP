@@ -19,6 +19,7 @@ extern "C"
 #include "CrsfReceiver.h"
 #include "all_controller.h"
 #include "auto_shooter.h"
+
 #include "auto_yunball.h"
     void all_setup();
 #ifdef __cplusplus
@@ -31,6 +32,7 @@ public:
     void process_data();
 
     float test_v = 0.0f, test_c = 0.0f;
+    float test_x = 0.0f, test_y = 0.0f, test_heading = 0.0f;
 };
 #endif
 #endif

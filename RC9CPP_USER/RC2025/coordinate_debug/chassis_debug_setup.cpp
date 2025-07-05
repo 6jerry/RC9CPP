@@ -115,7 +115,7 @@ extern "C"
     task_core.registerTask(8, &position_port);
     task_core.registerTask(8, &send_port);
     task_core.registerTask(5, &ros_port);
-    task_core.registerTask(2, &plot);
+    task_core.registerTask(9, &plot);
     task_core.registerTask(5, &yunball_port);
     osKernelStart();
   }
@@ -123,6 +123,8 @@ extern "C"
 
 void demo::process_data()
 {
+  MX_FDCAN2_Init();
+  CanDevice::InitAllFiltersNoMask();
   /*if(cnt == 0)
   {
     encoder.send_reset();

@@ -69,12 +69,12 @@ private:
     uint8_t timecnt = 0;
     uint8_t count = 0;
     float target_error = 0.002f;
-    float target_rpm = 10.0f;
+    float target_rpm = 60.0f;
     float test_dis;
     float offest = 0.0f;
-    float a = 0.0381f;
-    float b = 0.3617f;
-    float c = 0.0735f;
+    float a = 0.4844f;
+    float b = 0.5588f;
+    float c = -0.5108f;
 
     GPIO_TypeDef *shooter_port = nullptr, *stop_port = nullptr;
     uint16_t shooter_pin = 0, stop_pin = 0;
