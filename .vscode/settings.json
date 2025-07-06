@@ -93,6 +93,8 @@
     "stdexcept": "cpp",
     "cstdlib": "cpp",
     "exception": "cpp",
-    "fdcan.h": "c"
+    "fdcan.h": "c",
+    "unordered_map": "cpp",
+    "all_setup.h": "c"
   }
 }

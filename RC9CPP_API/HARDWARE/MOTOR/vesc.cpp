@@ -36,7 +36,7 @@ void vesc::can_update(uint8_t can_RxData[8])
     rcurrent = (float)current * 0.1f; // A
     now_rpm = ((float)erpm / (float)motor_polse) / gear_ratio;
 
-    //filted_rpm = rpm_filter.update(now_rpm);
+    // filted_rpm = rpm_filter.update(now_rpm);
 }
 
 void vesc::process_data()
@@ -95,7 +95,7 @@ void vesc::erpm_mode()
         extid = (CAN_CMD_SET_BRAKE << 8) | (can_id_ & 0xFF);
 
         uint8_t vesc_tx_buf[8] = {0};
-        brake = 6000;
+        brake = 60000;
         vesc_tx_buf[0] = (brake >> 24) & 0xFF;
         vesc_tx_buf[1] = (brake >> 16) & 0xFF;
         vesc_tx_buf[2] = (brake >> 8) & 0xFF;
