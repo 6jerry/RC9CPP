@@ -29,7 +29,7 @@
 ### 1. 定义设备错误检测类
 
 首先，需要为每个具体的硬件设备定义一个继承自 `error_check` 的错误检测类。例如，为电机定义一个错误检测类：
-必须实现虚函数，在子类构造函数为err_id进行赋值，同时要在设备活跃时对timeout_flag标志位进行置位（置位为false）
+必须实现虚函数，在类声明时为err_id进行赋值，同时要在设备活跃时对timeout_flag标志位进行置位（置位为false）
 
 ```cpp
 class MotorErrorCheck : public error_check {
@@ -41,7 +41,7 @@ public:
     }
 };
 
-MotorErrorCheck::MotorErrorCheck(){
+
 	err_id = ERR_DECVICE_MOTOR;
 }
 ```
