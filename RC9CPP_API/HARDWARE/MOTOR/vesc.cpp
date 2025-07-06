@@ -11,7 +11,7 @@ void vesc::set_rpm(float power_motor_rpm)
     target_erpm = (int32_t)(target_rpm * motor_polse);
 
     test_rpm = (float)target_erpm;
-    vesc_mode = vesc_erpm;
+    vesc_mode = vesc_rpm_increpid;
 }
 
 void vesc::send_rpm(float power_motor_rpm)
@@ -108,14 +108,14 @@ void vesc::erpm_mode()
 void vesc::rpm_increpid_mode()
 {
     rpm_control.increPID_setarget(target_rpm);
-    target_current = rpm_control.increPID_Compute(now_rpm) + target_ff_current;
+    target_current = rpm_control.increPID_Compute(now_rpm);
 
     if (debug_mode)
     {
 
-        float send_datas[3] = {target_rpm, now_rpm, filted_rpm};
+        float send_datas[2] = {target_rpm, now_rpm};
 
-        sendFloatData(1, send_datas, 3);
+        sendFloatData(1, send_datas, 2);
     }
 
     current_mode();

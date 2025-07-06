@@ -24,7 +24,7 @@ extern "C"
 #endif
 #ifdef __cplusplus
 
-class demo : public ITaskProcessor
+class demo : public ITaskProcessor, public RC9subscriber
 {
 public:
     void process_data();

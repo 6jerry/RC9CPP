@@ -203,13 +203,26 @@ void IncrePID::calc()
 
 float IncrePID::increPID_Compute(float input)
 {
-    // TD();
-    // setpoint = V1; // 跟踪微分器输出平滑的期望
+
+    if (if_enable_TD)
+    {
+        TD();
+        setpoint = V1; // 跟踪微分器输出平滑的期望
+    }
+    else
+    {
+        setpoint = expect;
+    }
 
     error = setpoint - input;
     calc();
 
     return output;
+}
+
+void IncrePID::enable_TD()
+{
+    if_enable_TD = true;
 }
 float IncrePID::increPID_Computerror(float error_) // 直接传入误差
 {
@@ -233,7 +246,7 @@ void IncrePID::TD()
 
 void IncrePID::increPID_setarget(float target_)
 {
-    setpoint = target_;
+    expect = target_;
 }
 
 void IncrePID::config_all(float kp_, float ki_, float kd_, float r_, float output_limit_, float deadzone_)

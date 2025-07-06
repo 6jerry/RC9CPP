@@ -21,9 +21,10 @@ private:
 public:
     power_motor *shoot_motor_1 = nullptr;
     power_motor *shoot_motor_2 = nullptr;
-    float move_rpm = 100.0f;
+    float move_rpm = 3000.0f;
     void mode_1() override;
     void not_start() override;
+    float target_rpm = 0.0f;
 };
 
 #endif
