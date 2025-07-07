@@ -1,19 +1,18 @@
 #include "err_code.h"
 
-// 定义系统中最多支持注册的 error_check 实例数量
-#define MAX_INSTANCES 16
+// 定义系统中最多支持注册的同类 error_check 实例数量
+#define SIMILAR_MAX_INSTANCES 16
 
-// 全局错误实例数组，用于集中管理所有注册的 error_check 对象
+// 全局实例数组，用于集中管理所有注册的 error_check 对象
 static error_check *err_devices[DEVICE_CLASS_NUM][MAX_INSTANCES] = {nullptr};
-
+static error_check *err_devices_tmp[DEVICE_CLASS_NUM * MAX_INSTANCES] = {nullptr};
 // 区分同类设备的id（不同的实例）
 static uint8_t arr_similar_ids[DEVICE_CLASS_NUM] = {0};
 
 // 当前已注册的同类实例数量（用于分配索引）
 static uint8_t instance_num[DEVICE_CLASS_NUM] = {0};
 
-static uint8_t TimerID = 0;
-
+static uint8_t now_instance = 0;
 
 /**
  * @brief error_check 类的构造函数
@@ -30,10 +29,9 @@ error_check::error_check() {
  * 设置设备唯一标识符并调用 registerInstance 注册当前对象。
  */
 void error_check::init() {
-    instance_id = arr_similar_ids[err_id];  // 同类的id自增
-    arr_similar_ids[err_id]++;
     registerInstance(this);         // 将当前对象注册到全局列表
 }
+
 
 /**
  * @brief 注册当前 error_check 实例到全局数组中
@@ -43,9 +41,7 @@ void error_check::init() {
  * 同时更新注册计数器和当前活跃计数器。
  */
 void error_check::registerInstance(error_check *instance) {
-    if (instance_num[instance->err_id] < MAX_INSTANCES) {
-        err_devices[instance->err_id][instance_num[instance->err_id]++] = instance;   // 增加注册索引
-    }
+	err_devices_tmp[now_instance++] = instance;
 }
 
 
@@ -74,6 +70,18 @@ err_code error_check::check_timeout(){
 void error_checker::process_data() {
     static uint8_t communicate_id = 7;      // 设定发送数据的目标通信 ID（示例值）
     static uint8_t data[3] = {0};           // 缓冲区，分别保存设备类型 ID 和错误码
+	static bool start_flag = false;
+	if(!start_flag){
+		for(int i = 0; i < now_instance; i++){
+			if (instance_num[err_devices_tmp[i]->err_id] < SIMILAR_MAX_INSTANCES) {
+				err_devices_tmp[i]->instance_id = arr_similar_ids[err_devices_tmp[i]->err_id];  // 同类的id自增
+				arr_similar_ids[err_devices_tmp[i]->err_id]++;
+				err_devices[err_devices_tmp[i]->err_id][instance_num[err_devices_tmp[i]->err_id]++]  \
+				= err_devices_tmp[i];   // 增加注册索引
+			}
+		}
+		start_flag = true;
+	}
 
     for (int i = 0; i < DEVICE_CLASS_NUM; i++) {
         for (int j = 0; j < instance_num[i]; j++) {
