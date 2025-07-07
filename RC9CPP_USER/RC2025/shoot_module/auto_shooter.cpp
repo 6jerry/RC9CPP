@@ -9,7 +9,7 @@ AutoShooter::AutoShooter()
 }
 void AutoShooter::process_data()
 {
-    // 获取拉伸距离和俯仰角度
+    // 获取拉伸距离
     get_data();
 
     switch (shoot_mode)
@@ -83,7 +83,7 @@ void AutoShooter::allAuto_adjust(float lifter_dis)
 
         break;
     case auto_revert:
-        if (auto_adjust(0.010f))
+        if (auto_adjust(revert_dis))
         {
             shoot_info.shoot_status = auto_finish;
         }
@@ -158,9 +158,6 @@ bool AutoShooter::auto_adjust(float lifter_dis)
 
     if (fabs(error) < target_error && fabs(shooter_motor->get_rpm()) < target_rpm)
     {
-
-        test_dis = shoot_info.real_dis;
-
         return true;
     }
 
@@ -217,13 +214,13 @@ int AutoShooter::set_auto_byFitter(uint8_t mode, float r)
         shoot_info.lift_mode = static_cast<liftMode>(mode);
 
         float d = calc(r);
-        if (d > 0.23f)
+        if (d > max_dis)
         {
-            d = 0.23f;
+            d = max_dis;
         }
-        if (d < 0.05f)
+        if (d < min_dis)
         {
-            d = 0.05f;
+            d = min_dis;
         }
         shoot_info.target_dis = d;
         shoot_info.start_dis = shoot_info.real_dis;
@@ -239,13 +236,13 @@ int AutoShooter::set_auto_byDis(uint8_t mode, float shoot_dis)
     if (shoot_info.shoot_status == auto_finish)
     {
 
-        if (shoot_dis > 0.23f)
+        if (shoot_dis > max_dis)
         {
-            shoot_dis = 0.23f;
+            shoot_dis = max_dis;
         }
-        if (shoot_dis < 0.05f)
+        if (shoot_dis < min_dis)
         {
-            shoot_dis = 0.05f;
+            shoot_dis = min_dis;
         }
 
         shoot_mode = shooter_auto;
@@ -279,7 +276,7 @@ void AutoShooter::set_shooter_mode(uint8_t mode)
 }
 float AutoShooter::calc(float r)
 {
-
+//---------------------多项式拟合-----------------
     //    const float coeffs[] = {
     //        0.0183f, // r³ 系数
     //        -0.1171f,  // r² 系数
@@ -287,19 +284,17 @@ float AutoShooter::calc(float r)
     //        -0.0659f   // 常数项
     //    };
 
-    // 使用霍纳法则进行高效计算
-    // s = ((-0.0116*r + 0.0804)*r + (-0.1364))*r + 0.2153
-
-    // float s = coeffs[0]; // 从最高次系数开始
-
-    // 循环展开，效率最高
+    // float s = coeffs[0]; 
     // s = s * r + coeffs[1];
     // s = s * r + coeffs[2];
     // s = s * r + coeffs[3];
+//-----------------------------------------------
 
-     s = a * pow(r,b) + c*logf(r+1) ;
-	   //s = a * pow(r,b) + c ;
-	   //s = a*exp(b*r) + c ;
+//---------------------幂、指数拟合-----------------
+    s = a * pow(r,b) + c*logf(r+1) ;
+	//s = a * pow(r,b) + c ;
+	//s = a*exp(b*r) + c ;
+//-----------------------------------------------
 
     return s;
 }

@@ -27,6 +27,8 @@ void auto_yunball::process_data()
         case static_flag:
             turn_motor->set_rpm(-get_speed_turn * max_turn_speed);
             lift_motor->set_rpm(get_speed_lift * max_lift_speed);
+            turn_motor->all_pos = encoder_for_yunball->get_all_angle();
+            turn_motor->pos_sum = encoder_for_yunball->get_angle();
             break;
         case yunball_flag:
             yunball();
@@ -91,12 +93,15 @@ void auto_yunball::add_shooter(AutoShooter *shooter_)
     shooter = shooter_;
 }
 
+void auto_yunball::add_encoder(Encoder *encoder_)
+{  
+    encoder_for_yunball = encoder_;
+}
+
 void auto_yunball::control_turn_motor(float speed_){get_speed_turn = speed_;}
 void auto_yunball::control_lift_motor(float speed_){get_speed_lift = speed_;}
 void auto_yunball::control_claw(bool if_open){if(flag == static_flag)set_claw(if_open);}
 void auto_yunball::control_push(bool if_push){if(flag == static_flag)set_push(if_push);}
-
-
 
 //内部实现函数
 void auto_yunball::yunball()
@@ -111,26 +116,25 @@ void auto_yunball::yunball()
 }
 void auto_yunball::putball()
 {
-    turn_motor->pos_speedplan_restart();
-    turn_motor->set_pos_speedplan(-180.0f, 30.0f, 40.0f, 30.0f, 5.0f);            //旋转到-180度
     lift_motor->dis_speedplan_restart();
     lift_motor->set_dis_speedplan(-12.5f, 180.0f, 180.0f, 180.0f, 0.0f);
+    turn_motor->pos_speedplan_restart();
+    turn_motor->set_pos_speedplan(270.0f, 30.0f, 40.0f, 40.0f, 0.0f);            //旋转到270度
     shooter->set_lift(0.06f);
-    while((abs(turn_motor->rcurrent) < 18000.0f) || (abs(lift_motor->get_dis()-(-12.5f)) > 0.5f)) {    //等待转动完成
+    while((abs(turn_motor->all_pos-270.0f) > 1.5f) || (abs(lift_motor->get_dis()-(-12.5f)) > 0.5f)) {    //等待转动完成
         osDelay(1);
     }
     turn_motor->pos_speedplan_restart();                                    //复位
     turn_motor->set_rpm(0.0f);
     lift_motor->dis_speedplan_restart();    
 	lift_motor->set_rpm(0.0f);
-    turn_motor->all_pos = -180.0f;
     set_claw(true);                                                         //放球
     osDelay(300);
     shooter->set_lift(0.17f);                                 //拉皮筋
     osDelay(500);
-    turn_motor->set_pos_speedplan(0.0f, 30.0f, 50.0f, 30.0f, 0.0f);       //旋转到0度
-    osDelay(400);   
-    lift_motor->set_dis_speedplan(0.0f, 180.0f, 180.0f, 180.0f, 0.0f);                                                   //下降  
+    turn_motor->set_pos_speedplan(90.0f, 30.0f, 50.0f, 30.0f, 0.0f);       //旋转到90度
+    osDelay(400);
+    lift_motor->set_dis_speedplan(0.0f, 180.0f, 180.0f, 180.0f, 0.0f);                                                   //下降
     osDelay(300);
     shooter->set_lift(0.015f);                                //放皮筋
     while(abs(lift_motor->get_dis()-0.0f) > 0.5f) {    //等待转动完成

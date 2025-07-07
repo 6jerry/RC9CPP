@@ -70,8 +70,11 @@ private:
     uint8_t count = 0;
     float target_error = 0.002f;
     float target_rpm = 60.0f;
-    float test_dis;
-    float offest = 0.0f;
+
+    float revert_dis = 0.010f;
+    float min_dis = 0.05f; // 最小拉伸距离
+    float max_dis = 0.23f; // 最大拉伸距离
+
     float a = 0.4844f;
     float b = 0.5588f;
     float c = -0.5108f;
