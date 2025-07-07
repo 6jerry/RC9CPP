@@ -23,8 +23,8 @@ extern "C"
 
         test_xbox.addport(&esp_port);
 
-        shoot_1.rpm_control.config_all(176.0f, 1.0f, 86.0f, 20.0f, 70000, 5.0f);
-        shoot_2.rpm_control.config_all(140.0f, 0.48f, 0.86f, 20.0f, 70000, 5.0f);
+        shoot_1.rpm_control.config_all(70.0f, 1.0f, 140.0f, 20.0f, 65000, 5.0f);
+        shoot_2.rpm_control.config_all(140.0f, 0.48f, 0.86f, 20.0f, 65000, 5.0f);
         shoot_1.rpm_control.enable_TD();
         shoot_2.rpm_control.enable_TD();
         // shoot_1.addport(&debug_port);
@@ -35,9 +35,9 @@ extern "C"
         test_xbox.shoot_motor_1 = &shoot_1;
         test_xbox.shoot_motor_2 = &shoot_2;
         task_core.registerTask(0, &dji_core);
-        task_core.registerTask(0, &shoot_1);
-        task_core.registerTask(0, &shoot_2);
-        task_core.registerTask(4, &test_xbox);
+        task_core.registerTask(2, &shoot_1);
+        task_core.registerTask(2, &shoot_2);
+        task_core.registerTask(2, &test_xbox);
         task_core.registerTask(8, &debug_port);
         task_core.registerTask(7, &plot);
         osKernelStart();
