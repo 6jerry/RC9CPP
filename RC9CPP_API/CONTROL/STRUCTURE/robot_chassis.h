@@ -229,9 +229,10 @@ public:
     Vector2D worldv_2_robov(Vector2D worldvel);
 
     void mecanum_calc(Vector2D robovel, float w);
-    // void swerve4_calc(Vector2D robovel, float w);
+    void omni4_calc(Vector2D robovel, float w);
+        // void swerve4_calc(Vector2D robovel, float w);
 
-    void chassis_initialize();
+        void chassis_initialize();
 
     void swerve3_initialize();
 

@@ -8,6 +8,10 @@ RC9Protocol esp_port(uart, &huart3), debug_port(uart, &huart4);
 vesc shoot_1(vesc_id_1, &hfdcan1, 7.0f, 1.0f);
 vesc shoot_2(vesc_id_2, &hfdcan1, 7.0f, 1.0f);
 
+m3508p front_left_motor(2, &hfdcan1), front_right_motor(3, &hfdcan1), back_left_motor(1, &hfdcan1), back_right_motor(4, &hfdcan1);
+RoboChassis robot_chassis(omni4_chassis);
+chassis_info omni4_info = {0.0719f, 0.0f, 0.0f, 0.2425f, 0.0f, 0.0f};
+
 R3_xbox test_xbox;
 demo plot;
 
@@ -23,9 +27,17 @@ extern "C"
         debug_port.initQueue();
 
         test_xbox.addport(&esp_port);
+        test_xbox.gate.add_io_interrupt(GPIOD, GPIO_PIN_14);
+        test_xbox.add_chassis(&robot_chassis);
+        robot_chassis.add4_motors(&front_left_motor, &front_right_motor, &back_left_motor, &back_right_motor);
+        robot_chassis.config(omni4_info);
+        robot_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
+        // robotomi4_chassis.add_imu(&position_sensor);
+        robot_chassis.yawadjuster_config(0.12f, 0.0f, 0.004f, 0.0f, 5.0f, 0.1f, 0.5f);
 
-        shoot_1.rpm_control.config_all(176.0f, 1.0f, 86.0f, 20.0f, 70000, 5.0f);
-        shoot_2.rpm_control.config_all(140.0f, 0.48f, 0.86f, 20.0f, 70000, 5.0f);
+        shoot_1.rpm_control.config_all(70.0f, 1.0f, 140.0f, 20.0f, 65000, 5.0f);
+
+        shoot_2.rpm_control.config_all(70.0f, 1.0f, 140.0f, 20.0f, 65000, 5.0f);
         shoot_1.rpm_control.enable_TD();
         shoot_2.rpm_control.enable_TD();
         // shoot_1.addport(&debug_port);
@@ -36,9 +48,10 @@ extern "C"
         test_xbox.shoot_motor_1 = &shoot_1;
         test_xbox.shoot_motor_2 = &shoot_2;
         task_core.registerTask(0, &dji_core);
-        task_core.registerTask(0, &shoot_1);
-        task_core.registerTask(0, &shoot_2);
-        task_core.registerTask(4, &test_xbox);
+        task_core.registerTask(2, &shoot_1);
+        task_core.registerTask(2, &shoot_2);
+        task_core.registerTask(4, &robot_chassis);
+        task_core.registerTask(2, &test_xbox);
         task_core.registerTask(8, &debug_port);
         task_core.registerTask(7, &plot);
         osKernelStart();

@@ -2,27 +2,41 @@
 
 void R3_xbox::mode_1()
 {
-	// shoot_motor_1->send_rpm(rpm);
-	// shoot_motor_2->send_rpm(rpm);
-	shoot_motor_1->set_current(c);
-	shoot_motor_2->set_current(c);
+	//	shoot_motor_1->set_current(c);
+	//	shoot_motor_2->set_current(c);
 	//  shoot_motor_1->send_rpm(move_rpm * xbox_msgs.joyLVert_map);
 	//   shoot_motor_2->send_rpm(move_rpm * xbox_msgs.joyLVert_map);
-	if (read_io() == true)
+	if (gate.is_finish() == true)
 	{
 		shoot_motor_1->send_rpm(0.0f);
 		shoot_motor_2->send_rpm(0.0f);
+	//	shoot_motor_1->set_rpm(0.0f);
+	 // shoot_motor_2->set_current(shoot_motor_1->get_target_current());
 		mode_flag = 2;
+	}
+	else
+	{
+		shoot_motor_1->send_rpm(target_rpm);
+		shoot_motor_2->send_rpm(target_rpm);
+	//	shoot_motor_2->set_current(shoot_motor_1->get_target_current());
 	}
 }
 
 void R3_xbox::mode_2()
 {
 
-	shoot_motor_1->send_rpm(0.0f);
-	shoot_motor_2->send_rpm(0.0f);
-	// shoot_motor_1->send_rpm(move_rpm * xbox_msgs.joyLVert_map);
-	// shoot_motor_2->send_rpm(move_rpm * xbox_msgs.joyLVert_map);
+	// Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
+
+	// set_RobotVel(tvel_, 0);
+	// set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+	gate.flag = 0;
+			shoot_motor_1->send_rpm(move_rpm * xbox_msgs.joyLVert_map);
+		shoot_motor_2->send_rpm(move_rpm * xbox_msgs.joyLVert_map);
+		//shoot_motor_1->set_rpm(move_rpm * xbox_msgs.joyLVert_map);
+	 // shoot_motor_2->set_current(shoot_motor_1->get_target_current());
+	
+	 //shoot_motor_1->send_rpm(0.0f);
+	// shoot_motor_2->send_rpm(0.0f);
 }
 
 void R3_xbox::not_start()
@@ -31,23 +45,13 @@ void R3_xbox::not_start()
 	shoot_motor_2->send_rpm(0.0f);
 }
 
-bool R3_xbox::read_io()
-{
-	return gate.is_finish();
-}
-
-// void R3_xbox::add_io(GPIO_TypeDef  *stop_port_, uint16_t  stop_pin_)
-//{
-// stop_port = stop_port_;
-// stop_pin_ = stop_pin_;
-// }
-
 photogate_shoot::photogate_shoot()
 {
 }
 
 void photogate_shoot::handleInterrupt()
 {
+
 	flag = 1;
 }
 void photogate_shoot::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)

@@ -35,7 +35,7 @@ private:
     float gear_ratio = 3.0f;
     float motor_polse = 7.0f;
 
-    vesc_mode vesc_mode =  vesc_erpm;
+    vesc_mode vesc_mode = vesc_erpm;
 
     void erpm_mode();
     void current_mode();
@@ -49,10 +49,10 @@ public:
     get_rpm();
     void set_rpm(float power_motor_rpm);
     // void set_rpm_ff(float power_motor_rpm, float ff) override;
-
+    float get_target_current() override;
     void set_current(float target_c_) override;
     void send_rpm(float power_motor_rpm) override;
-   
+
     void can_update(uint8_t can_RxData[8]);
     void process_data();
 

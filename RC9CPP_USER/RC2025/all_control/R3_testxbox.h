@@ -10,6 +10,7 @@ extern "C"
 #include "RC9Protocol.h"
 #include "motor.h"
 #include "IO_Interrupt.h"
+#include "robot_chassis.h"
 #ifdef __cplusplus
 }
 #endif
@@ -26,7 +27,7 @@ public:
     bool is_finish();
 };
 
-class R3_xbox : public xbox_debug_base
+class R3_xbox : public xbox_debug_base, public chassis_user
 {
 private:
 public:
@@ -34,14 +35,13 @@ public:
     power_motor *shoot_motor_2 = nullptr;
     float c = 0.0f;
     float rpm = 1000.0f;
-    float move_rpm = 600.0f;
+    float move_rpm = 1000.0f;
     void mode_1() override;
     void mode_2() override;
     void not_start() override;
-    // void add_io(GPIO_TypeDef  *stop_port_, uint16_t  stop_pin_);
-    bool read_io();
+
     photogate_shoot gate;
-    float target_rpm;
+    float target_rpm = 1000.0f;
 };
 
 #endif

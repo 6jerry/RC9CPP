@@ -95,7 +95,7 @@ void vesc::erpm_mode()
         extid = (CAN_CMD_SET_BRAKE << 8) | (can_id_ & 0xFF);
 
         uint8_t vesc_tx_buf[8] = {0};
-        brake = 60000;
+        brake = 70000;
         vesc_tx_buf[0] = (brake >> 24) & 0xFF;
         vesc_tx_buf[1] = (brake >> 16) & 0xFF;
         vesc_tx_buf[2] = (brake >> 8) & 0xFF;
@@ -131,4 +131,10 @@ vesc::vesc(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, uint8_t motor_polse_, f
 void vesc::start_debug()
 {
     debug_mode = true;
+}
+
+float vesc::get_target_current()
+{
+
+    return target_current;
 }
