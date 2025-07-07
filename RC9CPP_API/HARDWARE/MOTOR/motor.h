@@ -87,7 +87,6 @@ public:
     virtual float get_target_pos() {}; // 获取目标位置
 
     virtual float get_target_dis() {}; // 获取目标距离
-
     virtual float get_target_current() {};
 };
 

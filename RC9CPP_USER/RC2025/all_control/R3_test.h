@@ -28,8 +28,6 @@ class demo : public ITaskProcessor, public RC9subscriber
 {
 public:
     void process_data();
-
-   
 };
 #endif
 #endif

@@ -155,6 +155,7 @@ void RoboChassis::chassis_calc(Vector2D robovel, float w)
     case custom_chassis:
         break;
     case omni4_chassis:
+        omni4_calc(robovel, w);
         break;
     case mecanum_chassis:
         mecanum_calc(robovel, w);
@@ -175,6 +176,7 @@ void RoboChassis::chassis_initialize()
     case custom_chassis:
         break;
     case omni4_chassis:
+        mode = stop;
         break;
     case mecanum_chassis:
         break;
@@ -1043,4 +1045,16 @@ void photogate::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)
 {
     port_ = port;
     pin_ = pin;
+}
+
+void RoboChassis::omni4_calc(Vector2D robovel, float w)
+{
+    /*robovel.x = -target.target_robovel.x;
+    robovel.y = -target.target_robovel.y;
+    w = target.target_w;*/
+
+    motors[0]->set_rpm(v_2_rpm(-robovel.x * 0.70710678f - robovel.y * 0.70710678f + chassis_info_.R * w));
+    motors[1]->set_rpm(v_2_rpm(w * chassis_info_.R + 0.70710678f * robovel.x - robovel.y * 0.70710678f));
+    motors[2]->set_rpm(v_2_rpm(w * chassis_info_.R + 0.70710678f * robovel.x + robovel.y * 0.70710678f));
+    motors[3]->set_rpm(v_2_rpm(w * chassis_info_.R - 0.70710678f * robovel.x + robovel.y * 0.70710678f));
 }
