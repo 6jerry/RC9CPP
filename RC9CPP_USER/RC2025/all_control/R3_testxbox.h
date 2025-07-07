@@ -16,17 +16,15 @@ extern "C"
 #ifdef __cplusplus
 class photogate_shoot : public GPIODevice
 {
-	
+
 public:
-	
-    int flag =0;
+    int flag = 0;
     photogate_shoot();
-    
+
     void handleInterrupt() override;
     void add_io_interrupt(GPIO_TypeDef *port, uint16_t pin) override;
     bool is_finish();
 };
-
 
 class R3_xbox : public xbox_debug_base
 {
@@ -40,12 +38,11 @@ public:
     void mode_1() override;
     void mode_2() override;
     void not_start() override;
-    //void add_io(GPIO_TypeDef  *stop_port_, uint16_t  stop_pin_);
+    // void add_io(GPIO_TypeDef  *stop_port_, uint16_t  stop_pin_);
     bool read_io();
-		photogate_shoot gate;
+    photogate_shoot gate;
+    float target_rpm;
 };
-
-
 
 #endif
 #endif
