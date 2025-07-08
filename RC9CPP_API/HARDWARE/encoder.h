@@ -24,7 +24,6 @@ extern "C"
  * @class Encoder
  * @brief 编码器处理类
  * @details 继承自CanDevice和imu类，实现编码器数据的接收和处理
-  @串口波特率默认 ： 19200
  */
 class Encoder : public CanDevice, public imu
 {

@@ -1,4 +1,4 @@
-/**
+  /**
  * @file encoder.cpp
  * @brief 编码器模块实现文件
  * @details 实现编码器数据的接收、解析和距离计算功能
