@@ -9,7 +9,7 @@ AutoShooter::AutoShooter()
 }
 void AutoShooter::process_data()
 {
-    // 获取拉伸距离
+    // 获取编码器距离
     get_data();
 
     switch (shoot_mode)
@@ -193,7 +193,7 @@ void AutoShooter::add_plan_info(float max_acc_, float max_dcc_, float max_speed_
 // 根据编码器获取拉伸距离
 void AutoShooter::get_data()
 {
-    shoot_info.real_dis = encoder->get_absolute_distance();
+    shoot_info.real_dis = encoder->get_distance();
 }
 
 bool AutoShooter::isfinish()
@@ -276,7 +276,7 @@ void AutoShooter::set_shooter_mode(uint8_t mode)
 }
 float AutoShooter::calc(float r)
 {
-//---------------------多项式拟合-----------------
+    //---------------------多项式拟合-----------------
     //    const float coeffs[] = {
     //        0.0183f, // r³ 系数
     //        -0.1171f,  // r² 系数
@@ -284,17 +284,17 @@ float AutoShooter::calc(float r)
     //        -0.0659f   // 常数项
     //    };
 
-    // float s = coeffs[0]; 
+    // float s = coeffs[0];
     // s = s * r + coeffs[1];
     // s = s * r + coeffs[2];
     // s = s * r + coeffs[3];
-//-----------------------------------------------
+    //-----------------------------------------------
 
-//---------------------幂、指数拟合-----------------
-    s = a * pow(r,b) + c*logf(r+1) ;
-	//s = a * pow(r,b) + c ;
-	//s = a*exp(b*r) + c ;
-//-----------------------------------------------
+    //---------------------幂、指数拟合-----------------
+    s = a * pow(r, b) + c * logf(r + 1);
+    // s = a * pow(r,b) + c ;
+    // s = a*exp(b*r) + c ;
+    //-----------------------------------------------
 
     return s;
 }
