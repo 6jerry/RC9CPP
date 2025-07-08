@@ -95,7 +95,7 @@ void chassis_adjust_xbox::mode_1()
        {
            set_RobotW(0.0f, 0);
            auto_shooter->set_auto_byFitter(PID, dis_2_center);
-            //auto_shooter->set_auto_byDis(PID, debug_dis);
+           //auto_shooter->set_auto_byDis(PID, debug_dis);
             cnt_flag = 0;
            mode_flag = 2;
        }
@@ -103,9 +103,7 @@ void chassis_adjust_xbox::mode_1()
        {
            yaw_TurnTo(center_heading, 0);
        }
-
-    //yaw_TurnTo(center_heading, 0);
-    // auto_shooter->set_auto_byFitter(PID, dis_2_center);
+//    yaw_TurnTo(0, 0);
 //    auto_shooter->set_auto_byDis(PID, debug_dis);
 //    mode_flag = 2;
 }

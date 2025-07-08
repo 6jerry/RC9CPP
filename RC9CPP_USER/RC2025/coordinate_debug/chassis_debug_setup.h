@@ -32,16 +32,18 @@ extern "C"
 class demo: public ITaskProcessor, public RC9subscriber{
 	public:
 		void process_data();
-        void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override; // Êý¾Ý»Øµ÷º¯Êý
+        void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override; // ï¿½ï¿½ï¿½Ý»Øµï¿½ï¿½ï¿½ï¿½ï¿½
         chassis_adjust_xbox *xbox;
     float recive_data[4] = {0};
+    float send_data[6] = {0};
 
     void add_xbox(chassis_adjust_xbox *xbox_);
 
-    float pian_x = 2.65;
+    float pian_x = 3.0;
     float pian_y = 14.406;
-		
-		uint8_t cnt = 1;
+
+	uint8_t encoder_reset_flag = 0;
+    uint8_t encoder_for_yunball_flag = 0;
 
     Vector2D robot_pos;
     Vector2D robot_v;
@@ -50,7 +52,7 @@ class demo: public ITaskProcessor, public RC9subscriber{
 /*class Robot_communication: public ITaskProcessor, public RC9subscriber{
     public:
         void process_data();
-        void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override; // Êý¾Ý»Øµ÷º¯Êý
+        void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override; // ï¿½ï¿½ï¿½Ý»Øµï¿½ï¿½ï¿½ï¿½ï¿½
 
     Vector2D data_pos;
     Vector2D data_v;
