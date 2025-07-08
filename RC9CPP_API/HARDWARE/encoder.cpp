@@ -43,12 +43,12 @@ void Encoder::can_update(uint8_t can_RxData[8])
     Encoder_conut = Encoder_conut << 8;
     Encoder_conut |= can_RxData[3];
 
-    // 减去五圈
-    Encoder_conut = Encoder_conut - (uint32_t)1024 * 5;
-
+   
+    float Encoder_delta = (float)Encoder_conut/1024.0f;
+    Encoder_delta = Encoder_delta - 5.0f;
     // 计算距离
-    distance = (((float)Encoder_conut / (float)1024) * delta_length) / gear;
-    all_angle = (((float)Encoder_conut / (float)1024) / gear) * 360.0f; // 累计总角度
+    distance = Encoder_delta * delta_length /gear;
+    all_angle = (Encoder_delta / gear) * 360.0f; // 累计总角度
     angle = all_angle - (int)(all_angle / 360.0f) * 360.0f;             // 当前角度
 }
 
