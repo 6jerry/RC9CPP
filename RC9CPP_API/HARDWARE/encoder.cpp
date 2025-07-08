@@ -43,13 +43,12 @@ void Encoder::can_update(uint8_t can_RxData[8])
     Encoder_conut = Encoder_conut << 8;
     Encoder_conut |= can_RxData[3];
 
-   
-    float Encoder_delta = (float)Encoder_conut/1024.0f;
+    float Encoder_delta = (float)Encoder_conut / 1024.0f;
     Encoder_delta = Encoder_delta - 5.0f;
     // 计算距离
-    distance = Encoder_delta * delta_length /gear;
-    all_angle = (Encoder_delta / gear) * 360.0f; // 累计总角度
-    angle = all_angle - (int)(all_angle / 360.0f) * 360.0f;             // 当前角度
+    distance = Encoder_delta * delta_length / gear;
+    all_angle = (Encoder_delta / gear) * 360.0f;            // 累计总角度
+    angle = all_angle - (int)(all_angle / 360.0f) * 360.0f; // 当前角度
 }
 
 void Encoder::send_reset()
@@ -61,7 +60,7 @@ void Encoder::send_reset()
     data[2] = 0x0F;
     data[3] = 0x01;
 
-    CAN_Send(can_id_, false, data, &hfdcan3);
+    CAN_Send(can_id_, false, data, hcan_);
 }
 
 void Encoder::set_clockwise()
@@ -73,7 +72,7 @@ void Encoder::set_clockwise()
     data[2] = 0x07;
     data[3] = 0x00;
 
-    CAN_Send(can_id_, false, data, &hfdcan3);
+    CAN_Send(can_id_, false, data, hcan_);
 }
 void Encoder::set_anti_clockwise()
 {
@@ -83,5 +82,19 @@ void Encoder::set_anti_clockwise()
     data[2] = 0x07;
     data[3] = 0x01;
 
-    CAN_Send(can_id_, false, data, &hfdcan3);
+    CAN_Send(can_id_, false, data, hcan_);
+}
+
+// 设置编码器自动回传时间 ，time 单位微妙
+void Encoder::set_auto_passback(uint16_t time)
+{
+
+    uint8_t data[8];
+    data[0] = 0x05;
+    data[1] = can_id_;
+    data[2] = 0x05;
+    data[3] = (uint8_t)(time & 0xFF); // 低8位
+    data[4] = (uint8_t)(time >> 8);   // 高8位
+
+    CAN_Send(can_id_, false, data, hcan_);
 }

@@ -38,13 +38,6 @@ void AutoShooter::process_data()
 
 void AutoShooter::hand_adjust()
 {
-
-    // 触发光电门
-    // if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
-    // {
-    //     shooter_info.hand_shooter_rpm = 0.0f;
-    // }
-
     shooter_motor->send_rpm(shoot_info.hand_rpm);
 }
 
@@ -108,11 +101,6 @@ bool AutoShooter::TP_adjust(float lifter_dis)
     shoot_info.auto_rpm = -planer.plan(shoot_info.real_dis);
     shooter_motor->send_rpm(shoot_info.auto_rpm);
     planer.reset();
-    // 触发光电门
-    //		if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
-    //   {
-    //        shooter_motor->set_rpm(0.0f);
-    //    }
 
     // 到达终点锁住
     if (fabs(shoot_info.real_dis - lifter_dis) < 0.002f)
