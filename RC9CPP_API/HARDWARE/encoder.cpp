@@ -12,7 +12,7 @@
  * @brief 构造函数
  * @param huart_ UART句柄指针
  */
-Encoder::Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_) : CanDevice(hcan_, CAN_FRAME_STD, can_id_) {}
+Encoder::Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_,float gear_) : CanDevice(hcan_, CAN_FRAME_STD, can_id_) {gear = gear_;}
 
 float Encoder::get_absolute_distance(void)
 {
@@ -73,7 +73,12 @@ void Encoder::can_update(uint8_t can_RxData[8])
     //    }
     //    else
     //    {
-    distance = (((float)Encoder_conut / (float)1024) * delta_length) / 2.0f;
+    distance = (((float)Encoder_conut / (float)1024) * delta_length) /gear;
+    all_angle = (((float)Encoder_conut / (float)1024) /gear )* 360.0f; // 累计总角度
+    angle = all_angle - (int)(all_angle / 360.0f) * 360.0f; // 当前角度
+    
+//    all_angle = ((float)Encoder_conut / (float)1024) * 360.0f; // 累计总角度
+//    angle = all_angle - (int)(all_angle / 360.0f) * 360.0f; // 当前角度
     // test_count = (float)Encoder_conut;
     //     }
 }
@@ -82,9 +87,32 @@ void Encoder::send_reset()
 {
      uint8_t data[8];
 	   data[0] = 0x04;
-     data[1] = 0x01;
+       data[1] = can_id_;
 	   data[2] = 0x06;
 	   data[3] = 0x00;
 	
-	  CAN_Send(0x01,false,data,&hfdcan3);
+	  CAN_Send(can_id_,false,data,&hfdcan3);
+}
+
+void Encoder::set_clockwise()
+{
+       uint8_t data[8];
+	   data[0] = 0x04;
+       data[1] = can_id_;
+	   data[2] = 0x07;
+	   data[3] = 0x00;
+	
+	  CAN_Send(can_id_,false,data,&hfdcan3);
+    
+}
+void Encoder::set_anti_clockwise()
+{
+       uint8_t data[8];
+	   data[0] = 0x04;
+       data[1] = can_id_;
+	   data[2] = 0x07;
+	   data[3] = 0x01;
+	
+	  CAN_Send(can_id_,false,data,&hfdcan3);
+
 }
