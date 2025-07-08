@@ -37,8 +37,6 @@ public:
     float get_distance(void) override;
 
     void can_update(uint8_t can_RxData[8]) override;
-    // 减速比
-    float gear;
 
     float get_angle(void) { return angle; }         ///< 获取当前角度
     float get_all_angle(void) { return all_angle; } ///< 获取累计总角度
@@ -54,6 +52,7 @@ public:
     void set_auto_passback(uint16_t time);
 
 private:
+    float gear;                 ///< 齿轮减速比
     float distance = 0;         ///< 当前编码器距离
     uint32_t Encoder_conut = 0; ///< 编码器计数值
     float delta_length = 0.01;  ///< 单圈对应长度
