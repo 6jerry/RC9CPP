@@ -121,6 +121,11 @@ void vesc::rpm_increpid_mode()
     current_mode();
 }
 
+float vesc::get_target_current()
+{
+    return target_current;
+}
+
 vesc::vesc(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, uint8_t motor_polse_, float gear_ratio_, float kp_, float ki_, float kd_, float r_) : CanDevice(hcan_, CAN_FRAME_EXT, can_id_), motor_polse(motor_polse_), gear_ratio(gear_ratio_)
 {
     // extid = (CAN_CMD_SET_ERPM << 8) | can_id;

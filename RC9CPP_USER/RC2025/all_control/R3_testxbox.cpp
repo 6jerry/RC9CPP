@@ -39,10 +39,14 @@ void R3_xbox::mode_2()
 	// shoot_motor_2->send_rpm(0.0f);
 }
 
+
 void R3_xbox::not_start()
 {
 	shoot_motor_1->send_rpm(0.0f);
 	shoot_motor_2->send_rpm(0.0f);
+	Vector2D zero(0 , 0);
+	set_RobotVel(zero, 0);
+	set_RobotW (0, 0);
 }
 
 photogate_shoot::photogate_shoot()

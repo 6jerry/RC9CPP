@@ -32,7 +32,7 @@ extern "C"
         test_xbox.addport(&esp_port);
         test_xbox.gate.add_io_interrupt(GPIOD, GPIO_PIN_14);
         test_xbox.add_chassis(&robot_chassis);
-        robot_chassis.add4_motors(&front_left_motor, &front_right_motor, &back_left_motor, &back_right_motor);
+        robot_chassis.add4_motors(&back_right_motor, &front_right_motor, &front_left_motor, &back_left_motor);
         robot_chassis.config(omni4_info);
         robot_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
         // omi4_chassis.add_imu(&position_sensor);

@@ -38,6 +38,7 @@ public:
     float move_rpm = 1000.0f;
     void mode_1() override;
     void mode_2() override;
+	void mode_3() override;
     void not_start() override;
 
     photogate_shoot gate;
