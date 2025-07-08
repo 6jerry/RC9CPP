@@ -52,6 +52,13 @@ private:
     AutoShooter *shooter;
     Encoder *encoder_for_yunball;
 public:
+    float liftTo_dis = -13.2f;
+    float liftBask_dis=0.8f;
+    float turnTo_angle = 141.0f; // 旋转角度
+    float turnBack_angle = 5.0f; // 旋转回转角度
+    float turn_deadzone = 1.0f; // 死区
+    float lift_deadzone = 0.5f; // 死区
+    float shooter_lift = 0.1f; // 皮筋拉伸量
     uint8_t mode_flag = 2, start_flag = 0, lb_flag = 0, rb_flag = 0, cnt_flag = 0, up_flag = 0, down_flag = 0, left_flag = 0, right_flag = 0, emergency_stop_flag = 0;
     volatile int32_t emergency_semaphore = 0;  // 新增信号量计数器
     

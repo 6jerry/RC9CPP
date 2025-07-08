@@ -71,7 +71,7 @@ private:
     float target_error = 0.002f;
     float target_rpm = 60.0f;
 
-    float revert_dis = 0.010f;
+    float revert_dis = 0.008f;
     float min_dis = 0.05f; // 最小拉伸距离
     float max_dis = 0.23f; // 最大拉伸距离
 

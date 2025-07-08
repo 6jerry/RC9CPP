@@ -1,53 +1,53 @@
 #include "auto_yunball.h"
 
-static uint8_t tile[4] = {0x00,0x00,0x80,0x7F};
+static uint8_t tile[4] = {0x00, 0x00, 0x80, 0x7F};
 
 void auto_yunball::process_data()
 {
-    if(flag != emergency_stop)
+    if (flag != emergency_stop)
     {
         emergency_stop_flag = 0;
     }
-    else 
+    else
     {
         // 信号量递减逻辑
-        if(emergency_semaphore > 0) 
+        if (emergency_semaphore > 0)
         {
-            emergency_semaphore--;  // 每次循环递减1
+            emergency_semaphore--; // 每次循环递减1
         }
     }
     // 信号量状态判断
-    if(emergency_semaphore <= 0 && flag == emergency_stop) 
+    if (emergency_semaphore <= 0 && flag == emergency_stop)
     {
-        flag = static_flag;  // 自动退出紧急状态
+        flag = static_flag; // 自动退出紧急状态
     }
 
-    switch(flag)
+    switch (flag)
     {
-        case static_flag:
-            turn_motor->set_rpm(-get_speed_turn * max_turn_speed);
-            lift_motor->set_rpm(get_speed_lift * max_lift_speed);
-            turn_motor->all_pos = encoder_for_yunball->get_all_angle();
-            turn_motor->pos_sum = encoder_for_yunball->get_angle();
-            break;
-        case yunball_flag:
-            yunball();
-            break;
-        case putball_flag:
-            putball();
-            break;
-        case stop_flag:
-            osDelay(200);
-            flag = static_flag;
-            break;
-        case emergency_stop:
-            if(emergency_stop_flag++ < 10)
-            {
-                turn_motor->set_rpm(0.0f);
-                lift_motor->set_rpm(0.0f);
-            }
-        default:
-            break;
+    case static_flag:
+        turn_motor->set_rpm(-get_speed_turn * max_turn_speed);
+        lift_motor->set_rpm(get_speed_lift * max_lift_speed);
+        turn_motor->all_pos = encoder_for_yunball->get_all_angle();
+        turn_motor->pos_sum = encoder_for_yunball->get_angle();
+        break;
+    case yunball_flag:
+        yunball();
+        break;
+    case putball_flag:
+        putball();
+        break;
+    case stop_flag:
+        osDelay(200);
+        flag = static_flag;
+        break;
+    case emergency_stop:
+        if (emergency_stop_flag++ < 10)
+        {
+            turn_motor->set_rpm(0.0f);
+            lift_motor->set_rpm(0.0f);
+        }
+    default:
+        break;
     }
 }
 
@@ -67,24 +67,36 @@ void auto_yunball::add_motor(m3508p *turn_motor_, m3508p *lift_motor_)
     lift_motor = lift_motor_;
 }
 
-//外部接口函数
+// 外部接口函数
 bool auto_yunball::start_yunball()
 {
-    if(flag == static_flag) {flag = yunball_flag;}
-    if(flag == stop_flag) {return true;}
+    if (flag == static_flag)
+    {
+        flag = yunball_flag;
+    }
+    if (flag == stop_flag)
+    {
+        return true;
+    }
     return false;
 }
 bool auto_yunball::start_putball()
 {
-    if(flag == static_flag) {flag = putball_flag;}
-    if(flag == stop_flag) {return true;}
+    if (flag == static_flag)
+    {
+        flag = putball_flag;
+    }
+    if (flag == stop_flag)
+    {
+        return true;
+    }
     return false;
 }
 
 void auto_yunball::stop()
 {
     // 重置信号量为正数
-    emergency_semaphore = 10;  // 这个数值控制紧急状态的持续时间
+    emergency_semaphore = 10; // 这个数值控制紧急状态的持续时间
     flag = emergency_stop;
 }
 
@@ -94,21 +106,29 @@ void auto_yunball::add_shooter(AutoShooter *shooter_)
 }
 
 void auto_yunball::add_encoder(Encoder *encoder_)
-{  
+{
     encoder_for_yunball = encoder_;
 }
 
-void auto_yunball::control_turn_motor(float speed_){get_speed_turn = speed_;}
-void auto_yunball::control_lift_motor(float speed_){get_speed_lift = speed_;}
-void auto_yunball::control_claw(bool if_open){if(flag == static_flag)set_claw(if_open);}
-void auto_yunball::control_push(bool if_push){if(flag == static_flag)set_push(if_push);}
+void auto_yunball::control_turn_motor(float speed_) { get_speed_turn = speed_; }
+void auto_yunball::control_lift_motor(float speed_) { get_speed_lift = speed_; }
+void auto_yunball::control_claw(bool if_open)
+{
+    if (flag == static_flag)
+        set_claw(if_open);
+}
+void auto_yunball::control_push(bool if_push)
+{
+    if (flag == static_flag)
+        set_push(if_push);
+}
 
-//内部实现函数
+// 内部实现函数
 void auto_yunball::yunball()
 {
     set_claw(true);
     set_push(true);
-    osDelay(200); 
+    osDelay(200);
     set_push(false);
     osDelay(300);
     set_claw(false);
@@ -117,35 +137,43 @@ void auto_yunball::yunball()
 void auto_yunball::putball()
 {
     lift_motor->dis_speedplan_restart();
-    lift_motor->set_dis_speedplan(-12.5f, 180.0f, 180.0f, 180.0f, 0.0f);
+    lift_motor->set_dis_speedplan(liftTo_dis, 180.0f, 180.0f, 180.0f, 0.0f);
     turn_motor->pos_speedplan_restart();
-    turn_motor->set_pos_speedplan(270.0f, 30.0f, 40.0f, 40.0f, 0.0f);            //旋转到270度
-    shooter->set_lift(0.06f);
-    while((abs(turn_motor->all_pos-270.0f) > 1.5f) || (abs(lift_motor->get_dis()-(-12.5f)) > 0.5f)) {    //等待转动完成
+    turn_motor->set_pos_speedplan(turnTo_angle, 40.0f, 40.0f, 30.0f, 0.0f);
+    while ((abs(turn_motor->all_pos - turnTo_angle) > turn_deadzone) || (abs(lift_motor->get_dis() - liftTo_dis) > lift_deadzone))
+    { // 等待转动完成
+        turn_motor->all_pos = encoder_for_yunball->get_all_angle();
+        turn_motor->pos_sum = encoder_for_yunball->get_angle();
         osDelay(1);
     }
-    turn_motor->pos_speedplan_restart();                                    //复位
+    turn_motor->pos_speedplan_restart(); // 复位
     turn_motor->set_rpm(0.0f);
-    lift_motor->dis_speedplan_restart();    
-	lift_motor->set_rpm(0.0f);
-    set_claw(true);                                                         //放球
-    osDelay(300);
-    shooter->set_lift(0.17f);                                 //拉皮筋
-    osDelay(500);
-    turn_motor->set_pos_speedplan(90.0f, 30.0f, 50.0f, 30.0f, 0.0f);       //旋转到90度
-    osDelay(400);
-    lift_motor->set_dis_speedplan(0.0f, 180.0f, 180.0f, 180.0f, 0.0f);                                                   //下降
-    osDelay(300);
-    shooter->set_lift(0.015f);                                //放皮筋
-    while(abs(lift_motor->get_dis()-0.0f) > 0.5f) {    //等待转动完成
-        osDelay(1);
-    }        
     lift_motor->dis_speedplan_restart();
     lift_motor->set_rpm(0.0f);
-	set_claw(false);
+    osDelay(500);
+    set_claw(true); // 放球
+    osDelay(300);
+    shooter->set_lift(shooter_lift); // 拉皮筋
+    osDelay(500);
+    turn_motor->set_pos_speedplan(turnBack_angle, 30.0f, 50.0f, 30.0f, 0.0f);
+    osDelay(600);
+    lift_motor->set_dis_speedplan(liftBask_dis, 180.0f, 180.0f, 180.0f, 0.0f); // 下降
+    osDelay(300);
+    shooter->set_lift(0.015f); // 放皮筋
+    while ((abs(turn_motor->all_pos - turnBack_angle) > turn_deadzone) || (abs(lift_motor->get_dis() - liftBask_dis) > lift_deadzone))
+    { // 等待转动完成
+        turn_motor->all_pos = encoder_for_yunball->get_all_angle();
+        turn_motor->pos_sum = encoder_for_yunball->get_angle();
+        osDelay(1);
+    }
+    lift_motor->dis_speedplan_restart();
+    lift_motor->set_rpm(0.0f);
+    lift_motor->dis_sum = liftBask_dis;
+    turn_motor->pos_speedplan_restart();
+    turn_motor->set_rpm(0.0f);
+    set_claw(false);
     flag = stop_flag;
 }
 
-
-void auto_yunball::set_claw(bool if_open) {HAL_GPIO_WritePin(claw_port, claw_pin, if_open ? GPIO_PIN_RESET : GPIO_PIN_SET);}
-void auto_yunball::set_push(bool if_push) {HAL_GPIO_WritePin(push_port, push_pin, if_push ? GPIO_PIN_SET : GPIO_PIN_RESET);}
+void auto_yunball::set_claw(bool if_open) { HAL_GPIO_WritePin(claw_port, claw_pin, if_open ? GPIO_PIN_RESET : GPIO_PIN_SET); }
+void auto_yunball::set_push(bool if_push) { HAL_GPIO_WritePin(push_port, push_pin, if_push ? GPIO_PIN_SET : GPIO_PIN_RESET); }

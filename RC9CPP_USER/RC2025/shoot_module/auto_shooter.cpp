@@ -15,7 +15,7 @@ void AutoShooter::process_data()
     switch (shoot_mode)
     {
     case shooter_stop:
-        shooter_motor->set_rpm(0.0f);
+        shooter_motor->send_rpm(0.0f);
         break;
     case shooter_hand:
         hand_adjust();
@@ -45,14 +45,14 @@ void AutoShooter::hand_adjust()
     //     shooter_info.hand_shooter_rpm = 0.0f;
     // }
 
-    shooter_motor->set_rpm(shoot_info.hand_rpm);
+    shooter_motor->send_rpm(shoot_info.hand_rpm);
 }
 
 void AutoShooter::lift_adjust(float shoot_dis)
 {
     float error = (shoot_dis - shoot_info.real_dis);
     shoot_info.auto_rpm = -dis_control.PID_ComputeError(error);
-    shooter_motor->set_rpm(shoot_info.auto_rpm);
+    shooter_motor->send_rpm(shoot_info.auto_rpm);
 }
 
 void AutoShooter::allAuto_adjust(float lifter_dis)
@@ -90,7 +90,7 @@ void AutoShooter::allAuto_adjust(float lifter_dis)
 
         break;
     case auto_finish:
-        shooter_motor->set_rpm(0.0f);
+        shooter_motor->send_rpm(0.0f);
         break;
     default:
         break;
@@ -106,7 +106,7 @@ bool AutoShooter::TP_adjust(float lifter_dis)
                       shoot_info.start_dis, lifter_dis);
 
     shoot_info.auto_rpm = -planer.plan(shoot_info.real_dis);
-    shooter_motor->set_rpm(shoot_info.auto_rpm);
+    shooter_motor->send_rpm(shoot_info.auto_rpm);
     planer.reset();
     // 触发光电门
     //		if (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_5) && shooter_motor->get_rpm() > 0.0f)
@@ -139,14 +139,14 @@ bool AutoShooter::auto_adjust(float lifter_dis)
 
     case PID:
         shoot_info.auto_rpm = -dis_control.PID_ComputeError(error);
-        shooter_motor->set_rpm(shoot_info.auto_rpm);
+        shooter_motor->send_rpm(shoot_info.auto_rpm);
         break;
 
     case TP_PID:
         if (fabs(error) < 0.05f)
         {
             shoot_info.auto_rpm = -dis_control.PID_ComputeError(error);
-            shooter_motor->set_rpm(shoot_info.auto_rpm);
+            shooter_motor->send_rpm(shoot_info.auto_rpm);
         }
         else
         {

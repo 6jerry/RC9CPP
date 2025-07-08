@@ -137,9 +137,3 @@ void vesc::start_debug()
 {
     debug_mode = true;
 }
-
-float vesc::get_target_current()
-{
-
-    return target_current;
-}

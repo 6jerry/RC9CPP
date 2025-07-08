@@ -70,8 +70,6 @@ public:
 
     float target_rpm = 0.0f, now_rpm = 0.0f, rcurrent = 0.0f, target_current = 0.0f, filted_rpm = 0.0f, target_ff_current = 0.0f, test_rpm = 0.0f;
     int32_t target_erpm = 0, senderpm = 0, brake = 10000, send_current = 0;
-
-    float get_target_current() override;
 };
 #endif
 #endif
