@@ -33,7 +33,7 @@ public:
 	uint8_t test2_flag = 0;
   float limit_yaw_error = 0.4f, limit_yaw_speed = 1.0f;
 
-  float pass_correct_distance = 0.30f; // 修正距离
+  float pass_correct_distance = 0.30f; // 传球修正距离
 
 public:
   void add_AutoShooter(AutoShooter *auto_shooter_);

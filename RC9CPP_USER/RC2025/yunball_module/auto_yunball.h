@@ -52,9 +52,9 @@ private:
     AutoShooter *shooter;
     Encoder *encoder_for_yunball;
 public:
-    float liftTo_dis = -13.2f;
-    float liftBask_dis=0.8f;
-    float turnTo_angle = 141.0f; // 旋转角度
+    float liftTo_dis = -13.0f;
+    float liftBask_dis = -0.8f;
+    float turnTo_angle = 135.0f; // 旋转角度
     float turnBack_angle = 5.0f; // 旋转回转角度
     float turn_deadzone = 1.0f; // 死区
     float lift_deadzone = 0.5f; // 死区

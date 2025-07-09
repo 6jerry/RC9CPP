@@ -111,7 +111,8 @@ void chassis_adjust_xbox::mode_1()
 void chassis_adjust_xbox::mode_3()
 {
     auto_yunball_ptr->control_turn_motor(xbox_msgs.joyRHori_map);
-		auto_yunball_ptr->control_lift_motor(xbox_msgs.joyLVert_map);
+		auto_yunball_ptr->control_lift_motor(xbox_msgs.joyRVert_map*80);
+    auto_shooter->set_hand(xbox_msgs.joyLVert_map*800);
 
     if (rb_flag)
     {
