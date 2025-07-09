@@ -13,7 +13,10 @@ ros_sensor::ros_sensor()
 //	for(int i = 0; i < msg_num; i++){
 //		kalman[i].KalmanFilter_init(0.01f, 0.1f, 0.1f);
 //	}
-	
+	Vector2D default_origin;
+  tf_.coordinate_map(&ros_radar_loaction.world_pos, &default_origin,my_r, my_rad);
+  tf_.map_origin = default_origin;
+  tf_.map_origin_init_flag = true;
 }
 
 void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
@@ -44,8 +47,8 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 //		ros_radar_loaction.world_pos.x = - f_BFP[0].filter(floatData[1]);
 //		ros_radar_loaction.world_pos.y = f_BFP[1].filter(floatData[0]); // 把上位机坐标与追踪坐标方向对齐
 		
-		ros_radar_loaction.world_pos.x = - (floatData[1]);
-		ros_radar_loaction.world_pos.y = (floatData[0]); // 把上位机坐标与追踪坐标方向对齐
+		ros_radar_loaction.world_pos.x = (floatData[0]);
+		ros_radar_loaction.world_pos.y = (floatData[1]); // 把上位机坐标与追踪坐标方向对齐
 		//		if(fabsf(floatData[2]) < 0.02f && fabsf(floatData[3]) < 0.05f){
 		//			map_origin_init_flag = false; //重置映射原点
 		//		}
