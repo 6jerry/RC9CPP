@@ -265,24 +265,24 @@ void AutoShooter::set_shooter_mode(uint8_t mode)
 float AutoShooter::calc(float r)
 {
     //---------------------多项式拟合-----------------
-    //    const float coeffs[] = {
-    //        0.0183f, // r³ 系数
-    //        -0.1171f,  // r² 系数
-    //        0.2796f, // r 系数
-    //        -0.0659f   // 常数项
-    //    };
+    const float coeffs[] = {
+            0.0169f, // r³ 系数
+            -0.1134f,  // r² 系数
+            0.2847f, // r 系数
+            -0.0660f   // 常数项
+        };
 
-    // float s = coeffs[0];
-    // s = s * r + coeffs[1];
-    // s = s * r + coeffs[2];
-    // s = s * r + coeffs[3];
+    float s = coeffs[0];
+    s = s * r + coeffs[1];
+    s = s * r + coeffs[2];
+    s = s * r + coeffs[3];
     //-----------------------------------------------
 
     //---------------------幂、指数拟合-----------------
-    s = a * pow(r, b) + c * logf(r + 1);
+    //s = a * pow(r, b) + c * logf(r + 1);
     // s = a * pow(r,b) + c ;
     // s = a*exp(b*r) + c ;
     //-----------------------------------------------
 
-    return s;
+    return s + offest;
 }

@@ -27,6 +27,8 @@ extern "C"
 class demo : public ITaskProcessor, public RC9subscriber
 {
 public:
+	
+    int test_flag = 0;
     void process_data();
 };
 #endif

@@ -88,6 +88,7 @@ private:
     float s;
 
 public:
+	  float offest = 0.0f;
     // 编码器
     Encoder *encoder = nullptr;
     shootInfo shoot_info;
