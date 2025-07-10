@@ -115,11 +115,11 @@ void demo::process_data()
   MX_FDCAN2_Init();
   CanDevice::InitAllFiltersNoMask();
 
-  /*if(encoder_reset_flag == 0)
-  {
-    encoder.send_reset();
-    encoder_reset_flag = 1;
-  }*/
+//  if(encoder_reset_flag == 0)
+//  {
+//    encoder.send_reset();
+//    encoder_reset_flag = 1;
+//  }
 
 /*   if (encoder_for_yunball_flag == 0)
   {

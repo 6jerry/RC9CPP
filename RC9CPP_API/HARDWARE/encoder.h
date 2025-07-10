@@ -20,6 +20,12 @@ extern "C"
 
 #ifdef __cplusplus
 
+enum EncoderMode
+{
+    dis,
+    AngleSpeed, // 角速度模式
+};
+
 /**
  * @class Encoder
  * @brief 编码器处理类
@@ -33,15 +39,18 @@ public:
      * @return float 计算得到的距离值
      */
 
-    Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, float gear_);
-    float get_distance(void) override;
+    Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, float gear_, EncoderMode mode_);
 
     void can_update(uint8_t can_RxData[8]) override;
 
+    // 外部使用接口
+    float get_distance(void) override;
+    float get_rpm(void);
     float get_angle(void) { return angle; }         ///< 获取当前角度
     float get_all_angle(void) { return all_angle; } ///< 获取累计总角度
 
     // 编码器设置函数
+    //*********************** */
     // 重定位，设为五圈值
     void send_reset();
     // 设置顺时针
@@ -49,9 +58,14 @@ public:
     // 设置逆时针
     void set_anti_clockwise();
 
-    void set_auto_passback(uint16_t time);
-
+    void set_AngleSpeed();
+    void set_dis();
+    //*********************** */
 private:
+    EncoderMode mode;           ///< 编码器模式
+    uint8_t sampling_time = 10; ///< 采样时间
+    int32_t angle_conut = 0;
+    float rpm;                  ///< 转速 转/分钟
     float gear;                 ///< 齿轮减速比
     float distance = 0;         ///< 当前编码器距离
     uint32_t Encoder_conut = 0; ///< 编码器计数值

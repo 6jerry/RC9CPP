@@ -32,7 +32,7 @@ public:
   uint8_t test_flag = 0, putball = 0;
 	uint8_t test2_flag = 0;
   float limit_yaw_error = 0.4f, limit_yaw_speed = 1.0f;
-
+  float offest = 0.0f;
   float pass_correct_distance = 0.30f; // 修正距离
 
 public:
