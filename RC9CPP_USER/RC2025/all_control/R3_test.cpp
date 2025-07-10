@@ -3,12 +3,12 @@
 TaskManager task_core;
 dji_motor_handle dji_core;
 
-RC9Protocol esp_port(uart, &huart3), debug_port(uart, &huart4), position_port(uart, &huart3);
+RC9Protocol esp_port(uart, &huart3), debug_port(uart, &huart6), position_port(uart, &huart3);
 
 vesc shoot_1(vesc_id_1, &hfdcan1, 7.0f, 1.0f);
 vesc shoot_2(vesc_id_2, &hfdcan1, 7.0f, 1.0f);
 
-Encoder encoder(0x03, &hfdcan2, 2.0f, AngleSpeed);
+Encoder encoder(0x03, &hfdcan2, 2.0f);
 
 m3508p front_left_motor(dji_id_3, &hfdcan3), front_right_motor(dji_id_4, &hfdcan3), back_left_motor(dji_id_2, &hfdcan3), back_right_motor(dji_id_1, &hfdcan3);
 RoboChassis robot_chassis(omni4_chassis);
@@ -37,7 +37,7 @@ extern "C"
     robot_chassis.add4_motors(&back_right_motor, &front_right_motor, &front_left_motor, &back_left_motor);
     robot_chassis.config(omni4_info);
     robot_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
-    // omi4_chassis.add_imu(&position_sensor);
+    robot_chassis.add_imu(&position_sensor);
     robot_chassis.yawadjuster_config(0.12f, 0.0f, 0.004f, 0.0f, 5.0f, 0.1f, 0.5f);
 
     shoot_1.rpm_control.config_all(70.0f, 1.0f, 140.0f, 20.0f, 65000, 5.0f);
@@ -68,16 +68,16 @@ extern "C"
 void demo::process_data()
 {
 
-  // if(test_flag == 1)
-  // {
+//   if(test_flag == 1)
+//   {
 
-  //   encoder.set_plastance();
-  // 	test_flag = 0;
-  // }
-  float send_datas[4] = {shoot_1.get_rpm(),
+//     encoder.set_dis();
+//   	test_flag = 0;
+//   }
+  float send_datas[5] = {shoot_1.get_rpm(),
                          shoot_2.get_rpm(),
                          test_xbox.target_rpm,
-                         encoder.get_rpm()};
+                         -encoder.get_rpm()};
 
   sendFloatData(1, send_datas, 4);
 }

@@ -20,12 +20,6 @@ extern "C"
 
 #ifdef __cplusplus
 
-enum EncoderMode
-{
-    dis,
-    AngleSpeed, // 角速度模式
-};
-
 /**
  * @class Encoder
  * @brief 编码器处理类
@@ -39,7 +33,7 @@ public:
      * @return float 计算得到的距离值
      */
 
-    Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, float gear_, EncoderMode mode_);
+    Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, float gear_);
 
     void can_update(uint8_t can_RxData[8]) override;
 
@@ -58,20 +52,20 @@ public:
     // 设置逆时针
     void set_anti_clockwise();
 
-    void set_AngleSpeed();
     void set_dis();
+
     //*********************** */
 private:
-    EncoderMode mode;           ///< 编码器模式
     uint8_t sampling_time = 10; ///< 采样时间
-    int32_t angle_conut = 0;
     float rpm;                  ///< 转速 转/分钟
     float gear;                 ///< 齿轮减速比
     float distance = 0;         ///< 当前编码器距离
-    uint32_t Encoder_conut = 0; ///< 编码器计数值
-    float delta_length = 0.01;  ///< 单圈对应长度
-    float all_angle = 0.0f;     ///< 累计总角度
-    float angle = 0.0f;         ///< 当前角度
+    int init_flag = 0;
+    uint32_t Last_Encoder_conut = 0; ///< 上一次编码器计数值
+    uint32_t Encoder_conut = 0;      ///< 编码器计数值
+    float delta_length = 0.01;       ///< 单圈对应长度
+    float all_angle = 0.0f;          ///< 累计总角度
+    float angle = 0.0f;              ///< 当前角度
 };
 
 #endif
