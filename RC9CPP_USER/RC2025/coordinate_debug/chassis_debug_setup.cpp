@@ -97,7 +97,7 @@ extern "C"
     task_core.registerTask(2, &u8_left);
     task_core.registerTask(2, &u8_right);
     task_core.registerTask(1, &m6374);
-    task_core.registerTask(2, &auto_shooter);
+    task_core.registerTask(3, &auto_shooter);
     task_core.registerTask(4, &s3_chassis);
     task_core.registerTask(6, &chassis_debug);
     task_core.registerTask(8, &position_port);
@@ -115,17 +115,24 @@ void demo::process_data()
   MX_FDCAN2_Init();
   CanDevice::InitAllFiltersNoMask();
 
+<<<<<<< HEAD
 //  if(encoder_reset_flag == 0)
 //  {
 //    encoder.send_reset();
 //    encoder_reset_flag = 1;
+=======
+//  if(encoder_reset_flag == 1)
+//  {
+//    encoder.send_reset();
+//    encoder_reset_flag = 0;
+>>>>>>> 813493d734ba5f43b26b8ee8e1c734b2f11aaf98
 //  }
 
-/*   if (encoder_for_yunball_flag == 0)
-  {
-    encoder_for_yunball.send_reset();
-    encoder_for_yunball_flag = 1;
-  } */
+//  if (encoder_for_yunball_flag == 1)
+//  {
+//    encoder_for_yunball.send_reset();
+//    encoder_for_yunball_flag = 0;
+//  } 
   // static Vector2D last_pos = position_sensor.world_pos;
   // float speed_xx  = (position_sensor.world_pos.x - last_pos.x) / 0.04f;
   // float speed_yy  = (position_sensor.world_pos.y - last_pos.y) / 0.04f;

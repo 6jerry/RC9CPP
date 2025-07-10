@@ -176,6 +176,11 @@ void m3508p::relocate_pos(float angle)
 
 bool m3508p::set_dis_speedplan(float targetdis, float max_speed, float max_acc, float max_dec, float finalspeed)
 {
+    if (abs(targetdis - dis_sum) < 0.01f) // 可根据精度需求调整阈值
+    {
+        return false;
+    }
+    
     if (dis_speed_plan.isFinished())
     {
         target_distance = targetdis;
@@ -201,6 +206,11 @@ bool m3508p::set_dis_speedplan(float targetdis, float max_speed, float max_acc, 
 
 bool m3508p::set_pos_speedplan(float target_angle_, float max_speed, float max_acc, float max_dec, float finalspeed)
 {
+    if (abs(target_angle_ - all_pos) < 2.0f) // 可根据精度需求调整阈值
+    {
+        return false;
+    }
+    
     if (pos_speed_plan.isFinished())
     {
         target_angle = target_angle_;

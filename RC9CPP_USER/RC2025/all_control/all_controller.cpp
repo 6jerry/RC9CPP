@@ -84,7 +84,6 @@ void AllController::efsm_init()
 
 void AllController::process_data()
 {
-   
 
     HAL_UART_Receive_IT(crsf_port->huart_, crsf_port->rxBuffer_, RX_BUFFER_SIZE);
     update_flag();
@@ -221,10 +220,22 @@ void AllController::calc_data()
     nor_dir = dis.normalize();
     heading_2_center = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
 
+    heading_2_center += 180.0f;
+    if (heading_2_center > 180.0f)
+    {
+        heading_2_center -= 360.0f;
+    }
+
     dis = robot_point - now_point;
     dis_2_robot = dis.magnitude();
     nor_dir = dis.normalize();
     heading_2_robot = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
+
+    heading_2_robot += 180.0f;
+    if (heading_2_robot > 180.0f)
+    {
+        heading_2_robot -= 360.0f;
+    }
 }
 
 void AllController::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
@@ -330,7 +341,7 @@ void AllController::reset_all_imu()
 void AllController::hand_shoot()
 {
     send_datas.status_flag = 11;
-   
+
     all_stop();
     if (auto_shooter->set_auto_byDis(PID, debug_dis) == auto_shoot)
     {

@@ -35,6 +35,7 @@ public:
     void imu_rst() override;
 
     float get_yaw_speed() override;
+    void set_map_plot(float x_, float y_);
 
 public:
     Vector2D real_world_pos;                      // 映射后坐标

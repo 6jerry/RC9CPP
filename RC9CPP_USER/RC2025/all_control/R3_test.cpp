@@ -3,7 +3,7 @@
 TaskManager task_core;
 dji_motor_handle dji_core;
 
-RC9Protocol esp_port(uart, &huart3), debug_port(uart, &huart6);
+RC9Protocol esp_port(uart, &huart3), debug_port(uart, &huart4), position_port(uart, &huart3);
 
 vesc shoot_1(vesc_id_1, &hfdcan1, 7.0f, 1.0f);
 vesc shoot_2(vesc_id_2, &hfdcan1, 7.0f, 1.0f);
@@ -13,7 +13,7 @@ Encoder encoder(0x03, &hfdcan2, 2.0f, AngleSpeed);
 m3508p front_left_motor(dji_id_3, &hfdcan3), front_right_motor(dji_id_4, &hfdcan3), back_left_motor(dji_id_2, &hfdcan3), back_right_motor(dji_id_1, &hfdcan3);
 RoboChassis robot_chassis(omni4_chassis);
 chassis_info omni4_info = {0.0719f, 0.0f, 0.0f, 0.2425f, 0.0f, 0.0f};
-
+position position_sensor;
 R3_xbox test_xbox;
 demo plot;
 
@@ -47,6 +47,9 @@ extern "C"
     shoot_2.rpm_control.enable_TD();
     // shoot_1.addport(&debug_port);
     // shoot_1.start_debug();
+
+    position_sensor.set_map_plot(0.0f, 0.0f);
+    position_sensor.addport(&position_port);
 
     plot.addport(&debug_port);
 
