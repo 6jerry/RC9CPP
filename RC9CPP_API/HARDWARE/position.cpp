@@ -99,3 +99,9 @@ void position::imu_rst() // 让position的imu重启
     float send_datas[2] = {map_plot.x, map_plot.y};
     sendFloatData(2, send_datas, 2);
 }
+
+void position::set_map_plot(float x_, float y_)
+{
+    map_plot.x = x_;
+    map_plot.y = y_;
+}
