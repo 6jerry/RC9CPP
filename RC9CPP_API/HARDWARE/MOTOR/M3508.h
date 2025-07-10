@@ -28,7 +28,7 @@ extern "C"
 
 #include "SuperPID.h"
 #include "motor.h"
-
+#include "encoder.h"
 #include "PID.h"
 #include "TrapezoidalPlanner.h"
 #ifdef __cplusplus
@@ -91,8 +91,10 @@ private:
 public:
     m3508p(uint32_t can_id, FDCAN_HandleTypeDef *hcan_, float gear_ratio = M3508_G, float max_c = M3508_MAX_CURRENT, int16_t max_c_m = M3508_CURRENT_MAP);
 
+    Encoder *encoder = nullptr;
     int16_t motor_process() override;
     void can_update(uint8_t can_RxData[8]);
+    void add_encoder(Encoder *encoder_){encoder = encoder_;}
     float target_angle = 0.0f, target_distance = 0.0f, angle_error = 0.0f, dis_error = 0.0f;
     float target_rpm = 0.0f;
 

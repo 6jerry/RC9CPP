@@ -55,7 +55,7 @@ extern "C"
     yunball_port.add_motor(&m2006_turn_motor, &lift_motor);
     yunball_port.add_io(GPIOG, GPIO_PIN_6, GPIOG, GPIO_PIN_3, GPIOD, GPIO_PIN_14); // G8发射， G6夹爪， G3推射
     yunball_port.add_shooter(&auto_shooter);
-    yunball_port.add_encoder(&encoder_for_yunball);
+    m2006_turn_motor.add_encoder(&encoder_for_yunball);
     m2006_turn_motor.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
     lift_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
 
@@ -104,7 +104,7 @@ extern "C"
     task_core.registerTask(8, &send_port);
     task_core.registerTask(5, &ros_port);
     task_core.registerTask(8, &plot);
-    task_core.registerTask(5, &yunball_port);
+    task_core.registerTask(7, &yunball_port);
 
     osKernelStart();
   }

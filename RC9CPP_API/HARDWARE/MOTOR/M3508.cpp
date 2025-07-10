@@ -330,8 +330,12 @@ void m3508p::many_pos_locate() // 差分定位计算3508多圈位置
     }
 
     pos_sum += delta_pos / gear_ratio;
-    all_pos += delta_pos / gear_ratio;
-    dis_sum += (delta_pos / 360.0f) * wheel_perimeter;
+    if(encoder == nullptr)
+    {all_pos += delta_pos / gear_ratio;
+    dis_sum += (delta_pos / 360.0f) * wheel_perimeter;}
+    else
+    {all_pos = encoder->get_all_angle();
+    pos_sum = encoder->get_angle();}
 }
 
 void m3508p::locate_restart()
