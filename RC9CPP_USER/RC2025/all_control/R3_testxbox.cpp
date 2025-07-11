@@ -32,22 +32,26 @@ void R3_xbox ::calc_error()
 
 void R3_xbox::mode_1()
 {
-
 	dis = encoder->get_distance();
 	
 	// 0.0397
 	//	shoot_motor_1->set_current(c);
 	//	shoot_motor_2->set_current(c);
-	if (abs(dis - 0.0397f) < 0.005f)
+	if ( gate.flag == 1)
 	{
 		shoot_motor_1->send_rpm(0.0f);
 		shoot_motor_2->send_rpm(0.0f);
+		rpm1 = shoot_motor_1->get_rpm();
+		rpm2 = shoot_motor_2->get_rpm();
+		  
 		//	shoot_motor_1->set_rpm(0.0f);
 		// shoot_motor_2->set_current(shoot_motor_1->get_target_current());
+		max_speed = shoot_motor_1->get_rpm();
 		mode_flag = 2;
 	}
 	else
 	{
+		max_speed = 0.0f;
 		shoot_motor_1->send_rpm(target_rpm);
 		shoot_motor_2->send_rpm(target_rpm);
 		//	shoot_motor_2->set_current(shoot_motor_1->get_target_current());
@@ -59,6 +63,7 @@ void R3_xbox::mode_2()
 
 	//	Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
 	dis = encoder->get_distance();
+	gate.flag = 0;
 	//	set_RobotVel(tvel_, 0);
 	//	set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
 	//	gate.flag = 0;
@@ -111,6 +116,7 @@ void R3_xbox::init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Enc
 	shoot_motor_1 = shoot_motor_1_;
 	shoot_motor_2 = shoot_motor_2_;
 	encoder = encoder_;
+	gate.set_motors(shoot_motor_1_, shoot_motor_2_);
 }
 
 photogate_shoot::photogate_shoot()
@@ -119,7 +125,10 @@ photogate_shoot::photogate_shoot()
 
 void photogate_shoot::handleInterrupt()
 {
-
+	rpm1 = motor1->get_rpm();
+	rpm2 = motor2->get_rpm();
+	motor1->send_rpm(0.0f);
+	motor2->send_rpm(0.0f);
 	flag = 1;
 }
 void photogate_shoot::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)

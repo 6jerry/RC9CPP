@@ -58,7 +58,7 @@ void Encoder::can_update(uint8_t can_RxData[8])
   }
   else if (init_flag == 1)
   {
-    float error = ((float)Encoder_conut - (float)Last_Encoder_conut) / 1024.0f;
+    float error = ((float)Encoder_conut - (float)Last_Encoder_conut) / Encoder_resolution;
     rpm = (error / 0.1) * 60 / gear;
     Last_Encoder_conut = Encoder_conut;
   }

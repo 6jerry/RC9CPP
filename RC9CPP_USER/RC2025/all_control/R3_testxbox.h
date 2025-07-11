@@ -18,8 +18,16 @@ extern "C"
 #ifdef __cplusplus
 class photogate_shoot : public GPIODevice
 {
-
+private:
+    power_motor* motor1;
+    power_motor* motor2;
 public:
+    void set_motors(power_motor* m1, power_motor* m2) {
+        motor1 = m1;
+        motor2 = m2;
+    }
+    float rpm1 = 0.0f;
+    float rpm2 = 0.0f;
     int flag = 0;
     photogate_shoot();
 
@@ -51,10 +59,12 @@ public:
     void mode_2() override;
     void mode_3() override;
     void not_start() override;
-
+    float rpm1 = 0.0f;
+    float rpm2 = 0.0f;
     uint8_t test_flag = 0;
     photogate_shoot gate;
-    float target_rpm = 1000.0f;
+    float target_rpm = 100.0f;
+		float max_speed = 0.0f;
 
     void init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Encoder *encoder_);
 };

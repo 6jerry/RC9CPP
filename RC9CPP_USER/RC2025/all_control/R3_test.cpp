@@ -68,7 +68,7 @@ extern "C"
 void demo::process_data()
 {
 
-     if(test_flag == 1)
+     /*if(test_flag == 1)
      {
 
        encoder.send_reset();
@@ -90,10 +90,12 @@ void demo::process_data()
 			 
       	test_flag2 = 0;
      }
-  float send_datas[4] = {shoot_1.get_rpm(),
-                         shoot_2.get_rpm(),
+		 */
+  float send_datas[5] = {test_xbox.gate.rpm1,
+                         test_xbox.gate.rpm2,
                          test_xbox.target_rpm,
-                         -encoder.get_rpm()};
+                         encoder.get_rpm(),
+	                       encoder.get_distance()*10000.0f};
 
-  sendFloatData(1, send_datas, 4);
+  sendFloatData(1, send_datas, 5);
 }
