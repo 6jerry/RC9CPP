@@ -170,8 +170,8 @@ void demo::process_data()
       // sendFloatData(1, arr, 5);
 
       send_data[0] = position_sensor.get_heading();
-  send_data[1] = position_sensor.get_world_pos_x() + pian_x;
-  send_data[2] = position_sensor.get_world_pos_y() + pian_y;
+  send_data[1] = position_sensor.get_world_pos_y() - pian_y;
+  send_data[2] = position_sensor.get_world_pos_x() - pian_x;
   send_data[3] = position_sensor.get_yaw_speed();
   send_data[4] = 0.0f;
   send_data[5] = 0.0f;
