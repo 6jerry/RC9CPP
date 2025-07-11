@@ -1,5 +1,12 @@
 #include "R3_testxbox.h"
 
+R3_xbox::R3_xbox()
+{
+	center_point.x = 5.8f;
+	center_point.y = 0.73f;
+	// center_point.x = 3.000f;
+	// center_point.y = 14.355f;
+}
 void R3_xbox ::calc_error()
 {
 	Vector2D now_point;
@@ -27,26 +34,24 @@ void R3_xbox ::calc_error()
 	{
 		center_heading -= 360.0f;
 	}
-	center_heading -= offest;
 }
 
 void R3_xbox::mode_1()
 {
 	dis = encoder->get_distance();
-	
-	// 0.0397
+
 	//	shoot_motor_1->set_current(c);
 	//	shoot_motor_2->set_current(c);
-	if ( gate.flag == 1)
+	if (gate.flag == 1)
 	{
 		shoot_motor_1->send_rpm(0.0f);
 		shoot_motor_2->send_rpm(0.0f);
 		rpm1 = shoot_motor_1->get_rpm();
 		rpm2 = shoot_motor_2->get_rpm();
-		  
+
 		//	shoot_motor_1->set_rpm(0.0f);
 		// shoot_motor_2->set_current(shoot_motor_1->get_target_current());
-		max_speed = shoot_motor_1->get_rpm();
+		//	max_speed = shoot_motor_1->get_rpm();
 		mode_flag = 2;
 	}
 	else
@@ -61,19 +66,20 @@ void R3_xbox::mode_1()
 void R3_xbox::mode_2()
 {
 
-	//	Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
+	//		Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
+
+	//		set_RobotVel(tvel_, 0);
+	//		set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+	gate.flag = 0;
+	// target_rpm = move_rpm * xbox_msgs.joyLVert_map;
+	shoot_motor_1->send_rpm(move_rpm * xbox_msgs.joyRVert_map);
+	shoot_motor_2->send_rpm(move_rpm * xbox_msgs.joyRVert_map);
+
 	dis = encoder->get_distance();
 	gate.flag = 0;
-	//	set_RobotVel(tvel_, 0);
-	//	set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
-	//	gate.flag = 0;
-	//target_rpm = move_rpm * xbox_msgs.joyLVert_map;
-	shoot_motor_1->send_rpm(move_rpm * xbox_msgs.joyLVert_map);
-	shoot_motor_2->send_rpm(move_rpm * xbox_msgs.joyLVert_map);
-//	
 	if (abs(dis - 0.0397f) < 0.005f)
 	{
-	   test_flag = 1;
+		test_flag = 1;
 	}
 	// shoot_motor_1->set_rpm(move_rpm * xbox_msgs.joyLVert_map);
 	// shoot_motor_2->set_current(shoot_motor_1->get_target_current());
@@ -125,8 +131,7 @@ photogate_shoot::photogate_shoot()
 
 void photogate_shoot::handleInterrupt()
 {
-	rpm1 = motor1->get_rpm();
-	rpm2 = motor2->get_rpm();
+
 	motor1->send_rpm(0.0f);
 	motor2->send_rpm(0.0f);
 	flag = 1;
@@ -135,16 +140,4 @@ void photogate_shoot::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)
 {
 	port_ = port;
 	pin_ = pin;
-}
-bool photogate_shoot::is_finish()
-{
-	if (flag)
-	{
-		flag = 0;
-		return true;
-	}
-	else
-	{
-		return false;
-	}
 }

@@ -3,12 +3,12 @@
 TaskManager task_core;
 dji_motor_handle dji_core;
 
-RC9Protocol esp_port(uart, &huart3), debug_port(uart, &huart6), position_port(uart, &huart3);
+RC9Protocol esp_port(uart, &huart3), debug_port(uart, &huart6), position_port(uart, &huart4);
 
 vesc shoot_1(vesc_id_1, &hfdcan1, 7.0f, 1.0f);
 vesc shoot_2(vesc_id_2, &hfdcan1, 7.0f, 1.0f);
 
-Encoder encoder(0x03, &hfdcan2, 2.0f,4096.0f);
+Encoder encoder(0x03, &hfdcan2, 2.0f, 4096.0f);
 
 m3508p front_left_motor(dji_id_3, &hfdcan3), front_right_motor(dji_id_4, &hfdcan3), back_left_motor(dji_id_2, &hfdcan3), back_right_motor(dji_id_1, &hfdcan3);
 RoboChassis robot_chassis(omni4_chassis);
@@ -27,6 +27,9 @@ extern "C"
     esp_port.startUartReceiveIT();
     debug_port.startUartReceiveIT();
     debug_port.initQueue();
+		
+		position_port.startUartReceiveIT();
+		position_port.initQueue();
     front_left_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
     front_right_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
     back_left_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
@@ -41,7 +44,6 @@ extern "C"
     robot_chassis.yawadjuster_config(0.12f, 0.0f, 0.004f, 0.0f, 5.0f, 0.1f, 0.5f);
 
     shoot_1.rpm_control.config_all(70.0f, 1.0f, 140.0f, 20.0f, 65000, 5.0f);
-
     shoot_2.rpm_control.config_all(70.0f, 1.0f, 140.0f, 20.0f, 65000, 5.0f);
     shoot_1.rpm_control.enable_TD();
     shoot_2.rpm_control.enable_TD();
@@ -68,34 +70,34 @@ extern "C"
 void demo::process_data()
 {
 
-     /*if(test_flag == 1)
-     {
+  /*if(test_flag == 1)
+  {
 
-       encoder.send_reset();
-			 
-      	test_flag = 0;
-     }
-		 
-		  if(test_flag1 == 1)
-     {
+    encoder.send_reset();
 
-       encoder.set_anti_clockwise();
-			 
-      	test_flag1 = 0;
-     }
-		  if(test_flag2 == 1)
-     {
+     test_flag = 0;
+  }
 
-       encoder.set_clockwise();
-			 
-      	test_flag2 = 0;
-     }
-		 */
+   if(test_flag1 == 1)
+  {
+
+    encoder.set_anti_clockwise();
+
+     test_flag1 = 0;
+  }
+   if(test_flag2 == 1)
+  {
+
+    encoder.set_clockwise();
+
+     test_flag2 = 0;
+  }
+  */
   float send_datas[5] = {test_xbox.gate.rpm1,
                          test_xbox.gate.rpm2,
                          test_xbox.target_rpm,
                          encoder.get_rpm(),
-	                       encoder.get_distance()*10000.0f};
+                         encoder.get_distance() * 10000.0f};
 
   sendFloatData(1, send_datas, 5);
 }

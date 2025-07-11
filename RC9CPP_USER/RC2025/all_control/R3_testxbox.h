@@ -19,10 +19,12 @@ extern "C"
 class photogate_shoot : public GPIODevice
 {
 private:
-    power_motor* motor1;
-    power_motor* motor2;
+    power_motor *motor1;
+    power_motor *motor2;
+
 public:
-    void set_motors(power_motor* m1, power_motor* m2) {
+    void set_motors(power_motor *m1, power_motor *m2)
+    {
         motor1 = m1;
         motor2 = m2;
     }
@@ -30,10 +32,9 @@ public:
     float rpm2 = 0.0f;
     int flag = 0;
     photogate_shoot();
-
+    float max_speed = 0.0f;
     void handleInterrupt() override;
     void add_io_interrupt(GPIO_TypeDef *port, uint16_t pin) override;
-    bool is_finish();
 };
 
 class R3_xbox : public xbox_debug_base, public chassis_user
@@ -41,7 +42,7 @@ class R3_xbox : public xbox_debug_base, public chassis_user
 private:
 public:
     void calc_error();
-
+    R3_xbox();
     power_motor *shoot_motor_1 = nullptr;
     power_motor *shoot_motor_2 = nullptr;
     Encoder *encoder = nullptr;
@@ -64,7 +65,7 @@ public:
     uint8_t test_flag = 0;
     photogate_shoot gate;
     float target_rpm = 100.0f;
-		float max_speed = 0.0f;
+    float max_speed = 0.0f;
 
     void init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Encoder *encoder_);
 };

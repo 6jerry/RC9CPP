@@ -13,7 +13,7 @@
  * @param can_id_ CANID
  * @param hcan_   CAN总线句柄
  * @param gear_   齿轮比
- * @param resolution_   编码器模式
+ * @param resolution_   编码器分辨率
  */
 Encoder::Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, float gear_, float resolution_) : CanDevice(hcan_, CAN_FRAME_STD, can_id_)
 {
@@ -36,7 +36,7 @@ float Encoder::get_rpm(void)
 
 /**
  * @brief 数据接收处理函数
- * @param byte 接收到的单字节数据
+ * @param can_RxData 接收到的数据
  * @details 处理编码器数据帧，解析计数值并计算距离
  */
 void Encoder::can_update(uint8_t can_RxData[8])
@@ -58,7 +58,7 @@ void Encoder::can_update(uint8_t can_RxData[8])
   }
   else if (init_flag == 1)
   {
-    float error = ((float)Encoder_conut - (float)Last_Encoder_conut) / Encoder_resolution;
+    float error = ((float)Encoder_conut - (float)Last_Encoder_conut) / resolution;
     rpm = (error / 0.1) * 60 / gear;
     Last_Encoder_conut = Encoder_conut;
   }
