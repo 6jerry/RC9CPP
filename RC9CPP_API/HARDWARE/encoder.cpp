@@ -13,12 +13,12 @@
  * @param can_id_ CANID
  * @param hcan_   CAN总线句柄
  * @param gear_   齿轮比
- * @param mode_   编码器模式
+ * @param resolution_   编码器模式
  */
-Encoder::Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, float gear_ , float resolution) : CanDevice(hcan_, CAN_FRAME_STD, can_id_)
+Encoder::Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, float gear_, float resolution_) : CanDevice(hcan_, CAN_FRAME_STD, can_id_)
 {
   gear = gear_;
-	Encoder_resolution = resolution;
+  resolution = resolution_;
 }
 
 /**
@@ -63,7 +63,7 @@ void Encoder::can_update(uint8_t can_RxData[8])
     Last_Encoder_conut = Encoder_conut;
   }
 
-  float Encoder_delta = (float)Encoder_conut / Encoder_resolution;
+  float Encoder_delta = (float)Encoder_conut / resolution;
   Encoder_delta = Encoder_delta - 5.0f;
   // 计算距离
   distance = Encoder_delta * delta_length / gear;
