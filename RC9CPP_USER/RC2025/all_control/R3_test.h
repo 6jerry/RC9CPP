@@ -29,6 +29,8 @@ class demo : public ITaskProcessor, public RC9subscriber
 public:
 	
     int test_flag = 0;
+		int test_flag1 = 0;
+		int test_flag2= 0;
     void process_data();
 };
 #endif

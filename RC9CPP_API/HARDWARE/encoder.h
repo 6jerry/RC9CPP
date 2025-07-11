@@ -33,7 +33,7 @@ public:
      * @return float 计算得到的距离值
      */
 
-    Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, float gear_);
+    Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, float gear_ , float resolution);
 
     void can_update(uint8_t can_RxData[8]) override;
 
@@ -61,8 +61,10 @@ private:
     float gear;                 ///< 齿轮减速比
     float distance = 0;         ///< 当前编码器距离
     int init_flag = 0;
+    
     uint32_t Last_Encoder_conut = 0; ///< 上一次编码器计数值
     uint32_t Encoder_conut = 0;      ///< 编码器计数值
+    uint32_t Encoder_resolution = 0; ///< 编码器分辨率
     float delta_length = 0.01;       ///< 单圈对应长度
     float all_angle = 0.0f;          ///< 累计总角度
     float angle = 0.0f;              ///< 当前角度

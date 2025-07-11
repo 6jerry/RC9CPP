@@ -8,7 +8,7 @@ RC9Protocol esp_port(uart, &huart3), debug_port(uart, &huart6), position_port(ua
 vesc shoot_1(vesc_id_1, &hfdcan1, 7.0f, 1.0f);
 vesc shoot_2(vesc_id_2, &hfdcan1, 7.0f, 1.0f);
 
-Encoder encoder(0x03, &hfdcan2, 2.0f);
+Encoder encoder(0x03, &hfdcan2, 2.0f,4096.0f);
 
 m3508p front_left_motor(dji_id_3, &hfdcan3), front_right_motor(dji_id_4, &hfdcan3), back_left_motor(dji_id_2, &hfdcan3), back_right_motor(dji_id_1, &hfdcan3);
 RoboChassis robot_chassis(omni4_chassis);
@@ -68,13 +68,29 @@ extern "C"
 void demo::process_data()
 {
 
-//   if(test_flag == 1)
-//   {
+     if(test_flag == 1)
+     {
 
-//     encoder.set_dis();
-//   	test_flag = 0;
-//   }
-  float send_datas[5] = {shoot_1.get_rpm(),
+       encoder.send_reset();
+			 
+      	test_flag = 0;
+     }
+		 
+		  if(test_flag1 == 1)
+     {
+
+       encoder.set_anti_clockwise();
+			 
+      	test_flag1 = 0;
+     }
+		  if(test_flag2 == 1)
+     {
+
+       encoder.set_clockwise();
+			 
+      	test_flag2 = 0;
+     }
+  float send_datas[4] = {shoot_1.get_rpm(),
                          shoot_2.get_rpm(),
                          test_xbox.target_rpm,
                          -encoder.get_rpm()};

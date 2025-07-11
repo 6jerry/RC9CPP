@@ -40,7 +40,7 @@ public:
     float c = 0.0f;
     float rpm = 1000.0f;
     float move_rpm = 1000.0f;
-
+    float dis = 0.0f;
     imu *imu_ptr, *ros_imu;                                              // 指向imu类的指针
     Vector2D center_point, tan_dir, nor_dir, robot_point, nor_dir_robot; // 圆心坐标
     float dis_2_center = 0.0f, center_heading = 0.0f, nor_speed = 0.0f;  // 半径
@@ -52,6 +52,7 @@ public:
     void mode_3() override;
     void not_start() override;
 
+    uint8_t test_flag = 0;
     photogate_shoot gate;
     float target_rpm = 1000.0f;
 
