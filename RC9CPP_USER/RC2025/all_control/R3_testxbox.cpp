@@ -14,16 +14,10 @@ void R3_xbox ::calc_error()
 	now_point.y = get_world_y();
 	Vector2D dis = {0, 0};
 
-	if (cnt_flag == 0)
-	{
 		dis = center_point - now_point;
 		dis_2_center = dis.magnitude();
-	}
-	else
-	{
-		dis = robot_point - now_point;
-		dis_2_center = dis.magnitude() - pass_correct_distance;
-	}
+	
+
 
 	nor_dir = dis.normalize();
 
@@ -38,7 +32,6 @@ void R3_xbox ::calc_error()
 
 void R3_xbox::mode_1()
 {
-	dis = encoder->get_distance();
 
 	//	shoot_motor_1->set_current(c);
 	//	shoot_motor_2->set_current(c);
@@ -66,21 +59,15 @@ void R3_xbox::mode_1()
 void R3_xbox::mode_2()
 {
 
-	//		Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
+			Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
 
-	//		set_RobotVel(tvel_, 0);
-	//		set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+			set_RobotVel(tvel_, 0);
+			set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
 	gate.flag = 0;
 	// target_rpm = move_rpm * xbox_msgs.joyLVert_map;
 	shoot_motor_1->send_rpm(move_rpm * xbox_msgs.joyRVert_map);
 	shoot_motor_2->send_rpm(move_rpm * xbox_msgs.joyRVert_map);
 
-	dis = encoder->get_distance();
-	gate.flag = 0;
-	if (abs(dis - 0.0397f) < 0.005f)
-	{
-		test_flag = 1;
-	}
 	// shoot_motor_1->set_rpm(move_rpm * xbox_msgs.joyLVert_map);
 	// shoot_motor_2->set_current(shoot_motor_1->get_target_current());
 
@@ -99,7 +86,6 @@ void R3_xbox::mode_3()
 	if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
 	{
 		set_RobotW(0.0f, 0);
-		cnt_flag = 0;
 		mode_flag = 2;
 	}
 	else
