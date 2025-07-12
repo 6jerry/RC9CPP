@@ -1,0 +1,3 @@
+C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/build/CMakeFiles/CMakeScratch/TryCompile-boem7h/CMakeFiles/cmTC_b60cb.dir
+C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/build/CMakeFiles/CMakeScratch/TryCompile-boem7h/CMakeFiles/edit_cache.dir
+C:/Users/32806/Desktop/my_device/ESP32C6_AP_Server/build/CMakeFiles/CMakeScratch/TryCompile-boem7h/CMakeFiles/rebuild_cache.dir
