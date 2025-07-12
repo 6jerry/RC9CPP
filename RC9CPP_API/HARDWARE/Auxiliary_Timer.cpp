@@ -75,7 +75,7 @@ void auxiliary_timer::timing_processing()
 //        auxiliary_timer::timing_processing();
 //    }
 //  /* USER CODE END Callback 0 */
-//  if (htim->Instance == TIM5) {
+//  if (htim->Instance == TIM8) {
 //		HAL_IncTick();
 //  }
 //  /* USER CODE BEGIN Callback 1 */
