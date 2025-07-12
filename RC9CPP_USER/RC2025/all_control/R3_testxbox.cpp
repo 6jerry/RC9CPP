@@ -66,10 +66,10 @@ void R3_xbox::mode_1()
 void R3_xbox::mode_2()
 {
 
-	//		Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
+			Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
 
-	//		set_RobotVel(tvel_, 0);
-	//		set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+		set_RobotVel(tvel_, 0);
+		set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
 	gate.flag = 0;
 	// target_rpm = move_rpm * xbox_msgs.joyLVert_map;
 	shoot_motor_1->send_rpm(move_rpm * xbox_msgs.joyRVert_map);
@@ -131,7 +131,8 @@ photogate_shoot::photogate_shoot()
 
 void photogate_shoot::handleInterrupt()
 {
-
+	rpm1 = motor1->get_rpm();
+	rpm2 = motor2->get_rpm();
 	motor1->send_rpm(0.0f);
 	motor2->send_rpm(0.0f);
 	flag = 1;
