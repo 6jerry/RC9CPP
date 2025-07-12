@@ -32,8 +32,7 @@
 
 ### 3.2 代码集成
 
-#### 3.2.1 用cubemx重新生成工程后，在 `main.c` 中启用定时器并将main.c属性修改为使用cpp编译
-![1752329948974](image/AUXILIARY_TIMER_README/1752329948974.png)
+#### 3.2.1(1) 用cubemx重新生成工程后，将`main.c`属性修改为使用cpp编译
 ```c
 extern "C" void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
@@ -52,6 +51,23 @@ extern "C" void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
  /* USER CODE END Callback 1 */
 }
 ```
+
+3.2.1(2) 用cubemx重新生成工程后，把 `main.c` 中
+```c
+extern "C" void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+
+ /* USER CODE BEGIN Callback 0 */
+ /* USER CODE END Callback 0 */
+ if (htim->Instance == TIM5) {
+		HAL_IncTick();
+ }
+ /* USER CODE BEGIN Callback 1 */
+
+ /* USER CODE END Callback 1 */
+}
+```
+代码删除，解除`Auxiliary_Timer.cpp`中的HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)注释
 
 #### 3.2.2 初始化基类
 ```cpp
