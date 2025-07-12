@@ -36,6 +36,7 @@ extern "C"
     back_right_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
     test_xbox.addport(&esp_port);
     test_xbox.gate.add_io_interrupt(GPIOD, GPIO_PIN_14);
+    test_xbox.gate_down.add_io_interrupt(GPIOD, GPIO_PIN_15);
     test_xbox.add_chassis(&robot_chassis);
     robot_chassis.add4_motors(&back_right_motor, &front_right_motor, &front_left_motor, &back_left_motor);
     robot_chassis.config(omni4_info);

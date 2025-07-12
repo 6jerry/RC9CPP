@@ -40,8 +40,6 @@ void R3_xbox::mode_1()
 {
 	dis = encoder->get_distance();
 
-	//	shoot_motor_1->set_current(c);
-	//	shoot_motor_2->set_current(c);
 	if (gate.flag == 1)
 	{
 		shoot_motor_1->send_rpm(0.0f);
@@ -49,29 +47,40 @@ void R3_xbox::mode_1()
 		rpm1 = shoot_motor_1->get_rpm();
 		rpm2 = shoot_motor_2->get_rpm();
 
-		//	shoot_motor_1->set_rpm(0.0f);
-		// shoot_motor_2->set_current(shoot_motor_1->get_target_current());
-		//	max_speed = shoot_motor_1->get_rpm();
-		mode_flag = 2;
+		if(HAL_GetTick() - last_tick > 150)
+		{
+			shoot_motor_1->send_rpm(-1000.0f);
+			shoot_motor_2->send_rpm(-1000.0f);
+			if(gate_down.flag)
+			{
+				shoot_motor_1->send_rpm(0.0f);
+				shoot_motor_2->send_rpm(0.0f);
+				mode_flag = 2;
+			}
+		}
 	}
 	else
 	{
-		max_speed = 0.0f;
+		last_tick = HAL_GetTick();
+		gate_down.flag = 0;
 		shoot_motor_1->send_rpm(target_rpm);
 		shoot_motor_2->send_rpm(target_rpm);
-		//	shoot_motor_2->set_current(shoot_motor_1->get_target_current());
 	}
 }
 
 void R3_xbox::mode_2()
 {
 
-			Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
+	Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
 
-		set_RobotVel(tvel_, 0);
-		set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+	set_RobotVel(tvel_, 0);
+	set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+
+
 	gate.flag = 0;
-	// target_rpm = move_rpm * xbox_msgs.joyLVert_map;
+	gate_down.flag = 0;
+	gate.cont = 0;
+	gate_down.cont = 0;
 	shoot_motor_1->send_rpm(move_rpm * xbox_msgs.joyRVert_map);
 	shoot_motor_2->send_rpm(move_rpm * xbox_msgs.joyRVert_map);
 
@@ -81,11 +90,6 @@ void R3_xbox::mode_2()
 	{
 		test_flag = 1;
 	}
-	// shoot_motor_1->set_rpm(move_rpm * xbox_msgs.joyLVert_map);
-	// shoot_motor_2->set_current(shoot_motor_1->get_target_current());
-
-	// shoot_motor_1->send_rpm(0.0f);
-	// shoot_motor_2->send_rpm(0.0f);
 }
 
 void R3_xbox::mode_3()
@@ -123,21 +127,42 @@ void R3_xbox::init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Enc
 	shoot_motor_2 = shoot_motor_2_;
 	encoder = encoder_;
 	gate.set_motors(shoot_motor_1_, shoot_motor_2_);
+	gate_down.set_motors(shoot_motor_1_, shoot_motor_2_);
 }
 
 photogate_shoot::photogate_shoot()
 {
 }
 
+photogate_shoot_down::photogate_shoot_down()
+{
+}
+
 void photogate_shoot::handleInterrupt()
 {
-	rpm1 = motor1->get_rpm();
+	if(cont++ == 0)
+	{rpm1 = motor1->get_rpm();
 	rpm2 = motor2->get_rpm();
 	motor1->send_rpm(0.0f);
-	motor2->send_rpm(0.0f);
+	motor2->send_rpm(0.0f);}
 	flag = 1;
 }
+
+void photogate_shoot_down::handleInterrupt()
+{
+	if(cont++)
+	{motor1->send_rpm(0.0f);
+	motor2->send_rpm(0.0f);}
+	flag = 1;
+}
+
 void photogate_shoot::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)
+{
+	port_ = port;
+	pin_ = pin;
+}
+
+void photogate_shoot_down::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)
 {
 	port_ = port;
 	pin_ = pin;
