@@ -1,9 +1,13 @@
 #include "R3_testxbox.h"
 
-R3_xbox::R3_xbox()
+R3_xbox::R3_xbox(imu *imu_ptr_)
 {
-	center_point.x = 5.8f;
-	center_point.y = 0.73f;
+	imu_ptr = imu_ptr_;
+	center_point.x = 0.025f;
+	center_point.y = 5.42f;
+
+	// 5.420
+	// -0.025
 	// center_point.x = 3.000f;
 	// center_point.y = 14.355f;
 }
@@ -20,12 +24,6 @@ void R3_xbox ::calc_error()
 	nor_dir = dis.normalize();
 
 	center_heading = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
-	; // 角度对准圆心
-	center_heading += 180.0f;
-	if (center_heading > 180.0f)
-	{
-		center_heading -= 360.0f;
-	}
 }
 
 void R3_xbox::mode_1()
@@ -119,6 +117,12 @@ void R3_xbox::init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Enc
 	gate_down.set_motors(shoot_motor_1_, shoot_motor_2_);
 }
 
+void R3_xbox::xbox_on()
+{
+	// post->imu_rst();
+	imu_ptr->imu_relocate(0.0f, 0.0f, 0.0f);
+	// ros_imu->imu_rst();
+}
 photogate_shoot::photogate_shoot()
 {
 }

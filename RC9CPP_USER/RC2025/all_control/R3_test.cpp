@@ -14,7 +14,7 @@ m3508p front_left_motor(dji_id_3, &hfdcan3), front_right_motor(dji_id_4, &hfdcan
 RoboChassis robot_chassis(omni4_chassis);
 chassis_info omni4_info = {0.0719f, 0.0f, 0.0f, 0.2425f, 0.0f, 0.0f};
 position position_sensor;
-R3_xbox test_xbox;
+R3_xbox test_xbox(&position_sensor);
 demo plot;
 
 // demo plot;
@@ -27,9 +27,9 @@ extern "C"
     esp_port.startUartReceiveIT();
     debug_port.startUartReceiveIT();
     debug_port.initQueue();
-		
-		position_port.startUartReceiveIT();
-		position_port.initQueue();
+
+    position_port.startUartReceiveIT();
+    position_port.initQueue();
     front_left_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
     front_right_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
     back_left_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
@@ -63,6 +63,7 @@ extern "C"
     task_core.registerTask(4, &robot_chassis);
     task_core.registerTask(6, &test_xbox);
     task_core.registerTask(3, &debug_port);
+		task_core.registerTask(7, &position_port);
     task_core.registerTask(2, &plot);
     osKernelStart();
   }

@@ -40,7 +40,7 @@ public:
 
 class photogate_shoot_down : public GPIODevice
 {
-    private:
+private:
     power_motor *motor1;
     power_motor *motor2;
 
@@ -62,7 +62,7 @@ class R3_xbox : public xbox_debug_base, public chassis_user
 private:
 public:
     void calc_error();
-    R3_xbox();
+    R3_xbox(imu *imu_ptr_);
     power_motor *shoot_motor_1 = nullptr;
     power_motor *shoot_motor_2 = nullptr;
     Encoder *encoder = nullptr;
@@ -79,6 +79,7 @@ public:
     void mode_1() override;
     void mode_2() override;
     void mode_3() override;
+    void xbox_on() override;
     void not_start() override;
     float rpm1 = 0.0f;
     float rpm2 = 0.0f;
