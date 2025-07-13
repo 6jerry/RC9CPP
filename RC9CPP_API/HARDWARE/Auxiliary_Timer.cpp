@@ -51,7 +51,7 @@ void auxiliary_timer::set_delta_us()
 
 uint64_t auxiliary_timer::get_delta_us()
 {
-    return tick_us_overflow * 1000 + auxiliary_timer::htim_->Instance->CNT;
+    return tick_us_overflow * 1000 + auxiliary_timer::htim_->Instance->CNT - last_tick_us;
 }
 
 // 更新所有子类标志位
@@ -59,7 +59,7 @@ void auxiliary_timer::timing_processing()
 {
     for (int i = 0; i < childCount_; i++)
     {	
-		children_[i]->tick_us_overflow++;
+	children_[i]->tick_us_overflow++;
         children_[i]->count_tick_ms++;
         children_[i]->onTimerEvent(); // 可选：直接调用处理函数
     }
