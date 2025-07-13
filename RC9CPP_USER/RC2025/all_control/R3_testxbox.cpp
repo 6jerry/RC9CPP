@@ -6,8 +6,6 @@ R3_xbox::R3_xbox(imu *imu_ptr_)
 	center_point.x = 5.392f;
 	center_point.y = 0.60f;
 
-	// 5.392
-	// 0.600
 	// 5.420
 	// -0.025
 	// center_point.x = 3.000f;
@@ -26,17 +24,19 @@ void R3_xbox ::calc_error()
 	nor_dir = dis.normalize();
 
 	center_heading = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
+
 	center_heading += 180.0f;
 	if (center_heading > 180.0f)
-  {
-       center_heading -= 360.0f;
-   }
+	{
+		center_heading -= 360.0f;
+	}
+	center_heading -= offest;
 }
 
 void R3_xbox::mode_1()
 {
 
-	if (gate.flag == 1)
+	if (gate.flag)
 	{
 		shoot_motor_1->send_rpm(0.0f);
 		shoot_motor_2->send_rpm(0.0f);
@@ -126,7 +126,6 @@ void R3_xbox::init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Enc
 
 void R3_xbox::xbox_on()
 {
-	// post->imu_rst();
 	imu_ptr->imu_relocate(0.0f, 0.0f, 0.0f);
 	// ros_imu->imu_rst();
 }
