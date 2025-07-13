@@ -46,12 +46,12 @@ float auxiliary_timer::get_delta_ms()
 //us開始計數區間
 void auxiliary_timer::set_delta_us()
 {
-    last_tick_us = count_tick_us;
+    last_tick_us = tick_us_overflow * 1000 + auxiliary_timer::htim_->Instance->CNT;
 }
 
 uint64_t auxiliary_timer::get_delta_us()
 {
-    return count_tick_us - last_tick_us;
+    return tick_us_overflow * 1000 + auxiliary_timer::htim_->Instance->CNT;
 }
 
 // 更新所有子类标志位
@@ -59,8 +59,8 @@ void auxiliary_timer::timing_processing()
 {
     for (int i = 0; i < childCount_; i++)
     {	
-		children_[i]->count_tick_us++;
-        children_[i]->count_tick_ms = (float)children_[i]->count_tick_us / 1000.0f;
+		children_[i]->tick_us_overflow++;
+        children_[i]->count_tick_ms++;
         children_[i]->onTimerEvent(); // 可选：直接调用处理函数
     }
 }
@@ -76,8 +76,7 @@ void auxiliary_timer::timing_processing()
 //    }
 //  /* USER CODE END Callback 0 */
 //  if (htim->Instance == TIM8) {
-//		HAL_IncTick();
-//  }
+//		HAL_IncTick();.
 //  /* USER CODE BEGIN Callback 1 */
 
 //  /* USER CODE END Callback 1 */

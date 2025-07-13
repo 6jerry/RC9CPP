@@ -23,7 +23,7 @@ public:
     static TIM_HandleTypeDef *htim_; // 基类管理的统一定时器
     bool isActiveFlag = false; // 子类继承的标志位
     static void initTimer(); // 初始化定时器
-    uint64_t count_tick_us = 0; //子类继承的微秒计数值
+    uint64_t tick_us_overflow = 0; //子类继承的微秒计数值
     float count_tick_ms = 0; //子类继承的毫秒计数值(通过微秒计数器计算)
     uint64_t last_tick_us = 0;
     float last_tick_ms = 0;
