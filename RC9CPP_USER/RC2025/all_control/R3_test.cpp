@@ -63,7 +63,7 @@ extern "C"
     task_core.registerTask(4, &robot_chassis);
     task_core.registerTask(6, &test_xbox);
     task_core.registerTask(3, &debug_port);
-		task_core.registerTask(7, &position_port);
+    task_core.registerTask(7, &position_port);
     task_core.registerTask(2, &plot);
     osKernelStart();
   }

@@ -38,25 +38,6 @@ public:
     void add_io_interrupt(GPIO_TypeDef *port, uint16_t pin) override;
 };
 
-class photogate_shoot_down : public GPIODevice
-{
-private:
-    power_motor *motor1;
-    power_motor *motor2;
-
-public:
-    void set_motors(power_motor *m1, power_motor *m2)
-    {
-        motor1 = m1;
-        motor2 = m2;
-    }
-    int flag = 0;
-    int cont = 0;
-    photogate_shoot_down();
-    void handleInterrupt() override;
-    void add_io_interrupt(GPIO_TypeDef *port, uint16_t pin) override;
-};
-
 class R3_xbox : public xbox_debug_base, public chassis_user
 {
 private:
@@ -84,7 +65,7 @@ public:
     uint8_t test_flag = 0;
     uint32_t last_tick = 0;
     photogate_shoot gate;
-    photogate_shoot_down gate_down;
+    photogate_shoot gate_down;
     float target_rpm = 100.0f;
     float max_speed = 0.0f;
 

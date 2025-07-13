@@ -78,13 +78,6 @@ void R3_xbox::mode_2()
 	gate_down.cont = 0;
 	shoot_motor_1->send_rpm(move_rpm * xbox_msgs.joyRVert_map);
 	shoot_motor_2->send_rpm(move_rpm * xbox_msgs.joyRVert_map);
-
-	dis = encoder->get_distance();
-	gate.flag = 0;
-	if (abs(dis - 0.0397f) < 0.005f)
-	{
-		test_flag = 1;
-	}
 }
 
 void R3_xbox::mode_3()
@@ -133,10 +126,6 @@ photogate_shoot::photogate_shoot()
 {
 }
 
-photogate_shoot_down::photogate_shoot_down()
-{
-}
-
 void photogate_shoot::handleInterrupt()
 {
 	if (cont++ == 0)
@@ -149,23 +138,7 @@ void photogate_shoot::handleInterrupt()
 	flag = 1;
 }
 
-void photogate_shoot_down::handleInterrupt()
-{
-	if (cont++)
-	{
-		motor1->send_rpm(0.0f);
-		motor2->send_rpm(0.0f);
-	}
-	flag = 1;
-}
-
 void photogate_shoot::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)
-{
-	port_ = port;
-	pin_ = pin;
-}
-
-void photogate_shoot_down::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)
 {
 	port_ = port;
 	pin_ = pin;
