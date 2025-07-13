@@ -3,8 +3,8 @@
 R3_xbox::R3_xbox(imu *imu_ptr_)
 {
 	imu_ptr = imu_ptr_;
-	center_point.x = 0.025f;
-	center_point.y = 5.42f;
+	center_point.x = 5.392f;
+	center_point.y = 0.60f;
 
 	// 5.420
 	// -0.025
