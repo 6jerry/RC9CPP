@@ -51,7 +51,7 @@ extern "C"
     // shoot_1.addport(&debug_port);
     // shoot_1.start_debug();
 
-    position_sensor.set_map_plot(0.0f, 0.0f);
+    position_sensor.set_map_plot(0.0f, 0.36562f);
     position_sensor.addport(&position_port);
 
     plot.addport(&debug_port);

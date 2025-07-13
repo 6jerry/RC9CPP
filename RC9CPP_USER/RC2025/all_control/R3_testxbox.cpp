@@ -3,9 +3,11 @@
 R3_xbox::R3_xbox(imu *imu_ptr_)
 {
 	imu_ptr = imu_ptr_;
-	center_point.x = 0.025f;
-	center_point.y = 5.42f;
+	center_point.x = 5.392f;
+	center_point.y = 0.60f;
 
+	// 5.392
+	// 0.600
 	// 5.420
 	// -0.025
 	// center_point.x = 3.000f;
@@ -24,6 +26,11 @@ void R3_xbox ::calc_error()
 	nor_dir = dis.normalize();
 
 	center_heading = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
+	center_heading += 180.0f;
+	if (center_heading > 180.0f)
+  {
+       center_heading -= 360.0f;
+   }
 }
 
 void R3_xbox::mode_1()
