@@ -28,7 +28,7 @@ extern "C"
 class Encoder : public CanDevice, public imu
 {
 public:
-    Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, float gear_, float resolution_);
+    Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, float gear_ = 1.0f, float resolution_ = 1.0f);
 
     void can_update(uint8_t can_RxData[8]) override;
 

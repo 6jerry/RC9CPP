@@ -73,12 +73,11 @@ void CrsfReceiver::handleReceiveData(uint8_t byte)
         rx_state_ = CRSF_PACKET_COMPLETE;
 
         // 计算CRC并校验
-        //calculated_crc = crc_.calc((uint8_t *)&current_rc_frame_.type,
-                                   //1 + CRSF_FRAME_RC_CHANNELS_PAYLOAD_SIZE);
-       
-            processRcChannelsPacket(); // CRC校验通过，处理数据包
-        
-       
+        // calculated_crc = crc_.calc((uint8_t *)&current_rc_frame_.type,
+        // 1 + CRSF_FRAME_RC_CHANNELS_PAYLOAD_SIZE);
+
+        processRcChannelsPacket(); // CRC校验通过，处理数据包
+
         rx_state_ = CRSF_WAITING_FOR_ADDRESS;
         break;
 
@@ -110,7 +109,7 @@ void CrsfReceiver::processRcChannelsPacket()
     map_value_compute();
     flag_set();
 
-    if (last_btn_r_flag == 0 && btn_r_flag == 1)
+    if (last_btn_r_flag == 0 && btn_r_flag == 1 && trigger_on != 2)
     {
         trigger_on = 1;
     }
@@ -121,6 +120,11 @@ void CrsfReceiver::processRcChannelsPacket()
 void CrsfReceiver::reset_trigger_flag()
 {
     trigger_on = 0;
+}
+
+void CrsfReceiver::set_trigger_flag_busy()
+{
+    trigger_on = 2;
 }
 
 // 实现获取待发送的数据

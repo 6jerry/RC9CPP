@@ -17,7 +17,7 @@ extern "C"
 class EncodingStateMachine
 {
 public:
-    static const uint16_t maxIndex = 128;    // 最大索引值
+    static const uint16_t maxIndex = 256;    // 最大索引值
     static const uint8_t invalidState = 255; // 无效状态
     static const size_t MAX_FLAGS = 10;      // 最大标志位数量
 

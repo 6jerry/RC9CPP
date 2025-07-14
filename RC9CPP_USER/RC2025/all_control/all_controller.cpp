@@ -220,22 +220,10 @@ void AllController::calc_data()
     nor_dir = dis.normalize();
     heading_2_center = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
 
-    heading_2_center += 180.0f;
-    if (heading_2_center > 180.0f)
-    {
-        heading_2_center -= 360.0f;
-    }
-
     dis = robot_point - now_point;
     dis_2_robot = dis.magnitude();
     nor_dir = dis.normalize();
     heading_2_robot = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
-
-    heading_2_robot += 180.0f;
-    if (heading_2_robot > 180.0f)
-    {
-        heading_2_robot -= 360.0f;
-    }
 }
 
 void AllController::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
@@ -247,25 +235,17 @@ void AllController::DataReceivedCallback(const uint8_t *byteData, const float *f
 void AllController::all_auto_yunball()
 {
     send_datas.status_flag = 2;
-    if (auto_yunball_ptr->start_yunball())
-    {
-        crsf_port->reset_trigger_flag(); // 动作执行完后重置扳机flag
-    }
+    auto_yunball_ptr->start_yunball();
 
-    // 执行期间可以自由移动
-    remote_move();
+    crsf_port->reset_trigger_flag(); // 动作执行完后重置扳机flag
 }
 
 void AllController::auto_reload_ball()
 {
     send_datas.status_flag = 1;
-    if (auto_yunball_ptr->start_putball())
-    {
-        crsf_port->reset_trigger_flag(); // 动作执行完后重置扳机flag
-    }
-    // 执行期间可以自由移动
+    auto_yunball_ptr->start_putball();
 
-    remote_move();
+    crsf_port->reset_trigger_flag(); // 动作执行完后重置扳机flag
 }
 
 void AllController::lock_on_center_point()
@@ -288,20 +268,27 @@ void AllController::lock_on_r2()
 void AllController::shoot_2_center_point()
 {
     send_datas.status_flag = 5;
-    all_stop();
-    if (auto_shooter->set_auto_byFitter(PID, dis_2_center) == auto_shoot)
+
+    if (auto_yunball_ptr->if_is_finish())
     {
-        crsf_port->reset_trigger_flag();
+        all_stop();
+        if (auto_shooter->set_auto_byFitter(PID, dis_2_center))
+        {
+            crsf_port->reset_trigger_flag();
+        }
     }
 }
 
 void AllController::shoot_2_r2()
 {
     send_datas.status_flag = 6;
-    all_stop();
-    if (auto_shooter->set_auto_byFitter(PID, dis_2_robot) == auto_shoot)
+    if (auto_yunball_ptr->if_is_finish())
     {
-        crsf_port->reset_trigger_flag();
+        all_stop();
+        if (auto_shooter->set_auto_byFitter(PID, dis_2_robot))
+        {
+            crsf_port->reset_trigger_flag();
+        }
     }
 }
 

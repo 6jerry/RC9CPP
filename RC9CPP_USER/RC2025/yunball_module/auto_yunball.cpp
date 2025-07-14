@@ -65,17 +65,29 @@ void auto_yunball::add_motor(m3508p *turn_motor_, m3508p *lift_motor_)
     lift_motor = lift_motor_;
 }
 
-//外部接口函数
+// 外部接口函数
 bool auto_yunball::start_yunball()
 {
-    if(flag == static_flag) {flag = yunball_flag;}
-    if(flag == stop_flag) {return true;}
+    if (flag == static_flag)
+    {
+        flag = yunball_flag;
+    }
+    if (flag == stop_flag)
+    {
+        return true;
+    }
     return false;
 }
 bool auto_yunball::start_putball()
 {
-    if(flag == static_flag) {flag = putball_flag;}
-    if(flag == stop_flag) {return true;}
+    if (flag == static_flag)
+    {
+        flag = putball_flag;
+    }
+    if (flag == stop_flag)
+    {
+        return true;
+    }
     return false;
 }
 
@@ -86,12 +98,20 @@ void auto_yunball::stop()
     flag = emergency_stop;
 }
 
-void auto_yunball::add_shooter(AutoShooter *shooter_){shooter = shooter_;}
+void auto_yunball::add_shooter(AutoShooter *shooter_) { shooter = shooter_; }
 
 void auto_yunball::control_turn_motor(float speed_) { get_speed_turn = speed_; }
 void auto_yunball::control_lift_motor(float speed_) { get_speed_lift = speed_; }
-void auto_yunball::control_claw(bool if_open){if (flag == static_flag)set_claw(if_open);}
-void auto_yunball::control_push(bool if_push){if (flag == static_flag)set_push(if_push);}
+void auto_yunball::control_claw(bool if_open)
+{
+    if (flag == static_flag)
+        set_claw(if_open);
+}
+void auto_yunball::control_push(bool if_push)
+{
+    if (flag == static_flag)
+        set_push(if_push);
+}
 
 // 内部实现函数
 void auto_yunball::yunball()
@@ -134,12 +154,20 @@ void auto_yunball::putball()
     }
     lift_motor->dis_speedplan_restart();
     lift_motor->set_rpm(0.0f);
-    //lift_motor->dis_sum = liftBask_dis;
+    // lift_motor->dis_sum = liftBask_dis;
     turn_motor->pos_speedplan_restart();
     turn_motor->set_rpm(0.0f);
     set_claw(false);
     flag = stop_flag;
 }
 
-void auto_yunball::set_claw(bool if_open) { HAL_GPIO_WritePin(claw_port, claw_pin, if_open ? GPIO_PIN_RESET : GPIO_PIN_SET); }
+bool auto_yunball::if_is_finish()
+{
+    return flag == stop_flag;
+}
+
+void auto_yunball::set_claw(bool if_open)
+{
+    HAL_GPIO_WritePin(claw_port, claw_pin, if_open ? GPIO_PIN_RESET : GPIO_PIN_SET);
+}
 void auto_yunball::set_push(bool if_push) { HAL_GPIO_WritePin(push_port, push_pin, if_push ? GPIO_PIN_SET : GPIO_PIN_RESET); }
