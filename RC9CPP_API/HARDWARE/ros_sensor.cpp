@@ -13,6 +13,10 @@ ros_sensor::ros_sensor()
 //	for(int i = 0; i < msg_num; i++){
 //		kalman[i].KalmanFilter_init(0.01f, 0.1f, 0.1f);
 //	}
+	Vector2D default_origin;
+	tf_.coordinate_map(&ros_radar_loaction.world_pos, &default_origin,my_r, my_rad);
+	tf_.map_origin = default_origin;
+	tf_.map_origin_init_flag = true;
 	
 }
 
@@ -37,15 +41,15 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 	//处理雷达数据
 	else if (id == 2 && byteCount == 20)
 	{	
-//		ros_radar_loaction.world_pos.x = - kalman[0].filter(floatData[1]);
-//		ros_radar_loaction.world_pos.y = kalman[1].filter(floatData[0]); // 把上位机坐标与追踪坐标方向对齐
+//		ros_radar_loaction.world_pos.x = - kalman[0].filter(floatData[0]);
+//		ros_radar_loaction.world_pos.y = -kalman[1].filter(floatData[1]); // 把上位机坐标与追踪坐标方向对齐
 		ros_radar_loaction.yaw_angle = -kalman[2].filter(floatData[2]);
 		
 //		ros_radar_loaction.world_pos.x = - f_BFP[0].filter(floatData[1]);
 //		ros_radar_loaction.world_pos.y = f_BFP[1].filter(floatData[0]); // 把上位机坐标与追踪坐标方向对齐
 		
-		ros_radar_loaction.world_pos.x = - (floatData[1]);
-		ros_radar_loaction.world_pos.y = (floatData[0]); // 把上位机坐标与追踪坐标方向对齐
+		ros_radar_loaction.world_pos.x = -(floatData[0]);
+		ros_radar_loaction.world_pos.y = -(floatData[1]); // 把上位机坐标与追踪坐标方向对齐
 		//		if(fabsf(floatData[2]) < 0.02f && fabsf(floatData[3]) < 0.05f){
 		//			map_origin_init_flag = false; //重置映射原点
 		//		}
@@ -105,6 +109,8 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 	// 差分原点标定
 	if (!tf_.map_origin_init_flag)
 	{
+		ros_radar_loaction.world_pos.x = 0.0f;
+		ros_radar_loaction.world_pos.y = 0.0f;
 		tf_.coordinate_map(&ros_radar_loaction.world_pos, &real_radar_world_pos,my_r, my_rad - imu_->get_yaw_rad());
 		tf_.map_origin = real_radar_world_pos;
 		tf_.map_origin_init_flag = true;
