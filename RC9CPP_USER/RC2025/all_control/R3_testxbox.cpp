@@ -26,33 +26,31 @@ void R3_xbox ::calc_error()
 	center_heading = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
 
 	center_heading += 180.0f;
-    if (center_heading > 180.0f)
+	if (center_heading > 180.0f)
 	{
 		center_heading -= 360.0f;
 	}
-	center_heading -= offest;
 }
-
 float R3_xbox::calc_rpm(float dis)
 {
-	
-	    const float coeffs[] = {
-            91.4439f, // r³ 系数
-            -580.3618f,  // r² 系数
-            1437.0013f, // r 系数
-            -38.8659f   // 常数项
-        };
-    dis += offest2;
-    target_rpm = coeffs[0];
-    target_rpm = target_rpm * dis + coeffs[1];
-    target_rpm = target_rpm * dis + coeffs[2];
-    target_rpm = target_rpm * dis + coeffs[3];
-	//target_rpm = a * exp(b * dis) + c;
-				
-		if(target_rpm > 2300.0f)
-		{
-			target_rpm = 2300.0f;
-		}
+
+	const float coeffs[] = {
+		91.4439f,	// r³ 系数
+		-580.3618f, // r² 系数
+		1437.0013f, // r 系数
+		-38.8659f	// 常数项
+	};
+	dis += offest;
+	target_rpm = coeffs[0];
+	target_rpm = target_rpm * dis + coeffs[1];
+	target_rpm = target_rpm * dis + coeffs[2];
+	target_rpm = target_rpm * dis + coeffs[3];
+	// target_rpm = a * exp(b * dis) + c;
+
+	if (target_rpm > 2300.0f)
+	{
+		target_rpm = 2300.0f;
+	}
 	return target_rpm;
 }
 
@@ -68,7 +66,7 @@ void R3_xbox::mode_1()
 		set_RobotW(0.0f, 0);
 		Shoot(calc_rpm(dis_2_center));
 		// Shoot(target_rpm);
-		//mode_flag = 2;
+		// mode_flag = 2;
 	}
 	else
 	{
@@ -134,7 +132,6 @@ void R3_xbox::init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Enc
 void R3_xbox::xbox_on()
 {
 	imu_ptr->imu_relocate(0.0f, 0.0f, 0.0f);
-	// ros_imu->imu_rst();
 }
 photogate_shoot::photogate_shoot()
 {
@@ -185,8 +182,6 @@ void R3_xbox::Shoot(float rpm)
 	{
 		shoot_motor_1->send_rpm(0.0f);
 		shoot_motor_2->send_rpm(0.0f);
-		rpm1 = shoot_motor_1->get_rpm();
-		rpm2 = shoot_motor_2->get_rpm();
 
 		if (HAL_GetTick() - last_tick > 150)
 		{

@@ -82,22 +82,17 @@ public:
     void mode_3() override;
     void xbox_on() override;
     void not_start() override;
-    float rpm1 = 0.0f;
-    float rpm2 = 0.0f;
-    uint8_t test_flag = 0;
+    void init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Encoder *encoder_);
     uint32_t last_tick = 0;
     photogate_shoot gate;
     photogate_shoot_down gate_down;
     float target_rpm = 100.0f;
-    float max_speed = 0.0f;
-    float offest2 = 0.0f;
-    void init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Encoder *encoder_);
 
-    float a=27.4543f;
-    float b=0.9230f;
-    float c=1054.6237f;
+    float a = 27.4543f;
+    float b = 0.9230f;
+    float c = 1054.6237f;
     float calc_rpm(float dis);
-    float max_rpm= 2500.0f; //最大转速
+    float max_rpm = 2500.0f; // 最大转速
     void Shoot(float rpm);
 };
 
