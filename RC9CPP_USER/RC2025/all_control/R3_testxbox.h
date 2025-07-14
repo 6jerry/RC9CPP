@@ -90,7 +90,7 @@ public:
     photogate_shoot_down gate_down;
     float target_rpm = 100.0f;
     float max_speed = 0.0f;
-
+    float offest2 = 0.0f;
     void init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Encoder *encoder_);
 
     float a=27.4543f;

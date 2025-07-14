@@ -35,8 +35,24 @@ void R3_xbox ::calc_error()
 
 float R3_xbox::calc_rpm(float dis)
 {
-	target_rpm = a * exp(b * dis) + c;
-    
+	
+	    const float coeffs[] = {
+            91.4439f, // r³ 系数
+            -580.3618f,  // r² 系数
+            1437.0013f, // r 系数
+            -38.8659f   // 常数项
+        };
+    dis += offest2;
+    target_rpm = coeffs[0];
+    target_rpm = target_rpm * dis + coeffs[1];
+    target_rpm = target_rpm * dis + coeffs[2];
+    target_rpm = target_rpm * dis + coeffs[3];
+	//target_rpm = a * exp(b * dis) + c;
+				
+		if(target_rpm > 2300.0f)
+		{
+			target_rpm = 2300.0f;
+		}
 	return target_rpm;
 }
 
@@ -50,8 +66,8 @@ void R3_xbox::mode_1()
 	if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
 	{
 		set_RobotW(0.0f, 0);
-		//Shoot(calc_rpm(dis_2_center));
-		 Shoot(target_rpm);
+		Shoot(calc_rpm(dis_2_center));
+		// Shoot(target_rpm);
 		//mode_flag = 2;
 	}
 	else
