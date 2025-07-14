@@ -126,6 +126,10 @@ photogate_shoot::photogate_shoot()
 {
 }
 
+photogate_shoot_down::photogate_shoot_down()
+{
+}
+
 void photogate_shoot::handleInterrupt()
 {
 	if (cont++ == 0)
@@ -138,7 +142,23 @@ void photogate_shoot::handleInterrupt()
 	flag = 1;
 }
 
+void photogate_shoot_down::handleInterrupt()
+{
+	if (cont++)
+	{
+		motor1->send_rpm(0.0f);
+		motor2->send_rpm(0.0f);
+	}
+	flag = 1;
+}
+
 void photogate_shoot::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)
+{
+	port_ = port;
+	pin_ = pin;
+}
+
+void photogate_shoot_down::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)
 {
 	port_ = port;
 	pin_ = pin;
