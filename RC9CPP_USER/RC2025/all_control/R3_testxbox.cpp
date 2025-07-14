@@ -3,11 +3,11 @@
 R3_xbox::R3_xbox(imu *imu_ptr_)
 {
 	imu_ptr = imu_ptr_;
-	center_point.x = 5.392f;
-	center_point.y = 0.60f;
+	center_point.x = -5.222f;
+	center_point.y = 0.287490f;
 
-	// 5.420
-	// -0.025
+	// -5.2320
+	// -2.3530
 	// center_point.x = 3.000f;
 	// center_point.y = 14.355f;
 }
@@ -30,37 +30,47 @@ void R3_xbox ::calc_error()
 	{
 		center_heading -= 360.0f;
 	}
-	center_heading -= offest;
+}
+float R3_xbox::calc_rpm(float dis)
+{
+
+	const float coeffs[] = {
+		91.4439f,	// r³ 系数
+		-580.3618f, // r² 系数
+		1437.0013f, // r 系数
+		-38.8659f	// 常数项
+	};
+	dis += offest;
+	target_rpm = coeffs[0];
+	target_rpm = target_rpm * dis + coeffs[1];
+	target_rpm = target_rpm * dis + coeffs[2];
+	target_rpm = target_rpm * dis + coeffs[3];
+	// target_rpm = a * exp(b * dis) + c;
+
+	if (target_rpm > 2300.0f)
+	{
+		target_rpm = 2300.0f;
+	}
+	return target_rpm;
 }
 
 void R3_xbox::mode_1()
 {
+	calc_error();
 
-	if (gate.flag)
+	Vector2D target(0.0f, 0.0f);
+	set_RobotVel(target, 0);
+
+	if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
 	{
-		shoot_motor_1->send_rpm(0.0f);
-		shoot_motor_2->send_rpm(0.0f);
-		rpm1 = shoot_motor_1->get_rpm();
-		rpm2 = shoot_motor_2->get_rpm();
-
-		if (HAL_GetTick() - last_tick > 150)
-		{
-			shoot_motor_1->send_rpm(-1000.0f);
-			shoot_motor_2->send_rpm(-1000.0f);
-			if (gate_down.flag)
-			{
-				shoot_motor_1->send_rpm(0.0f);
-				shoot_motor_2->send_rpm(0.0f);
-				mode_flag = 2;
-			}
-		}
+		set_RobotW(0.0f, 0);
+		Shoot(calc_rpm(dis_2_center));
+		// Shoot(target_rpm);
+		// mode_flag = 2;
 	}
 	else
 	{
-		last_tick = HAL_GetTick();
-		gate_down.flag = 0;
-		shoot_motor_1->send_rpm(target_rpm);
-		shoot_motor_2->send_rpm(target_rpm);
+		yaw_TurnTo(center_heading, 0);
 	}
 }
 
@@ -82,6 +92,8 @@ void R3_xbox::mode_2()
 
 void R3_xbox::mode_3()
 {
+	Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
+	set_RobotVel(tvel_, 0);
 
 	calc_error();
 
@@ -120,7 +132,6 @@ void R3_xbox::init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Enc
 void R3_xbox::xbox_on()
 {
 	imu_ptr->imu_relocate(0.0f, 0.0f, 0.0f);
-	// ros_imu->imu_rst();
 }
 photogate_shoot::photogate_shoot()
 {
@@ -162,4 +173,33 @@ void photogate_shoot_down::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)
 {
 	port_ = port;
 	pin_ = pin;
+}
+
+void R3_xbox::Shoot(float rpm)
+{
+
+	if (gate.flag)
+	{
+		shoot_motor_1->send_rpm(0.0f);
+		shoot_motor_2->send_rpm(0.0f);
+
+		if (HAL_GetTick() - last_tick > 150)
+		{
+			shoot_motor_1->send_rpm(-1000.0f);
+			shoot_motor_2->send_rpm(-1000.0f);
+			if (gate_down.flag)
+			{
+				shoot_motor_1->send_rpm(0.0f);
+				shoot_motor_2->send_rpm(0.0f);
+				mode_flag = 2;
+			}
+		}
+	}
+	else
+	{
+		last_tick = HAL_GetTick();
+		gate_down.flag = 0;
+		shoot_motor_1->send_rpm(rpm);
+		shoot_motor_2->send_rpm(rpm);
+	}
 }
