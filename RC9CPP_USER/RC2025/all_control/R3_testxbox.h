@@ -33,7 +33,7 @@ public:
     float rpm2 = 0.0f;
     int flag = 0;
     int cont = 0;
-    photogate_shoot();
+    photogate_shoot_down();
     float max_speed = 0.0f;
     void handleInterrupt() override;
     void add_io_interrupt(GPIO_TypeDef *port, uint16_t pin) override;
@@ -92,6 +92,13 @@ public:
     float max_speed = 0.0f;
 
     void init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Encoder *encoder_);
+
+    float a=27.4543f;
+    float b=0.9230f;
+    float c=1054.6237f;
+    float calc_rpm(float dis);
+    float max_rpm= 2500.0f; //最大转速
+    void Shoot(float rpm);
 };
 
 #endif
