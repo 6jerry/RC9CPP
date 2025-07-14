@@ -95,6 +95,18 @@
     "exception": "cpp",
     "fdcan.h": "c",
     "unordered_map": "cpp",
-    "all_setup.h": "c"
+    "all_setup.h": "c",
+    "cctype": "cpp",
+    "cerrno": "cpp",
+    "cfloat": "cpp",
+    "climits": "cpp",
+    "clocale": "cpp",
+    "cstdarg": "cpp",
+    "cstddef": "cpp",
+    "cstdio": "cpp",
+    "cstring": "cpp",
+    "cwchar": "cpp",
+    "cwctype": "cpp",
+    "superyunball_setup.h": "c"
   }
 }

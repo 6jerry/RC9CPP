@@ -7,7 +7,8 @@ extern "C"
 #endif
 #include "arm_math.h"
 #include "Vector2D.h"
-//#include "pure_pursuit.h"
+    // #include "pure_pursuit.h"
+#include "Serial_device.h"
 
 #ifdef __cplusplus
 }
@@ -167,6 +168,18 @@ public:
 private:
     float maxAcceleration; // 加速度上限（单位 m/s²，后缀平方秒）
     float lastOutput;      // 上一次输出的速度（单位 m/s）
+};
+
+class TdPlanner
+{
+public:
+    void set_R(float td_r_); // R越小越平滑。越大越猛
+    float TDplan(float input_expect);
+
+private:
+    float r = 0.0f, expect = 0.0f, V1 = 0.0f, V2 = 0.0f, fh = 0.0f;
+    float Ts = 0.0f;
+    uint32_t previous_time = 0;
 };
 
 #endif

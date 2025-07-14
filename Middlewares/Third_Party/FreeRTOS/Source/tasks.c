@@ -3658,7 +3658,6 @@ static void prvCheckTasksWaitingTermination( void )
 			}
 			taskEXIT_CRITICAL();
 
-			
 			prvDeleteTCB( pxTCB );
 		}
 	}

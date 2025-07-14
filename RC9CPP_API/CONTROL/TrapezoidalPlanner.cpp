@@ -4,9 +4,8 @@ TrapezoidalPlanner::TrapezoidalPlanner()
       m_maxAcc(0), m_maxDec(0), m_maxSpeed(0),
       m_initialSpeed(0), m_finalSpeed(0), m_totalDistance(0),
       m_accelDistance(0), m_decelDistance(0)
-{}
-
-
+{
+}
 
 void TrapezoidalPlanner::start_plan(float maxAcc, float maxDec, float maxSpeed, float initialSpeed, float finalSpeed,
                                     const Vector2D &startPos, const Vector2D &targetPos, float pidThreshold)
@@ -136,7 +135,6 @@ Vector2D TrapezoidalPlanner::plan(const Vector2D &currentPos)
         break;
     }
 
- 
     return direction * v_target;
 }
 
@@ -218,7 +216,7 @@ float TrapezoidalPlanner1D::plan(float now_dis)
     if (traveled >= m_totalDistance)
     {
         traveled = m_totalDistance;
-         m_phase = FINISHED_PHASE;
+        m_phase = FINISHED_PHASE;
         return m_finalSpeed * direction;
     }
 
@@ -306,4 +304,27 @@ void VelocityPlanner::reset(float initialValue, float maxAcceleration)
 void VelocityPlanner::reset_speed()
 {
     lastOutput = 0.0f;
+}
+
+void TdPlanner::set_R(float td_r_)
+{
+    r = td_r_;
+}
+
+float TdPlanner::TDplan(float input_expect)
+{
+    expect = input_expect;
+
+    uint32_t current_time = HAL_GetTick(); // 获取当前时间，单位ms
+    if (previous_time != 0)
+    { // 确保上一次时间不为0
+        Ts = float(current_time - previous_time) / 1000.0f;
+    }
+    previous_time = current_time;
+    fh = -r * r * (V1 - expect) - 2.0f * r * V2;
+
+    V1 += V2 * Ts;
+    V2 += fh * Ts;
+
+    return V1;
 }
