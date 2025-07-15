@@ -13,8 +13,8 @@ void position::DataReceivedCallback(const uint8_t *byteData, const float *floatD
 
     real_world_pos.x = world_pos.x - deltaxx; // ��任��imuλ��
     real_world_pos.y = world_pos.y - deltayy;
-//    real_world_pos.y = -real_world_pos.y; // ��ת��y����
-//    real_world_pos.x = -real_world_pos.x; // ��ת��x
+    real_world_pos.y = -real_world_pos.y; // ��ת��y����
+    real_world_pos.x = -real_world_pos.x; // ��ת��x
 
     uint32_t current_time = HAL_GetTick(); // 获取当前时间，单位ms
 
