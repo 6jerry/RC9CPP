@@ -42,10 +42,11 @@ private:
     void rpm_increpid_mode();
     SimpleMeanFilter rpm_filter;
 
-
-    
-
     bool debug_mode = false;
+
+    power_motor *slave_motor = nullptr; // 用于同步控制的从电机
+
+    bool enable_slave_control = false; // 是否激活从电机
 
 public:
     float
@@ -70,6 +71,8 @@ public:
 
     float target_rpm = 0.0f, now_rpm = 0.0f, rcurrent = 0.0f, target_current = 0.0f, filted_rpm = 0.0f, target_ff_current = 0.0f, test_rpm = 0.0f;
     int32_t target_erpm = 0, senderpm = 0, brake = 10000, send_current = 0;
+
+    void add_slave_motor(power_motor *slave_motor_);
 };
 #endif
 #endif

@@ -46,9 +46,10 @@ extern "C"
     robot_chassis.yawadjuster_config(0.12f, 0.0f, 0.004f, 0.0f, 5.0f, 0.1f, 0.5f);
 
     shoot_1.rpm_control.config_all(70.0f, 1.0f, 140.0f, 20.0f, 65000, 5.0f);
-    shoot_2.rpm_control.config_all(70.0f, 1.0f, 140.0f, 20.0f, 65000, 5.0f);
+    shoot_1.add_slave_motor(&shoot_2);
     shoot_1.rpm_control.enable_TD();
-    shoot_2.rpm_control.enable_TD();
+    // shoot_2.rpm_control.enable_TD();
+
     // shoot_1.addport(&debug_port);
     // shoot_1.start_debug();
 

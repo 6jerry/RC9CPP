@@ -118,9 +118,18 @@ void vesc::rpm_increpid_mode()
         sendFloatData(1, send_datas, 2);
     }
 
+    if (enable_slave_control)
+    {
+        slave_motor->set_current(target_current);
+    }
+
     current_mode();
 }
-
+void vesc::add_slave_motor(power_motor *slave_motor_)
+{
+    slave_motor = slave_motor_;
+    enable_slave_control = true;
+}
 float vesc::get_target_current()
 {
     return target_current;

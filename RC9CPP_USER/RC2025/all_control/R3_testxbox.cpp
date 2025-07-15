@@ -180,17 +180,17 @@ void R3_xbox::Shoot(float rpm)
 
 	if (gate.flag)
 	{
-		shoot_motor_1->send_rpm(0.0f);
-		shoot_motor_2->send_rpm(0.0f);
+		shoot_motor_1->set_rpm(0.0f);
+		// shoot_motor_2->set_rpm(0.0f);
 
 		if (HAL_GetTick() - last_tick > 150)
 		{
-			shoot_motor_1->send_rpm(-1000.0f);
-			shoot_motor_2->send_rpm(-1000.0f);
+			shoot_motor_1->set_rpm(-1000.0f);
+			// shoot_motor_2->set_rpm(-1000.0f);
 			if (gate_down.flag)
 			{
-				shoot_motor_1->send_rpm(0.0f);
-				shoot_motor_2->send_rpm(0.0f);
+				shoot_motor_1->set_rpm(0.0f);
+				// shoot_motor_2->set_rpm(0.0f);
 				mode_flag = 2;
 			}
 		}
@@ -199,7 +199,7 @@ void R3_xbox::Shoot(float rpm)
 	{
 		last_tick = HAL_GetTick();
 		gate_down.flag = 0;
-		shoot_motor_1->send_rpm(rpm);
-		shoot_motor_2->send_rpm(rpm);
+		shoot_motor_1->set_rpm(rpm);
+		// shoot_motor_2->set_rpm(rpm);
 	}
 }
