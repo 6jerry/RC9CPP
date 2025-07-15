@@ -14,6 +14,7 @@ extern "C"
 #include "fdcan_device.h"
 #include "math.h"
 #include "imu.h"
+#include "time_counter.h"
 #ifdef __cplusplus
 }
 #endif
@@ -48,6 +49,8 @@ public:
     void set_anti_clockwise();
 
     void set_dis();
+
+    time_counter rpm_counter;
 
     //*********************** */
 private:

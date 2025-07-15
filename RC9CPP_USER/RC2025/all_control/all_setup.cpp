@@ -29,6 +29,7 @@ extern "C"
     void all_setup()
     {
         CanDevice::InitAllFiltersNoMask();
+        time_counter::init_time_counter();
         position_port.initQueue();
         position_port.startUartReceiveIT();
         Lora_port.startUartReceiveIT();
@@ -105,4 +106,6 @@ void demo::process_data()
     // remote_controller.sendBattery(test_v, test_v, test_v, test_v);
 
     // remote_controller.sendGps(test_x, test_y, test_heading, test_heading, test_heading, test_heading);
+
+    test_cnt.get_DeltaTime_ms();
 }

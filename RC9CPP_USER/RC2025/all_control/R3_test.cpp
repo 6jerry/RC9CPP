@@ -23,6 +23,7 @@ extern "C"
   void r3_setup()
   {
     CanDevice::InitAllFiltersNoMask();
+    time_counter::init_time_counter();
     esp_port.initQueue();
     esp_port.startUartReceiveIT();
     debug_port.startUartReceiveIT();

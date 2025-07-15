@@ -10,6 +10,7 @@ extern "C"
 #include "crsf_protocol_defines.h" // CRSF 协议定义
 #include "crc.h"
 #include <string.h> // For memcpy
+#include "time_counter.h"
 #ifdef __cplusplus
 }
 #endif
@@ -112,6 +113,8 @@ public:
 
     void reset_trigger_flag();
     void set_trigger_flag_busy();
+
+    time_counter delta_counter;
 };
 
 #endif // __cplusplus

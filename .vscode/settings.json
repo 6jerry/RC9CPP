@@ -107,6 +107,11 @@
     "cstring": "cpp",
     "cwchar": "cpp",
     "cwctype": "cpp",
-    "superyunball_setup.h": "c"
+    "superyunball_setup.h": "c",
+    "initializer_list": "cpp",
+    "concepts": "cpp",
+    "cinttypes": "cpp",
+    "cstdbool": "cpp",
+    "*.rh": "cpp"
   }
 }

@@ -1,6 +1,7 @@
 
 local function my_init()
-  -- init is called once when model is loaded
+    -- init is called once when model is loaded
+   playFile("/SCRIPTS/TELEMETRY/cn/ladar_offline.wav")
 end
 
 local function my_background()
@@ -77,6 +78,8 @@ local function my_run(event)
 
     -- 显示剩余电量
     --lcd.drawText(10, 130, "剩余: " .. string.format("%d %%", remaining), SMLSIZE)
+
+    playFile("/SCRIPTS/TELEMETRY/cn/ladar_offline.wav")
 
     return 0
 end
