@@ -4,8 +4,8 @@ TaskManager task_core;
 dji_motor_handle dji_core;
 RC9Protocol esp_port(uart, &huart3), position_port(uart, &huart6);
 RC9Protocol ros_port(cdc, nullptr);
-RC9Protocol Lora_port(uart, &huart4);
-RC9Protocol send_port(uart, &huart5);
+//RC9Protocol Lora_port(uart, &huart4);
+RC9Protocol send_port(uart, &huart4);
 
 ros_sensor ros_sensor_;
 position position_sensor;
@@ -115,11 +115,11 @@ void demo::process_data()
   MX_FDCAN2_Init();
   CanDevice::InitAllFiltersNoMask();
 
-//  if(encoder_reset_flag == 1)
-//  {
-//    encoder.send_reset();
-//    encoder_reset_flag = 0;
-//  }
+/*     if(encoder_reset_flag == 1)
+    {
+     encoder.send_reset();
+      encoder_reset_flag = 0;
+    } */
 
 //        if (encoder_for_yunball_flag == 1)
 //        {
@@ -162,14 +162,18 @@ void demo::process_data()
       last_pos = position_sensor.world_pos;
       sendFloatData(1, arr, 6);*/
 
-      //	float arr[6] = {position_sensor.real_world_pos.x, position_sensor.real_world_pos.y, position_sensor.world_pos.x, position_sensor.world_pos.y};
+  //	float arr[6] = {position_sensor.real_world_pos.x, position_sensor.real_world_pos.y, position_sensor.world_pos.x, position_sensor.world_pos.y};
 
-      //  float arr[6] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
-      //                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y};
-      // float arr[5] = {auto_shooter.shoot_info.target_dis * 1000.0f, auto_shooter.shoot_info.real_dis * 1000.0f, chassis_debug.center_heading, position_sensor.get_heading(), position_sensor.get_yaw_speed()};
-      // sendFloatData(1, arr, 5);
+  //  float arr[6] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
+  //                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y};
+  // float arr[5] = {auto_shooter.shoot_info.target_dis * 1000.0f, auto_shooter.shoot_info.real_dis * 1000.0f, chassis_debug.center_heading, position_sensor.get_heading(), position_sensor.get_yaw_speed()};
+  // sendFloatData(1, arr, 5);
 
-      send_data[0] = position_sensor.get_heading();
+/*   float arr[6] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
+                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y,
+                  ros_sensor_.ros_radar_loaction.world_pos.x, ros_sensor_.ros_radar_loaction.world_pos.y};
+  sendFloatData(1, arr, 6); */
+  send_data[0] = position_sensor.get_heading();
   send_data[1] = position_sensor.get_world_pos_y() - pian_y;
   send_data[2] = position_sensor.get_world_pos_x() - pian_x;
   send_data[3] = position_sensor.get_yaw_speed();
