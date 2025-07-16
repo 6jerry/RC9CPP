@@ -39,17 +39,12 @@ public:
 
 public:
     Vector2D real_world_pos;                      // 映射后坐标
-    Vector2D map_plot = Vector2D(0.0f, -0.0392f); // 原始数据中心偏移点
+    Vector2D map_plot = Vector2D(0.0f, -0.05224f); // 原始数据中心偏移点
 public:
     Vector2D world_pos;     // 单位m
     float world_yaw = 0.0f; // 单位度
 
-    float D_P_s = 0.0f; // 角度变化率。度每秒
-
-    float delta_time = 0.0f;
-    uint32_t previous_time = 0; // 上一次的时间戳，单位为ms
-
-    float last_yaw = 0.0f; // 上一次的角度，单位为度
+    float yaw_speed = 0.0f;
 };
 
 #endif

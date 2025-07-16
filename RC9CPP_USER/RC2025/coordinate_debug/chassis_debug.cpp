@@ -157,7 +157,7 @@ void chassis_adjust_xbox::mode_4()
 void chassis_adjust_xbox::xbox_on()
 {
     // post->imu_rst();
-    imu_ptr->imu_relocate(0.0f, 0.0f, 0.0f);
+    imu_ptr->imu_rst();
     ros_imu->imu_rst();
 }
 

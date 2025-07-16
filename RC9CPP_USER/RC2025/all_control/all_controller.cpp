@@ -333,7 +333,7 @@ void AllController::reset_all_imu()
 {
     send_datas.status_flag = 9;
     ros_imu->imu_rst();
-    position_imu_->imu_relocate(0.0f, 0.0f, 0.0f);
+    position_imu_->imu_rst();
     crsf_port->reset_trigger_flag();
 }
 
