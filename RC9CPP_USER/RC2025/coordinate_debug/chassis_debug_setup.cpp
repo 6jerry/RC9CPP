@@ -121,11 +121,11 @@ void demo::process_data()
 //    encoder_reset_flag = 0;
 //  }
 
-      //  if (encoder_for_yunball_flag == 1)
-      //  {
-      //    encoder_for_yunball.send_reset();
-      //    encoder_for_yunball_flag = 0;
-      //  }
+//        if (encoder_for_yunball_flag == 1)
+//        {
+//          encoder_for_yunball.send_reset();
+//          encoder_for_yunball_flag = 0;
+//        }
       // static Vector2D last_pos = position_sensor.world_pos;
       // float speed_xx  = (position_sensor.world_pos.x - last_pos.x) / 0.04f;
       // float speed_yy  = (position_sensor.world_pos.y - last_pos.y) / 0.04f;

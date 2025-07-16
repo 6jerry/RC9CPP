@@ -54,8 +54,8 @@ private:
 public:
     float liftTo_dis = -13.0f;
     float liftBask_dis = -0.8f;
-    float turnTo_angle = 150.0f; // 旋转角度
-    float turnBack_angle = 5.0f; // 旋转回转角度
+    float turnTo_angle = 180.0f; // 旋转角度
+    float turnBack_angle = 95.0f; // 旋转回转角度
     float turn_deadzone = 6.0f;  // 死区
     float lift_deadzone = 0.5f;  // 死区
     float shooter_lift = 0.1f;   // 皮筋拉伸量
