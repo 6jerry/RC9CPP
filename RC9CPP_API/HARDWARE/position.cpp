@@ -66,7 +66,7 @@ void position::imu_relocate(float x, float y, float angle)
 void position::imu_rst() // 让position的imu重启
 {
     float send_datas[2] = {map_plot.x, map_plot.y};
-    sendFloatData(2, send_datas, 2);
+    sendFloatData(3, send_datas, 2);
 }
 
 void position::set_map_plot(float x_, float y_)
