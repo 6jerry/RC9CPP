@@ -96,6 +96,7 @@ extern "C"
 
 void demo::process_data()
 {
+    MX_FDCAN1_Init();
     MX_FDCAN2_Init();
     CanDevice::InitAllFiltersNoMask();
 

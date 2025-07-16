@@ -38,7 +38,7 @@ public:
     void set_map_plot(float x_, float y_);
 
 public:
-    Vector2D real_world_pos;                      // 映射后坐标
+    Vector2D real_world_pos;                       // 映射后坐标
     Vector2D map_plot = Vector2D(0.0f, -0.04424f); // 原始数据中心偏移点
 public:
     Vector2D world_pos;     // 单位m
