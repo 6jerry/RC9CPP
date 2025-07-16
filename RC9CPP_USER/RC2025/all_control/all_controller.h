@@ -43,6 +43,8 @@ public:
     float pian_x = 3;
     float pian_y = 14.406;
 
+    float target_r = 30.0f;
+
     CrsfReceiver *crsf_port = nullptr;
     AllController();
 

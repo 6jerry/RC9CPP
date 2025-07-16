@@ -14,7 +14,17 @@ void RoboChassis::process_data()
         chassis_calc(target.target_robovel, yawadjuster_process());
         break;
     case worldv:
-        chassis_calc(worldv_2_robov(target.target_worldvel), yawadjuster_process());
+        if (enable_TDplan)
+        {
+            TDED_SPEED.x = TD_X.TDplan(target.target_worldvel.x);
+            TDED_SPEED.y = TD_Y.TDplan(target.target_worldvel.y);
+            chassis_calc(worldv_2_robov(TDED_SPEED), yawadjuster_process());
+        }
+        else
+        {
+            chassis_calc(worldv_2_robov(target.target_worldvel), yawadjuster_process());
+        }
+
         break;
     case point_track:
         chassis_calc(worldv_2_robov(pointtracker.track(IMU->get_world_pos(), target.target_point)), yawadjuster_process());
@@ -45,6 +55,9 @@ void RoboChassis::process_data()
 
     case swerve_stable:
         swerve_stablize();
+        break;
+
+    case Vel_compensation:
         break;
     }
 }
@@ -669,7 +682,7 @@ uint8_t RoboChassis::set_CRobotVel(Vector2D robovel, uint8_t PriorityCode, chass
 
 uint8_t RoboChassis::set_CWorldVel(Vector2D worldvel, uint8_t PriorityCode, chassis_user *user_)
 {
-
+    enable_TDplan = false;
     if (mode != chassis_init)
     {
         mode = worldv;
@@ -754,6 +767,7 @@ uint8_t RoboChassis::set_CRobotVel_ACCLE(Vector2D robovel, float accle)
  */
 uint8_t RoboChassis::set_CWorldVel_ACCLE(Vector2D worldvel, float accle)
 {
+    enable_TDplan = false;
     if (mode != chassis_init)
     {
         mode = worldv;
@@ -856,6 +870,34 @@ void RoboChassis::C_rst_state()
 {
     // mode = stop;
     pp_tracker.pp_rst_plan();
+}
+
+void RoboChassis::Cset_worldVel_TD(Vector2D worldvel)
+{
+    if (mode != chassis_init)
+    {
+        mode = worldv;
+    }
+
+    enable_TDplan = true;
+
+    target.target_worldvel = worldvel;
+}
+
+void RoboChassis::Cset_TDplanner_R(float R)
+{
+    TD_X.set_R(R);
+    TD_Y.set_R(R);
+}
+
+void chassis_user::set_TDplanner_R(float R)
+{
+    robochassis_->Cset_TDplanner_R(R);
+}
+
+void chassis_user::set_worldVel_TD(Vector2D worldvel)
+{
+    robochassis_->Cset_worldVel_TD(worldvel);
 }
 
 void chassis_user::pp_track_point(Vector2D target_p)

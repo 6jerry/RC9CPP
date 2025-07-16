@@ -4,7 +4,7 @@ const uint8_t AllController::bitWidths[5] = {1, 1, 1, 2, 2};
 AllController::AllController() : mode_selector(bitWidths, 5)
 {
     efsm_init();
-
+    set_TDplanner_R(target_r);
     center_point.x = 3.000f;
     center_point.y = 14.355f;
 }
@@ -45,8 +45,8 @@ void AllController::efsm_init()
 
     uint16_t lock_on_center_pointmodeflag[] = {10, 74, 78};
     uint16_t lock_on_r2modeflag[] = {14};
-    uint16_t shoot_2_center_pointmodeflag[] = {9, 11};
-    uint16_t shoot_2_r2modeflag[] = {13, 15};
+    uint16_t shoot_2_center_pointmodeflag[] = {13, 15};
+    uint16_t shoot_2_r2modeflag[] = {9, 11};
 
     uint16_t defend_move_modeflag[] = {16, 20, 18, 22, 17, 21, 19, 23};
 
@@ -182,14 +182,14 @@ void AllController::set_accle()
 void AllController::remote_move()
 {
     Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
-    set_worldVel_accle(tvel_, target_accle);
+    set_worldVel_TD(tvel_);
     set_RobotW(-crsf_port->right_H_map * max_yaw_speed, 0);
 }
 
 void AllController::remote_move_revert()
 {
     Vector2D tvel_(crsf_port->left_H_map * max_x_speed, -crsf_port->left_V_map * max_y_speed);
-    set_worldVel_accle(tvel_, target_accle);
+    set_worldVel_TD(tvel_);
     set_RobotW(-crsf_port->right_H_map * max_yaw_speed, 0);
 }
 

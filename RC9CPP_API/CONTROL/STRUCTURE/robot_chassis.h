@@ -45,7 +45,8 @@ enum RoboChassis_mode
     chassis_init,
     ppp_track,
     ppc_track,
-    swerve_stable
+    swerve_stable,
+    Vel_compensation
 
 };
 
@@ -111,6 +112,8 @@ public:
     uint8_t set_RobotVel(Vector2D robovel, uint8_t PriorityCode);
     uint8_t set_WorldVel(Vector2D worldvel, uint8_t PriorityCode);
     uint8_t set_worldVel_accle(Vector2D worldvel, float acc);
+    void set_worldVel_TD(Vector2D worldvel);
+    void set_TDplanner_R(float R);
     uint8_t set_RobotW(float w, uint8_t PriorityCode);
     void yaw_lock();
     void yaw_unlock();
@@ -283,6 +286,11 @@ public:
     void C_reset();
 
     void C_init_locate();
+    TdPlanner TD_X, TD_Y;
+    void Cset_worldVel_TD(Vector2D worldvel);
+    void Cset_TDplanner_R(float R);
+    bool enable_TDplan = false;
+    Vector2D TDED_SPEED;
 };
 
 #endif
