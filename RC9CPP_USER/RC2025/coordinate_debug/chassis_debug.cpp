@@ -3,11 +3,11 @@
 chassis_adjust_xbox::chassis_adjust_xbox(imu *imu_ptr_)
 {
     imu_ptr = imu_ptr_;
-        center_point.x = -3.818f;
-        center_point.y = 13.985f;
+    center_point.x = 3.808f;
+    center_point.y = -14.045f;
 
-    //center_point.x = -3.843f;
-    //center_point.y = 13.985f;
+    //center_point.x = 3.843f;
+    //center_point.y = -13.985f;
 }
 
 void chassis_adjust_xbox::calc_error()
@@ -32,12 +32,12 @@ void chassis_adjust_xbox::calc_error()
 
     center_heading = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
     ; // 角度对准圆心
-    center_heading += 180.0f;
-    if (center_heading > 180.0f)
-    {
-        center_heading -= 360.0f;
-    }
-    center_heading -= offest;
+//    center_heading += 180.0f;
+//    if (center_heading > 180.0f)
+//    {
+//        center_heading -= 360.0f;
+//    }
+//    center_heading -= offest;
 }
 
 void chassis_adjust_xbox::calc_robopoint()
@@ -169,4 +169,10 @@ void chassis_adjust_xbox::add_AutoShooter(AutoShooter *auto_shooter_)
 void chassis_adjust_xbox::add_autoyunball(auto_yunball *auto_yunball_)
 {
     auto_yunball_ptr = auto_yunball_;
+}
+
+void chassis_adjust_xbox::xbox_share()
+{
+    center_point.x = get_world_x();
+    center_point.y = get_world_y();
 }

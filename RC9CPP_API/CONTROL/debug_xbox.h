@@ -35,12 +35,14 @@ public:
     virtual void rb_off() {};
 
     virtual void xbox_on() {};
+    virtual void xbox_share() {};
 
     void process_data();
     void btn_scan();
     void btnconfig_init();
 
     void btnXBOX_callback() override;
+    void btnShare_callback() override;
     xbox_debug_base();
 };
 
