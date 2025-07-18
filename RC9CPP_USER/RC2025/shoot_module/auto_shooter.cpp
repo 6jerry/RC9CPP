@@ -62,7 +62,6 @@ void AutoShooter::allAuto_adjust(float lifter_dis)
 
         break;
     case auto_shoot:
-        // shooter_motor->set_rpm(0.0f);
         timecnt++;
         shooter_flag = 1;
 
@@ -275,18 +274,18 @@ float AutoShooter::calc(float r)
     float s = coeffs[0];
     s = s * r + coeffs[1];
     s = s * r + coeffs[2];
-//    s = s * r + coeffs[3];
+    //    s = s * r + coeffs[3];
     //-----------------------------------------------
-    
+
     //---------------------幂、指数、直线拟合-----------------
-    //s = a * pow(r, b) + c * logf(r + 1);
+    // s = a * pow(r, b) + c * logf(r + 1);
     // s = a * pow(r,b) + c ;
     // s = a*exp(b*r) + c ;
-    //s=0.0321*r+0.0772;
+    // s=0.0321*r+0.0772;
     //-----------------------------------------------
-    
-//	
-//    s=a*r*r*(1+b*r)+c;
+
+    //
+    //    s=a*r*r*(1+b*r)+c;
 
     return s + offest;
 }
