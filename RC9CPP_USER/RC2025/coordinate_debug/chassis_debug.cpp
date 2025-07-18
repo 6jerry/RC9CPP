@@ -3,11 +3,11 @@
 chassis_adjust_xbox::chassis_adjust_xbox(imu *imu_ptr_)
 {
     imu_ptr = imu_ptr_;
-        center_point.x = 5.8f;
-        center_point.y = 0.73f;
+    center_point.x = 3.808f;
+    center_point.y = -14.045f;
 
-    //center_point.x = 3.000f;
-    //center_point.y = 14.355f;
+    //center_point.x = 3.843f;
+    //center_point.y = -13.985f;
 }
 
 void chassis_adjust_xbox::calc_error()
@@ -66,7 +66,7 @@ void chassis_adjust_xbox::not_start()
 void chassis_adjust_xbox::mode_2()
 {
     calc_error();
-    Vector2D tvel_((max_target_robot_vel.x * xbox_msgs.joyLHori_map), (max_target_robot_vel.y * xbox_msgs.joyLVert_map));
+    Vector2D tvel_((-max_target_robot_vel.x * xbox_msgs.joyLHori_map), (-max_target_robot_vel.y * xbox_msgs.joyLVert_map));
     set_WorldVel(tvel_, 2.5f); // 以后再改
     set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
 
@@ -118,7 +118,7 @@ void chassis_adjust_xbox::mode_1()
 void chassis_adjust_xbox::mode_3()
 {
     auto_yunball_ptr->control_turn_motor(xbox_msgs.joyRHori_map);
-    auto_yunball_ptr->control_lift_motor(xbox_msgs.joyRVert_map * 80);
+    auto_yunball_ptr->control_lift_motor(-xbox_msgs.joyRVert_map * 80);
     auto_shooter->set_hand(xbox_msgs.joyLVert_map * 800);
 
     if (rb_flag)
@@ -169,4 +169,10 @@ void chassis_adjust_xbox::add_AutoShooter(AutoShooter *auto_shooter_)
 void chassis_adjust_xbox::add_autoyunball(auto_yunball *auto_yunball_)
 {
     auto_yunball_ptr = auto_yunball_;
+}
+
+void chassis_adjust_xbox::xbox_share()
+{
+    center_point.x = get_world_x();
+    center_point.y = get_world_y();
 }
