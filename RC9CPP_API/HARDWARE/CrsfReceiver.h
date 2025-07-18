@@ -114,6 +114,8 @@ public:
     void reset_trigger_flag();
     void set_trigger_flag_busy();
 
+    float test_channel[4] = {0.0f};
+
     time_counter delta_counter;
 };
 

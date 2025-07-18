@@ -5,8 +5,8 @@ AllController::AllController() : mode_selector(bitWidths, 5)
 {
     efsm_init();
     set_TDplanner_R(target_r);
-    center_point.x = 3.000f;
-    center_point.y = 14.355f;
+    center_point.x = -4.032f;
+    center_point.y = 13.930f;
 }
 
 void AllController::update_flag()
@@ -182,14 +182,14 @@ void AllController::set_accle()
 void AllController::remote_move()
 {
     Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
-    set_worldVel_TD(tvel_);
+    set_worldVel_accle(tvel_,target_accle);
     set_RobotW(-crsf_port->right_H_map * max_yaw_speed, 0);
 }
 
 void AllController::remote_move_revert()
 {
     Vector2D tvel_(crsf_port->left_H_map * max_x_speed, -crsf_port->left_V_map * max_y_speed);
-    set_worldVel_TD(tvel_);
+    set_worldVel_accle(tvel_, target_accle);
     set_RobotW(-crsf_port->right_H_map * max_yaw_speed, 0);
 }
 
