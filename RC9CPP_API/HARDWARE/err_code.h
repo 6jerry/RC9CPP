@@ -26,6 +26,7 @@ enum err_code {
     ERR_CODE_TIMEOUT = -3,             ///< 操作超时
     ERR_CODE_CONNECT_FAIL = -4,        ///< 连接失败
     ERR_CODE_DISCONNECT = -5,          ///< 设备断开连接
+    ERR_CODE_ABNORMAL = -6,            ///< 设备状态异常
 };
 
 /**
@@ -33,7 +34,7 @@ enum err_code {
  *
  * 每种设备在系统中拥有唯一的 ID，用于错误日志记录、调试追踪等。
  */
-#define DEVICE_CLASS_NUM 8 	// 设备种类数
+#define DEVICE_CLASS_NUM 9 	// 设备种类数
 enum device_id {
     ERR_DEVICE_NONE = 0x00,
     ERR_DEVICE_MOTOR = 0x01,       ///< 电机
@@ -43,6 +44,7 @@ enum device_id {
     ERR_DEVICE_LASER = 0x05,           ///< 激光测距模块
     ERR_DEVICE_ULTRASONIC = 0x06,      ///< 超声波传感器
     ERR_DEVICE_SOLENOID_VALVE = 0x07,   ///< 电磁阀
+    ERR_DEVICE_CAMERA = 0x08           ///< 相机
 };
 
 class error_check { //错误检测基类

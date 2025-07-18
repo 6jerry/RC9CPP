@@ -37,7 +37,7 @@ TaskManager::TaskManager()
 	
 //    tasks[9].Priority = osPriorityIdle;
 //    tasks[9].delay_ms = 40;
-	tasks[9].Priority = osPriorityRealtime;
+	tasks[9].Priority = osPriorityRealtime; //暂时用于相机的控制
     tasks[9].delay_ms = 25;
 }
 
