@@ -88,11 +88,16 @@ void R3_xbox::mode_2()
 	gate_down.cont = 0;
 	shoot_motor_1->send_rpm(move_rpm * xbox_msgs.joyRVert_map);
 	shoot_motor_2->send_rpm(move_rpm * xbox_msgs.joyRVert_map);
+	
+	if (lb_flag && rb_flag) {putball_motor->set_current(0.0f);} 
+	else if (lb_flag) {putball_motor->set_rpm(move_rpm);} 
+	else if (rb_flag) {putball_motor->set_rpm(-move_rpm);} 
+	else {putball_motor->set_current(0.0f);}
 }
 
 void R3_xbox::mode_3()
 {
-	Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
+	/*Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
 	set_RobotVel(tvel_, 0);
 
 	calc_error();
@@ -108,6 +113,14 @@ void R3_xbox::mode_3()
 	else
 	{
 		yaw_TurnTo(center_heading, 0);
+	}*/
+	if(abs(xbox_msgs.joyRVert_map) < 0.05)
+	{
+		putball_motor->set_current(0.0f);
+	}
+	else
+	{
+		putball_motor->set_rpm(move_rpm_2 * xbox_msgs.joyRVert_map);
 	}
 }
 
@@ -120,11 +133,12 @@ void R3_xbox::not_start()
 	set_RobotW(0, 0);
 }
 
-void R3_xbox::init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Encoder *encoder_)
+void R3_xbox::init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Encoder *encoder_, power_motor *putball_motor_)
 {
 	shoot_motor_1 = shoot_motor_1_;
 	shoot_motor_2 = shoot_motor_2_;
 	encoder = encoder_;
+	putball_motor = putball_motor_;
 	gate.set_motors(shoot_motor_1_, shoot_motor_2_);
 	gate_down.set_motors(shoot_motor_1_, shoot_motor_2_);
 }

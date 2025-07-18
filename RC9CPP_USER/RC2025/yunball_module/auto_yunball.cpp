@@ -41,8 +41,8 @@ void auto_yunball::process_data()
     case emergency_stop:
         if (emergency_stop_flag++ < 10)
         {
-            turn_motor->set_rpm(0.0f);
-            lift_motor->set_rpm(0.0f);
+            turn_motor->set_current(0.0f);
+            lift_motor->set_current(0.0f);
         }
     default:
         break;

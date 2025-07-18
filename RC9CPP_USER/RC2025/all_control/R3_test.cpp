@@ -7,6 +7,7 @@ RC9Protocol esp_port(uart, &huart3), debug_port(uart, &huart6), position_port(ua
 
 vesc shoot_1(vesc_id_1, &hfdcan1, 7.0f, 1.0f);
 vesc shoot_2(vesc_id_2, &hfdcan1, 7.0f, 1.0f);
+m3508p m2006_putball(dji_id_1, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
 
 Encoder encoder(0x03, &hfdcan2, 2.0f, 4096.0f);
 
@@ -29,6 +30,8 @@ extern "C"
     debug_port.startUartReceiveIT();
     debug_port.initQueue();
 
+    m2006_putball.config_mech_param(19.2032f, 1.0f);
+    m2006_putball.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
     position_port.startUartReceiveIT();
     position_port.initQueue();
     front_left_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
@@ -58,7 +61,7 @@ extern "C"
 
     plot.addport(&debug_port);
 
-    test_xbox.init(&shoot_1, &shoot_2, &encoder);
+    test_xbox.init(&shoot_1, &shoot_2, &encoder, &m2006_putball);
     task_core.registerTask(0, &dji_core);
     task_core.registerTask(2, &shoot_1);
     task_core.registerTask(2, &shoot_2);
@@ -97,8 +100,8 @@ void demo::process_data()
      test_flag2 = 0;
   }
   */
-  float send_datas[5] = {test_xbox.gate.rpm1,
-                         test_xbox.gate.rpm2,
+  float send_datas[5] = {m2006_putball.get_rpm(),
+                         m2006_putball.rcurrent,
                          test_xbox.target_rpm,
                          encoder.get_rpm(),
                          encoder.get_distance() * 10000.0f};
