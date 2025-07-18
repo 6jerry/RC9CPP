@@ -24,8 +24,7 @@ private:
     float lock_vol;
     pid lock_basket_pid; // Ëø¿ò
 
-    ///´íÎóÂë
-    device_id err_id = ERR_DEVICE_CAMERA; //0x08
+    
 
 
 public:

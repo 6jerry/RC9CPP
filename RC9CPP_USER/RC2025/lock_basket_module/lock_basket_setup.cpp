@@ -66,6 +66,10 @@ extern "C"
         position_port.startUartReceiveIT();
         position_sensor.addport(&position_port);
         
+		
+		checker.addport(&esp_port);
+		
+		
         //??
         s3_chassis.add_6_motors(&m2006_front, &u8_front, &m2006_right, &u8_right, &m2006_left, &u8_left);
         s3_chassis.config(s3_chassis_info);
@@ -100,7 +104,7 @@ extern "C"
         task_core.registerTask(4, &s3_chassis);
 		task_core.registerTask(8, &position_port);
         task_core.registerTask(8, &send_port);
-
+		task_core.registerTask(7, &ros_port);
         task_core.registerTask(5, &checker);
         task_core.registerTask(9, &chassis_debug);
         //task_core.registerTask(9, &plot);

@@ -40,9 +40,9 @@ void lock_xbox::mode_2()
     if(rb_flag){
     
 //    shoot_dis = dis;
-	shoot_dis =  camera_ptr->camera_info.vertial_plane_deviation.y / 1000.0f;
-	
-    //auto_shooter_ptr->set_auto_byDis(PID, shoot_dis);
+//    auto_shooter_ptr->set_auto_byDis(PID, shoot_dis);
+		
+	shoot_dis =  camera_ptr->camera_info.vertial_plane_deviation.y;
     auto_shooter_ptr->camera_auto_byFitter(PID, shoot_dis);
 
     rb_flag = 0;
@@ -60,7 +60,8 @@ void lock_xbox::mode_1()
 void lock_xbox::xbox_on()
 {
     imu_ptr->imu_relocate(0.0f, 0.0f, 0.0f);
-    ros_ptr->imu_rst();
+    ros_ptr->rst_radar = true;
+	ros_ptr->imu_rst();
 }
 
 void lock_xbox::add_AutoShooter(AutoShooter* auto_shooter_)

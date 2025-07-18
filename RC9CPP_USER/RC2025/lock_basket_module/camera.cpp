@@ -3,6 +3,8 @@
 Camera::Camera()
 {
     lock_basket_pid.ConfigAll(0.080f, 0.045f, 0.0423f, 0.03f, 0.219f, 18.0f, 20.0f);
+	///´íÎóÂë
+    err_id = ERR_DEVICE_CAMERA; //0x08
 }
 
 void Camera::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
@@ -41,7 +43,7 @@ float Camera::lock_basket_vol()
 {
     lock_vol = lock_basket_pid.PID_ComputeError(camera_info.vertial_plane_deviation.x);
 
-    if(abs(camera_info.vertial_plane_deviation.x < 5.0f)){
+    if(abs(camera_info.vertial_plane_deviation.x) < 5.0f){
         return 0;
     }
     else{
