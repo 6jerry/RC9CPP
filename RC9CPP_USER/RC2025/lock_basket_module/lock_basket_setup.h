@@ -18,6 +18,8 @@ extern "C"
 #include "encoder.h"
 #include "auto_shooter.h"
 
+#include "camera.h"
+#include "err_code.h"
 #include "lock_xbox.h"
 
     void lock_basket_debug();

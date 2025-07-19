@@ -111,9 +111,11 @@ public:
     bool isfinish();
 
     float calc(float x);
+    float camera_cal(float r);
     void check_shooter();
     void set_shooter_mode(uint8_t mode);
     int set_auto_byFitter(uint8_t mode, float r);
+    int camera_auto_byFitter(uint8_t mode, float r);
     int set_auto_byDis(uint8_t mode, float shoot_dis);
     void set_hand(float rpm);
     void set_lift(float dis);

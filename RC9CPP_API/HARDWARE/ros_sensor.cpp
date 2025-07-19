@@ -53,10 +53,18 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 		//		if(fabsf(floatData[2]) < 0.02f && fabsf(floatData[3]) < 0.05f){
 		//			map_origin_init_flag = false; //重置映射原点
 		//		}
+	}else if(id == 3){
+		rst_radar = false;
+		tf_.map_origin_init_flag = false;
 	}
 	else{
 		return;
 	}
+
+	if(rst_radar && id != 3){
+		imu_rst();
+	}
+
 	// 记录上上次数据
 	pe_previous_world_pos_x = previous_world_pos_x;
 	pe_previous_world_pos_y = previous_world_pos_y;
@@ -145,10 +153,7 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 		return;
 	}
 
-	if(rst_radar){
-		rst_radar = false;
-		imu_rst();
-	}
+	
 	
 }
 
@@ -205,5 +210,5 @@ void ros_sensor::imu_rst()
 	static uint8_t id_count = 1;
 //	id_count++;
 	sendFloatData(id_count, arr, 3);
-	tf_.map_origin_init_flag = false;
+	
 }
