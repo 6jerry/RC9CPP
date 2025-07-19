@@ -11,17 +11,20 @@ void yunball_test_xbox::process_data()
     {
         switch (mode_flag)
         {
-//        case 0:
-//            mode_0();       //手动控制
-//            break;
-//        case 1:
-//            mode_1();       //按键控制
-//            break;
+        case 0:
+            mode_0();       //手动控制
+            break;
+        case 1:
+            mode_1();       //按键控制
+            break;
         case 2:
             mode_2();
             break;
         case 3:
             mode_3();
+            break;
+		case 4:
+            mode_4();
             break;
         default:
             break;
@@ -90,8 +93,8 @@ void yunball_test_xbox::btnconfig_init()
         &xbox_msgs.btnY,
         &xbox_msgs.btnY_last,
         &cnt_flag,
-        3,
-        ButtonActionType::Toggle,
+        8,
+        ButtonActionType::Increment,
         nullptr};
 
     btnDirUpConfig = {
@@ -158,8 +161,8 @@ void yunball_test_xbox::not_start()  //初始状态
     set_RobotW(0, 0);
 }
 
-//void yunball_test_xbox::mode_0()
-//{
+void yunball_test_xbox::mode_0()
+{
 //    if(down_flag){auto_yunball_ptr->control_lift(true);}
 //    else{auto_yunball_ptr->control_lift(false);}
 
@@ -180,15 +183,33 @@ void yunball_test_xbox::not_start()  //初始状态
 //    if(left_flag == 1) 
 //    {
 //        turn_motor->set_rpm(0.0f);
-//        yunball(); 
+//       yunball(); 
 //        left_flag = 0;
 //    }*/
-//}
+	if (lb_flag)
+    {
+        auto_yunball_ptr->start_yunball();
+        lb_flag = 0;
+    }
+	    set_RobotW(-(2.0f * zhuan_su), 0);
+	Vector2D tvel_(Vx, Vy);
+    set_WorldVel(tvel_, 0); // 以后再改
+    
+}
 
-//void yunball_test_xbox::mode_1()
-//{
+void yunball_test_xbox::mode_1()
+{
 //   auto_yunball_ptr->control_motor(xbox_msgs.joyRHori_map);
-//}
+	auto_yunball_ptr->control_claw(up_flag);
+	auto_yunball_ptr->control_push(down_flag);
+	auto_yunball_ptr->control_lift_motor(-xbox_msgs.joyRVert_map * 2.0f);
+	auto_yunball_ptr->control_turn_motor(-xbox_msgs.joyRHori_map * 2.0f);
+	 if (lb_flag)
+    {
+        auto_yunball_ptr->start_yunball();
+        lb_flag = 0;
+    }
+}
 
 void yunball_test_xbox::mode_2()
 {
@@ -211,37 +232,201 @@ void yunball_test_xbox::mode_2()
 }
 
 void yunball_test_xbox::mode_3()
-{
-    if(left_flag)
-    {
-        if(cnt_flag == 6)
-         cnt_flag = 0; 
-        else
-         cnt_flag++; 
-         
-        rst_state();
-        left_flag = 0;
-    }
-
-    if(right_flag)
-    {
-        if(cnt_flag == 0)
-         cnt_flag = 6; 
-        else
-         cnt_flag--; 
-         
-        rst_state();
-        right_flag = 0;
-    }
-
-    pp_track_point(t_points[cnt_flag]);
-    //yaw_TurnTo(0.0f, 0);
-
-    if (lb_flag)
+{	
+	if (lb_flag)
     {
         auto_yunball_ptr->start_yunball();
         lb_flag = 0;
     }
+	
+	if (cnt_flag == 0){
+		Vx=-0.22;
+    Vy=0.22;
+	Vector2D tvel_(Vx, Vy);
+    set_WorldVel(tvel_, 0); // 以后再改
+    set_RobotW(0, 0);
+		
+		if (yun_flag==1){
+			yun_flag = 2;
+		auto_yunball_ptr->start_yunball();
+		}
+		
+		
+	}
+	
+	
+	if (cnt_flag == 1){
+		Vx=0;
+    Vy=0.5;
+	Vector2D tvel_(Vx, Vy);
+    set_WorldVel(tvel_, 0); // 以后再改
+    set_RobotW(-(2.0f * 0.10), 0);
+
+		if (yun_flag==2){
+		auto_yunball_ptr->start_yunball();
+			yun_flag = 3;
+		}
+	}
+	
+	if (cnt_flag == 2){
+		Vx=0.57;
+    Vy=0;
+	Vector2D tvel_(Vx, Vy);
+    set_WorldVel(tvel_, 0); // 以后再改
+    set_RobotW(-(2.0f * 0.11), 0);
+
+		if (yun_flag==3){
+			
+		auto_yunball_ptr->start_yunball();
+			yun_flag = 4;
+		}
+	}
+	
+	if (cnt_flag == 3){
+		Vx=0.57;
+    Vy=0;
+	Vector2D tvel_(Vx, Vy);
+    set_WorldVel(tvel_, 0); // 以后再改
+    set_RobotW(-(2.0f * 0.11), 0);
+		if (yun_flag==4){
+		auto_yunball_ptr->start_yunball();
+			yun_flag = 5;
+		}
+	}
+	
+	if (cnt_flag == 4){
+		Vx=0;
+    Vy=-0.5;
+	Vector2D tvel_(Vx, Vy);
+    set_WorldVel(tvel_, 0); // 以后再改
+    set_RobotW(-(2.0f * 0.10), 0);
+		if (yun_flag==5){
+		auto_yunball_ptr->start_yunball();
+			yun_flag = 6;
+		}
+	}
+	
+	if (cnt_flag == 5){
+		Vx=-0.22;
+    Vy=-0.22;
+	Vector2D tvel_(Vx, Vy);
+    set_WorldVel(tvel_, 0); // 以后再改
+    set_RobotW(0, 0);
+		if (yun_flag==6){
+		auto_yunball_ptr->start_yunball();
+			yun_flag = 7;
+		}
+	}
+	
+	if (cnt_flag == 6){
+		Vx=-0.6;
+    Vy=0;
+	Vector2D tvel_(Vx, Vy);
+    set_WorldVel(tvel_, 0); // 以后再改
+    set_RobotW(0, 0);
+		if (yun_flag==7){
+		auto_yunball_ptr->start_yunball();
+			yun_flag = 8;
+		}
+	}
+	
+	if (cnt_flag == 7){
+		Vx=0;
+    Vy=0;
+	Vector2D tvel_(Vx, Vy);
+    set_WorldVel(tvel_, 0); // 以后再改
+    set_RobotW(0, 0);
+		if (yun_flag==8){
+		
+			yun_flag = 1;
+		}
+	}
+	
+	if (cnt_flag == 8){
+		cnt_flag=0;
+		
+	}
+//	Vector2D tvel_(Vx, Vy);
+//	
+//	//1-2
+//	tvel_.x=-0.22;
+//	tvel_.y=0.22;
+//		
+//	set_WorldVel(tvel_, 0);
+
+//	osDelay(2500);
+//	
+//	//2-3
+//	tvel_.x=0;
+//	tvel_.y=0.5;
+//	set_WorldVel(tvel_, 0);
+
+//	osDelay(2500);
+//	
+//	//3-4-5
+//	tvel_.x=0.55;
+//	tvel_.y=0;
+//	set_WorldVel(tvel_, 0);
+
+//	osDelay(2500);
+//	
+//	//5-6
+//	tvel_.x=0;
+//	tvel_.y=-0.5;
+//	set_WorldVel(tvel_, 0);
+
+//	osDelay(2500);
+//	
+//	//6-7
+//	tvel_.x=0.22;
+//	tvel_.y=-0.22;
+//	set_WorldVel(tvel_, 0);
+
+//	osDelay(2500);
+//	
+//	//7-1
+//	tvel_.x=-0.5;
+//	tvel_.y=0;
+//	set_WorldVel(tvel_, 0);
+////    osDelay(200);
+////    auto_yunball_ptr->start_yunball();
+//	osDelay(2500);
+}
+
+void yunball_test_xbox::mode_4()
+{	
+//	 if(left_flag)
+//    {	
+//        if(cnt_flag == 6)
+//         cnt_flag = 0; 
+//        else
+//         cnt_flag++; 
+//         
+//        rst_state();
+//        left_flag = 0;
+//    }
+
+//    if(right_flag)
+//    {	
+//		
+//        if(cnt_flag == 0)
+//         cnt_flag = 6; 
+//        else
+//         cnt_flag--; 
+//         
+//        rst_state();
+//        right_flag = 0;
+//    }
+//	
+//    pp_track_point(t_points[cnt_flag]);
+//	Vector2D err=imu_ptr->get_world_pos()-t_points[cnt_flag];
+//	
+
+//    if (lb_flag)
+//    {
+//        auto_yunball_ptr->start_yunball();
+//        lb_flag = 0;
+//    }
     /*if (calc_dis(t_points[cnt_flag]) > change_dis)
     {
         pp_track_point(t_points[cnt_flag]);
@@ -253,7 +438,6 @@ void yunball_test_xbox::mode_3()
         rst_state();
     }*/
 }
-
 void yunball_test_xbox::add_autoyunball(auto_yunball *auto_yunball_)
 {
     auto_yunball_ptr = auto_yunball_;
