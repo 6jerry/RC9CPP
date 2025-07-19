@@ -69,7 +69,7 @@ private:
     uint8_t timecnt = 0;
     uint8_t count = 0;
     float target_error = 0.0015f;
-    float target_rpm = 50.0f;
+    float target_rpm = 60.0f;
 
     float revert_dis = 0.007f;
     float min_dis = 0.05f; // 最小拉伸距离
