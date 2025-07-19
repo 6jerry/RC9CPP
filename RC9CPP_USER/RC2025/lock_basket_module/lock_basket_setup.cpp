@@ -107,7 +107,7 @@ extern "C"
 		task_core.registerTask(7, &ros_port);
         task_core.registerTask(5, &checker);
         task_core.registerTask(9, &chassis_debug);
-        //task_core.registerTask(9, &plot);
+        task_core.registerTask(6, &plot);
         osKernelStart();
     }
 }
@@ -116,11 +116,17 @@ void demo::process_data(){
 
 	float arr[6] = {100.0f * chassis_debug.lock_vol, ros_sensor_.camera_info.vertial_plane_deviation.x};
 	sendFloatData(1, arr, 2);
-    
+       if (encoder_reset_flag == 1)
+  {
+    encoder.send_reset();
+    encoder_reset_flag = 0;
+  }
 }
 
 void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
 {
+	
+
 //    for(int i = 0; i < 4; i++)
 //        {recive_data[i] = floatData[i];}
 
