@@ -163,7 +163,7 @@ void auto_yunball::putball()
 
 bool auto_yunball::if_is_finish()
 {
-    return flag == stop_flag;
+    return flag ==  static_flag;
 }
 
 void auto_yunball::set_claw(bool if_open)

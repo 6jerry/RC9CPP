@@ -43,8 +43,8 @@ void AllController::efsm_init()
 
     uint16_t all_auto_yunballmodeflag[] = {1, 3};
 
-    uint16_t lock_on_center_pointmodeflag[] = {10, 74, 78};
-    uint16_t lock_on_r2modeflag[] = {14};
+    uint16_t lock_on_center_pointmodeflag[] = {14};
+    uint16_t lock_on_r2modeflag[] = {10, 74, 78};
     uint16_t shoot_2_center_pointmodeflag[] = {13, 15};
     uint16_t shoot_2_r2modeflag[] = {9, 11};
 
@@ -182,15 +182,16 @@ void AllController::set_accle()
 
 void AllController::remote_move()
 {
-    Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
-    set_worldVel_TD(tvel_);
+    Vector2D tvel_(crsf_port->left_V_map * max_x_speed, crsf_port->left_H_map * max_y_speed);
+    set_worldVel_accle(tvel_, target_accle);
+
     set_RobotW(-crsf_port->right_H_map * max_yaw_speed, 0);
 }
 
 void AllController::remote_move_revert()
 {
-    Vector2D tvel_(crsf_port->left_H_map * max_x_speed, -crsf_port->left_V_map * max_y_speed);
-    set_worldVel_TD(tvel_);
+    Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
+    set_worldVel_accle(tvel_, target_accle);
     set_RobotW(-crsf_port->right_H_map * max_yaw_speed, 0);
 }
 
@@ -221,22 +222,14 @@ void AllController::calc_data()
     nor_dir = dis.normalize();
     heading_2_center = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
 
-    heading_2_center += 180.0f;
-    if (heading_2_center > 180.0f)
-    {
-        heading_2_center -= 360.0f;
-    }
+    
 
     dis = robot_point - now_point;
     dis_2_robot = dis.magnitude();
     nor_dir = dis.normalize();
     heading_2_robot = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
 
-    heading_2_robot += 180.0f;
-    if (heading_2_robot > 180.0f)
-    {
-        heading_2_robot -= 360.0f;
-    }
+   
 }
 
 void AllController::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
@@ -272,7 +265,7 @@ void AllController::lock_on_center_point()
 {
     send_datas.status_flag = 3;
     yaw_TurnTo(heading_2_center, 0);
-    Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
+    Vector2D tvel_(crsf_port->left_V_map * max_x_speed, crsf_port->left_H_map * max_y_speed);
     set_worldVel_accle(tvel_, target_accle);
     send_datas.dis_2_target = dis_2_center;
 }
@@ -280,7 +273,7 @@ void AllController::lock_on_r2()
 {
     send_datas.status_flag = 4;
     yaw_TurnTo(heading_2_robot, 0);
-    Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
+    Vector2D tvel_(crsf_port->left_V_map * max_x_speed, crsf_port->left_H_map * max_y_speed);
     set_worldVel_accle(tvel_, target_accle);
     send_datas.dis_2_target = dis_2_robot;
 }
