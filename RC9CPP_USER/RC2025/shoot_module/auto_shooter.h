@@ -86,6 +86,7 @@ private:
     float c = 0.0779f;
     float s;
     float offest = 0.0f;
+	float camera_offest = 0.002f;
 
 public:
     // 编码器
