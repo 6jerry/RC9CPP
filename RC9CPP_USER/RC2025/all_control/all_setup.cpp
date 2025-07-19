@@ -16,7 +16,7 @@ AllController control_center;
 Encoder encoder(0x01, &hfdcan3, 2.0f, 1024.0f);
 Encoder encoder_for_yunball(0x02, &hfdcan3, 3.0f, 1024.0f); // 用于运球的编码器
 
-RC9Protocol position_port(uart, &huart6), Lora_port(uart, &huart5), ros_port(cdc, nullptr);
+RC9Protocol position_port(uart, &huart6), Lora_port(uart, &huart4), ros_port(cdc, nullptr);
 position position_sensor;
 ros_sensor ros_sensor_;
 
@@ -81,7 +81,9 @@ extern "C"
         task_core.registerTask(2, &u8_front);
         task_core.registerTask(2, &u8_left);
         task_core.registerTask(3, &u8_right);
-        task_core.registerTask(4, &s3_chassis);
+        task_core.registerTask(4, &s3_chassis)
+
+            ;
         task_core.registerTask(5, &control_center);
         task_core.registerTask(1, &m6374);
         task_core.registerTask(6, &yunball_port);

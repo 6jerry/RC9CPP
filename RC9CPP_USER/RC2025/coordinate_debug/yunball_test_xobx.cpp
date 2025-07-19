@@ -243,7 +243,7 @@ void yunball_test_xbox::mode_3()
 		Vx=-0.22;
     Vy=0.22;
 	Vector2D tvel_(Vx, Vy);
-    set_WorldVel(tvel_, 0); // 以后再改
+    set_WorldVel(tvel_, 0); 
     set_RobotW(0, 0);
 		
 		if (yun_flag==1){
@@ -257,9 +257,9 @@ void yunball_test_xbox::mode_3()
 	
 	if (cnt_flag == 1){
 		Vx=0;
-    Vy=0.5;
+    Vy=0.55;
 	Vector2D tvel_(Vx, Vy);
-    set_WorldVel(tvel_, 0); // 以后再改
+    set_WorldVel(tvel_, 0); 
     set_RobotW(-(2.0f * 0.10), 0);
 
 		if (yun_flag==2){
@@ -269,11 +269,11 @@ void yunball_test_xbox::mode_3()
 	}
 	
 	if (cnt_flag == 2){
-		Vx=0.57;
+		Vx=0.55;
     Vy=0;
 	Vector2D tvel_(Vx, Vy);
-    set_WorldVel(tvel_, 0); // 以后再改
-    set_RobotW(-(2.0f * 0.11), 0);
+    set_WorldVel(tvel_, 0); 
+    set_RobotW(-(2.0f * 0.10), 0);
 
 		if (yun_flag==3){
 			
@@ -283,11 +283,11 @@ void yunball_test_xbox::mode_3()
 	}
 	
 	if (cnt_flag == 3){
-		Vx=0.57;
+		Vx=0.55;
     Vy=0;
 	Vector2D tvel_(Vx, Vy);
-    set_WorldVel(tvel_, 0); // 以后再改
-    set_RobotW(-(2.0f * 0.11), 0);
+    set_WorldVel(tvel_, 0);
+    set_RobotW(-(2.0f * 0.10), 0);
 		if (yun_flag==4){
 		auto_yunball_ptr->start_yunball();
 			yun_flag = 5;
@@ -296,9 +296,9 @@ void yunball_test_xbox::mode_3()
 	
 	if (cnt_flag == 4){
 		Vx=0;
-    Vy=-0.5;
+    Vy=-0.55;
 	Vector2D tvel_(Vx, Vy);
-    set_WorldVel(tvel_, 0); // 以后再改
+    set_WorldVel(tvel_, 0); 
     set_RobotW(-(2.0f * 0.10), 0);
 		if (yun_flag==5){
 		auto_yunball_ptr->start_yunball();
@@ -310,8 +310,8 @@ void yunball_test_xbox::mode_3()
 		Vx=-0.22;
     Vy=-0.22;
 	Vector2D tvel_(Vx, Vy);
-    set_WorldVel(tvel_, 0); // 以后再改
-    set_RobotW(0, 0);
+    set_WorldVel(tvel_, 0); 
+    set_RobotW(-(2.0f * 0.10), 0);
 		if (yun_flag==6){
 		auto_yunball_ptr->start_yunball();
 			yun_flag = 7;
@@ -319,10 +319,10 @@ void yunball_test_xbox::mode_3()
 	}
 	
 	if (cnt_flag == 6){
-		Vx=-0.6;
+		Vx=-0.63;
     Vy=0;
 	Vector2D tvel_(Vx, Vy);
-    set_WorldVel(tvel_, 0); // 以后再改
+    set_WorldVel(tvel_, 0); 
     set_RobotW(0, 0);
 		if (yun_flag==7){
 		auto_yunball_ptr->start_yunball();
@@ -334,7 +334,7 @@ void yunball_test_xbox::mode_3()
 		Vx=0;
     Vy=0;
 	Vector2D tvel_(Vx, Vy);
-    set_WorldVel(tvel_, 0); // 以后再改
+    set_WorldVel(tvel_, 0); 
     set_RobotW(0, 0);
 		if (yun_flag==8){
 		
@@ -346,51 +346,7 @@ void yunball_test_xbox::mode_3()
 		cnt_flag=0;
 		
 	}
-//	Vector2D tvel_(Vx, Vy);
-//	
-//	//1-2
-//	tvel_.x=-0.22;
-//	tvel_.y=0.22;
-//		
-//	set_WorldVel(tvel_, 0);
 
-//	osDelay(2500);
-//	
-//	//2-3
-//	tvel_.x=0;
-//	tvel_.y=0.5;
-//	set_WorldVel(tvel_, 0);
-
-//	osDelay(2500);
-//	
-//	//3-4-5
-//	tvel_.x=0.55;
-//	tvel_.y=0;
-//	set_WorldVel(tvel_, 0);
-
-//	osDelay(2500);
-//	
-//	//5-6
-//	tvel_.x=0;
-//	tvel_.y=-0.5;
-//	set_WorldVel(tvel_, 0);
-
-//	osDelay(2500);
-//	
-//	//6-7
-//	tvel_.x=0.22;
-//	tvel_.y=-0.22;
-//	set_WorldVel(tvel_, 0);
-
-//	osDelay(2500);
-//	
-//	//7-1
-//	tvel_.x=-0.5;
-//	tvel_.y=0;
-//	set_WorldVel(tvel_, 0);
-////    osDelay(200);
-////    auto_yunball_ptr->start_yunball();
-//	osDelay(2500);
 }
 
 void yunball_test_xbox::mode_4()
@@ -427,16 +383,16 @@ void yunball_test_xbox::mode_4()
 //        auto_yunball_ptr->start_yunball();
 //        lb_flag = 0;
 //    }
-    /*if (calc_dis(t_points[cnt_flag]) > change_dis)
-    {
-        pp_track_point(t_points[cnt_flag]);
-        set_RobotW(0.0f, 0);
-    }else
-    {
-        set_RobotVel(Vector2D(0.0f, 0.0f), 0);
-        set_RobotW(0.0f, 0);
-        rst_state();
-    }*/
+//    /*if (calc_dis(t_points[cnt_flag]) > change_dis)
+//    {
+//        pp_track_point(t_points[cnt_flag]);
+//        set_RobotW(0.0f, 0);
+//    }else
+//    {
+//        set_RobotVel(Vector2D(0.0f, 0.0f), 0);
+//        set_RobotW(0.0f, 0);
+//        rst_state();
+//    }*/
 }
 void yunball_test_xbox::add_autoyunball(auto_yunball *auto_yunball_)
 {

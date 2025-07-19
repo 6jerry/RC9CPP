@@ -5,8 +5,8 @@ AllController::AllController() : mode_selector(bitWidths, 5)
 {
     efsm_init();
     set_TDplanner_R(target_r);
-    center_point.x = -4.032f;
-    center_point.y = 13.930f;
+    center_point.x = 3.808f;
+    center_point.y = -14.045f;
 }
 
 void AllController::update_flag()
@@ -43,8 +43,8 @@ void AllController::efsm_init()
 
     uint16_t all_auto_yunballmodeflag[] = {1, 3};
 
-    uint16_t lock_on_center_pointmodeflag[] = {10, 74, 78};
-    uint16_t lock_on_r2modeflag[] = {14};
+    uint16_t lock_on_center_pointmodeflag[] = {14};
+    uint16_t lock_on_r2modeflag[] = {10, 74, 78};
     uint16_t shoot_2_center_pointmodeflag[] = {13, 15};
     uint16_t shoot_2_r2modeflag[] = {9, 11};
 
@@ -96,6 +96,7 @@ void AllController::process_data()
     send_datas.debug_dis = debug_dis;
     // send_datas.status_flag = currentStateflag;
     send_crsf_datas();
+    send_2_r2();
     switch (currentStateflag)
     {
     case 0:
@@ -181,14 +182,15 @@ void AllController::set_accle()
 
 void AllController::remote_move()
 {
-    Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
-    set_worldVel_accle(tvel_,target_accle);
+    Vector2D tvel_(crsf_port->left_V_map * max_x_speed, crsf_port->left_H_map * max_y_speed);
+    set_worldVel_accle(tvel_, target_accle);
+
     set_RobotW(-crsf_port->right_H_map * max_yaw_speed, 0);
 }
 
 void AllController::remote_move_revert()
 {
-    Vector2D tvel_(crsf_port->left_H_map * max_x_speed, -crsf_port->left_V_map * max_y_speed);
+    Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
     set_worldVel_accle(tvel_, target_accle);
     set_RobotW(-crsf_port->right_H_map * max_yaw_speed, 0);
 }
@@ -220,28 +222,27 @@ void AllController::calc_data()
     nor_dir = dis.normalize();
     heading_2_center = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
 
-    heading_2_center += 180.0f;
-    if (heading_2_center > 180.0f)
-    {
-        heading_2_center -= 360.0f;
-    }
+    
 
     dis = robot_point - now_point;
     dis_2_robot = dis.magnitude();
     nor_dir = dis.normalize();
     heading_2_robot = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;
 
-    heading_2_robot += 180.0f;
-    if (heading_2_robot > 180.0f)
-    {
-        heading_2_robot -= 360.0f;
-    }
+   
 }
 
 void AllController::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
 {
-    robot_point.x = floatData[0] + pian_x;
-    robot_point.y = floatData[1] + pian_y;
+    robot_point.x = -floatData[0] + center_point.x;
+    robot_point.y = -floatData[1] + center_point.y;
+}
+
+void AllController::send_2_r2()
+{
+    float send_data[6] = {position_imu_->get_heading(), -(position_imu_->get_world_pos_y() - center_point.y), -(position_imu_->get_world_pos_x() - center_point.x), position_imu_->get_yaw_speed(), 0.0f, 0.0f};
+
+    sendFloatData(1, send_data, 6);
 }
 
 void AllController::all_auto_yunball()
@@ -264,7 +265,7 @@ void AllController::lock_on_center_point()
 {
     send_datas.status_flag = 3;
     yaw_TurnTo(heading_2_center, 0);
-    Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
+    Vector2D tvel_(crsf_port->left_V_map * max_x_speed, crsf_port->left_H_map * max_y_speed);
     set_worldVel_accle(tvel_, target_accle);
     send_datas.dis_2_target = dis_2_center;
 }
@@ -272,7 +273,7 @@ void AllController::lock_on_r2()
 {
     send_datas.status_flag = 4;
     yaw_TurnTo(heading_2_robot, 0);
-    Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
+    Vector2D tvel_(crsf_port->left_V_map * max_x_speed, crsf_port->left_H_map * max_y_speed);
     set_worldVel_accle(tvel_, target_accle);
     send_datas.dis_2_target = dis_2_robot;
 }
@@ -284,7 +285,7 @@ void AllController::shoot_2_center_point()
     if (auto_yunball_ptr->if_is_finish())
     {
         all_stop();
-        if (auto_shooter->set_auto_byFitter(PID, dis_2_center))
+        if (auto_shooter->set_auto_byFitter(PID, dis_2_center) == auto_shoot)
         {
             crsf_port->reset_trigger_flag();
         }
@@ -297,7 +298,7 @@ void AllController::shoot_2_r2()
     if (auto_yunball_ptr->if_is_finish())
     {
         all_stop();
-        if (auto_shooter->set_auto_byFitter(PID, dis_2_robot))
+        if (auto_shooter->set_auto_byFitter(PID, dis_2_robot) == auto_shoot)
         {
             crsf_port->reset_trigger_flag();
         }
