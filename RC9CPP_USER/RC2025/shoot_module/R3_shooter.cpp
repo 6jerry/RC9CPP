@@ -12,12 +12,13 @@ void photogate_shoot::handleInterrupt()
     // 使用异或判断状态
     if (!(mode ^ cont))
     {
-        cont++;
+
         rpm1 = motor1->get_rpm();
         rpm2 = motor2->get_rpm();
         motor1->send_rpm(0.0f);
         motor2->send_rpm(0.0f);
     }
+    cont++;
     flag = 1;
 }
 
@@ -64,7 +65,7 @@ void R3Shooter::process_data()
         break;
 
     case Auto:
-        if (auto_adjust(info.auto_rpm))
+        if (auto_adjust())
         {
             mode = Stop;
         }
@@ -74,6 +75,8 @@ void R3Shooter::process_data()
     default:
         m1->send_rpm(0.0f);
         m2->send_rpm(0.0f);
+        gate->reset();
+        gate_down->reset();
         break;
     }
 
@@ -82,8 +85,7 @@ void R3Shooter::process_data()
 }
 void R3Shooter::hand_adjust()
 {
-    m1->send_rpm(info.hand_rpm);
-    m2->send_rpm(info.hand_rpm);
+    m1->set_rpm(info.hand_rpm);
 }
 
 void R3Shooter::set_hand(float rpm)
@@ -102,20 +104,20 @@ void R3Shooter::set_shooter_mode(uint8_t mode_)
     mode = static_cast<R3Mode>(mode_);
 }
 
-int R3Shooter::set_auto_byrpm(float rpm)
+void R3Shooter::set_auto_byrpm(uint8_t mode_, float rpm)
 {
     // 已处于自动状态不可重复设置
     if (mode != Auto)
     {
-        mode = Auto;
+        mode = static_cast<R3Mode>(mode_);
         info.auto_rpm = rpm;
     }
 }
-bool R3Shooter::auto_adjust(float rpm)
+bool R3Shooter::auto_adjust()
 {
 
-    m1->send_rpm(rpm);
-    m2->send_rpm(rpm);
+    m1->send_rpm(info.auto_rpm);
+    m2->send_rpm(info.auto_rpm);
 
     if (gate->flag)
     {
@@ -124,8 +126,8 @@ bool R3Shooter::auto_adjust(float rpm)
 
         if (HAL_GetTick() - last_tick > 150)
         {
-            m1->send_rpm(-1000.0f);
-            m2->send_rpm(-1000.0f);
+            m1->set_rpm(-500.0f);
+            m2->set_rpm(-500.0f);
             if (gate_down->flag)
             {
                 m1->send_rpm(0.0f);
@@ -138,8 +140,8 @@ bool R3Shooter::auto_adjust(float rpm)
     {
         last_tick = HAL_GetTick();
         gate_down->flag = 0;
-        m1->send_rpm(rpm);
-        m2->send_rpm(rpm);
+        m1->send_rpm(info.auto_rpm);
+        m2->send_rpm(info.auto_rpm);
     }
 
     return false;

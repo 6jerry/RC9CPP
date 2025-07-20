@@ -2,7 +2,7 @@
 
 R3_xbox::R3_xbox(imu *imu_ptr_)
 {
-	imu_ptr = imu_ptr_;
+	//imu_ptr = imu_ptr_;
 	center_point.x = -5.222f;
 	center_point.y = 0.287490f;
 
@@ -56,38 +56,48 @@ float R3_xbox::calc_rpm(float dis)
 
 void R3_xbox::mode_1()
 {
-	calc_error();
+//	calc_error();
 
-	Vector2D target(0.0f, 0.0f);
-	set_RobotVel(target, 0);
+//	Vector2D target(0.0f, 0.0f);
+//	set_RobotVel(target, 0);
 
-	if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
-	{
-		set_RobotW(0.0f, 0);
-		Shoot(calc_rpm(dis_2_center));
-		// Shoot(target_rpm);
-		// mode_flag = 2;
-	}
-	else
-	{
-		yaw_TurnTo(center_heading, 0);
-	}
+//	if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
+//	{
+	//set_RobotW(0.0f, 0);
+		// Shoot(calc_rpm(dis_2_center));
+		//  Shoot(target_rpm);
+		//  mode_flag = 2;
+//	}
+//	else
+//	{
+//		yaw_TurnTo(center_heading, 0);
+//	}
+	
+	
+	
+	  if(DirRight_flag == 1)
+		{
+		  shooter->set_auto_byrpm(Auto,target_rpm);
+			DirRight_flag = 0;
+		}
+	
 }
 
 void R3_xbox::mode_2()
 {
 
-	Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
+	// Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
 
-	set_RobotVel(tvel_, 0);
-	set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+	// set_RobotVel(tvel_, 0);
+	// set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
 
-	gate.flag = 0;
-	gate_down.flag = 0;
-	gate.cont = 0;
-	gate_down.cont = 0;
-	shoot_motor_1->send_rpm(move_rpm * xbox_msgs.joyRVert_map);
-	shoot_motor_2->send_rpm(move_rpm * xbox_msgs.joyRVert_map);
+	// gate.flag = 0;
+	// gate_down.flag = 0;
+	// gate.cont = 0;
+	// gate_down.cont = 0;
+	shooter->set_hand(move_rpm * xbox_msgs.joyRVert_map);
+	// shoot_motor_1->send_rpm(move_rpm * xbox_msgs.joyRVert_map);
+	// shoot_motor_2->send_rpm(move_rpm * xbox_msgs.joyRVert_map);
 }
 
 void R3_xbox::mode_3()
@@ -113,93 +123,98 @@ void R3_xbox::mode_3()
 
 void R3_xbox::not_start()
 {
-	shoot_motor_1->send_rpm(0.0f);
-	shoot_motor_2->send_rpm(0.0f);
+	shooter->set_shooter_mode(Stop);
 	Vector2D zero(0, 0);
 	set_RobotVel(zero, 0);
 	set_RobotW(0, 0);
 }
 
-void R3_xbox::init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Encoder *encoder_)
+void R3_xbox::add_R3shooter(R3Shooter *shooter_)
 {
-	shoot_motor_1 = shoot_motor_1_;
-	shoot_motor_2 = shoot_motor_2_;
-	encoder = encoder_;
-	gate.set_motors(shoot_motor_1_, shoot_motor_2_);
-	gate_down.set_motors(shoot_motor_1_, shoot_motor_2_);
+
+	shooter = shooter_;
 }
+
+// void R3_xbox::init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Encoder *encoder_)
+// {
+// 	shoot_motor_1 = shoot_motor_1_;
+// 	shoot_motor_2 = shoot_motor_2_;
+// 	encoder = encoder_;
+// 	gate.set_motors(shoot_motor_1_, shoot_motor_2_);
+// 	gate_down.set_motors(shoot_motor_1_, shoot_motor_2_);
+// }
 
 void R3_xbox::xbox_on()
 {
 	imu_ptr->imu_relocate(0.0f, 0.0f, 0.0f);
 }
-photogate_shoot::photogate_shoot()
-{
-}
+// photogate_shoot::photogate_shoot()
+// {
+// }
 
-photogate_shoot_down::photogate_shoot_down()
-{
-}
+// photogate_shoot_down::photogate_shoot_down()
+// {
+// }
 
-void photogate_shoot::handleInterrupt()
-{
-	if (cont++ == 0)
-	{
-		rpm1 = motor1->get_rpm();
-		rpm2 = motor2->get_rpm();
-		motor1->send_rpm(0.0f);
-		motor2->send_rpm(0.0f);
-	}
-	flag = 1;
-}
+// void photogate_shoot::handleInterrupt()
+// {
+// 	if (cont++ == 0)
+// 	{
+// 		rpm1 = motor1->get_rpm();
+// 		rpm2 = motor2->get_rpm();
+// 		motor1->send_rpm(0.0f);
+// 		motor2->send_rpm(0.0f);
+// 	}
+// 	flag = 1;
+// }
 
-void photogate_shoot_down::handleInterrupt()
-{
-	if (cont++)
-	{
-		motor1->send_rpm(0.0f);
-		motor2->send_rpm(0.0f);
-	}
-	flag = 1;
-}
+// void photogate_shoot_down::handleInterrupt()
+// {
+// 	if (cont++)
+// 	{
+// 		motor1->send_rpm(0.0f);
+// 		motor2->send_rpm(0.0f);
+// 	}
+// 	flag = 1;
+// }
 
-void photogate_shoot::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)
-{
-	port_ = port;
-	pin_ = pin;
-}
+// void photogate_shoot::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)
+// {
+// 	port_ = port;
+// 	pin_ = pin;
+// }
 
-void photogate_shoot_down::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)
-{
-	port_ = port;
-	pin_ = pin;
-}
+// void photogate_shoot_down::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)
+// {
+// 	port_ = port;
+// 	pin_ = pin;
+// }
 
-void R3_xbox::Shoot(float rpm)
-{
+// void R3_xbox::Shoot(float rpm)
+// {
 
-	if (gate.flag)
-	{
-		shoot_motor_1->set_rpm(0.0f);
-		// shoot_motor_2->set_rpm(0.0f);
+// 	if (gate.flag)
+// 	{
+// 		shoot_motor_1->set_rpm(0.0f);
+// 		// shoot_motor_2->set_rpm(0.0f);
 
-		if (HAL_GetTick() - last_tick > 150)
-		{
-			shoot_motor_1->set_rpm(-1000.0f);
-			// shoot_motor_2->set_rpm(-1000.0f);
-			if (gate_down.flag)
-			{
-				shoot_motor_1->set_rpm(0.0f);
-				// shoot_motor_2->set_rpm(0.0f);
-				mode_flag = 2;
-			}
-		}
-	}
-	else
-	{
-		last_tick = HAL_GetTick();
-		gate_down.flag = 0;
-		shoot_motor_1->set_rpm(rpm);
-		// shoot_motor_2->set_rpm(rpm);
-	}
-}
+// 		if (HAL_GetTick() - last_tick > 150)
+// 		{
+// 			shoot_motor_1->set_rpm(-1000.0f);
+// 			// shoot_motor_2->set_rpm(-1000.0f);
+// 			if (gate_down.flag)
+// 			{
+// 				shoot_motor_1->set_rpm(0.0f);
+// 				// shoot_motor_2->set_rpm(0.0f);
+// 				mode_flag = 2;
+// 			}
+// 		}
+// 	}
+// 	else
+// 	{
+// 		last_tick = HAL_GetTick();
+// 		gate_down.flag = 0;
+// 		shoot_motor_1->set_rpm(rpm);
+// 		// shoot_motor_2->set_rpm(rpm);
+// 	}
+// }
