@@ -30,7 +30,7 @@ class demo : public ITaskProcessor
 {
 public:
     void process_data();
-    time_counter test_cnt;
+    //time_counter test_cnt;
 
 float test_v = 0.0f, test_c = 0.0f;
     float test_x = 0.0f, test_y = 0.0f, test_heading = 0.0f;

@@ -1,3 +1,8 @@
+
+Last_sats = 0
+
+
+
 local function my_init()
     -- init 在模型加载时调用一次
 end
@@ -63,7 +68,7 @@ local function my_run(event)
     elseif sats == 6 then
         lcd.drawText(0, 0, "shoot to r2", MIDSIZE)
     elseif sats == 7 then
-        lcd.drawText(0, 0, "defend move", MIDSIZE)
+        lcd.drawText(0, 0, "yunball reload", MIDSIZE)
     elseif sats == 8 then
         lcd.drawText(0, 0, "wait mode move", MIDSIZE)
     elseif sats == 9 then
@@ -71,15 +76,48 @@ local function my_run(event)
     elseif sats == 10 then
         lcd.drawText(0, 0, "reset sw motor", MIDSIZE)
     elseif sats == 11 then
-        lcd.drawText(0, 0, "hand shoot", MIDSIZE)
+        lcd.drawText(0, 0, "hand set lifter", MIDSIZE)
     elseif sats == 12 then
-        lcd.drawText(0, 0, " hand set clawpos", MIDSIZE)
+        lcd.drawText(0, 0, "hand set clawpos", MIDSIZE)
+    elseif sats == 13 then
+        lcd.drawText(0, 0, "reset shooter yunball", MIDSIZE)
+    elseif sats == 15 then
+        lcd.drawText(0, 0, "auto shoot center", MIDSIZE)
+    elseif sats == 16 then
+        lcd.drawText(0, 0, "auto shoot r2", MIDSIZE)
     else
         lcd.drawText(10, 0, "GDUT Robocon2025", MIDSIZE)
     end
 
+    if Last_sats ~= 1 and sats == 1 then
+        playFile("/SCRIPTS/TELEMETRY/cn/loadball.wav")
+    end
+    if Last_sats ~= 3 and sats == 3 then
+        playFile("/SCRIPTS/TELEMETRY/cn/lockcenter.wav")
+    end
 
-	
+    if Last_sats ~= 4 and sats == 4 then
+        playFile("/SCRIPTS/TELEMETRY/cn/lockr2.wav")
+    end
+
+    if Last_sats ~= 0 and sats == 0 then
+        playFile("/SCRIPTS/TELEMETRY/cn/attamode.wav")
+    end
+
+
+
+    if Last_sats ~= 10 and sats == 10 then
+        playFile("/SCRIPTS/TELEMETRY/cn/resetsw.wav")
+    end
+
+
+
+
+
+
+
+	Last_sats = sats
+
 
     -- 显示标题
     --lcd.drawText(10, 0, "RC25 pos datas", MIDSIZE)

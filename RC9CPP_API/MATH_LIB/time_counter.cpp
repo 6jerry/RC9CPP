@@ -11,7 +11,7 @@ float time_counter::get_DeltaTime_ms()
     {
         last_cnt = htim2.Instance->CNT;
 
-             return 0.0f;
+        return 0.0f;
     }
     else
     {
@@ -50,7 +50,7 @@ void time_counter::detect_error()
         }
         if (if_detected_not_init)
         {
-            if (htim2.Instance->CNT - detected_init_error > time_out_ms * 1000.0f)
+            if ((htim2.Instance->CNT - detected_init_error) > (time_out_ms * 1000.0f))
             {
                 error_code = 1;
             }
@@ -59,7 +59,7 @@ void time_counter::detect_error()
     else if (now_cnt != 0)
     {
 
-        if (htim2.Instance->CNT - now_cnt > time_out_ms * 1000.0f)
+        if ((htim2.Instance->CNT - now_cnt) > (time_out_ms * 1000.0f))
         {
             error_code = 1;
         }

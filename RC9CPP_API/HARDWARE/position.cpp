@@ -20,6 +20,10 @@ void position::DataReceivedCallback(const uint8_t *byteData, const float *floatD
     }
 }
 
+position::position() : position_EC(3, 200.0f)
+{
+}
+
 Vector2D position::get_world_pos()
 {
     return real_world_pos;

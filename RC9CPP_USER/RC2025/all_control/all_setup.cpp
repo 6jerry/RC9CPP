@@ -21,7 +21,7 @@ position position_sensor;
 ros_sensor ros_sensor_;
 
 AutoShooter auto_shooter;
-
+error_manager error_core;
 auto_yunball yunball_port;
 demo plot;
 extern "C"
@@ -92,6 +92,7 @@ extern "C"
         task_core.registerTask(8, &position_port);
         task_core.registerTask(8, &Lora_port);
         task_core.registerTask(9, &plot);
+        task_core.registerTask(7, &error_core);
         osKernelStart();
     }
 }
@@ -110,5 +111,5 @@ void demo::process_data()
 
     // remote_controller.sendGps(test_x, test_y, test_heading, test_heading, test_heading, test_heading);
 
-    test_cnt.get_DeltaTime_ms();
+    //test_cnt.get_DeltaTime_ms();
 }
