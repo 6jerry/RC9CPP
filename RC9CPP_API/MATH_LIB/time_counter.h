@@ -26,9 +26,13 @@ class time_counter
 public:
     float get_DeltaTime_ms();
 
+    void check_tick();
+
     static void init_time_counter();
-    float delta_time_ms = 0.0f, time_out_ms = 0.0f;
-    uint32_t now_cnt = 0, last_cnt = 0, detected_init_error = 0;
+    float delta_time_ms = 0.0f;
+    uint32_t now_cnt = 0, last_cnt = 0, detected_init_error = 0, delta_cnt = 0;
+
+    uint32_t time_out_ms = 0, time_out_init = 0;
 
     bool if_detected_not_init = false;
     uint8_t error_code = 0; // 0:正常 1:断线 2:数据异常
@@ -36,7 +40,7 @@ public:
     uint8_t counter_id = 0;
 
     void detect_error();
-    time_counter(uint8_t counter_id_ = 0, float max_time_out_ms_ = 500.0f);
+    time_counter(uint8_t counter_id_ = 0, uint32_t max_time_out_ms_ = 500, uint32_t max_time_out_init = 2000);
 
 private:
 };
