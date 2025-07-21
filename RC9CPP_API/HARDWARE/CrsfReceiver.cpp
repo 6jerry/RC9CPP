@@ -120,7 +120,7 @@ void CrsfReceiver::processRcChannelsPacket()
 
     last_btn_r_flag = btn_r_flag;
 
-    delta_counter.get_DeltaTime_ms();
+    delta_counter.check_tick();
 }
 
 void CrsfReceiver::reset_trigger_flag()

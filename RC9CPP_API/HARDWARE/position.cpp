@@ -17,6 +17,8 @@ void position::DataReceivedCallback(const uint8_t *byteData, const float *floatD
         real_world_pos.y = world_pos.y - deltayy;
         real_world_pos.y = -real_world_pos.y; // ��ת��y����
         real_world_pos.x = -real_world_pos.x; // ��ת��x
+
+        position_EC.check_tick();
     }
 }
 
