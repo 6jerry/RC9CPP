@@ -81,9 +81,9 @@ private:
     TrapezoidalPlanner1D planer;
     planInfo plan_info;
 
-    float a = 0.0226f;
-    float b = -0.1571f;
-    float c = 0.0779f;
+    float a = 0.0227f;
+    float b = -0.1578f;
+    float c = 0.0777f;
     float s;
     float offest = 0.0f;
 	float camera_offest = 0.002f;

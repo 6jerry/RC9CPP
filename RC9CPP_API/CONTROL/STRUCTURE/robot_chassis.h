@@ -102,7 +102,7 @@ public:
     bool init = false;
 
     void handleInterrupt() override;
-    void add_io_interrupt(GPIO_TypeDef *port, uint16_t pin) override;
+    void add_io_interrupt(GPIO_TypeDef *port_, uint16_t pin_) override;
 };
 
 class RoboChassis;
