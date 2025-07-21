@@ -117,6 +117,8 @@ public:
     float debug_dis = 0.12f, max_debug_dis = 0.3f;
 
     void add_elrs(CrsfReceiver *crsf_port_);
+
+    void send_2_r2();
 };
 
 #endif

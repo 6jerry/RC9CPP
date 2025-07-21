@@ -24,7 +24,8 @@ enum state_flag
     yunball_flag,
     putball_flag,
     stop_flag,
-    emergency_stop
+    emergency_stop,
+    double_yunball_flag
 };
 
 typedef union
@@ -45,6 +46,7 @@ private:
 
     void set_claw(bool if_open);
     void set_push(bool if_push);
+    void double_yunball();
     void yunball();
     void putball();
     m3508p *turn_motor, *lift_motor;
@@ -58,7 +60,7 @@ public:
     float turnBack_angle = 95.0f; // 旋转回转角度
     float turn_deadzone = 6.0f;  // 死区
     float lift_deadzone = 0.5f;  // 死区
-    float shooter_lift = 0.1f;   // 皮筋拉伸量
+    float shooter_lift = 0.15f;   // 皮筋拉伸量
     uint8_t mode_flag = 2, start_flag = 0, lb_flag = 0, rb_flag = 0, cnt_flag = 0, up_flag = 0, down_flag = 0, left_flag = 0, right_flag = 0, emergency_stop_flag = 0;
     volatile int32_t emergency_semaphore = 0; // 新增信号量计数器
 
@@ -74,6 +76,7 @@ public:
 
     bool start_yunball();
     bool start_putball();
+    bool start_double_yunball();
     void stop();
 
     bool if_is_finish(); // 查看机构是否繁忙

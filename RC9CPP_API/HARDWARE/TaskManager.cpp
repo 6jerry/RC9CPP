@@ -34,8 +34,11 @@ TaskManager::TaskManager()
     tasks[7].delay_ms = 15;
     tasks[8].Priority = osPriorityLow;
     tasks[8].delay_ms = 20;
-    tasks[9].Priority = osPriorityIdle;
-    tasks[9].delay_ms = 50;
+	
+//    tasks[9].Priority = osPriorityIdle;
+//    tasks[9].delay_ms = 40;
+	tasks[9].Priority = osPriorityRealtime; //暂时用于相机的控制
+    tasks[9].delay_ms = 25;
 }
 
 void TaskManager::registerTask(int taskID, ITaskProcessor *instance)

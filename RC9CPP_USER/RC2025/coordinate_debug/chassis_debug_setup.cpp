@@ -4,13 +4,13 @@ TaskManager task_core;
 dji_motor_handle dji_core;
 RC9Protocol esp_port(uart, &huart3), position_port(uart, &huart6);
 RC9Protocol ros_port(cdc, nullptr);
-RC9Protocol Lora_port(uart, &huart4);
-RC9Protocol send_port(uart, &huart5);
+// RC9Protocol Lora_port(uart, &huart4);
+RC9Protocol send_port(uart, &huart4);
 
 ros_sensor ros_sensor_;
 position position_sensor;
 
-Encoder encoder(0x01, &hfdcan3, 2.0f, 1024.0f);
+Encoder encoder(0x01, &hfdcan3, 2.0f, 1024.0f);             // 发射编码器
 Encoder encoder_for_yunball(0x02, &hfdcan3, 3.0f, 1024.0f); // 用于运球的编码器
 
 m3508p m2006_left(dji_id_4, &hfdcan1, 32.0f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_1, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
@@ -115,67 +115,36 @@ void demo::process_data()
   MX_FDCAN2_Init();
   CanDevice::InitAllFiltersNoMask();
 
-//  if(encoder_reset_flag == 1)
-//  {
-//    encoder.send_reset();
-//    encoder_reset_flag = 0;
-//  }
+  // Reset encoder
+  //  if (encoder_reset_flag == 1)
+  //  {
+  //    encoder.send_reset();
+  //    encoder_reset_flag = 0;
+  //  }
+  //  if (encoder_for_yunball_flag == 1)
+  //  {
+  //    encoder_for_yunball.send_reset();
+  //    encoder_for_yunball_flag = 0;
+  //  }
 
-//        if (encoder_for_yunball_flag == 1)
-//        {
-//          encoder_for_yunball.send_reset();
-//          encoder_for_yunball_flag = 0;
-//        }
-      // static Vector2D last_pos = position_sensor.world_pos;
-      // float speed_xx  = (position_sensor.world_pos.x - last_pos.x) / 0.04f;
-      // float speed_yy  = (position_sensor.world_pos.y - last_pos.y) / 0.04f;
-      //  float dis = s3_xbox.get_dis_2_center();
-      //  float arr[1] = {dis};
-      //  uint8_t instruction[1] = {0};
-      //  if(xbox_ptr->shoot_title == 1)
-      //  {
-      //      instruction[0] = 1;
-      //  			xbox_ptr->shoot_title = 0;
-      //  			sendByteData(1, instruction, 1);
-      //  }
-      //  else if(xbox_ptr->yunball_title == 1)
-      //  {
-      //      instruction[0] = 2;
-      //  			xbox_ptr->yunball_title = 0;
-      //  			sendByteData(1, instruction, 1);
-      //  }
-      //  else if(xbox_ptr->just_yun_title == 1)
-      //  {
-      //  			instruction[0] = 3;
-      //  			xbox_ptr->just_yun_title = 0;
-      //  			sendByteData(1, instruction, 1);
-      //  }
-      //  else
-      //  {
-      //      instruction[0] = 0;
-      //  }
-      /* ?????1 ???? 2 ???????? 3 position??????????????*/
-      /*float arr[6] = {s3_xbox.xbox_msgs.joyLHori_map, s3_xbox.xbox_msgs.joyLVert_map, \
-          s3_chassis.target.target_robovel.x, s3_chassis.target.target_robovel.y, \
-          speed_xx, speed_yy};
-      // ???????
-      last_pos = position_sensor.world_pos;
-      sendFloatData(1, arr, 6);*/
+  // auto_shooter debug
+  //  float arr[5] = {auto_shooter.shoot_info.target_dis * 1000.0f, auto_shooter.shoot_info.real_dis * 1000.0f, chassis_debug.center_heading, position_sensor.get_heading(), position_sensor.get_yaw_speed()};
+  //  sendFloatData(1, arr, 5);
 
-      //	float arr[6] = {position_sensor.real_world_pos.x, position_sensor.real_world_pos.y, position_sensor.world_pos.x, position_sensor.world_pos.y};
+  // lidar TF
+  //  float arr[6] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
+  //                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y,
+  //                  ros_sensor_.ros_radar_loaction.world_pos.x, ros_sensor_.ros_radar_loaction.world_pos.y};
+  //  sendFloatData(1, arr, 6);
 
-      //  float arr[6] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
-      //                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y};
-      // float arr[5] = {auto_shooter.shoot_info.target_dis * 1000.0f, auto_shooter.shoot_info.real_dis * 1000.0f, chassis_debug.center_heading, position_sensor.get_heading(), position_sensor.get_yaw_speed()};
-      // sendFloatData(1, arr, 5);
-
-      send_data[0] = position_sensor.get_heading();
-  send_data[1] = position_sensor.get_world_pos_y() - pian_y;
-  send_data[2] = position_sensor.get_world_pos_x() - pian_x;
+  // for_R2
+  send_data[0] = position_sensor.get_heading();
+  send_data[1] = -(position_sensor.get_world_pos_y() - pian_y);
+  send_data[2] = -(position_sensor.get_world_pos_x() - pian_x);
   send_data[3] = position_sensor.get_yaw_speed();
   send_data[4] = 0.0f;
   send_data[5] = 0.0f;
-  osDelay(25);
+  osDelay(50);
   sendFloatData(1, send_data, 6);
 }
 
@@ -186,8 +155,8 @@ void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData,
     recive_data[i] = floatData[i];
   }
 
-  robot_pos.x = floatData[0] + pian_x;
-  robot_pos.y = floatData[1] + pian_y;
+  robot_pos.x = (-floatData[0] + pian_x);
+  robot_pos.y = (-floatData[1] + pian_y);
   robot_v.x = floatData[2];
   robot_v.y = floatData[3];
   xbox->robot_point = robot_pos;
@@ -196,4 +165,6 @@ void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData,
 void demo::add_xbox(chassis_adjust_xbox *xbox_)
 {
   xbox = xbox_;
+  pian_x = xbox->center_point.x;
+  pian_y = xbox->center_point.y;
 }

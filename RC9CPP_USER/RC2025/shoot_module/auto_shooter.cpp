@@ -62,7 +62,6 @@ void AutoShooter::allAuto_adjust(float lifter_dis)
 
         break;
     case auto_shoot:
-        // shooter_motor->set_rpm(0.0f);
         timecnt++;
         shooter_flag = 1;
 
@@ -277,13 +276,58 @@ float AutoShooter::calc(float r)
 //    s = s * r + coeffs[2];
 //    s = s * r + coeffs[3];
     //-----------------------------------------------
-
+    
     //---------------------幂、指数、直线拟合-----------------
-    s = a * pow(r, b) + c * logf(r + 1);
+    //s = a * pow(r, b) + c * logf(r + 1);
     // s = a * pow(r,b) + c ;
     // s = a*exp(b*r) + c ;
     //s=0.0321*r+0.0772;
     //-----------------------------------------------
+    
+    s=a*r*r*(1+b*r)+c;
 
     return s + offest;
+}
+int AutoShooter::camera_auto_byFitter(uint8_t mode, float r)
+{
+
+    if (shoot_info.shoot_status == auto_finish)
+    {
+        shoot_mode = shooter_auto;
+        shoot_info.lift_mode = static_cast<liftMode>(mode);
+
+        float d = camera_cal(r);
+        if (d > max_dis)
+        {
+            d = max_dis;
+        }
+        if (d < min_dis)
+        {
+            d = min_dis;
+        }
+        shoot_info.target_dis = d;
+        shoot_info.start_dis = shoot_info.real_dis;
+        shoot_info.shoot_status = auto_lift;
+    }
+
+    return shoot_info.shoot_status;
+}
+
+float AutoShooter::camera_cal(float r)
+{
+//    //---------------------多项式拟合-----------------
+//    const float coeffs[] = {
+//             0.5647f,  // r² 系数
+//            -0.3961f, // r 系数
+//            0.192f   // 常数项
+//        };
+
+//    float s = coeffs[0];
+//    s = s * r + coeffs[1];
+//    s = s * r + coeffs[2];
+
+//	s = 0.1425f*exp(-0.0047f*r) + 0.1025f ;
+	s = -0.0395f* logf(14.4273f*r + 1) + 0.1942f;
+	// 560g球
+    return s + camera_offest;
 }

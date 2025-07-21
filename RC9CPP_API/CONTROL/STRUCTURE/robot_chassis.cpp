@@ -1080,10 +1080,10 @@ void photogate::handleInterrupt()
     motor->relocate_pos(reset_angle);
 }
 
-void photogate::add_io_interrupt(GPIO_TypeDef *port, uint16_t pin)
+void photogate::add_io_interrupt(GPIO_TypeDef *port_, uint16_t pin_)
 {
-    port_ = port;
-    pin_ = pin;
+    port = port_;
+    pin = pin_;
 }
 
 void RoboChassis::omni4_calc(Vector2D robovel, float w)

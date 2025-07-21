@@ -31,9 +31,9 @@ public:
 
   uint8_t test_flag = 0, putball = 0;
   uint8_t test2_flag = 0;
-  float limit_yaw_error = 0.3f, limit_yaw_speed = 1.0f;
+  float limit_yaw_error = 0.1f, limit_yaw_speed = 1.0f;
   float offest = 0.0f;
-  float pass_correct_distance = 0.30f; // 修正距离
+  float pass_correct_distance = 0.25f; // 修正距离
 
 public:
   void add_AutoShooter(AutoShooter *auto_shooter_);
@@ -46,6 +46,7 @@ public:
   void mode_3() override;
   void mode_4() override;
   void xbox_on() override;
+  void xbox_share() override;
   void calc_robopoint();
   float dis_2_robot = 0.0f, robot_heading = 0.0f;
 };

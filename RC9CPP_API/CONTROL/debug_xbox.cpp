@@ -1,7 +1,5 @@
 #include "debug_xbox.h"
 
-
-
 void xbox_debug_base::btnconfig_init()
 {
     btnBConfig = {
@@ -98,6 +96,14 @@ void xbox_debug_base::btnconfig_init()
         1,
         ButtonActionType::Toggle,
         nullptr};
+
+    btnShareConfig = {
+        &xbox_msgs.btnShare,
+        &xbox_msgs.btnShare_last,
+        nullptr,
+        0,
+        ButtonActionType::Custom,
+        &xbox::btnShare_callback};
 }
 
 void xbox_debug_base::btn_scan()
@@ -114,11 +120,17 @@ void xbox_debug_base::btn_scan()
     handleButton(btnXboxConfig);
     handleButton(btnYConfig);
     handleButton(btnStartConfig);
+    handleButton(btnShareConfig);
 }
 
 void xbox_debug_base::btnXBOX_callback()
 {
     xbox_on();
+}
+
+void xbox_debug_base::btnShare_callback()
+{
+    xbox_share();
 }
 
 xbox_debug_base::xbox_debug_base()
@@ -176,11 +188,4 @@ void xbox_debug_base::process_data()
     {
         rb_off();
     }
-
-    if(btn_start_flag == 1)
-    {
-        //HAL_NVIC_SystemReset();
-        
-    }
 }
-

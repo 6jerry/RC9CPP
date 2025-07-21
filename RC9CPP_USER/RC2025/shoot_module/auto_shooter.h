@@ -57,7 +57,7 @@ typedef struct shootInfo
     float start_dis = 0.013f;            // 开始位置
     float real_dis = 0.0f;               // 从编码器获取的拉伸距离
     autoMode shoot_status = auto_finish; // 自动射球状态
-    liftMode lift_mode = TP_PID;         // 拉伸规划方式
+    liftMode lift_mode = PID;            // 拉伸规划方式
 };
 class AutoShooter : public ITaskProcessor
 {
@@ -68,16 +68,12 @@ private:
 
     uint8_t timecnt = 0;
     uint8_t count = 0;
-    float target_error = 0.002f;
+    float target_error = 0.0015f;
     float target_rpm = 60.0f;
 
-    float revert_dis = 0.005f;
+    float revert_dis = 0.007f;
     float min_dis = 0.05f; // 最小拉伸距离
     float max_dis = 0.23f; // 最大拉伸距离
-
-    float a = 0.2586f;
-    float b = 0.5483f;
-    float c = -0.2155f;
 
     GPIO_TypeDef *shooter_port = nullptr, *stop_port = nullptr;
     uint16_t shooter_pin = 0, stop_pin = 0;
@@ -85,10 +81,14 @@ private:
     TrapezoidalPlanner1D planer;
     planInfo plan_info;
 
+    float a = 0.0227f;
+    float b = -0.1578f;
+    float c = 0.0777f;
     float s;
+    float offest = 0.0f;
+	float camera_offest = 0.002f;
 
 public:
-	  float offest = 0.0f;
     // 编码器
     Encoder *encoder = nullptr;
     shootInfo shoot_info;
@@ -112,9 +112,11 @@ public:
     bool isfinish();
 
     float calc(float x);
+    float camera_cal(float r);
     void check_shooter();
     void set_shooter_mode(uint8_t mode);
     int set_auto_byFitter(uint8_t mode, float r);
+    int camera_auto_byFitter(uint8_t mode, float r);
     int set_auto_byDis(uint8_t mode, float shoot_dis);
     void set_hand(float rpm);
     void set_lift(float dis);

@@ -106,6 +106,12 @@ void CrsfReceiver::processRcChannelsPacket()
     channels_[14] = current_rc_frame_.channels.ch14;
     channels_[15] = current_rc_frame_.channels.ch15;
 
+
+    test_channel[0]=(float)channels_[2];
+    test_channel[1]=(float)channels_[3];
+    test_channel[2]=(float)channels_[0];
+    test_channel[3]=(float)channels_[1];
+
     map_value_compute();
     flag_set();
 
@@ -280,40 +286,40 @@ void CrsfReceiver::sendGps(double latitude, double longitude, uint16_t groundspe
 void CrsfReceiver::map_value_compute()
 {
     // 原有代码不变
-    if (channels_[0] >= 944 && channels_[0] <= 954)
+    if (channels_[0] >= 982 && channels_[0] <= 992)
     {
         right_H_map = 0.0f;
     }
-    if (channels_[0] > 954 && channels_[0] <= 1769)
+    if (channels_[0] > 992 && channels_[0] <= 1811)
     {
-        right_H_map = -((float)(channels_[0] - 954) / 815.0f);
+        right_H_map = -((float)(channels_[0] - 992) / 819.0f);
     }
-    if (channels_[0] < 944 && channels_[0] >= 174)
+    if (channels_[0] < 982 && channels_[0] >= 174)
     {
-        right_H_map = (float)(944 - channels_[0]) / 770.0f;
+        right_H_map = (float)(982 - channels_[0]) / 808.0f;
     }
     if (channels_[0] < 174)
     {
         right_H_map = 1.0f;
     }
-    if (channels_[0] > 1769)
+    if (channels_[0] > 1811)
     {
         right_H_map = -1.0f;
     }
 
-    if (channels_[2] >= 1051 && channels_[2] <= 1061)
+    if (channels_[2] >= 1043 && channels_[2] <= 1053)
     {
         left_V_map = 0.0f;
     }
-    if (channels_[2] > 1061 && channels_[2] <= 1811)
+    if (channels_[2] > 1053 && channels_[2] <= 1811)
     {
-        left_V_map = (float)(channels_[2] - 1061) / 750.0f;
+        left_V_map = (float)(channels_[2] - 1053) / 758.0f;
     }
-    if (channels_[2] < 1051 && channels_[2] >= 183)
+    if (channels_[2] < 1043 && channels_[2] >= 174)
     {
-        left_V_map = -((float)(1051 - channels_[2]) / 868.0f);
+        left_V_map = -((float)(1043 - channels_[2]) / 869.0f);
     }
-    if (channels_[2] < 183)
+    if (channels_[2] < 174)
     {
         left_V_map = -1.0f;
     }
@@ -322,7 +328,7 @@ void CrsfReceiver::map_value_compute()
         left_V_map = 1.0f;
     }
 
-    if (channels_[1] < 222)
+    if (channels_[1] < 174)
     {
         right_V_map = 0.0f;
     }
@@ -330,28 +336,28 @@ void CrsfReceiver::map_value_compute()
     {
         right_V_map = 1.0f;
     }
-    if (channels_[1] >= 222 && channels_[1] <= 1811)
+    if (channels_[1] >= 174 && channels_[1] <= 1811)
     {
-        right_V_map = (float)(channels_[1] - 222) / 1589.0f;
+        right_V_map = (float)(channels_[1] - 174) / 1637.0f;
     }
 
-    if (channels_[3] >= 939 && channels_[3] <= 949)
+    if (channels_[3] >= 982 && channels_[3] <= 992)
     {
         left_H_map = 0.0f;
     }
-    if (channels_[3] > 949 && channels_[3] <= 1763)
+    if (channels_[3] > 992 && channels_[3] <= 1811)
     {
-        left_H_map = (float)(channels_[3] - 949) / 814.0f;
+        left_H_map = (float)(channels_[3] - 992) / 819.0f;
     }
-    if (channels_[3] < 939 && channels_[3] >= 174)
+    if (channels_[3] < 982 && channels_[3] >= 174)
     {
-        left_H_map = -((float)(939 - channels_[3]) / 765.0f);
+        left_H_map = -((float)(982 - channels_[3]) / 808.0f);
     }
     if (channels_[3] < 174)
     {
         left_H_map = -1.0f;
     }
-    if (channels_[3] > 1763)
+    if (channels_[3] > 1811)
     {
         left_H_map = 1.0f;
     }

@@ -18,12 +18,15 @@ extern "C"
 #include "encoder.h"
 #include "auto_shooter.h"
 
+#include "camera.h"
+#include "err_code.h"
 #include "lock_xbox.h"
 
     void lock_basket_debug();
 
 #ifdef __cplusplus
 }
+
 #endif
 #ifdef __cplusplus
 
@@ -32,10 +35,10 @@ class demo: public ITaskProcessor, public RC9subscriber{
 	public:
 		void process_data();
         void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override; // 数据回调函数
-    float recive_data[4] = {0};
-
-    Vector2D robot_pos;
-    Vector2D robot_v;
+		float recive_data[4] = {0};
+		uint8_t encoder_reset_flag =0;
+		Vector2D robot_pos;
+		Vector2D robot_v;
 };
 
 /*class Robot_communication: public ITaskProcessor, public RC9subscriber{

@@ -45,6 +45,9 @@ void auto_yunball::process_data()
             lift_motor->set_current(0.0f);
         }
         break;
+    case double_yunball_flag:
+        double_yunball();
+        break;
     default:
         break;
     }
@@ -72,6 +75,19 @@ bool auto_yunball::start_yunball()
     if (flag == static_flag)
     {
         flag = yunball_flag;
+    }
+    if (flag == stop_flag)
+    {
+        return true;
+    }
+    return false;
+}
+
+bool auto_yunball::start_double_yunball()
+{
+    if (flag == static_flag)
+    {
+        flag = double_yunball_flag;
     }
     if (flag == stop_flag)
     {
@@ -125,6 +141,27 @@ void auto_yunball::yunball()
     set_claw(false);
     flag = stop_flag;
 }
+void auto_yunball::double_yunball()
+{
+    set_claw(true);
+    set_push(true);
+    osDelay(200);
+    set_push(false);
+    osDelay(300);
+    set_claw(false);
+
+    osDelay(800);
+
+    set_claw(true);
+    set_push(true);
+    osDelay(200);
+    set_push(false);
+    osDelay(300);
+    set_claw(false);
+
+    flag = stop_flag;
+}
+
 void auto_yunball::putball()
 {
     lift_motor->dis_speedplan_restart();
@@ -164,7 +201,7 @@ void auto_yunball::putball()
 
 bool auto_yunball::if_is_finish()
 {
-    return flag == stop_flag;
+    return flag ==  static_flag;
 }
 
 void auto_yunball::set_claw(bool if_open)
