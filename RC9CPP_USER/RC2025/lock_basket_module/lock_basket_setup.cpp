@@ -53,13 +53,17 @@ extern "C"
         /****************************************************/
         ros_sensor_.add_recolate_imu(&position_sensor);
         ros_sensor_.addport(&ros_port);
-        camera.addport(&ros_port);
         ros_port.startUartReceiveIT();
         ros_port.initQueue();
         /****************************************************/
 		
         chassis_debug.addport(&esp_port);
         chassis_debug.add_chassis(&s3_chassis);
+
+        //camera
+        camera.addport(&ros_port);
+        camera.add_chassis(&s3_chassis);
+
 
         //position
         position_port.initQueue();
@@ -106,8 +110,9 @@ extern "C"
         task_core.registerTask(8, &send_port);
 		task_core.registerTask(7, &ros_port);
         task_core.registerTask(5, &checker);
-        task_core.registerTask(9, &chassis_debug);
-        task_core.registerTask(6, &plot);
+        task_core.registerTask(6, &chassis_debug);
+        task_core.registerTask(9, &camera);
+        task_core.registerTask(5, &plot);
         osKernelStart();
     }
 }
