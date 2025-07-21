@@ -12,6 +12,7 @@ extern "C"
 #include "IO_Interrupt.h"
 #include "robot_chassis.h"
 #include "encoder.h"
+#include "auto_yunball_R3.h"
 #ifdef __cplusplus
 }
 #endif
@@ -70,8 +71,10 @@ public:
     power_motor *shoot_motor_2 = nullptr;
     Encoder *encoder = nullptr;
     power_motor *putball_motor = nullptr;
+    AutoYunballR3 *auto_yunball_ptr = nullptr;
+    
 
-    float move_rpm = 1000.0f, move_rpm_2 = 100.0f, move_rpm_test = 100.0f;
+    float move_rpm = 1000.0f, move_rpm_2 = 1000.0f, move_rpm_test = 100.0f;
     imu *imu_ptr, *ros_imu;                                              // 指向imu类的指针
     Vector2D center_point, tan_dir, nor_dir, robot_point, nor_dir_robot; // 圆心坐标
     float dis_2_center = 0.0f, center_heading = 0.0f, nor_speed = 0.0f;  // 半径
@@ -84,10 +87,12 @@ public:
     void xbox_on() override;
     void not_start() override;
     void init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Encoder *encoder_, power_motor *putball_motor_);
+    void add_autoyunball(AutoYunballR3 *auto_yunball_);
     uint32_t last_tick = 0;
     photogate_shoot gate;
     photogate_shoot_down gate_down;
     float target_rpm = 100.0f;
+    float target_rpm_test = 100.0f;
 
     float a = 27.4543f;
     float b = 0.9230f;

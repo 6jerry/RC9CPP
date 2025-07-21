@@ -64,7 +64,7 @@ void R3_xbox::mode_1()
 	if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
 	{
 		set_RobotW(0.0f, 0);
-		Shoot(calc_rpm(dis_2_center));
+		//Shoot(calc_rpm(dis_2_center));
 		// Shoot(target_rpm);
 		// mode_flag = 2;
 	}
@@ -86,13 +86,16 @@ void R3_xbox::mode_2()
 	gate_down.flag = 0;
 	gate.cont = 0;
 	gate_down.cont = 0;
-	shoot_motor_1->send_rpm(move_rpm * xbox_msgs.joyRVert_map);
-	shoot_motor_2->send_rpm(move_rpm * xbox_msgs.joyRVert_map);
+	//shoot_motor_1->set_rpm(move_rpm * xbox_msgs.joyRVert_map);
+	//shoot_motor_2->set_rpm(move_rpm * xbox_msgs.joyRVert_map);
 	
-	if (lb_flag && rb_flag) {putball_motor->set_current(0.0f);} 
-	else if (lb_flag) {putball_motor->set_rpm(move_rpm);} 
-	else if (rb_flag) {putball_motor->set_rpm(-move_rpm);} 
-	else {putball_motor->set_current(0.0f);}
+	auto_yunball_ptr->control_put_motor(xbox_msgs.joyRVert_map);
+
+	if(lb_flag)	{auto_yunball_ptr->control_claw(true);}
+	else {auto_yunball_ptr->control_claw(false);}
+
+	if(rb_flag) {auto_yunball_ptr->control_push(true);}
+	else {auto_yunball_ptr->control_push(false);}
 }
 
 void R3_xbox::mode_3()
@@ -114,13 +117,17 @@ void R3_xbox::mode_3()
 	{
 		yaw_TurnTo(center_heading, 0);
 	}*/
-	if(abs(xbox_msgs.joyRVert_map) < 0.05)
+	/*Shoot(target_rpm_test);
+	auto_yunball_ptr->control_put_motor(xbox_msgs.joyRVert_map);*/
+	if(DirRight_flag)
 	{
-		putball_motor->set_current(0.0f);
+		auto_yunball_ptr->start_putball();
+		DirRight_flag = 0;
 	}
-	else
+	if(DirLeft_flag)
 	{
-		putball_motor->set_rpm(move_rpm_2 * xbox_msgs.joyRVert_map);
+		auto_yunball_ptr->start_yunball();
+		DirLeft_flag = 0;
 	}
 }
 
@@ -141,6 +148,11 @@ void R3_xbox::init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Enc
 	putball_motor = putball_motor_;
 	gate.set_motors(shoot_motor_1_, shoot_motor_2_);
 	gate_down.set_motors(shoot_motor_1_, shoot_motor_2_);
+}
+
+void R3_xbox::add_autoyunball(AutoYunballR3 *auto_yunball_)
+{
+	auto_yunball_ptr = auto_yunball_;
 }
 
 void R3_xbox::xbox_on()
@@ -194,17 +206,17 @@ void R3_xbox::Shoot(float rpm)
 
 	if (gate.flag)
 	{
-		shoot_motor_1->set_rpm(0.0f);
-		// shoot_motor_2->set_rpm(0.0f);
+		shoot_motor_1->send_rpm(0.0f);
+		shoot_motor_2->send_rpm(0.0f);
 
 		if (HAL_GetTick() - last_tick > 150)
 		{
-			shoot_motor_1->set_rpm(-1000.0f);
-			// shoot_motor_2->set_rpm(-1000.0f);
+			shoot_motor_1->send_rpm(-100.0f);
+			shoot_motor_2->send_rpm(-100.0f);
 			if (gate_down.flag)
 			{
-				shoot_motor_1->set_rpm(0.0f);
-				// shoot_motor_2->set_rpm(0.0f);
+				shoot_motor_1->send_rpm(0.0f);
+				shoot_motor_2->send_rpm(0.0f);
 				mode_flag = 2;
 			}
 		}
@@ -213,7 +225,7 @@ void R3_xbox::Shoot(float rpm)
 	{
 		last_tick = HAL_GetTick();
 		gate_down.flag = 0;
-		shoot_motor_1->set_rpm(rpm);
-		// shoot_motor_2->set_rpm(rpm);
+		shoot_motor_1->send_rpm(rpm);
+		shoot_motor_2->send_rpm(rpm);
 	}
 }

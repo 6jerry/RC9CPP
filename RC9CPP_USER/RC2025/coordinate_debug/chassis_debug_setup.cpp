@@ -13,7 +13,7 @@ position position_sensor;
 Encoder encoder(0x01, &hfdcan3, 2.0f, 1024.0f);
 Encoder encoder_for_yunball(0x02, &hfdcan3, 3.0f, 1024.0f); // 用于运球的编码器
 
-m3508p m2006_left(dji_id_4, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_1, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
+m3508p m2006_left(dji_id_4, &hfdcan1, 32.0f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_1, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
 m3508p m2006_turn_motor(dji_id_2, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), lift_motor(dji_id_5, &hfdcan1);
 vesc u8_front(vesc_id_1, &hfdcan2), u8_left(vesc_id_2, &hfdcan2), u8_right(vesc_id_3, &hfdcan2);
 vesc m6374(vesc_id_4, &hfdcan2, 7.0f, 2.0f);

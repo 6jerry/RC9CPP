@@ -44,6 +44,7 @@ void auto_yunball::process_data()
             turn_motor->set_current(0.0f);
             lift_motor->set_current(0.0f);
         }
+        break;
     default:
         break;
     }
