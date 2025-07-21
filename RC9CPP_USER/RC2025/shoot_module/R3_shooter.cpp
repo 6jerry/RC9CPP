@@ -35,11 +35,11 @@ R3Shooter::R3Shooter()
 {
 }
 
-void R3Shooter::init(power_motor *m1_, power_motor *m2_, Encoder *encoder_)
+void R3Shooter::init(power_motor *m1_, power_motor *m2_)
 {
     m1 = m1_;
     m2 = m2_;
-    encoder = encoder_;
+
 }
 
 void R3Shooter::process_data()
@@ -80,7 +80,7 @@ void R3Shooter::process_data()
 }
 void R3Shooter::hand_adjust()
 {
-    m1->set_rpm(info.hand_rpm);
+    m1->send_rpm(info.hand_rpm);
 }
 
 void R3Shooter::set_hand(float rpm)
@@ -110,19 +110,23 @@ void R3Shooter::set_auto_byrpm(uint8_t mode_, float rpm)
 }
 bool R3Shooter::auto_adjust()
 {
-
-    m1->send_rpm(info.auto_rpm);
-    m2->send_rpm(info.auto_rpm);
-
+    
+    info.auto_rpm = info.auto_rpm + k;
+    
+    if(info.auto_rpm > max)
+    {
+    
+    info.auto_rpm = max;
+  }
+    
     if (gate->flag)
     {
         m1->send_rpm(0.0f);
         m2->send_rpm(0.0f);
-
         if (HAL_GetTick() - last_tick > 150)
         {
-            m1->set_rpm(-600.0f);
-            m2->set_rpm(-600.0f);
+            m1->send_rpm(-1000.0f);
+            m2->send_rpm(-1000.0f);
             if (gate_down->flag)
             {
                 m1->send_rpm(0.0f);

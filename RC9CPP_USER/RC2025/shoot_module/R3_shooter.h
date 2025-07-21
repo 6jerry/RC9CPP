@@ -68,7 +68,8 @@ private:
     uint32_t last_tick = 0;
     photogate_shoot *gate = nullptr;
     photogate_shoot *gate_down = nullptr;
-
+ 
+    float max = 1200.0f;
     float a = 0.0227f;
     float b = -0.1578f;
     float c = 0.0777f;
@@ -84,12 +85,12 @@ public:
     R3Shooter();
     void process_data();
     // void get_data();
-
-    void init(power_motor *m1_, power_motor *m2_, Encoder *encoder_);
+    float k = 20;
+    void init(power_motor *m1_, power_motor *m2_);
     void add_gate(photogate_shoot *gate_, photogate_shoot *gate_down_);
     bool auto_adjust();
     void hand_adjust();
-
+    float erpm = -100.0f;
     // float calc(float x);
     // int set_auto_byFitter(uint8_t mode, float r);
     void set_shooter_mode(uint8_t mode_);

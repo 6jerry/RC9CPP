@@ -184,7 +184,7 @@ void AutoYunballR3::putball()
     osDelay(400);
     set_claw(false);
     putball_motor->set_rpm(-300.0f);
-    while(putball_motor->get_dis() > -13.0f)
+    while(putball_motor->get_dis() > -16.0f)
     {
         osDelay(1);
     }
