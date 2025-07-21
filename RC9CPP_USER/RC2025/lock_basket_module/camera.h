@@ -21,36 +21,36 @@ extern "C"
 
 enum CameraMode
 {
-    camera_suspend, // ¹ÒÆğ
-    camera_start, // ¿ªÊ¼
-    camera_finish, // Íê³É
+    camera_suspend, // æŒ‚èµ·
+    camera_start, // å¼€å§‹
+    camera_finish, // å®Œæˆ
 };
 
 class Camera : public error_check, public RC9subscriber, public chassis_user, public ITaskProcessor
 {
-//ĞèÒªÌí¼Óµ×ÅÌ
+//éœ€è¦æ·»åŠ åº•ç›˜
 private:     
     float lock_vol;
-    pid lock_basket_pid; // Ëø¿ò
-    CameraMode camera_mode = camera_suspend;    //³õÊ¼»¯Îª¹ÒÆğÄ£Ê½
+    pid lock_basket_pid; // é”æ¡†
+    CameraMode camera_mode = camera_suspend;    //åˆå§‹åŒ–ä¸ºæŒ‚èµ·æ¨¡å¼
 
 public:
     struct{
-        Vector2D vertial_plane_deviation; // ÊúÖ±Æ½ÃæÆ«²î(ÏñËØÖµ)£¬x,yĞèÒª×ª»»(x -> yaw, y -> pitch)
+        Vector2D vertial_plane_deviation; // ç«–ç›´å¹³é¢åå·®(åƒç´ å€¼)ï¼Œx,yéœ€è¦è½¬æ¢(x -> yaw, y -> pitch)
     } camera_info;
 
-    bool gaze_flag = true;//ÊÓÒ°ÊÇ·ñ¶ªÊ§±êÖ¾
-    bool camera_ready = false; //Ïà»úÊÇ·ñÃé×¼Íê³É±êÖ¾Î», ×¢£ºĞèÒªÊÖ¶¯¸´Î»
-    float camera_Y = 0.0f; //¼ÇÂ¼Ïà»úÃé×¼Íê³ÉÊ±µÄYÖµ
+    bool gaze_flag = true;//è§†é‡æ˜¯å¦ä¸¢å¤±æ ‡å¿—
+    bool camera_ready = false; //ç›¸æœºæ˜¯å¦ç„å‡†å®Œæˆæ ‡å¿—ä½, æ³¨ï¼šéœ€è¦æ‰‹åŠ¨å¤ä½
+    float camera_Y = 0.0f; //è®°å½•ç›¸æœºç„å‡†å®Œæˆæ—¶çš„Yå€¼
 
     Camera();
     void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
     float lock_basket_vol ();
     void camera_on();
-    void camera_off();      //Ç¿ÖÆ½áÊø¹ÒÆğ
-    void process_data();    //ÊÊÓÃÓÚÏà»úµÄÌØ¶¨ÆµÂÊ
+    void camera_off();      //å¼ºåˆ¶ç»“æŸæŒ‚èµ·
+    void process_data();    //é€‚ç”¨äºç›¸æœºçš„ç‰¹å®šé¢‘ç‡
     
-    ///´íÎóÂë
+    ///é”™è¯¯ç 
     err_code check_error() override;
    
 };

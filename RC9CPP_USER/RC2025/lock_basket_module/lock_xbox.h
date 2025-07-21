@@ -29,13 +29,13 @@ private:
     void mode_1() override;
     void xbox_on() override;
 
-    imu *imu_ptr; // Ö¸ÏòimuÀàµÄÖ¸Õë
-    ros_sensor *ros_ptr; // µ¼ÈëÀ×´ïµÄÖ¸Õë
-    Camera *camera_ptr; // µ¼ÈëÏà»úµÄÖ¸Õë
-    AutoShooter* auto_shooter_ptr;//µ¼ÈëÉäÇòÊµÀı
+    imu *imu_ptr; // æŒ‡å‘imuç±»çš„æŒ‡é’ˆ
+    ros_sensor *ros_ptr; // å¯¼å…¥é›·è¾¾çš„æŒ‡é’ˆ
+    Camera *camera_ptr; // å¯¼å…¥ç›¸æœºçš„æŒ‡é’ˆ
+    AutoShooter* auto_shooter_ptr;//å¯¼å…¥å°„çƒå®ä¾‹
 
-    Vector2D center_point, tan_dir, nor_dir;    //Ô²ĞÄ×ø±ê
-    float dis_2_center = 0.0f, center_heading = 0.0f, nor_speed = 0.0f; // °ë¾¶
+    Vector2D center_point, tan_dir, nor_dir;    //åœ†å¿ƒåæ ‡
+    float dis_2_center = 0.0f, center_heading = 0.0f, nor_speed = 0.0f; // åŠå¾„
 
     float shoot_dis;
 
@@ -45,7 +45,7 @@ public:
     void calc_error();
 
     float lock_vol;
-    pid lock_basket; // Ëø¿ò
+    pid lock_basket; // é”æ¡†
     
     float dis;
 };
