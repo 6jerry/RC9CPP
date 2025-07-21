@@ -48,9 +48,9 @@ extern "C"
     auto_yunball.add_io(GPIOA, GPIO_PIN_8, GPIOA, GPIO_PIN_2, GPIOG, GPIO_PIN_7, GPIOG, GPIO_PIN_6);
     shooter.init(&shoot_1, &shoot_2, &encoder);
     shooter.add_gate(&gate, &gate_down);
-		gate.set_motors(&shoot_1, &shoot_2);
-		gate_down.set_motors(&shoot_1, &shoot_2);
-		
+    gate.set_motors(&shoot_1, &shoot_2);
+    gate_down.set_motors(&shoot_1, &shoot_2);
+
     test_xbox.addport(&esp_port);
     test_xbox.add_R3shooter(&shooter);
     // test_xbox.gate.add_io_interrupt(GPIOD, GPIO_PIN_14);
@@ -68,22 +68,20 @@ extern "C"
     shoot_1.rpm_control.enable_TD();
     shoot_2.rpm_control.enable_TD();
 
-//    shoot_1.addport(&debug_port);
-//    shoot_1.start_debug();
+    //    shoot_1.addport(&debug_port);
+    //    shoot_1.start_debug();
 
     position_sensor.set_map_plot(0.0f, 0.36562f);
     position_sensor.addport(&position_port);
 
     plot.addport(&debug_port);
-
-    //test_xbox.init(&shoot_1, &shoot_2, &encoder);
     task_core.registerTask(0, &dji_core);
     task_core.registerTask(2, &shoot_1);
     task_core.registerTask(2, &shoot_2);
     task_core.registerTask(4, &robot_chassis);
-		task_core.registerTask(5, &shooter);
+    task_core.registerTask(5, &shooter);
     task_core.registerTask(6, &test_xbox);
-    task_core.registerTask(3, &debug_port);
+    task_core.registerTask(2, &debug_port);
     task_core.registerTask(7, &position_port);
     task_core.registerTask(2, &plot);
     task_core.registerTask(8, &auto_yunball);
@@ -102,27 +100,20 @@ void demo::process_data()
      test_flag = 0;
   }
 
-   if(test_flag1 == 1)
-  {
-
-    encoder.set_anti_clockwise();
-
-     test_flag1 = 0;
-  }
-   if(test_flag2 == 1)
-  {
-
-    encoder.set_clockwise();
-
-     test_flag2 = 0;
-  }
   */
-  float send_datas[5] = { gate.rpm1,
+  float send_datas[5] = {gate.rpm1,
                          gate.rpm2,
                          test_xbox.target_rpm,
-	                       shoot_1.get_rpm(),
-													shoot_2.get_rpm()};
-                     
+                         shoot_1.get_rpm(),
+                         shoot_2.get_rpm()};
 
   sendFloatData(1, send_datas, 5);
+}
+
+void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
+{
+  for (int i = 0; i < 4; i++)
+  {
+    recive_data[i] = floatData[i];
+  }
 }

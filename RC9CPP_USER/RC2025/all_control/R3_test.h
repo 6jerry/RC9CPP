@@ -27,10 +27,12 @@ extern "C"
 class demo : public ITaskProcessor, public RC9subscriber
 {
 public:
+	  void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
   int test_flag = 0;
   int test_flag1 = 0;
   int test_flag2 = 0;
   void process_data();
+    float recive_data[30] = {0};
 };
 #endif
 #endif

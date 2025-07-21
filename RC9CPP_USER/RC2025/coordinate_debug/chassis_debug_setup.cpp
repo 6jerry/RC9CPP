@@ -2,10 +2,10 @@
 
 TaskManager task_core;
 dji_motor_handle dji_core;
-RC9Protocol esp_port(uart, &huart3), position_port(uart, &huart6);
+RC9Protocol esp_port(uart, &huart3), position_port(uart, &huart4);
 RC9Protocol ros_port(cdc, nullptr);
 // RC9Protocol Lora_port(uart, &huart4);
-RC9Protocol send_port(uart, &huart4);
+RC9Protocol send_port(uart, &huart6);
 
 ros_sensor ros_sensor_;
 position position_sensor;
