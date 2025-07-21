@@ -11,7 +11,7 @@ m3508p m2006_putball(dji_id_1, &hfdcan2, 55.4248f, M2006_MAX_CURRENT, M2006_CURR
 
 Encoder encoder(0x03, &hfdcan2, 2.0f, 4096.0f);
 photogate_shoot gate(rising, GPIOD, GPIO_PIN_14);
-photogate_shoot gate_down(falling, GPIOD, GPIO_PIN_15);
+photogate_shoot gate_down(falling, GPIODE, GPIO_PIN_3);
 R3Shooter shooter;
 
 m3508p front_left_motor(dji_id_3, &hfdcan3),
