@@ -112,6 +112,9 @@
     "concepts": "cpp",
     "cinttypes": "cpp",
     "cstdbool": "cpp",
-    "*.rh": "cpp"
+    "*.rh": "cpp",
+    "memorymap.h": "c",
+    "cmsis_os.h": "c",
+    "main.h": "c"
   }
 }

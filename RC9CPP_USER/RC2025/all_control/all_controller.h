@@ -25,9 +25,11 @@ typedef struct crsf_send
 
     float position_x = 0.0f, position_y = 0.0f, position_yaw_rad = 0.0f, mid360_yaw_rad = 0.0f; // 显示位姿数据
 
-    uint8_t status_flag = 0, error_flag = 0; // 状态码和错误码
+    uint8_t status_flag = 0, error_flag = 0, real_status_flag = 0, status_cnt = 0, last_status_flag = 0; // 状态码和错误码
 
     float debug_dis = 0.0f, dis_2_target = 0.0f;
+
+    bool toggle_lock = false, has_toggle = false;
 };
 
 class AllController : public RC9subscriber, public ITaskProcessor, public chassis_user
@@ -92,25 +94,32 @@ public:
 
     void auto_reload_ball(); // 装填球
 
+    void auto_yunball_and_loadball();
+
     void lock_on_center_point(); // 进攻，锁定篮筐，在该模式下可以移动但是不能自转，车头始终锁定篮筐
 
     void lock_on_r2(); // 战术传球，锁定队友
 
     void shoot_2_center_point(); // 原地开火，所有速度为0，不可移动机器人，直到球射出机器人，**这是一个与扳机flag相关的行为，行为结束后记得把flag改回去，不然会一直卡在这个函数
 
+    void auto_shoot_2_center_point();
+
     void shoot_2_r2(); // 原地传球
 
+    void auto_shoot_2_r2();
+
     void attack_move_mode(); // 常规进攻模式，在该模式下可以自由遥控底盘并进行速度档位和加速度档位控制
-    void defend_move_mode(); // 常规防守模式，与进攻模式不同的是机器人的朝向反过来了
 
     // 准备模式，该模式可以刷新坐标，校准舵轮
     void wait_mode_move(); // 准备模式下的普通遥控是机器人坐标系的
     void reset_sw_motor();
+    void reset_yunball_shooter(); // 校准运球和发射机构
     void reset_all_imu();
+    void set_center_point(); // 手动设置篮筐坐标
 
     // 手动模式，一般在调试或者车辆受损的情况下使用
 
-    void hand_shoot(); // 拉伸固定量然后发射
+    void hand_set_lifter();
 
     void hand_set_clawpos(); // 手动调整夹爪位置
 

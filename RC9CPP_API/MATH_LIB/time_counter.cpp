@@ -11,7 +11,7 @@ float time_counter::get_DeltaTime_ms()
     {
         last_cnt = htim2.Instance->CNT;
 
-             return 0.0f;
+        return 0.0f;
     }
     else
     {
@@ -32,11 +32,28 @@ float time_counter::get_DeltaTime_ms()
     }
 }
 
-time_counter::time_counter(uint8_t counter_id_, float max_time_out_ms_)
+time_counter::time_counter(uint8_t counter_id_, uint32_t max_time_out_ms_, uint32_t max_time_out_init)
 {
     counter_id = counter_id_;
     time_out_ms = max_time_out_ms_;
+    time_out_init = max_time_out_init;
     error_manager::time_counter_ptr[counter_id] = this;
+}
+
+void time_counter::check_tick()
+{
+    if (now_cnt == 0 & last_cnt == 0)
+    {
+        last_cnt = HAL_GetTick();
+    }
+    else
+    {
+        now_cnt = htim2.Instance->CNT;
+
+        delta_cnt = now_cnt - last_cnt;
+
+        last_cnt = now_cnt;
+    }
 }
 
 void time_counter::detect_error()
@@ -46,11 +63,11 @@ void time_counter::detect_error()
         if (!if_detected_not_init)
         {
             if_detected_not_init = true;
-            detected_init_error = htim2.Instance->CNT;
+            detected_init_error = HAL_GetTick();
         }
         if (if_detected_not_init)
         {
-            if (htim2.Instance->CNT - detected_init_error > time_out_ms * 1000.0f)
+            if ((HAL_GetTick() - detected_init_error) > (time_out_init))
             {
                 error_code = 1;
             }
@@ -59,7 +76,7 @@ void time_counter::detect_error()
     else if (now_cnt != 0)
     {
 
-        if (htim2.Instance->CNT - now_cnt > time_out_ms * 1000.0f)
+        if ((HAL_GetTick() - now_cnt) > (time_out_ms))
         {
             error_code = 1;
         }

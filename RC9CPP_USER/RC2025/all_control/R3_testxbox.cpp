@@ -102,7 +102,7 @@ void R3_xbox::mode_2()
 
 void R3_xbox::mode_3()
 {
-	Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
+	/*Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
 	set_RobotVel(tvel_, 0);
 
 	calc_error();
@@ -118,6 +118,18 @@ void R3_xbox::mode_3()
 	else
 	{
 		yaw_TurnTo(center_heading, 0);
+	}*/
+	/*Shoot(target_rpm_test);
+	auto_yunball_ptr->control_put_motor(xbox_msgs.joyRVert_map);*/
+	if(DirRight_flag)
+	{
+		auto_yunball_ptr->start_putball();
+		DirRight_flag = 0;
+	}
+	if(DirLeft_flag)
+	{
+		auto_yunball_ptr->start_yunball();
+		DirLeft_flag = 0;
 	}
 }
 
@@ -129,6 +141,11 @@ void R3_xbox::not_start()
 	set_RobotW(0, 0);
 }
 
+
+void R3_xbox::add_autoyunball(AutoYunballR3 *auto_yunball_)
+{
+	auto_yunball_ptr = auto_yunball_;
+}
 void R3_xbox::add_R3shooter(R3Shooter *shooter_)
 {
 

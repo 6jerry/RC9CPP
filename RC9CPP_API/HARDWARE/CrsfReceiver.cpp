@@ -1,11 +1,10 @@
 #include "CrsfReceiver.h"
 
-CrsfReceiver::CrsfReceiver(UART_HandleTypeDef *huart)
-    : SerialDevice(huart),
-      packet_byte_index_(0),
-      rx_state_(CRSF_WAITING_FOR_ADDRESS),
-      payload_ptr_(nullptr),
-      crc_(CRSF_CRC_POLY) // 初始化CRC，CRSF协议使用0xD5
+CrsfReceiver::CrsfReceiver(UART_HandleTypeDef *huart) : delta_counter(0, 200, 5000), SerialDevice(huart),
+                                                        packet_byte_index_(0),
+                                                        rx_state_(CRSF_WAITING_FOR_ADDRESS),
+                                                        payload_ptr_(nullptr),
+                                                        crc_(CRSF_CRC_POLY) // 初始化CRC，CRSF协议使用0xD5
 {
     for (int i = 0; i < CRSF_NUM_CHANNELS; ++i)
     {
@@ -106,11 +105,10 @@ void CrsfReceiver::processRcChannelsPacket()
     channels_[14] = current_rc_frame_.channels.ch14;
     channels_[15] = current_rc_frame_.channels.ch15;
 
-
-    test_channel[0]=(float)channels_[2];
-    test_channel[1]=(float)channels_[3];
-    test_channel[2]=(float)channels_[0];
-    test_channel[3]=(float)channels_[1];
+    test_channel[0] = (float)channels_[2];
+    test_channel[1] = (float)channels_[3];
+    test_channel[2] = (float)channels_[0];
+    test_channel[3] = (float)channels_[1];
 
     map_value_compute();
     flag_set();

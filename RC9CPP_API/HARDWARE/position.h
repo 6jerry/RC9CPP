@@ -7,7 +7,7 @@ extern "C"
 #endif
 #include "RC9Protocol.h"
 #include "imu.h"
-
+#include "time_counter.h"
 #include <arm_math.h>
 #ifdef __cplusplus
 }
@@ -45,6 +45,10 @@ public:
     float world_yaw = 0.0f; // 单位度
 
     float yaw_speed = 0.0f;
+
+    time_counter position_EC;
+
+    position();
 };
 
 #endif
