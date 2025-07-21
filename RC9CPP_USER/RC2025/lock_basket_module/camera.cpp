@@ -3,18 +3,18 @@
 Camera::Camera()
 {
     lock_basket_pid.ConfigAll(0.080f, 0.045f, 0.0423f, 0.03f, 0.219f, 18.0f, 20.0f);
-	///´íÎóÂë
+	///é”™è¯¯ç 
     err_id = ERR_DEVICE_CAMERA; //0x08
 }
 
 void Camera::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
 {
 
-	// ÉÏÒ»´Î±äÁ¿´æ´¢
+	// ä¸Šä¸€æ¬¡å˜é‡å­˜å‚¨
 	static float previous_vertial_plane_deviation_x = 0.0f;
 	static float previous_vertial_plane_deviation_y = 0.0f;
 
-	//´¦ÀíÏà»úÊý¾Ý
+	//å¤„ç†ç›¸æœºæ•°æ®
 	if(id == 1 && byteCount == 8){
 		camera_info.vertial_plane_deviation.x = floatData[0];
 		camera_info.vertial_plane_deviation.y = floatData[1];
@@ -22,8 +22,8 @@ void Camera::DataReceivedCallback(const uint8_t *byteData, const float *floatDat
 	else{
 		return;
 	}
-	// ãÐÖµÏÞÖÆ
-	static float max_change = 80.0f; // ÏñËØ
+	// é˜ˆå€¼é™åˆ¶
+	static float max_change = 80.0f; // åƒç´ 
 	if (fabsf(camera_info.vertial_plane_deviation.x - previous_vertial_plane_deviation_x) > max_change)
 	{
 		camera_info.vertial_plane_deviation.x = previous_vertial_plane_deviation_x +
@@ -43,12 +43,55 @@ float Camera::lock_basket_vol()
 {
     lock_vol = lock_basket_pid.PID_ComputeError(camera_info.vertial_plane_deviation.x);
 
-    if(abs(camera_info.vertial_plane_deviation.x) < 5.0f){
+    if(fabs(camera_info.vertial_plane_deviation.x) < 3.0f){			//5.0f
+		camera_Y = camera_info.vertial_plane_deviation.y;
+		camera_mode = camera_finish;
         return 0;
     }
     else{
         return lock_vol;
     }
+}
+
+void Camera::process_data()
+{
+	switch (camera_mode)
+    {
+    case camera_suspend:
+		camera_Y = 0.0f;
+		camera_ready = false;
+		
+        break;
+    case camera_start:
+		set_RobotW(lock_basket_vol(), 0);
+
+        break;
+
+    case camera_finish:
+        set_RobotW(0.0f, 0);
+		camera_ready = true;
+
+        break;
+
+    default:
+        break;
+    }
+}
+
+void Camera::camera_on()
+{
+	if(camera_mode == camera_suspend){
+	camera_mode = camera_start;
+
+	}
+}
+
+void Camera::camera_off()
+{
+	if(camera_mode != camera_suspend){
+	camera_mode = camera_suspend;
+
+	}
 }
 
 err_code Camera::check_error()
@@ -59,9 +102,16 @@ err_code Camera::check_error()
             gaze_flag = false;
             return ERR_CODE_ABNORMAL;
         }
+	else if(camera_info.vertial_plane_deviation.x == 0.0f 
+        && camera_info.vertial_plane_deviation.y == 0.0f){
+
+			gaze_flag = false;
+            return ERR_CODE_CONNECT_FAIL;
+		}
     else{
 
          gaze_flag = true;
         return ERR_CODE_WORK_SUCCESS;
     }  
 }
+

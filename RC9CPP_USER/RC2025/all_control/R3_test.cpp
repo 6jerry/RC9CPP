@@ -11,7 +11,7 @@ m3508p m2006_putball(dji_id_1, &hfdcan2, 55.4248f, M2006_MAX_CURRENT, M2006_CURR
 
 Encoder encoder(0x03, &hfdcan2, 2.0f, 4096.0f);
 photogate_shoot gate(rising, GPIOD, GPIO_PIN_14);
-photogate_shoot gate_down(falling, GPIOD, GPIO_PIN_15);
+photogate_shoot gate_down(falling, GPIODE, GPIO_PIN_3);
 R3Shooter shooter;
 
 m3508p front_left_motor(dji_id_3, &hfdcan3),
@@ -45,7 +45,7 @@ extern "C"
     back_right_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
 
     auto_yunball.add_motor(&m2006_putball);
-    auto_yunball.add_io(GPIOA, GPIO_PIN_8, GPIOF, GPIO_PIN_9, GPIOG, GPIO_PIN_7, GPIOG, GPIO_PIN_6);
+    auto_yunball.add_io(GPIOA, GPIO_PIN_8, GPIOA, GPIO_PIN_2, GPIOG, GPIO_PIN_7, GPIOG, GPIO_PIN_6);
     shooter.init(&shoot_1, &shoot_2, &encoder);
     shooter.add_gate(&gate, &gate_down);
 		gate.set_motors(&shoot_1, &shoot_2);
@@ -54,7 +54,7 @@ extern "C"
     test_xbox.addport(&esp_port);
     test_xbox.add_R3shooter(&shooter);
     // test_xbox.gate.add_io_interrupt(GPIOD, GPIO_PIN_14);
-    // test_xbox.gate_down.add_io_interrupt(GPIOD, GPIO_PIN_15);
+    // test_xbox.gate_down.add_io_interrupt(GPIOE, GPIO_PIN_3);
     test_xbox.add_chassis(&robot_chassis);
     test_xbox.add_autoyunball(&auto_yunball);
     robot_chassis.add4_motors(&back_right_motor, &front_right_motor, &front_left_motor, &back_left_motor);
