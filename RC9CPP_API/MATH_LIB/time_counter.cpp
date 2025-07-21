@@ -48,7 +48,7 @@ void time_counter::check_tick()
     }
     else
     {
-        now_cnt = htim2.Instance->CNT;
+        now_cnt = HAL_GetTick();
 
         delta_cnt = now_cnt - last_cnt;
 

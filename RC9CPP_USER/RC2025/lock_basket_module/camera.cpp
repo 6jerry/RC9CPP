@@ -2,7 +2,6 @@
 
 Camera::Camera()
 {
-    lock_basket_pid.ConfigAll(0.080f, 0.045f, 0.0423f, 0.03f, 0.219f, 18.0f, 20.0f);
 	///错误码
     err_id = ERR_DEVICE_CAMERA; //0x08
 }
@@ -39,21 +38,34 @@ void Camera::DataReceivedCallback(const uint8_t *byteData, const float *floatDat
 	
 }
 
-float Camera::lock_basket_vol()
+err_code Camera::check_error()
 {
-    lock_vol = lock_basket_pid.PID_ComputeError(camera_info.vertial_plane_deviation.x);
+    if(camera_info.vertial_plane_deviation.x == -721.0f 
+        && camera_info.vertial_plane_deviation.y == 540.0f){
 
-    if(fabs(camera_info.vertial_plane_deviation.x) < 3.0f){			//5.0f
-		camera_Y = camera_info.vertial_plane_deviation.y;
-		camera_mode = camera_finish;
-        return 0;
-    }
+            gaze_flag = false;
+            return ERR_CODE_ABNORMAL;
+        }
+	else if(camera_info.vertial_plane_deviation.x == 0.0f 
+        && camera_info.vertial_plane_deviation.y == 0.0f){
+
+			gaze_flag = false;
+            return ERR_CODE_CONNECT_FAIL;
+		}
     else{
-        return lock_vol;
-    }
+
+         gaze_flag = true;
+        return ERR_CODE_WORK_SUCCESS;
+    }  
 }
 
-void Camera::process_data()
+CameraOperation::CameraOperation(Camera *camera_ptr_)
+{
+    lock_basket_pid.ConfigAll(0.080f, 0.045f, 0.0423f, 0.03f, 0.219f, 18.0f, 20.0f);
+	camera_ptr = camera_ptr_;
+}
+
+void CameraOperation::process_data()
 {
 	switch (camera_mode)
     {
@@ -78,7 +90,7 @@ void Camera::process_data()
     }
 }
 
-void Camera::camera_on()
+void CameraOperation::camera_on()
 {
 	if(camera_mode == camera_suspend){
 	camera_mode = camera_start;
@@ -86,7 +98,7 @@ void Camera::camera_on()
 	}
 }
 
-void Camera::camera_off()
+void CameraOperation::camera_off()
 {
 	if(camera_mode != camera_suspend){
 	camera_mode = camera_suspend;
@@ -94,24 +106,16 @@ void Camera::camera_off()
 	}
 }
 
-err_code Camera::check_error()
+float CameraOperation::lock_basket_vol()
 {
-    if(camera_info.vertial_plane_deviation.x == -721.0f 
-        && camera_info.vertial_plane_deviation.y == 540.0f){
+    lock_vol = lock_basket_pid.PID_ComputeError(camera_ptr->camera_info.vertial_plane_deviation.x);
 
-            gaze_flag = false;
-            return ERR_CODE_ABNORMAL;
-        }
-	else if(camera_info.vertial_plane_deviation.x == 0.0f 
-        && camera_info.vertial_plane_deviation.y == 0.0f){
-
-			gaze_flag = false;
-            return ERR_CODE_CONNECT_FAIL;
-		}
+    if(fabs(camera_ptr->camera_info.vertial_plane_deviation.x) < 3.0f){			//5.0f
+		camera_Y = camera_ptr->camera_info.vertial_plane_deviation.y;
+		camera_mode = camera_finish;
+        return 0;
+    }
     else{
-
-         gaze_flag = true;
-        return ERR_CODE_WORK_SUCCESS;
-    }  
+        return lock_vol;
+    }
 }
-

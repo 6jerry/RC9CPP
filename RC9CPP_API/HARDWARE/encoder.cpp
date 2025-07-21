@@ -60,10 +60,7 @@ void Encoder::can_update(uint8_t can_RxData[8])
   {
     float error = ((float)Encoder_conut - (float)Last_Encoder_conut) / (float)resolution;
 
-    if (rpm_counter.get_DeltaTime_ms() != 0.0f)
-    {
-      rpm = ((error / rpm_counter.delta_time_ms) * 1000.0f * 60.0f) / gear;
-    }
+    rpm_counter.check_tick();
 
     Last_Encoder_conut = Encoder_conut;
   }

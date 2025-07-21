@@ -1,10 +1,10 @@
  #include "lock_xbox.h"
 
-lock_xbox::lock_xbox(imu *imu_ptr_, ros_sensor *ros_ptr_, Camera *camera_ptr_)
+lock_xbox::lock_xbox(imu *imu_ptr_, ros_sensor *ros_ptr_, CameraOperation *camera_ops_)
 {
     imu_ptr = imu_ptr_;
     ros_ptr = ros_ptr_;
-    camera_ptr = camera_ptr_;
+    camera_ops = camera_ops_;
 
     center_point.x = 3.75f;
     center_point.y = -13.9f;
@@ -32,7 +32,7 @@ void lock_xbox::mode_1()
 
     DirRight_flag = 0;
 
-    if(camera_ptr->camera_ready == true){
+    if(camera_ops->camera_ready == true){
 
         set_RobotW(0.0f, 0);
 		
@@ -40,16 +40,16 @@ void lock_xbox::mode_1()
 		//    shoot_dis = dis;
 		//    auto_shooter_ptr->set_auto_byDis(PID, shoot_dis);
 			
-			shoot_dis = camera_ptr->camera_Y / 1000.0f;
+			shoot_dis = camera_ops->camera_Y / 1000.0f;
 			auto_shooter_ptr->camera_auto_byFitter(PID, shoot_dis);
 			osDelay(400);
 			rb_flag = 0;
 			mode_flag = 2;
-            camera_ptr->camera_off();
+            camera_ops->camera_off();
 		}
 	}
     else{
-        camera_ptr->camera_on();
+        camera_ops->camera_on();
         
 	}
 }
@@ -57,7 +57,7 @@ void lock_xbox::mode_1()
 void lock_xbox::mode_2()
 {
     calc_error();
-    camera_ptr->camera_off();
+    camera_ops->camera_off();
 
     Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
     set_RobotVel(tvel_, 2.5f);

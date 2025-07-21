@@ -31,7 +31,7 @@ private:
 
     imu *imu_ptr; // 指向imu类的指针
     ros_sensor *ros_ptr; // 导入雷达的指针
-    Camera *camera_ptr; // 导入相机的指针
+    CameraOperation *camera_ops; // 导入相机操作的指针
     AutoShooter* auto_shooter_ptr;//导入射球实例
 
     Vector2D center_point, tan_dir, nor_dir;    //圆心坐标
@@ -40,7 +40,7 @@ private:
     float shoot_dis;
 
 public:
-    lock_xbox(imu *imu_ptr_, ros_sensor *ros_ptr_, Camera *camera_ptr_);
+    lock_xbox(imu *imu_ptr_, ros_sensor *ros_ptr_, CameraOperation *camera_ops_);
     void add_AutoShooter(AutoShooter *auto_shooter_);
     void calc_error();
 
