@@ -32,9 +32,6 @@ void lock_xbox::mode_1()
 
     DirRight_flag = 0;
 
-    Vector2D tvel_((3.0f * xbox_msgs.joyLHori_map), (3.0f * xbox_msgs.joyLVert_map));
-    set_RobotVel(tvel_, 0);
-
     if(camera_ptr->camera_ready == true){
 
         set_RobotW(0.0f, 0);

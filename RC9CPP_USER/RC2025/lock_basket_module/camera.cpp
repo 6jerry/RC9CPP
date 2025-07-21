@@ -102,9 +102,16 @@ err_code Camera::check_error()
             gaze_flag = false;
             return ERR_CODE_ABNORMAL;
         }
+	else if(camera_info.vertial_plane_deviation.x == 0.0f 
+        && camera_info.vertial_plane_deviation.y == 0.0f){
+
+			gaze_flag = false;
+            return ERR_CODE_CONNECT_FAIL;
+		}
     else{
 
          gaze_flag = true;
         return ERR_CODE_WORK_SUCCESS;
     }  
 }
+
