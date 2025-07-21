@@ -73,6 +73,7 @@ private:
     uint32_t last_tick = 0;
     photogate_shoot *gate = nullptr;
     photogate_shoot *gate_down = nullptr;
+    float test_rpm;
 
 public:
     // 编码器
@@ -85,14 +86,14 @@ public:
 
     void init(power_motor *m1_, power_motor *m2_, Encoder *encoder_);
     void add_gate(photogate_shoot *gate_, photogate_shoot *gate_down_);
-    bool auto_adjust(float lifter_dis);
+    bool auto_adjust();
 
     void hand_adjust();
 
     // float calc(float x);
     void set_shooter_mode(uint8_t mode_);
     // int set_auto_byFitter(uint8_t mode, float r);
-    int set_auto_byrpm(float rpm);
+    void set_auto_byrpm(uint8_t mode_ ,float rpm);
     void set_hand(float rpm);
 };
 #endif

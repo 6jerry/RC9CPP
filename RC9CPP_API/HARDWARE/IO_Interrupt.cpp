@@ -27,7 +27,7 @@ extern "C" void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     __HAL_GPIO_EXTI_CLEAR_IT(GPIO_Pin);
     for (int i = 0; i < GPIODevice::instanceCount_; ++i) {
         GPIODevice* instance = GPIODevice::instances_[i];
-        if (instance->pin_ == GPIO_Pin) {
+        if (instance->pin == GPIO_Pin) {
             instance->handleInterrupt();
         }
     }

@@ -19,27 +19,26 @@ extern "C"
 #ifdef __cplusplus
 #define MAX_GPIO_INSTANCES 10 // 最大GPIO实例数
 
-
 class GPIODevice
 {
 public:
     // 构造函数：传入GPIO端口、引脚和触发类型
     GPIODevice();
-    
+
     // 注册实例到全局数组
     static void registerInstance(GPIODevice *instance);
-    
+
     // 纯虚函数：子类必须实现的电平变化处理
     virtual void handleInterrupt() = 0;
-    virtual void add_io_interrupt(GPIO_TypeDef *port, uint16_t pin) = 0;
+    virtual void add_io_interrupt(GPIO_TypeDef *port_, uint16_t pin_) = 0;
 
     // 静态成员
     static GPIODevice *instances_[MAX_GPIO_INSTANCES]; // 实例指针数组
     static int instanceCount_;                         // 实例计数器
-    
+
     // 硬件相关参数
-    GPIO_TypeDef *port_;      // GPIO端口
-    uint16_t pin_;            // GPIO引脚
+    GPIO_TypeDef *port; // GPIO端口
+    uint16_t pin;       // GPIO引脚
 
 private:
     // 硬件中断初始化（可根据需要扩展）

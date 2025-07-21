@@ -264,32 +264,30 @@ void AutoShooter::set_shooter_mode(uint8_t mode)
 float AutoShooter::calc(float r)
 {
     //---------------------多项式拟合-----------------
-    const float coeffs[] = {
+//    const float coeffs[] = {
 //            0.0169f, // r³ 系数
-            0.3590f,  // r² 系数
-            -0.3926f, // r 系数
-            0.226f   // 常数项
-        };
+//            -0.1134f,  // r² 系数
+//            0.2847f, // r 系数
+//            -0.0660f   // 常数项
+//        };
 
-    float s = coeffs[0];
-    s = s * r + coeffs[1];
-    s = s * r + coeffs[2];
-    //    s = s * r + coeffs[3];
+//    float s = coeffs[0];
+//    s = s * r + coeffs[1];
+//    s = s * r + coeffs[2];
+//    s = s * r + coeffs[3];
     //-----------------------------------------------
-
+    
     //---------------------幂、指数、直线拟合-----------------
-    // s = a * pow(r, b) + c * logf(r + 1);
+    //s = a * pow(r, b) + c * logf(r + 1);
     // s = a * pow(r,b) + c ;
     // s = a*exp(b*r) + c ;
-    // s=0.0321*r+0.0772;
+    //s=0.0321*r+0.0772;
     //-----------------------------------------------
-
-    //
-    //    s=a*r*r*(1+b*r)+c;
+    
+    s=a*r*r*(1+b*r)+c;
 
     return s + offest;
 }
-
 int AutoShooter::camera_auto_byFitter(uint8_t mode, float r)
 {
 
@@ -317,18 +315,19 @@ int AutoShooter::camera_auto_byFitter(uint8_t mode, float r)
 
 float AutoShooter::camera_cal(float r)
 {
-    //---------------------多项式拟合-----------------
+//    //---------------------多项式拟合-----------------
 //    const float coeffs[] = {
-//            0.3590f,  // r² 系数
-//            -0.3926f, // r 系数
-//            0.226f   // 常数项
+//             0.5647f,  // r² 系数
+//            -0.3961f, // r 系数
+//            0.192f   // 常数项
 //        };
 
 //    float s = coeffs[0];
 //    s = s * r + coeffs[1];
 //    s = s * r + coeffs[2];
 
-	s = 0.1425f*exp(-0.0047f*r) + 0.1025f ;
-	
-    return s + offest;
+//	s = 0.1425f*exp(-0.0047f*r) + 0.1025f ;
+	s = -0.0395f* logf(14.4273f*r + 1) + 0.1942f;
+	// 560g球
+    return s + camera_offest;
 }
