@@ -13,14 +13,6 @@ extern "C"
 #include "IO_Interrupt.h"
 #ifdef __cplusplus
 }
-// enum R3AutoMode
-// {
-//     auto_lift,   // 拉伸状态
-//     auto_shoot,  // 发射状态
-//     auto_revert, // 复位状态
-//     auto_finish, // 停止状态
-
-// };
 
 enum R3Mode
 {
@@ -37,9 +29,9 @@ enum gate_mode
 
 typedef struct R3ShootInfo
 {
-    float hand_rpm = 0.0f; // 手动模式下射球电机转速
-    float auto_rpm = 0.0f; // 手动模式下射球电机转速
-    float real_dis = 0.0f; // 从编码器获取的拉伸距离
+    float hand_rpm = 0.0f; // 手动模式转速
+    float auto_rpm = 0.0f; // 自动模式转速
+    float real_dis = 0.0f;
 };
 class photogate_shoot : public GPIODevice
 {
@@ -49,16 +41,19 @@ private:
     power_motor *motor2;
 
 public:
+    float rpm1 = 0.0f;
+    float rpm2 = 0.0f;
+    int flag = 0;
+    int cont = 0;
+
     void set_motors(power_motor *m1, power_motor *m2)
     {
         motor1 = m1;
         motor2 = m2;
     }
-    float rpm1 = 0.0f;
-    float rpm2 = 0.0f;
-    int flag = 0;
-    int cont = 0;
     photogate_shoot(gate_mode mode_, GPIO_TypeDef *port_, uint16_t pin_);
+
+    // 光电门触发处理函数
     void handleInterrupt() override;
     void add_io_interrupt(GPIO_TypeDef *port_, uint16_t pin_);
     void reset();
@@ -73,7 +68,6 @@ private:
     uint32_t last_tick = 0;
     photogate_shoot *gate = nullptr;
     photogate_shoot *gate_down = nullptr;
-    float test_rpm;
 
 public:
     // 编码器
@@ -87,13 +81,12 @@ public:
     void init(power_motor *m1_, power_motor *m2_, Encoder *encoder_);
     void add_gate(photogate_shoot *gate_, photogate_shoot *gate_down_);
     bool auto_adjust();
-
     void hand_adjust();
 
     // float calc(float x);
-    void set_shooter_mode(uint8_t mode_);
     // int set_auto_byFitter(uint8_t mode, float r);
-    void set_auto_byrpm(uint8_t mode_ ,float rpm);
+    void set_shooter_mode(uint8_t mode_);
+    void set_auto_byrpm(uint8_t mode_, float rpm);
     void set_hand(float rpm);
 };
 #endif

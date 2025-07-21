@@ -161,7 +161,7 @@ void RC9Protocol::process_data()
         // 发送数据
         if (type == uart)
         {
-            HAL_UART_Transmit_DMA(huart_, sendBuffer_, send_l);
+             HAL_UART_Transmit_DMA(huart_, sendBuffer_, send_l);
         }
         else if (type == cdc)
         {
