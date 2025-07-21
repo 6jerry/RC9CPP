@@ -8,8 +8,8 @@ RC9Protocol ros_port(cdc, nullptr);
 RC9Protocol send_port(uart, &huart4);
 ros_sensor ros_sensor_;
 position position_sensor;
-
 Camera camera;
+CameraOperation camera_operation(&camera);
 
 //??
 m3508p m2006_left(dji_id_4, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_1, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
@@ -18,7 +18,7 @@ vesc u8_front(vesc_id_1, &hfdcan2), u8_left(vesc_id_2, &hfdcan2), u8_right(vesc_
 RoboChassis s3_chassis(swerve3_chassis);
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
 
-lock_xbox chassis_debug(&position_sensor, &ros_sensor_, &camera);
+lock_xbox chassis_debug(&position_sensor, &ros_sensor_, &camera_operation);
 
 demo plot;
 
@@ -62,7 +62,7 @@ extern "C"
 
         //camera
         camera.addport(&ros_port);
-        camera.add_chassis(&s3_chassis);
+        camera_operation.add_chassis(&s3_chassis);
 
 
         //position
@@ -111,7 +111,7 @@ extern "C"
 		task_core.registerTask(7, &ros_port);
         task_core.registerTask(5, &checker);
         task_core.registerTask(6, &chassis_debug);
-        task_core.registerTask(9, &camera);
+        task_core.registerTask(9, &camera_operation);
         task_core.registerTask(5, &plot);
         osKernelStart();
     }
