@@ -12,7 +12,7 @@ extern "C"
 #include "IO_Interrupt.h"
 #include "robot_chassis.h"
 #include "encoder.h"
-
+#include "auto_yunball_R3.h"
 #include "R3_shooter.h"
 #ifdef __cplusplus
 }
@@ -70,6 +70,7 @@ private:
 public:
     void calc_error();
     R3_xbox(imu *imu_ptr_);
+    AutoYunballR3 *auto_yunball_ptr = nullptr;
     // power_motor *shoot_motor_1 = nullptr;
     // power_motor *shoot_motor_2 = nullptr;
     // Encoder *encoder = nullptr;
@@ -87,6 +88,7 @@ public:
     void mode_3() override;
     void xbox_on() override;
     void not_start() override;
+    void add_autoyunball(AutoYunballR3 *auto_yunball_);
     void add_R3shooter(R3Shooter *shooter_);
     // void init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Encoder *encoder_);
     // uint32_t last_tick = 0;

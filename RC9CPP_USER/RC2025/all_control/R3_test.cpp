@@ -7,6 +7,7 @@ RC9Protocol esp_port(uart, &huart3), debug_port(uart, &huart4), position_port(ua
 
 vesc shoot_1(vesc_id_1, &hfdcan1, 7.0f, 1.0f);
 vesc shoot_2(vesc_id_2, &hfdcan1, 7.0f, 1.0f);
+m3508p m2006_putball(dji_id_1, &hfdcan2, 55.4248f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
 
 Encoder encoder(0x03, &hfdcan2, 2.0f, 4096.0f);
 photogate_shoot gate(rising, GPIOD, GPIO_PIN_14);
@@ -19,6 +20,7 @@ RoboChassis robot_chassis(omni4_chassis);
 chassis_info omni4_info = {0.0719f, 0.0f, 0.0f, 0.2425f, 0.0f, 0.0f};
 position position_sensor;
 R3_xbox test_xbox(&position_sensor);
+AutoYunballR3 auto_yunball;
 demo plot;
 
 // demo plot;
@@ -33,6 +35,8 @@ extern "C"
     debug_port.startUartReceiveIT();
     debug_port.initQueue();
 
+    m2006_putball.config_mech_param(55.4248f, 2.0f);
+    m2006_putball.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
     position_port.startUartReceiveIT();
     position_port.initQueue();
     front_left_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
@@ -40,6 +44,8 @@ extern "C"
     back_left_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
     back_right_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
 
+    auto_yunball.add_motor(&m2006_putball);
+    auto_yunball.add_io(GPIOA, GPIO_PIN_8, GPIOF, GPIO_PIN_9, GPIOG, GPIO_PIN_7, GPIOG, GPIO_PIN_6);
     shooter.init(&shoot_1, &shoot_2, &encoder);
     shooter.add_gate(&gate, &gate_down);
 		gate.set_motors(&shoot_1, &shoot_2);
@@ -50,7 +56,7 @@ extern "C"
     // test_xbox.gate.add_io_interrupt(GPIOD, GPIO_PIN_14);
     // test_xbox.gate_down.add_io_interrupt(GPIOD, GPIO_PIN_15);
     test_xbox.add_chassis(&robot_chassis);
-
+    test_xbox.add_autoyunball(&auto_yunball);
     robot_chassis.add4_motors(&back_right_motor, &front_right_motor, &front_left_motor, &back_left_motor);
     robot_chassis.config(omni4_info);
     robot_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
@@ -79,7 +85,8 @@ extern "C"
     task_core.registerTask(6, &test_xbox);
     task_core.registerTask(3, &debug_port);
     task_core.registerTask(7, &position_port);
-    task_core.registerTask(8, &plot);
+    task_core.registerTask(2, &plot);
+    task_core.registerTask(8, &auto_yunball);
     osKernelStart();
   }
 }

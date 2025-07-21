@@ -16,6 +16,7 @@ extern "C"
 #include "ros_sensor.h"
 #include "position.h"
 #include "R3_testxbox.h"
+#include "auto_yunball_R3.h"
 
   void r3_setup();
 #ifdef __cplusplus
