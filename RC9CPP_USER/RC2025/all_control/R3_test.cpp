@@ -45,7 +45,7 @@ extern "C"
     back_right_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
 
     auto_yunball.add_motor(&m2006_putball);
-    auto_yunball.add_io(GPIOA, GPIO_PIN_8, GPIOF, GPIO_PIN_9, GPIOG, GPIO_PIN_7, GPIOG, GPIO_PIN_6);
+    auto_yunball.add_io(GPIOA, GPIO_PIN_8, GPIOA, GPIO_PIN_2, GPIOG, GPIO_PIN_7, GPIOG, GPIO_PIN_6);
     shooter.init(&shoot_1, &shoot_2, &encoder);
     shooter.add_gate(&gate, &gate_down);
 		gate.set_motors(&shoot_1, &shoot_2);
@@ -54,7 +54,7 @@ extern "C"
     test_xbox.addport(&esp_port);
     test_xbox.add_R3shooter(&shooter);
     // test_xbox.gate.add_io_interrupt(GPIOD, GPIO_PIN_14);
-    // test_xbox.gate_down.add_io_interrupt(GPIOD, GPIO_PIN_15);
+    // test_xbox.gate_down.add_io_interrupt(GPIOE, GPIO_PIN_3);
     test_xbox.add_chassis(&robot_chassis);
     test_xbox.add_autoyunball(&auto_yunball);
     robot_chassis.add4_motors(&back_right_motor, &front_right_motor, &front_left_motor, &back_left_motor);

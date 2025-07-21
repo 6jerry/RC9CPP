@@ -32,7 +32,7 @@ class AutoYunballR3 : public ITaskProcessor
 {
 private:
     power_motor *putball_motor;
-    state_flag flag = static_flag;
+    state_flag flag = init_flag;
     GPIO_TypeDef *put_port_in, *put_port_out, *push_port, *claw_port;
     uint16_t put_pin_in, put_pin_out, push_pin, claw_pin;
 
