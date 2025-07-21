@@ -71,11 +71,9 @@ public:
     void calc_error();
     R3_xbox(imu *imu_ptr_);
     AutoYunballR3 *auto_yunball_ptr = nullptr;
-    // power_motor *shoot_motor_1 = nullptr;
-    // power_motor *shoot_motor_2 = nullptr;
-    // Encoder *encoder = nullptr;
 
-    
+    imu *imu_ptr, *ros_imu; // 指向imu类的指针
+
     float move_rpm = 1000.0f;
     imu *imu_ptr, *ros_imu;                                              // 指向imu类的指针
     Vector2D center_point, tan_dir, nor_dir, robot_point, nor_dir_robot; // 圆心坐标
@@ -88,12 +86,9 @@ public:
     void mode_3() override;
     void xbox_on() override;
     void not_start() override;
+    void xbox_share() override;
     void add_autoyunball(AutoYunballR3 *auto_yunball_);
     void add_R3shooter(R3Shooter *shooter_);
-    // void init(power_motor *shoot_motor_1_, power_motor *shoot_motor_2_, Encoder *encoder_);
-    // uint32_t last_tick = 0;
-    // photogate_shoot gate;
-    // photogate_shoot_down gate_down;
     float target_rpm = 300.0f;
 
     float a = 27.4543f;

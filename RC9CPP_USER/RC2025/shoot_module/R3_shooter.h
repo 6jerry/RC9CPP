@@ -69,6 +69,13 @@ private:
     photogate_shoot *gate = nullptr;
     photogate_shoot *gate_down = nullptr;
 
+    float a = 0.0227f;
+    float b = -0.1578f;
+    float c = 0.0777f;
+    float s;
+    float offest = 0.0f;
+    float camera_offest = 0.002f;
+
 public:
     // 编码器
     Encoder *encoder = nullptr;
@@ -88,6 +95,8 @@ public:
     void set_shooter_mode(uint8_t mode_);
     void set_auto_byrpm(uint8_t mode_, float rpm);
     void set_hand(float rpm);
+
+    float calc(float r);
 };
 #endif
 #ifdef __cplusplus

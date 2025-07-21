@@ -44,8 +44,6 @@ void R3Shooter::init(power_motor *m1_, power_motor *m2_, Encoder *encoder_)
 
 void R3Shooter::process_data()
 {
-    // 获取编码器距离
-    // get_data();
 
     switch (mode)
     {
@@ -79,9 +77,6 @@ void R3Shooter::process_data()
         gate_down->reset();
         break;
     }
-
-    // 检查射球扳机
-    // check_shooter();
 }
 void R3Shooter::hand_adjust()
 {
@@ -126,8 +121,8 @@ bool R3Shooter::auto_adjust()
 
         if (HAL_GetTick() - last_tick > 150)
         {
-            m1->set_rpm(-500.0f);
-            m2->set_rpm(-500.0f);
+            m1->set_rpm(-600.0f);
+            m2->set_rpm(-600.0f);
             if (gate_down->flag)
             {
                 m1->send_rpm(0.0f);
@@ -152,4 +147,32 @@ void R3Shooter::add_gate(photogate_shoot *gate_, photogate_shoot *gate_down_)
 
     gate = gate_;
     gate_down = gate_down_;
+}
+
+float R3Shooter::calc(float r)
+{
+    //---------------------多项式拟合-----------------
+    //    const float coeffs[] = {
+    //            0.0169f, // r³ 系数
+    //            -0.1134f,  // r² 系数
+    //            0.2847f, // r 系数
+    //            -0.0660f   // 常数项
+    //        };
+
+    //    float s = coeffs[0];
+    //    s = s * r + coeffs[1];
+    //    s = s * r + coeffs[2];
+    //    s = s * r + coeffs[3];
+    //-----------------------------------------------
+
+    //---------------------幂、指数、直线拟合-----------------
+    // s = a * pow(r, b) + c * logf(r + 1);
+    // s = a * pow(r,b) + c ;
+    // s = a*exp(b*r) + c ;
+    // s=0.0321*r+0.0772;
+    //-----------------------------------------------
+
+    s = a * r * r * (1 + b * r) + c;
+
+    return s + offest;
 }
