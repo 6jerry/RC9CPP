@@ -3,18 +3,18 @@
 Camera::Camera()
 {
     lock_basket_pid.ConfigAll(0.080f, 0.045f, 0.0423f, 0.03f, 0.219f, 18.0f, 20.0f);
-	///´íÎóÂë
+	///é”™è¯¯ç 
     err_id = ERR_DEVICE_CAMERA; //0x08
 }
 
 void Camera::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
 {
 
-	// ÉÏÒ»´Î±äÁ¿´æ´¢
+	// ä¸Šä¸€æ¬¡å˜é‡å­˜å‚¨
 	static float previous_vertial_plane_deviation_x = 0.0f;
 	static float previous_vertial_plane_deviation_y = 0.0f;
 
-	//´¦ÀíÏà»úÊý¾Ý
+	//å¤„ç†ç›¸æœºæ•°æ®
 	if(id == 1 && byteCount == 8){
 		camera_info.vertial_plane_deviation.x = floatData[0];
 		camera_info.vertial_plane_deviation.y = floatData[1];
@@ -22,8 +22,8 @@ void Camera::DataReceivedCallback(const uint8_t *byteData, const float *floatDat
 	else{
 		return;
 	}
-	// ãÐÖµÏÞÖÆ
-	static float max_change = 80.0f; // ÏñËØ
+	// é˜ˆå€¼é™åˆ¶
+	static float max_change = 80.0f; // åƒç´ 
 	if (fabsf(camera_info.vertial_plane_deviation.x - previous_vertial_plane_deviation_x) > max_change)
 	{
 		camera_info.vertial_plane_deviation.x = previous_vertial_plane_deviation_x +

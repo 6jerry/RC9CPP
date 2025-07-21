@@ -34,7 +34,7 @@ extern "C"
 class demo: public ITaskProcessor, public RC9subscriber{
 	public:
 		void process_data();
-        void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override; // 数据回调函数
+        void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override; // 鏁版嵁鍥炶皟鍑芥暟
 		float recive_data[4] = {0};
 		uint8_t encoder_reset_flag =0;
 		Vector2D robot_pos;
@@ -44,7 +44,7 @@ class demo: public ITaskProcessor, public RC9subscriber{
 /*class Robot_communication: public ITaskProcessor, public RC9subscriber{
     public:
         void process_data();
-        void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override; // 数据回调函数
+        void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override; // 鏁版嵁鍥炶皟鍑芥暟
 
     Vector2D data_pos;
     Vector2D data_v;

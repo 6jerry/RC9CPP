@@ -23,7 +23,7 @@ void lock_xbox::calc_error()
 
     dis_2_center = dis.magnitude();
 
-    center_heading = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;// 角度对准圆心
+    center_heading = -atan2f(nor_dir.x, nor_dir.y) * 57.296f;// 陆脟露脠露脭脳录脭虏脨脛
 
 }
 
@@ -62,7 +62,7 @@ void lock_xbox::mode_2()
     Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
     set_RobotVel(tvel_, 2.5f);
 	
-	rb_flag = 0;		//防误触
+	rb_flag = 0;		//路脌脦贸麓楼
 	
     if(DirRight_flag){
         yaw_TurnTo(center_heading, 0);
@@ -83,4 +83,3 @@ void lock_xbox::add_AutoShooter(AutoShooter* auto_shooter_)
 {
     auto_shooter_ptr = auto_shooter_;
 }
-
