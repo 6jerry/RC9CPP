@@ -30,26 +30,25 @@ void R3_xbox ::calc_error()
 
 void R3_xbox::mode_1()
 {
-	//	calc_error();
+		calc_error();
 
-	//	Vector2D target(0.0f, 0.0f);
-	//	set_RobotVel(target, 0);
+		Vector2D target(0.0f, 0.0f);
+		set_RobotVel(target, 0);
 
-	//	if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
-	//	{
-	// set_RobotW(0.0f, 0);
-	// Shoot(calc_rpm(dis_2_center));
-	//  Shoot(target_rpm);
-	//  mode_flag = 2;
-	//	}
-	//	else
-	//	{
-	//		yaw_TurnTo(center_heading, 0);
-	//	}
+		if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
+		{
+	 set_RobotW(0.0f, 0);
+
+		}
+		else
+		{
+			yaw_TurnTo(center_heading, 0);
+		}
 
 	if (DirRight_flag == 1)
 	{
-		shooter->set_auto_byrpm(Auto, target_rpm);
+		//shooter->set_auto_byrpm(Auto, target_rpm);
+		shooter->set_auto_byFitter(Auto, dis_2_center);
 		DirRight_flag = 0;
 	}
 }
@@ -71,6 +70,11 @@ void R3_xbox::mode_2()
 		auto_yunball_ptr->start_yunball();
 		DirLeft_flag = 0;
 	}
+	if (btn_start_flag)
+    {
+        reset_swerve();
+        btn_start_flag = 0;
+    }
 }
 
 void R3_xbox::mode_3()

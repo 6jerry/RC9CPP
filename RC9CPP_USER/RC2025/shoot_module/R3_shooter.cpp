@@ -39,7 +39,6 @@ void R3Shooter::init(power_motor *m1_, power_motor *m2_)
 {
     m1 = m1_;
     m2 = m2_;
-
 }
 
 void R3Shooter::process_data()
@@ -108,17 +107,19 @@ void R3Shooter::set_auto_byrpm(uint8_t mode_, float rpm)
         info.auto_rpm = rpm;
     }
 }
+
+void R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
+{
+    // 已处于自动状态不可重复设置
+    if (mode != Auto)
+    {
+        mode = static_cast<R3Mode>(mode_);
+        info.auto_rpm = calc(r);
+    }
+}
 bool R3Shooter::auto_adjust()
 {
-    
-    info.auto_rpm = info.auto_rpm + k;
-    
-    if(info.auto_rpm > max)
-    {
-    
-    info.auto_rpm = max;
-  }
-    
+
     if (gate->flag)
     {
         m1->send_rpm(0.0f);
@@ -137,6 +138,12 @@ bool R3Shooter::auto_adjust()
     }
     else
     {
+        //info.auto_rpm = info.auto_rpm + k;
+
+        if (info.auto_rpm > max)
+        {
+            info.auto_rpm = max;
+        }
         last_tick = HAL_GetTick();
         gate_down->flag = 0;
         m1->send_rpm(info.auto_rpm);
@@ -176,7 +183,9 @@ float R3Shooter::calc(float r)
     // s=0.0321*r+0.0772;
     //-----------------------------------------------
 
-    s = a * r * r * (1 + b * r) + c;
+    //s = a * r * r * (1 + b * r) + c;
+    //v = a*(1-exp(b*r)) + c;
+    v = 599.4415 * pow(r,0.6818);
 
-    return s + offest;
+    return v + offest;
 }

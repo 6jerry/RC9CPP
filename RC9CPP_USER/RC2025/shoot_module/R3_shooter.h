@@ -69,11 +69,11 @@ private:
     photogate_shoot *gate = nullptr;
     photogate_shoot *gate_down = nullptr;
  
-    float max = 1200.0f;
-    float a = 0.0227f;
-    float b = -0.1578f;
-    float c = 0.0777f;
-    float s;
+    float max = 2500.0f;
+    float a = 2649.2988f;
+    float b = -0.1898f;
+    float c = 119.9363f;
+    float v;
     float offest = 0.0f;
     float camera_offest = 0.002f;
 
@@ -96,6 +96,7 @@ public:
     void set_shooter_mode(uint8_t mode_);
     void set_auto_byrpm(uint8_t mode_, float rpm);
     void set_hand(float rpm);
+    void set_auto_byFitter(uint8_t mode_, float r);
 
     float calc(float r);
 };

@@ -54,7 +54,7 @@ extern "C"
     position_port.initQueue();
     position_port.startUartReceiveIT();
     position_sensor.addport(&position_port);
-    position_sensor.set_map_plot(0.0f, -0.046f);
+    position_sensor.set_map_plot(0.0f, 0.046f);
 
     // DJI_Motor pid config
     m2006_putball.config_mech_param(55.4248f, 2.0f);
@@ -62,11 +62,11 @@ extern "C"
     m3508_left.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
     m3508_front.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
     m3508_right.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
-    m3508_front.config_mech_param(48.26f, 0.0f);
+    m3508_front.config_mech_param(46.71f, 0.0f);
     m3508_front.angle_pid_control.ConfigAll(3.1f, 0.4f, 1.4f, 0.0f, 160.0f, 0.2f, 3.0f);
-    m3508_left.config_mech_param(48.26f, 0.0f);
+    m3508_left.config_mech_param(46.71f, 0.0f);
     m3508_left.angle_pid_control.ConfigAll(3.1f, 0.4f, 1.4f, 0.0f, 160.0f, 0.2f, 3.0f);
-    m3508_right.config_mech_param(48.26f, 0.0f);
+    m3508_right.config_mech_param(46.71f, 0.0f);
     m3508_right.angle_pid_control.ConfigAll(3.1f, 0.4f, 1.4f, 0.0f, 160.0f, 0.2f, 3.0f);
 
     // vesc pid config
@@ -125,12 +125,12 @@ void demo::process_data()
   MX_FDCAN2_Init();
   CanDevice::InitAllFiltersNoMask();
 
-  float yaw = position_sensor.get_heading();
-  if (yaw < 0.0f)
-  {
-    yaw += 360.0f; // 确保航向角在0到360度之间
-  }
   // lidar TF
+//  float yaw = position_sensor.get_heading();
+//  if (yaw < 0.0f)
+//  {
+//    yaw += 360.0f; // 确保航向角在0到360度之间
+//  }
 //  float arr[7] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
 //                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y,
 //                  ros_sensor_.ros_radar_loaction.world_pos.x, ros_sensor_.ros_radar_loaction.world_pos.y,
