@@ -104,6 +104,13 @@ void xbox_debug_base::btnconfig_init()
         0,
         ButtonActionType::Custom,
         &xbox::btnShare_callback};
+    btnSelectConfig = {
+        &xbox_msgs.btnSelect,
+        &xbox_msgs.btnSelect_last,
+        &btn_select_flag,
+        1,
+        ButtonActionType::Toggle,
+        nullptr};
 }
 
 void xbox_debug_base::btn_scan()
@@ -121,6 +128,7 @@ void xbox_debug_base::btn_scan()
     handleButton(btnYConfig);
     handleButton(btnStartConfig);
     handleButton(btnShareConfig);
+    handleButton(btnSelectConfig);
 }
 
 void xbox_debug_base::btnXBOX_callback()

@@ -170,22 +170,21 @@ float R3Shooter::calc(float r)
     //            -0.0660f   // 常数项
     //        };
 
-    //    float s = coeffs[0];
-    //    s = s * r + coeffs[1];
-    //    s = s * r + coeffs[2];
-    //    s = s * r + coeffs[3];
+    //    float v = coeffv[0];
+    //    v = v * r + coeffs[1];
+    //    v = v * r + coeffs[2];
+    //    v = v * r + coeffs[3];
     //-----------------------------------------------
 
     //---------------------幂、指数、直线拟合-----------------
-    // s = a * pow(r, b) + c * logf(r + 1);
-    // s = a * pow(r,b) + c ;
-    // s = a*exp(b*r) + c ;
-    // s=0.0321*r+0.0772;
+    // v = a * pow(r, b) + c * logf(r + 1);
+    v = a * pow(r,b) + c ;
+    // v = a*exp(b*r) + c ;
+    // v=0.0321*r+0.0772;
+    //v = a*(1-exp(b*r)) + c;
     //-----------------------------------------------
 
-    //s = a * r * r * (1 + b * r) + c;
-    //v = a*(1-exp(b*r)) + c;
-    v = 599.4415 * pow(r,0.6818);
+    //v = a * r * r * (1 + b * r) + c;
 
     return v + offest;
 }
