@@ -15,10 +15,11 @@
  * @param gear_   齿轮比
  * @param resolution_   编码器分辨率
  */
-Encoder::Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, float gear_, float resolution_) : CanDevice(hcan_, CAN_FRAME_STD, can_id_), rpm_counter(can_id_, 100, 500)
+Encoder::Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, float gear_, float resolution_,float length_) : CanDevice(hcan_, CAN_FRAME_STD, can_id_), rpm_counter(can_id_, 100, 500)
 {
   gear = gear_;
   resolution = resolution_;
+	length = length_;
 }
 
 /**
@@ -68,7 +69,7 @@ void Encoder::can_update(uint8_t can_RxData[8])
   float Encoder_delta = (float)Encoder_conut / resolution;
   Encoder_delta = Encoder_delta - 5.0f;
   // 计算距离
-  distance = Encoder_delta * delta_length / gear;
+  distance = Encoder_delta * length / gear;
   all_angle = (Encoder_delta / gear) * 360.0f;            // 累计总角度
   angle = all_angle - (int)(all_angle / 360.0f) * 360.0f; // 当前角度
 }

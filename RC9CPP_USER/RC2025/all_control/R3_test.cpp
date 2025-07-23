@@ -21,6 +21,8 @@ m3508p m3508_left(dji_id_4, &hfdcan2), m3508_front(dji_id_3, &hfdcan2), m3508_ri
 RoboChassis s3_chassis(swerve3_chassis);
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
 
+Encoder encoder(0x03, &hfdcan2, 2.0f, 4096.0f,0.175f);
+
 AutoYunballR3 auto_yunball;
 R3Shooter shooter;
 photogate_shoot gate(rising, GPIOD, GPIO_PIN_14);
@@ -79,8 +81,9 @@ extern "C"
     auto_yunball.add_motor(&m2006_putball);
     auto_yunball.add_io(GPIOA, GPIO_PIN_8, GPIOA, GPIO_PIN_2, GPIOG, GPIO_PIN_7, GPIOG, GPIO_PIN_6);
 
-    shooter.init(&shoot_1, &shoot_2);
+    shooter.init(&shoot_1, &shoot_2, &encoder);
     shooter.add_gate(&gate, &gate_down);
+		shooter.dis_control.ConfigAll(1200.0f, 0.0f, 50.0f, 0.0f, 1000.0f, 0.001f, 0.015f);
     gate.set_motors(&shoot_1, &shoot_2);
     gate_down.set_motors(&shoot_1, &shoot_2);
 
@@ -125,27 +128,45 @@ void demo::process_data()
   MX_FDCAN2_Init();
   CanDevice::InitAllFiltersNoMask();
 
-  // lidar TF
-//  float yaw = position_sensor.get_heading();
-//  if (yaw < 0.0f)
+	
+	if(test_flag1 == 1)
+  {
+	encoder.send_reset();
+	test_flag1 = 0;
+	}
+//	
+//		if(test_flag2 == 1)
 //  {
-//    yaw += 360.0f; // 确保航向角在0到360度之间
-//  }
-//  float arr[7] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
-//                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y,
-//                  ros_sensor_.ros_radar_loaction.world_pos.x, ros_sensor_.ros_radar_loaction.world_pos.y,
-//                  yaw};
-//  sendFloatData(1, arr, 7);
+//	encoder.set_anti_clockwise();
+//	test_flag2 = 0;
+//	}
+//	
+//		if(test_flag3 == 1)
+//  {
+//	encoder.set_clockwise();
+//	test_flag3 = 0;
+//	}
+  // lidar TF
+  //  float yaw = position_sensor.get_heading();
+  //  if (yaw < 0.0f)
+  //  {
+  //    yaw += 360.0f; // 确保航向角在0到360度之间
+  //  }
+  //  float arr[7] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
+  //                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y,
+  //                  ros_sensor_.ros_radar_loaction.world_pos.x, ros_sensor_.ros_radar_loaction.world_pos.y,
+  //                  yaw};
+  //  sendFloatData(1, arr, 7);
 
-     float send_datas[7] = {gate.rpm1,
-                           gate.rpm2,
-                           shooter.info.auto_rpm,
-                           shoot_1.get_rpm(),
-                           shoot_2.get_rpm(),
-                           (float)shoot_1.target_erpm,
-                            (float)shoot_2.target_erpm};
+  float send_datas[7] = {gate.rpm1,
+                          gate.rpm2,
+                          shooter.info.auto_rpm,
+                          shoot_1.get_rpm(),
+                          shoot_2.get_rpm(),
+                          encoder.get_distance(),
+													shooter.info.debug_dis};
 
-    sendFloatData(1, send_datas, 7); 
+  sendFloatData(1, send_datas, 7);
 }
 
 void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)

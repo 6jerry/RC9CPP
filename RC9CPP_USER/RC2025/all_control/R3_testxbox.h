@@ -47,7 +47,7 @@ public:
     void add_autoyunball(AutoYunballR3 *auto_yunball_);
     void add_R3shooter(R3Shooter *shooter_);
     float target_rpm = 300.0f;
-
+    float dis = 0.05f;
     float a = 27.4543f;
     float b = 0.9230f;
     float c = 1054.6237f;

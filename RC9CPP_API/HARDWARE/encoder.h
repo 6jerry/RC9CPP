@@ -29,7 +29,7 @@ extern "C"
 class Encoder : public CanDevice, public imu
 {
 public:
-    Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, float gear_ = 1.0f, float resolution_ = 1.0f);
+    Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, float gear_ = 1.0f, float resolution_ = 1.0f,float length_ = 1.0f);
 
     void can_update(uint8_t can_RxData[8]) override;
 
@@ -54,6 +54,7 @@ public:
 
     //*********************** */
 private:
+	  
     uint8_t sampling_time = 10;      ///< 采样时间
     float rpm;                       ///< 转速 转/分钟
     float gear;                      ///< 齿轮减速比
@@ -61,7 +62,7 @@ private:
     uint32_t Last_Encoder_conut = 0; ///< 上一次编码器计数值
     uint32_t Encoder_conut = 0;      ///< 编码器计数值
     uint32_t resolution = 0;         ///< 编码器分辨率
-    float delta_length = 0.01;       ///< 单圈对应长度
+    float length ;                   ///< 单圈对应长度
     float all_angle = 0.0f;          ///< 累计总角度
     float angle = 0.0f;              ///< 当前角度
     int init_flag = 0;

@@ -47,8 +47,8 @@ void R3_xbox::mode_1()
 
 	if (DirRight_flag == 1)
 	{
-		//shooter->set_auto_byrpm(Auto, target_rpm);
-		shooter->set_auto_byFitter(Auto, dis_2_center);
+		shooter->set_auto_byrpm(Auto, target_rpm);
+		//shooter->set_auto_byFitter(Auto, dis_2_center);
 		DirRight_flag = 0;
 	}
 }
@@ -75,6 +75,8 @@ void R3_xbox::mode_2()
         reset_swerve();
         btn_start_flag = 0;
     }
+		
+
 }
 
 void R3_xbox::mode_3()
@@ -96,6 +98,7 @@ void R3_xbox::mode_3()
 		yaw_TurnTo(center_heading, 0);
 	}*/
 
+	
 	shooter->set_hand(move_rpm * xbox_msgs.joyRVert_map);
 	auto_yunball_ptr->control_put_motor(xbox_msgs.joyLVert_map);
 	auto_yunball_ptr->control_claw(rb_flag);
