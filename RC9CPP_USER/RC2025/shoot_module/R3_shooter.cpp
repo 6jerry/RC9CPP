@@ -42,10 +42,9 @@ void R3Shooter::init(power_motor *m1_, power_motor *m2_, Encoder *encoder_)
     encoder = encoder_;
 }
 
-
 void R3Shooter::process_data()
 {
-		get_data();
+    get_data();
     switch (mode)
     {
     case Stop:
@@ -67,25 +66,25 @@ void R3Shooter::process_data()
         if (auto_adjust(info.auto_rpm))
         {
             mode = Lift;
-					  info.debug_dis =  revert_dis;
-					last_tick = HAL_GetTick();
+            info.debug_dis = revert_dis;
+            last_tick = HAL_GetTick();
         }
 
         break;
 
-		case Lift:
-			 lift_adjust(info.debug_dis);
-//			 if (HAL_GetTick() - last_tick > 500)
-//        {
-//                lift_adjust(info.debug_dis);
-//        }else{
-//				
-//							  m1->send_rpm(0.0f);
-//                m2->send_rpm(0.0f);
+    case Lift:
+        lift_adjust(info.debug_dis);
+        //			 if (HAL_GetTick() - last_tick > 500)
+        //        {
+        //                lift_adjust(info.debug_dis);
+        //        }else{
+        //
+        //							  m1->send_rpm(0.0f);
+        //                m2->send_rpm(0.0f);
 
-//				}
-			 
-		     break;
+        //				}
+
+        break;
     default:
         m1->send_rpm(0.0f);
         m2->send_rpm(0.0f);
@@ -95,18 +94,17 @@ void R3Shooter::process_data()
     }
 }
 
-
 void R3Shooter::lift_adjust(float dis)
 {
-    float error = (dis  - info.real_dis);
+    float error = (dis - info.real_dis);
     info.auto_rpm = dis_control.PID_ComputeError(error);
-	  m1->send_rpm(info.auto_rpm);
-	  m2->send_rpm(info.auto_rpm);
+    m1->send_rpm(info.auto_rpm);
+    m2->send_rpm(info.auto_rpm);
 }
 void R3Shooter::hand_adjust()
 {
     m1->send_rpm(info.hand_rpm);
-	  m2->send_rpm(info.hand_rpm);
+    m2->send_rpm(info.hand_rpm);
 }
 
 void R3Shooter::set_hand(float rpm)
@@ -132,7 +130,7 @@ void R3Shooter::set_auto_byrpm(uint8_t mode_, float rpm)
     {
 
         mode = static_cast<R3Mode>(mode_);
-       // info.auto_mode = lift;
+        // info.auto_mode = lift;
         info.auto_rpm = rpm;
         start_dis = info.real_dis;
     }
@@ -196,35 +194,32 @@ void R3Shooter::allAuto_adjust()
 }
 bool R3Shooter::auto_adjust(float target_rpm)
 {
-     s_dis = end_dis - start_dis;
+    s_dis = end_dis - start_dis;
 
-     k = (target_rpm * target_rpm) / (2 * s_dis);
+    k = (target_rpm * target_rpm) / (2 * s_dis);
 
-     c_dis = info.real_dis + 0.0001f - start_dis;
+    c_dis = info.real_dis + 0.0001f - start_dis;
 
-     test_rpm = sqrt(2 * k * c_dis);
-	
-	   if(((s_dis - c_dis)/s_dis) < 0.3f)
-		 {
-		      test_rpm = target_rpm;
-		   
-		 }
+    test_rpm = sqrt(2 * k * c_dis);
+
+    if (((s_dis - c_dis) / s_dis) < 0.3f)
+    {
+        test_rpm = target_rpm;
+    }
     // v2 = 2ax;
-    if (fabs(end_dis - info.real_dis)<0.006f ||(info.real_dis > end_dis))
-    {  
-			  m1->send_rpm(-200.0f);
+    if (fabs(end_dis - info.real_dis) < 0.006f || (info.real_dis > end_dis))
+    {
+        m1->send_rpm(-200.0f);
         m2->send_rpm(-200.0f);
 
-			   return true;
-		
-      
+        return true;
     }
     else
     {
-				 m1->send_rpm(test_rpm);
+        m1->send_rpm(test_rpm);
         m2->send_rpm(test_rpm);
-//        m1->send_rpm( target_rpm);
-//        m2->send_rpm( target_rpm);
+        //        m1->send_rpm( target_rpm);
+        //        m2->send_rpm( target_rpm);
     }
 
     // if (gate->flag)
@@ -260,7 +255,6 @@ bool R3Shooter::auto_adjust(float target_rpm)
     return false;
 }
 
-
 void R3Shooter::add_gate(photogate_shoot *gate_, photogate_shoot *gate_down_)
 {
 
@@ -278,22 +272,21 @@ float R3Shooter::calc(float r)
     //            -0.0660f   // 常数项
     //        };
 
-    //    float s = coeffs[0];
-    //    s = s * r + coeffs[1];
-    //    s = s * r + coeffs[2];
-    //    s = s * r + coeffs[3];
+    //    float v = coeffv[0];
+    //    v = v * r + coeffs[1];
+    //    v = v * r + coeffs[2];
+    //    v = v * r + coeffs[3];
     //-----------------------------------------------
 
     //---------------------幂、指数、直线拟合-----------------
-    // s = a * pow(r, b) + c * logf(r + 1);
-    // s = a * pow(r,b) + c ;
-    // s = a*exp(b*r) + c ;
-    // s=0.0321*r+0.0772;
+    // v = a * pow(r, b) + c * logf(r + 1);
+    v = a * pow(r, b) + c;
+    // v = a*exp(b*r) + c ;
+    // v=0.0321*r+0.0772;
+    // v = a*(1-exp(b*r)) + c;
     //-----------------------------------------------
 
-    // s = a * r * r * (1 + b * r) + c;
-    // v = a*(1-exp(b*r)) + c;
-    v = 599.4415 * pow(r, 0.6818);
+    // v = a * r * r * (1 + b * r) + c;
 
     return v + offest;
 }

@@ -37,7 +37,7 @@ public:
     float dis_2_center = 0.0f, center_heading = 0.0f, nor_speed = 0.0f;  // 半径
     float pass_correct_distance = 0.30f;                                 // 修正距离
     float offest = 0.0f;
-    float limit_yaw_error = 0.4f, limit_yaw_speed = 1.0f;
+    float limit_yaw_error = 0.1f, limit_yaw_speed = 1.0f;
     void mode_1() override;
     void mode_2() override;
     void mode_3() override;

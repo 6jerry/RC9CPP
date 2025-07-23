@@ -56,7 +56,7 @@ extern "C"
     position_port.initQueue();
     position_port.startUartReceiveIT();
     position_sensor.addport(&position_port);
-    position_sensor.set_map_plot(0.0f, 0.046f);
+    position_sensor.set_map_plot(0.0f, -0.046f);
 
     // DJI_Motor pid config
     m2006_putball.config_mech_param(55.4248f, 2.0f);
