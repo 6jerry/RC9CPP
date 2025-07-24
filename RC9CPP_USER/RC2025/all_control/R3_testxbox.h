@@ -22,22 +22,23 @@ extern "C"
 
 class R3_xbox : public xbox_debug_base, public chassis_user
 {
-private:
-    R3Shooter *shooter = nullptr;
 
 public:
-    void calc_error();
-    R3_xbox(imu *imu_ptr_,imu *ros_imu_ptr_, CameraOperation *camera_ops_);
     AutoYunballR3 *auto_yunball_ptr = nullptr;
+    R3Shooter *shooter = nullptr;
+    imu *imu_ptr, *ros_imu;
     CameraOperation *camera_ops; // 导入相机操作的指针
 
-    float move_rpm = 1000.0f;
-    imu *imu_ptr, *ros_imu;                                              // 指向imu类的指针
-    Vector2D center_point, tan_dir, nor_dir, robot_point, nor_dir_robot; // 圆心坐标
-    float dis_2_center = 0.0f, center_heading = 0.0f, nor_speed = 0.0f;  // 半径
+    float move_rpm = 1000.0f;                                              // 指向imu类的指针
+    Vector2D center_point, nor_dir, robot_point, nor_dir_robot; // 圆心坐标
+    float dis_2_center = 0.0f, center_heading = 0.0f;  // 半径
     float pass_correct_distance = 0.30f;                                 // 修正距离
     float offest = 0.0f;
     float limit_yaw_error = 0.1f, limit_yaw_speed = 1.0f;
+    float target_rpm = 300.0f;
+    float shoot_dis = 0.0f;
+        
+    R3_xbox(imu *imu_ptr_,imu *ros_imu_ptr_, CameraOperation *camera_ops_);
     void mode_1() override;
     void mode_2() override;
     void mode_3() override;
@@ -46,13 +47,7 @@ public:
     void xbox_share() override;
     void add_autoyunball(AutoYunballR3 *auto_yunball_);
     void add_R3shooter(R3Shooter *shooter_);
-    float target_rpm = 300.0f;
-    float dis = 0.05f;
-    float a = 27.4543f;
-    float b = 0.9230f;
-    float c = 1054.6237f;
-    float calc_rpm(float dis);
-    float max_rpm = 2500.0f;
+    void calc_error();
 };
 
 #endif
