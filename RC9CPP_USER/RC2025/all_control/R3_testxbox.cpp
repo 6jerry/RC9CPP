@@ -37,31 +37,31 @@ void R3_xbox::mode_1()
 	Vector2D target(0.0f, 0.0f);
 	set_RobotVel(target, 0);
 
- 	if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
-	{
-		set_RobotW(0.0f, 0);
-	}
-	else
-	{
-		yaw_TurnTo(center_heading, 0);
-	}
-
-//	if (camera_ops->camera_ready == true)
+// 	if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
 //	{
 //		set_RobotW(0.0f, 0);
 //	}
 //	else
 //	{
-//		camera_ops->camera_on();
+//		yaw_TurnTo(center_heading, 0);
 //	}
+
+	if (camera_ops->camera_ready == true)
+	{
+		set_RobotW(0.0f, 0);
+	}
+	else
+	{
+		camera_ops->camera_on();
+	}
 
 	if (DirRight_flag)
 	{
 		//shoot_dis = camera_ops->camera_Y / 1000.0f;
 		// auto_shooter_ptr->camera_auto_byFitter(PID, shoot_dis);
 
-		shooter->set_auto_byrpm(Auto, target_rpm);
-		//shooter->set_auto_byFitter(Auto, dis_2_center);
+		//shooter->set_auto_byrpm(Auto, target_rpm);
+		shooter->set_auto_byFitter(Auto, dis_2_center);
 
 		osDelay(400);
 		DirRight_flag = 0;
