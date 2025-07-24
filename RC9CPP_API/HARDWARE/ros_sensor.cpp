@@ -48,8 +48,8 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 //		ros_radar_loaction.world_pos.x = - f_BFP[0].filter(floatData[1]);
 //		ros_radar_loaction.world_pos.y = f_BFP[1].filter(floatData[0]); // 把上位机坐标与追踪坐标方向对齐
 		
-		ros_radar_loaction.world_pos.x = -(floatData[0]);
-		ros_radar_loaction.world_pos.y = -(floatData[1]); // 把上位机坐标与追踪坐标方向对齐
+		ros_radar_loaction.world_pos.x = (floatData[1]);
+		ros_radar_loaction.world_pos.y = -(floatData[0]); // 把上位机坐标与追踪坐标方向对齐
 		//		if(fabsf(floatData[2]) < 0.02f && fabsf(floatData[3]) < 0.05f){
 		//			map_origin_init_flag = false; //重置映射原点
 		//		}

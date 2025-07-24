@@ -63,6 +63,7 @@ public:
     bool start_putball();
     void stop();
 
+    bool if_is_finish(); // 查看机构是否繁忙
 
     uint8_t test = 0;
     float test_time1 = 200;

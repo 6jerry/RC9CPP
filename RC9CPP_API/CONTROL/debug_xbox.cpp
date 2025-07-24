@@ -53,10 +53,10 @@ void xbox_debug_base::btnconfig_init()
     btnYConfig = {
         &xbox_msgs.btnY,
         &xbox_msgs.btnY_last,
-        &cnt_flag,
-        3,
-        ButtonActionType::Increment,
-        nullptr};
+        nullptr,
+        0,
+        ButtonActionType::Custom,
+        &xbox::btnY_callback};
 
     btnDirUpConfig = {
         &xbox_msgs.btnDirUp,
