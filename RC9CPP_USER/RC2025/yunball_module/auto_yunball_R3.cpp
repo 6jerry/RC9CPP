@@ -1,11 +1,11 @@
 #include "auto_yunball_R3.h"
 
-#define DEBOUNCE_DELAY 20 // 消抖时间20ms
+#define DEBOUNCE_DELAY 40 // 消抖时间40ms
 static uint32_t last_trigger_time = 0;
 static bool button_pressed = false;
 
 static uint32_t debounce_start = 0;
-constexpr uint32_t DEBOUNCE_THRESHOLD = 20; // 消抖时间50ms
+constexpr uint32_t DEBOUNCE_THRESHOLD = 40; // 消抖时间40ms
 
 
 void AutoYunballR3::process_data()
@@ -34,12 +34,6 @@ void AutoYunballR3::process_data()
     {
         case init_flag:
             putball_motor->set_rpm(100.0f);
-            /*if(HAL_GPIO_ReadPin(put_port_in, put_pin_in) == GPIO_PIN_RESET)
-            {
-                putball_motor->set_current(0.0f);
-                putball_motor->relocate_dis(-5.0f);
-                flag = static_flag; // 自动退出初始化状态
-            }*/
             if(HAL_GPIO_ReadPin(put_port_in, put_pin_in) == GPIO_PIN_RESET)
             {
                 // 首次检测到低电平且未标记已按下
@@ -108,6 +102,11 @@ void AutoYunballR3::add_io(GPIO_TypeDef *put_port_in_, uint16_t put_pin_in_, GPI
 
 
 // 外部接口函数
+bool AutoYunballR3::if_is_finish()
+{
+    return flag ==  static_flag;
+}
+
 bool AutoYunballR3::start_yunball()
 {
     if (flag == static_flag)
