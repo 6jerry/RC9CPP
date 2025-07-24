@@ -156,8 +156,8 @@ int R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
         }
         start_dis = info.real_dis;
 
-        // Auto 发射
-        // Lift 归位
+        // 2 Auto 发射
+        // 3 Lift 归位
         return mode;
     }
 }
