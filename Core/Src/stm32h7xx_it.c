@@ -61,7 +61,6 @@ extern FDCAN_HandleTypeDef hfdcan2;
 extern FDCAN_HandleTypeDef hfdcan3;
 extern TIM_HandleTypeDef htim7;
 extern DMA_HandleTypeDef hdma_uart4_tx;
-extern DMA_HandleTypeDef hdma_uart4_rx;
 extern DMA_HandleTypeDef hdma_uart5_tx;
 extern DMA_HandleTypeDef hdma_uart7_tx;
 extern DMA_HandleTypeDef hdma_uart8_tx;
@@ -89,8 +88,8 @@ extern TIM_HandleTypeDef htim8;
 /*           Cortex Processor Interruption and Exception Handlers          */
 /******************************************************************************/
 /**
- * @brief This function handles Non maskable interrupt.
- */
+  * @brief This function handles Non maskable interrupt.
+  */
 void NMI_Handler(void)
 {
   /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
@@ -104,8 +103,8 @@ void NMI_Handler(void)
 }
 
 /**
- * @brief This function handles Hard fault interrupt.
- */
+  * @brief This function handles Hard fault interrupt.
+  */
 void HardFault_Handler(void)
 {
   /* USER CODE BEGIN HardFault_IRQn 0 */
@@ -119,8 +118,8 @@ void HardFault_Handler(void)
 }
 
 /**
- * @brief This function handles Memory management fault.
- */
+  * @brief This function handles Memory management fault.
+  */
 void MemManage_Handler(void)
 {
   /* USER CODE BEGIN MemoryManagement_IRQn 0 */
@@ -134,8 +133,8 @@ void MemManage_Handler(void)
 }
 
 /**
- * @brief This function handles Pre-fetch fault, memory access fault.
- */
+  * @brief This function handles Pre-fetch fault, memory access fault.
+  */
 void BusFault_Handler(void)
 {
   /* USER CODE BEGIN BusFault_IRQn 0 */
@@ -149,8 +148,8 @@ void BusFault_Handler(void)
 }
 
 /**
- * @brief This function handles Undefined instruction or illegal state.
- */
+  * @brief This function handles Undefined instruction or illegal state.
+  */
 void UsageFault_Handler(void)
 {
   /* USER CODE BEGIN UsageFault_IRQn 0 */
@@ -164,8 +163,8 @@ void UsageFault_Handler(void)
 }
 
 /**
- * @brief This function handles Debug monitor.
- */
+  * @brief This function handles Debug monitor.
+  */
 void DebugMon_Handler(void)
 {
   /* USER CODE BEGIN DebugMonitor_IRQn 0 */
@@ -184,8 +183,8 @@ void DebugMon_Handler(void)
 /******************************************************************************/
 
 /**
- * @brief This function handles EXTI line3 interrupt.
- */
+  * @brief This function handles EXTI line3 interrupt.
+  */
 void EXTI3_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI3_IRQn 0 */
@@ -198,8 +197,8 @@ void EXTI3_IRQHandler(void)
 }
 
 /**
- * @brief This function handles DMA1 stream0 global interrupt.
- */
+  * @brief This function handles DMA1 stream0 global interrupt.
+  */
 void DMA1_Stream0_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Stream0_IRQn 0 */
@@ -212,8 +211,8 @@ void DMA1_Stream0_IRQHandler(void)
 }
 
 /**
- * @brief This function handles DMA1 stream1 global interrupt.
- */
+  * @brief This function handles DMA1 stream1 global interrupt.
+  */
 void DMA1_Stream1_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Stream1_IRQn 0 */
@@ -226,8 +225,8 @@ void DMA1_Stream1_IRQHandler(void)
 }
 
 /**
- * @brief This function handles DMA1 stream2 global interrupt.
- */
+  * @brief This function handles DMA1 stream2 global interrupt.
+  */
 void DMA1_Stream2_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Stream2_IRQn 0 */
@@ -240,8 +239,8 @@ void DMA1_Stream2_IRQHandler(void)
 }
 
 /**
- * @brief This function handles DMA1 stream3 global interrupt.
- */
+  * @brief This function handles DMA1 stream3 global interrupt.
+  */
 void DMA1_Stream3_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Stream3_IRQn 0 */
@@ -254,8 +253,8 @@ void DMA1_Stream3_IRQHandler(void)
 }
 
 /**
- * @brief This function handles DMA1 stream4 global interrupt.
- */
+  * @brief This function handles DMA1 stream4 global interrupt.
+  */
 void DMA1_Stream4_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Stream4_IRQn 0 */
@@ -268,8 +267,8 @@ void DMA1_Stream4_IRQHandler(void)
 }
 
 /**
- * @brief This function handles DMA1 stream5 global interrupt.
- */
+  * @brief This function handles DMA1 stream5 global interrupt.
+  */
 void DMA1_Stream5_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Stream5_IRQn 0 */
@@ -282,8 +281,8 @@ void DMA1_Stream5_IRQHandler(void)
 }
 
 /**
- * @brief This function handles DMA1 stream6 global interrupt.
- */
+  * @brief This function handles DMA1 stream6 global interrupt.
+  */
 void DMA1_Stream6_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Stream6_IRQn 0 */
@@ -296,8 +295,8 @@ void DMA1_Stream6_IRQHandler(void)
 }
 
 /**
- * @brief This function handles FDCAN1 interrupt 0.
- */
+  * @brief This function handles FDCAN1 interrupt 0.
+  */
 void FDCAN1_IT0_IRQHandler(void)
 {
   /* USER CODE BEGIN FDCAN1_IT0_IRQn 0 */
@@ -310,8 +309,8 @@ void FDCAN1_IT0_IRQHandler(void)
 }
 
 /**
- * @brief This function handles FDCAN2 interrupt 0.
- */
+  * @brief This function handles FDCAN2 interrupt 0.
+  */
 void FDCAN2_IT0_IRQHandler(void)
 {
   /* USER CODE BEGIN FDCAN2_IT0_IRQn 0 */
@@ -324,8 +323,8 @@ void FDCAN2_IT0_IRQHandler(void)
 }
 
 /**
- * @brief This function handles EXTI line[9:5] interrupts.
- */
+  * @brief This function handles EXTI line[9:5] interrupts.
+  */
 void EXTI9_5_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI9_5_IRQn 0 */
@@ -339,8 +338,8 @@ void EXTI9_5_IRQHandler(void)
 }
 
 /**
- * @brief This function handles USART1 global interrupt.
- */
+  * @brief This function handles USART1 global interrupt.
+  */
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
@@ -353,8 +352,8 @@ void USART1_IRQHandler(void)
 }
 
 /**
- * @brief This function handles USART2 global interrupt.
- */
+  * @brief This function handles USART2 global interrupt.
+  */
 void USART2_IRQHandler(void)
 {
   /* USER CODE BEGIN USART2_IRQn 0 */
@@ -367,8 +366,8 @@ void USART2_IRQHandler(void)
 }
 
 /**
- * @brief This function handles USART3 global interrupt.
- */
+  * @brief This function handles USART3 global interrupt.
+  */
 void USART3_IRQHandler(void)
 {
   /* USER CODE BEGIN USART3_IRQn 0 */
@@ -381,8 +380,8 @@ void USART3_IRQHandler(void)
 }
 
 /**
- * @brief This function handles EXTI line[15:10] interrupts.
- */
+  * @brief This function handles EXTI line[15:10] interrupts.
+  */
 void EXTI15_10_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI15_10_IRQn 0 */
@@ -396,8 +395,8 @@ void EXTI15_10_IRQHandler(void)
 }
 
 /**
- * @brief This function handles TIM8 update interrupt and TIM13 global interrupt.
- */
+  * @brief This function handles TIM8 update interrupt and TIM13 global interrupt.
+  */
 void TIM8_UP_TIM13_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM8_UP_TIM13_IRQn 0 */
@@ -410,8 +409,8 @@ void TIM8_UP_TIM13_IRQHandler(void)
 }
 
 /**
- * @brief This function handles DMA1 stream7 global interrupt.
- */
+  * @brief This function handles DMA1 stream7 global interrupt.
+  */
 void DMA1_Stream7_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Stream7_IRQn 0 */
@@ -424,8 +423,8 @@ void DMA1_Stream7_IRQHandler(void)
 }
 
 /**
- * @brief This function handles UART4 global interrupt.
- */
+  * @brief This function handles UART4 global interrupt.
+  */
 void UART4_IRQHandler(void)
 {
   /* USER CODE BEGIN UART4_IRQn 0 */
@@ -438,8 +437,8 @@ void UART4_IRQHandler(void)
 }
 
 /**
- * @brief This function handles UART5 global interrupt.
- */
+  * @brief This function handles UART5 global interrupt.
+  */
 void UART5_IRQHandler(void)
 {
   /* USER CODE BEGIN UART5_IRQn 0 */
@@ -452,8 +451,8 @@ void UART5_IRQHandler(void)
 }
 
 /**
- * @brief This function handles TIM7 global interrupt.
- */
+  * @brief This function handles TIM7 global interrupt.
+  */
 void TIM7_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM7_IRQn 0 */
@@ -466,8 +465,8 @@ void TIM7_IRQHandler(void)
 }
 
 /**
- * @brief This function handles DMA2 stream0 global interrupt.
- */
+  * @brief This function handles DMA2 stream0 global interrupt.
+  */
 void DMA2_Stream0_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA2_Stream0_IRQn 0 */
@@ -480,8 +479,8 @@ void DMA2_Stream0_IRQHandler(void)
 }
 
 /**
- * @brief This function handles USART6 global interrupt.
- */
+  * @brief This function handles USART6 global interrupt.
+  */
 void USART6_IRQHandler(void)
 {
   /* USER CODE BEGIN USART6_IRQn 0 */
@@ -494,8 +493,8 @@ void USART6_IRQHandler(void)
 }
 
 /**
- * @brief This function handles USB On The Go HS global interrupt.
- */
+  * @brief This function handles USB On The Go HS global interrupt.
+  */
 void OTG_HS_IRQHandler(void)
 {
   /* USER CODE BEGIN OTG_HS_IRQn 0 */
@@ -508,8 +507,8 @@ void OTG_HS_IRQHandler(void)
 }
 
 /**
- * @brief This function handles UART7 global interrupt.
- */
+  * @brief This function handles UART7 global interrupt.
+  */
 void UART7_IRQHandler(void)
 {
   /* USER CODE BEGIN UART7_IRQn 0 */
@@ -522,8 +521,8 @@ void UART7_IRQHandler(void)
 }
 
 /**
- * @brief This function handles UART8 global interrupt.
- */
+  * @brief This function handles UART8 global interrupt.
+  */
 void UART8_IRQHandler(void)
 {
   /* USER CODE BEGIN UART8_IRQn 0 */
@@ -536,8 +535,8 @@ void UART8_IRQHandler(void)
 }
 
 /**
- * @brief This function handles UART9 global interrupt.
- */
+  * @brief This function handles UART9 global interrupt.
+  */
 void UART9_IRQHandler(void)
 {
   /* USER CODE BEGIN UART9_IRQn 0 */
@@ -550,8 +549,8 @@ void UART9_IRQHandler(void)
 }
 
 /**
- * @brief This function handles FDCAN3 interrupt 0.
- */
+  * @brief This function handles FDCAN3 interrupt 0.
+  */
 void FDCAN3_IT0_IRQHandler(void)
 {
   /* USER CODE BEGIN FDCAN3_IT0_IRQn 0 */
