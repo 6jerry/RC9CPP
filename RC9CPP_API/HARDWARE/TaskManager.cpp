@@ -21,7 +21,7 @@ TaskManager::TaskManager()
     tasks[1].Priority = osPriorityAboveNormal;
     tasks[1].delay_ms = 2;
     tasks[2].Priority = osPriorityAboveNormal;
-    tasks[2].delay_ms = 5;
+    tasks[2].delay_ms = 3;
     tasks[3].Priority = osPriorityNormal;
     tasks[3].delay_ms = 5;
     tasks[4].Priority = osPriorityNormal;

@@ -5,8 +5,11 @@ R3_xbox::R3_xbox(imu *imu_ptr_, imu *ros_imu_ptr_, CameraOperation *camera_ops_)
 	imu_ptr = imu_ptr_;
 	ros_imu = ros_imu_ptr_;
 	camera_ops = camera_ops_;
-	center_point.x = 5.6513f;
-	center_point.y = -0.224190f;
+	center_point.x = 5.73;
+	center_point.y = -0.25f;
+    
+    //3.5663
+    //-14.0976
 }
 void R3_xbox ::calc_error()
 {
@@ -30,10 +33,11 @@ void R3_xbox ::calc_error()
 
 void R3_xbox::mode_1()
 {
+    calc_error();
 	Vector2D target(0.0f, 0.0f);
 	set_RobotVel(target, 0);
 
-	if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
+ 	if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
 	{
 		set_RobotW(0.0f, 0);
 	}
@@ -42,26 +46,26 @@ void R3_xbox::mode_1()
 		yaw_TurnTo(center_heading, 0);
 	}
 
-	/* 	if (camera_ops->camera_ready == true)
-		{
-			set_RobotW(0.0f, 0);
-		}
-		else
-		{
-			camera_ops->camera_on();
-		} */
+//	if (camera_ops->camera_ready == true)
+//	{
+//		set_RobotW(0.0f, 0);
+//	}
+//	else
+//	{
+//		camera_ops->camera_on();
+//	}
 
 	if (DirRight_flag)
 	{
-		// shoot_dis = camera_ops->camera_Y / 1000.0f;
+		//shoot_dis = camera_ops->camera_Y / 1000.0f;
 		// auto_shooter_ptr->camera_auto_byFitter(PID, shoot_dis);
 
-		// shooter->set_auto_byrpm(Auto, target_rpm);
-		shooter->set_auto_byFitter(Auto, dis_2_center);
+		shooter->set_auto_byrpm(Auto, target_rpm);
+		//shooter->set_auto_byFitter(Auto, dis_2_center);
 
 		osDelay(400);
 		DirRight_flag = 0;
-		mode_flag = 2;
+		//mode_flag = 2;
 		camera_ops->camera_off();
 	}
 }
@@ -70,8 +74,9 @@ void R3_xbox::mode_2()
 {
 	calc_error();
 	Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
-	set_WorldVel(tvel_, 0);
-
+	//set_WorldVel_ACCLE(tvel_, 2.5f); // 以后再改
+    set_RobotVel_ACCLE(tvel_, 2.5f); 
+    camera_ops->camera_off();
 	if (btn_select_flag)
 	{
 		set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);

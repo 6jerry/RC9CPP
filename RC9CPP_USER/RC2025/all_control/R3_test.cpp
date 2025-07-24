@@ -56,20 +56,20 @@ extern "C"
     position_port.initQueue();
     position_port.startUartReceiveIT();
     position_sensor.addport(&position_port);
-    position_sensor.set_map_plot(0.0f, -0.046f);
+    position_sensor.set_map_plot(0.0f, -0.08229f);
 
     // DJI_Motor pid config
     m2006_putball.config_mech_param(55.4248f, 2.0f);
-    m2006_putball.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
+    m2006_putball.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);;
     m3508_left.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
     m3508_front.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
     m3508_right.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
     m3508_front.config_mech_param(46.71f, 0.0f);
-    m3508_front.angle_pid_control.ConfigAll(3.1f, 0.4f, 1.4f, 0.0f, 160.0f, 0.2f, 3.0f);
+    m3508_front.angle_pid_control.ConfigAll(3.1f, 0.0f, 1.6f, 0.0f, 160.0f, 0.2f, 3.0f);
     m3508_left.config_mech_param(46.71f, 0.0f);
-    m3508_left.angle_pid_control.ConfigAll(3.1f, 0.4f, 1.4f, 0.0f, 160.0f, 0.2f, 3.0f);
+    m3508_left.angle_pid_control.ConfigAll(3.1f, 0.0f, 1.6f, 0.0f, 160.0f, 0.2f, 3.0f);
     m3508_right.config_mech_param(46.71f, 0.0f);
-    m3508_right.angle_pid_control.ConfigAll(3.1f, 0.4f, 1.4f, 0.0f, 160.0f, 0.2f, 3.0f);
+    m3508_right.angle_pid_control.ConfigAll(3.1f, 0.0f, 1.6f, 0.0f, 160.0f, 0.2f, 3.0f);
 
     // vesc pid config
     shoot_1.rpm_control.config_all(70.0f, 1.0f, 140.0f, 20.0f, 65000, 5.0f);
@@ -83,7 +83,7 @@ extern "C"
 
     shooter.init(&shoot_1, &shoot_2, &encoder);
     shooter.add_gate(&gate, &gate_down);
-		shooter.dis_control.ConfigAll(1200.0f, 0.0f, 50.0f, 0.0f, 1000.0f, 0.001f, 0.015f);
+		shooter.dis_control.ConfigAll(1400.0f, 0.0f, 83.0f, 0.0f, 1000.0f, 0.005f, 0.015f);
     gate.set_motors(&shoot_1, &shoot_2);
     gate_down.set_motors(&shoot_1, &shoot_2);
 
@@ -131,7 +131,7 @@ void demo::process_data()
 	
 	if(test_flag1 == 1)
   {
-	encoder.send_reset();
+	encoder.set_dis();
 	test_flag1 = 0;
 	}
 //	
@@ -146,27 +146,27 @@ void demo::process_data()
 //	encoder.set_clockwise();
 //	test_flag3 = 0;
 //	}
-  // lidar TF
-  //  float yaw = position_sensor.get_heading();
-  //  if (yaw < 0.0f)
-  //  {
-  //    yaw += 360.0f; // 确保航向角在0到360度之间
-  //  }
-  //  float arr[7] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
-  //                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y,
-  //                  ros_sensor_.ros_radar_loaction.world_pos.x, ros_sensor_.ros_radar_loaction.world_pos.y,
-  //                  yaw};
-  //  sendFloatData(1, arr, 7);
+   //lidar TF
+    float yaw = position_sensor.get_heading();
+    if (yaw < 0.0f)
+    {
+      yaw += 360.0f; // 确保航向角在0到360度之间
+    }
+    float arr[7] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
+                    -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y,
+                    ros_sensor_.ros_radar_loaction.world_pos.x, ros_sensor_.ros_radar_loaction.world_pos.y,
+                    yaw};
+    sendFloatData(1, arr, 7);
 
-  float send_datas[7] = {gate.rpm1,
-                          gate.rpm2,
-                          shooter.info.auto_rpm,
-                          shoot_1.get_rpm(),
-                          shoot_2.get_rpm(),
-                          encoder.get_distance(),
-													shooter.info.debug_dis};
+//  float send_datas[7] = {shooter.test_rpm,
+//                          gate.rpm2,
+//                          shooter.info.auto_rpm,
+//                          shoot_1.get_rpm(),
+//                          shoot_2.get_rpm(),
+//                          encoder.get_distance(),
+//													shooter.info.debug_dis};
 
-  sendFloatData(1, send_datas, 7);
+//  sendFloatData(1, send_datas, 7);
 }
 
 void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
