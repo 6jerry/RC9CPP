@@ -112,10 +112,10 @@ void Encoder::set_dis()
 {
 
   uint8_t data[8];
-  data[0] = 0x04;
+  data[0] = 0x05;
   data[1] = can_id_;
-  data[2] = 0x04;
-  data[3] = 0xAA;
-
+  data[2] = 0x05;
+  data[3] = 0x00;
+  data[4] = 0x0A;
   CAN_Send(can_id_, false, data, hcan_);
 }

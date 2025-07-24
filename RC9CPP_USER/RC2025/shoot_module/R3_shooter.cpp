@@ -73,16 +73,21 @@ void R3Shooter::process_data()
         break;
 
     case Lift:
-        lift_adjust(info.debug_dis);
-        //			 if (HAL_GetTick() - last_tick > 500)
-        //        {
-        //                lift_adjust(info.debug_dis);
-        //        }else{
-        //
-        //							  m1->send_rpm(0.0f);
-        //                m2->send_rpm(0.0f);
-
-        //				}
+       // lift_adjust(info.debug_dis);
+//        		if (HAL_GetTick() - last_tick > 500)
+                if(info.real_dis <= 0.50f)
+                {
+                        lift_adjust(info.debug_dis);
+                }else{
+        
+        			 //   m1->send_rpm(-500.0f);
+                     //   m2->send_rpm(-500.0f);
+                    
+                    m1->send_rpm(-500.0f);
+                    m2->send_rpm(-500.0f);
+        		}
+                
+               
 
         break;
     default:
@@ -99,7 +104,8 @@ void R3Shooter::lift_adjust(float dis)
     float error = (dis - info.real_dis);
     info.auto_rpm = dis_control.PID_ComputeError(error);
     m1->send_rpm(info.auto_rpm);
-    m2->send_rpm(info.auto_rpm);
+   // m2->send_rpm(info.auto_rpm);
+    m2->set_current(0.0f);
 }
 void R3Shooter::hand_adjust()
 {
@@ -143,6 +149,30 @@ int R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
     {
         mode = static_cast<R3Mode>(mode_);
         info.auto_rpm = calc(r);
+        
+        if(info.auto_rpm > max)
+        {
+           info.auto_rpm = max;
+        }
+        start_dis = info.real_dis;
+        
+        
+    }
+}
+
+void R3Shooter::set_auto_byCameraFitter(float camera_r)
+{
+    // 已处于自动状态不可重复设置
+    if (mode != Auto)
+    {
+        mode = Auto;
+        info.auto_rpm = calc_camera(camera_r);
+
+        if(info.auto_rpm > max)
+        {
+           info.auto_rpm = max;
+        }
+        start_dis = info.real_dis;
     }
 
     // Auto 发射
@@ -198,23 +228,26 @@ void R3Shooter::allAuto_adjust()
 }
 bool R3Shooter::auto_adjust(float target_rpm)
 {
-    s_dis = end_dis - start_dis;
+//    s_dis = end_dis - start_dis;
 
-    k = (target_rpm * target_rpm) / (2 * s_dis);
+//    k = (target_rpm * target_rpm) / (2 * s_dis);
 
-    c_dis = info.real_dis + 0.0001f - start_dis;
+//    c_dis = info.real_dis + 0.0001f - start_dis;
 
-    test_rpm = sqrt(2 * k * c_dis);
+//    test_rpm = sqrt(2 * k * c_dis);
 
-    if (((s_dis - c_dis) / s_dis) < 0.3f)
-    {
-        test_rpm = target_rpm;
-    }
+//    if (((s_dis - c_dis) / s_dis) < 0.5f)
+//    {
+//        test_rpm = target_rpm;
+//    }
+    
+    
+    test_rpm = target_rpm;
     // v2 = 2ax;
-    if (fabs(end_dis - info.real_dis) < 0.006f || (info.real_dis > end_dis))
+    if (fabs(end_dis - info.real_dis) < zone || (info.real_dis > end_dis))
     {
-        m1->send_rpm(-200.0f);
-        m2->send_rpm(-200.0f);
+        m1->send_rpm(0.0f);
+        m2->send_rpm(0.0f);
 
         return true;
     }
@@ -222,8 +255,6 @@ bool R3Shooter::auto_adjust(float target_rpm)
     {
         m1->send_rpm(test_rpm);
         m2->send_rpm(test_rpm);
-        //        m1->send_rpm( target_rpm);
-        //        m2->send_rpm( target_rpm);
     }
 
     // if (gate->flag)
@@ -292,7 +323,14 @@ float R3Shooter::calc(float r)
 
     // v = a * r * r * (1 + b * r) + c;
 
-    return v + offest;
+    return v + offset;
+}
+
+float R3Shooter::calc_camera(float camera_r)
+{
+    // v = a * pow(camera_r, b) + c;
+
+    return v += camera_offset;
 }
 
 void R3Shooter::get_data()

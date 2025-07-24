@@ -86,13 +86,13 @@ private:
     float start_dis = 0.0f;
     float end_dis = 0.7072f;
     float revert_dis = 0.0237f;
-    float max = 2500.0f;
+    float max = 1600.0f;
     float a = 599.4415f;
     float b = 0.6818f;
     float c = 0.0f;
     float v;
-    float offest = 0.0f;
-    float camera_offest = 0.002f;
+    float offset = 0.0f;
+    float camera_offset = 0.002f;
 
     float s_dis;
 
@@ -100,7 +100,7 @@ private:
 
     float c_dis;
 
-    float test_rpm;
+    float zone;
 
 public:
     // 编码器
@@ -116,6 +116,7 @@ public:
     bool auto_adjust(float target_rpm);
     void hand_adjust();
     void lift_adjust(float dis);
+    float test_rpm;
     // float calc(float x);
     // int set_auto_byFitter(uint8_t mode, float r);
     void set_shooter_mode(uint8_t mode_);
@@ -123,7 +124,7 @@ public:
     void set_hand(float rpm);
     int set_auto_byFitter(uint8_t mode_, float r);
     void set_lift(float dis);
-
+    float calc_camera(float camera_r);
     float calc(float r);
 };
 #endif

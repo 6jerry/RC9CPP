@@ -33,7 +33,7 @@ public:
     virtual float get_acc_x() {};
     virtual float get_acc_y() {};
     virtual float get_distance(void) {};
-
+    virtual float get_air_presure() {};
     virtual float get_yaw_speed() {};
 
 public:

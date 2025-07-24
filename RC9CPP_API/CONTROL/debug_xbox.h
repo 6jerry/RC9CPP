@@ -20,7 +20,7 @@ extern "C"
 class xbox_debug_base : public xbox, public ITaskProcessor
 {
 public:
-    uint8_t mode_flag = 2, start_flag = 0, lb_flag = 0, rb_flag = 0, cnt_flag = 0, shoot_title = 0, yunball_title = 0, DirLeft_flag = 0, DirRight_flag = 0, btn_start_flag = 0, btn_select_flag = 1;
+    uint8_t mode_flag = 2, start_flag = 0, lb_flag = 0, rb_flag = 0,shoot_title = 0, yunball_title = 0, DirLeft_flag = 0, DirRight_flag = 0, btn_start_flag = 0, btn_select_flag = 1;
 
     virtual void not_start() {};
     virtual void mode_0() {};
