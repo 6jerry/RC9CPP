@@ -136,7 +136,7 @@ void R3Shooter::set_auto_byrpm(uint8_t mode_, float rpm)
     }
 }
 
-void R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
+int R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
 {
     // 已处于自动状态不可重复设置
     if (mode != Auto)
@@ -144,6 +144,10 @@ void R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
         mode = static_cast<R3Mode>(mode_);
         info.auto_rpm = calc(r);
     }
+
+    // Auto 发射
+    // Lift 归位
+    return mode;
 }
 
 void R3Shooter::set_lift(float dis)

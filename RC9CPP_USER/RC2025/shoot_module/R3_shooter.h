@@ -14,14 +14,12 @@ extern "C"
 #ifdef __cplusplus
 }
 
-
-
 enum R3Mode
 {
     Stop, // 停止
     Hand, // 手动模式
     Auto, // 自动模式
-	  Lift, 
+    Lift, // 复位模式
 };
 
 enum R3AutoMode
@@ -44,7 +42,7 @@ typedef struct R3ShootInfo
     float hand_rpm = 0.0f; // 手动模式转速
     float auto_rpm = 0.0f; // 自动模式转速
     float real_dis = 0.0f;
-	  float debug_dis = 0.0245f;
+    float debug_dis = 0.0245f;
     R3AutoMode auto_mode = finish;
 };
 class photogate_shoot : public GPIODevice
@@ -82,9 +80,9 @@ private:
     uint32_t last_tick = 0;
     photogate_shoot *gate = nullptr;
     photogate_shoot *gate_down = nullptr;
-// 0.0237
-// 0.8972
-// 0.7072
+    // 0.0237
+    // 0.8972
+    // 0.7072
     float start_dis = 0.0f;
     float end_dis = 0.7072f;
     float revert_dis = 0.0237f;
@@ -98,9 +96,9 @@ private:
 
     float s_dis;
 
-     float k ;
+    float k;
 
-     float c_dis;
+    float c_dis;
 
     float test_rpm;
 
@@ -117,13 +115,13 @@ public:
     void allAuto_adjust();
     bool auto_adjust(float target_rpm);
     void hand_adjust();
-		void lift_adjust(float dis);
+    void lift_adjust(float dis);
     // float calc(float x);
     // int set_auto_byFitter(uint8_t mode, float r);
     void set_shooter_mode(uint8_t mode_);
     void set_auto_byrpm(uint8_t mode_, float rpm);
     void set_hand(float rpm);
-    void set_auto_byFitter(uint8_t mode_, float r);
+    int set_auto_byFitter(uint8_t mode_, float r);
     void set_lift(float dis);
 
     float calc(float r);
