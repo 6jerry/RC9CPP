@@ -109,6 +109,10 @@ private:
 
 public:
     float left_H_map = 0.0f, left_V_map = 0.0f, right_H_map = 0.0f, right_V_map = 0.0f, roll_map = 0.0f;
+
+    float left_H_mapcurve = 0.0f, left_V_mapcurve = 0.0f, right_H_mapcurve = 0.0f, right_V_mapcurve = 0.0f;
+
+    float c = -1.0f;
     uint8_t sar_flag = 0, sal_flag = 0, r_flag = 0, l_flag = 0, btn_r_flag = 0, last_btn_r_flag = 0, trigger_on = 0;
 
     void reset_trigger_flag();

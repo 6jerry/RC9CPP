@@ -305,6 +305,8 @@ void CrsfReceiver::map_value_compute()
         right_H_map = -1.0f;
     }
 
+    right_H_mapcurve = right_H_map / (1.0f - c * (1.0f - abs(right_H_map)));
+
     if (channels_[2] >= 1043 && channels_[2] <= 1053)
     {
         left_V_map = 0.0f;
@@ -325,6 +327,7 @@ void CrsfReceiver::map_value_compute()
     {
         left_V_map = 1.0f;
     }
+    left_V_mapcurve = left_V_map / (1.0f - c * (1.0f - abs(left_V_map)));
 
     if (channels_[1] < 174)
     {
@@ -338,6 +341,8 @@ void CrsfReceiver::map_value_compute()
     {
         right_V_map = (float)(channels_[1] - 174) / 1637.0f;
     }
+
+    right_V_mapcurve = right_V_map / (1.0f - c * (1.0f - abs(right_V_map)));
 
     if (channels_[3] >= 982 && channels_[3] <= 992)
     {
@@ -359,6 +364,8 @@ void CrsfReceiver::map_value_compute()
     {
         left_H_map = 1.0f;
     }
+
+    left_H_mapcurve = left_H_map / (1.0f - c * (1.0f - abs(left_H_map)));
 
     if (channels_[9] < 191)
     {
