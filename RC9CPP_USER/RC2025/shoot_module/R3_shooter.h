@@ -135,8 +135,6 @@ public:
     float calc_camera(float camera_r);
     float calc(float r);
 };
-#endif
-#ifdef __cplusplus
 
 #endif
 #endif

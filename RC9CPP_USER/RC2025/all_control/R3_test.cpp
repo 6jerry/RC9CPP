@@ -1,6 +1,6 @@
 #include "R3_test.h"
 
-TaskManager task_core;
+TaskManager task_c    ore;
 dji_motor_handle dji_core;
 
 RC9Protocol esp_port(uart, &huart3), position_port(uart, &huart6);
