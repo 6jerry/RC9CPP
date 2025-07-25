@@ -2,18 +2,21 @@
 
 TaskManager task_core;
 dji_motor_handle dji_core;
-RC9Protocol esp_port(uart, &huart3), position_port(uart, &huart4);
+RC9Protocol esp_port(uart, &huart3), position_port(uart, &huart6);
 RC9Protocol ros_port(cdc, nullptr);
 // RC9Protocol Lora_port(uart, &huart4);
-RC9Protocol send_port(uart, &huart6);
+RC9Protocol send_port(uart, &huart4);
 
 ros_sensor ros_sensor_;
 position position_sensor;
+Camera camera;
+CameraOperation camera_operation(&camera);
+chassis_adjust_xbox chassis_debug(&position_sensor, &ros_sensor_, &camera_operation);
 
-Encoder encoder(0x01, &hfdcan3, 2.0f, 1024.0f);             // 发射编码器
-Encoder encoder_for_yunball(0x02, &hfdcan3, 3.0f, 1024.0f); // 用于运球的编码器
+Encoder encoder(0x01, &hfdcan3, 2.0f, 1024.0f,0.01f);             // 发射编码器
+Encoder encoder_for_yunball(0x02, &hfdcan3, 3.0f, 1024.0f,0.01f); // 用于运球的编码器
 
-m3508p m2006_left(dji_id_4, &hfdcan1, 32.0f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_1, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
+m3508p m2006_left(dji_id_4, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_1, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
 m3508p m2006_turn_motor(dji_id_2, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), lift_motor(dji_id_5, &hfdcan1);
 vesc u8_front(vesc_id_1, &hfdcan2), u8_left(vesc_id_2, &hfdcan2), u8_right(vesc_id_3, &hfdcan2);
 vesc m6374(vesc_id_4, &hfdcan2, 7.0f, 2.0f);
@@ -23,7 +26,6 @@ chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
 
 AutoShooter auto_shooter;
 auto_yunball yunball_port;
-chassis_adjust_xbox chassis_debug(&position_sensor);
 demo plot;
 
 extern "C"
@@ -44,6 +46,10 @@ extern "C"
     ros_sensor_.addport(&ros_port);
     ros_port.initQueue();
     ros_port.startUartReceiveIT();
+
+    // camera
+    camera.addport(&ros_port);
+    camera_operation.add_chassis(&s3_chassis);
 
     // position
     position_port.initQueue();
@@ -87,25 +93,24 @@ extern "C"
     esp_port.startUartReceiveIT();
     chassis_debug.addport(&esp_port);
     chassis_debug.add_chassis(&s3_chassis);
-    chassis_debug.ros_imu = &ros_sensor_;
     chassis_debug.add_autoyunball(&yunball_port);
     chassis_debug.add_AutoShooter(&auto_shooter);
 
     // task register
     task_core.registerTask(0, &dji_core);
+    task_core.registerTask(1, &m6374);
     task_core.registerTask(2, &u8_front);
     task_core.registerTask(2, &u8_left);
     task_core.registerTask(2, &u8_right);
-    task_core.registerTask(1, &m6374);
     task_core.registerTask(3, &auto_shooter);
     task_core.registerTask(4, &s3_chassis);
+    task_core.registerTask(5, &ros_port);
     task_core.registerTask(6, &chassis_debug);
+    task_core.registerTask(7, &yunball_port);
     task_core.registerTask(8, &position_port);
     task_core.registerTask(8, &send_port);
-    task_core.registerTask(5, &ros_port);
     task_core.registerTask(8, &plot);
-    task_core.registerTask(7, &yunball_port);
-
+    task_core.registerTask(9, &camera_operation);
     osKernelStart();
   }
 }
@@ -116,28 +121,24 @@ void demo::process_data()
   CanDevice::InitAllFiltersNoMask();
 
   // Reset encoder
-  //  if (encoder_reset_flag == 1)
-  //  {
-  //    encoder.send_reset();
-  //    encoder_reset_flag = 0;
-  //  }
-  //  if (encoder_for_yunball_flag == 1)
-  //  {
-  //    encoder_for_yunball.send_reset();
-  //    encoder_for_yunball_flag = 0;
-  //  }
-
-  // auto_shooter debug
-  //  float arr[5] = {auto_shooter.shoot_info.target_dis * 1000.0f, auto_shooter.shoot_info.real_dis * 1000.0f, chassis_debug.center_heading, position_sensor.get_heading(), position_sensor.get_yaw_speed()};
-  //  sendFloatData(1, arr, 5);
+//  if (encoder_reset_flag == 1)
+//  {
+//    encoder.send_reset();
+//    encoder_reset_flag = 0;
+//  }
+//  if (encoder_for_yunball_flag == 1)
+//  {
+//    encoder_for_yunball.send_reset();
+//    encoder_for_yunball_flag = 0;
+//  }
 
   // lidar TF
-  //  float arr[6] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
-  //                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y,
-  //                  ros_sensor_.ros_radar_loaction.world_pos.x, ros_sensor_.ros_radar_loaction.world_pos.y};
-  //  sendFloatData(1, arr, 6);
+//  float arr[6] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
+//                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y,
+//                  ros_sensor_.ros_radar_loaction.world_pos.x, ros_sensor_.ros_radar_loaction.world_pos.y};
+//  sendFloatData(1, arr, 6);
 
-  // for_R2
+  //for_R2
   send_data[0] = position_sensor.get_heading();
   send_data[1] = -(position_sensor.get_world_pos_y() - pian_y);
   send_data[2] = -(position_sensor.get_world_pos_x() - pian_x);
