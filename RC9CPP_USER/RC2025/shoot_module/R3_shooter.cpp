@@ -31,6 +31,19 @@ void photogate_shoot::reset()
     flag = 0;
     cont = 0;
 }
+
+photogate_encoder::photogate_encoder(GPIO_TypeDef *port_, uint16_t pin_, Encoder *encoder_)
+{
+    port = port_;
+    pin = pin_;
+    encoder = encoder_;
+}
+
+// 光电门触发处理函数
+void photogate_encoder::handleInterrupt()
+{
+    encoder->send_reset();
+}
 R3Shooter::R3Shooter()
 {
 }
@@ -144,7 +157,7 @@ void R3Shooter::set_shooter_mode(uint8_t mode_)
 void R3Shooter::set_auto_byrpm(uint8_t mode_, float rpm)
 {
     // 已处于自动状态不可重复设置
-    if (mode != Auto)
+    if (mode == Stop)
     {
 
         mode = static_cast<R3Mode>(mode_);
@@ -195,47 +208,7 @@ void R3Shooter::set_lift(float dis)
     mode = Lift;
     info.debug_dis = dis;
 }
-void R3Shooter::allAuto_adjust()
-{
 
-    switch (info.auto_mode)
-    {
-    case lift:
-
-        if (auto_adjust(info.auto_rpm))
-        {
-            last_tick = HAL_GetTick();
-            info.auto_mode = shoot;
-        }
-
-        break;
-    case shoot:
-        m1->send_rpm(0.0f);
-        m2->send_rpm(0.0f);
-        if (HAL_GetTick() - last_tick > 300)
-        {
-            info.auto_mode = revert;
-            start_dis = info.real_dis;
-        }
-
-        break;
-    case revert:
-        if (auto_adjust(-600.0f))
-        {
-            info.auto_mode = finish;
-        }
-
-        break;
-    case finish:
-        m1->send_rpm(0.0f);
-        m2->send_rpm(0.0f);
-        break;
-    default:
-        m1->send_rpm(0.0f);
-        m2->send_rpm(0.0f);
-        break;
-    }
-}
 bool R3Shooter::auto_adjust(float target_rpm)
 {
     //    s_dis = end_dis - start_dis;
@@ -299,11 +272,12 @@ bool R3Shooter::auto_adjust(float target_rpm)
     return false;
 }
 
-void R3Shooter::add_gate(photogate_shoot *gate_, photogate_shoot *gate_down_)
+void R3Shooter::add_gate(photogate_shoot *gate_, photogate_shoot *gate_down_, photogate_encoder *encoder_gate_)
 {
 
     gate = gate_;
     gate_down = gate_down_;
+    encoder_gate = encoder_gate_;
 }
 
 float R3Shooter::calc(float r)
@@ -324,8 +298,8 @@ float R3Shooter::calc(float r)
 
     //---------------------幂、指数、直线拟合-----------------
     // v = a * pow(r, b) + c * logf(r + 1);
-    //v = a * pow(r, b) + c;
-    v = a*exp(b*r) + c ;
+    // v = a * pow(r, b) + c;
+    v = a * exp(b * r) + c;
     // v=0.0321*r+0.0772;
     // v = a*(1-exp(b*r)) + c;
     //-----------------------------------------------

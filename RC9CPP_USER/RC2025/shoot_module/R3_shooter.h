@@ -70,6 +70,19 @@ public:
     void add_io_interrupt(GPIO_TypeDef *port_, uint16_t pin_);
     void reset();
 };
+
+class photogate_encoder : public GPIODevice
+{
+private:
+    Encoder *encoder = nullptr;
+
+public:
+    photogate_encoder(GPIO_TypeDef *port_, uint16_t pin_, Encoder *encoder_);
+
+    // 光电门触发处理函数
+    void handleInterrupt() override;
+    void add_io_interrupt(GPIO_TypeDef *port_, uint16_t pin_);
+};
 class R3Shooter : public ITaskProcessor
 {
 
@@ -80,9 +93,7 @@ private:
     uint32_t last_tick = 0;
     photogate_shoot *gate = nullptr;
     photogate_shoot *gate_down = nullptr;
-    // 0.0237
-    // 0.8972
-    // 0.7072
+    photogate_encoder *encoder_gate = nullptr;
     float start_dis = 0.0f;
     float end_dis = 0.7072f;
     float revert_dis = 0.0357f;
@@ -95,11 +106,8 @@ private:
     float camera_offset = 0.002f;
 
     float s_dis;
-
     float k;
-
     float c_dis;
-
     float zone;
 
 public:
@@ -111,15 +119,14 @@ public:
     void process_data();
     void get_data();
     void init(power_motor *m1_, power_motor *m2_, Encoder *encoder_);
-    void add_gate(photogate_shoot *gate_, photogate_shoot *gate_down_);
-    void allAuto_adjust();
+    void add_gate(photogate_shoot *gate_, photogate_shoot *gate_down_, photogate_encoder *encoder_gate_);
     bool auto_adjust(float target_rpm);
     void hand_adjust();
     bool lift_adjust(float dis);
     float test_rpm;
-    // float calc(float x);
-    // int set_auto_byFitter(uint8_t mode, float r);
+
     void set_shooter_mode(uint8_t mode_);
+
     void set_auto_byrpm(uint8_t mode_, float rpm);
     void set_hand(float rpm);
     int set_auto_byFitter(uint8_t mode_, float r);
