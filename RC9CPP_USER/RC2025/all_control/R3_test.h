@@ -27,10 +27,10 @@ extern "C"
 class demo : public ITaskProcessor, public RC9subscriber
 {
 public:
-	
-	uint8_t test_flag1=0;
-  uint8_t test_flag2=0;
-  uint8_t test_flag3=0;
+  int flag = 0;
+  uint32_t last_tick = 0;
+  uint32_t last_tick2 = 0;
+  void encoder_check();
   void process_data();
   void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
   R3_xbox *xbox;
@@ -44,7 +44,6 @@ public:
 
   Vector2D robot_pos;
   Vector2D robot_v;
-
 };
 #endif
 #endif

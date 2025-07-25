@@ -15,8 +15,8 @@ void photogate_shoot::handleInterrupt()
 
         rpm1 = motor1->get_rpm();
         rpm2 = motor2->get_rpm();
-        motor1->send_rpm(0.0f);
-        motor2->send_rpm(0.0f);
+//        motor1->send_rpm(0.0f);
+//        motor2->send_rpm(0.0f);
     }
     cont++;
     flag = 1;
@@ -32,18 +32,6 @@ void photogate_shoot::reset()
     cont = 0;
 }
 
-photogate_encoder::photogate_encoder(GPIO_TypeDef *port_, uint16_t pin_, Encoder *encoder_)
-{
-    port = port_;
-    pin = pin_;
-    encoder = encoder_;
-}
-
-// 光电门触发处理函数
-void photogate_encoder::handleInterrupt()
-{
-    encoder->send_reset();
-}
 R3Shooter::R3Shooter()
 {
 }
@@ -58,6 +46,7 @@ void R3Shooter::init(power_motor *m1_, power_motor *m2_, Encoder *encoder_)
 void R3Shooter::process_data()
 {
     get_data();
+
     switch (mode)
     {
     case Stop:
@@ -134,8 +123,8 @@ bool R3Shooter::lift_adjust(float dis)
 }
 void R3Shooter::hand_adjust()
 {
-    m1->send_rpm(info.hand_rpm);
-    m2->send_rpm(info.hand_rpm);
+    m1->send_rpm(test_rpm);
+     m2->send_rpm(test_rpm);
 }
 
 void R3Shooter::set_hand(float rpm)
@@ -143,9 +132,11 @@ void R3Shooter::set_hand(float rpm)
 
     if (mode == Stop)
     {
-        mode = Hand;
-        info.hand_rpm = rpm;
+   
     }
+     mode = Hand;
+     //info.hand_rpm = rpm;
+		 test_rpm = rpm;
 }
 
 void R3Shooter::set_shooter_mode(uint8_t mode_)
@@ -272,12 +263,11 @@ bool R3Shooter::auto_adjust(float target_rpm)
     return false;
 }
 
-void R3Shooter::add_gate(photogate_shoot *gate_, photogate_shoot *gate_down_, photogate_encoder *encoder_gate_)
+void R3Shooter::add_gate(photogate_shoot *gate_, photogate_shoot *gate_down_)
 {
 
     gate = gate_;
     gate_down = gate_down_;
-    encoder_gate = encoder_gate_;
 }
 
 float R3Shooter::calc(float r)
@@ -319,4 +309,18 @@ float R3Shooter::calc_camera(float camera_r)
 void R3Shooter::get_data()
 {
     info.real_dis = encoder->get_distance();
+
+//    flag = HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_14);
+
+//    if (flag == 0)
+//    {
+//        if (HAL_GetTick() - last_tick2 > 100)
+//        {
+//            encoder->send_reset();
+//        }
+//    }
+//    else
+//    {
+//        last_tick2 = HAL_GetTick();
+//    }
 }
