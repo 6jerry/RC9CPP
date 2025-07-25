@@ -74,10 +74,12 @@ void R3Shooter::process_data()
 
     case Lift:
         // lift_adjust(info.debug_dis);
-        //        		if (HAL_GetTick() - last_tick > 500)
         if (info.real_dis <= 0.50f)
         {
-            lift_adjust(info.debug_dis);
+            if (lift_adjust(info.debug_dis))
+            {
+                mode = Stop;
+            }
         }
         else
         {
@@ -99,13 +101,23 @@ void R3Shooter::process_data()
     }
 }
 
-void R3Shooter::lift_adjust(float dis)
+bool R3Shooter::lift_adjust(float dis)
 {
+
     float error = (dis - info.real_dis);
-    info.auto_rpm = dis_control.PID_ComputeError(error);
-    m1->send_rpm(info.auto_rpm);
-    // m2->send_rpm(info.auto_rpm);
-    m2->set_current(0.0f);
+
+    if (fabs(error) < 0.003f)
+    {
+        return true;
+    }
+    else
+    {
+        info.auto_rpm = dis_control.PID_ComputeError(error);
+        m1->send_rpm(info.auto_rpm);
+        // m2->send_rpm(info.auto_rpm);
+        m2->set_current(0.0f);
+        return false;
+    }
 }
 void R3Shooter::hand_adjust()
 {
@@ -116,7 +128,7 @@ void R3Shooter::hand_adjust()
 void R3Shooter::set_hand(float rpm)
 {
 
-    if (mode != Auto)
+    if (mode == Stop)
     {
         mode = Hand;
         info.hand_rpm = rpm;
@@ -144,8 +156,8 @@ void R3Shooter::set_auto_byrpm(uint8_t mode_, float rpm)
 
 int R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
 {
-    // 已处于自动状态不可重复设置
-    if (mode != Auto)
+    // 自动状态结束才可重新设置
+    if (mode == Stop)
     {
         mode = static_cast<R3Mode>(mode_);
         info.auto_rpm = calc(r);
@@ -155,11 +167,11 @@ int R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
             info.auto_rpm = max;
         }
         start_dis = info.real_dis;
-
-        // 2 Auto 发射
-        // 3 Lift 归位
-        return mode;
     }
+    // 0 Stop 停止
+    // 2 Auto 发射
+    // 3 Lift 归位
+    return mode;
 }
 
 void R3Shooter::set_auto_byCameraFitter(float camera_r)

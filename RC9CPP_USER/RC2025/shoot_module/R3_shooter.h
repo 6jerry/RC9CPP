@@ -115,7 +115,7 @@ public:
     void allAuto_adjust();
     bool auto_adjust(float target_rpm);
     void hand_adjust();
-    void lift_adjust(float dis);
+    bool lift_adjust(float dis);
     float test_rpm;
     // float calc(float x);
     // int set_auto_byFitter(uint8_t mode, float r);
