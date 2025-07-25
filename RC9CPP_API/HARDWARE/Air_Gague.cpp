@@ -22,12 +22,12 @@ void Air_gague::handleReceiveData(uint8_t byte){
     }
     else if(state == 3){
         state = 4;
-        air_data.tmp[0] = byte; 
+        air_data.tmp[1] = byte; 
         return;
     }
     else if(state == 4){
         state = 5;
-        air_data.tmp[1] = byte;
+        air_data.tmp[0] = byte;
     }else{
         state = 0;
         return;
@@ -36,7 +36,7 @@ void Air_gague::handleReceiveData(uint8_t byte){
 
 float Air_gague::get_air_presure(void){
     HAL_UART_Transmit(huart_, cmd, 8, HAL_MAX_DELAY);
-    return (float)(air_data.data / 1000);
+    return ((float)air_data.data / 1000.0f);
 }
 
 void Air_gague::process_data(){
