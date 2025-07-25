@@ -27,7 +27,7 @@ AutoYunballR3 auto_yunball;
 R3Shooter shooter;
 photogate_shoot gate(rising, GPIOD, GPIO_PIN_14);
 photogate_shoot gate_down(falling, GPIOE, GPIO_PIN_3);
-photogate_encoder encoder_gate(GPIOE, GPIO_PIN_0, &encoder);
+
 demo plot;
 
 extern "C"
@@ -83,7 +83,7 @@ extern "C"
     auto_yunball.add_io(GPIOA, GPIO_PIN_8, GPIOA, GPIO_PIN_2, GPIOG, GPIO_PIN_7, GPIOG, GPIO_PIN_6);
 
     shooter.init(&shoot_1, &shoot_2, &encoder);
-    shooter.add_gate(&gate, &gate_down, &encoder_gate);
+    shooter.add_gate(&gate, &gate_down);
     shooter.dis_control.ConfigAll(1400.0f, 0.0f, 83.0f, 0.0f, 1000.0f, 0.005f, 0.015f);
     gate.set_motors(&shoot_1, &shoot_2);
     gate_down.set_motors(&shoot_1, &shoot_2);
@@ -129,23 +129,14 @@ void demo::process_data()
   MX_FDCAN2_Init();
   CanDevice::InitAllFiltersNoMask();
 
-  if (test_flag1 == 1)
-  {
-    encoder.set_dis();
-    test_flag1 = 0;
-  }
-  //
-  //		if(test_flag2 == 1)
+  //  if (test_flag1 == 1)
   //  {
-  //	encoder.set_anti_clockwise();
-  //	test_flag2 = 0;
-  //	}
-  //
-  //		if(test_flag3 == 1)
-  //  {
-  //	encoder.set_clockwise();
-  //	test_flag3 = 0;
-  //	}
+  //    encoder.send_reset();
+  //    test_flag1 = 0;
+  //  }
+
+  encoder_check();
+
   // lidar TF
   float yaw = position_sensor.get_heading();
   if (yaw < 0.0f)
@@ -188,4 +179,25 @@ void demo::add_xbox(R3_xbox *xbox_)
   xbox = xbox_;
   pian_x = xbox->center_point.x;
   pian_y = xbox->center_point.y;
+}
+
+void demo::encoder_check()
+{
+  if (HAL_GetTick() - last_tick2 > 2000)
+  {
+    flag = HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_14);
+
+    if (flag == 0)
+    {
+      if (HAL_GetTick() - last_tick > 100)
+      {
+        encoder.send_reset();
+        last_tick2 = HAL_GetTick();
+      }
+    }
+    else
+    {
+      last_tick = HAL_GetTick();
+    }
+  }
 }
