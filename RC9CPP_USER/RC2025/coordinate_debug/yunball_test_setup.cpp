@@ -7,7 +7,7 @@ m3508p m2006_left(dji_id_4, &hfdcan1, 111.72384f, M2006_MAX_CURRENT, M2006_CURRE
 vesc u8_front(vesc_id_1, &hfdcan2), u8_left(vesc_id_2, &hfdcan2), u8_right(vesc_id_3, &hfdcan2);
 // vesc m6374(vesc_id_4, &hfdcan2, 7.0f, 2.0f);
 
-// Encoder encoder(0x01, &hfdcan3);
+Encoder encoder_for_yunball(0x02, &hfdcan3, 3.0f, 1024.0f); // 用于运球的编码器
 RC9Protocol esp_port(uart, &huart3), position_port(uart, &huart6);
 
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
@@ -36,6 +36,7 @@ extern "C"
     yunball_port.add_motor(&m2006_turn_motor, &lift_motor);
     yunball_port.add_io(GPIOG, GPIO_PIN_6, GPIOG, GPIO_PIN_3, GPIOD, GPIO_PIN_14); // G8发射， G6夹爪， G3推射
     yunball_port.add_shooter(&auto_shooter);
+    m2006_turn_motor.add_encoder(&encoder_for_yunball);
     m2006_turn_motor.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
     lift_motor.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
 

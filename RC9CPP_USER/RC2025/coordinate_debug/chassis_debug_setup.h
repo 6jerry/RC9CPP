@@ -39,8 +39,8 @@ public:
 
     void add_xbox(chassis_adjust_xbox *xbox_);
 
-    float pian_x = 3.0;
-    float pian_y = 14.406;
+    float pian_x;
+    float pian_y;
 
     uint8_t encoder_reset_flag = 0;
     uint8_t encoder_for_yunball_flag = 0;
