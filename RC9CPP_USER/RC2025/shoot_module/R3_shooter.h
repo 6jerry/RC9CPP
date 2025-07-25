@@ -87,9 +87,9 @@ private:
     float end_dis = 0.7072f;
     float revert_dis = 0.0237f;
     float max = 1600.0f;
-    float a = 599.4415f;
-    float b = 0.6818f;
-    float c = 0.0f;
+    float a = 77.4489f;
+    float b = 0.5614f;
+    float c = 835.2703f;
     float v;
     float offset = 0.0f;
     float camera_offset = 0.002f;
