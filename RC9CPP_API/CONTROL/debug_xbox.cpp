@@ -149,7 +149,7 @@ xbox_debug_base::xbox_debug_base()
 void xbox_debug_base::process_data()
 {
     btn_scan();
-    joymap_compute();
+    joymap_compute_throttle_curve();
 
     if (start_flag == 1)
     {

@@ -256,6 +256,7 @@ public:
 
     void handleButton(ButtonConfig &config);
     void joymap_compute();
+    void joymap_compute_throttle_curve();
     bool getButtonState(ButtonConfig &config);
 
     virtual void btnRB_callback() {}
