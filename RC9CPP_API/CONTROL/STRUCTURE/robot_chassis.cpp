@@ -717,7 +717,40 @@ uint8_t RoboChassis::set_CRobotVel_ACCLE(Vector2D robovel, float accle)
     dt = (HAL_GetTick() - last_tick) / 1000.0; // 计算时间间隔
     last_tick = HAL_GetTick();
 
-    if (abs(target.target_robovel.x - robovel.x) < accle * dt)
+    float error_x = robovel.x - target.target_robovel.x;
+    float error_y = robovel.y - target.target_robovel.y;
+
+    float error_dist = sqrtf(error_x * error_x + error_y * error_y);
+    float max_vel_change = accle * dt;
+
+    if(robovel.magnitude() != 0)
+    {  
+        if(error_dist <= max_vel_change)
+        {
+            target.target_robovel.x = robovel.x;
+            target.target_robovel.y = robovel.y;
+        }
+        else
+        {
+            target.target_robovel.x += error_x/error_dist * max_vel_change; 
+            target.target_robovel.y += error_y/error_dist * max_vel_change;
+        }
+    }
+    else
+    {
+        if(error_dist <= 4.0f * dt)
+        {
+            target.target_robovel.x = 0;
+            target.target_robovel.y = 0;
+        }
+        else
+        {
+            target.target_robovel.x += error_x/error_dist * 4.0f * dt; 
+            target.target_robovel.y += error_y/error_dist * 4.0f * dt;
+        }
+    }
+
+    /*if (abs(target.target_robovel.x - robovel.x) < accle * dt)
     {
         target.target_robovel.x = robovel.x;
     }
@@ -753,7 +786,7 @@ uint8_t RoboChassis::set_CRobotVel_ACCLE(Vector2D robovel, float accle)
         else
         {
         }
-    }
+    }*/
     return 1;
 }
 
@@ -774,8 +807,41 @@ uint8_t RoboChassis::set_CWorldVel_ACCLE(Vector2D worldvel, float accle)
     }
     dt = (HAL_GetTick() - last_tick) / 1000.0; // 计算时间间隔
     last_tick = HAL_GetTick();
+ 
+    float error_x = worldvel.x - target.target_worldvel.x;
+    float error_y = worldvel.y - target.target_worldvel.y;
 
-    if (abs(target.target_worldvel.x - worldvel.x) < accle * dt)
+    float error_dist = sqrtf(error_x * error_x + error_y * error_y);
+    float max_vel_change = accle * dt;
+
+    if(worldvel.magnitude() != 0)
+    {  
+        if(error_dist <= max_vel_change)
+        {
+            target.target_worldvel.x = worldvel.x;
+            target.target_worldvel.y = worldvel.y;
+        }
+        else
+        {
+            target.target_worldvel.x += error_x/error_dist * max_vel_change; 
+            target.target_worldvel.y += error_y/error_dist * max_vel_change;
+        }
+    }
+    else
+    {
+        if(error_dist <= 4.0f * dt)
+        {
+            target.target_worldvel.x = 0;
+            target.target_worldvel.y = 0;
+        }
+        else
+        {
+            target.target_worldvel.x += error_x/error_dist * 4.0f * dt; 
+            target.target_worldvel.y += error_y/error_dist * 4.0f * dt;
+        }
+    }
+
+    /*if (abs(target.target_worldvel.x - worldvel.x) < accle * dt)
     {
         target.target_worldvel.x = worldvel.x;
     }
@@ -811,7 +877,7 @@ uint8_t RoboChassis::set_CWorldVel_ACCLE(Vector2D worldvel, float accle)
         else
         {
         }
-    }
+    }*/
     return 1;
 }
 

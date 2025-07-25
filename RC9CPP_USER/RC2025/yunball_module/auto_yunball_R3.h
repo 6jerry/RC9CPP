@@ -48,6 +48,7 @@ private:
     float putball_dis = 0.0f, putball_speed = 0.0f, putball_acc = 0.0f, putball_dec = 0.0f,putball_finalspeed = 0.0f;
     float yunball_dis = 0.0f, yunball_speed = 0.0f, yunball_acc = 0.0f, yunball_dec = 0.0f,yunball_finalspeed = 0.0f;
     
+    uint8_t if_init = 0; // 手动初始化标志位
     uint8_t emergency_stop_flag = 0; // 停止标志位
     volatile int32_t emergency_semaphore = 0; // 新增信号量计数器
 public:
@@ -61,8 +62,10 @@ public:
 
     bool start_yunball();
     bool start_putball();
+    bool reload_motor();
     void stop();
 
+    bool if_enable_shoot(); // 判断是否可以发射
     bool if_is_finish(); // 查看机构是否繁忙
 
     uint8_t test = 0;

@@ -75,7 +75,7 @@ void R3_xbox::mode_2()
 	calc_error();
 	Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
 	//set_WorldVel_ACCLE(tvel_, 2.5f); // 以后再改
-    set_RobotVel_ACCLE(tvel_, 2.5f); 
+    set_RobotVel_ACCLE(tvel_, 3.0f); 
     camera_ops->camera_off();
 	if (btn_select_flag)
 	{

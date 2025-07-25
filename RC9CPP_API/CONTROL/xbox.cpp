@@ -105,6 +105,74 @@ void xbox::joymap_compute()
     xbox_msgs.trigRT_map = (float)xbox_msgs.trigRT / 1023.0f;
     xbox_msgs.trigLT_map = (float)xbox_msgs.trigLT / 1023.0f;
 }
+//节流曲线
+void xbox::joymap_compute_throttle_curve()
+{
+    const float c = -1.0f;
+
+    if (xbox_msgs.joyLHori > 31000 && xbox_msgs.joyLHori < 35000)
+    {
+        xbox_msgs.joyLHori_map = 0.0f;
+    }
+    if (xbox_msgs.joyLHori <= 31000)
+    {
+        xbox_msgs.joyLHori_map = (31000.0f - (float)xbox_msgs.joyLHori) / 31000.0f;
+    }
+    if (xbox_msgs.joyLHori >= 35000)
+    {
+        xbox_msgs.joyLHori_map = (35000.0f - (float)xbox_msgs.joyLHori) / 30535.0f;
+    }
+    xbox_msgs.joyLHori_map /= (1 - c * (1 - abs(xbox_msgs.joyLHori_map)));
+
+
+    if (xbox_msgs.joyLVert > 31000 && xbox_msgs.joyLVert < 35000)
+    {
+        xbox_msgs.joyLVert_map = 0.0f;
+    }
+    if (xbox_msgs.joyLVert <= 31000)
+    {
+        xbox_msgs.joyLVert_map = (31000.0f - (float)xbox_msgs.joyLVert) / 31000.0f;
+    }
+    if (xbox_msgs.joyLVert >= 35000)
+    {
+        xbox_msgs.joyLVert_map = (35000.0f - (float)xbox_msgs.joyLVert) / 30535.0f;
+    }
+    xbox_msgs.joyLVert_map /= (1 - c * (1 - abs(xbox_msgs.joyLVert_map)));
+
+
+    if (xbox_msgs.joyRHori > 31000 && xbox_msgs.joyRHori < 35000)
+    {
+        xbox_msgs.joyRHori_map = 0.0f;
+    }
+    if (xbox_msgs.joyRHori <= 31000)
+    {
+        xbox_msgs.joyRHori_map = (31000.0f - (float)xbox_msgs.joyRHori) / 31000.0f;
+    }
+    if (xbox_msgs.joyRHori >= 35000)
+    {
+        xbox_msgs.joyRHori_map = (35000.0f - (float)xbox_msgs.joyRHori) / 30535.0f;
+    }
+    xbox_msgs.joyRHori_map /= (1 - c * (1 - abs(xbox_msgs.joyRHori_map)));
+
+
+    if (xbox_msgs.joyRVert > 31000 && xbox_msgs.joyRVert < 35000)
+    {
+        xbox_msgs.joyRVert_map = 0.0f;
+    }
+    if (xbox_msgs.joyRVert <= 31000)
+    {
+        xbox_msgs.joyRVert_map = (31000.0f - (float)xbox_msgs.joyRVert) / 31000.0f;
+    }
+    if (xbox_msgs.joyRVert >= 35000)
+    {
+        xbox_msgs.joyRVert_map = (35000.0f - (float)xbox_msgs.joyRVert) / 30535.0f;
+    }
+    xbox_msgs.joyRVert_map /= (1 - c * (1 - abs(xbox_msgs.joyRVert_map)));
+
+
+    xbox_msgs.trigRT_map = (float)xbox_msgs.trigRT / 1023.0f;
+    xbox_msgs.trigLT_map = (float)xbox_msgs.trigLT / 1023.0f;
+}
 //按键单击触发，单击一次执行一次结构体配置的操作
 void xbox::handleButton(ButtonConfig &config)
 {
