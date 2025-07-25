@@ -70,7 +70,7 @@ public:
 
     uint8_t test = 0;
     float test_time1 = 200;
-    float test_time2 = 350;
+    float test_time2 = 400;
 };
 
 

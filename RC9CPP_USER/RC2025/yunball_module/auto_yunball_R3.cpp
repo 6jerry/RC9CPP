@@ -45,6 +45,12 @@ void AutoYunballR3::process_data()
                     // 执行电机操作
                     putball_motor->set_current(0.0f);
                     putball_motor->relocate_dis(-5.0f);
+                    putball_motor->set_rpm(-300.0f);
+                    while(putball_motor->get_dis() > -16.0f)
+                    {
+                        osDelay(1);
+                    }
+                    putball_motor->set_rpm(0.0f);
                     flag = static_flag;
                 }
             }
@@ -191,13 +197,13 @@ void AutoYunballR3::putball()
     osDelay(200);
     set_claw(true);
     osDelay(400);
-    set_claw(false);
     putball_motor->set_rpm(-300.0f);
     while(putball_motor->get_dis() > -16.0f)
     {
         osDelay(1);
     }
     putball_motor->set_rpm(0.0f);
+    set_claw(false);
     flag = stop_flag;
 }
 

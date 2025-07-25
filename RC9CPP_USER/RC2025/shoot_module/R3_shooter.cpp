@@ -73,21 +73,23 @@ void R3Shooter::process_data()
         break;
 
     case Lift:
-       // lift_adjust(info.debug_dis);
-//        		if (HAL_GetTick() - last_tick > 500)
-                if(info.real_dis <= 0.50f)
-                {
-                        lift_adjust(info.debug_dis);
-                }else{
-        
-        			 //   m1->send_rpm(-500.0f);
-                     //   m2->send_rpm(-500.0f);
-                    
-                    m1->send_rpm(-500.0f);
-                    m2->send_rpm(-500.0f);
-        		}
-                
-               
+        // lift_adjust(info.debug_dis);
+        if (info.real_dis <= 0.50f)
+        {
+            if (lift_adjust(info.debug_dis))
+            {
+                mode = Stop;
+            }
+        }
+        else
+        {
+
+            //   m1->send_rpm(-500.0f);
+            //   m2->send_rpm(-500.0f);
+
+            m1->send_rpm(-500.0f);
+            m2->send_rpm(-500.0f);
+        }
 
         break;
     default:
@@ -99,13 +101,23 @@ void R3Shooter::process_data()
     }
 }
 
-void R3Shooter::lift_adjust(float dis)
+bool R3Shooter::lift_adjust(float dis)
 {
+
     float error = (dis - info.real_dis);
-    info.auto_rpm = dis_control.PID_ComputeError(error);
-    m1->send_rpm(info.auto_rpm);
-   // m2->send_rpm(info.auto_rpm);
-    m2->set_current(0.0f);
+
+    if (fabs(error) < 0.003f)
+    {
+        return true;
+    }
+    else
+    {
+        info.auto_rpm = dis_control.PID_ComputeError(error);
+        m1->send_rpm(info.auto_rpm);
+        // m2->send_rpm(info.auto_rpm);
+        m2->set_current(0.0f);
+        return false;
+    }
 }
 void R3Shooter::hand_adjust()
 {
@@ -116,7 +128,7 @@ void R3Shooter::hand_adjust()
 void R3Shooter::set_hand(float rpm)
 {
 
-    if (mode != Auto)
+    if (mode == Stop)
     {
         mode = Hand;
         info.hand_rpm = rpm;
@@ -142,22 +154,24 @@ void R3Shooter::set_auto_byrpm(uint8_t mode_, float rpm)
     }
 }
 
-void R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
+int R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
 {
-    // 已处于自动状态不可重复设置
-    if (mode != Auto)
+    // 自动状态结束才可重新设置
+    if (mode == Stop)
     {
         mode = static_cast<R3Mode>(mode_);
         info.auto_rpm = calc(r);
-        
-        if(info.auto_rpm > max)
+
+        if (info.auto_rpm > max)
         {
-           info.auto_rpm = max;
+            info.auto_rpm = max;
         }
         start_dis = info.real_dis;
-        
-        
     }
+    // 0 Stop 停止
+    // 2 Auto 发射
+    // 3 Lift 归位
+    return mode;
 }
 
 void R3Shooter::set_auto_byCameraFitter(float camera_r)
@@ -168,9 +182,9 @@ void R3Shooter::set_auto_byCameraFitter(float camera_r)
         mode = Auto;
         info.auto_rpm = calc_camera(camera_r);
 
-        if(info.auto_rpm > max)
+        if (info.auto_rpm > max)
         {
-           info.auto_rpm = max;
+            info.auto_rpm = max;
         }
         start_dis = info.real_dis;
     }
@@ -224,20 +238,19 @@ void R3Shooter::allAuto_adjust()
 }
 bool R3Shooter::auto_adjust(float target_rpm)
 {
-//    s_dis = end_dis - start_dis;
+    //    s_dis = end_dis - start_dis;
 
-//    k = (target_rpm * target_rpm) / (2 * s_dis);
+    //    k = (target_rpm * target_rpm) / (2 * s_dis);
 
-//    c_dis = info.real_dis + 0.0001f - start_dis;
+    //    c_dis = info.real_dis + 0.0001f - start_dis;
 
-//    test_rpm = sqrt(2 * k * c_dis);
+    //    test_rpm = sqrt(2 * k * c_dis);
 
-//    if (((s_dis - c_dis) / s_dis) < 0.5f)
-//    {
-//        test_rpm = target_rpm;
-//    }
-    
-    
+    //    if (((s_dis - c_dis) / s_dis) < 0.5f)
+    //    {
+    //        test_rpm = target_rpm;
+    //    }
+
     test_rpm = target_rpm;
     // v2 = 2ax;
     if (fabs(end_dis - info.real_dis) < zone || (info.real_dis > end_dis))
@@ -311,8 +324,8 @@ float R3Shooter::calc(float r)
 
     //---------------------幂、指数、直线拟合-----------------
     // v = a * pow(r, b) + c * logf(r + 1);
-    v = a * pow(r, b) + c;
-    // v = a*exp(b*r) + c ;
+    //v = a * pow(r, b) + c;
+    v = a*exp(b*r) + c ;
     // v=0.0321*r+0.0772;
     // v = a*(1-exp(b*r)) + c;
     //-----------------------------------------------
