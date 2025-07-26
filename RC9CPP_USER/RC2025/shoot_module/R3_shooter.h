@@ -80,7 +80,7 @@ private:
     power_motor *m2 = nullptr;
     R3Mode mode = Stop;
     uint32_t last_tick = 0;
-   // uint32_t last_tick2 = 0;
+    // uint32_t last_tick2 = 0;
 
     photogate_shoot *gate = nullptr;
     photogate_shoot *gate_down = nullptr;
@@ -124,7 +124,7 @@ public:
     void set_auto_byrpm(uint8_t mode_, float rpm);
     void set_hand(float rpm);
     int set_auto_byFitter(uint8_t mode_, float r);
-    void set_auto_byCameraFitter(uint8_t mode_, float camera_r);
+    int set_auto_byCameraFitter(uint8_t mode_, float camera_r);
     void set_lift(float dis);
     float calc_camera(float camera_r);
     float calc(float r);
