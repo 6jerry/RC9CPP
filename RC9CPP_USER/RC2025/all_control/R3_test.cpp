@@ -21,7 +21,7 @@ m3508p m3508_left(dji_id_4, &hfdcan2), m3508_front(dji_id_3, &hfdcan2), m3508_ri
 RoboChassis s3_chassis(swerve3_chassis);
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
 
-Encoder encoder(0x03, &hfdcan2, 2.0f, 4096.0f, 0.175f);
+Encoder encoder(0x03, &hfdcan2, 2.3333f, 4096.0f,0.175f); 
 
 AutoYunballR3 auto_yunball;
 R3Shooter shooter;
@@ -138,26 +138,22 @@ void demo::process_data()
   encoder_check();
 
   // lidar TF
-  float yaw = position_sensor.get_heading();
-  if (yaw < 0.0f)
-  {
-    yaw += 360.0f; // 确保航向角在0到360度之间
-  }
-  float arr[7] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
-                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y,
-                  ros_sensor_.ros_radar_loaction.world_pos.x, ros_sensor_.ros_radar_loaction.world_pos.y,
-                  yaw};
-  sendFloatData(1, arr, 7);
+//  float yaw = position_sensor.get_heading();
+//  float arr[7] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
+//                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y,
+//                  ros_sensor_.ros_radar_loaction.world_pos.x, ros_sensor_.ros_radar_loaction.world_pos.y,
+//                  yaw};
+//  sendFloatData(1, arr, 7);
 
-  //  float send_datas[7] = {shooter.test_rpm,
-  //                          gate.rpm2,
-  //                          shooter.info.auto_rpm,
-  //                          shoot_1.get_rpm(),
-  //                          shoot_2.get_rpm(),
-  //                          encoder.get_distance(),
-  //													shooter.info.debug_dis};
+  float send_datas[7] = {shooter.test_rpm,
+                          gate.rpm2,
+                          shooter.info.auto_rpm,
+                          shoot_1.get_rpm(),
+                          shoot_2.get_rpm(),
+                          encoder.get_distance(),
+													shooter.info.debug_dis};
 
-  //  sendFloatData(1, send_datas, 7);
+  sendFloatData(1, send_datas, 7);
 }
 
 void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
