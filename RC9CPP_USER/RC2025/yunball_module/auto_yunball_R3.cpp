@@ -37,11 +37,13 @@ void AutoYunballR3::process_data()
             if(HAL_GPIO_ReadPin(put_port_in, put_pin_in) == GPIO_PIN_RESET)
             {
                 // 首次检测到低电平且未标记已按下
-                if(!button_pressed && (HAL_GetTick() - last_trigger_time > DEBOUNCE_DELAY))
+                if(!button_pressed)
                 {
                     last_trigger_time = HAL_GetTick();
                     button_pressed = true;
-                    
+                }
+                else if(HAL_GetTick() - last_trigger_time > DEBOUNCE_DELAY)
+                {
                     // 执行电机操作
                     putball_motor->set_current(0.0f);
                     putball_motor->relocate_dis(-5.0f);
@@ -108,7 +110,7 @@ void AutoYunballR3::add_io(GPIO_TypeDef *put_port_in_, uint16_t put_pin_in_, GPI
 
 // 外部接口函数
 bool AutoYunballR3::if_is_finish()  {return flag ==  static_flag;}
-bool AutoYunballR3::if_enable_shoot()  {return putball_motor->get_dis() > -16.0f;}
+bool AutoYunballR3::if_enable_shoot()  {return putball_motor->get_dis() < -16.0f;}
 
 bool AutoYunballR3::reload_motor()
 {
@@ -187,7 +189,7 @@ void AutoYunballR3::putball()
             debounce_start = 0; // 高电平重置计时
         }
 
-        if(putball_motor->get_dis() > -8.0f){
+        if(putball_motor->get_dis() > -9.0f){
             putball_motor->set_rpm(50.0f);
         }
         osDelay(1);
@@ -214,10 +216,10 @@ void AutoYunballR3::yunball()
         putball_motor->set_rpm(-500.0f);
         while(HAL_GPIO_ReadPin(put_port_out, put_pin_out) == GPIO_PIN_SET)
         {
-            if(putball_motor->get_dis() < -18.0f){putball_motor->set_rpm(-50.0f);}
+            if(putball_motor->get_dis() < -20.0f){putball_motor->set_rpm(-50.0f);}
             osDelay(1);
         }
-        putball_motor->relocate_dis(-21.0f);
+        putball_motor->relocate_dis(-24.0f);
         putball_motor->set_rpm(0.0f);
         osDelay(200);
     }
