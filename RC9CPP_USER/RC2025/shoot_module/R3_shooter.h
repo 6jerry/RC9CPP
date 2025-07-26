@@ -20,6 +20,7 @@ enum R3Mode
     Hand, // 手动模式
     Auto, // 自动模式
     Lift, // 复位模式
+    Keep, // 保持模式
 };
 
 enum R3AutoMode
@@ -70,6 +71,7 @@ public:
     void add_io_interrupt(GPIO_TypeDef *port_, uint16_t pin_);
     void reset();
 };
+
 class R3Shooter : public ITaskProcessor
 {
 
@@ -78,14 +80,17 @@ private:
     power_motor *m2 = nullptr;
     R3Mode mode = Stop;
     uint32_t last_tick = 0;
+   // uint32_t last_tick2 = 0;
+
     photogate_shoot *gate = nullptr;
     photogate_shoot *gate_down = nullptr;
     // 0.0237
     // 0.8972
     // 0.7072
+    int flag = 0;
     float start_dis = 0.0f;
     float end_dis = 0.7072f;
-    float revert_dis = 0.0357f;
+    float revert_dis = 0.0207f;
     float max = 1600.0f;
     float a = 77.4489f;
     float b = 0.5614f;
@@ -112,7 +117,6 @@ public:
     void get_data();
     void init(power_motor *m1_, power_motor *m2_, Encoder *encoder_);
     void add_gate(photogate_shoot *gate_, photogate_shoot *gate_down_);
-    void allAuto_adjust();
     bool auto_adjust(float target_rpm);
     void hand_adjust();
     bool lift_adjust(float dis);
