@@ -84,9 +84,6 @@ private:
 
     photogate_shoot *gate = nullptr;
     photogate_shoot *gate_down = nullptr;
-    // 0.0237
-    // 0.8972
-    // 0.7072
     int flag = 0;
     float start_dis = 0.0f;
     float end_dis = 0.7072f;
@@ -127,7 +124,7 @@ public:
     void set_auto_byrpm(uint8_t mode_, float rpm);
     void set_hand(float rpm);
     int set_auto_byFitter(uint8_t mode_, float r);
-    void set_auto_byCameraFitter(float camera_r);
+    void set_auto_byCameraFitter(uint8_t mode_, float camera_r);
     void set_lift(float dis);
     float calc_camera(float camera_r);
     float calc(float r);

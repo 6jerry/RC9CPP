@@ -183,12 +183,12 @@ int R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
     return mode;
 }
 
-void R3Shooter::set_auto_byCameraFitter(float camera_r)
+void R3Shooter::set_auto_byCameraFitter(uint8_t mode_, float camera_r)
 {
     // 已处于自动状态不可重复设置
      if (mode != Auto || mode != Lift)
     {
-        mode = Auto;
+        mode = static_cast<R3Mode>(mode_);
         info.auto_rpm = calc_camera(camera_r);
 
         if (info.auto_rpm > max)
@@ -284,7 +284,7 @@ float R3Shooter::calc(float r)
                 2423.5659f   // 常数项
             };
 
-        float v = coeffs[0];
+        v = coeffs[0];
         v = v * r + coeffs[1];
         v = v * r + coeffs[2];
         v = v * r + coeffs[3];
@@ -306,6 +306,19 @@ float R3Shooter::calc(float r)
 float R3Shooter::calc_camera(float camera_r)
 {
     // v = a * pow(camera_r, b) + c;
+
+    //---------------------多项式拟合-----------------
+    const float coeffs[] = {
+            0.0f, // r³ 系数
+            0.0073f,  // r² 系数
+            -2.6997f, // r 系数
+            1440.1398f   // 常数项
+        };
+
+    v = coeffs[0];
+    v = v * camera_r + coeffs[1];
+    v = v * camera_r + coeffs[2];
+    v = v * camera_r + coeffs[3];
 
     return v += camera_offset;
 }

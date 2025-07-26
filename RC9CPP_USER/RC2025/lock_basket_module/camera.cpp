@@ -108,9 +108,11 @@ void CameraOperation::camera_off()
 
 float CameraOperation::lock_basket_vol()
 {
-    lock_vol = lock_basket_pid.PID_ComputeError(camera_ptr->camera_info.vertial_plane_deviation.x);
-
-    if(fabs(camera_ptr->camera_info.vertial_plane_deviation.x) < 3.0f){			//5.0f
+    lock_vol = lock_basket_pid.PID_ComputeError(camera_ptr->camera_info.vertial_plane_deviation.x + 30.0f);
+    //偏置改完相机位置记得改，现在锁-30.0f
+    
+    //if(fabs(camera_ptr->camera_info.vertial_plane_deviation.x) < 3.0f){			//R1
+    if((camera_ptr->camera_info.vertial_plane_deviation.x < -27.5f) && (camera_ptr->camera_info.vertial_plane_deviation.x > -32.5f)){	
 		camera_Y = camera_ptr->camera_info.vertial_plane_deviation.y;
 		camera_mode = camera_finish;
         return 0;
