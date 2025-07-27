@@ -5,11 +5,11 @@ R3_xbox::R3_xbox(imu *imu_ptr_, imu *ros_imu_ptr_, CameraOperation *camera_ops_)
 	imu_ptr = imu_ptr_;
 	ros_imu = ros_imu_ptr_;
 	camera_ops = camera_ops_;
-	center_point.x = 5.73;
-	center_point.y = -0.25f;
+	center_point.x = 3.35;
+	center_point.y = -14.063f;
     
-    //3.5663
-    //-14.0976
+    //-4.16
+    //13.84
 }
 void R3_xbox ::calc_error()
 {
@@ -29,6 +29,27 @@ void R3_xbox ::calc_error()
 	//		{
 	//			center_heading -= 360.0f;
 	//		}
+}
+
+void R3_xbox::calc_robot_point()
+{
+    static Vector2D now_point;
+    static Vector2D dis;
+
+    now_point.x = get_world_x();
+    now_point.y = get_world_y();
+
+    dis = robot_point - now_point;
+    dis_2_robot = dis.magnitude();
+
+    nor_dir_robot = dis.normalize();
+    robot_heading = -atan2f(nor_dir_robot.x, nor_dir_robot.y) * 57.296f;
+// robot_heading += 180.0f;
+// if (robot_heading > 180.0f)
+// {
+//     robot_heading -= 360.0f;
+// }
+// robot_heading -= offest;
 }
 
 void R3_xbox::mode_1()
@@ -110,6 +131,31 @@ void R3_xbox::mode_3()
 	auto_yunball_ptr->control_put_motor(xbox_msgs.joyLVert_map);
 	auto_yunball_ptr->control_claw(rb_flag);
 	auto_yunball_ptr->control_push(lb_flag);
+}
+
+void R3_xbox::for_btnY()
+{
+	calc_robot_point();
+	Vector2D target(0.0f, 0.0f);
+	set_RobotVel(target, 0);
+
+	if (abs(robot_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
+	{
+		set_RobotW(0.0f, 0);
+	}
+	else
+	{
+		yaw_TurnTo(robot_heading, 0);
+	}
+
+	if (DirRight_flag)
+	{
+	    //shooter->set_auto_byrpm(Auto, target_rpm);
+		shooter->set_autoPass_byFitter(Auto, dis_2_robot);
+
+		osDelay(400);
+		DirRight_flag = 0;
+	}
 }
 
 void R3_xbox::not_start()

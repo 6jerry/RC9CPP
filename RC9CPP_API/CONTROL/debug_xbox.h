@@ -43,6 +43,8 @@ public:
 
     void btnXBOX_callback() override;
     void btnShare_callback() override;
+    void btnY_callback() override;
+    virtual void for_btnY();
     xbox_debug_base();
 };
 

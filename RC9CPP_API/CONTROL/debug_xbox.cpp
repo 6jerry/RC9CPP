@@ -141,6 +141,20 @@ void xbox_debug_base::btnShare_callback()
     xbox_share();
 }
 
+void xbox_debug_base::btnY_callback()
+{
+    if (mode_flag == 5) {
+        mode_flag = 2;
+    } else {
+        mode_flag = 5;
+    }
+}
+
+void xbox_debug_base::for_btnY()
+{
+    //mode_flag = 2;
+}
+
 xbox_debug_base::xbox_debug_base()
 {
     btnconfig_init();
@@ -170,6 +184,8 @@ void xbox_debug_base::process_data()
         case 4:
             mode_4();
             break;
+        case 5:
+            for_btnY();
         default:
             break;
         }

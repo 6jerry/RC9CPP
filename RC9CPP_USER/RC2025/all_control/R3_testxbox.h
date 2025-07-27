@@ -32,8 +32,7 @@ public:
     float move_rpm = 1000.0f;                                              // 指向imu类的指针
     Vector2D center_point, nor_dir, robot_point, nor_dir_robot; // 圆心坐标
     float dis_2_center = 0.0f, center_heading = 0.0f;  // 半径
-    float pass_correct_distance = 0.30f;                                 // 修正距离
-    float offest = 0.0f;
+    float dis_2_robot = 0.0f, robot_heading = 0.0f;
     float limit_yaw_error = 0.1f, limit_yaw_speed = 1.0f;
     float target_rpm = 300.0f;
     float shoot_dis = 0.0f;
@@ -42,12 +41,14 @@ public:
     void mode_1() override;
     void mode_2() override;
     void mode_3() override;
+    void for_btnY();
     void xbox_on() override;
     void not_start() override;
     void xbox_share() override;
     void add_autoyunball(AutoYunballR3 *auto_yunball_);
-    void add_R3shooter(R3Shooter *shooter_);
+    void add_R3shooter(R3Shooter *shooter_); 
     void calc_error();
+    void calc_robot_point(); 
 };
 
 #endif

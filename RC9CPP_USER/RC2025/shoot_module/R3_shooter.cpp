@@ -205,6 +205,26 @@ int R3Shooter::set_auto_byCameraFitter(uint8_t mode_, float camera_r)
     return mode;
 }
 
+int R3Shooter::set_autoPass_byFitter(uint8_t mode_, float r)
+{
+    // 自动状态结束才可重新设置
+    if (mode != Auto || mode != Lift)
+    {
+        mode = static_cast<R3Mode>(mode_);
+        info.auto_rpm = calc_pass(r);
+
+        if (info.auto_rpm > max)
+        {
+            info.auto_rpm = max;
+        }
+        start_dis = info.real_dis;
+    }
+    // 0 Stop 停止
+    // 2 Auto 发射
+    // 3 Lift 归位
+    return mode;
+}
+
 void R3Shooter::set_lift(float dis)
 {
     mode = Lift;
@@ -329,6 +349,11 @@ float R3Shooter::calc_camera(float camera_r)
     return v += camera_offset;
 }
 
+float R3Shooter::calc_pass(float pass_r)
+{
+    v=750.6998*pow(pass_r,0.5571);
+    return v += pass_offset;
+}
 void R3Shooter::get_data()
 {
     info.real_dis = encoder->get_distance();
