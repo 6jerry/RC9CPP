@@ -39,8 +39,8 @@ public:
         float yaw_angle = 0.0f;
     } ros_radar_loaction;
     Vector2D real_radar_world_pos; // 映射后坐标
-	float my_r = 0.261f; //  R3雷达半径
-	float my_rad = -1.436f; //  R3雷达初始弧度
+	float my_r = 0.2605f; //  R3雷达半径
+	float my_rad = 1.5705f; //  R3雷达初始弧度
     //float my_r = 0.2889019f; //  R1雷达半径
 	//float my_rad = 53.17476f * 0.017453f; //  R1雷达初始弧度
 	Vector2D map_inverse_relocate_pos; // 逆映射坐標

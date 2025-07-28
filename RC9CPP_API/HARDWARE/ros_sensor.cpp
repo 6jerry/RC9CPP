@@ -48,8 +48,8 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 //		ros_radar_loaction.world_pos.x = - f_BFP[0].filter(floatData[1]);
 //		ros_radar_loaction.world_pos.y = f_BFP[1].filter(floatData[0]); // 把上位机坐标与追踪坐标方向对齐
 		
-		ros_radar_loaction.world_pos.x = (floatData[1]);
-		ros_radar_loaction.world_pos.y = -(floatData[0]); // 把上位机坐标与追踪坐标方向对齐
+		ros_radar_loaction.world_pos.x = -(floatData[1]);
+		ros_radar_loaction.world_pos.y = (floatData[0]); // 把上位机坐标与追踪坐标方向对齐
 		//		if(fabsf(floatData[2]) < 0.02f && fabsf(floatData[3]) < 0.05f){
 		//			map_origin_init_flag = false; //重置映射原点
 		//		}
@@ -134,7 +134,7 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 		// 差分定位
 		tf_.localize_with_diff(&real_radar_world_pos);
 		// 发送校准信息
-		imu_->imu_relocate(-real_radar_world_pos.x, real_radar_world_pos.y, 0);
+		//imu_->imu_relocate(-real_radar_world_pos.x, real_radar_world_pos.y, 0);
 	}
 	else
 	{ // 重置0值标志位
