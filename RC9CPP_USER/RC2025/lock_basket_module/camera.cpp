@@ -61,7 +61,7 @@ err_code Camera::check_error()
 
 CameraOperation::CameraOperation(Camera *camera_ptr_)
 {
-    lock_basket_pid.ConfigAll(0.080f, 0.045f, 0.0423f, 0.03f, 0.219f, 2.0f, 20.0f);
+    lock_basket_pid.ConfigAll(0.080f, 0.045f, 0.0423f, 0.03f, 0.219f, 10.0f, 20.0f);
 	camera_ptr = camera_ptr_;
 }
 
@@ -111,11 +111,15 @@ float CameraOperation::lock_basket_vol()
     lock_vol = lock_basket_pid.PID_ComputeError(camera_ptr->camera_info.vertial_plane_deviation.x);
     //偏置改完相机位置记得改，现在锁0
     
-    if(fabs(camera_ptr->camera_info.vertial_plane_deviation.x) < deadlock && lock_vol < 0.08f){			//R1
+    if(fabs(camera_ptr->camera_info.vertial_plane_deviation.x) < deadlock){			//R1
 		camera_Y = camera_ptr->camera_info.vertial_plane_deviation.y;
 		camera_mode = camera_finish;
         return 0;
     }
+	else if(fabs(camera_ptr->camera_info.vertial_plane_deviation.x) < decelerate_x && fabs(camera_ptr->camera_info.vertial_plane_deviation.x) > deadlock){
+		
+		return decelerate_speed;
+	}
     else{
         return lock_vol;
     }

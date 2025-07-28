@@ -50,12 +50,15 @@ private:
     float lock_vol;
     pid lock_basket_pid; // 锁框  //三分Y50
     CameraMode camera_mode = camera_suspend;    //初始化为挂起模式
-    float deadlock = 6.0f; //死区
 
 public:
     Camera *camera_ptr= nullptr;
     bool camera_ready = false; //相机是否瞄准完成标志位, 注：需要手动复位
     float camera_Y = 0.0f; //记录相机瞄准完成时的Y值
+
+	float deadlock = 10.0f; //死区
+	float decelerate_x = 30.0f; 
+	float decelerate_speed = 0.1f;
 
     CameraOperation(Camera *camera_ptr_);
     float lock_basket_vol ();
