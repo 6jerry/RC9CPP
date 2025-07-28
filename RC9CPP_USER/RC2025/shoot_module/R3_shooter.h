@@ -95,7 +95,7 @@ private:
     float v;
     float offset = 0.0f;
     float camera_offset = 0.002f;
-
+    float pass_offset = 0.0f;
     float s_dis;
 
     float k;
@@ -125,12 +125,12 @@ public:
     void set_hand(float rpm);
     int set_auto_byFitter(uint8_t mode_, float r);
     int set_auto_byCameraFitter(uint8_t mode_, float camera_r);
+    int set_autoPass_byFitter(uint8_t mode_, float r);
     void set_lift(float dis);
     float calc_camera(float camera_r);
     float calc(float r);
+    float calc_pass(float pass_r);
 };
-#endif
-#ifdef __cplusplus
 
 #endif
 #endif

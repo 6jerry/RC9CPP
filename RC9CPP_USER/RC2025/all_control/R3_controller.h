@@ -13,6 +13,7 @@ extern "C"
 #include "EncodingStateMachine.h"
 #include "R3_shooter.h"
 #include "auto_yunball_R3.h"
+#include "camera.h"
 #ifdef __cplusplus
 }
 #endif
@@ -61,11 +62,14 @@ public:
 
     R3Shooter *auto_shooter = nullptr;
     AutoYunballR3 *auto_yunball_ptr = nullptr;
+    CameraOperation *camera_ops = nullptr; // 导入相机操作的指针
 
     imu *position_imu_ = nullptr, *ros_imu = nullptr;
 
     void add_yunball_and_shooter(R3Shooter *auto_shooter_ptr_, AutoYunballR3 *auto_yunball_ptr_);
     void add_position_and_ros(imu *position_imu_ptr, imu *ros_imu_ptr);
+
+    void add_camera(CameraOperation *camera_ops_ptr);
 
 public:
     void

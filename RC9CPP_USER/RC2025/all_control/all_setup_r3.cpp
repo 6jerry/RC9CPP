@@ -26,6 +26,7 @@ AutoYunballR3 auto_yunball;
 R3Shooter shooter;
 photogate_shoot gate(rising, GPIOD, GPIO_PIN_14);
 photogate_shoot gate_down(falling, GPIOE, GPIO_PIN_3);
+
 demo plot;
 
 CrsfReceiver remote_controller(&huart2);
@@ -54,6 +55,7 @@ extern "C"
         // camera
         camera.addport(&ros_port);
         camera_operation.add_chassis(&s3_chassis);
+        control_center.add_camera(&camera_operation);
 
         // position
         position_port.initQueue();
@@ -92,7 +94,7 @@ extern "C"
 
         shooter.init(&shoot_1, &shoot_2, &encoder);
         shooter.add_gate(&gate, &gate_down);
-        shooter.dis_control.ConfigAll(1200.0f, 0.0f, 50.0f, 0.0f, 1000.0f, 0.001f, 0.015f);
+        shooter.dis_control.ConfigAll(1400.0f, 0.0f, 83.0f, 0.0f, 1000.0f, 0.005f, 0.015f);
         gate.set_motors(&shoot_1, &shoot_2);
         gate_down.set_motors(&shoot_1, &shoot_2);
 
