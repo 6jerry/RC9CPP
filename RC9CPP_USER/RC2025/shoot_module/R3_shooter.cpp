@@ -113,7 +113,7 @@ bool R3Shooter::lift_adjust(float dis)
 
     float error = (dis - info.real_dis);
 
-    if (fabs(error) < 0.003f)
+    if (fabs(error) < 0.008f)
     {
         return true;
     }
