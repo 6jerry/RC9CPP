@@ -308,15 +308,10 @@ void R3Controller::auto_reload_ball()
 
 void R3Controller::lock_on_center_point()
 {
-    camera_ops->camera_on();
-    if (camera_ops->camera_ready == true)
-    {
-        set_RobotW(0.0f, 0);
-    }
 
-    // yaw_TurnTo(heading_2_center, 0);
+    yaw_TurnTo(heading_2_center, 0);
     Vector2D tvel_(crsf_port->left_V_mapcurve * max_x_speed, crsf_port->left_H_mapcurve * max_y_speed);
-    // set_worldVel_accle(tvel_, target_accle);
+    set_worldVel_accle(tvel_, target_accle);
     send_datas.dis_2_target = dis_2_center;
 }
 void R3Controller::lock_on_r2()
@@ -410,11 +405,16 @@ void R3Controller::add_camera(CameraOperation *camera_ops_ptr)
 
 void R3Controller::auto_shoot_2_center_point()
 {
-    set_RobotW(0.0f, 0);
-    if (auto_shooter->set_auto_byCameraFitter(Auto, camera_ops->camera_Y) == Lift)
+    camera_ops->camera_on();
+    if (camera_ops->camera_ready == true)
     {
-        crsf_port->reset_trigger_flag();
-        camera_ops->camera_off();
+
+        set_RobotW(0.0f, 0);
+        if (auto_shooter->set_auto_byCameraFitter(Auto, camera_ops->camera_Y) == Lift)
+        {
+            crsf_port->reset_trigger_flag();
+            camera_ops->camera_off();
+        }
     }
 }
 
@@ -430,6 +430,8 @@ void R3Controller::reset_yunball_shooter()
 
 void R3Controller::set_center_point()
 {
+    center_point.x = get_world_x();
+    center_point.y = get_world_y();
     crsf_port->reset_trigger_flag();
 }
 

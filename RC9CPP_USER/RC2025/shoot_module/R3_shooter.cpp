@@ -182,7 +182,7 @@ int R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
     return mode;
 }
 
-int R3Shooter::set_auto_byCameraFitter(uint8_t mode_, float camera_r)
+
 int R3Shooter::set_auto_byCameraFitter(uint8_t mode_, float camera_r)
 {
     // 已处于自动状态不可重复设置
