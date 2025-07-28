@@ -183,10 +183,9 @@ int R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
 }
 
 int R3Shooter::set_auto_byCameraFitter(uint8_t mode_, float camera_r)
-int R3Shooter::set_auto_byCameraFitter(uint8_t mode_, float camera_r)
 {
     // 已处于自动状态不可重复设置
-     if (mode != Auto && mode != Lift)
+    if (mode != Auto && mode != Lift)
     {
         mode = static_cast<R3Mode>(mode_);
         info.auto_rpm = calc_camera(camera_r);
@@ -353,7 +352,7 @@ float R3Shooter::calc_camera(float camera_r)
 
 float R3Shooter::calc_pass(float pass_r)
 {
-    v=750.6998*pow(pass_r,0.5571);
+    v = 750.6998 * pow(pass_r, 0.5571);
     return v += pass_offset;
 }
 void R3Shooter::get_data()
