@@ -48,8 +48,9 @@ class CameraOperation :  public chassis_user, public ITaskProcessor
 //需要添加底盘
 private:     
     float lock_vol;
-    pid lock_basket_pid; // 锁框
+    pid lock_basket_pid; // 锁框  //三分Y50
     CameraMode camera_mode = camera_suspend;    //初始化为挂起模式
+    float deadlock = 6.0f; //死区
 
 public:
     Camera *camera_ptr= nullptr;
