@@ -15,8 +15,8 @@ void photogate_shoot::handleInterrupt()
 
         rpm1 = motor1->get_rpm();
         rpm2 = motor2->get_rpm();
-//        motor1->send_rpm(0.0f);
-//        motor2->send_rpm(0.0f);
+        //        motor1->send_rpm(0.0f);
+        //        motor2->send_rpm(0.0f);
     }
     cont++;
     flag = 1;
@@ -94,8 +94,8 @@ void R3Shooter::process_data()
         }
 
         break;
-        
-        case Keep:
+
+    case Keep:
         lift_adjust(revert_dis);
 
         break;
@@ -121,7 +121,7 @@ bool R3Shooter::lift_adjust(float dis)
     {
         info.auto_rpm = dis_control.PID_ComputeError(error);
         m1->send_rpm(info.auto_rpm);
-        //m2->send_rpm(info.auto_rpm);
+        // m2->send_rpm(info.auto_rpm);
         m2->set_current(0.0f);
         return false;
     }
@@ -129,7 +129,7 @@ bool R3Shooter::lift_adjust(float dis)
 void R3Shooter::hand_adjust()
 {
     m1->send_rpm(test_rpm);
-    //m2->send_rpm(test_rpm);
+    // m2->send_rpm(test_rpm);
 }
 
 void R3Shooter::set_hand(float rpm)
@@ -137,11 +137,10 @@ void R3Shooter::set_hand(float rpm)
 
     if (mode == Stop)
     {
-   
     }
-     mode = Hand;
-     //info.hand_rpm = rpm;
-		 test_rpm = rpm;
+    mode = Hand;
+    // info.hand_rpm = rpm;
+    test_rpm = rpm;
 }
 
 void R3Shooter::set_shooter_mode(uint8_t mode_)
@@ -153,7 +152,7 @@ void R3Shooter::set_shooter_mode(uint8_t mode_)
 void R3Shooter::set_auto_byrpm(uint8_t mode_, float rpm)
 {
     // 已处于自动状态不可重复设置
-     if (mode != Auto || mode != Lift)
+    if (mode != Auto || mode != Lift)
     {
 
         mode = static_cast<R3Mode>(mode_);
@@ -184,12 +183,36 @@ int R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
 }
 
 int R3Shooter::set_auto_byCameraFitter(uint8_t mode_, float camera_r)
+int R3Shooter::set_auto_byCameraFitter(uint8_t mode_, float camera_r)
 {
     // 已处于自动状态不可重复设置
      if (mode != Auto && mode != Lift)
     {
         mode = static_cast<R3Mode>(mode_);
         info.auto_rpm = calc_camera(camera_r);
+
+        if (info.auto_rpm > max)
+        {
+            info.auto_rpm = max;
+        }
+
+        start_dis = info.real_dis;
+    }
+
+    // 0 Stop 停止
+    // 2 Auto 发射
+    // 3 Lift 归位
+
+    return mode;
+}
+
+int R3Shooter::set_autoPass_byFitter(uint8_t mode_, float r)
+{
+    // 自动状态结束才可重新设置
+    if (mode != Auto || mode != Lift)
+    {
+        mode = static_cast<R3Mode>(mode_);
+        info.auto_rpm = calc_pass(r);
 
         if (info.auto_rpm > max)
         {
@@ -282,23 +305,23 @@ void R3Shooter::add_gate(photogate_shoot *gate_, photogate_shoot *gate_down_)
 float R3Shooter::calc(float r)
 {
     //---------------------多项式拟合-----------------
-        const float coeffs[] = {
-                -72.9929f, // r³ 系数
-                643.4819f,  // r² 系数
-                -1588.8844f, // r 系数
-                2423.5659f   // 常数项
-            };
+    const float coeffs[] = {
+        -72.9929f,   // r³ 系数
+        643.4819f,   // r² 系数
+        -1588.8844f, // r 系数
+        2423.5659f   // 常数项
+    };
 
-        v = coeffs[0];
-        v = v * r + coeffs[1];
-        v = v * r + coeffs[2];
-        v = v * r + coeffs[3];
+    v = coeffs[0];
+    v = v * r + coeffs[1];
+    v = v * r + coeffs[2];
+    v = v * r + coeffs[3];
     //-----------------------------------------------
 
     //---------------------幂、指数、直线拟合-----------------
     // v = a * pow(r, b) + c * logf(r + 1);
-    //v = a * pow(r, b) + c;
-    //v = a*exp(b*r) + c ;
+    // v = a * pow(r, b) + c;
+    // v = a*exp(b*r) + c ;
     // v=0.0321*r+0.0772;
     // v = a*(1-exp(b*r)) + c;
     //-----------------------------------------------
@@ -314,11 +337,11 @@ float R3Shooter::calc_camera(float camera_r)
 
     //---------------------多项式拟合-----------------
     const float coeffs[] = {
-            0.0f, // r³ 系数
-            0.0073f,  // r² 系数
-            -2.6997f, // r 系数
-            1440.1398f   // 常数项
-        };
+        0.0f,      // r³ 系数
+        0.0073f,   // r² 系数
+        -2.6997f,  // r 系数
+        1440.1398f // 常数项
+    };
 
     v = coeffs[0];
     v = v * camera_r + coeffs[1];
@@ -328,21 +351,26 @@ float R3Shooter::calc_camera(float camera_r)
     return v += camera_offset;
 }
 
+float R3Shooter::calc_pass(float pass_r)
+{
+    v=750.6998*pow(pass_r,0.5571);
+    return v += pass_offset;
+}
 void R3Shooter::get_data()
 {
     info.real_dis = encoder->get_distance();
 
-//    flag = HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_14);
+    //    flag = HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_14);
 
-//    if (flag == 0)
-//    {
-//        if (HAL_GetTick() - last_tick2 > 100)
-//        {
-//            encoder->send_reset();
-//        }
-//    }
-//    else
-//    {
-//        last_tick2 = HAL_GetTick();
-//    }
+    //    if (flag == 0)
+    //    {
+    //        if (HAL_GetTick() - last_tick2 > 100)
+    //        {
+    //            encoder->send_reset();
+    //        }
+    //    }
+    //    else
+    //    {
+    //        last_tick2 = HAL_GetTick();
+    //    }
 }

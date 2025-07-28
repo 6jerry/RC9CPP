@@ -145,15 +145,25 @@ void demo::process_data()
 //                  yaw};
 //  sendFloatData(1, arr, 7);
 
-  float send_datas[7] = {shooter.test_rpm,
-                          gate.rpm2,
-                          shooter.info.auto_rpm,
-                          shoot_1.get_rpm(),
-                          shoot_2.get_rpm(),
-                          encoder.get_distance(),
-													shooter.info.debug_dis};
+//  float send_datas[7] = {shooter.test_rpm,
+//                          gate.rpm2,
+//                          shooter.info.auto_rpm,
+//                          shoot_1.get_rpm(),
+//                          shoot_2.get_rpm(),
+//                          encoder.get_distance(),
+//						  shooter.info.debug_dis};
 
-  sendFloatData(1, send_datas, 7);
+//  sendFloatData(1, send_datas, 7);
+
+  //for_R2
+  send_data[0] = position_sensor.get_heading();
+  send_data[1] = -(position_sensor.get_world_pos_y() - pian_y);
+  send_data[2] = -(position_sensor.get_world_pos_x() - pian_x);
+  send_data[3] = position_sensor.get_yaw_speed();
+  send_data[4] = 0.0f;
+  send_data[5] = 0.0f;
+  osDelay(50);
+  sendFloatData(1, send_data, 6);
 }
 
 void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
