@@ -166,7 +166,7 @@ void R3Shooter::set_auto_byrpm(uint8_t mode_, float rpm)
 int R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
 {
     // 自动状态结束才可重新设置
-    if (mode != Auto || mode != Lift)
+    if (mode != Auto && mode != Lift)
     {
         mode = static_cast<R3Mode>(mode_);
         info.auto_rpm = calc(r);
@@ -183,10 +183,10 @@ int R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
     return mode;
 }
 
-void R3Shooter::set_auto_byCameraFitter(uint8_t mode_, float camera_r)
+int R3Shooter::set_auto_byCameraFitter(uint8_t mode_, float camera_r)
 {
     // 已处于自动状态不可重复设置
-     if (mode != Auto || mode != Lift)
+     if (mode != Auto && mode != Lift)
     {
         mode = static_cast<R3Mode>(mode_);
         info.auto_rpm = calc_camera(camera_r);
@@ -197,6 +197,11 @@ void R3Shooter::set_auto_byCameraFitter(uint8_t mode_, float camera_r)
         }
         start_dis = info.real_dis;
     }
+
+    // 0 Stop 停止
+    // 2 Auto 发射
+    // 3 Lift 归位
+    return mode;
 }
 
 void R3Shooter::set_lift(float dis)

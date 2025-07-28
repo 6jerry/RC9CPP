@@ -124,7 +124,7 @@ public:
     void set_auto_byrpm(uint8_t mode_, float rpm);
     void set_hand(float rpm);
     int set_auto_byFitter(uint8_t mode_, float r);
-    void set_auto_byCameraFitter(uint8_t mode_, float camera_r);
+    int set_auto_byCameraFitter(uint8_t mode_, float camera_r);
     void set_lift(float dis);
     float calc_camera(float camera_r);
     float calc(float r);

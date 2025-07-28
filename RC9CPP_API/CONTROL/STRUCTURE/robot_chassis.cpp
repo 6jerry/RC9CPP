@@ -359,7 +359,7 @@ void RoboChassis::swerve3_initialize()
         if (right_photogate.if_init() == false) // 使用 if_not_init[0] 跟踪 dmotors[1] 的初始化状态
         {
             all_homed = false; // 只要有一个未初始化，就不是全部归位
-            dmotors[1]->set_rpm(120.0f);
+            dmotors[1]->set_rpm(80.0f);
             /*if (photogate_state[0] == 0) // 光电门0触发
             {
                 dmotors[1]->relocate_pos(90.0f); // 使用你指定的校准角度
@@ -383,7 +383,7 @@ void RoboChassis::swerve3_initialize()
         if (left_photogate.if_init() == false) // 使用 if_not_init[1] 跟踪 dmotors[2] 的初始化状态
         {
             all_homed = false;
-            dmotors[2]->set_rpm(120.0f);
+            dmotors[2]->set_rpm(80.0f);
             /*if (photogate_state[1] == 0) // 光电门1触发
             {
                 dmotors[2]->relocate_pos(-90.0f); // 使用你指定的校准角度
@@ -407,7 +407,7 @@ void RoboChassis::swerve3_initialize()
         if (front_photogate.if_init() == false) // 使用 if_not_init[2] 跟踪 dmotors[0] 的初始化状态
         {
             all_homed = false;
-            dmotors[0]->set_rpm(120.0f);
+            dmotors[0]->set_rpm(80.0f);
             /*if (photogate_state[2] == 0) // 光电门2触发
             {
                 dmotors[0]->relocate_pos(-90.0f); // 使用你指定的校准角度
@@ -1142,8 +1142,11 @@ photogate::photogate(float reset_angle_) : GPIODevice()
 
 void photogate::handleInterrupt()
 {
+		if(init == false)
+		{
+			motor->relocate_pos(reset_angle);
+		}
     init = true;
-    motor->relocate_pos(reset_angle);
 }
 
 void photogate::add_io_interrupt(GPIO_TypeDef *port_, uint16_t pin_)

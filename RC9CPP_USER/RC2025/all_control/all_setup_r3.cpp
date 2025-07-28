@@ -55,6 +55,7 @@ extern "C"
         // camera
         camera.addport(&ros_port);
         camera_operation.add_chassis(&s3_chassis);
+        control_center.add_camera(&camera_operation);
 
         // position
         position_port.initQueue();
