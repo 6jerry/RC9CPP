@@ -71,9 +71,28 @@ void AutoYunballR3::process_data()
             break;
         case yunball_flag:
             yunball();
+            flag = stop_flag;
             break;
         case putball_flag:
             putball();
+            flag = stop_flag;
+            break;
+        case in_or_out_flag:
+            set_out(if_out);
+            flag = stop_flag;
+            break;
+        case yun_and_put_flag:
+            yunball();
+            osDelay(1000);
+            yunball();
+            putball();
+            flag = stop_flag;
+            break;
+        case double_yun_flag:
+            yunball();
+            osDelay(1000);
+            yunball();
+            flag = stop_flag;
             break;
         case stop_flag:
             osDelay(200);
@@ -110,7 +129,21 @@ void AutoYunballR3::add_io(GPIO_TypeDef *put_port_in_, uint16_t put_pin_in_, GPI
 
 // 外部接口函数
 bool AutoYunballR3::if_is_finish()  {return flag ==  static_flag;}
-bool AutoYunballR3::if_enable_shoot()  {return putball_motor->get_dis() < -16.0f;}
+bool AutoYunballR3::if_enable_shoot()  {return putball_motor->get_dis() < -18.0f;}
+
+bool AutoYunballR3::in_or_out(bool if_out_)
+{
+    if(flag == static_flag)
+    {
+        if_out = if_out_;
+        flag = in_or_out_flag;
+    }
+    if(flag == stop_flag)
+    {
+        return true;
+    }
+    return false;
+}
 
 bool AutoYunballR3::reload_motor()
 {
@@ -150,6 +183,32 @@ bool AutoYunballR3::start_putball()
     return false;
 }
 
+bool AutoYunballR3::yun_and_put()
+{
+    if(flag == static_flag)
+    {
+        flag = yun_and_put_flag;
+    }
+    if(flag == stop_flag)
+    {
+        return true;
+    }
+    return false;
+}
+
+bool AutoYunballR3::double_yun()
+{
+    if(flag == static_flag)
+    {
+        flag = double_yun_flag;
+    }
+    if(flag == stop_flag)
+    {
+        return true;
+    }
+    return false;
+}
+
 void AutoYunballR3::stop()
 {
     // 重置信号量为正数
@@ -166,14 +225,48 @@ void AutoYunballR3::control_push(bool if_push) {if(flag == static_flag) set_push
 void AutoYunballR3::set_claw(bool if_open) {HAL_GPIO_WritePin(claw_port, claw_pin, if_open ? GPIO_PIN_SET : GPIO_PIN_RESET);}
 void AutoYunballR3::set_push(bool if_push) {HAL_GPIO_WritePin(push_port, push_pin, if_push ? GPIO_PIN_SET : GPIO_PIN_RESET);}
 
+void AutoYunballR3::set_out(bool if_out)
+{
+    if(if_out)
+    {
+        putball_motor->set_rpm(-200.0f);
+        while(putball_motor->get_dis() > -22.0f)
+        {
+            osDelay(1);
+        }
+        putball_motor->set_rpm(0.0f);
+    }
+    else
+    {
+        putball_motor->set_rpm(200.0f);
+        while(true)
+        {
+            GPIO_PinState current_state = HAL_GPIO_ReadPin(put_port_in, put_pin_in);
+            
+            // 消抖核心逻辑
+            if(current_state == GPIO_PIN_RESET) {
+                if(debounce_start == 0) {
+                    debounce_start = HAL_GetTick();
+                } else if(HAL_GetTick() - debounce_start > DEBOUNCE_THRESHOLD) {
+                    break; // 确认稳定低电平后退出循环
+                }
+            } else {
+                debounce_start = 0; // 高电平重置计时
+            }
+
+            if(putball_motor->get_dis() > -9.0f){
+                putball_motor->set_rpm(50.0f);
+            }
+            osDelay(1);
+        }
+        putball_motor->set_current(0.0f);
+        putball_motor->relocate_dis(-5.0f);
+    }
+}
+
 void AutoYunballR3::putball()
 {
-    putball_motor->set_rpm(500.0f);
-    /*while(HAL_GPIO_ReadPin(put_port_in, put_pin_in) == GPIO_PIN_SET)
-    {
-        if(putball_motor->get_dis() > -8.0f){putball_motor->set_rpm(50.0f);}
-        osDelay(1);
-    }*/
+    putball_motor->set_rpm(200.0f);
     while(true)
     {
         GPIO_PinState current_state = HAL_GPIO_ReadPin(put_port_in, put_pin_in);
@@ -198,29 +291,21 @@ void AutoYunballR3::putball()
     putball_motor->relocate_dis(-5.0f);
     osDelay(200);
     set_claw(true);
-    osDelay(400);
-    putball_motor->set_rpm(-300.0f);
-    while(putball_motor->get_dis() > -16.0f)
-    {
-        osDelay(1);
-    }
-    putball_motor->set_rpm(0.0f);
-    set_claw(false);
-    flag = stop_flag;
+
 }
 
 void AutoYunballR3::yunball()
 {
-    if(putball_motor->get_dis() > -19.0f)
+    if(putball_motor->get_dis() > -24.0f)
     {    
-        putball_motor->set_rpm(-500.0f);
+        putball_motor->set_rpm(-200.0f);
         while(HAL_GPIO_ReadPin(put_port_out, put_pin_out) == GPIO_PIN_SET)
         {
-            if(putball_motor->get_dis() < -20.0f){putball_motor->set_rpm(-50.0f);}
+            if(putball_motor->get_dis() < -22.0f){putball_motor->set_rpm(-50.0f);}
             osDelay(1);
         }
-        putball_motor->relocate_dis(-24.0f);
         putball_motor->set_rpm(0.0f);
+				putball_motor->relocate_dis(-26.0f);
         osDelay(200);
     }
     set_claw(true);
@@ -229,5 +314,4 @@ void AutoYunballR3::yunball()
     set_push(false);
     osDelay(test_time2);
     set_claw(false);
-    flag = stop_flag;
 }
