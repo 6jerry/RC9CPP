@@ -79,7 +79,7 @@ void R3_xbox::mode_1()
 
 	if (DirRight_flag)
 	{
-		shoot_dis = camera_ops->camera_Y;
+		shoot_dis = camera_ops->camera_Y/100.0f;
 		shooter->set_auto_byCameraFitter(Auto, shoot_dis);
 
 	    //shooter->set_auto_byrpm(Auto, target_rpm);
@@ -88,7 +88,7 @@ void R3_xbox::mode_1()
 		osDelay(400);
 		DirRight_flag = 0;
 		//mode_flag = 2;
-		//camera_ops->camera_off();
+		camera_ops->camera_off();
 	}
 }
 
