@@ -56,9 +56,10 @@ public:
     bool camera_ready = false; //相机是否瞄准完成标志位, 注：需要手动复位
     float camera_Y = 0.0f; //记录相机瞄准完成时的Y值
 
-	float deadlock = 10.0f; //死区
-	float decelerate_x = 30.0f; 
-	float decelerate_speed = 0.1f;
+	float deadlock = 8.0f; //死区
+	float decelerate_x = 50.0f; 
+	float decelerate_speed = 0.06f;
+    //10, 50, 0.05
 
     CameraOperation(Camera *camera_ptr_);
     float lock_basket_vol ();
