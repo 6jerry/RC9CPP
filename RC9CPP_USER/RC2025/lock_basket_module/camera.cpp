@@ -61,7 +61,7 @@ err_code Camera::check_error()
 
 CameraOperation::CameraOperation(Camera *camera_ptr_)
 {
-    lock_basket_pid.ConfigAll(0.080f, 0.045f, 0.0423f, 0.03f, 0.219f, 10.0f, 20.0f);
+    lock_basket_pid.ConfigAll(0.080f, 0.045f, 0.043f, 0.03f, 0.219f, 10.0f, 20.0f);
 	camera_ptr = camera_ptr_;
 }
 
@@ -116,10 +116,14 @@ float CameraOperation::lock_basket_vol()
 		camera_mode = camera_finish;
         return 0;
     }
-	else if(fabs(camera_ptr->camera_info.vertial_plane_deviation.x) < decelerate_x && fabs(camera_ptr->camera_info.vertial_plane_deviation.x) > deadlock){
+	else if(camera_ptr->camera_info.vertial_plane_deviation.x < decelerate_x && camera_ptr->camera_info.vertial_plane_deviation.x > deadlock){
 		
 		return decelerate_speed;
 	}
+    else if(camera_ptr->camera_info.vertial_plane_deviation.x > -decelerate_x && camera_ptr->camera_info.vertial_plane_deviation.x < -deadlock){
+        
+        return -decelerate_speed;
+    }
     else{
         return lock_vol;
     }

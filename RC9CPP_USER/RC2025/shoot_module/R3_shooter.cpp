@@ -89,8 +89,8 @@ void R3Shooter::process_data()
             //   m1->send_rpm(-500.0f);
             //   m2->send_rpm(-500.0f);
 
-            m1->send_rpm(-500.0f);
-            m2->send_rpm(-500.0f);
+            m1->send_rpm(-800.0f);
+            m2->send_rpm(-800.0f);
         }
 
         break;
