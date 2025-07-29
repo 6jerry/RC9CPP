@@ -203,7 +203,7 @@ void R3Controller::send_crsf_datas()
 
     else if (send_cnt == 1)
     {
-        crsf_port->sendBattery(1.0f, 1.0f, 1,1);//1=10,1=10
+        crsf_port->sendBattery(1.0f, 1.0f, 1, 1); // 1=10,1=10
     }
     else if (send_cnt == 2)
     {
@@ -308,6 +308,10 @@ void R3Controller::auto_reload_ball()
 
 void R3Controller::lock_on_center_point()
 {
+    if (!auto_yunball_ptr->if_enable_shoot())
+    {
+        auto_yunball_ptr->in_or_out(true);
+    }
 
     yaw_TurnTo(heading_2_center, 0);
     Vector2D tvel_(crsf_port->left_V_mapcurve * max_x_speed, crsf_port->left_H_mapcurve * max_y_speed);
@@ -325,8 +329,11 @@ void R3Controller::lock_on_r2()
 
 void R3Controller::shoot_2_center_point()
 {
-
-    if (auto_yunball_ptr->if_is_finish())
+    if (!auto_yunball_ptr->if_enable_shoot())
+    {
+        auto_yunball_ptr->in_or_out(true);
+    }
+    if (auto_yunball_ptr->if_is_finish() && auto_yunball_ptr->if_enable_shoot())
     {
         all_stop();
         if (auto_shooter->set_auto_byFitter(Auto, dis_2_center) == Lift)
@@ -338,8 +345,12 @@ void R3Controller::shoot_2_center_point()
 
 void R3Controller::shoot_2_r2()
 {
+    if (!auto_yunball_ptr->if_enable_shoot())
+    {
+        auto_yunball_ptr->in_or_out(true);
+    }
 
-    if (auto_yunball_ptr->if_is_finish())
+    if (auto_yunball_ptr->if_is_finish() && auto_yunball_ptr->if_enable_shoot())
     {
         all_stop();
         if (auto_shooter->set_auto_byFitter(Auto, dis_2_robot) == Lift)
@@ -395,6 +406,7 @@ void R3Controller::hand_set_clawpos()
 
 void R3Controller::auto_yunball_and_loadball()
 {
+    auto_yunball_ptr->yun_and_put();
     crsf_port->reset_trigger_flag();
 }
 
@@ -410,10 +422,18 @@ void R3Controller::auto_shoot_2_center_point()
     {
 
         set_RobotW(0.0f, 0);
-        if (auto_shooter->set_auto_byCameraFitter(Auto, camera_ops->camera_Y) == Lift)
+
+        if (auto_yunball_ptr->if_enable_shoot())
         {
-            crsf_port->reset_trigger_flag();
-            camera_ops->camera_off();
+            if (auto_shooter->set_auto_byCameraFitter(Auto, camera_ops->camera_Y) == Lift)
+            {
+                crsf_port->reset_trigger_flag();
+                camera_ops->camera_off();
+            }
+        }
+        else
+        {
+            auto_yunball_ptr->in_or_out(true);
         }
     }
 }
@@ -425,6 +445,7 @@ void R3Controller::auto_shoot_2_r2()
 
 void R3Controller::reset_yunball_shooter()
 {
+    auto_yunball_ptr->reload_motor();
     crsf_port->reset_trigger_flag();
 }
 
