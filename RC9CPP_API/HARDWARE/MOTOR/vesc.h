@@ -13,6 +13,7 @@ extern "C"
 #include "SuperPID.h"
 #include "filters.h"
 #include "RC9Protocol.h"
+#include "time_counter.h"
 #ifdef __cplusplus
 }
 #endif
@@ -73,6 +74,9 @@ public:
     int32_t target_erpm = 0, senderpm = 0, brake = 10000, send_current = 0;
 
     void add_slave_motor(power_motor *slave_motor_);
+
+
+    time_counter vesc_ec;
 };
 #endif
 #endif

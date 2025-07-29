@@ -32,7 +32,9 @@ float time_counter::get_DeltaTime_ms()
     }
 }
 
-time_counter::time_counter(uint8_t counter_id_, uint32_t max_time_out_ms_, uint32_t max_time_out_init)
+
+
+void time_counter::config_param(uint8_t counter_id_, uint32_t max_time_out_ms_ , uint32_t max_time_out_init )
 {
     counter_id = counter_id_;
     time_out_ms = max_time_out_ms_;
@@ -40,7 +42,7 @@ time_counter::time_counter(uint8_t counter_id_, uint32_t max_time_out_ms_, uint3
     error_manager::time_counter_ptr[counter_id] = this;
 }
 
-void time_counter::check_tick()
+    void time_counter::check_tick()
 {
     if (now_cnt == 0 & last_cnt == 0)
     {
@@ -89,6 +91,11 @@ void time_counter::detect_error()
     }
 }
 
+uint8_t time_counter::get_ec_code()
+{
+    return error_code;
+}
+
 void error_manager::process_data()
 {
     for (uint8_t i = 0; i < 18; i++)
@@ -97,5 +104,35 @@ void error_manager::process_data()
         {
             time_counter_ptr[i]->detect_error();
         }
+    }
+}
+
+void error_manager::handle_r3_error()
+{
+    if ((time_counter_ptr[4]->get_ec_code() == 0) && (time_counter_ptr[5]->get_ec_code() == 0) && (time_counter_ptr[6]->get_ec_code() == 0))
+    {
+        u8_off_line = false;
+    }
+    else
+    {
+        u8_off_line = true;
+    }
+
+    if ((time_counter_ptr[10]->get_ec_code() == 0) && (time_counter_ptr[11]->get_ec_code() == 0) && (time_counter_ptr[12]->get_ec_code() == 0))
+    {
+        m3508_off_line = false;
+    }
+    else
+    {
+        m3508_off_line = true;
+    }
+
+    if (time_counter_ptr[0]->get_ec_code()==0)
+    {
+        remote_off_line = false;
+    }
+    else
+    {
+        remote_off_line = true;
     }
 }

@@ -15,7 +15,7 @@
  * @param gear_   齿轮比
  * @param resolution_   编码器分辨率
  */
-Encoder::Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, float gear_, float resolution_,float length_) : CanDevice(hcan_, CAN_FRAME_STD, can_id_), rpm_counter(can_id_, 100, 500)
+Encoder::Encoder(uint32_t can_id_, FDCAN_HandleTypeDef *hcan_, float gear_, float resolution_,float length_) : CanDevice(hcan_, CAN_FRAME_STD, can_id_)
 {
   gear = gear_;
   resolution = resolution_;
@@ -61,7 +61,7 @@ void Encoder::can_update(uint8_t can_RxData[8])
   {
     float error = ((float)Encoder_conut - (float)Last_Encoder_conut) / (float)resolution;
 
-    rpm_counter.check_tick();
+    encoder_ec.check_tick();
 
     Last_Encoder_conut = Encoder_conut;
   }

@@ -37,6 +37,7 @@ void vesc::can_update(uint8_t can_RxData[8])
     now_rpm = ((float)erpm / (float)motor_polse) / gear_ratio;
 
     // filted_rpm = rpm_filter.update(now_rpm);
+    vesc_ec.check_tick();
 }
 
 void vesc::process_data()

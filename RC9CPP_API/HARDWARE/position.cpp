@@ -22,7 +22,7 @@ void position::DataReceivedCallback(const uint8_t *byteData, const float *floatD
     }
 }
 
-position::position() : position_EC(3, 200, 1000)
+position::position() 
 {
 }
 

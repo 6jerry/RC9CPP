@@ -1,6 +1,6 @@
 #include "CrsfReceiver.h"
 
-CrsfReceiver::CrsfReceiver(UART_HandleTypeDef *huart) : delta_counter(0, 200, 5000), SerialDevice(huart),
+CrsfReceiver::CrsfReceiver(UART_HandleTypeDef *huart) :  SerialDevice(huart),
                                                         packet_byte_index_(0),
                                                         rx_state_(CRSF_WAITING_FOR_ADDRESS),
                                                         payload_ptr_(nullptr),
@@ -120,7 +120,7 @@ void CrsfReceiver::processRcChannelsPacket()
 
     last_btn_r_flag = btn_r_flag;
 
-    delta_counter.check_tick();
+    pocket_ec.check_tick();
 }
 
 void CrsfReceiver::reset_trigger_flag()

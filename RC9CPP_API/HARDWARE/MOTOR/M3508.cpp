@@ -62,6 +62,8 @@ void m3508p::can_update(uint8_t can_RxData[8])
     rcurrent = vcurrent_to_rcurrent(vcurrent); // 虚拟电流，mA
 
     many_pos_locate();
+
+    m3508_ec.check_tick();
 }
 
 int16_t m3508p::increPID_speed()
@@ -107,8 +109,8 @@ int16_t m3508p::angle_speedplan()
     }
     else
     {*/
-        target_rpm = pos_speed_plan.plan(all_pos);
-        return increPID_speed();
+    target_rpm = pos_speed_plan.plan(all_pos);
+    return increPID_speed();
     //}
 }
 
@@ -180,7 +182,7 @@ bool m3508p::set_dis_speedplan(float targetdis, float max_speed, float max_acc, 
     {
         return false;
     }
-    
+
     if (dis_speed_plan.isFinished())
     {
         target_distance = targetdis;
@@ -210,7 +212,7 @@ bool m3508p::set_pos_speedplan(float target_angle_, float max_speed, float max_a
     {
         return false;
     }
-    
+
     if (pos_speed_plan.isFinished())
     {
         target_angle = target_angle_;
@@ -330,12 +332,16 @@ void m3508p::many_pos_locate() // 差分定位计算3508多圈位置
     }
 
     pos_sum += delta_pos / gear_ratio;
-    if(encoder == nullptr)
-    {all_pos += delta_pos / gear_ratio;
-    dis_sum += (delta_pos / 360.0f) * wheel_perimeter;}
+    if (encoder == nullptr)
+    {
+        all_pos += delta_pos / gear_ratio;
+        dis_sum += (delta_pos / 360.0f) * wheel_perimeter;
+    }
     else
-    {all_pos = encoder->get_all_angle();
-    pos_sum = encoder->get_angle();}
+    {
+        all_pos = encoder->get_all_angle();
+        pos_sum = encoder->get_angle();
+    }
 }
 
 void m3508p::locate_restart()

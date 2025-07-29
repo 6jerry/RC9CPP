@@ -120,7 +120,7 @@ public:
 
     float test_channel[4] = {0.0f};
 
-    time_counter delta_counter;
+    time_counter pocket_ec;
 };
 
 #endif // __cplusplus

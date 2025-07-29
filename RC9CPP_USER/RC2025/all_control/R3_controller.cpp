@@ -203,7 +203,7 @@ void R3Controller::send_crsf_datas()
 
     else if (send_cnt == 1)
     {
-        crsf_port->sendBattery(0.0f, 0.0f, 0, send_datas.error_flag);
+        crsf_port->sendBattery(1.0f, 1.0f, 1,1);//1=10,1=10
     }
     else if (send_cnt == 2)
     {

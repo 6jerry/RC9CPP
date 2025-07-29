@@ -15,7 +15,7 @@ CameraOperation camera_operation(&camera);
 vesc shoot_1(vesc_id_4, &hfdcan1, 7.0f, 1.0f), shoot_2(vesc_id_5, &hfdcan1, 7.0f, 1.0f);
 vesc u8_front(vesc_id_1, &hfdcan3), u8_left(vesc_id_2, &hfdcan3), u8_right(vesc_id_3, &hfdcan3);
 m3508p m2006_putball(dji_id_1, &hfdcan2, 55.4248f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
-m3508p m3508_left(dji_id_4, &hfdcan2), m3508_front(dji_id_3, &hfdcan2), m3508_right(dji_id_2, &hfdcan2);
+m3508p m2006_left(dji_id_4, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_2, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
 
 RoboChassis s3_chassis(swerve3_chassis);
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
@@ -32,6 +32,8 @@ demo plot;
 CrsfReceiver remote_controller(&huart2);
 
 R3Controller control_center;
+
+error_manager error_core;
 
 extern "C"
 {
@@ -62,31 +64,43 @@ extern "C"
         position_port.startUartReceiveIT();
         position_sensor.addport(&position_port);
         position_sensor.set_map_plot(0.0f, -0.08229f);
+        position_sensor.position_EC.config_param(3, 100, 2000);
 
         remote_controller.startUartReceiveIT();
+        remote_controller.pocket_ec.config_param(0, 100, 3000);
 
         // DJI_Motor pid config
         m2006_putball.config_mech_param(55.4248f, 2.0f);
         m2006_putball.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
+        m2006_putball.m3508_ec.config_param(9, 20, 1000);
 
-        m3508_left.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
-        m3508_left.rpm_control.enable_TD();
-        m3508_front.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
-        m3508_front.rpm_control.enable_TD();
-        m3508_right.rpm_control.config_all(32.0f, 0.76f, 8.6f, 106.0f, 20000.0f, 5.0f);
-        m3508_right.rpm_control.enable_TD();
-        m3508_front.config_mech_param(46.71f, 0.0f);
-        m3508_front.angle_pid_control.ConfigAll(3.1f, 0.0f, 1.4f, 0.0f, 120.0f, 0.2f, 3.0f);
-        m3508_left.config_mech_param(46.71f, 0.0f);
-        m3508_left.angle_pid_control.ConfigAll(3.1f, 0.0f, 1.4f, 0.0f, 120.0f, 0.2f, 3.0f);
-        m3508_right.config_mech_param(46.71f, 0.0f);
-        m3508_right.angle_pid_control.ConfigAll(3.1f, 0.0f, 1.4f, 0.0f, 120.0f, 0.2f, 3.0f);
+        m2006_left.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
+
+        m2006_left.m3508_ec.config_param(12, 20, 1000);
+
+        m2006_front.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
+
+        m2006_front.m3508_ec.config_param(11, 20, 1000);
+
+        m2006_right.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
+        m2006_right.m3508_ec.config_param(10, 20, 1000);
+
+        m2006_front.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 120.0f, 0.2f, 3.0f);
+
+        m2006_left.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 120.0f, 0.2f, 3.0f);
+
+        m2006_right.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 120.0f, 0.2f, 3.0f);
 
         // vesc pid config
         shoot_1.rpm_control.config_all(70.0f, 1.0f, 140.0f, 20.0f, 65000, 5.0f);
         shoot_1.add_slave_motor(&shoot_2);
         shoot_1.rpm_control.enable_TD();
         shoot_2.rpm_control.enable_TD();
+
+        shoot_1.vesc_ec.config_param(7, 200, 2000);
+        shoot_2.vesc_ec.config_param(8, 200, 2000);
+
+        encoder.encoder_ec.config_param(1, 100, 2000);
 
         // yunball & shooter
         auto_yunball.add_motor(&m2006_putball);
@@ -98,8 +112,12 @@ extern "C"
         gate.set_motors(&shoot_1, &shoot_2);
         gate_down.set_motors(&shoot_1, &shoot_2);
 
+        u8_front.vesc_ec.config_param(4, 200, 2000);
+        u8_left.vesc_ec.config_param(5, 200, 2000);
+        u8_right.vesc_ec.config_param(6, 200, 2000);
+
         // chassis
-        s3_chassis.add_6_motors(&m3508_front, &u8_front, &m3508_right, &u8_right, &m3508_left, &u8_left);
+        s3_chassis.add_6_motors(&m2006_front, &u8_front, &m2006_right, &u8_right, &m2006_left, &u8_left);
         s3_chassis.config(s3_chassis_info);
         s3_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
         s3_chassis.add_imu(&position_sensor);
@@ -127,6 +145,7 @@ extern "C"
         task_core.registerTask(8, &plot);
         task_core.registerTask(9, &camera_operation);
         task_core.registerTask(2, &send_port);
+        task_core.registerTask(6, &error_core);
 
         osKernelStart();
     }

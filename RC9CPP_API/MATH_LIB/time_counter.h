@@ -7,6 +7,7 @@ extern "C"
 
 #include "tim.h"
 #include "TaskManager.h"
+
 #ifdef __cplusplus
 }
 #endif
@@ -39,8 +40,12 @@ public:
 
     uint8_t counter_id = 0;
 
+    uint8_t get_ec_code();
+
     void detect_error();
-    time_counter(uint8_t counter_id_ = 0, uint32_t max_time_out_ms_ = 500, uint32_t max_time_out_init = 2000);
+    // time_counter(uint8_t counter_id_ = 0, uint32_t max_time_out_ms_ = 500, uint32_t max_time_out_init = 2000);
+
+    void config_param(uint8_t counter_id_ = 0, uint32_t max_time_out_ms_ = 500, uint32_t max_time_out_init = 2000);
 
 private:
 };
@@ -50,6 +55,14 @@ class error_manager : public ITaskProcessor
 public:
     void process_data();
     static time_counter *time_counter_ptr[18];
+
+    void handle_r3_error();
+
+    uint8_t chassis_ec_code = 0, shooter_ec_code = 0, yunball_ec_code = 0, locate_ec_code = 0;
+
+    bool u8_off_line = false, m3508_off_line = false, remote_off_line = false;
+
+    // CrsfReceiver *crsf_check = nullptr;
 };
 
 #endif

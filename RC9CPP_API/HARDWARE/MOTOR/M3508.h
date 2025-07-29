@@ -31,6 +31,8 @@ extern "C"
 #include "encoder.h"
 #include "PID.h"
 #include "TrapezoidalPlanner.h"
+#include "time_counter.h"
+
 #ifdef __cplusplus
 }
 #endif
@@ -138,7 +140,7 @@ public:
     TrapezoidalPlanner1D dis_speed_plan;
     TrapezoidalPlanner1D pos_speed_plan;
 
-   
+    time_counter m3508_ec;
 };
 
 #endif

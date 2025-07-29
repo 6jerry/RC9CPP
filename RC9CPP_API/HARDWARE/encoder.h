@@ -50,7 +50,7 @@ public:
 
     void set_dis();
 
-    time_counter rpm_counter;
+    time_counter encoder_ec;
 
     //*********************** */
 private:
