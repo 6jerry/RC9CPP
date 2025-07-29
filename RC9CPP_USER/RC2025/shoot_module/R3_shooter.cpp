@@ -113,7 +113,7 @@ bool R3Shooter::lift_adjust(float dis)
 
     float error = (dis - info.real_dis);
 
-    if (fabs(error) < 0.003f)
+    if (fabs(error) < 0.008f)
     {
         return true;
     }
@@ -183,10 +183,9 @@ int R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
 }
 
 int R3Shooter::set_auto_byCameraFitter(uint8_t mode_, float camera_r)
-int R3Shooter::set_auto_byCameraFitter(uint8_t mode_, float camera_r)
 {
     // 已处于自动状态不可重复设置
-     if (mode != Auto && mode != Lift)
+    if (mode != Auto && mode != Lift)
     {
         mode = static_cast<R3Mode>(mode_);
         info.auto_rpm = calc_camera(camera_r);
@@ -306,10 +305,10 @@ float R3Shooter::calc(float r)
 {
     //---------------------多项式拟合-----------------
     const float coeffs[] = {
-        -72.9929f,   // r³ 系数
-        643.4819f,   // r² 系数
-        -1588.8844f, // r 系数
-        2423.5659f   // 常数项
+        -18.8748f,   // r³ 系数
+        189.2786f,   // r² 系数
+        -352.7865f,  // r 系数
+        1339.3911f   // 常数项
     };
 
     v = coeffs[0];
@@ -333,27 +332,28 @@ float R3Shooter::calc(float r)
 
 float R3Shooter::calc_camera(float camera_r)
 {
-    // v = a * pow(camera_r, b) + c;
+    //v = a * pow(camera_r, b) + c;
+    v = a*exp(b*camera_r) + c;
 
     //---------------------多项式拟合-----------------
-    const float coeffs[] = {
-        0.0f,      // r³ 系数
-        0.0073f,   // r² 系数
-        -2.6997f,  // r 系数
-        1440.1398f // 常数项
-    };
+//    const float coeffs[] = {
+//        0.0f,      // r³ 系数
+//        0.0073f,   // r² 系数
+//        -2.6997f,  // r 系数
+//        1440.1398f // 常数项
+//    };
 
-    v = coeffs[0];
-    v = v * camera_r + coeffs[1];
-    v = v * camera_r + coeffs[2];
-    v = v * camera_r + coeffs[3];
+//    v = coeffs[0];
+//    v = v * camera_r + coeffs[1];
+//    v = v * camera_r + coeffs[2];
+//    v = v * camera_r + coeffs[3];
 
     return v += camera_offset;
 }
 
 float R3Shooter::calc_pass(float pass_r)
 {
-    v=750.6998*pow(pass_r,0.5571);
+    v = 750.6998 * pow(pass_r, 0.5571);
     return v += pass_offset;
 }
 void R3Shooter::get_data()
