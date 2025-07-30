@@ -62,7 +62,7 @@ public:
 
     bool u8_off_line = false, m3508_off_line = false, remote_off_line = false;
 
-    bool shooter_motor_offline = false;
+    bool shooter_motor_offline = false, shooter_encoder_offline = false;
     // CrsfReceiver *crsf_check = nullptr;
 };
 

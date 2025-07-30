@@ -32,9 +32,7 @@ float time_counter::get_DeltaTime_ms()
     }
 }
 
-
-
-void time_counter::config_param(uint8_t counter_id_, uint32_t max_time_out_ms_ , uint32_t max_time_out_init )
+void time_counter::config_param(uint8_t counter_id_, uint32_t max_time_out_ms_, uint32_t max_time_out_init)
 {
     counter_id = counter_id_;
     time_out_ms = max_time_out_ms_;
@@ -42,7 +40,7 @@ void time_counter::config_param(uint8_t counter_id_, uint32_t max_time_out_ms_ ,
     error_manager::time_counter_ptr[counter_id] = this;
 }
 
-    void time_counter::check_tick()
+void time_counter::check_tick()
 {
     if (now_cnt == 0 & last_cnt == 0)
     {
@@ -127,12 +125,30 @@ void error_manager::handle_r3_error()
         m3508_off_line = true;
     }
 
-    if (time_counter_ptr[0]->get_ec_code()==0)
+    if (time_counter_ptr[0]->get_ec_code() == 0)
     {
         remote_off_line = false;
     }
     else
     {
         remote_off_line = true;
+    }
+
+    if ((time_counter_ptr[7]->get_ec_code() == 0) && (time_counter_ptr[8]->get_ec_code() == 0))
+    {
+        shooter_motor_offline = false;
+    }
+    else
+    {
+        shooter_motor_offline = true;
+    }
+
+    if (time_counter_ptr[1]->get_ec_code() == 0)
+    {
+        shooter_encoder_offline = false;
+    }
+    else
+    {
+        shooter_encoder_offline = true;
     }
 }

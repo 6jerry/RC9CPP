@@ -66,7 +66,7 @@ void R3Controller::efsm_init()
 
     uint16_t reset_yunball_shootermodeflag[] = {21};
 
-    uint16_t set_center_pointmodeflag[] = {23};
+    uint16_t set_center_pointmodeflag[] = {49};
 
     uint16_t hand_set_clawposmodeflag[] = {8, 12};
 
@@ -308,15 +308,24 @@ void R3Controller::auto_reload_ball()
 
 void R3Controller::lock_on_center_point()
 {
+
     if (!auto_yunball_ptr->if_enable_shoot())
     {
         auto_yunball_ptr->in_or_out(true);
     }
+    camera_ops->camera_on();
+    if (camera_ops->camera_ready == true)
+    {
+
+        set_RobotW(0.0f, 0);
+    }
+    /*
 
     yaw_TurnTo(heading_2_center, 0);
     Vector2D tvel_(crsf_port->left_V_mapcurve * max_x_speed, crsf_port->left_H_mapcurve * max_y_speed);
     set_worldVel_accle(tvel_, target_accle);
     send_datas.dis_2_target = dis_2_center;
+    */
 }
 void R3Controller::lock_on_r2()
 {
@@ -417,26 +426,23 @@ void R3Controller::add_camera(CameraOperation *camera_ops_ptr)
 
 void R3Controller::auto_shoot_2_center_point()
 {
-    camera_ops->camera_on();
-    if (camera_ops->camera_ready == true)
+
+  
+    if (auto_yunball_ptr->if_enable_shoot())
     {
-
-        set_RobotW(0.0f, 0);
-
-        if (auto_yunball_ptr->if_enable_shoot())
+        if (auto_shooter->set_auto_byCameraFitter(Auto, camera_ops->camera_Y / 100.0f) == Lift)
         {
-            if (auto_shooter->set_auto_byCameraFitter(Auto, camera_ops->camera_Y) == Lift)
-            {
-                crsf_port->reset_trigger_flag();
-                camera_ops->camera_off();
-            }
-        }
-        else
-        {
-            auto_yunball_ptr->in_or_out(true);
+
+            crsf_port->reset_trigger_flag();
+            camera_ops->camera_off();
         }
     }
+    else
+    {
+        auto_yunball_ptr->in_or_out(true);
+    }
 }
+
 
 void R3Controller::auto_shoot_2_r2()
 {

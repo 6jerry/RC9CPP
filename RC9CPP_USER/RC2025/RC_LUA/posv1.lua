@@ -85,30 +85,38 @@ local function my_run(event)
         lcd.drawText(0, 0, "auto shoot center", MIDSIZE)
     elseif sats == 16 then
         lcd.drawText(0, 0, "auto shoot r2", MIDSIZE)
+    elseif sats == 49 then
+        lcd.drawText(0, 0, "set center point", MIDSIZE)
     else
         lcd.drawText(10, 0, "GDUT Robocon2025", MIDSIZE)
     end
-
-    --if Last_sats ~= 1 and sats == 1 then
-       -- playFile("/SCRIPTS/TELEMETRY/cn/loadball.wav")
-   -- end
-   -- if Last_sats ~= 3 and sats == 3 then
-        --playFile("/SCRIPTS/TELEMETRY/cn/lockcenter.wav")
-    --end
-
-    --if Last_sats ~= 4 and sats == 4 then
-        --playFile("/SCRIPTS/TELEMETRY/cn/lockr2.wav")
-    --end
-
-    --if Last_sats ~= 0 and sats == 0 then
-        --playFile("/SCRIPTS/TELEMETRY/cn/attamode.wav")
-    --end
+    
 
 
+    if Last_sats ~= 1 and sats == 1 then
+        playFile("/SCRIPTS/TELEMETRY/cn/loadball.wav")
+    end
+    if Last_sats ~= 3 and sats == 3 then
+        playFile("/SCRIPTS/TELEMETRY/cn/lockcenter.wav")
+    end
 
-    --if Last_sats ~= 10 and sats == 10 then
-        --playFile("/SCRIPTS/TELEMETRY/cn/resetsw.wav")
-    --end
+    if Last_sats ~= 4 and sats == 4 then
+        playFile("/SCRIPTS/TELEMETRY/cn/lockr2.wav")
+    end
+
+    if Last_sats ~= 0 and sats == 0 then
+        playFile("/SCRIPTS/TELEMETRY/cn/attamode.wav")
+    end
+
+
+
+    if Last_sats ~= 10 and sats == 10 then
+        playFile("/SCRIPTS/TELEMETRY/cn/resetsw.wav")
+    end
+
+
+
+    
 
 
 

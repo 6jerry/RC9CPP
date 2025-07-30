@@ -15,7 +15,7 @@ CameraOperation camera_operation(&camera);
 vesc shoot_1(vesc_id_4, &hfdcan1, 7.0f, 1.0f), shoot_2(vesc_id_5, &hfdcan1, 7.0f, 1.0f);
 vesc u8_front(vesc_id_1, &hfdcan3), u8_left(vesc_id_2, &hfdcan3), u8_right(vesc_id_3, &hfdcan3);
 m3508p m2006_putball(dji_id_1, &hfdcan2, 55.4248f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
-m3508p m2006_left(dji_id_4, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_2, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
+m3508p m2006_left(dji_id_4, &hfdcan2, 111.724138f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan2, 111.724138f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_2, &hfdcan2, 111.724138f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
 
 RoboChassis s3_chassis(swerve3_chassis);
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
@@ -85,11 +85,11 @@ extern "C"
         m2006_right.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
         m2006_right.m3508_ec.config_param(10, 20, 1000);
 
-        m2006_front.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 120.0f, 0.2f, 3.0f);
+        m2006_front.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 80.0f, 0.2f, 3.0f);
 
-        m2006_left.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 120.0f, 0.2f, 3.0f);
+        m2006_left.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 80.0f, 0.2f, 3.0f);
 
-        m2006_right.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 120.0f, 0.2f, 3.0f);
+        m2006_right.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 80.0f, 0.2f, 3.0f);
 
         // vesc pid config
         shoot_1.rpm_control.config_all(70.0f, 1.0f, 140.0f, 20.0f, 65000, 5.0f);
