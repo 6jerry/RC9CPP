@@ -23,7 +23,8 @@ enum CameraMode
 {
     camera_suspend, // 挂起
     camera_start, // 开始
-    camera_finish, // 完成
+    camera_keeping, // 锁定中
+    camera_finish, //完成
 };
 
 class Camera : public error_check, public RC9subscriber

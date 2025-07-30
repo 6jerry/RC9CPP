@@ -82,22 +82,24 @@ void CameraOperation::process_data()
 
 		break;
 
-    case camera_finish:
+    case camera_keeping:
         set_RobotW(0.0f, 0);
         
         if(fabs(camera_ptr->camera_info.vertial_plane_deviation.x) < deadlock){
-            
             if(time_delay()){
-            camera_ready = true;
+            camera_mode = camera_finish;
             }
-        
         }
         else{
         camera_mode = camera_start;
         }
         
 		break;
-
+        
+    case camera_finish:
+        set_RobotW(0.0f, 0);
+        camera_ready = true;
+        
 	default:
 		break;
 	}
@@ -127,7 +129,7 @@ float CameraOperation::lock_basket_vol()
 	if (fabs(camera_ptr->camera_info.vertial_plane_deviation.x) < deadlock)
 	{ // R1
 		camera_Y = camera_ptr->camera_info.vertial_plane_deviation.y;
-		camera_mode = camera_finish;
+		camera_mode = camera_keeping;
 		return 0;
 	}
 	else if (camera_ptr->camera_info.vertial_plane_deviation.x < decelerate_x && camera_ptr->camera_info.vertial_plane_deviation.x > deadlock)
@@ -148,7 +150,7 @@ float CameraOperation::lock_basket_vol()
 
 bool CameraOperation::time_delay()
 {
-    if (count++ > 40.0f)
+    if (count++ > 20.0f)
 	{
 		return true;
 	}
