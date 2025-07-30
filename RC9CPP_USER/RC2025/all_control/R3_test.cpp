@@ -16,13 +16,13 @@ R3_xbox test_xbox(&position_sensor, &ros_sensor_, &camera_operation);
 vesc shoot_1(vesc_id_4, &hfdcan1, 7.0f, 1.0f), shoot_2(vesc_id_5, &hfdcan1, 7.0f, 1.0f);
 vesc u8_front(vesc_id_1, &hfdcan3), u8_left(vesc_id_2, &hfdcan3), u8_right(vesc_id_3, &hfdcan3);
 m3508p m2006_putball(dji_id_1, &hfdcan2, 55.4248f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
-//m3508p m3508_left(dji_id_4, &hfdcan2), m3508_front(dji_id_3, &hfdcan2), m3508_right(dji_id_2, &hfdcan2);
+// m3508p m3508_left(dji_id_4, &hfdcan2), m3508_front(dji_id_3, &hfdcan2), m3508_right(dji_id_2, &hfdcan2);
 m3508p m2006_left(dji_id_4, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_2, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
 
 RoboChassis s3_chassis(swerve3_chassis);
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
 
-Encoder encoder(0x03, &hfdcan2, 2.3333f, 4096.0f,0.175f); 
+Encoder encoder(0x03, &hfdcan2, 2.3333f, 4096.0f, 0.175f);
 
 AutoYunballR3 auto_yunball;
 R3Shooter shooter;
@@ -64,11 +64,11 @@ extern "C"
     m2006_putball.config_mech_param(55.4248f, 2.0f);
     m2006_putball.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
     m2006_left.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
-    m2006_left.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 80.0f, 3.0f);
+    m2006_left.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 80.0f, 0.2f, 3.0f);
     m2006_front.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
-    m2006_front.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 80.0f, 3.0f);
+    m2006_front.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 80.0f, 0.2f, 3.0f);
     m2006_right.rpm_control.config_all(12.0f, 0.9f, 8.6f, 0.0f, 10000.0f, 3.0f);
-    m2006_right.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 80.0f, 3.0f);
+    m2006_right.angle_pid_control.ConfigAll(3.6f, 0.0f, 6.0f, 0.0f, 80.0f, 0.2f, 3.0f);
 
     // vesc pid config
     shoot_1.rpm_control.config_all(70.0f, 1.0f, 140.0f, 20.0f, 65000, 5.0f);
@@ -136,24 +136,24 @@ void demo::process_data()
   encoder_check();
 
   // lidar TF
-//  float yaw = position_sensor.get_heading();
-//  float arr[7] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
-//                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y,
-//                  ros_sensor_.ros_radar_loaction.world_pos.x, ros_sensor_.ros_radar_loaction.world_pos.y,
-//                  yaw};
-//  sendFloatData(1, arr, 7);
+  //  float yaw = position_sensor.get_heading();
+  //  float arr[7] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
+  //                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y,
+  //                  ros_sensor_.ros_radar_loaction.world_pos.x, ros_sensor_.ros_radar_loaction.world_pos.y,
+  //                  yaw};
+  //  sendFloatData(1, arr, 7);
 
-//  float send_datas[7] = {shooter.test_rpm,
-//                          gate.rpm2,
-//                          shooter.info.auto_rpm,
-//                          shoot_1.get_rpm(),
-//                          shoot_2.get_rpm(),
-//                          encoder.get_distance(),
-//						  shooter.info.debug_dis};
+  //  float send_datas[7] = {shooter.test_rpm,
+  //                          gate.rpm2,
+  //                          shooter.info.auto_rpm,
+  //                          shoot_1.get_rpm(),
+  //                          shoot_2.get_rpm(),
+  //                          encoder.get_distance(),
+  //						  shooter.info.debug_dis};
 
-//  sendFloatData(1, send_datas, 7);
+  //  sendFloatData(1, send_datas, 7);
 
-  //for_R2
+  // for_R2
   send_data[0] = position_sensor.get_heading();
   send_data[1] = -(position_sensor.get_world_pos_y() - pian_y);
   send_data[2] = -(position_sensor.get_world_pos_x() - pian_x);
