@@ -49,7 +49,7 @@ public:
     void set_anti_clockwise();
 
     void set_dis();
-
+    void set_dis(uint16_t time_us); // 设置回传间隔时间，单位us，默认1000us
     time_counter encoder_ec;
 
     //*********************** */

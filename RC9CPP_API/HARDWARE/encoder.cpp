@@ -108,7 +108,7 @@ void Encoder::set_anti_clockwise()
 
   CAN_Send(can_id_, false, data, hcan_);
 }
-
+// @brief 设置编码器回传间隔时间为4ms
 void Encoder::set_dis()
 {
 
@@ -118,5 +118,24 @@ void Encoder::set_dis()
   data[2] = 0x05;
   data[3] = 0x00;
   data[4] = 0x0A;
+  CAN_Send(can_id_, false, data, hcan_);
+}
+
+
+void Encoder::set_dis(uint16_t time_us)
+{
+  // 范围检查：确保输入值在50-65535之间
+  if (time_us < 50) {
+    time_us = 50;
+  } else if (time_us > 65535) {
+    time_us = 65535;
+  }
+  
+  uint8_t data[8];
+  data[0] = 0x05;
+  data[1] = can_id_;
+  data[2] = 0x05;
+  data[3] = (time_us & 0xFF);       // 低位
+  data[4] = (time_us >> 8) & 0xFF; // 高位
   CAN_Send(can_id_, false, data, hcan_);
 }

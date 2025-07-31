@@ -86,10 +86,10 @@ private:
     photogate_shoot *gate_down = nullptr;
     int flag = 0;
     float start_dis = 0.0f;
-    float end_dis = 0.7072f;
+    float end_dis = 0.78f;
     float revert_dis = 0.0207f;
     float two_dis = 0.20f;
-    float max = 1600.0f;
+    float max = 2000.0f;
     float a = 77.4489f;
     float b = 0.5614f;
     float c = 835.2703f;

@@ -15,8 +15,8 @@ void photogate_shoot::handleInterrupt()
 
         rpm1 = motor1->get_rpm();
         rpm2 = motor2->get_rpm();
-//        motor1->send_rpm(0.0f);
-//        motor2->send_rpm(0.0f);
+        motor1->send_rpm(0.0f);
+        motor2->send_rpm(0.0f);
     }
     cont++;
     flag = 1;
@@ -156,7 +156,8 @@ bool R3Shooter::lift_adjust(float dis)
 void R3Shooter::hand_adjust()
 {
     m1->send_rpm(test_rpm);
-    // m2->send_rpm(test_rpm);
+    //m2->send_rpm(test_rpm);
+    m2->set_current(0.0f);
 }
 
 void R3Shooter::set_hand(float rpm)
@@ -269,35 +270,37 @@ bool R3Shooter::auto_adjust(float target_rpm)
     //        test_rpm = target_rpm;
     //    }
 
-     test_rpm = target_rpm;
-     // v2 = 2ax;
-     if (fabs(end_dis - info.real_dis) < zone || (info.real_dis > end_dis))
-     {
-         m1->send_rpm(0.0f);
-         m2->send_rpm(0.0f);
+    //编码器发射
+      test_rpm = target_rpm;
+      // v2 = 2ax;
+      if (fabs(end_dis - info.real_dis) < zone || (info.real_dis > end_dis))
+      {
+          m1->send_rpm(0.0f);
+          m2->send_rpm(0.0f);
 
-         return true;
-     }
-     else
-     {
-         m1->send_rpm(test_rpm);
-         m2->send_rpm(test_rpm);
-     }
+          return true;
+      }
+      else
+      {
+          m1->send_rpm(test_rpm);
+          m2->send_rpm(test_rpm);
+      }
 
-//    test_rpm = target_rpm;
+    // 光电门发射
+//   test_rpm = target_rpm;
 
-//    if (gate->flag)
-//    {
-//        m1->send_rpm(0.0f);
-//        m2->send_rpm(0.0f);
+//   if (gate->flag)
+//   {
+//       m1->send_rpm(0.0f);
+//       m2->send_rpm(0.0f);
 
-//        return true;
-//    }
-//    else
-//    {
-//        m1->send_rpm(test_rpm);
-//        m2->send_rpm(test_rpm);
-//    }
+//       return true;
+//   }
+//   else
+//   {
+//       m1->send_rpm(test_rpm);
+//       m2->send_rpm(test_rpm);
+//   }
 
     return false;
 }
