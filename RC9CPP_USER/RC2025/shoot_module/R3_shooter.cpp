@@ -15,8 +15,8 @@ void photogate_shoot::handleInterrupt()
 
         rpm1 = motor1->get_rpm();
         rpm2 = motor2->get_rpm();
-        //        motor1->send_rpm(0.0f);
-        //        motor2->send_rpm(0.0f);
+//        motor1->send_rpm(0.0f);
+//        motor2->send_rpm(0.0f);
     }
     cont++;
     flag = 1;
@@ -74,6 +74,23 @@ void R3Shooter::process_data()
 
         break;
 
+    case Auto_2:
+        // 二分投篮模式
+        if (fabs(info.real_dis - two_dis) < 0.01f)
+        {
+            if (auto_adjust(info.auto_rpm))
+            {
+                mode = Lift;
+                info.debug_dis = revert_dis;
+                last_tick = HAL_GetTick();
+            }
+        }
+        else
+        {
+            lift_adjust(two_dis);
+        }
+        break;
+
     case Lift:
         // lift_adjust(info.debug_dis);
         if (info.real_dis <= 0.50f)
@@ -96,8 +113,10 @@ void R3Shooter::process_data()
         break;
 
     case Keep:
-        lift_adjust(revert_dis);
+        keep_adjust(revert_dis);
 
+        gate->reset();
+        gate_down->reset();
         break;
     default:
         m1->send_rpm(0.0f);
@@ -108,6 +127,14 @@ void R3Shooter::process_data()
     }
 }
 
+void R3Shooter::keep_adjust(float dis)
+{
+    float error = (dis - info.real_dis);
+    info.auto_rpm = dis_control.PID_ComputeError(error);
+    m1->send_rpm(info.auto_rpm);
+    // m2->send_rpm(info.auto_rpm);
+    m2->set_current(0.0f);
+}
 bool R3Shooter::lift_adjust(float dis)
 {
 
@@ -135,11 +162,7 @@ void R3Shooter::hand_adjust()
 void R3Shooter::set_hand(float rpm)
 {
 
-    if (mode == Stop)
-    {
-    }
     mode = Hand;
-    // info.hand_rpm = rpm;
     test_rpm = rpm;
 }
 
@@ -152,7 +175,7 @@ void R3Shooter::set_shooter_mode(uint8_t mode_)
 void R3Shooter::set_auto_byrpm(uint8_t mode_, float rpm)
 {
     // 已处于自动状态不可重复设置
-    if (mode != Auto || mode != Lift)
+    if (mode != Auto || mode != Lift && mode != Auto_2)
     {
 
         mode = static_cast<R3Mode>(mode_);
@@ -165,7 +188,7 @@ void R3Shooter::set_auto_byrpm(uint8_t mode_, float rpm)
 int R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
 {
     // 自动状态结束才可重新设置
-    if (mode != Auto && mode != Lift)
+    if (mode != Auto && mode != Lift && mode != Auto_2)
     {
         mode = static_cast<R3Mode>(mode_);
         info.auto_rpm = calc(r);
@@ -185,7 +208,7 @@ int R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
 int R3Shooter::set_auto_byCameraFitter(uint8_t mode_, float camera_r)
 {
     // 已处于自动状态不可重复设置
-    if (mode != Auto && mode != Lift)
+    if (mode != Auto && mode != Lift && mode != Auto_2)
     {
         mode = static_cast<R3Mode>(mode_);
         info.auto_rpm = calc_camera(camera_r);
@@ -208,7 +231,7 @@ int R3Shooter::set_auto_byCameraFitter(uint8_t mode_, float camera_r)
 int R3Shooter::set_autoPass_byFitter(uint8_t mode_, float r)
 {
     // 自动状态结束才可重新设置
-    if (mode != Auto || mode != Lift)
+    if (mode != Auto || mode != Lift && mode != Auto_2)
     {
         mode = static_cast<R3Mode>(mode_);
         info.auto_rpm = calc_pass(r);
@@ -246,50 +269,35 @@ bool R3Shooter::auto_adjust(float target_rpm)
     //        test_rpm = target_rpm;
     //    }
 
-    test_rpm = target_rpm;
-    // v2 = 2ax;
-    if (fabs(end_dis - info.real_dis) < zone || (info.real_dis > end_dis))
-    {
-        m1->send_rpm(0.0f);
-        m2->send_rpm(0.0f);
+     test_rpm = target_rpm;
+     // v2 = 2ax;
+     if (fabs(end_dis - info.real_dis) < zone || (info.real_dis > end_dis))
+     {
+         m1->send_rpm(0.0f);
+         m2->send_rpm(0.0f);
 
-        return true;
-    }
-    else
-    {
-        m1->send_rpm(test_rpm);
-        m2->send_rpm(test_rpm);
-    }
+         return true;
+     }
+     else
+     {
+         m1->send_rpm(test_rpm);
+         m2->send_rpm(test_rpm);
+     }
 
-    // if (gate->flag)
-    // {
-    //     m1->send_rpm(0.0f);
-    //     m2->send_rpm(0.0f);
-    //     if (HAL_GetTick() - last_tick > 150)
-    //     {
-    //         m1->send_rpm(-1000.0f);
-    //         m2->send_rpm(-1000.0f);
-    //         if (gate_down->flag)
-    //         {
-    //             m1->send_rpm(0.0f);
-    //             m2->send_rpm(0.0f);
-    //             return true;
-    //         }
-    //     }
-    // }
-    // else
-    // {
-    //     // info.auto_rpm = info.auto_rpm + k;
+//    test_rpm = target_rpm;
 
-    //     if (info.auto_rpm > max)
-    //     {
-    //         info.auto_rpm = max;
-    //     }
-    //     last_tick = HAL_GetTick();
-    //     gate_down->flag = 0;
-    //     m1->send_rpm(info.auto_rpm);
-    //     m2->send_rpm(info.auto_rpm);
-    // }
+//    if (gate->flag)
+//    {
+//        m1->send_rpm(0.0f);
+//        m2->send_rpm(0.0f);
+
+//        return true;
+//    }
+//    else
+//    {
+//        m1->send_rpm(test_rpm);
+//        m2->send_rpm(test_rpm);
+//    }
 
     return false;
 }
@@ -305,10 +313,10 @@ float R3Shooter::calc(float r)
 {
     //---------------------多项式拟合-----------------
     const float coeffs[] = {
-        -18.8748f,   // r³ 系数
-        189.2786f,   // r² 系数
-        -352.7865f,  // r 系数
-        1339.3911f   // 常数项
+        -18.8748f,  // r³ 系数
+        189.2786f,  // r² 系数
+        -352.7865f, // r 系数
+        1339.3911f  // 常数项
     };
 
     v = coeffs[0];
@@ -332,14 +340,14 @@ float R3Shooter::calc(float r)
 
 float R3Shooter::calc_camera(float camera_r)
 {
-    //v = a * pow(camera_r, b) + c;
-    //v = a*exp(b*camera_r) + c;
+    // v = a * pow(camera_r, b) + c;
+    // v = a*exp(b*camera_r) + c;
     //---------------------多项式拟合-----------------
     const float coeffs[] = {
-        -16.0916f,      // r³ 系数
-        101.8636f,   // r² 系数
-        -305.2735f,  // r 系数
-        1562.6801f // 常数项
+        -16.0916f,  // r³ 系数
+        101.8636f,  // r² 系数
+        -305.2735f, // r 系数
+        1562.6801f  // 常数项
     };
     v = coeffs[0];
     v = v * camera_r + coeffs[1];

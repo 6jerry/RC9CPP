@@ -14,7 +14,7 @@ CameraOperation camera_operation(&camera);
 R3_xbox test_xbox(&position_sensor, &ros_sensor_, &camera_operation);
 
 vesc shoot_1(vesc_id_4, &hfdcan1, 7.0f, 1.0f), shoot_2(vesc_id_5, &hfdcan1, 7.0f, 1.0f);
-vesc u8_front(vesc_id_1, &hfdcan3), u8_left(vesc_id_2, &hfdcan3), u8_right(vesc_id_3, &hfdcan3);
+vesc u8_front(vesc_id_1, &hfdcan1), u8_left(vesc_id_2, &hfdcan1), u8_right(vesc_id_3, &hfdcan1);
 m3508p m2006_putball(dji_id_1, &hfdcan2, 55.4248f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
 // m3508p m3508_left(dji_id_4, &hfdcan2), m3508_front(dji_id_3, &hfdcan2), m3508_right(dji_id_2, &hfdcan2);
 m3508p m2006_left(dji_id_4, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_2, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
@@ -22,7 +22,7 @@ m3508p m2006_left(dji_id_4, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRE
 RoboChassis s3_chassis(swerve3_chassis);
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
 
-Encoder encoder(0x03, &hfdcan2, 2.3333f, 4096.0f, 0.175f);
+Encoder encoder(0x03, &hfdcan3, 2.3333f, 4096.0f, 0.175f);
 
 AutoYunballR3 auto_yunball;
 R3Shooter shooter;
@@ -127,13 +127,13 @@ void demo::process_data()
   MX_FDCAN2_Init();
   CanDevice::InitAllFiltersNoMask();
 
-  //  if (test_flag1 == 1)
-  //  {
-  //    encoder.send_reset();
-  //    test_flag1 = 0;
-  //  }
+    if (flag == 1)
+    {
+      encoder.send_reset();
+      flag = 0;
+    }
 
-  encoder_check();
+//  encoder_check();
 
   // lidar TF
   //  float yaw = position_sensor.get_heading();

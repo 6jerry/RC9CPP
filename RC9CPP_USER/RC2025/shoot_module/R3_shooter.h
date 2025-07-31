@@ -16,11 +16,12 @@ extern "C"
 
 enum R3Mode
 {
-    Stop, // 停止
-    Hand, // 手动模式
-    Auto, // 自动模式
-    Lift, // 复位模式
-    Keep, // 保持模式
+    Stop,   // 停止
+    Hand,   // 手动模式
+    Auto,   // 自动模式
+    Auto_2, // 自动二分模式
+    Lift,   // 复位模式
+    Keep,   // 保持模式
 };
 
 enum R3AutoMode
@@ -80,7 +81,6 @@ private:
     power_motor *m2 = nullptr;
     R3Mode mode = Stop;
     uint32_t last_tick = 0;
-    // uint32_t last_tick2 = 0;
 
     photogate_shoot *gate = nullptr;
     photogate_shoot *gate_down = nullptr;
@@ -88,10 +88,11 @@ private:
     float start_dis = 0.0f;
     float end_dis = 0.7072f;
     float revert_dis = 0.0207f;
-    float max = 1800.0f;
-    float a = 500.3642f;
-    float b = -5.3090f;
-    float c = 1052.3036f;
+    float two_dis = 0.20f;
+    float max = 1600.0f;
+    float a = 77.4489f;
+    float b = 0.5614f;
+    float c = 835.2703f;
     float v;
     float offset = 0.0f;
     float camera_offset = 0.002f;
@@ -102,7 +103,7 @@ private:
 
     float c_dis;
 
-    float zone;
+    float zone = 0.003f;
 
 public:
     // 编码器
@@ -117,8 +118,8 @@ public:
     bool auto_adjust(float target_rpm);
     void hand_adjust();
     bool lift_adjust(float dis);
-    float test_rpm;
-    // float calc(float x);
+    void keep_adjust(float dis);
+    float test_rpm = 0.0f;
     // int set_auto_byFitter(uint8_t mode, float r);
     void set_shooter_mode(uint8_t mode_);
     void set_auto_byrpm(uint8_t mode_, float rpm);

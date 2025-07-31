@@ -23,7 +23,8 @@ enum CameraMode
 {
     camera_suspend, // 挂起
     camera_start, // 开始
-    camera_finish, // 完成
+    camera_keeping, // 锁定中
+    camera_finish, //完成
 };
 
 class Camera : public error_check, public RC9subscriber
@@ -50,6 +51,7 @@ private:
     float lock_vol;
     pid lock_basket_pid; // 锁框  //三分Y50
     CameraMode camera_mode = camera_suspend;    //初始化为挂起模式
+    float count = 0;
 
 public:
     Camera *camera_ptr= nullptr;
@@ -66,6 +68,7 @@ public:
     void camera_on();
     void camera_off();      //强制结束挂起
     void process_data();    //适用于相机的特定频率
+    bool time_delay();      
 };
 
 #endif
