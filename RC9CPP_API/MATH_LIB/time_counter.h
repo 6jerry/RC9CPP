@@ -33,6 +33,8 @@ public:
     float delta_time_ms = 0.0f;
     uint32_t now_cnt = 0, last_cnt = 0, detected_init_error = 0, delta_cnt = 0;
 
+    uint32_t now_cnt_us = 0, last_cnt_us = 0;
+
     uint32_t time_out_ms = 0, time_out_init = 0;
 
     bool if_detected_not_init = false;
@@ -63,6 +65,11 @@ public:
     bool u8_off_line = false, m3508_off_line = false, remote_off_line = false;
 
     bool shooter_motor_offline = false, shooter_encoder_offline = false;
+
+    bool yunball_motor_offline = false, yunall_gaslow = false;
+
+    bool position_offline = false;
+
     // CrsfReceiver *crsf_check = nullptr;
 };
 

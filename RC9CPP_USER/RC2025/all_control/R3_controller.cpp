@@ -46,12 +46,12 @@ void R3Controller::efsm_init()
 
     uint16_t auto_yunball_and_loadballmodeflag[] = {7};
 
-    uint16_t lock_on_center_pointmodeflag[] = {36, 38};
+    uint16_t lock_on_center_pointmodeflag[] = {38};
 
-    uint16_t auto_shoot_2_center_pointmodeflag[] = {35, 39};
+    uint16_t auto_shoot_2_center_pointmodeflag[] = {33, 37};
 
     uint16_t lock_on_r2modeflag[] = {68, 70};
-    uint16_t shoot_2_center_pointmodeflag[] = {33, 37};
+    uint16_t shoot_2_center_pointmodeflag[] = {35, 39};
     uint16_t shoot_2_r2modeflag[] = {65, 69};
 
     uint16_t auto_shoot_2_r2modeflag[] = {67, 71};
@@ -72,6 +72,8 @@ void R3Controller::efsm_init()
 
     uint16_t hand_set_liftermodeflag[] = {10, 14};
 
+    uint16_t lock_by_cam_modeflag[] = {36};
+
     mode_selector.mapStateToIndices(0, attack_move_modeflag, 8);
     mode_selector.mapStateToIndices(1, auto_reload_ballmodeflag, 1);
     mode_selector.mapStateToIndices(2, all_auto_yunballmodeflag, 1);
@@ -89,6 +91,7 @@ void R3Controller::efsm_init()
     mode_selector.mapStateToIndices(14, set_center_pointmodeflag, 1);
     mode_selector.mapStateToIndices(15, auto_shoot_2_center_pointmodeflag, 2);
     mode_selector.mapStateToIndices(16, auto_shoot_2_r2modeflag, 2);
+    mode_selector.mapStateToIndices(17, lock_by_cam_modeflag, 1);
 }
 
 void R3Controller::process_data()
@@ -137,7 +140,7 @@ void R3Controller::process_data()
         wait_mode_move();
         break;
     case 9:
-        reset_all_imu();
+        reset_all_imu(); 
         break;
     case 10:
         reset_sw_motor();
@@ -159,6 +162,10 @@ void R3Controller::process_data()
         break;
     case 16:
         auto_shoot_2_r2();
+        break;
+
+    case 17:
+        lock_by_cam();
         break;
 
     default:
@@ -229,6 +236,7 @@ void R3Controller::set_accle()
 
 void R3Controller::remote_move()
 {
+  
     camera_ops->camera_off();
     Vector2D tvel_(crsf_port->left_V_mapcurve * max_x_speed, crsf_port->left_H_mapcurve * max_y_speed);
     set_worldVel_accle(tvel_, target_accle);
@@ -245,7 +253,8 @@ void R3Controller::remote_move_revert()
 
 void R3Controller::remote_move_robot()
 {
-    Vector2D tvel_(-crsf_port->left_H_mapcurve * max_x_speed, crsf_port->left_V_mapcurve * max_y_speed);
+ 
+        Vector2D tvel_(-crsf_port->left_H_mapcurve * max_x_speed, crsf_port->left_V_mapcurve * max_y_speed);
     set_RobotVel(tvel_, 0);
     set_RobotW(-crsf_port->right_H_mapcurve * max_yaw_speed, 0);
 }
@@ -291,6 +300,7 @@ void R3Controller::send_2_r2()
 
 void R3Controller::all_auto_yunball()
 {
+    send_datas.status_flag = 2;
 
     auto_yunball_ptr->start_yunball();
 
@@ -301,6 +311,8 @@ void R3Controller::auto_reload_ball()
 
 {
 
+    send_datas.status_flag = 1;
+
     auto_yunball_ptr->start_putball();
 
     crsf_port->reset_trigger_flag(); // 动作执行完后重置扳机flag
@@ -308,7 +320,16 @@ void R3Controller::auto_reload_ball()
 
 void R3Controller::lock_on_center_point()
 {
+    send_datas.status_flag = 3;
+    yaw_TurnTo(heading_2_center, 0);
+    Vector2D tvel_(crsf_port->left_V_mapcurve * max_x_speed, crsf_port->left_H_mapcurve * max_y_speed);
+    set_worldVel_accle(tvel_, target_accle);
+    send_datas.dis_2_target = dis_2_center;
+}
 
+void R3Controller::lock_by_cam()
+{
+    send_datas.status_flag = 17;
     if (!auto_yunball_ptr->if_enable_shoot())
     {
         auto_yunball_ptr->in_or_out(true);
@@ -319,16 +340,11 @@ void R3Controller::lock_on_center_point()
 
         set_RobotW(0.0f, 0);
     }
-    /*
-
-    yaw_TurnTo(heading_2_center, 0);
-    Vector2D tvel_(crsf_port->left_V_mapcurve * max_x_speed, crsf_port->left_H_mapcurve * max_y_speed);
-    set_worldVel_accle(tvel_, target_accle);
-    send_datas.dis_2_target = dis_2_center;
-    */
 }
+
 void R3Controller::lock_on_r2()
 {
+    send_datas.status_flag = 4;
 
     yaw_TurnTo(heading_2_robot, 0);
     Vector2D tvel_(crsf_port->left_V_mapcurve * max_x_speed, crsf_port->left_H_mapcurve * max_y_speed);
@@ -338,6 +354,7 @@ void R3Controller::lock_on_r2()
 
 void R3Controller::shoot_2_center_point()
 {
+    send_datas.status_flag = 5;
     if (!auto_yunball_ptr->if_enable_shoot())
     {
         auto_yunball_ptr->in_or_out(true);
@@ -354,6 +371,7 @@ void R3Controller::shoot_2_center_point()
 
 void R3Controller::shoot_2_r2()
 {
+    send_datas.status_flag = 6;
     if (!auto_yunball_ptr->if_enable_shoot())
     {
         auto_yunball_ptr->in_or_out(true);
@@ -371,13 +389,14 @@ void R3Controller::shoot_2_r2()
 
 void R3Controller::attack_move_mode()
 {
+    send_datas.status_flag = 0;
 
     remote_move();
 }
 
 void R3Controller::wait_mode_move()
 {
-
+    send_datas.status_flag = 8;
     remote_move_robot();
 }
 
@@ -390,7 +409,7 @@ void R3Controller::reset_sw_motor()
 
 void R3Controller::reset_all_imu()
 {
-
+    send_datas.status_flag = 10;
     ros_imu->imu_rst();
     position_imu_->imu_rst();
     crsf_port->reset_trigger_flag();
@@ -398,6 +417,7 @@ void R3Controller::reset_all_imu()
 
 void R3Controller::hand_set_clawpos()
 {
+    send_datas.status_flag = 12;
 
     auto_yunball_ptr->control_put_motor(crsf_port->right_H_map);
     Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
@@ -415,6 +435,7 @@ void R3Controller::hand_set_clawpos()
 
 void R3Controller::auto_yunball_and_loadball()
 {
+    send_datas.status_flag = 7;
     auto_yunball_ptr->yun_and_put();
     crsf_port->reset_trigger_flag();
 }
@@ -426,8 +447,7 @@ void R3Controller::add_camera(CameraOperation *camera_ops_ptr)
 
 void R3Controller::auto_shoot_2_center_point()
 {
-
-  
+    send_datas.status_flag = 15;
     if (auto_yunball_ptr->if_enable_shoot())
     {
         if (auto_shooter->set_auto_byCameraFitter(Auto, camera_ops->camera_Y / 100.0f) == Lift)
@@ -443,7 +463,6 @@ void R3Controller::auto_shoot_2_center_point()
     }
 }
 
-
 void R3Controller::auto_shoot_2_r2()
 {
     crsf_port->reset_trigger_flag();
@@ -451,12 +470,14 @@ void R3Controller::auto_shoot_2_r2()
 
 void R3Controller::reset_yunball_shooter()
 {
+    send_datas.status_flag = 13;
     auto_yunball_ptr->reload_motor();
     crsf_port->reset_trigger_flag();
 }
 
 void R3Controller::set_center_point()
 {
+    send_datas.status_flag = 14;
     center_point.x = get_world_x();
     center_point.y = get_world_y();
     crsf_port->reset_trigger_flag();
@@ -464,5 +485,6 @@ void R3Controller::set_center_point()
 
 void R3Controller::hand_set_lifter()
 {
+    send_datas.status_flag = 11;
     auto_shooter->set_hand(crsf_port->right_H_map * 500.0f);
 }

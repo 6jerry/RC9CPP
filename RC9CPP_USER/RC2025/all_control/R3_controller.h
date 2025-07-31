@@ -132,6 +132,8 @@ public:
     void add_elrs(CrsfReceiver *crsf_port_);
 
     void send_2_r2();
+
+    void lock_by_cam();
 };
 
 #endif

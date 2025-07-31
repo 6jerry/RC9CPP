@@ -7,26 +7,26 @@ void time_counter::init_time_counter()
 
 float time_counter::get_DeltaTime_ms()
 {
-    if (now_cnt == 0 & last_cnt == 0)
+    if (now_cnt_us == 0 & last_cnt_us == 0)
     {
-        last_cnt = htim2.Instance->CNT;
+        last_cnt_us = htim2.Instance->CNT;
 
         return 0.0f;
     }
     else
     {
-        now_cnt = htim2.Instance->CNT;
+        now_cnt_us = htim2.Instance->CNT;
 
-        if (now_cnt > last_cnt) // 无溢出
+        if (now_cnt_us > last_cnt_us) // 无溢出
         {
-            delta_time_ms = (float)((float)now_cnt - (float)last_cnt) / 1000.0f;
+            delta_time_ms = (float)((float)now_cnt_us - (float)last_cnt_us) / 1000.0f;
         }
         else // 有溢出
         {
-            delta_time_ms = (float)(now_cnt + (4294967295 - last_cnt)) / 1000.0f;
+            delta_time_ms = (float)(now_cnt_us + (4294967295 - last_cnt_us)) / 1000.0f;
         }
 
-        last_cnt = now_cnt;
+        last_cnt_us = now_cnt_us;
 
         return delta_time_ms;
     }
@@ -151,4 +151,26 @@ void error_manager::handle_r3_error()
     {
         shooter_encoder_offline = true;
     }
+
+    if (time_counter_ptr[9]->get_ec_code() == 0)
+    {
+        yunball_motor_offline = false;
+    }
+    else
+    {
+        yunball_motor_offline = true;
+    }
+
+    if (time_counter_ptr[3]->get_ec_code() == 0)
+    {
+        position_offline = false;
+    }
+    else
+    {
+        position_offline = true;
+    }
+
+
+
+
 }
