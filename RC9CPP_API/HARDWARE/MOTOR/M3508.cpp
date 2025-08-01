@@ -328,7 +328,7 @@ void m3508p::many_pos_locate() // 差分定位计算3508多圈位置
     }
     else if (pos_sum < -180.0f)
     {
-        pos_sum += 360.0f;
+        pos_sum += 360.0f;  
     }
 
     pos_sum += delta_pos / gear_ratio;
