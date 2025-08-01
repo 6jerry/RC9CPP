@@ -74,6 +74,8 @@ void R3Controller::efsm_init()
 
     uint16_t lock_by_cam_modeflag[] = {36};
 
+    uint16_t hand_shoot_modeflag[] = {41};
+
     mode_selector.mapStateToIndices(0, attack_move_modeflag, 8);
     mode_selector.mapStateToIndices(1, auto_reload_ballmodeflag, 1);
     mode_selector.mapStateToIndices(2, all_auto_yunballmodeflag, 1);
@@ -92,8 +94,12 @@ void R3Controller::efsm_init()
     mode_selector.mapStateToIndices(15, auto_shoot_2_center_pointmodeflag, 2);
     mode_selector.mapStateToIndices(16, auto_shoot_2_r2modeflag, 2);
     mode_selector.mapStateToIndices(17, lock_by_cam_modeflag, 1);
+    mode_selector.mapStateToIndices(18, hand_shoot_modeflag, 1);
 }
-
+float R3Controller::round_to_one_decimal(float number)
+{
+    return round(number * 10.0f) / 10.0f;
+}
 void R3Controller::process_data()
 {
 
@@ -104,10 +110,9 @@ void R3Controller::process_data()
     set_accle();
     uint8_t flagValues[5] = {trigger_on_, sal_flag_, sar_flag_, l_flag_, r_flag_};
     currentStateflag = mode_selector.getState(flagValues);
-    debug_dis = crsf_port->right_V_map * max_debug_dis;
+    debug_dis = round_to_one_decimal(crsf_port->right_V_map) * max_delta_rpm + 1000.0f;
     send_datas.debug_dis = debug_dis;
 
-    send_crsf_datas();
     send_2_r2();
     switch (currentStateflag)
     {
@@ -140,7 +145,7 @@ void R3Controller::process_data()
         wait_mode_move();
         break;
     case 9:
-        reset_all_imu(); 
+        reset_all_imu();
         break;
     case 10:
         reset_sw_motor();
@@ -167,10 +172,14 @@ void R3Controller::process_data()
     case 17:
         lock_by_cam();
         break;
+    case 18:
+        hand_shoot();
+        break;
 
     default:
         break;
     }
+    send_crsf_datas();
 }
 
 void R3Controller::send_crsf_datas()
@@ -236,7 +245,7 @@ void R3Controller::set_accle()
 
 void R3Controller::remote_move()
 {
-  
+
     camera_ops->camera_off();
     Vector2D tvel_(crsf_port->left_V_mapcurve * max_x_speed, crsf_port->left_H_mapcurve * max_y_speed);
     set_worldVel_accle(tvel_, target_accle);
@@ -253,8 +262,8 @@ void R3Controller::remote_move_revert()
 
 void R3Controller::remote_move_robot()
 {
- 
-        Vector2D tvel_(-crsf_port->left_H_mapcurve * max_x_speed, crsf_port->left_V_mapcurve * max_y_speed);
+
+    Vector2D tvel_(-crsf_port->left_H_mapcurve * max_x_speed, crsf_port->left_V_mapcurve * max_y_speed);
     set_RobotVel(tvel_, 0);
     set_RobotW(-crsf_port->right_H_mapcurve * max_yaw_speed, 0);
 }
@@ -402,14 +411,14 @@ void R3Controller::wait_mode_move()
 
 void R3Controller::reset_sw_motor()
 {
-
+    send_datas.status_flag = 10;
     reset_swerve();
     crsf_port->reset_trigger_flag();
 }
 
 void R3Controller::reset_all_imu()
 {
-    send_datas.status_flag = 10;
+    send_datas.status_flag = 9;
     ros_imu->imu_rst();
     position_imu_->imu_rst();
     crsf_port->reset_trigger_flag();
@@ -487,4 +496,9 @@ void R3Controller::hand_set_lifter()
 {
     send_datas.status_flag = 11;
     auto_shooter->set_hand(crsf_port->right_H_map * 500.0f);
+}
+
+void R3Controller::hand_shoot()
+{
+    crsf_port->reset_trigger_flag();
 }

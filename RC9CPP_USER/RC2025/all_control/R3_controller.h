@@ -80,10 +80,10 @@ public:
     static const uint8_t bitWidths[5]; // 位宽数组
     void efsm_init();                  // 初始化编码状态机
     uint8_t currentStateflag = 255;
+    float round_to_one_decimal(float number);
 
 public:
-    void
-    remote_move();             // 世界坐标系遥控
+    void remote_move();        // 世界坐标系遥控
     void remote_move_revert(); // 头反过来
     void remote_move_robot();
     void all_stop();
@@ -127,13 +127,15 @@ public:
 
     void hand_set_clawpos(); // 手动调整夹爪位置
 
-    float debug_dis = 0.12f, max_debug_dis = 0.3f;
+    float debug_dis = 0.0f, max_delta_rpm = 800.0f;
 
     void add_elrs(CrsfReceiver *crsf_port_);
 
     void send_2_r2();
 
     void lock_by_cam();
+
+    void hand_shoot();
 };
 
 #endif
