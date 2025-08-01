@@ -150,7 +150,7 @@ float CameraOperation::lock_basket_vol()
 
 bool CameraOperation::time_delay()
 {
-    if (count++ > 20.0f)
+    if (count++ > 15.0f)
 	{
 		return true;
 	}

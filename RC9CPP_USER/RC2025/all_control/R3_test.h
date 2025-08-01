@@ -28,6 +28,7 @@ class demo : public ITaskProcessor, public RC9subscriber
 {
 public:
   int flag = 0;
+  int flag1 =0;
   uint32_t last_tick = 0;
   uint32_t last_tick2 = 0;
   void encoder_check();

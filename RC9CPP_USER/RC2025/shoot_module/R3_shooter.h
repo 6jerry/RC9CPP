@@ -117,9 +117,10 @@ public:
     void add_gate(photogate_shoot *gate_, photogate_shoot *gate_down_);
     bool auto_adjust(float target_rpm);
     void hand_adjust();
-    bool lift_adjust(float dis);
+    bool lift_adjust();
     void keep_adjust(float dis);
     float test_rpm = 0.0f;
+    float test_c = 0.0f;
     // int set_auto_byFitter(uint8_t mode, float r);
     void set_shooter_mode(uint8_t mode_);
     void set_auto_byrpm(uint8_t mode_, float rpm);

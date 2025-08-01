@@ -17,9 +17,10 @@ void photogate_shoot::handleInterrupt()
         rpm2 = motor2->get_rpm();
         motor1->send_rpm(0.0f);
         motor2->send_rpm(0.0f);
+        flag = 1;
     }
     cont++;
-    flag = 1;
+
 }
 
 void photogate_shoot::add_io_interrupt(GPIO_TypeDef *port_, uint16_t pin_)
@@ -68,53 +69,60 @@ void R3Shooter::process_data()
         if (auto_adjust(info.auto_rpm))
         {
             mode = Lift;
-            info.debug_dis = revert_dis;
-            last_tick = HAL_GetTick();
+            //info.debug_dis = revert_dis;
+            //last_tick = HAL_GetTick();
         }
 
         break;
 
     case Auto_2:
         // 二分投篮模式
-        if (fabs(info.real_dis - two_dis) < 0.01f)
-        {
-            if (auto_adjust(info.auto_rpm))
-            {
-                mode = Lift;
-                info.debug_dis = revert_dis;
-                last_tick = HAL_GetTick();
-            }
-        }
-        else
-        {
-            lift_adjust(two_dis);
-        }
+//        if (fabs(info.real_dis - two_dis) < 0.01f)
+//        {
+//            if (auto_adjust(info.auto_rpm))
+//            {
+//                mode = Lift;
+//                info.debug_dis = revert_dis;
+//                last_tick = HAL_GetTick();
+//            }
+//        }
+//        else
+//        {
+//            lift_adjust(two_dis);
+//        }
         break;
 
     case Lift:
         // lift_adjust(info.debug_dis);
-        if (info.real_dis <= 0.50f)
+//        if (info.real_dis <= 0.50f)
+//        {
+//            if (lift_adjust(info.debug_dis))
+//            {
+//                mode = Keep;
+//            }
+//        }
+//        else
+//        {
+
+//            //   m1->send_rpm(-500.0f);
+//            //   m2->send_rpm(-500.0f);
+
+//            m1->send_rpm(-800.0f);
+//            m2->send_rpm(-800.0f);
+//        }
+
+        if(lift_adjust())
         {
-            if (lift_adjust(info.debug_dis))
-            {
-                mode = Keep;
-            }
+              mode = Keep;
+          
         }
-        else
-        {
-
-            //   m1->send_rpm(-500.0f);
-            //   m2->send_rpm(-500.0f);
-
-            m1->send_rpm(-800.0f);
-            m2->send_rpm(-800.0f);
-        }
-
+    
         break;
 
     case Keep:
-        keep_adjust(revert_dis);
-
+       // keep_adjust(revert_dis);
+        m1->send_rpm(0.0f);
+        m2->send_rpm(0.0f);
         gate->reset();
         gate_down->reset();
         break;
@@ -129,29 +137,43 @@ void R3Shooter::process_data()
 
 void R3Shooter::keep_adjust(float dis)
 {
-    float error = (dis - info.real_dis);
-    info.auto_rpm = dis_control.PID_ComputeError(error);
-    m1->send_rpm(info.auto_rpm);
-    // m2->send_rpm(info.auto_rpm);
-    m2->set_current(0.0f);
+//    float error = (dis - info.real_dis);
+//    info.auto_rpm = dis_control.PID_ComputeError(error);
+//    m1->send_rpm(info.auto_rpm);
+//    // m2->send_rpm(info.auto_rpm);
+//    m2->set_current(0.0f);
 }
-bool R3Shooter::lift_adjust(float dis)
+bool R3Shooter::lift_adjust()
 {
 
-    float error = (dis - info.real_dis);
+//    float error = (dis - info.real_dis);
 
-    if (fabs(error) < 0.008f)
-    {
-        return true;
-    }
-    else
-    {
-        info.auto_rpm = dis_control.PID_ComputeError(error);
-        m1->send_rpm(info.auto_rpm);
-        // m2->send_rpm(info.auto_rpm);
-        m2->set_current(0.0f);
-        return false;
-    }
+//    if (fabs(error) < 0.008f)
+//    {
+//        return true;
+//    }
+//    else
+//    {
+//        info.auto_rpm = dis_control.PID_ComputeError(error);
+//        m1->send_rpm(info.auto_rpm);
+//        // m2->send_rpm(info.auto_rpm);
+//        m2->set_current(0.0f);
+//        return false;
+//    }
+    
+     if (gate_down->flag)
+   {
+       m1->send_rpm(0.0f);
+       m2->send_rpm(0.0f);
+
+       return true;
+   }
+   else
+   {
+       m1->send_rpm(-500.0f);
+       m2->send_rpm(-500.0f);
+   }
+   return false;
 }
 void R3Shooter::hand_adjust()
 {
@@ -198,7 +220,6 @@ int R3Shooter::set_auto_byFitter(uint8_t mode_, float r)
         {
             info.auto_rpm = max;
         }
-        start_dis = info.real_dis;
     }
     // 0 Stop 停止
     // 2 Auto 发射
@@ -219,7 +240,7 @@ int R3Shooter::set_auto_byCameraFitter(uint8_t mode_, float camera_r)
             info.auto_rpm = max;
         }
 
-        start_dis = info.real_dis;
+   
     }
 
     // 0 Stop 停止
@@ -241,7 +262,7 @@ int R3Shooter::set_autoPass_byFitter(uint8_t mode_, float r)
         {
             info.auto_rpm = max;
         }
-        start_dis = info.real_dis;
+     
     }
 
     // 0 Stop 停止
@@ -271,36 +292,39 @@ bool R3Shooter::auto_adjust(float target_rpm)
     //    }
 
     //编码器发射
-      test_rpm = target_rpm;
-      // v2 = 2ax;
-      if (fabs(end_dis - info.real_dis) < zone || (info.real_dis > end_dis))
-      {
-          m1->send_rpm(0.0f);
-          m2->send_rpm(0.0f);
+//      test_rpm = target_rpm;
+//      // v2 = 2ax;
+//      if (fabs(end_dis - info.real_dis) < zone || (info.real_dis > end_dis))
+//      {
+//          m1->send_rpm(0.0f);
+//          m2->send_rpm(0.0f);
 
-          return true;
-      }
-      else
-      {
-          m1->send_rpm(test_rpm);
-          m2->send_rpm(test_rpm);
-      }
+//          return true;
+//      }
+//      else
+//      {
+//          m1->send_rpm(test_rpm);
+//          m2->send_rpm(test_rpm);
+//      }
 
     // 光电门发射
-//   test_rpm = target_rpm;
+   test_rpm = target_rpm;
+   //test_c = target_rpm;
+   if (gate->flag)
+   {
+       m1->send_rpm(0.0f);
+       m2->send_rpm(0.0f);
 
-//   if (gate->flag)
-//   {
-//       m1->send_rpm(0.0f);
-//       m2->send_rpm(0.0f);
-
-//       return true;
-//   }
-//   else
-//   {
-//       m1->send_rpm(test_rpm);
-//       m2->send_rpm(test_rpm);
-//   }
+       return true;
+   }
+   else
+   {
+       m1->send_rpm(test_rpm);
+       m2->send_rpm(test_rpm);
+       
+   //    m1->set_current(test_c);
+   //    m2->set_current(test_c);
+   }
 
     return false;
 }
@@ -316,10 +340,10 @@ float R3Shooter::calc(float r)
 {
     //---------------------多项式拟合-----------------
     const float coeffs[] = {
-        -18.8748f,  // r³ 系数
-        189.2786f,  // r² 系数
-        -352.7865f, // r 系数
-        1339.3911f  // 常数项
+        -19.5245f,  // r³ 系数
+        115.0111f,  // r² 系数
+        -313.3051f, // r 系数
+        1552.3560f  // 常数项
     };
 
     v = coeffs[0];
@@ -347,15 +371,16 @@ float R3Shooter::calc_camera(float camera_r)
     // v = a*exp(b*camera_r) + c;
     //---------------------多项式拟合-----------------
     const float coeffs[] = {
-        -16.0916f,  // r³ 系数
-        101.8636f,  // r² 系数
-        -305.2735f, // r 系数
-        1562.6801f  // 常数项
+        -19.8425f,  // r³ 系数
+        89.6144f,  // r² 系数
+        -273.0172f, // r 系数
+        1632.6160f  // 常数项
     };
     v = coeffs[0];
     v = v * camera_r + coeffs[1];
     v = v * camera_r + coeffs[2];
     v = v * camera_r + coeffs[3];
+    //v = -299.4623f*logf(0.9625f*camera_r + 1) + 1544.1872f;
     return v += camera_offset;
 }
 
