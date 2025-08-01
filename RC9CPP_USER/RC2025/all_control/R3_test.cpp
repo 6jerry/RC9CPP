@@ -27,7 +27,7 @@ Encoder encoder(0x03, &hfdcan3, 2.3333f, 4096.0f, 0.175f);
 AutoYunballR3 auto_yunball;
 R3Shooter shooter;
 photogate_shoot gate(rising, GPIOD, GPIO_PIN_14);
-photogate_shoot gate_down(falling, GPIOE, GPIO_PIN_3);
+photogate_shoot gate_down(falling, GPIOD, GPIO_PIN_12);
 
 demo plot;
 
@@ -127,13 +127,15 @@ void demo::process_data()
   MX_FDCAN2_Init();
   CanDevice::InitAllFiltersNoMask();
 
-    if (flag == 1)
-    {
-      encoder.send_reset();
-      flag = 0;
-    }
-
-//  encoder_check();
+//    if(flag == 1){
+//      encoder.send_reset();
+//        flag = 0;
+//    }
+//    
+//    if(flag1 == 1){
+//       encoder.set_dis(1000);
+//    }
+  //encoder_check();
 
   // lidar TF
   //  float yaw = position_sensor.get_heading();
