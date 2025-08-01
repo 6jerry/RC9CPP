@@ -60,7 +60,7 @@ local function my_run(event)
     elseif sats == 2 then
         lcd.drawText(0, 0, "all auto yunball", MIDSIZE)
     elseif sats == 3 then
-        lcd.drawText(0, 0, "lock on center point", MIDSIZE)
+        lcd.drawText(0, 0, "pos lock", MIDSIZE)
     elseif sats == 4 then
         lcd.drawText(0, 0, "lock on r2", MIDSIZE)
     elseif sats == 5 then
@@ -85,8 +85,11 @@ local function my_run(event)
         lcd.drawText(0, 0, "auto shoot center", MIDSIZE)
     elseif sats == 16 then
         lcd.drawText(0, 0, "auto shoot r2", MIDSIZE)
-    elseif sats == 49 then
+    elseif sats == 14 then
         lcd.drawText(0, 0, "set center point", MIDSIZE)
+
+    elseif sats == 17 then
+        lcd.drawText(0, 0, "cam lock", MIDSIZE)
     else
         lcd.drawText(10, 0, "GDUT Robocon2025", MIDSIZE)
     end
