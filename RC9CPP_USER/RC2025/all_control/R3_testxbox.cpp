@@ -52,6 +52,40 @@ void R3_xbox::calc_robot_point()
 // robot_heading -= offest;
 }
 
+void R3_xbox::mode_0()
+{
+	calc_error();
+	Vector2D tvel_((5.0f * xbox_msgs.joyLHori_map), (5.0f * xbox_msgs.joyLVert_map));
+	//set_WorldVel_ACCLE(tvel_, 2.5f); // 以后再改
+    set_RobotVel_ACCLE(tvel_, 3.0f); 
+    set_RobotW(-(2.0f * xbox_msgs.joyRHori_map), 0);
+	if(lb_flag)
+	{
+        if(rb_flag)
+		{
+           basketCalibrator.addMeasurement(-get_world_x(), get_world_y(), imu_ptr->get_heading());
+		   rb_flag = 0;
+		}
+
+		if(btn_start_flag)
+		{
+			if(basketCalibrator.isReadyToCalculate())
+			{
+				Vector2D center = basketCalibrator.calculateCenter();
+				if(center.x != -50.0f && center.y != -50.0f)
+				{
+					center_point.x = -center.x;
+					center_point.y = center.y;
+				}
+				basketCalibrator.reset();
+				lb_flag = 0;
+				btn_start_flag = 0;
+				mode_flag = 2; // 返回到模式2
+			}
+		}
+	}
+}
+
 void R3_xbox::mode_1()
 {
     calc_error();
@@ -64,8 +98,8 @@ void R3_xbox::mode_1()
 //	}
 //	else
 //	{
-//		yaw_TurnTo(center_heading, 0);
-//        //yaw_TurnTo(0, 0);
+//	   yaw_TurnTo(center_heading, 0);
+//     //yaw_TurnTo(0, 0);
 //	}
 
 	if (camera_ops->camera_ready == true)
@@ -79,13 +113,15 @@ void R3_xbox::mode_1()
 
 	if (DirRight_flag)
 	{
-	//	shoot_dis = camera_ops->camera_Y/100.0f;
-	//	shooter->set_auto_byCameraFitter(Auto, shoot_dis);
+		shoot_dis = camera_ops->camera_Y/100.0f;
+		shooter->set_auto_byCameraFitter(Auto, shoot_dis);
 
-	    shooter->set_auto_byrpm(Auto, target_rpm);
+	    //shooter->set_auto_byrpm(Auto, target_rpm);
 		//shooter->set_auto_byFitter(Auto, dis_2_center);
 
 		osDelay(400);
+
+		shooter->CalculateDistance(shoot_dis);
 		DirRight_flag = 0;
 		//mode_flag = 2;
 		camera_ops->camera_off();
@@ -138,7 +174,7 @@ void R3_xbox::for_btnY()
 	calc_robot_point();
 	Vector2D target(0.0f, 0.0f);
 	set_RobotVel(target, 0);
-
+    
 	if (abs(robot_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
 	{
 		set_RobotW(0.0f, 0);
@@ -151,7 +187,7 @@ void R3_xbox::for_btnY()
 	if (DirRight_flag)
 	{
 	    //shooter->set_auto_byrpm(Auto, target_rpm);
-		shooter->set_autoPass_byFitter(Auto, dis_2_robot);
+            shooter->set_autoPass_byFitter(Auto, dis_2_robot);
 
 		osDelay(400);
 		DirRight_flag = 0;
