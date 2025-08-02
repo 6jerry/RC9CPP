@@ -22,7 +22,7 @@ m3508p m2006_left(dji_id_4, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRE
 RoboChassis s3_chassis(swerve3_chassis);
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
 
-Encoder encoder(0x03, &hfdcan3, 2.3333f, 4096.0f, 0.175f);
+Encoder encoder(0x02, &hfdcan3, 2.3333f, 1024.0f, 0.175f);
 
 AutoYunballR3 auto_yunball;
 R3Shooter shooter;
@@ -127,10 +127,10 @@ void demo::process_data()
   MX_FDCAN2_Init();
   CanDevice::InitAllFiltersNoMask();
 
-//    if(flag == 1){
-//      encoder.send_reset();
-//        flag = 0;
-//    }
+    if(flag == 1){
+      encoder.send_reset();
+        flag = 0;
+    }
 //    
 //    if(flag1 == 1){
 //       encoder.set_dis(1000);

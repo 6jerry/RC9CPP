@@ -340,10 +340,10 @@ float R3Shooter::calc(float r)
 {
     //---------------------多项式拟合-----------------
     const float coeffs[] = {
-        -19.5245f,  // r³ 系数
-        115.0111f,  // r² 系数
-        -313.3051f, // r 系数
-        1552.3560f  // 常数项
+        0.0f,  // r³ 系数
+        -12.4172f,  // r² 系数
+        351.4184f, // r 系数
+        628.1105f  // 常数项
     };
 
     v = coeffs[0];
@@ -370,17 +370,17 @@ float R3Shooter::calc_camera(float camera_r)
     // v = a * pow(camera_r, b) + c;
     // v = a*exp(b*camera_r) + c;
     //---------------------多项式拟合-----------------
-    const float coeffs[] = {
-        -19.8425f,  // r³ 系数
-        89.6144f,  // r² 系数
-        -273.0172f, // r 系数
-        1632.6160f  // 常数项
-    };
-    v = coeffs[0];
-    v = v * camera_r + coeffs[1];
-    v = v * camera_r + coeffs[2];
-    v = v * camera_r + coeffs[3];
-    //v = -299.4623f*logf(0.9625f*camera_r + 1) + 1544.1872f;
+//    const float coeffs[] = {
+//        -19.8425f,  // r³ 系数
+//        89.6144f,  // r² 系数
+//        -273.0172f, // r 系数
+//        1632.6160f  // 常数项
+//    };
+//    v = coeffs[0];
+//    v = v * camera_r + coeffs[1];
+//    v = v * camera_r + coeffs[2];
+//    v = v * camera_r + coeffs[3];
+    v = 513.3251f*exp(-0.5658f*camera_r) + 1126.3721f;
     return v += camera_offset;
 }
 
@@ -406,4 +406,20 @@ void R3Shooter::get_data()
     //    {
     //        last_tick2 = HAL_GetTick();
     //    }
+}
+
+float R3Shooter::CalculateDistance(float camera_r)
+{
+    const float coeffs[] = {
+        -0.0782f,  // r³ 系数
+        0.3830f,  // r² 系数
+        -1.0554f, // r 系数
+        3.2315f  // 常数项
+    };
+    camera_to_dis = coeffs[0];
+    camera_to_dis = camera_to_dis * camera_r + coeffs[1];
+    camera_to_dis = camera_to_dis * camera_r + coeffs[2];
+    camera_to_dis = camera_to_dis * camera_r + coeffs[3];
+
+    return camera_to_dis;
 }
