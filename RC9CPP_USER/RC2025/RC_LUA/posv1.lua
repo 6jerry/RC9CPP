@@ -90,6 +90,9 @@ local function my_run(event)
 
     elseif sats == 17 then
         lcd.drawText(0, 0, "cam lock", MIDSIZE)
+
+    elseif sats == 30 then
+        lcd.drawText(0, 0, "cam lock success", MIDSIZE)
     else
         lcd.drawText(10, 0, "GDUT Robocon2025", MIDSIZE)
     end
@@ -110,7 +113,10 @@ local function my_run(event)
     if Last_sats ~= 0 and sats == 0 then
         playFile("/SCRIPTS/TELEMETRY/cn/attamode.wav")
     end
-
+    
+    if Last_sats ~= 30 and sats == 30 then
+        playFile("/SCRIPTS/TELEMETRY/cn/camlocked.wav")
+    end
 
 
     if Last_sats ~= 10 and sats == 10 then

@@ -338,7 +338,7 @@ void R3Controller::lock_on_center_point()
 
 void R3Controller::lock_by_cam()
 {
-    send_datas.status_flag = 17;
+
     if (!auto_yunball_ptr->if_enable_shoot())
     {
         auto_yunball_ptr->in_or_out(true);
@@ -346,8 +346,13 @@ void R3Controller::lock_by_cam()
     camera_ops->camera_on();
     if (camera_ops->camera_ready == true)
     {
+        send_datas.status_flag = 30;
 
         set_RobotW(0.0f, 0);
+    }
+    else
+    {
+        send_datas.status_flag = 17;
     }
 }
 
