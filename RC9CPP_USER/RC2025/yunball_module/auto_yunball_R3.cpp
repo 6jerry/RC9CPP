@@ -89,6 +89,7 @@ void AutoYunballR3::process_data()
             flag = stop_flag;
             break;
         case double_yun_flag:
+			osDelay(1000);
             yunball();
             osDelay(1000);
             yunball();

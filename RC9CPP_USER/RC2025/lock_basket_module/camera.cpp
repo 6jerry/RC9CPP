@@ -82,8 +82,9 @@ void CameraOperation::process_data()
 
     case camera_keeping:
         set_RobotW(0.0f, 0);
-        
-        if(fabs(camera_ptr->camera_info.vertial_plane_deviation.x) < deadlock){
+        camera_X = camera_ptr->camera_info.vertial_plane_deviation.x + offest_x;
+
+        if(fabs(camera_X) < deadlock){
             if(time_delay()){
             camera_mode = camera_finish;
             }
@@ -121,7 +122,7 @@ void CameraOperation::camera_off()
 
 float CameraOperation::lock_basket_vol()
 {
-	float camera_X = camera_ptr->camera_info.vertial_plane_deviation.x + offest_x;
+	camera_X = camera_ptr->camera_info.vertial_plane_deviation.x + offest_x;
 
 	lock_vol = lock_basket_pid.PID_ComputeError(camera_X);
 	// 偏置改完相机位置记得改，现在锁0

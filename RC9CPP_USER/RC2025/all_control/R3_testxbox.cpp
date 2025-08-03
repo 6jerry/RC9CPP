@@ -5,11 +5,9 @@ R3_xbox::R3_xbox(imu *imu_ptr_, imu *ros_imu_ptr_, CameraOperation *camera_ops_)
 	imu_ptr = imu_ptr_;
 	ros_imu = ros_imu_ptr_;
 	camera_ops = camera_ops_;
-	center_point.x = 3.35;
-	center_point.y = -14.063f;
+	center_point.x = 3.63;
+	center_point.y = -13.636f;
     
-    //-4.16
-    //13.84
 }
 void R3_xbox ::calc_error()
 {
@@ -92,32 +90,32 @@ void R3_xbox::mode_1()
 	Vector2D target(0.0f, 0.0f);
 	set_RobotVel(target, 0);
 
-// 	if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
-//	{
-//		set_RobotW(0.0f, 0);
-//	}
-//	else
-//	{
-//	   yaw_TurnTo(center_heading, 0);
-//     //yaw_TurnTo(0, 0);
-//	}
-
-	if (camera_ops->camera_ready == true)
+ 	if (abs(center_heading - get_yaw()) < limit_yaw_error && abs(get_chassis_yaw_speed()) < limit_yaw_speed)
 	{
 		set_RobotW(0.0f, 0);
 	}
 	else
 	{
-		camera_ops->camera_on();
+	   yaw_TurnTo(center_heading, 0);
+     //yaw_TurnTo(0, 0);
 	}
+
+//	if (camera_ops->camera_ready == true)
+//	{
+//		set_RobotW(0.0f, 0);
+//	}
+//	else
+//	{
+//		camera_ops->camera_on();
+//	}
 
 	if (DirRight_flag)
 	{
-		shoot_dis = camera_ops->camera_Y/100.0f;
-		shooter->set_auto_byCameraFitter(Auto, shoot_dis);
+		//shoot_dis = camera_ops->camera_Y/100.0f;
+		//shooter->set_auto_byCameraFitter(Auto, shoot_dis);
 
 	    //shooter->set_auto_byrpm(Auto, target_rpm);
-		//shooter->set_auto_byFitter(Auto, dis_2_center);
+		shooter->set_auto_byFitter(Auto, dis_2_center);
 
 		osDelay(400);
 
