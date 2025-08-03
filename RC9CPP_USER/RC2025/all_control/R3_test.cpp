@@ -190,8 +190,6 @@ void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData,
 void demo::add_xbox(R3_xbox *xbox_)
 {
   xbox = xbox_;
-  pian_x = xbox->center_point.x;
-  pian_y = xbox->center_point.y;
 }
 
 void demo::encoder_check()

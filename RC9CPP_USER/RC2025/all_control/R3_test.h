@@ -39,8 +39,8 @@ public:
 
   void add_xbox(R3_xbox *xbox_);
 
-  float pian_x;
-  float pian_y;
+  float pian_x = 0.0f;
+  float pian_y = -6.7888f;
 
   Vector2D robot_pos;
   Vector2D robot_v;
