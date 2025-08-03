@@ -120,7 +120,7 @@ void CameraOperation::camera_off()
 
 float CameraOperation::lock_basket_vol()
 {
-	static float camera_X = camera_ptr->camera_info.vertial_plane_deviation.x - offest_x;
+	float camera_X = camera_ptr->camera_info.vertial_plane_deviation.x + offest_x;
 
 	lock_vol = lock_basket_pid.PID_ComputeError(camera_X);
 	// 偏置改完相机位置记得改，现在锁0
