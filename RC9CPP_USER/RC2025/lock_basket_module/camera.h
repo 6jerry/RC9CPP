@@ -63,9 +63,11 @@ public:
 	float decelerate_x = 50.0f; 
 	float decelerate_speed = 0.06f;
     //10, 50, 0.05
-
+	
+	float camera_X = 0.0f;
+	
     //手动偏置防止相机被撞歪
-    float offest_x = 0.0f;      //相机横向定位偏置(通常加减5个像素点)，给大往右
+    float offest_x = -5.0f;      //相机横向定位偏置(通常加减5个像素点)，给大往右
     float offest_out = 0.0f;    
     // 相机输出偏置(通常加减10转) 注：此处只是表明有此功能具体在shoot文件里面有定义变量camera_offset
 
