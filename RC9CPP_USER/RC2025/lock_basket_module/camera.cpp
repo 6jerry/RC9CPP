@@ -71,6 +71,7 @@ void CameraOperation::process_data()
 	case camera_suspend:
 		camera_Y = 0.0f;
         count = 0.0f;
+		Tick = 0.0f;
 		camera_ready = false;
 
 		break;
@@ -149,7 +150,7 @@ float CameraOperation::lock_basket_vol()
 
 bool CameraOperation::time_delay()
 {
-    if (count++ > 15.0f)
+    if (count++ > 15.0f || Tick++ > 70.0f)
 	{
 		return true;
 	}

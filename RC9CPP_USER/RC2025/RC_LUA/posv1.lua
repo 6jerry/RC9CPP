@@ -104,6 +104,14 @@ local function my_run(event)
 
     elseif sats == 31 then
         lcd.drawText(0, 0, "cam error", MIDSIZE)
+
+
+    elseif sats == 19 then
+        lcd.drawText(0, 0, "add lopoint", MIDSIZE)
+
+    elseif sats == 20 then
+        lcd.drawText(0, 0, "calc cpoint", MIDSIZE)
+
     else
 
 

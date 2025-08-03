@@ -508,9 +508,11 @@ void R3Controller::reset_all_imu()
 
 void R3Controller::hand_set_clawpos()
 {
-    send_datas.status_flag = 12;
 
-    remote_move();
+   
+    send_datas.status_flag = 12;
+    auto_yunball_ptr->control_put_motor(crsf_port->right_H_map);
+    //remote_move();
 
     if (sar_flag_ == 1)
     {
@@ -521,14 +523,6 @@ void R3Controller::hand_set_clawpos()
         auto_yunball_ptr->control_claw(false);
     }
 
-    if (sal_flag_ == 1)
-    {
-        auto_yunball_ptr->in_or_out(true);
-    }
-    else if (sal_flag_ == 0)
-    {
-        auto_yunball_ptr->in_or_out(false);
-    }
 }
 
 void R3Controller::auto_yunball_and_loadball()
@@ -594,6 +588,7 @@ void R3Controller::hand_shoot()
 
 void R3Controller::add_locate_point()
 {
+     send_datas.status_flag = 19;
     basketCalibrator.addMeasurement(-get_world_x(), get_world_y(), position_imu_->get_heading());
     crsf_port->reset_trigger_flag();
 }
@@ -605,6 +600,7 @@ void R3Controller::calc_center_point()
         Vector2D center = basketCalibrator.calculateCenter();
         if (center.x != -50.0f && center.y != -50.0f)
         {
+            send_datas.status_flag = 20;
             center_point.x = -center.x;
             center_point.y = center.y;
         }
