@@ -15,6 +15,7 @@ extern "C"
 #include "auto_yunball_R3.h"
 #include "camera.h"
 #include "time_counter.h"
+#include "BasketCalibrator.h"
 #ifdef __cplusplus
 }
 #endif
@@ -71,6 +72,7 @@ public:
     void add_position_and_ros(imu *position_imu_ptr, imu *ros_imu_ptr);
 
     void add_camera(CameraOperation *camera_ops_ptr);
+    BasketCalibrator basketCalibrator;
 
 public:
     void
@@ -143,6 +145,9 @@ public:
     void lock_by_cam();
 
     void hand_shoot();
+
+    void add_locate_point();
+    void calc_center_point();
 };
 
 #endif

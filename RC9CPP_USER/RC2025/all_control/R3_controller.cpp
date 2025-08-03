@@ -76,6 +76,10 @@ void R3Controller::efsm_init()
 
     uint16_t hand_shoot_modeflag[] = {41};
 
+    uint16_t add_locate_pointmodeflag[] = {51};
+
+    uint16_t calc_center_pointmodeflag[] = {55};
+
     mode_selector.mapStateToIndices(0, attack_move_modeflag, 8);
     mode_selector.mapStateToIndices(1, auto_reload_ballmodeflag, 1);
     mode_selector.mapStateToIndices(2, all_auto_yunballmodeflag, 1);
@@ -95,6 +99,8 @@ void R3Controller::efsm_init()
     mode_selector.mapStateToIndices(16, auto_shoot_2_r2modeflag, 2);
     mode_selector.mapStateToIndices(17, lock_by_cam_modeflag, 1);
     mode_selector.mapStateToIndices(18, hand_shoot_modeflag, 1);
+    mode_selector.mapStateToIndices(19, add_locate_pointmodeflag, 1);
+    mode_selector.mapStateToIndices(20, calc_center_pointmodeflag, 1);
 }
 float R3Controller::round_to_one_decimal(float number)
 {
@@ -174,6 +180,12 @@ void R3Controller::process_data()
         break;
     case 18:
         hand_shoot();
+        break;
+    case 19:
+        add_locate_point();
+        break;
+    case 20:
+        calc_center_point();
         break;
 
     default:
@@ -577,5 +589,26 @@ void R3Controller::hand_set_lifter()
 
 void R3Controller::hand_shoot()
 {
+    crsf_port->reset_trigger_flag();
+}
+
+void R3Controller::add_locate_point()
+{
+    basketCalibrator.addMeasurement(-get_world_x(), get_world_y(), position_imu_->get_heading());
+    crsf_port->reset_trigger_flag();
+}
+
+void R3Controller::calc_center_point()
+{
+    if (basketCalibrator.isReadyToCalculate())
+    {
+        Vector2D center = basketCalibrator.calculateCenter();
+        if (center.x != -50.0f && center.y != -50.0f)
+        {
+            center_point.x = -center.x;
+            center_point.y = center.y;
+        }
+        basketCalibrator.reset();
+    }
     crsf_port->reset_trigger_flag();
 }
