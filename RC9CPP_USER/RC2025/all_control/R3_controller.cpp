@@ -179,12 +179,68 @@ void R3Controller::process_data()
     default:
         break;
     }
+    check_ef();
     send_crsf_datas();
+}
+
+void R3Controller::check_ef()
+{
+    if ((!check_error->u8_off_line) && (!check_error->m3508_off_line))
+    {
+        chassis_ef = 0; // 底盘正常
+    }
+    if (check_error->u8_off_line && (!check_error->m3508_off_line))
+    {
+        chassis_ef = 1;
+    }
+    if (check_error->m3508_off_line && (!check_error->u8_off_line))
+    {
+        chassis_ef = 2;
+    }
+    if (check_error->u8_off_line && check_error->m3508_off_line)
+    {
+        chassis_ef = 3;
+    }
+
+    if ((!check_error->shooter_motor_offline))
+    {
+        shooter_ef = 0;
+    }
+    if (check_error->shooter_motor_offline)
+    {
+        shooter_ef = 1;
+    }
+
+    if ((!check_error->yunball_motor_offline))
+    {
+        yunball_ef = 0;
+    }
+    if (check_error->yunball_motor_offline)
+    {
+        yunball_ef = 1;
+    }
+
+    if ((!check_error->position_offline) && (!check_error->ladar_offline))
+    {
+        pos_ef = 0;
+    }
+    if (check_error->position_offline && (!check_error->ladar_offline))
+    {
+        pos_ef = 1;
+    }
+    if ((!check_error->position_offline) && (check_error->ladar_offline))
+    {
+        pos_ef = 2;
+    }
+    if ((check_error->position_offline) && (check_error->ladar_offline))
+    {
+        pos_ef = 3;
+    }
 }
 
 void R3Controller::send_crsf_datas()
 {
-    send_datas.status_flag = currentStateflag;
+    // send_datas.status_flag = currentStateflag;
     send_datas.position_yaw_rad = position_imu_->get_yaw_rad();
     send_datas.mid360_yaw_rad = ros_imu->get_yaw_rad();
     send_datas.position_x = position_imu_->get_world_pos_x();
@@ -219,7 +275,7 @@ void R3Controller::send_crsf_datas()
 
     else if (send_cnt == 1)
     {
-        crsf_port->sendBattery(1.0f, 1.0f, 1, 1); // 1=10,1=10
+        crsf_port->sendBattery(chassis_ef, shooter_ef, yunball_ef, pos_ef); // 1=10,1=10
     }
     else if (send_cnt == 2)
     {
@@ -329,6 +385,7 @@ void R3Controller::auto_reload_ball()
 
 void R3Controller::lock_on_center_point()
 {
+    camera_ops->camera_off();
     send_datas.status_flag = 3;
     yaw_TurnTo(heading_2_center, 0);
     Vector2D tvel_(crsf_port->left_V_mapcurve * max_x_speed, crsf_port->left_H_mapcurve * max_y_speed);
@@ -338,21 +395,29 @@ void R3Controller::lock_on_center_point()
 
 void R3Controller::lock_by_cam()
 {
-
+    Vector2D target(0.0f, 0.0f);
+    set_RobotVel(target, 0);
     if (!auto_yunball_ptr->if_enable_shoot())
     {
         auto_yunball_ptr->in_or_out(true);
     }
     camera_ops->camera_on();
-    if (camera_ops->camera_ready == true)
+    if (camera_ops->check())
     {
-        send_datas.status_flag = 30;
+        if (camera_ops->camera_ready == true)
+        {
+            send_datas.status_flag = 30;
 
-        set_RobotW(0.0f, 0);
+            set_RobotW(0.0f, 0);
+        }
+        else
+        {
+            send_datas.status_flag = 17;
+        }
     }
     else
     {
-        send_datas.status_flag = 17;
+        send_datas.status_flag = 31;
     }
 }
 
@@ -433,17 +498,24 @@ void R3Controller::hand_set_clawpos()
 {
     send_datas.status_flag = 12;
 
-    auto_yunball_ptr->control_put_motor(crsf_port->right_H_map);
-    Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
-    set_RobotVel(tvel_, 0);
+    remote_move();
 
-    if (sar_flag_ == 0)
+    if (sar_flag_ == 1)
     {
         auto_yunball_ptr->control_claw(true);
     }
-    else if (sar_flag_ == 1)
+    else if (sar_flag_ == 0)
     {
         auto_yunball_ptr->control_claw(false);
+    }
+
+    if (sal_flag_ == 1)
+    {
+        auto_yunball_ptr->in_or_out(true);
+    }
+    else if (sal_flag_ == 0)
+    {
+        auto_yunball_ptr->in_or_out(false);
     }
 }
 

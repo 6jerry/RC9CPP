@@ -103,6 +103,8 @@ void error_manager::process_data()
             time_counter_ptr[i]->detect_error();
         }
     }
+
+    handle_r3_error();
 }
 
 void error_manager::handle_r3_error()
@@ -170,7 +172,12 @@ void error_manager::handle_r3_error()
         position_offline = true;
     }
 
-
-
-
+    if (time_counter_ptr[13]->get_ec_code() == 0)
+    {
+        ladar_offline = false;
+    }
+    else
+    {
+        ladar_offline = true;
+    }
 }

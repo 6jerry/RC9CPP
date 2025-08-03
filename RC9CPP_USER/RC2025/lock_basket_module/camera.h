@@ -29,13 +29,14 @@ enum CameraMode
 
 class Camera : public error_check, public RC9subscriber
 {
-private:     
-    bool gaze_flag = true;//视野是否丢失标志
+private:
 
 public:    
     struct{
         Vector2D vertial_plane_deviation; // 竖直平面偏差(像素值)，x,y需要转换(x -> yaw, y -> pitch)
     } camera_info;
+
+    bool gaze_flag = true; // 视野是否丢失标志
 
     Camera();
     void DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount) override;
@@ -63,12 +64,18 @@ public:
 	float decelerate_speed = 0.06f;
     //10, 50, 0.05
 
+    //手动偏置防止相机被撞歪
+    float offest_x = 0.0f;      //相机横向定位偏置(通常加减5个像素点)，给大往右
+    float offest_out = 0.0f;    
+    // 相机输出偏置(通常加减10转) 注：此处只是表明有此功能具体在shoot文件里面有定义变量camera_offset
+
     CameraOperation(Camera *camera_ptr_);
     float lock_basket_vol ();
     void camera_on();
     void camera_off();      //强制结束挂起
     void process_data();    //适用于相机的特定频率
-    bool time_delay();      
+    bool time_delay();      //确保准确帧都处于死区内
+    bool check();           //用于检查相机是否可以使用
 };
 
 #endif

@@ -53,14 +53,16 @@ extern "C"
         ros_sensor_.addport(&ros_port);
         ros_port.initQueue();
         ros_port.startUartReceiveIT();
+        ros_sensor_.ladar_ec.config_param(13, 500, 5000);
 
         // camera
         camera.addport(&ros_port);
         camera_operation.add_chassis(&s3_chassis);
         control_center.add_camera(&camera_operation);
+        control_center.check_error=&error_core;
 
-        // position
-        position_port.initQueue();
+            // position
+            position_port.initQueue();
         position_port.startUartReceiveIT();
         position_sensor.addport(&position_port);
         position_sensor.set_map_plot(0.0f, -0.08229f);

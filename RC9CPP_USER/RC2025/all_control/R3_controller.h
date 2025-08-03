@@ -14,6 +14,7 @@ extern "C"
 #include "R3_shooter.h"
 #include "auto_yunball_R3.h"
 #include "camera.h"
+#include "time_counter.h"
 #ifdef __cplusplus
 }
 #endif
@@ -82,8 +83,14 @@ public:
     uint8_t currentStateflag = 255;
     float round_to_one_decimal(float number);
 
+    uint8_t chassis_ef = 0, shooter_ef = 0, yunball_ef = 0, pos_ef = 0;
+    void check_ef(); // 计算错误码
+
+    error_manager *check_error = nullptr;
+
 public:
-    void remote_move();        // 世界坐标系遥控
+    void
+    remote_move();             // 世界坐标系遥控
     void remote_move_revert(); // 头反过来
     void remote_move_robot();
     void all_stop();
