@@ -68,8 +68,15 @@ void m3508p::can_update(uint8_t can_RxData[8])
 
 int16_t m3508p::increPID_speed()
 {
-    rpm_control.increPID_setarget(target_rpm * gear_ratio);
-    return rcurrent_to_vcurrent(rpm_control.increPID_Compute(rpm));
+    if((abs(rpm) < 2.0f) && abs(target_rpm * gear_ratio) < 2.0f)
+    {
+        return 0;
+    }
+    else
+    {
+        rpm_control.increPID_setarget(target_rpm * gear_ratio);
+        return rcurrent_to_vcurrent(rpm_control.increPID_Compute(rpm));
+    }
 }
 
 int16_t m3508p::distance_pid()

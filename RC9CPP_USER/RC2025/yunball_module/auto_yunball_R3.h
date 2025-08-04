@@ -21,6 +21,7 @@ enum state_flag
 {
     init_flag,
     static_flag,
+    init_yunball_flag,
     in_or_out_flag,
     yunball_flag,
     putball_flag,
@@ -70,6 +71,7 @@ public:
     bool start_putball();   //自动放球
     bool yun_and_put();    //全流程运球
     bool reload_motor();    //重定位电机
+    bool init_yunball();
     void stop();    //bug
 
     bool if_enable_shoot(); // 判断是否可以发射
@@ -77,7 +79,7 @@ public:
 
     uint8_t test = 0;
     float test_time1 = 200;
-    float test_time2 = 400;
+    float test_time2 = 330;
 };
 
 
