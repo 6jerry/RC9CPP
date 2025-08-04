@@ -40,7 +40,14 @@ void pure_pursuit::purepusit_dir_control()
 {
     if (trapezoidal_planner.isFinished())
     {
-        trapezoidal_planner.start_plan(1.0f,1.0f,3.0f,now_vel.magnitude(),0.0f,tangent_dis,0.0f);
+        if(now_vel.magnitude() == 0)
+        {
+            trapezoidal_planner.start_plan(4.0f,2.0f,4.0f,0.1f,0.0f,tangent_dis,0.0f);
+        }
+        else
+        {
+            trapezoidal_planner.start_plan(4.0f,2.0f,4.0f,now_vel.magnitude(),0.0f,tangent_dis,0.0f);
+        }
     }
 
     float nor_speed = normal_control.PID_ComputeError(normal_dis); // 法向纠偏速度的大小
@@ -77,6 +84,10 @@ Vector2D pure_pursuit::pursuit(Vector2D now_pos)
     case pp_tracking:
 
         compute_error();
+        if(now_dis.magnitude() < 0.1)
+        {
+            state = pp_stoping;
+        }
 
         // 使用用户选择的法向控制方式
         if (nor_mode == normalcontrol)
@@ -170,7 +181,7 @@ void pure_pursuit::pp_start_plan(Vector2D start_point, Vector2D end_point, Vecto
         target_line = head - tail;
         now_vel = now_robvel;
         state = pp_tracking;
-        nor_mode = normalcontrol;  //选择轨迹规划控制方式
+        nor_mode = dircontrol;  //选择轨迹规划控制方式
     }
 }
 

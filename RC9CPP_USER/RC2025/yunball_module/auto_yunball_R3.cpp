@@ -33,7 +33,8 @@ void AutoYunballR3::process_data()
     switch(flag)
     {
         case init_flag:
-            putball_motor->set_rpm(100.0f);
+            get_speed_put = 0.0f;
+            putball_motor->set_rpm(50.0f);
             if(HAL_GPIO_ReadPin(put_port_in, put_pin_in) == GPIO_PIN_RESET)
             {
                 // 首次检测到低电平且未标记已按下
@@ -70,18 +71,22 @@ void AutoYunballR3::process_data()
             {putball_motor->set_rpm(get_speed_put * put_speed);}
             break;
         case yunball_flag:
+            get_speed_put = 0.0f;
             yunball();
             flag = stop_flag;
             break;
         case putball_flag:
+            get_speed_put = 0.0f;
             putball();
             flag = stop_flag;
             break;
         case in_or_out_flag:
+            get_speed_put = 0.0f;
             set_out(if_out);
             flag = stop_flag;
             break;
         case yun_and_put_flag:
+            get_speed_put = 0.0f;
             yunball();
             osDelay(1000);
             yunball();
@@ -89,17 +94,41 @@ void AutoYunballR3::process_data()
             flag = stop_flag;
             break;
         case double_yun_flag:
+            get_speed_put = 0.0f;
 			osDelay(1000);
             yunball();
             osDelay(1000);
             yunball();
             flag = stop_flag;
             break;
+        case init_yunball_flag:
+            if(putball_motor->get_dis() < -27.0f)
+            {    
+                flag = init_flag;
+            }
+            else if(HAL_GPIO_ReadPin(put_port_out, put_pin_out) == GPIO_PIN_SET)
+            {
+                putball_motor->set_rpm(-50.0f);
+                while(HAL_GPIO_ReadPin(put_port_out, put_pin_out) == GPIO_PIN_SET)
+                {
+                    osDelay(1);
+                }
+                putball_motor->set_rpm(0.0f);
+                putball_motor->relocate_dis(-26.0f);
+                flag = stop_flag;
+            }
+            else
+            {
+                flag = stop_flag;
+            }
+            break;
         case stop_flag:
+            get_speed_put = 0.0f;
             osDelay(200);
             flag = static_flag; // 自动退出停止状态
             break;
         case emergency_stop:
+            get_speed_put = 0.0f;
             if (emergency_stop_flag++ < 10)
             {
                 putball_motor->set_current(0.0f);
@@ -210,6 +239,19 @@ bool AutoYunballR3::double_yun()
     return false;
 }
 
+bool AutoYunballR3::init_yunball()
+{
+    if(flag == static_flag)
+    {
+        flag = init_yunball_flag;
+    }
+    if(flag == stop_flag)
+    {
+        return true;
+    }
+    return false;
+}
+
 void AutoYunballR3::stop()
 {
     // 重置信号量为正数
@@ -231,7 +273,7 @@ void AutoYunballR3::set_out(bool if_out)
     if(if_out)
     {
         putball_motor->set_rpm(-200.0f);
-        while(putball_motor->get_dis() > -22.0f)
+        while(putball_motor->get_dis() > -20.0f)
         {
             osDelay(1);
         }

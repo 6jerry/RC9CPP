@@ -12,6 +12,7 @@ void RoboChassis::process_data()
         break;
     case robotv:
         chassis_calc(target.target_robovel, yawadjuster_process());
+        pp_tracker.pp_rst_plan();
         break;
     case worldv:
         if (enable_TDplan)
@@ -24,6 +25,7 @@ void RoboChassis::process_data()
         {
             chassis_calc(worldv_2_robov(target.target_worldvel), yawadjuster_process());
         }
+        pp_tracker.pp_rst_plan();
 
         break;
     case point_track:
