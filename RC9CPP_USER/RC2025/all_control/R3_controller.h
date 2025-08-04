@@ -14,6 +14,8 @@ extern "C"
 #include "R3_shooter.h"
 #include "auto_yunball_R3.h"
 #include "camera.h"
+#include "time_counter.h"
+#include "BasketCalibrator.h"
 #ifdef __cplusplus
 }
 #endif
@@ -36,7 +38,7 @@ typedef struct crsf_send
 class R3Controller : public RC9subscriber, public ITaskProcessor, public chassis_user
 {
 public:
-    float max_x_speed = 7.0f, max_y_speed = 7.0f, max_yaw_speed = 6.0f, max_delta_acc = 6.0f, target_accle = 0.0f;
+    float max_x_speed = 8.0f, max_y_speed = 8.0f, max_yaw_speed = 6.0f, max_delta_acc = 6.0f, target_accle = 0.0f;
     Vector2D center_point, robot_point, nor_dir; // 篮筐坐标和友军坐标
 
     void set_accle();
@@ -70,6 +72,7 @@ public:
     void add_position_and_ros(imu *position_imu_ptr, imu *ros_imu_ptr);
 
     void add_camera(CameraOperation *camera_ops_ptr);
+    BasketCalibrator basketCalibrator;
 
 public:
     void
@@ -82,8 +85,15 @@ public:
     uint8_t currentStateflag = 255;
     float round_to_one_decimal(float number);
 
+    uint8_t chassis_ef = 0, shooter_ef = 0, yunball_ef = 0, pos_ef = 0;
+    void check_ef(); // 计算错误码
+
+    error_manager *check_error = nullptr;
+    time_counter r2_ec;
+
 public:
-    void remote_move();        // 世界坐标系遥控
+    void
+    remote_move();             // 世界坐标系遥控
     void remote_move_revert(); // 头反过来
     void remote_move_robot();
     void all_stop();
@@ -136,6 +146,9 @@ public:
     void lock_by_cam();
 
     void hand_shoot();
+
+    void add_locate_point();
+    void calc_center_point();
 };
 
 #endif

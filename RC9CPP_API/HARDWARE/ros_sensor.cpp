@@ -135,6 +135,8 @@ void ros_sensor::DataReceivedCallback(const uint8_t *byteData, const float *floa
 		tf_.localize_with_diff(&real_radar_world_pos);
 		// 发送校准信息
 		imu_->imu_relocate(real_radar_world_pos.x, -real_radar_world_pos.y, 0);
+
+		ladar_ec.check_tick();
 	}
 	else
 	{ // 重置0值标志位

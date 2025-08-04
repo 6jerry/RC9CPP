@@ -68,7 +68,7 @@ public:
 
     bool yunball_motor_offline = false, yunall_gaslow = false;
 
-    bool position_offline = false;
+    bool position_offline = false, ladar_offline = false;
 
     // CrsfReceiver *crsf_check = nullptr;
 };

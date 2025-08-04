@@ -43,29 +43,26 @@ err_code Camera::check_error()
 {
 	if (camera_info.vertial_plane_deviation.x == -721.0f && camera_info.vertial_plane_deviation.y == 540.0f)
 	{
-
 		gaze_flag = false;
 		return ERR_CODE_ABNORMAL;
 	}
 	else if (camera_info.vertial_plane_deviation.x == 0.0f && camera_info.vertial_plane_deviation.y == 0.0f)
 	{
-
 		gaze_flag = false;
 		return ERR_CODE_CONNECT_FAIL;
 	}
 	else
 	{
-
 		gaze_flag = true;
 		return ERR_CODE_WORK_SUCCESS;
 	}
 }
 
-CameraOperation::CameraOperation(Camera *camera_ptr_)
-{
-	lock_basket_pid.ConfigAll(0.080f, 0.045f, 0.043f, 0.03f, 0.219f, 10.0f, 20.0f);
-	camera_ptr = camera_ptr_;
-}
+	CameraOperation::CameraOperation(Camera *camera_ptr_)
+	{
+		lock_basket_pid.ConfigAll(0.080f, 0.045f, 0.043f, 0.03f, 0.219f, 10.0f, 20.0f);
+		camera_ptr = camera_ptr_;
+	}
 
 void CameraOperation::process_data()
 {
@@ -74,6 +71,7 @@ void CameraOperation::process_data()
 	case camera_suspend:
 		camera_Y = 0.0f;
         count = 0.0f;
+		Tick = 0.0f;
 		camera_ready = false;
 
 		break;
@@ -84,8 +82,9 @@ void CameraOperation::process_data()
 
     case camera_keeping:
         set_RobotW(0.0f, 0);
-        
-        if(fabs(camera_ptr->camera_info.vertial_plane_deviation.x) < deadlock){
+        camera_X = camera_ptr->camera_info.vertial_plane_deviation.x + offest_x;
+
+        if(fabs(camera_X) < deadlock){
             if(time_delay()){
             camera_mode = camera_finish;
             }
@@ -107,7 +106,7 @@ void CameraOperation::process_data()
 
 void CameraOperation::camera_on()
 {
-	if (camera_mode == camera_suspend)
+	if ((camera_mode == camera_suspend) && (camera_ptr->check_error() == ERR_CODE_WORK_SUCCESS))
 	{
 		camera_mode = camera_start;
 	}
@@ -123,21 +122,23 @@ void CameraOperation::camera_off()
 
 float CameraOperation::lock_basket_vol()
 {
-	lock_vol = lock_basket_pid.PID_ComputeError(camera_ptr->camera_info.vertial_plane_deviation.x);
+	camera_X = camera_ptr->camera_info.vertial_plane_deviation.x + offest_x;
+
+	lock_vol = lock_basket_pid.PID_ComputeError(camera_X);
 	// 偏置改完相机位置记得改，现在锁0
 
-	if (fabs(camera_ptr->camera_info.vertial_plane_deviation.x) < deadlock)
+	if (fabs(camera_X) < deadlock)
 	{ // R1
 		camera_Y = camera_ptr->camera_info.vertial_plane_deviation.y;
 		camera_mode = camera_keeping;
 		return 0;
 	}
-	else if (camera_ptr->camera_info.vertial_plane_deviation.x < decelerate_x && camera_ptr->camera_info.vertial_plane_deviation.x > deadlock)
+	else if (camera_X < decelerate_x && camera_X > deadlock)
 	{
 
 		return decelerate_speed;
 	}
-	else if (camera_ptr->camera_info.vertial_plane_deviation.x > -decelerate_x && camera_ptr->camera_info.vertial_plane_deviation.x < -deadlock)
+	else if (camera_X > -decelerate_x && camera_X < -deadlock)
 	{
 
 		return -decelerate_speed;
@@ -150,12 +151,22 @@ float CameraOperation::lock_basket_vol()
 
 bool CameraOperation::time_delay()
 {
-    if (count++ > 15.0f)
+    if (count++ > 15.0f || Tick++ > 70.0f)
 	{
 		return true;
 	}
 	else
 	{
         return false;
+	}
+}
+
+bool CameraOperation::check()
+{
+	if (camera_ptr->check_error() == ERR_CODE_WORK_SUCCESS){
+		return true;
+	}
+	else{
+		return false;
 	}
 }

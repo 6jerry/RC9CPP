@@ -1,5 +1,10 @@
 
 Last_sats = 0
+Last_chassis_ef=0
+Last_shooter_ef=0
+Last_yunball_ef=0
+Last_pos_ef=0
+
 
 
 
@@ -15,10 +20,10 @@ local function my_run(event)
     lcd.clear()
 
     -- 获取电池遥测数据，添加 nil 防护
-    local voltage = getValue("RxBt") or 0
-    local current = getValue("Curr") or 0
-    local capacity = getValue("Capa") or 0
-    local remaining = getValue("Bat%") or 0
+    local chassis_ef = getValue("RxBt") or 0
+    local shooter_ef = getValue("Curr") or 0
+    local yunball_ef = getValue("Capa") or 0
+    local pos_ef = getValue("Bat%") or 0
 
     -- 姿态数据
     local ptch = getValue("Ptch") or 0
@@ -50,6 +55,9 @@ local function my_run(event)
 
     local dis_2_target_str = dis_2_target and string.format("%.3f", dis_2_target) or "N/A"
     local debug_dis_str = debug_dis and string.format("%.3f", debug_dis) or "N/A"
+
+
+   
 
 
 
@@ -90,7 +98,24 @@ local function my_run(event)
 
     elseif sats == 17 then
         lcd.drawText(0, 0, "cam lock", MIDSIZE)
+
+    elseif sats == 30 then
+        lcd.drawText(0, 0, "cam lock success", MIDSIZE)
+
+    elseif sats == 31 then
+        lcd.drawText(0, 0, "cam error", MIDSIZE)
+
+
+    elseif sats == 19 then
+        lcd.drawText(0, 0, "add lopoint", MIDSIZE)
+
+    elseif sats == 20 then
+        lcd.drawText(0, 0, "calc cpoint", MIDSIZE)
+
     else
+
+
+
         lcd.drawText(10, 0, "GDUT Robocon2025", MIDSIZE)
     end
     
@@ -107,15 +132,89 @@ local function my_run(event)
         playFile("/SCRIPTS/TELEMETRY/cn/lockr2.wav")
     end
 
-    if Last_sats ~= 0 and sats == 0 then
-        playFile("/SCRIPTS/TELEMETRY/cn/attamode.wav")
+  
+    
+    if Last_sats ~= 30 and sats == 30 then
+        playFile("/SCRIPTS/TELEMETRY/cn/camlocked.wav")
     end
-
 
 
     if Last_sats ~= 10 and sats == 10 then
         playFile("/SCRIPTS/TELEMETRY/cn/resetsw.wav")
     end
+
+    if Last_sats ~= 17 and sats == 17 then
+        playFile("/SCRIPTS/TELEMETRY/cn/camlocking.wav")
+    end
+
+
+
+    if Last_sats ~= 31 and sats == 31 then
+        playFile("/SCRIPTS/TELEMETRY/cn/camerror.wav")
+    end
+
+
+
+    if Last_chassis_ef ~= 0 and chassis_ef == 0 then
+
+        playFile("/SCRIPTS/TELEMETRY/cn/chassisok.wav")
+
+    end
+    if Last_chassis_ef ~= 10 and chassis_ef == 10 then
+        playFile("/SCRIPTS/TELEMETRY/cn/cu8off.wav")
+    end
+
+    if Last_chassis_ef ~= 20 and chassis_ef == 20 then
+        playFile("/SCRIPTS/TELEMETRY/cn/c2006off.wav")
+    end
+    
+     if Last_chassis_ef ~= 30 and chassis_ef == 30 then
+       playFile("/SCRIPTS/TELEMETRY/cn/chassisdead.wav")
+    end
+
+    Last_chassis_ef = chassis_ef
+    
+
+    if Last_shooter_ef ~= 0 and shooter_ef == 0 then
+        playFile("/SCRIPTS/TELEMETRY/cn/shooterok.wav")
+    end
+    
+    if Last_shooter_ef ~= 10 and shooter_ef == 10 then
+        playFile("/SCRIPTS/TELEMETRY/cn/shootermoff.wav")
+       
+    end
+
+    Last_shooter_ef = shooter_ef
+
+
+    if Last_yunball_ef ~= 0 and yunball_ef == 0 then
+       playFile("/SCRIPTS/TELEMETRY/cn/yunok.wav")
+    end
+    if Last_yunball_ef ~= 1 and yunball_ef == 1 then
+       playFile("/SCRIPTS/TELEMETRY/cn/yunmoff.wav")
+    end
+
+    Last_yunball_ef = yunball_ef
+
+
+    if Last_pos_ef ~= 0 and pos_ef == 0 then
+       playFile("/SCRIPTS/TELEMETRY/cn/posok.wav")
+    end
+    if Last_pos_ef ~= 1 and pos_ef == 1 then
+        playFile("/SCRIPTS/TELEMETRY/cn/positionoff.wav")
+    end
+
+    if Last_pos_ef ~= 2 and pos_ef == 2 then
+        playFile("/SCRIPTS/TELEMETRY/cn/ladaroff.wav")
+    end
+
+    if Last_pos_ef ~= 3 and pos_ef == 3 then
+        playFile("/SCRIPTS/TELEMETRY/cn/posdead.wav")
+    end
+    
+
+    Last_pos_ef = pos_ef
+
 
 
 

@@ -16,13 +16,13 @@ R3_xbox test_xbox(&position_sensor, &ros_sensor_, &camera_operation);
 vesc shoot_1(vesc_id_4, &hfdcan1, 7.0f, 1.0f), shoot_2(vesc_id_5, &hfdcan1, 7.0f, 1.0f);
 vesc u8_front(vesc_id_1, &hfdcan1), u8_left(vesc_id_2, &hfdcan1), u8_right(vesc_id_3, &hfdcan1);
 m3508p m2006_putball(dji_id_1, &hfdcan2, 55.4248f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
-// m3508p m3508_left(dji_id_4, &hfdcan2), m3508_front(dji_id_3, &hfdcan2), m3508_right(dji_id_2, &hfdcan2);
+//m3508p m3508_left(dji_id_4, &hfdcan2), m3508_front(dji_id_3, &hfdcan2), m3508_right(dji_id_2, &hfdcan2);
 m3508p m2006_left(dji_id_4, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_right(dji_id_2, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP), m2006_front(dji_id_3, &hfdcan2, 111.72384f, M2006_MAX_CURRENT, M2006_CURRENT_MAP);
 
 RoboChassis s3_chassis(swerve3_chassis);
 chassis_info s3_chassis_info = {0.037f, 0.17f, 0.3f, 0.0f, 0.44f, 0.38735f};
 
-Encoder encoder(0x03, &hfdcan3, 2.3333f, 4096.0f, 0.175f);
+Encoder encoder(0x02, &hfdcan3, 2.3333f, 1024.0f, 0.175f);
 
 AutoYunballR3 auto_yunball;
 R3Shooter shooter;
@@ -124,36 +124,43 @@ extern "C"
 
 void demo::process_data()
 {
-  MX_FDCAN2_Init();
-  CanDevice::InitAllFiltersNoMask();
+  static uint32_t last_restart_tick = 0;
+  const uint32_t RESTART_INTERVAL = 3000; // 3秒重启间隔
 
-//    if(flag == 1){
-//      encoder.send_reset();
-//        flag = 0;
-//    }
-//    
-//    if(flag1 == 1){
-//       encoder.set_dis(1000);
-//    }
+  if (HAL_GetTick() - last_restart_tick > RESTART_INTERVAL)
+  {
+    MX_FDCAN2_Init();
+    MX_FDCAN1_Init();
+    CanDevice::InitAllFiltersNoMask();
+    last_restart_tick = HAL_GetTick();
+  }
+
+  //  if (test_flag1 == 1)
+  //  {
+  //    encoder.send_reset();
+  //    test_flag1 = 0;
+  //  }
+
   //encoder_check();
 
   // lidar TF
-  //  float yaw = position_sensor.get_heading();
-  //  float arr[7] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
-  //                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y,
-  //                  ros_sensor_.ros_radar_loaction.world_pos.x, ros_sensor_.ros_radar_loaction.world_pos.y,
-  //                  yaw};
-  //  sendFloatData(1, arr, 7);
+//  float yaw = position_sensor.get_heading();
+//  float arr[7] = {position_sensor.get_world_pos_x(), position_sensor.get_world_pos_y(),
+//                  -ros_sensor_.real_radar_world_pos.x, ros_sensor_.real_radar_world_pos.y,
+//                  ros_sensor_.ros_radar_loaction.world_pos.x, ros_sensor_.ros_radar_loaction.world_pos.y,
+//                   yaw};
+//  sendFloatData(1, arr, 7);
 
-  //  float send_datas[7] = {shooter.test_rpm,
-  //                          gate.rpm2,
-  //                          shooter.info.auto_rpm,
-  //                          shoot_1.get_rpm(),
-  //                          shoot_2.get_rpm(),
-  //                          encoder.get_distance(),
-  //						  shooter.info.debug_dis};
+  //shooter V_test
+//  float send_datas[7] = {shooter.test_rpm,
+//                          gate.rpm2,
+//                          shooter.info.auto_rpm,
+//                          shoot_1.get_rpm(),
+//                          shoot_2.get_rpm(),
+//                          encoder.get_distance(),
+//						  shooter.info.debug_dis};
 
-  //  sendFloatData(1, send_datas, 7);
+//  sendFloatData(1, send_datas, 7);
 
   // for_R2
   send_data[0] = position_sensor.get_heading();
@@ -183,8 +190,6 @@ void demo::DataReceivedCallback(const uint8_t *byteData, const float *floatData,
 void demo::add_xbox(R3_xbox *xbox_)
 {
   xbox = xbox_;
-  pian_x = xbox->center_point.x;
-  pian_y = xbox->center_point.y;
 }
 
 void demo::encoder_check()

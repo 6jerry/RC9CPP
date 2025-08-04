@@ -95,6 +95,7 @@ void AutoYunballR3::process_data()
             break;
         case double_yun_flag:
             get_speed_put = 0.0f;
+			osDelay(1000);
             yunball();
             osDelay(1000);
             yunball();

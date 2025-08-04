@@ -53,11 +53,14 @@ extern "C"
         ros_sensor_.addport(&ros_port);
         ros_port.initQueue();
         ros_port.startUartReceiveIT();
+        ros_sensor_.ladar_ec.config_param(13, 500, 5000);
 
         // camera
         camera.addport(&ros_port);
         camera_operation.add_chassis(&s3_chassis);
         control_center.add_camera(&camera_operation);
+        control_center.check_error = &error_core;
+        control_center.r2_ec.config_param(14, 500, 1000);
 
         // position
         position_port.initQueue();
@@ -122,7 +125,7 @@ extern "C"
         s3_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
         s3_chassis.add_imu(&position_sensor);
         s3_chassis.add_photogate(GPIOF, GPIO_PIN_8, GPIOF, GPIO_PIN_9, GPIOD, GPIO_PIN_15, nullptr, 0);
-        s3_chassis.yawadjuster_config(0.12f, 0.0f, 0.004f, 0.0f, 5.0f, 0.1f, 0.5f);
+        s3_chassis.yawadjuster_config(0.1f, 0.0f, 0.01f, 0.0f, 5.0f, 0.1f, 0.5f);
 
         control_center.add_elrs(&remote_controller);
         control_center.add_chassis(&s3_chassis);

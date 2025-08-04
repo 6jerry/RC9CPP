@@ -28,7 +28,6 @@ class demo : public ITaskProcessor, public RC9subscriber
 {
 public:
   int flag = 0;
-  int flag1 =0;
   uint32_t last_tick = 0;
   uint32_t last_tick2 = 0;
   void encoder_check();
@@ -40,8 +39,8 @@ public:
 
   void add_xbox(R3_xbox *xbox_);
 
-  float pian_x;
-  float pian_y;
+  float pian_x = 0.0f;
+  float pian_y = -6.7888f;
 
   Vector2D robot_pos;
   Vector2D robot_v;

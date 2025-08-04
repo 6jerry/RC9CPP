@@ -6,8 +6,8 @@ R3Controller::R3Controller() : mode_selector(bitWidths, 5)
 {
     efsm_init();
     set_TDplanner_R(target_r);
-    center_point.x = 3.5f;
-    center_point.y = -14.02f;
+    center_point.x = 3.63;
+    center_point.y = -13.636f;
 }
 
 void R3Controller::update_flag()
@@ -68,13 +68,17 @@ void R3Controller::efsm_init()
 
     uint16_t set_center_pointmodeflag[] = {49};
 
-    uint16_t hand_set_clawposmodeflag[] = {8, 12};
+    uint16_t hand_set_clawposmodeflag[] = {8, 12, 10, 14};
 
-    uint16_t hand_set_liftermodeflag[] = {10, 14};
+    // uint16_t hand_set_liftermodeflag[] = {10, 14};
 
     uint16_t lock_by_cam_modeflag[] = {36};
 
     uint16_t hand_shoot_modeflag[] = {41};
+
+    uint16_t add_locate_pointmodeflag[] = {53};
+
+    uint16_t calc_center_pointmodeflag[] = {55};
 
     mode_selector.mapStateToIndices(0, attack_move_modeflag, 8);
     mode_selector.mapStateToIndices(1, auto_reload_ballmodeflag, 1);
@@ -87,7 +91,7 @@ void R3Controller::efsm_init()
     mode_selector.mapStateToIndices(8, wait_mode_movemodeflag, 4);
     mode_selector.mapStateToIndices(9, reset_imumodeflag, 1);
     mode_selector.mapStateToIndices(10, reset_sw_motormodeflag, 1);
-    mode_selector.mapStateToIndices(11, hand_set_liftermodeflag, 2);
+    // mode_selector.mapStateToIndices(11, hand_set_liftermodeflag, 2);
     mode_selector.mapStateToIndices(12, hand_set_clawposmodeflag, 2);
     mode_selector.mapStateToIndices(13, reset_yunball_shootermodeflag, 1);
     mode_selector.mapStateToIndices(14, set_center_pointmodeflag, 1);
@@ -95,6 +99,8 @@ void R3Controller::efsm_init()
     mode_selector.mapStateToIndices(16, auto_shoot_2_r2modeflag, 2);
     mode_selector.mapStateToIndices(17, lock_by_cam_modeflag, 1);
     mode_selector.mapStateToIndices(18, hand_shoot_modeflag, 1);
+    mode_selector.mapStateToIndices(19, add_locate_pointmodeflag, 1);
+    mode_selector.mapStateToIndices(20, calc_center_pointmodeflag, 1);
 }
 float R3Controller::round_to_one_decimal(float number)
 {
@@ -175,16 +181,79 @@ void R3Controller::process_data()
     case 18:
         hand_shoot();
         break;
+    case 19:
+        add_locate_point();
+        break;
+    case 20:
+        calc_center_point();
+        break;
 
     default:
+        send_datas.status_flag = 40;
         break;
     }
+    check_ef();
     send_crsf_datas();
+}
+
+void R3Controller::check_ef()
+{
+    if ((!check_error->u8_off_line) && (!check_error->m3508_off_line))
+    {
+        chassis_ef = 0; // 底盘正常
+    }
+    if (check_error->u8_off_line && (!check_error->m3508_off_line))
+    {
+        chassis_ef = 1;
+    }
+    if (check_error->m3508_off_line && (!check_error->u8_off_line))
+    {
+        chassis_ef = 2;
+    }
+    if (check_error->u8_off_line && check_error->m3508_off_line)
+    {
+        chassis_ef = 3;
+    }
+
+    if ((!check_error->shooter_motor_offline))
+    {
+        shooter_ef = 0;
+    }
+    if (check_error->shooter_motor_offline)
+    {
+        shooter_ef = 1;
+    }
+
+    if ((!check_error->yunball_motor_offline))
+    {
+        yunball_ef = 0;
+    }
+    if (check_error->yunball_motor_offline)
+    {
+        yunball_ef = 1;
+    }
+
+    if ((!check_error->position_offline) && (!check_error->ladar_offline))
+    {
+        pos_ef = 0;
+    }
+    if (check_error->position_offline && (!check_error->ladar_offline))
+    {
+        pos_ef = 1;
+    }
+    if ((!check_error->position_offline) && (check_error->ladar_offline))
+    {
+        pos_ef = 2;
+    }
+    if ((check_error->position_offline) && (check_error->ladar_offline))
+    {
+        pos_ef = 3;
+    }
 }
 
 void R3Controller::send_crsf_datas()
 {
-    send_datas.status_flag = currentStateflag;
+    // send_datas.status_flag = currentStateflag;
     send_datas.position_yaw_rad = position_imu_->get_yaw_rad();
     send_datas.mid360_yaw_rad = ros_imu->get_yaw_rad();
     send_datas.position_x = position_imu_->get_world_pos_x();
@@ -219,7 +288,7 @@ void R3Controller::send_crsf_datas()
 
     else if (send_cnt == 1)
     {
-        crsf_port->sendBattery(1.0f, 1.0f, 1, 1); // 1=10,1=10
+        crsf_port->sendBattery(chassis_ef, shooter_ef, yunball_ef, pos_ef); // 1=10,1=10
     }
     else if (send_cnt == 2)
     {
@@ -296,13 +365,14 @@ void R3Controller::calc_data()
 
 void R3Controller::DataReceivedCallback(const uint8_t *byteData, const float *floatData, uint8_t id, uint16_t byteCount)
 {
-    robot_point.x = -floatData[0] + center_point.x;
-    robot_point.y = -floatData[1] + center_point.y;
+    robot_point.x = -floatData[0] + 0.0f;
+    robot_point.y = -floatData[1] + -6.7888f;
+    r2_ec.check_tick();
 }
 
 void R3Controller::send_2_r2()
 {
-    float send_data[6] = {position_imu_->get_heading(), -(position_imu_->get_world_pos_y() - center_point.y), -(position_imu_->get_world_pos_x() - center_point.x), position_imu_->get_yaw_speed(), 0.0f, 0.0f};
+    float send_data[6] = {position_imu_->get_heading(), -(position_imu_->get_world_pos_y() - (-6.7888f)), -(position_imu_->get_world_pos_x() - 0.0f), position_imu_->get_yaw_speed(), 0.0f, 0.0f};
 
     sendFloatData(1, send_data, 6);
 }
@@ -329,6 +399,7 @@ void R3Controller::auto_reload_ball()
 
 void R3Controller::lock_on_center_point()
 {
+    camera_ops->camera_off();
     send_datas.status_flag = 3;
     yaw_TurnTo(heading_2_center, 0);
     Vector2D tvel_(crsf_port->left_V_mapcurve * max_x_speed, crsf_port->left_H_mapcurve * max_y_speed);
@@ -338,16 +409,29 @@ void R3Controller::lock_on_center_point()
 
 void R3Controller::lock_by_cam()
 {
-    send_datas.status_flag = 17;
+    Vector2D target(0.0f, 0.0f);
+    set_RobotVel(target, 0);
     if (!auto_yunball_ptr->if_enable_shoot())
     {
         auto_yunball_ptr->in_or_out(true);
     }
     camera_ops->camera_on();
-    if (camera_ops->camera_ready == true)
+    if (camera_ops->check())
     {
+        if (camera_ops->camera_ready == true)
+        {
+            send_datas.status_flag = 30;
 
-        set_RobotW(0.0f, 0);
+            set_RobotW(0.0f, 0);
+        }
+        else
+        {
+            send_datas.status_flag = 17;
+        }
+    }
+    else
+    {
+        send_datas.status_flag = 31;
     }
 }
 
@@ -389,7 +473,7 @@ void R3Controller::shoot_2_r2()
     if (auto_yunball_ptr->if_is_finish() && auto_yunball_ptr->if_enable_shoot())
     {
         all_stop();
-        if (auto_shooter->set_auto_byFitter(Auto, dis_2_robot) == Lift)
+        if (auto_shooter->set_autoPass_byFitter(Auto, dis_2_robot) == Lift)
         {
             crsf_port->reset_trigger_flag();
         }
@@ -426,19 +510,23 @@ void R3Controller::reset_all_imu()
 
 void R3Controller::hand_set_clawpos()
 {
+
     send_datas.status_flag = 12;
+    // auto_yunball_ptr->control_put_motor(crsf_port->right_H_map);
+    //  remote_move();
 
-    auto_yunball_ptr->control_put_motor(crsf_port->right_H_map);
-    Vector2D tvel_(-crsf_port->left_H_map * max_x_speed, crsf_port->left_V_map * max_y_speed);
-    set_RobotVel(tvel_, 0);
-
-    if (sar_flag_ == 0)
+    if (sar_flag_ == 1)
     {
         auto_yunball_ptr->control_claw(true);
     }
-    else if (sar_flag_ == 1)
+    else if (sar_flag_ == 0)
     {
         auto_yunball_ptr->control_claw(false);
+    }
+
+    if (sal_flag_ == 0)
+    {
+        auto_yunball_ptr->in_or_out(true);
     }
 }
 
@@ -500,5 +588,28 @@ void R3Controller::hand_set_lifter()
 
 void R3Controller::hand_shoot()
 {
+    crsf_port->reset_trigger_flag();
+}
+
+void R3Controller::add_locate_point()
+{
+    send_datas.status_flag = 19;
+    basketCalibrator.addMeasurement(-get_world_x(), get_world_y(), position_imu_->get_heading());
+    crsf_port->reset_trigger_flag();
+}
+
+void R3Controller::calc_center_point()
+{
+    if (basketCalibrator.isReadyToCalculate())
+    {
+        Vector2D center = basketCalibrator.calculateCenter();
+        if (center.x != -50.0f && center.y != -50.0f)
+        {
+            send_datas.status_flag = 20;
+            center_point.x = -center.x;
+            center_point.y = center.y;
+        }
+        basketCalibrator.reset();
+    }
     crsf_port->reset_trigger_flag();
 }

@@ -15,6 +15,7 @@ extern "C"
 #include "auto_yunball_R3.h"
 #include "R3_shooter.h"
 #include "camera.h"
+#include "BasketCalibrator.h"
 #ifdef __cplusplus
 }
 #endif
@@ -28,6 +29,7 @@ public:
     R3Shooter *shooter = nullptr;
     imu *imu_ptr, *ros_imu;
     CameraOperation *camera_ops; // 导入相机操作的指针
+    BasketCalibrator basketCalibrator;
 
     float move_rpm = 1000.0f;                                              // 指向imu类的指针
     Vector2D center_point, nor_dir, robot_point, nor_dir_robot; // 圆心坐标
@@ -38,6 +40,7 @@ public:
     float shoot_dis = 0.0f;
         
     R3_xbox(imu *imu_ptr_,imu *ros_imu_ptr_, CameraOperation *camera_ops_);
+    void mode_0() override;
     void mode_1() override;
     void mode_2() override;
     void mode_3() override;
