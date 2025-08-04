@@ -253,7 +253,7 @@ int R3Shooter::set_auto_byCameraFitter(uint8_t mode_, float camera_r)
 int R3Shooter::set_autoPass_byFitter(uint8_t mode_, float r)
 {
     // 自动状态结束才可重新设置
-    if (mode != Auto || mode != Lift && mode != Auto_2)
+    if (mode != Auto && mode != Lift && mode != Auto_2)
     {
         mode = static_cast<R3Mode>(mode_);
         info.auto_rpm = calc_pass(r);
