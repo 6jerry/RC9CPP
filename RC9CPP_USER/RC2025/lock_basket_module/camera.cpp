@@ -58,11 +58,11 @@ err_code Camera::check_error()
 	}
 }
 
-	CameraOperation::CameraOperation(Camera *camera_ptr_)
-	{
-		lock_basket_pid.ConfigAll(0.080f, 0.045f, 0.043f, 0.03f, 0.219f, 10.0f, 20.0f);
-		camera_ptr = camera_ptr_;
-	}
+CameraOperation::CameraOperation(Camera *camera_ptr_)
+{
+	lock_basket_pid.ConfigAll(0.080f, 0.045f, 0.043f, 0.03f, 0.219f, 10.0f, 20.0f);
+	camera_ptr = camera_ptr_;
+}
 
 void CameraOperation::process_data()
 {
@@ -70,7 +70,7 @@ void CameraOperation::process_data()
 	{
 	case camera_suspend:
 		camera_Y = 0.0f;
-        count = 0.0f;
+		count = 0.0f;
 		Tick = 0.0f;
 		camera_ready = false;
 
@@ -80,25 +80,28 @@ void CameraOperation::process_data()
 
 		break;
 
-    case camera_keeping:
-        set_RobotW(0.0f, 0);
-        camera_X = camera_ptr->camera_info.vertial_plane_deviation.x + offest_x;
+	case camera_keeping:
+		set_RobotW(0.0f, 0);
+		camera_X = camera_ptr->camera_info.vertial_plane_deviation.x + offest_x;
 
-        if(fabs(camera_X) < deadlock){
-            if(time_delay()){
-            camera_mode = camera_finish;
-            }
-        }
-        else{
-        camera_mode = camera_start;
-        }
-        
+		if (fabs(camera_X) < deadlock)
+		{
+			if (time_delay())
+			{
+				camera_mode = camera_finish;
+			}
+		}
+		else
+		{
+			camera_mode = camera_start;
+		}
+
 		break;
-        
-    case camera_finish:
-        set_RobotW(0.0f, 0);
-        camera_ready = true;
-        
+
+	case camera_finish:
+		set_RobotW(0.0f, 0);
+		camera_ready = true;
+
 	default:
 		break;
 	}
@@ -151,22 +154,24 @@ float CameraOperation::lock_basket_vol()
 
 bool CameraOperation::time_delay()
 {
-    if (count++ > 15.0f || Tick++ > 70.0f)
+	if (count++ > 15.0f || Tick++ > 70.0f)
 	{
 		return true;
 	}
 	else
 	{
-        return false;
+		return false;
 	}
 }
 
 bool CameraOperation::check()
 {
-	if (camera_ptr->check_error() == ERR_CODE_WORK_SUCCESS){
+	if (camera_ptr->check_error() == ERR_CODE_WORK_SUCCESS)
+	{
 		return true;
 	}
-	else{
+	else
+	{
 		return false;
 	}
 }

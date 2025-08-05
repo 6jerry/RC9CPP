@@ -89,7 +89,7 @@ private:
     float end_dis = 0.78f;
     float revert_dis = 0.0207f;
     float two_dis = 0.20f;
-    float max = 2400.0f;
+    float max = 2800.0f;
     float a = 77.4489f;
     float b = 0.5614f;
     float c = 835.2703f;
