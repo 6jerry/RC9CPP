@@ -96,7 +96,7 @@ private:
     float v;
     float offset = 0.0f;
     float camera_offset = 0.002f;
-    float pass_offset = 125.0f;
+    float pass_offset = 30.0f;
     float s_dis;
 
     float k;

@@ -92,7 +92,7 @@ void R3Controller::efsm_init()
     mode_selector.mapStateToIndices(9, reset_imumodeflag, 1);
     mode_selector.mapStateToIndices(10, reset_sw_motormodeflag, 1);
     // mode_selector.mapStateToIndices(11, hand_set_liftermodeflag, 2);
-    mode_selector.mapStateToIndices(12, hand_set_clawposmodeflag, 2);
+    mode_selector.mapStateToIndices(12, hand_set_clawposmodeflag, 4);
     mode_selector.mapStateToIndices(13, reset_yunball_shootermodeflag, 1);
     mode_selector.mapStateToIndices(14, set_center_pointmodeflag, 1);
     mode_selector.mapStateToIndices(15, auto_shoot_2_center_pointmodeflag, 2);
@@ -387,7 +387,6 @@ void R3Controller::all_auto_yunball()
 }
 
 void R3Controller::auto_reload_ball()
-
 {
 
     send_datas.status_flag = 1;
@@ -399,6 +398,10 @@ void R3Controller::auto_reload_ball()
 
 void R3Controller::lock_on_center_point()
 {
+    if (!auto_yunball_ptr->if_enable_shoot())
+    {
+        auto_yunball_ptr->in_or_out(true);
+    }
     camera_ops->camera_off();
     send_datas.status_flag = 3;
     yaw_TurnTo(heading_2_center, 0);
@@ -437,6 +440,10 @@ void R3Controller::lock_by_cam()
 
 void R3Controller::lock_on_r2()
 {
+    if (!auto_yunball_ptr->if_enable_shoot())
+    {
+        auto_yunball_ptr->in_or_out(true);
+    }
     send_datas.status_flag = 4;
 
     yaw_TurnTo(heading_2_robot, 0);
@@ -526,7 +533,11 @@ void R3Controller::hand_set_clawpos()
 
     if (sal_flag_ == 0)
     {
-        auto_yunball_ptr->in_or_out(true);
+        auto_yunball_ptr->init_yunball();
+    }
+    else
+    {
+        auto_yunball_ptr->in_or_out(false);
     }
 }
 

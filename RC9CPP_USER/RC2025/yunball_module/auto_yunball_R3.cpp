@@ -102,9 +102,9 @@ void AutoYunballR3::process_data()
             flag = stop_flag;
             break;
         case init_yunball_flag:
-            if(putball_motor->get_dis() < -27.0f)
-            {    
-                flag = init_flag;
+            if(putball_motor->get_dis() < -25.0f)
+            {
+                flag = stop_flag;
             }
             else if(HAL_GPIO_ReadPin(put_port_out, put_pin_out) == GPIO_PIN_SET)
             {
