@@ -84,7 +84,7 @@ Vector2D pure_pursuit::pursuit(Vector2D now_pos)
     case pp_tracking:
 
         compute_error();
-        if(now_dis.magnitude() < 0.1)
+        if(tangent_dis < 0.05f)
         {
             state = pp_stoping;
         }

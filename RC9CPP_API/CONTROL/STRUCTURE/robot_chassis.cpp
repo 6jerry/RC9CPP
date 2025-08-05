@@ -47,7 +47,8 @@ void RoboChassis::process_data()
         // pp_tracker.pp_refresh_points();
         // pp_tracker.pp_force_add_points(target.pppoint, 2);
 
-        chassis_calc(worldv_2_robov(pp_tracker.pursuit(IMU->get_world_pos())), yawadjuster_process());
+        target.target_robovel = worldv_2_robov(pp_tracker.pursuit(IMU->get_world_pos()));
+        chassis_calc(target.target_robovel, yawadjuster_process());
 
         break;
 
@@ -929,6 +930,7 @@ void RoboChassis::C_pp_track_point(Vector2D target_p)
 {
     // if (mode != ppp_track)
     //{
+    pp_tracker.pp_rst_plan();
     pp_tracker.pp_start_plan(IMU->get_world_pos(), target_p, target.target_robovel);
     mode = ppp_track;
     //}
