@@ -128,7 +128,7 @@ extern "C"
 void demo::process_data()
 {
   static uint32_t last_restart_tick = 0;
-  const uint32_t RESTART_INTERVAL = 3000; // 3秒重启间隔
+  const uint32_t RESTART_INTERVAL = 100;
 
   if (HAL_GetTick() - last_restart_tick > RESTART_INTERVAL)
   {

@@ -354,7 +354,7 @@ float R3Shooter::calc(float r)
 
     //---------------------幂、指数、直线拟合-----------------
     // v = a * pow(r, b) + c * logf(r + 1);
-    // v = a * pow(r, b) + c;
+    v = 412.3661f * pow(r, 0.7872f) + 551.6408f;
     // v = a*exp(b*r) + c ;
     // v=0.0321*r+0.0772;
     // v = a*(1-exp(b*r)) + c;
@@ -370,18 +370,18 @@ float R3Shooter::calc_camera(float camera_r)
     // v = a * pow(camera_r, b) + c;
     // v = a*exp(b*camera_r) + c;
     //---------------------多项式拟合-----------------
-    const float coeffs[] = {
-        -22.9141f,  // r³ 系数
-        95.4371f,  // r² 系数
-        -264.3230f, // r 系数
-        1586.8446f  // 常数项
+/*     const float coeffs[] = {
+        -16.7918f,  // r³ 系数
+        84.4246f,  // r² 系数
+        -273.5341f, // r 系数
+        1599.7010f  // 常数项
     };
 
     v = coeffs[0];
     v = v * camera_r + coeffs[1];
     v = v * camera_r + coeffs[2];
-    v = v * camera_r + coeffs[3];
-    //v = 513.3251f*exp(-0.5658f*camera_r) + 1126.3721f;
+    v = v * camera_r + coeffs[3]; */
+    v = 515.7913*exp(-0.5395*camera_r) + 1086.4533;
     return v += camera_offset;
 }
 
@@ -412,10 +412,10 @@ void R3Shooter::get_data()
 float R3Shooter::CalculateDistance(float camera_r)
 {
     const float coeffs[] = {
-        -0.0782f,  // r³ 系数
-        0.3830f,  // r² 系数
-        -1.0554f, // r 系数
-        3.2315f  // 常数项
+        -0.0687f,  // r³ 系数
+        0.3700f,  // r² 系数
+        -1.1066f, // r 系数
+        3.2707f  // 常数项
     };
     camera_to_dis = coeffs[0];
     camera_to_dis = camera_to_dis * camera_r + coeffs[1];
