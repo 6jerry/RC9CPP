@@ -76,7 +76,7 @@ public:
 class R3Shooter : public ITaskProcessor
 {
 
-private:
+public:
     power_motor *m1 = nullptr;
     power_motor *m2 = nullptr;
     R3Mode mode = Stop;

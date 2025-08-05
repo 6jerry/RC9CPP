@@ -52,9 +52,9 @@ void R3Controller::efsm_init()
 
     uint16_t lock_on_r2modeflag[] = {68, 70};
     uint16_t shoot_2_center_pointmodeflag[] = {35, 39};
-    uint16_t shoot_2_r2modeflag[] = {65, 69};
+    uint16_t shoot_2_r2modeflag[] = {65, 69, 67, 71};
 
-    uint16_t auto_shoot_2_r2modeflag[] = {67, 71};
+    // uint16_t auto_shoot_2_r2modeflag[] = {67, 71};
 
     uint16_t wait_mode_movemodeflag[] = {16, 20, 18, 22
 
@@ -80,13 +80,23 @@ void R3Controller::efsm_init()
 
     uint16_t calc_center_pointmodeflag[] = {55};
 
+    uint16_t set_ladar_shoot_offsetmodeflag[] = {83};
+
+    uint16_t set_cam_shoot_offsetmodeflag[] = {81};
+
+    uint16_t set_cam_x_offsetmodeflag[] = {85};
+
+    uint16_t cam_setmodeflag[] = {80, 84};
+
+    uint16_t ladar_setmodeflag[] = {82};
+
     mode_selector.mapStateToIndices(0, attack_move_modeflag, 8);
     mode_selector.mapStateToIndices(1, auto_reload_ballmodeflag, 1);
     mode_selector.mapStateToIndices(2, all_auto_yunballmodeflag, 1);
     mode_selector.mapStateToIndices(3, lock_on_center_pointmodeflag, 2);
     mode_selector.mapStateToIndices(4, lock_on_r2modeflag, 2);
     mode_selector.mapStateToIndices(5, shoot_2_center_pointmodeflag, 2);
-    mode_selector.mapStateToIndices(6, shoot_2_r2modeflag, 2);
+    mode_selector.mapStateToIndices(6, shoot_2_r2modeflag, 4);
     mode_selector.mapStateToIndices(7, auto_yunball_and_loadballmodeflag, 1);
     mode_selector.mapStateToIndices(8, wait_mode_movemodeflag, 4);
     mode_selector.mapStateToIndices(9, reset_imumodeflag, 1);
@@ -96,11 +106,16 @@ void R3Controller::efsm_init()
     mode_selector.mapStateToIndices(13, reset_yunball_shootermodeflag, 1);
     mode_selector.mapStateToIndices(14, set_center_pointmodeflag, 1);
     mode_selector.mapStateToIndices(15, auto_shoot_2_center_pointmodeflag, 2);
-    mode_selector.mapStateToIndices(16, auto_shoot_2_r2modeflag, 2);
+    // mode_selector.mapStateToIndices(16, auto_shoot_2_r2modeflag, 2);
     mode_selector.mapStateToIndices(17, lock_by_cam_modeflag, 1);
     mode_selector.mapStateToIndices(18, hand_shoot_modeflag, 1);
     mode_selector.mapStateToIndices(19, add_locate_pointmodeflag, 1);
     mode_selector.mapStateToIndices(20, calc_center_pointmodeflag, 1);
+    mode_selector.mapStateToIndices(21, set_ladar_shoot_offsetmodeflag, 1);
+    mode_selector.mapStateToIndices(22, set_cam_shoot_offsetmodeflag, 1);
+    mode_selector.mapStateToIndices(23, set_cam_x_offsetmodeflag, 1);
+    mode_selector.mapStateToIndices(24, cam_setmodeflag, 2);
+    mode_selector.mapStateToIndices(25, ladar_setmodeflag, 1);
 }
 float R3Controller::round_to_one_decimal(float number)
 {
@@ -116,8 +131,8 @@ void R3Controller::process_data()
     set_accle();
     uint8_t flagValues[5] = {trigger_on_, sal_flag_, sar_flag_, l_flag_, r_flag_};
     currentStateflag = mode_selector.getState(flagValues);
-    debug_dis = round_to_one_decimal(crsf_port->right_V_map) * max_delta_rpm + 1000.0f;
-    send_datas.debug_dis = debug_dis;
+    // debug_dis = round_to_one_decimal(crsf_port->right_V_map) * max_delta_rpm + 1000.0f;
+    // send_datas.debug_dis = debug_dis;
 
     send_2_r2();
     switch (currentStateflag)
@@ -171,9 +186,6 @@ void R3Controller::process_data()
     case 15:
         auto_shoot_2_center_point();
         break;
-    case 16:
-        auto_shoot_2_r2();
-        break;
 
     case 17:
         lock_by_cam();
@@ -186,6 +198,22 @@ void R3Controller::process_data()
         break;
     case 20:
         calc_center_point();
+        break;
+    case 21:
+        set_ladar_shoot_offset();
+        break;
+    case 22:
+        set_cam_shoot_offset();
+        break;
+    case 23:
+        set_cam_x_offset();
+        break;
+
+    case 24:
+        cam_set();
+        break;
+    case 25:
+        ladar_set();
         break;
 
     default:
@@ -295,7 +323,7 @@ void R3Controller::send_crsf_datas()
 
         int integer_part = (int)send_datas.dis_2_target;
         float fractional_part = send_datas.dis_2_target - integer_part;
-        crsf_port->sendGps(send_datas.position_x, send_datas.position_y, fractional_part * 10000.0f, integer_part * 100, send_datas.debug_dis * 1000.0f, send_datas.real_status_flag);
+        crsf_port->sendGps(send_datas.position_x, send_datas.position_y, fractional_part * 10000.0f, integer_part * 100, send_datas.debug_dis, send_datas.real_status_flag);
     }
     send_cnt++;
 
@@ -444,12 +472,20 @@ void R3Controller::lock_on_r2()
     {
         auto_yunball_ptr->in_or_out(true);
     }
-    send_datas.status_flag = 4;
+   
 
-    yaw_TurnTo(heading_2_robot, 0);
-    Vector2D tvel_(crsf_port->left_V_mapcurve * max_x_speed, crsf_port->left_H_mapcurve * max_y_speed);
-    set_worldVel_accle(tvel_, target_accle);
-    send_datas.dis_2_target = dis_2_robot;
+
+    if(r2_ec.get_ec_code()==0)
+    {
+        yaw_TurnTo(heading_2_robot, 0);
+        Vector2D tvel_(crsf_port->left_V_mapcurve * max_x_speed, crsf_port->left_H_mapcurve * max_y_speed);
+        set_worldVel_accle(tvel_, target_accle);
+        send_datas.dis_2_target = dis_2_robot;
+        send_datas.status_flag = 4;
+    }
+ 
+
+   
 }
 
 void R3Controller::shoot_2_center_point()
@@ -521,6 +557,7 @@ void R3Controller::hand_set_clawpos()
     send_datas.status_flag = 12;
     // auto_yunball_ptr->control_put_motor(crsf_port->right_H_map);
     //  remote_move();
+    remote_move();
 
     if (sar_flag_ == 1)
     {
@@ -622,5 +659,38 @@ void R3Controller::calc_center_point()
         }
         basketCalibrator.reset();
     }
+    crsf_port->reset_trigger_flag();
+}
+
+void R3Controller::cam_set()
+{
+    send_datas.status_flag = 24;
+    send_datas.debug_dis = abs(-crsf_port->right_H_map * 20.0f);
+}
+
+void R3Controller::ladar_set()
+{
+    send_datas.status_flag = 25;
+    send_datas.debug_dis = abs(-crsf_port->right_H_map * 100.0f);
+}
+
+void R3Controller::set_ladar_shoot_offset()
+{
+    send_datas.status_flag = 21;
+    auto_shooter->offset = -crsf_port->right_H_map * 100.0f;
+    crsf_port->reset_trigger_flag();
+}
+
+void R3Controller::set_cam_shoot_offset()
+{
+    send_datas.status_flag = 22;
+    auto_shooter->camera_offset = -crsf_port->right_H_map * 100.0f;
+    crsf_port->reset_trigger_flag();
+}
+
+void R3Controller::set_cam_x_offset()
+{
+    send_datas.status_flag = 23;
+    camera_ops->offest_x = -crsf_port->right_H_map * 20.0f;
     crsf_port->reset_trigger_flag();
 }

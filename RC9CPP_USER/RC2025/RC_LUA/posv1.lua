@@ -43,7 +43,7 @@ local function my_run(event)
     local now_accle=yaw * 2
 
     local dis_2_target = heading + speed / 1000
-    local debug_dis=altitude/1000
+    local debug_dis=altitude
 
     -- GPS 坐标和角度字符串
     local position_x_str = (gps and gps.lat) and string.format("%.3f", gps.lat) or "N/A"
@@ -54,7 +54,7 @@ local function my_run(event)
 
 
     local dis_2_target_str = dis_2_target and string.format("%.3f", dis_2_target) or "N/A"
-    local debug_dis_str = debug_dis and string.format("%.3f", debug_dis) or "N/A"
+    local debug_dis_str = debug_dis and string.format("%.2f", debug_dis) or "N/A"
 
 
    
@@ -112,7 +112,29 @@ local function my_run(event)
     elseif sats == 20 then
         lcd.drawText(0, 0, "calc cpoint", MIDSIZE)
 
+    elseif sats == 24 then
+        lcd.drawText(0, 0, "cam set", MIDSIZE)
+
+
+    elseif sats == 25 then
+        lcd.drawText(0, 0, "ladar set", MIDSIZE)
+    elseif sats == 21 then
+        lcd.drawText(0, 0, "ladar shootset", MIDSIZE)
+
+
+    elseif sats == 22 then
+        lcd.drawText(0, 0, "cam shootset", MIDSIZE)
+
+
+    elseif sats == 23 then
+        lcd.drawText(0, 0, "cam Xset", MIDSIZE)
+
+
+        
+
     else
+
+
 
 
 
@@ -151,6 +173,30 @@ local function my_run(event)
 
     if Last_sats ~= 31 and sats == 31 then
         playFile("/SCRIPTS/TELEMETRY/cn/camerror.wav")
+    end
+
+    if Last_sats ~= 19 and sats == 19 then
+        playFile("/SCRIPTS/TELEMETRY/cn/addlpoint.wav")
+    end
+
+    if Last_sats ~= 20 and sats == 20 then
+        playFile("/SCRIPTS/TELEMETRY/cn/calcenter.wav")
+    end
+
+    
+    if Last_sats ~= 24 and sats == 24 then
+        playFile("/SCRIPTS/TELEMETRY/cn/camset.wav")
+    end
+    if Last_sats ~= 25 and sats == 25 then
+        playFile("/SCRIPTS/TELEMETRY/cn/ladarset.wav")
+    end
+    if Last_sats ~= 21 and sats == 21 then
+        playFile("/SCRIPTS/TELEMETRY/cn/shooteroffset.wav")
+    end
+
+
+     if Last_sats ~= 22 and sats == 22 then
+        playFile("/SCRIPTS/TELEMETRY/cn/camoffset.wav")
     end
 
 

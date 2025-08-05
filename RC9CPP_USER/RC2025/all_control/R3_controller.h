@@ -137,7 +137,7 @@ public:
 
     void hand_set_clawpos(); // 手动调整夹爪位置
 
-    float debug_dis = 0.0f, max_delta_rpm = 800.0f;
+    //float debug_dis = 0.0f, max_delta_rpm = 800.0f;
 
     void add_elrs(CrsfReceiver *crsf_port_);
 
@@ -149,6 +149,12 @@ public:
 
     void add_locate_point();
     void calc_center_point();
+
+    void set_ladar_shoot_offset();
+    void set_cam_shoot_offset();
+    void set_cam_x_offset();
+    void cam_set();
+    void ladar_set();
 };
 
 #endif
