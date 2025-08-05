@@ -100,7 +100,10 @@ extern "C"
     s3_chassis.pointtrack_config(0.76f, 0.0f, 0.25f, 0.0f, 5.0f, 0.008f, 0.0f);
     s3_chassis.add_imu(&position_sensor);
     s3_chassis.add_photogate(GPIOF, GPIO_PIN_8, GPIOF, GPIO_PIN_9, GPIOD, GPIO_PIN_15, nullptr, 0);
-    s3_chassis.yawadjuster_config(0.12f, 0.0f, 0.004f, 0.0f, 5.0f, 0.1f, 0.5f);
+    s3_chassis.yawadjuster_config(0.05f, 0.0f, 0.1f, 0.0f, 3.0f, 0.1f, 0.5f);
+    s3_chassis.pp_tracker.normal_control.ConfigAll(4.0f, 0.0f, 0.1f, 0.0f, 5.0f, 0.05f, 0.0f);
+    s3_chassis.pp_tracker.tangent_control.ConfigAll(0.4f, 0.0f, 1.8f, 0.0f, 1.5f, 0.05f, 0.0f);
+
 
     task_core.registerTask(0, &dji_core);
     task_core.registerTask(2, &shoot_1);
