@@ -59,7 +59,7 @@ public:
     float camera_Y = 0.0f;     // 记录相机瞄准完成时的Y值
 
     float deadlock = 8.0f; // 死区
-    float decelerate_x = 50.0f;
+    float decelerate_x = 55.0f;
     float decelerate_speed = 0.06f;
     // 10, 50, 0.05
 

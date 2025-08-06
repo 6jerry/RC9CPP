@@ -38,6 +38,8 @@ public:
     float limit_yaw_error = 0.1f, limit_yaw_speed = 1.0f;
     float target_rpm = 300.0f;
     float shoot_dis = 0.0f;
+
+	float test_v = 0.0f;
         
     R3_xbox(imu *imu_ptr_,imu *ros_imu_ptr_, CameraOperation *camera_ops_);
     void mode_0() override;
