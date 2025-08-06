@@ -297,7 +297,7 @@ void R3Controller::send_crsf_datas()
     if (send_datas.toggle_lock)
     {
         send_datas.status_cnt++;
-        if (send_datas.status_cnt > 20)
+        if (send_datas.status_cnt > 10)
         {
             send_datas.toggle_lock = false;
             send_datas.has_toggle = false;
