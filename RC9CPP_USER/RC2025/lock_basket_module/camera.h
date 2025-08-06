@@ -73,6 +73,7 @@ public:
 
     //修正记录
     //8.3 目前发射偏右为保证最佳校准效率，机械调整到+5为0点
+    //8.6修正 车架问题（可能），使用雷达定中心点校准相机，逆时针往右偏移，顺反之。
 
     CameraOperation(Camera *camera_ptr_);
     float lock_basket_vol();
