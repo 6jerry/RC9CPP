@@ -339,17 +339,17 @@ void R3Shooter::add_gate(photogate_shoot *gate_, photogate_shoot *gate_down_)
 float R3Shooter::calc(float r)
 {
     //---------------------多项式拟合-----------------
-    const float coeffs[] = {
-        6.2000f,  // r³ 系数
-        -71.8172f,  // r² 系数
-        514.4328f, // r 系数
-        468.7465f  // 常数项
-    };
+//    const float coeffs[] = {
+//        6.2000f,  // r³ 系数
+//        -71.8172f,  // r² 系数
+//        514.4328f, // r 系数
+//        468.7465f  // 常数项
+//    };
 
-    v = coeffs[0];
-    v = v * r + coeffs[1];
-    v = v * r + coeffs[2];
-    v = v * r + coeffs[3];
+//    v = coeffs[0];
+//    v = v * r + coeffs[1];
+//    v = v * r + coeffs[2];
+//    v = v * r + coeffs[3];
     //-----------------------------------------------
 
     //---------------------幂、指数、直线拟合-----------------
