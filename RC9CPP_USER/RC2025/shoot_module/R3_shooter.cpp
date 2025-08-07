@@ -354,9 +354,9 @@ float R3Shooter::calc(float r)
 
     //---------------------幂、指数、直线拟合-----------------
     // v = a * pow(r, b) + c * logf(r + 1);
-    v = 526.9678 * pow(r, 0.6959) + 401.0638;
+     v = 501.1644f * pow(r,0.7165f) + 432.1382f;
     // v = a*exp(b*r) + c ;
-    // v=0.0321*r+0.0772;
+    //v = 255.7915f * r + 766.6459f
     // v = a*(1-exp(b*r)) + c;
     //-----------------------------------------------
 
@@ -370,7 +370,7 @@ float R3Shooter::calc_camera(float camera_r)
     // v = a * pow(camera_r, b) + c;
     // v = a*exp(b*camera_r) + c;
     //---------------------多项式拟合-----------------
-    const float coeffs[] = {
+/*     const float coeffs[] = {
         0.0f,  // r³ 系数
         56.3513f,  // r² 系数
         -598.8639f, // r 系数
@@ -380,8 +380,9 @@ float R3Shooter::calc_camera(float camera_r)
     v = coeffs[0];
     v = v * camera_r + coeffs[1];
     v = v * camera_r + coeffs[2];
-    v = v * camera_r + coeffs[3];
+    v = v * camera_r + coeffs[3]; */
     //v = -500.3285f*logf(0.6645f*camera_r + 1) + 1705.5149f;
+    v = 2317.0704f * pow(r,-0.9365f) + 958.9916f;
     return v += camera_offset;
 }
 
