@@ -96,7 +96,7 @@ public:
     float v;
     float offset = 0.0f;
     float camera_offset = 0.002f;
-    float pass_offset = 30.0f;
+    float pass_offset = 100.0f;
     float s_dis;
 
     float k;
@@ -105,7 +105,7 @@ public:
 
     float zone = 0.003f;
 
-    float camera_to_dis=0.0f; // 相机到发射器的距离
+    float camera_to_dis = 0.0f; // 相机到发射器的距离
 public:
     // 编码器
     Encoder *encoder = nullptr;

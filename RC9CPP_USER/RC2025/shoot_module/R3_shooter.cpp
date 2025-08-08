@@ -382,7 +382,7 @@ float R3Shooter::calc_camera(float camera_r)
     v = v * camera_r + coeffs[2];
     v = v * camera_r + coeffs[3]; */
     //v = -500.3285f*logf(0.6645f*camera_r + 1) + 1705.5149f;
-    v = 2317.0704f * pow(r,-0.9365f) + 958.9916f;
+    v = 2317.0704f * pow(camera_r,-0.9365f) + 958.9916f;
     return v += camera_offset;
 }
 

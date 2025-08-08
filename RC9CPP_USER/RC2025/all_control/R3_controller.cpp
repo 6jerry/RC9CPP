@@ -478,14 +478,13 @@ void R3Controller::lock_on_r2()
     if(r2_ec.get_ec_code()==0)
     {
         yaw_TurnTo(heading_2_robot, 0);
-        Vector2D tvel_(crsf_port->left_V_mapcurve * max_x_speed, crsf_port->left_H_mapcurve * max_y_speed);
-        set_worldVel_accle(tvel_, target_accle);
+        
         send_datas.dis_2_target = dis_2_robot;
         send_datas.status_flag = 4;
     }
- 
 
-   
+    Vector2D tvel_(crsf_port->left_V_mapcurve * max_x_speed, crsf_port->left_H_mapcurve * max_y_speed);
+    set_worldVel_accle(tvel_, target_accle);
 }
 
 void R3Controller::shoot_2_center_point()
